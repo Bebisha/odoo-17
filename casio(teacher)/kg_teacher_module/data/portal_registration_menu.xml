@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="website_menu_test1" model="website.menu">
+            <field name="name">Teacher Registration</field>
+            <!--            <field name="url">/portal/registration_form</field>-->
+            <field name="url">/portal/teacher_license_code</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">49</field>
+        </record>
+
+        <record id="website_menu_test2" model="website.menu">
+            <field name="name">Support</field>
+            <field name="url">https://contact.casio-mea.com/contact-us/</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">50</field>
+        </record>
+<!--         <record id="website3" model="website">-->
+<!--            <field name="name">My Website 3</field>-->
+<!--            <field name="sequence">20</field>-->
+<!--        </record>-->
+
+<!--        &lt;!&ndash; BS Debug Page &ndash;&gt;-->
+<!--        <record id="bs_debug_page" model="website.page">-->
+<!--            <field name="url">/portal/teacher_license_code</field>-->
+<!--            <field name="is_published">False</field>-->
+<!--            <field name="view_id" ref="website.homepage"/>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

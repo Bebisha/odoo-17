@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="registration_menu_root"
+              name="Teacher Module"
+              web_icon="kg_teacher_module,static/description/icon.png"
+              sequence="0"
+    />
+    <menuitem id="emulator_licence_menu_root"
+              name="Emulator License Code"
+              parent="registration_menu_root"
+              sequence="1"
+    />
+    <menuitem id="teacher_registration_menu_root"
+              name="Teachers"
+              parent="registration_menu_root"
+              sequence="2"
+    />
+
+</odoo>

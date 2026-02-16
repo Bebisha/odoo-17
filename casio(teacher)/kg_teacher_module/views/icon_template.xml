@@ -1,0 +1,169 @@
+<odoo>
+
+    <template id="template_logo_replaceds" inherit_id="website.option_header_brand_logo">
+        <xpath expr="//a/span" position="replace">
+            <img t-att-src="'/kg_teacher_module/static/description/ciasio.jpeg'"
+                 alt="Brand Logo"/>
+        </xpath>
+    </template>
+
+
+    <template id="my_header" inherit_id="website.layout">
+        <xpath expr="//header" position="replace">
+            <header>
+                <div style="max-width: 1312px; margin: 0 auto; display: flex; align-items: center; padding: 10px;">
+                    <img t-att-src="'/kg_teacher_module/static/description/ciasio.jpeg'"
+                         style="padding: 0; margin-right: 10px; height: 36px;" alt="Brand Logo"/>
+                    <nav>
+                        <ul style="list-style: none; display: flex; margin: 0; padding: 0;">
+                            <li style="margin-right: 20px;" t-if="website.user_id != user_id">
+                                <a t-att-href="'/portal/teacher_license_code'"
+                                   style="text-decoration: none; color: black;">Teacher Registration
+                                </a>
+                            </li>
+                            <li style="margin-right: 20px;" t-if="website.user_id != user_id">
+                                <a t-att-href="'https://contact.casio-mea.com/contact-us/'"
+                                   style="text-decoration: none; color: black;">Support
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+        </xpath>
+    </template>
+
+
+    <template id="replace_footer" inherit_id="website.layout" name="Custom Footer">
+        <xpath expr="//footer" position="replace">
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-left">
+                            <div class="social-icons">
+                                <label>Share</label>
+                                <!--                                <a href="https://www.facebook.com/share.php?u=http://edu.casio.com/resource/user/regist/&amp;t=CASIO%20Teacher%20Members" aria-label="Facebook">-->
+                                <!--                                    <i class="fa fa-facebook"></i>-->
+                                <!--                                </a>-->
+                                <!--                                <a href="https://x.com/intent/post?text=CASIO+Teacher+Members&amp;url=http%3A%2F%2Fedu.casio.com%2Fresource%2Fuser%2Fregist%2F" aria-label="Twitter">-->
+                                <!--                                    <i class="fa fa-twitter"></i>-->
+                                <!--                                </a>-->
+                                <a href="#" aria-label="LinkedIn">
+                                    <i class="fa fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6" id="world_text">
+                            <a href="https://contact.casio-mea.com/contact-us/" style="color: black;">For Support</a>
+                        </div>
+                        <!--                        <div class="col-md-6 text-right">-->
+                        <!--                            <div class="footer-links">-->
+                        <!--                                <a href="https://edu.casio.com/privacy/pk/">Privacy Policy</a>-->
+                        <!--                                <span></span>-->
+                        <!--                                <a href="https://edu.casio.com/privacy/notice/en/cookiepolicy/">Cookie Policy</a>-->
+                        <!--                                <span></span>-->
+                        <!--                                <a href="https://edumaterial.casio-intl.com/resource/terms">Terms of Use</a>-->
+                        <!--                            </div>-->
+                        <div class="col-md-6 text-end">
+                            <p>© 2024 CASIO COMPUTER CO., LTD.</p>
+                        </div>
+                        <!--                        </div>-->
+                    </div>
+                </div>
+                <style>
+                    .footer {
+                    padding: 20px 0;
+                    background-color: transparent; /* Fully transparent background */
+                    border-top: none; /* Remove the border */
+                    position: relative; /* For potential background image */
+                    }
+
+                    .footer-links {
+                    display: inline-block;
+                    font-size: 14px;
+                    margin-right: 25px;
+                    }
+
+                    .footer-links a {
+                    margin: 0 5px;
+                    color: black; /* Change to white for better contrast */
+                    text-decoration: none;
+                    transition: color 0.3s ease; /* Smooth color transition */
+                    }
+
+                    .footer-links a:hover {
+                    color:#08C2FF; /* Gold color on hover */
+                    }
+
+                    #world_text a:hover {
+                    color:#08C2FF; /* Gold color on hover */
+                    }
+
+                    .footer-links span {
+                    margin: 0 5px;
+                    color: black; /* Change to white for better contrast */
+                    }
+
+                    .footer-copyright {
+                    display: inline-block;
+                    font-size: 14px;
+                    color: black; /* Change to white for better contrast */
+                    margin-top: 5px;
+                    }
+
+                    .social-icons {
+                    margin-bottom: 10px;
+                    text-align: left;
+                    }
+
+                    .social-icons a {
+                    margin: 0 10px;
+                    font-size: 20px;
+                    color: black; /* Change to white for better contrast */
+                    transition: color 0.3s ease; /* Smooth color transition */
+                    }
+
+                    .social-icons a:hover {
+                    color: #08C2FF; /* Gold color on hover */
+                    }
+
+                    .footer .row {
+                    align-items: center;
+                    justify-content: space-between;
+                    }
+
+                    /* Responsive adjustments */
+                    @media (max-width: 767px) {
+                    .footer-links,
+                    .social-icons {
+                    text-align: center;
+                    }
+
+                    .footer .row {
+                    flex-direction: column;
+                    }
+                    }
+
+                    /* Optional: Add a background image */
+                    .footer::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-image: url('path/to/your/image.jpg'); /* Replace with your image */
+                    background-size: cover;
+                    opacity: 0.2; /* Control the visibility of the background image */
+                    z-index: -1; /* Place behind the footer content */
+                    }
+                </style>
+            </footer>
+        </xpath>
+    </template>
+</odoo>

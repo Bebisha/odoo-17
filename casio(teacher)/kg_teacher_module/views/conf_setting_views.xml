@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="15"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <div class="app_settings_block" data-string="Teacher Registration Portal" string="Operations"
+                         data-key="operation_inherits">
+                        <h2>Teacher Registration Portal</h2>
+                        <div class="row mt16 o_settings_container" id="operation_settings">
+                            <div class="col-12 col-lg-6 o_setting_box" id="msh_settings">
+                                <label for="sending_facility"
+                                       string="Administration/Education Business Marketing Team"/>
+                                <field name="sending_facility" widget="many2many_tags"
+                                       options="{'no_open': True}"/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+        <record id="action_operation_general_config" model="ir.actions.act_window">
+            <field name="name">Teacher Registration Portal</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'kg_teacher_module'}</field>
+        </record>
+
+        <menuitem name="Settings"
+                  id="menus_website_website_settings"
+                  action="website.action_website_configuration"
+                  parent="teacher_registration_menu_root"
+                  sequence="1"/>
+    </data>
+</odoo>

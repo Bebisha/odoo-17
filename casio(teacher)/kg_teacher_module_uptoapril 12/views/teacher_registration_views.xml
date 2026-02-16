@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_teacher_registration_menu" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Teachers</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">teacher.registration</field>
+
+    </record>
+    <record id="action_emulator_licence_menu_form" model="ir.ui.view">
+        <field name="name">teacher.registration.form</field>
+        <field name="model">teacher.registration</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_show_allocated_licenses"
+                                type="object" class="oe_stat_button" icon="fa-id-card-o"
+                                string="Show Allocated Licenses"
+                        />
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="name_of_school"/>
+                            <field name="end_date_emulator_licence" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="email"/>
+                            <field name="emulator_licence" invisible="1"/>
+                            <field name="emul_licence_id" invisible="1" />
+                            <field name="emulator_licence_type" invisible="1"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Allocated Licenses">
+                            <field name="allocated_licenses" context="{'default_allocated_teachers': id}">
+                                <tree editable="bottom" decoration-success="state == 'allocated'" decoration-danger="state == 'expire'">
+                                    <field name="name" string="License Code"/>
+                                    <field name="emulator_licence_type" string="License Type"/>
+                                    <field name="act_date" string="Activation Date"/>
+                                    <field name="end_date" string="End Date"/>
+                                    <field name="state" optional="hide"/>
+                                    <field name="active" string="Active" column_invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_teacher_registration_menu_tree" model="ir.ui.view">
+        <field name="name">teacher.registration.tree</field>
+        <field name="model">teacher.registration</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="name_of_school"/>
+
+                <field name="email"/>
+                <field name="emulator_licence" column_invisible="1"/>
+                <field name="emul_licence_id" column_invisible="1"/>
+                <field name="end_date_emulator_licence" column_invisible="1"/>
+                <field name="emulator_licence_type" column_invisible="1"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <menuitem id="teacher_registration_menu"
+              name="Teachers"
+              parent="teacher_registration_menu_root"
+              action="action_teacher_registration_menu"
+              sequence="3"
+    />
+</odoo>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_registration_form" name="Teacher Registration Form">
+        <t t-call="website.layout">
+            <div class="container" style="margin-bottom: 60px;">
+                <h1>Free Emulator License Distribution</h1>
+                <br/>
+                <div>
+                    <!--                    <t t-if="website.user_id != user_id">-->
+                    <form id="registration_form" action="/portal/registration/submit" method="post">
+                        <center>
+                            <div class="form-row" style="width:50%;">
+                                <div class="form-group">
+                                    <label align="left">Please enter your name</label>
+                                    <input type="text" name="name" t-att-value="name" class="form-control"
+                                           required="1"/>
+                                </div>
+                                <div class="form-group">
+                                    <label align="left">Please enter your Email</label>
+                                    <input type="email" name="email" id="email" class="form-control"
+                                           t-att-value="email if email else ''" required="1"/>
+                                </div>
+                                <t t-if="error_message_mail">
+                                    <div class="alert alert-danger">
+                                        <t t-esc="error_message_mail"/>
+                                    </div>
+                                </t>
+                                <div class="form-group">
+                                    <label align="left">Please enter your School name</label>
+                                    <input type="text" name="name_of_school" id="name_of_school"
+                                           class="form-control" required="1"/>
+                                </div>
+                                <t t-if="error_message">
+                                    <div class="alert alert-danger">
+                                        <t t-esc="error_message"/>
+                                    </div>
+                                </t>
+                                <div class="form-group">
+                                    <label align="left">Please enter your Emulator license type</label>
+                                    <select id="emulator_licence" name="emulator_licence" class="form-control">
+                                        <option value=""></option>
+                                        <option value="fx-9860GIII">fx-9860GIII</option>
+                                        <option value="fx-82ZAPLUSII">fx-82ZAPLUSII</option>
+                                        <option value="fx-991ZAPLUSII">fx-991ZAPLUSII</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="display: flex; align-items: center;">
+                                    <input type="radio" name="terms" required="1" style="margin-right: 5px;"
+                                           data-tooltip="Please agree to the option."/>
+                                    <label>
+                                        Agree to the
+                                        <a href="/terms/conditions" style="color: blue;">Terms and Conditions</a>
+                                        listed in the CASIO ID privacy notice.
+                                    </label>
+                                </div>
+                            </div>
+                            <br/>
+                            <button type="submit" class="btn" id="btn_sub">Submit</button>
+                            <!--                            <a href="https://contact.casio-mea.com/contact-us/" style="font-size:10px;color: blue;">-->
+                            <!--                                For More support-->
+                            <!--                            </a>-->
+                        </center>
+                    </form>
+                </div>
+            </div>
+
+            <style>
+                body {
+                background-color: #f0f4f7; /* Slightly grayish light background */
+                font-family: 'Arial', sans-serif;
+                }
+                h1 {
+                text-align: center;
+                color: white; /* Text color that contrasts well against a light background */
+                background-image: linear-gradient(to left, #008cba, #0B2F9F); /* Gradient from white to sky blue */
+                padding: 10px; /* Add padding to give some spacing around the text */
+                height: 105px;
+                }
+                .form-group {
+                margin-bottom: 15px;
+                }
+                .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                color: #333;
+                }
+                #btn_sub {
+                display: block;
+                width: 15%;
+                background-color: #008cba; /* Light blue color */
+                color: white;
+                padding: 10px;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+                font-size: 16px;
+                }
+                #btn_sub:hover {
+                background-color: #007ba7;
+                }
+            </style>
+
+
+        </t>
+    </template>
+
+
+    <template id="registration_portal_thanks" name="Thanks">
+        <t t-call="website.layout">
+            <div class="container" style="margin-bottom: 60px;">
+                <h1>Free Emulator License Distribution</h1>
+                <br/>
+                <style>
+                    h1 {
+                    text-align: center;
+                    color: white; /* Text color that contrasts well against a light background */
+                    background-image: linear-gradient(to left, #008cba, #0B2F9F); /* Gradient from white to sky blue */
+                    padding: 10px; /* Add padding to give some spacing around the text */
+                    height:105px;
+                    }
+                </style>
+                <div class="container thanks-container"
+                     style="max-width: 600px; margin: auto; padding: 50px 20px; text-align: center; border-radius: 15px; background-color: #f9f9f9; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+                    <h2 style="font-family: 'Roboto', sans-serif; font-size: 36px; font-weight: bold; color: #008cba;">
+                        Registration Successful!
+                    </h2>
+                    <p style="font-family: 'Open Sans', sans-serif; font-size: 18px; color: #555;">Your registration was
+                        completed successfully.
+                    </p>
+
+                    <t t-set="name" t-value="request.httprequest.args.get('name')"/>
+                    <t t-set="email" t-value="request.httprequest.args.get('email')"/>
+                    <div style="margin-top: 30px;">
+                        <p style="font-size: 18px; color: #333;">Thank you,
+                            <span style="font-weight: bold; color: #008cba;">
+                                <t t-esc="name"/>
+                            </span>
+                            !
+                        </p>
+                        <p style="font-size: 18px; color: #333;">We have sent the emulator license details to
+                            <span style="font-weight: bold; color: #008cba;">
+                                <t t-esc="email"/>
+                            </span>
+                            .
+                        </p>
+                    </div>
+                    <div style="margin-top: 40px;">
+                        <a href="/portal/teacher_license_code" class="btn btn-primary"
+                           style="background-color: #008cba; border-color: #4CAF50; padding: 10px 20px; font-size: 16px; border-radius: 5px;">
+                            Go to Homepage
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </template>
+    <template id="error_message" name="error">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="row justify-content-center mt-5">
+                    <div class="col-8 text-center">
+
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>
