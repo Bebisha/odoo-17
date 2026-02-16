@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="view_add_section_wizard_form" model="ir.ui.view">
+            <field name="name">add.section.wizard.form</field>
+            <field name="model">add.section.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="sale_id" invisible="1" force_save="1"/>
+                            <field name="description" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Add" type="object" name="add_section" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

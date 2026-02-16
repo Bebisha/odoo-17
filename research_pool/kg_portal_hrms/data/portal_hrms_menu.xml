@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="website_menu_test1" model="website.menu">
+            <field name="name">Time Off</field>
+            <field name="url">/portal/time_off_form</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">49</field>
+        </record>
+
+        <record id="website_menu_test2" model="website.menu">
+            <field name="name">Attendance</field>
+            <field name="url">/my/attendance</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="website_menu_test3" model="website.menu">
+            <field name="name">Expense</field>
+            <field name="url">/my/expense</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">51</field>
+        </record>
+    </data>
+</odoo>

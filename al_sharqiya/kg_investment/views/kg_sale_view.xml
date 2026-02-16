@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_kg_sale_order_form" model="ir.ui.view">
+            <field name="name">kg.sale.order.form</field>
+            <field name="model">kg.sale.order</field>
+            <field name="arch" type="xml">
+                <form string="Sale Order">
+                    <header>
+                        <button name="action_submit_manager" string="Submit to Manager" type="object"
+                                class="btn-primary" invisible="manager_approved==True"/>
+                        <button name="action_approve" string="Approve" type="object" class="btn-primary"
+                                groups="kg_investment.group_manager" invisible="state!='to_approve'"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,to_approve,posted,cancel"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="view_journal_entries" type="object"
+                                    class="oe_stat_button"
+                                    string="Journal Entries"
+                                    icon="fa-list"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="manager_approved" invisible="1"/>
+                                <field name="old_doc_id" readonly="state=='posted'"/>
+
+                                <field name="company_id" readonly="state=='posted'"/>
+                                <field name="date" readonly="state=='posted'"/>
+                                <field name="exchange_id" readonly="state=='posted'"/>
+                                <field name="currency_id" readonly="state=='posted'"/>
+                                <field name="company_currency_id" invisible="1" readonly="state=='posted'"/>
+                                <field name="exchange_rate" invisible="currency_id == company_currency_id "
+                                       readonly="state=='posted'"/>
+                                <field name="investment_id" readonly="state=='posted'"/>
+                                <field name="investment_type_id" readonly="state=='posted'"/>
+                                <field name="reference" readonly="state=='posted'"/>
+                                <field name="account_id" invisible="1"/>
+
+                            </group>
+                            <group>
+                                <field name="no_of_shares" readonly="state=='posted'"/>
+                                <field name="face_value" readonly="state=='posted'"/>
+                                <field name="selling_price" readonly="state=='posted'"/>
+                                <field name="total_amount" readonly="state=='posted'"/>
+
+                                <field name="broker_bank" readonly="state=='posted'"/>
+                                <field name="broker_id" invisible="broker_bank != 'broker' "
+                                       readonly="state=='posted'"/>
+                                <field name="bank_id" invisible="broker_bank != 'bank'" readonly="state=='posted'"/>
+                                <field name="commission_type" readonly="state=='posted'"/>
+                                <field name="commission" readonly="state=='posted'"/>
+                                <field name="tax_ids" widget="many2many_tags" readonly="state=='posted'"/>
+                                <field name="tax_amount" readonly="state=='posted'"/>
+                                <field name="total_commission_amount" readonly="state=='posted'"/>
+                                <field name="net_value" readonly="state=='posted'"/>
+                                <field name="net_value_base_currency" readonly="state=='posted'"/>
+                                <field name="memo" readonly="state=='posted'"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_kg_sale_order_tree" model="ir.ui.view">
+            <field name="name">kg.sale.order.tree</field>
+            <field name="model">kg.sale.order</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Order" default_order="id desc">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="date"/>
+                    <field name="exchange_id"/>
+                    <field name="currency_id"/>
+                    <field name="exchange_rate"/>
+                    <field name="investment_id"/>
+                    <field name="investment_type_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kg_sale_order_pivot" model="ir.ui.view">
+            <field name="name">kg.sale.order.pivot</field>
+            <field name="model">kg.sale.order</field>
+            <field name="arch" type="xml">
+                <pivot string="Sale Entry/Sell Analysis">
+                    <!-- Define your pivot view fields here -->
+                    <field name="investment_id" type="row"/>
+                    <field name="no_of_shares" type="measure"/>
+                    <!-- Add more fields as needed -->
+                </pivot>
+            </field>
+        </record>
+
+
+        <record id="action_kg_sale_order_form" model="ir.actions.act_window">
+            <field name="name">Sales Entry/Sell</field>
+            <field name="res_model">kg.sale.order</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="view_id" ref="view_kg_sale_order_tree"/>
+        </record>
+    </data>
+</odoo>

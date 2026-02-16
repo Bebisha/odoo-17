@@ -1,0 +1,36 @@
+<odoo>
+    <record id="reverse_charge_account_tax" model="ir.ui.view">
+        <field name="name">account.tax.reverse.charge</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <field name="type_tax_use" position="after">
+                <field name="reverse_charge"/>
+            </field>
+
+        </field>
+    </record>
+
+    <record id="archive_account_tax_group" model="ir.ui.view">
+        <field name="name">account.tax.group.archive</field>
+        <field name="model">account.tax.group</field>
+        <field name="inherit_id" ref="account.view_tax_group_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="active" invisible="1"/>
+            </field>
+
+        </field>
+    </record>
+    <record id="archive_account_tax_group_form" model="ir.ui.view">
+        <field name="name">account.tax.group.archive_form</field>
+        <field name="model">account.tax.group</field>
+        <field name="inherit_id" ref="account.view_tax_group_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="active" invisible="1"/>
+            </field>
+
+        </field>
+    </record>
+</odoo>

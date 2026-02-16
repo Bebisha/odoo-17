@@ -1,0 +1,88 @@
+<odoo>
+    <data>
+        <record id="view_hr_contract_form_custom" model="ir.ui.view">
+            <field name="name">hr.contract.form.custom</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='information']" position="inside">
+                    <group name="kg_allowance" string="Allowance">
+                        <group>
+                            <label for="ticket_flight_allowance"/>
+                            <div class="o_row mw-50" name="ticket_flight_allowance">
+                                <field name="ticket_flight_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                                <div class="mb-3" name="flight_ticket_period_label">/ Day</div>
+                            </div>
+                            <label for="hotel_allowance"/>
+                            <div class="o_row mw-50" name="hotel_allowance">
+                                <field name="hotel_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                                <div class="mb-3" name="hotel_period_label">/ Day</div>
+                            </div>
+                            <label for="housing_allowance"/>
+                            <div class="o_row mw-50" name="housing_allowance">
+                                <field name="housing_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                                <div class="mb-3" name="housing_period_label">/ Month</div>
+                            </div>
+                            <label for="transport_allowance"/>
+                            <div class="o_row mw-50" name="transport_allowance">
+                                <field name="transport_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                                <div class="mb-3" name="transport_period_label">/ Month</div>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="utilities_allowance"/>
+                            <div class="o_row mw-50" name="utilities_allowance">
+                                <field name="utilities_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                                <div class="mb-3" name="utilities_period_label">/ Month</div>
+                            </div>
+                            <label for="offshore_allowance"/>
+                            <div class="o_row mw-50" name="offshore_allowance">
+                                <field name="offshore_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                                <div class="mb-3" name="offshore_period_label">/ Day</div>
+                            </div>
+                            <label for="other_allowance"/>
+                            <div class="o_row mw-50" name="other_allowance">
+                                <field name="other_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                                <div class="mb-3" name="other_allowance_period_label">/ Month</div>
+                            </div>
+                        </group>
+                    </group>
+                    <group name="kg_c2c" string="C2C">
+                        <group>
+                            <label for="c2c_month"/>
+                            <div class="o_row mw-50" name="c2c_month">
+                                <field name="c2c_month" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                                <div class="mb-3" name="c2c_month">/ Month</div>
+                            </div>
+                            <label for="c2c_year"/>
+                            <div class="o_row mw-50" name="c2c_year">
+                                <field name="c2c_year" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                                <div class="mb-3" name="c2c_year">/ Year</div>
+                            </div>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='information']/group[@name='salary_info']/group[@name='salary']"
+                       position="inside">
+                    <label for="total_salary"/>
+                    <div class="o_row mw-50" name="total_salary">
+                        <field name="total_salary" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                        <div class="mb-3" name="total_salary_label">/ Month</div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="kg_view_hr_contract_search" model="ir.ui.view">
+            <field name="name">kg.hr.contract.search</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="employee_id" string="Employee No."
+                           filter_domain="[('employee_id.registration_number','ilike', self)]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

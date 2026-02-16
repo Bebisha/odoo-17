@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="report.paperformat" id="time_table_paperformat">
+        <field name="name">Time Table Paperformat</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">15</field>
+        <field name="margin_right">15</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="time_table_report_action" model="ir.actions.report">
+            <field name="name">Time-Table</field>
+            <field name="model">time.table</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_operations.report_time_table_template</field>
+            <field name="report_file">bista_tdcc_operations.report_time_table_template</field>
+            <field name="paperformat_id" ref="bista_tdcc_operations.time_table_paperformat"/>
+            <field name="binding_type">report</field>
+        </record>
+
+<!--    <report-->
+<!--        id="time_table_report_action"-->
+<!--        model="time.table"-->
+<!--        string="Time-Table"-->
+<!--        name="bista_tdcc_operations.report_time_table_template"-->
+<!--        file="bista_tdcc_operations.report_time_table_template"-->
+<!--        report_type="qweb-pdf"-->
+<!--    />-->
+
+<!--    <record model="ir.actions.report" id="bista_tdcc_operations.time_table_report_action">-->
+<!--        <field name="paperformat_id" ref="bista_tdcc_operations.time_table_paperformat"/>-->
+<!--    </record>-->
+
+    <template id="time_table_header_footer">
+        <div class="header">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-6">
+                        <img
+                            src="/bista_tdcc_operations/static/first.jpg"
+                            style="max-height:300px; max-width:300px"
+                            />
+                    </div>
+                </div>
+                <div class="col-xs-12" style="margin-left:740px;">
+                    <div class="col-xs-6">
+                        <img
+                            src="/bista_tdcc_operations/static/second.jpg"
+                            style="max-height:150px; max-width:300px"
+                         />
+                    </div>
+                </div>
+             </div>
+         </div>
+         <div class="footer">
+            <div>
+                <p style="font-family: Arial; font-size: 12pt;text-align:center;">
+                    <b>The Developing Child Centre LLC</b>
+                    PO Box 478527 Dubai, UAE | Call +971 4 3011900 | education@tdcc.ae | <b>www.tdcc.ae</b>
+                </p>
+            </div>
+        </div>
+        <div class="article">
+            <t t-raw="0" />
+        </div>
+    </template>
+
+    <template id="report_time_table_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="bista_tdcc_operations.report_time_table_document" t-lang="doc.lead_educator_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_time_table_document">
+        <t t-set="doc" t-value="doc.with_context({'lang':doc.lead_educator_id.lang})"/>
+        <t t-call="bista_tdcc_operations.time_table_header_footer">
+            <div class="page">
+                <div class="row">
+                <div class="oe_structure"/>
+                    <div class="col-xs-12" style="font-family: Arial; font-size:14pt;margin-left:20px;">
+                        <div class="col-xs-6">
+                            <b>Lead Educator:</b>
+                            <span t-field="doc.lead_educator_id.name"/>
+                        </div>
+                        <div class="col-xs-6">
+                                <b>Speech and Language Therapist:</b>
+                                <span t-field="doc.speech_therapist_id.name"/>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>
+                                <b>Term beginning:</b>
+                                <span t-field="doc.term_id.name"/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" style="font-family: Arial; font-size:14pt;text-align:right;margin-left:70px;">
+                        <div class="col-xs-6">
+                            <b>Educator:</b>
+                            <span t-field="doc.educator_id.name"/>
+                        </div>
+                        <div class="col-xs-6">
+                            <b>Occupational Therapist:</b>
+                            <span t-field="doc.occupational_therapist_id.name"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+                <div style="font-family: Arial; font-size:14pt;text-align: center;font-weight:bold;margin-top:20px;">
+                    Class <span t-field="doc.class_id.name"/> - Timetable
+                </div>
+                <table style="border-spacing:0px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;"
+                cellpadding="0" cellspacing="0">
+                    <t t-set="line" t-value="doc.time_table_report_header(doc.timetable_line_ids)"/>
+                    <tr style="font-family: Arial; font-size:12pt;text-align: center;font-weight:bold;">
+                        <td style="padding:0px;margin:0px;border: 1px solid black;border-collapse: collapse; width:15%;">
+                            <p></p>
+                        </td>
+                        <td style="padding:0px;margin:0px;border: 1px solid black; width: 15%;border-collapse: collapse;">
+                            <p t-if="1 in line">Sunday</p>
+                        </td>
+                        <td style="padding:0px;margin:0px;border: 1px solid black; width: 15%;border-collapse: collapse;">
+                            <p t-if="2 in line">Monday</p>
+                        </td>
+                        <td style="padding:0px;margin:0px;border: 1px solid black; width: 15%;border-collapse: collapse;">
+                            <p t-if="3 in line">Tuesday</p>
+                        </td>
+                        <td style="padding:0px;margin:0px;border: 1px solid black; width: 15%;border-collapse: collapse;">
+                            <p t-if="4 in line">Wednesday</p>
+                        </td>
+                        <td style="padding:0px;margin:0px;border: 1px solid black; width: 15%;border-collapse: collapse;">
+                            <p t-if="5 in line">Thursday</p>
+                        </td>
+                    </tr>
+                        <t t-set="master_dict" t-value="doc.time_table_time_records(doc.timetable_line_ids)"/>
+                        <t t-foreach="master_dict.keys()" t-as="record">
+                            <tr style="page-break-inside:avoid;font-family: Arial; font-size:12pt;text-align: center;">
+                                <td style="padding:0px;margin:0px;border: 1px solid black; width: 10%;border-collapse: collapse;font-weight:bold;">
+                                    <t t-if="record">
+                                        <t t-if="record[0]">
+                                            <t t-esc="record[0]"/>
+                                        </t>
+                                        <t t-if="record[1]">
+                                            - <t t-esc="record[1]"/>
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="padding:0px;margin:0px;border: 1px solid black; width: 15%;border-collapse: collapse;">
+                                    <t t-if="1 in master_dict.get(record)">
+                                        <t t-if="master_dict.get(record).get(1).split(',')">
+                                            <p t-if="master_dict.get(record).get(1).split(',')[0]">
+                                                <t t-esc="master_dict.get(record).get(1).split(',')[0]"/>
+                                            </p>
+                                            <hr color="black"/>
+                                            <p t-if="master_dict.get(record).get(1).split(',')[1]">
+                                                <t t-esc="master_dict.get(record).get(1).split(',')[1]"/>
+                                            </p>
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="padding:0px;margin:0px;border: 1px solid black; width: 15%;border-collapse: collapse;">
+                                    <t t-if="2 in master_dict.get(record)">
+                                        <t t-if="master_dict.get(record).get(2).split(',')">
+                                            <p t-if="master_dict.get(record).get(2).split(',')[0]">
+                                                <t t-esc="master_dict.get(record).get(2).split(',')[0]"/>
+                                            </p>
+                                            <hr color="black"/>
+                                            <p t-if="master_dict.get(record).get(2).split(',')[1]">
+                                                <t t-esc="master_dict.get(record).get(2).split(',')[1]"/>
+                                            </p>
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="padding:0px;margin:0px;border: 1px solid black; width: 15%;border-collapse: collapse;">
+                                    <t t-if="3 in master_dict.get(record)">
+                                        <t t-if="master_dict.get(record).get(3).split(',')">
+                                            <p t-if="master_dict.get(record).get(3).split(',')[0]">
+                                                <t t-esc="master_dict.get(record).get(3).split(',')[0]"/>
+                                            </p>
+                                            <hr color="black"/>
+                                            <p t-if="master_dict.get(record).get(3).split(',')[1]">
+                                                <t t-esc="master_dict.get(record).get(3).split(',')[1]"/>
+                                            </p>
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="padding:0px;margin:0px;border: 1px solid black; width: 15%;border-collapse: collapse;">
+                                    <t t-if="4 in master_dict.get(record)">
+                                        <t t-if="master_dict.get(record).get(4).split(',')">
+                                            <p t-if="master_dict.get(record).get(4).split(',')[0]">
+                                                <t t-esc="master_dict.get(record).get(4).split(',')[0]"/>
+                                            </p>
+                                            <hr color="black"/>
+                                            <p t-if="master_dict.get(record).get(4).split(',')[1]">
+                                                <t t-esc="master_dict.get(record).get(4).split(',')[1]"/>
+                                            </p>
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="padding:0px;margin:0px;border: 1px solid black; width: 15%;border-collapse: collapse;">
+                                    <t t-if="5 in master_dict.get(record)">
+                                        <t t-if="master_dict.get(record).get(5).split(',')">
+                                            <p t-if="master_dict.get(record).get(5).split(',')[0]">
+                                                <t t-esc="master_dict.get(record).get(5).split(',')[0]"/>
+                                            </p>
+                                            <hr color="black"/>
+                                            <p t-if="master_dict.get(record).get(5).split(',')[1]">
+                                                <t t-esc="master_dict.get(record).get(5).split(',')[1]"/>
+                                            </p>
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                        <!-- <t t-if="line.get(1)">
+                            <t t-foreach="line.get(1)" t-as="sunday_line">
+                                <tr style="font-family: Arial; font-size:14pt;text-align: center;font-weight:bold;">
+                                    <td style="border: 1px solid black; width: 20%;border-collapse: collapse;">
+                                    <span t-esc="sunday_line.time_from"/>
+                                    <span t-if="sunday_line.time_to">
+                                    - <span t-esc="sunday_line.time_to"/>
+                                    </span>
+                                    </td>
+                                    <td style="border: 1px solid black; width: 20%;border-collapse: collapse;">
+                                    <span t-esc="sunday_line.description"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                        <t t-if="line.get(2)">
+                            <t t-foreach="line.get(2)" t-as="monday_line">
+                                <tr style="font-family: Arial; font-size:14pt;text-align: center;font-weight:bold;">
+                                    <td style="border: 1px solid black; width: 20%;border-collapse: collapse;">
+                                    <span t-esc="monday_line.time_from"/>
+                                    <span t-if="monday_line.time_to">
+                                    - <span t-esc="monday_line.time_to"/>
+                                    </span>
+                                    </td>
+                                    <td style="border: 1px solid black; width: 20%;border-collapse: collapse;">
+                                    <span t-esc="monday_line.description"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t> -->
+                        <!-- <tr t-if="line.week_day">
+                        <td style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <span t-field="line.week_day"></span>
+                        </td>
+                    </tr> -->
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

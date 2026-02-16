@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_portal,stock.portal,stock.model_stock_picking,base.group_portal,1,0,0,0
+access_stock_loc_portal,stock.portal,stock.model_stock_location,base.group_portal,1,0,0,0
+access_stock_type_portal,stock.portal,stock.model_stock_picking_type,base.group_portal,1,0,0,0
+access_stock_package_level,stock.portal,stock.model_stock_package_level,base.group_portal,1,0,0,0
+access_barcode_nomenclature_user,barcode.nomenclature.user,barcodes.model_barcode_nomenclature,base.group_portal,1,0,0,0
+access_barcode_nomenclature_manager,barcode.nomenclature.manager,barcodes.model_barcode_nomenclature,base.group_portal,1,0,0,0
+access_barcode_nomenclature_manager_,barcode.nomenclature.manager.template,web_studio.model_mail_template,base.group_portal,1,0,0,0
+access_sale_portal,sale.portal,sale.model_sale_order,base.group_portal,1,1,1,1
+access_stock_move,stock.portal,stock.model_stock_move,base.group_portal,1,0,0,0
+access_account_move,account.portal,account.model_account_move,base.group_portal,1,1,1,1
+
+

@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record id="purchase_seq" model="ir.sequence">
+            <field name="name">Purchase Sequence</field>
+            <field name="code">purchase.order.seq</field>
+            <field name="prefix">PUR/SIH/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="sale_seq" model="ir.sequence">
+            <field name="name">Sale Sequence</field>
+            <field name="code">sale.order.seq</field>
+            <field name="prefix">SL/SIH/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="dividend_entry_seq" model="ir.sequence">
+            <field name="name">Dividend Entry Sequence</field>
+            <field name="code">dividend.entry.seq</field>
+            <field name="prefix">DIV/SIH/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="market_rate_seq" model="ir.sequence">
+            <field name="name">Market Rate Sequence</field>
+            <field name="code">market.rate.seq</field>
+            <field name="prefix">MR/SIH/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="revaluation_journal_seq" model="ir.sequence">
+            <field name="name">Revaluation Journal Sequence</field>
+            <field name="code">revaluation.journal.seq</field>
+            <field name="prefix">RV/SIH/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="kg_bonds_seq" model="ir.sequence">
+            <field name="name">Bonds Sequence</field>
+            <field name="code">kg.bonds.seq</field>
+            <field name="prefix">BND/SIH/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

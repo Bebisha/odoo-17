@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="HrDashboards">
+        <div class="">
+            <div>
+                <center>
+                    <h1 style="margin:20px;">
+                        Employee Dashboard
+                    </h1>
+                </center>
+            </div>
+        </div>
+
+        <t t-name="EmployeeDashboard">
+            <div style="text-align: center;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 2.5%; padding-right: 10px; border-right: 1px solid black;">
+
+                        </td>
+                        <td style="width: 40%;padding-left:5px; padding-right: 5px; border-top:1px solid black; border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black;">
+                            <div class="hr_notification" style="height:400px; overflow-y: auto;">
+                                <div class="hr_notification_head" style="position:sticky;top: 0;">
+                                    <i class="fa fa-birthday-cake fa-lg"/>
+                                    Upcoming Birthdays
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-sm-12 col-lg-12" style="padding:0;">
+                                        <div class="text-color">
+                                            <div class="" style="">
+                                                <div class="media-body">
+                                                    <div id="my_lead"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 5%; padding-right: 10px;"/>
+                        <td style="width: 40%;padding-left:5px; padding-right: 5px; border-top:1px solid black; border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black;">
+                            <div class="col-xs-12  hr_notification" style="height:400px; overflow-y: auto;">
+                                <div class="col-xs-12" style="padding:0;">
+                                    <div class="hr_notification_head" style="position:sticky;top: 0;" >
+                                        <i class="fa fa-calendar fa-lg"/>
+                                        Upcoming Events
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-sm-12 col-lg-12" style="padding:0;">
+                                        <div class="text-color">
+                                            <div class="" style="">
+                                                <div class="media-body">
+                                                    <div id="event_data"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 2.5%; padding-right: 10px;"/>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </t>
+</templates>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="action_sales_dashboard" model="ir.actions.client">
+            <field name="name">Oder Management System</field>
+            <field name="tag">tag_sales_dashboard</field>
+        </record>
+        <menuitem name="Sale Dashboard" id="menu_dashboard" sequence="10"/>
+        <menuitem name="Dashboard" id="menu_sales_dashboard" sequence="10" action="action_sales_dashboard" parent="menu_dashboard"/>
+    </data>
+</odoo>

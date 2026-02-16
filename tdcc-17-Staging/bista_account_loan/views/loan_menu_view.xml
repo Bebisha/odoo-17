@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Loan Main Menu Root -->
+    <menuitem id="loan_management_view_id"
+              name="Finance Lease"
+              web_icon="bista_account_loan,static/description/loan3.png"/>
+
+    <!-- Loan Management main Menu -->
+    <menuitem id="loan_management_main_menu"
+              name="Finance Lease Management"
+              parent="loan_management_view_id"
+              sequence="1"/>
+
+    <!-- Loan Request Sub main menu -->
+    <menuitem id="loan_request_sub_main_menu"
+              name="Finance Lease Request"
+              parent="loan_management_main_menu"
+              sequence="1"/>
+
+    <!-- Loan Approval -->
+    <menuitem id="loan_request_menu"
+              action="open_loan_request_for_finance_lease"
+              parent="loan_request_sub_main_menu"
+              name="Loan Request"
+              sequence="1"/>
+
+
+
+    <!-- Loan Installment sub main menu -->
+    <menuitem id="loan_installment_sub_main_menu"
+              name="Installments"
+              parent="loan_management_main_menu"
+              sequence="1"/>
+
+
+    <!-- All Loan Installments -->
+    <menuitem name="View All Installments"
+              id="loan_installments_menu"
+              action="loan_installments_action"
+              sequence="2"
+              parent="loan_installment_sub_main_menu"/>
+
+
+   <!--  <menuitem
+        id="menu_print_loan_report"
+        name="Finance Lease Report"
+        parent="bista_account_loan.loan_management_main_menu"
+        action="bista_account_loan.action_loan_print_report_menu"
+        groups="account.group_account_manager"
+       />
+ -->
+
+</odoo>

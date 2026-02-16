@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Employee Form Report Action -->
+    <!--     <report-->
+    <!--        id="custom_employee_info"-->
+    <!--        model="hr.employee"-->
+    <!--        string="Employee Information"-->
+    <!--        name="bista_hr.report_imployee_info"-->
+    <!--        file="bista_hr.report_imployee_info"-->
+    <!--        report_type="qweb-pdf"-->
+    <!--    />-->
+
+    <!-- Paper format for custom report -->
+    <record id="custom_employee_info_paperformat" model="report.paperformat">
+        <field name="name">Employee Information</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+        <!--        <field name="report_ids"-->
+        <!--                    eval="[(4,ref('bista_hr.custom_employee_info'))]"></field>-->
+    </record>
+      <record id="custom_employee_info" model="ir.actions.report">
+        <field name="name">Employee Information</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_hr.report_imployee_info</field>
+        <field name="report_file">bista_hr.report_imployee_info</field>
+        <field name="paperformat_id" ref="bista_hr.custom_employee_info_paperformat"/>
+        <field name="binding_model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>
+

@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <template id="report_eiip_registration_form">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-set="company" t-value="doc.company_id.sudo()"/>
+                    <div class="header">
+                         <div class="row mb8">
+                            <div class="col-6">
+                                <img t-if="company.logo"
+                                    t-att-src="image_data_uri(company.logo)"
+                                    alt="Logo" height="150" />
+                            </div>
+                            <div class="col-6 text-right mb4">
+                                <img src="/bista_tdcc_operations/static/src/img/second.jpg"
+                                     height="150"/>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="footer">
+                        <div style="border-top: 1px solid black;">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                   <b><span t-esc="company.name" style="font-size: 10pt;"/></b>&amp;nbsp;|
+                                </li>
+                                <li class="list-inline-item">
+                                   <span style="font-size: 10pt;">PO Box</span><span t-esc="company.zip" style="font-size: 10pt;"/>
+                                   <span t-esc="company.state_id.name" style="font-size: 12pt;"/>,UAE&amp;nbsp;|
+                                </li>
+                                <li class="list-inline-item">
+                                    <span style="font-size: 10pt;">Call &amp;nbsp;</span>
+                                    <span t-esc="company.phone" style="font-size: 12pt;"/>&amp;nbsp;|
+                                </li>
+                                <li class="list-inline-item">
+                                   <span t-esc="company.email" style="font-size: 12pt;"/>&amp;nbsp;|
+                                </li>
+                                <li class="list-inline-item">
+                                   <b><span t-esc="company.website" style="font-size: 10pt;"/></b>
+                                </li>
+                            </ul>
+                            <div class="text-muted">
+                                Page:
+                                <span class="page"/>
+                                of
+                                <span class="topage"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="o_report_layout_boxed">
+                        <div class="oe_structure"/>
+                        <div class="row">
+                            <center>
+                                <h3>TDCC SUMMER PROGRAM – REGISTRATION FORM</h3>
+                            </center>
+                       </div>
+                       <p> Please complete one registration form for each child.</p>
+                       <div class="row">
+                            <style>
+                            td {
+                                border: 1px solid black;
+                            }
+                            </style>
+                            <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                   <tr >
+                                       <td style="width:15%">Child’s Name:</td>
+                                       <td style="width:65%"></td>
+                                       <td style="width:10%">
+                                            <input type="checkbox" class="form-check-input"/>Male
+                                       </td>
+                                       <td style="width:10%">
+                                            <input type="checkbox" class="form-check-input"/>Female
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                      <td>Date of Birth:</td>
+                                      <td></td>
+                                      <td>Age:</td>
+                                      <td></td>
+                                   </tr>
+                                   <tr>
+                                       <td>Street Address:</td>
+                                       <td colspan="3"/>
+                                   </tr>
+                                   <tr>
+                                       <td>Mailing Address:</td>
+                                       <td colspan="3"/>
+                                   </tr>
+                            </table>
+
+                            <table style="margin-top:30px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                   <tr >
+                                       <td style="width:15%">Mother’s Name:</td>
+                                       <td style="width:45%"></td>
+                                       <td style="width:15%">Mobile Phone:</td>
+                                       <td style="width:25%"></td>
+                                   </tr>
+                                   <tr>
+                                       <td>Email:</td>
+                                       <td></td>
+                                       <td>Work Phone:</td>
+                                       <td></td>
+                                   </tr>
+                                   <tr>
+                                       <td>Father's Name:</td>
+                                       <td></td>
+                                       <td>Mobile Phone:</td>
+                                       <td></td>
+                                   </tr>
+                                   <tr>
+                                       <td>Email:</td>
+                                       <td></td>
+                                       <td>Work Phone:</td>
+                                       <td></td>
+                                   </tr>
+                            </table>
+
+                            <p style="margin-top:20px;"> The following special health problems should be noted and adequate precautions taken..</p>
+
+                            <table style="margin-top:10px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:30%;text-align:center;"><strong>Health Problem</strong></td>
+                                        <td style="width:30%;text-align:center;"><strong>Reaction</strong></td>
+                                        <td style="width:30%;text-align:center;"><strong>Medical response required</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:30px;"></td>
+                                        <td style="height:30px;"></td>
+                                        <td style="height:30px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:30px;"></td>
+                                        <td style="height:30px;"></td>
+                                        <td style="height:30px;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p style="margin-top:20px;">The following medications/ prescriptions are required:</p>
+
+                            <table style="margin-top:10px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:30%;text-align:center;"><strong>Medication / Prescription</strong></td>
+                                        <td style="width:20%;text-align:center;"><strong>Dosage</strong></td>
+                                        <td style="width:10%;text-align:center;"><strong>Time</strong></td>
+                                        <td style="width:40%;text-align:center;"><strong>Specific Instructions</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:25px;"></td>
+                                        <td style="height:25px;"></td>
+                                        <td style="height:25px;"></td>
+                                        <td style="height:25px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:25px;"></td>
+                                        <td style="height:25px;"></td>
+                                        <td style="height:25px;"></td>
+                                        <td style="height:25px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:25px;"></td>
+                                        <td style="height:25px;"></td>
+                                        <td style="height:25px;"></td>
+                                        <td style="height:25px;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p style="margin-top:20px;">The following dietary requirements are needed for:
+                                Religious <input type="checkbox" class="form-check-input"/> or
+                                Medical reasons <input type="checkbox" class="form-check-input"/>
+                            </p>
+
+                            <table style="margin-top:10px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:5%;">1.</td>
+                                        <td style="width:95%;height:25px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:5%;">2.</td>
+                                        <td style="width:95%;height:25px;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p style="margin-top:180px;color:blue; font-family: Arial; font-size: 10pt; font-style: italic;">
+                                    “If you judge a fish by its ability to climb a tree,
+                                    it will live its whole life believing that it is stupid.” Albert Einstein
+                            </p>
+
+                            <p style="font-family: Arial; font-size: 12pt;">
+                               <b>We think different. We teach different.</b>
+                           </p>
+
+                            <p style="font-family: Arial; font-size: 10pt;">
+                                At The Developing Child Centre our approach is simple.
+                                We believe every child is brilliant and we nurture and build
+                                children’s confidence and abilities.<br/>
+                                We are dedicated to identifying, building and developing
+                                skills required by all children to feel confident and succeed.
+                            </p>
+
+                            <p style="page-break-before:always;"/>
+                            <p style="margin-top:20px;">Drop off / collection from TDCC will be:</p>
+                            <table style="margin-top:10px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:15%;">Name:</td>
+                                        <td style="width:45%;"></td>
+                                        <td style="width:15%;">Mobile Phone:</td>
+                                        <td style="width:25%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Relationship:</td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p style="margin-top:20px;">Emergency Contact:</p>
+                            <table style="margin-top:10px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:15%;">Name:</td>
+                                        <td style="width:45%;"></td>
+                                        <td style="width:15%;">Mobile Phone:</td>
+                                        <td style="width:25%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Relationship:</td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table style="margin-top:20px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:15%;">Language(s) Spoken at Home:</td>
+                                        <td style="width:85%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Primary Language:</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table style="margin-top:20px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:50%;">Is your child dry during the day?</td>
+                                        <td style="width:50%;height:20px;">
+                                            Yes <input type="checkbox"/> /
+                                            No  <input type="checkbox"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%;">Can your child feed him / herself?  </td>
+                                        <td style="width:50%;height:20px;">
+                                            Yes <input type="checkbox"/> /
+                                            No  <input type="checkbox"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table style="margin-top:30px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:50%;">Does your child attend nursery or school?</td>
+                                        <td style="width:50%;height:20px;">
+                                            Yes <input type="checkbox"/> /
+                                            No  <input type="checkbox"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%;">If yes, name of nursery or school?</td>
+                                        <td style="width:50%;height:20px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%;">Grade?</td>
+                                        <td style="width:50%;height:20px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%;">Type of Program:</td>
+                                        <td style="width:50%;height:20px;">
+                                            <input type="checkbox"/> Mainstream Education <br/>
+                                            <input type="checkbox"/> Special Education
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%;">Services Received at School (if any):</td>
+                                        <td style="width:50%;height:30px;">
+                                            <input type="checkbox"/> Resource Room <br/>
+                                            <input type="checkbox"/> Therapy <br/>
+                                            <input type="checkbox"/> 1:1 Learning Support / Shadow <br/>
+                                            <input type="checkbox"/> Other:
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%;">Does your child see any health professionals?</td>
+                                        <td style="width:50%;height:20px;">
+                                            Yes <input type="checkbox"/> /
+                                            No  <input type="checkbox"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%;"> If yes, type of health professional</td>
+                                        <td style="width:50%;height:20px;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table style="margin-top:30px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td>How is your child’s behaviour at:</td>
+                                    </tr>
+                                    <tr style="height:50px;">
+                                        <td>a) nursery / school</td>
+                                    </tr>
+                                    <tr style="height:50px;">
+                                        <td>b) home</td>
+                                    </tr>
+                                    <tr style="height:50px;">
+                                        <td>How do you manage the behaviour/s at home?</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table style="margin-top:30px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td>What area would you like us to focus on during the camp?</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:50px;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p style="page-break-before:always;"/>
+
+                            <table style="margin-top:30px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="height:30px;">List preferred activities?</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:50px;">List activities / food avoided? Eg messy play, water play, bubbles</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table style="margin-top:30px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="height:20px;">Does your child talk? (verbal)</td>
+                                        <td style="height:20px;">
+                                            Yes <input type="checkbox"/> /
+                                            No  <input type="checkbox"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="height:50px;">
+                                            If no, how does your child communicate:
+                                            <p>
+                                               Gesture / sign<input type="checkbox"/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                               Pulling<input type="checkbox"/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                               Pointing <input type="checkbox"/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                               Pictures<input type="checkbox"/>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p>Please check your registration option:</p>
+                            <table style="margin-top:30px;border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:25%;text-align:center;"><b>Weeks</b></td>
+                                        <td style="width:25%;text-align:center;"><b>Dates</b></td>
+                                        <td style="width:25%;text-align:center;"><b>3 – 5 year olds</b></td>
+                                        <td style="width:25%;text-align:center;"><b>5 – 8 year olds</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">Week 1</td>
+                                        <td style="text-align:center">1 – 5 July</td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">Week 2</td>
+                                        <td style="text-align:center">8 – 12 July</td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">Week 3</td>
+                                        <td style="text-align:center">15 – 19 July</td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">Week 4</td>
+                                        <td style="text-align:center">22 – 26 July</td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">Week 5</td>
+                                        <td style="text-align:center">29 July – 2 August</td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">Week 6</td>
+                                        <td style="text-align:center">5 – 9 August</td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">Week 7</td>
+                                        <td style="text-align:center">12 – 16 August</td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">Week 8</td>
+                                        <td style="text-align:center" colspan="3"><b>EID BREAK</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">Week 9</td>
+                                        <td style="text-align:center">26 – 30 August</td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                        <td style="text-align:center"><input type="checkbox"/></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                            <p style="margin-top:30px;"><b>Weekly rate: 1500AED per child</b></p>
+                            <p>
+                                <b>Terms and Conditions:</b>
+                                 Fees are due at time of registration and cover my child’s enrollment for the requested period.  This fee is not refundable.
+                            </p>
+                       </div>
+
+                       <div class="row" style="margin-top:20px;">
+                            <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;" >
+                                <tr>
+                                    <td width="50%" height="70px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                        ____________________________________
+                                        <p>Name</p>
+                                    </td>
+                                    <td width="50%" height="70px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                        ____________________________________
+                                        <p>Relation to child</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50%" height="70px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                        ____________________________________
+                                        <p>Signature</p>
+                                    </td>
+                                    <td width="50%" height="70px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                        ____________________________________
+                                        <p>Date</p>
+                                    </td>
+                                </tr>
+                            </table>
+                       </div>
+
+                       <p style="margin-top:20px;"><b>Please return to: education@tdcc.ae</b></p>
+
+                  </div>
+              </t>
+          </t>
+        </template>
+
+</odoo>

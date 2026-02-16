@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    <record id="diagnosis_information_action" model="ir.actions.act_window">-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="name">Diagnosis Information</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        <field name="res_model">diagnosis.information</field>-->
+
+<!--    </record>-->
+<!--    <record id="diagnosis_information_tree" model="ir.ui.view">-->
+<!--        <field name="name">diagnosis.information.tree</field>-->
+<!--        <field name="model">diagnosis.information</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                <field name="diag_code"/>-->
+<!--                <field name="diag_description"/>-->
+<!--                <field name="diag_type"/>-->
+<!--                <field name="diag_priority"/>-->
+<!--                <field name="diag_action_code"/>-->
+<!--                <field name="diag_related_group"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+    <record id="diagnosis_information_form" model="ir.ui.view">
+        <field name="name">diagnosis.information.form</field>
+        <field name="model">diagnosis.information</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                    <group>
+                        <group>
+
+                            <field name="diag_code" options="{'no_create': True}"/>
+                            <field name="diag_description" options="{'no_create': True}"/>
+                            <field name="diag_type" options="{'no_create': True}"/>
+
+
+                        </group>
+                        <group>
+                            <field name="dg1_date"/>
+                            <field name="diag_priority"/>
+                            <field name="diag_action_code"/>
+                            <field name="diagnosis_coding_method"/>
+<!--                            <field name="diag_related_group"/>-->
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+<!--    <menuitem id="diagnosis_information_menu"-->
+<!--              action="diagnosis_information_action"-->
+<!--              name="Diagnosis Information"-->
+<!--              parent="kg_nabidh.patient_information_menu"/>-->
+
+</odoo>

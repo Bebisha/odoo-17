@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+    <!-- with attachment when mail send to manual from payment form -->
+    <record id="account_payment_mail_template_without_attachment" model="mail.template">
+        <field name="name">TDCC Payment Send by mail - No attachment</field>
+        <field name="model_id" ref="account.model_account_payment"/>
+        <field name="subject">Payment Received</field>
+        <field name="email_from">${user.partner_id.email or ''}</field>
+        <field name="email_to"></field>
+        <field name="partner_to">${object.partner_id.id}</field>
+        <field name="body_html" type="html">
+            <div>
+            <p>
+                % if object.partner_id.is_student:
+			         Dear ${object.partner_id.father_name or object.partner_id.mother_name or 'Parents'},
+			    % endif
+			    % if not object.partner_id.is_student:
+                     Dear ${object.partner_id.name},
+                % endif
+            </p>
+            <br/><br/>
+                Today we have received amounts as below:<br/><br/>
+
+                Payment Date:- ${object.payment_date}<br/><br/>
+                Receipt No:- ${object.name}<br/><br/>
+                Receipt Amount:- ${object.amount} AED<br/>
+
+            <br/><br/><br/>
+            Thank you and have a lovely day.<br/><br/>
+        </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+    <!-- with attachment when mail send to manual from payment form -->
+<!--    <record id="account_payment_mail_template_with_attachment" model="mail.template">-->
+<!--        <field name="name">TDCC Payment Send by mail - With Attachment</field>-->
+<!--        <field name="model_id" ref="account.model_account_payment"/>-->
+<!--        <field name="subject">Payment Received</field>-->
+<!--        <field name="email_from">{{user.partner_id.email or ''}}</field>-->
+<!--        <field name="email_to"></field>-->
+<!--        <field name="partner_to">{{object.partner_id.id}}</field>-->
+<!--        <field name="report_template" ref="bista_tdcc_operations.tdcc_custom_payment_report"/>-->
+<!--        <field name="report_name">TDCC Payment Receipt</field>-->
+<!--        <field name="body_html" type="html">-->
+<!--            <div>-->
+<!--            <p>-->
+<!--                Dear {{object.partner_id.father_name or object.partner_id.mother_name or 'parents'}},-->
+<!--            </p>-->
+<!--            <br/><br/>-->
+<!--                Today we have charged you for the amounts below:<br/><br/>-->
+
+<!--                Payment Date:- {{object.payment_date}}<br/><br/>-->
+<!--                Receipt No:- {{object.name}}<br/><br/>-->
+<!--                Receipt Amount:- {{object.amount}} AED<br/>-->
+
+<!--            <br/><br/><br/>-->
+<!--            Thank you and have a lovely day.<br/><br/>-->
+<!--        </div>-->
+<!--        </field>-->
+<!--        <field name="auto_delete" eval="False"/>-->
+<!--    </record>-->
+
+    <record id="payment_cancel_mail_template" model="mail.template">
+        <field name="name">Payment Cancel</field>
+        <field name="model_id" ref="account.model_account_payment"/>
+        <field name="subject">Requesting to cancel receipt - ${object.name}</field>
+        <field name="email_from">${user.partner_id.email or ''}</field>
+        <field name="email_to"></field>
+        <field name="body_html" type="html">
+            <div>
+                <p>
+                    ${user.name} have requested payment cancellation.
+                </p>
+                <br/><br/>
+                Payment Date:- ${object.payment_date}<br/><br/>
+                Receipt No:- <b>${object.name}</b><br/><br/>
+                Receipt Amount:- ${object.amount} AED<br/><br/>
+                Cancel Reason:- ${object.cancel_reason}
+                <br/><br/><br/>
+                %if user and user.signature:
+                    ${user.signature | safe}
+                %endif
+            </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+</odoo>

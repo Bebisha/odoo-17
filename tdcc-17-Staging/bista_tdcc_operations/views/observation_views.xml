@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Observation Form -->
+	<record model="ir.ui.view" id="observation_form_form">
+		<field name="name">observation.form.form</field>
+		<field name="model">observation.form</field>
+		<field name="arch" type="xml">
+			<form string="Observation Form">
+				<sheet>
+					<group colspan="4">
+						<field name="name" />
+					</group>
+					<group>
+						<group>
+							<field name="student_id" domain="[('is_student', '=', True)]"
+								options="{'no_create_edit': True}" required="1" />
+							<field name="date" />
+						</group>
+						<group>
+							<field name="observation_no" />
+							<field name="term_id" options="{'no_create_edit': True}" />
+						</group>
+					</group>
+					<label for="learning_observation"
+						string="What did you find out about the child’s learning across any of the areas of learning?" />
+					<field name="learning_observation" nolabel="1" />
+					<label for="child_significant" string="What was significant for the child?" />
+					<field name="child_significant" nolabel="1" />
+					<label for="general" string="General:" />
+					<field name="general" nolabel="1" />
+					<label for="communication"
+						string="Communication and Language (LA, U, S) including child’s comments:" />
+					<field name="communication" nolabel="1" />
+					<label for="physical_dev_mh" string="Physical Development (MH):" />
+					<field name="physical_dev_mh" nolabel="1" />
+					<label for="physical_dev_hsc" string="Physical Development(HSc)" />
+					<field name="physical_dev_hsc" nolabel="1" />
+					<label for="personal_dev"
+						string="Personal, Social and Emotional Development (SC SA, MFB, MR):" />
+					<field name="personal_dev" nolabel="1" />
+					<label for="literacy" string="Literacy (R, W):" />
+					<field name="literacy" nolabel="1" />
+					<label for="mathematics" string="Mathematics (N, SMM):" />
+					<field name="mathematics" nolabel="1" />
+					<label for="understanding_world" string="Understanding the World (PC, W, IT):" />
+					<field name="understanding_world" nolabel="1" />
+					<label for="expressive_art_design" string="Expressive Arts and Design (EMM, I):" />
+					<field name="expressive_art_design" nolabel="1" />
+					<label for="parent_nurse_cmt" string="Contact with parents, including nurses comments:" />
+					<field name="parent_nurse_cmt" nolabel="1" />
+					<label for="achievement"
+						string="Significant progress and achievements identified during the observation period" />
+					<field name="achievement" nolabel="1" />
+					<label for="learning_priorities"
+						string="Learning Priorities identified – next steps / recommendations for home?" />
+					<field name="learning_priorities" nolabel="1" />
+				</sheet>
+			</form>
+		</field>
+	</record>
+r complete traceback
+odoo.tools.convert.ParseError: while parsing /home/klystron-20/Bebisha/odoo/odoo17_latest/odoo1
+	<!-- Observation Form List -->
+	<record model="ir.ui.view" id="observation_form_tree">
+		<field name="name">observation.form.tree</field>
+		<field name="model">observation.form</field>
+		<field name="arch" type="xml">
+			<tree string="Observation Form List">
+				<field name="name" />
+				<field name="student_id" />
+				<field name="date" />
+				<field name="observation_no" />
+				<field name="term_id" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- Observation Form Search -->
+	<record model="ir.ui.view" id="observation_form_search">
+		<field name="name">observation.form.search</field>
+		<field name="model">observation.form</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name" />
+				<field name="observation_no" />
+				<field name="student_id" />
+				<filter name="term_group_by" string="Term" context="{'group_by':'term_id'}" />
+<!--				<filter string="Archived" name="inactive" domain="[('active','=',False)]" />-->
+
+			</search>
+		</field>
+	</record>
+
+	<!-- Observation Form Action -->
+	<record model="ir.actions.act_window" id="observation_form_action">
+		<field name="name">Observation Form</field>
+		<field name="res_model">observation.form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Observation Form Menu -->
+	<!-- <menuitem id="observation_form_menu" action="observation_form_action"
+		parent="bista_tdcc_operations.eip_menu"
+		groups="bista_tdcc_operations.group_tdcc_director,bista_tdcc_operations.group_tdcc_eip_eiip_manager"/> -->
+
+</odoo>

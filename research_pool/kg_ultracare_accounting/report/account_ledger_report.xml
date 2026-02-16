@@ -1,0 +1,258 @@
+<odoo>
+    <data>
+        <template id="account_ledger_template_id">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span>
+                                        P.O. BOX :
+                                    </span>
+                                    <span t-esc="company_zip"/>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>,
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="right">
+                                <span>
+                                    Page
+                                    <span class="page"/>
+                                    of
+                                    <span class="topage"/>
+                                </span>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <b>A/C LEDGER</b>
+                        </center>
+                    </div>
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td>
+                                <span>
+                                    Date Range :
+                                </span>
+                                <span><![CDATA[&nbsp;]]></span>
+                                <span>
+                                    <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    <span><![CDATA[&nbsp;]]></span>to
+                                    <span><![CDATA[&nbsp;]]></span>
+                                    <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table class='table table-borderless table-condensed table-hover'>
+                    <tr width="100%">
+                        <td width="100%"/>
+                    </tr>
+                    <tr width="100%">
+                        <td width="100%"/>
+                    </tr>
+                    <tr width="100%">
+                        <td width="100%"/>
+                    </tr>
+                    <tr width="100%">
+                        <td width="100%"/>
+                    </tr>
+                    <tr width="100%">
+                        <td width="100%"/>
+                    </tr>
+                    <tr width="100%">
+                        <td width="100%"/>
+                    </tr>
+                    <tr width="100%">
+                        <td width="100%"/>
+                    </tr>
+                    <tr width="100%">
+                        <td width="100%"/>
+                    </tr>
+                </table>
+                <t t-foreach="datas" t-as="data">
+                    <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                        <t t-if="data['type'] == 'account'">
+                            <tr width="100%">
+                                <td width="9%" align="left">
+                                    <t t-if="data['account_code'] != 'FALSE'">
+                                        <b>
+                                            <span t-esc="data['account_code']"/>
+                                        </b>
+                                    </t>
+                                </td>
+                                <td width="91%" align="left" colspan="9">
+                                    <t t-if="data['account_name'] != 'FALSE'">
+                                        <b>
+                                            <span t-esc="data['account_name']"/>
+                                        </b>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%" style="font-size:13px;" align="center">
+                                <td width="9%">
+                                    <b>Date</b>
+                                </td>
+                                <td width="15%">
+                                    <b>Doc.Type</b>
+                                </td>
+                                <td width="10%">
+                                    <b>Doc.No.</b>
+                                </td>
+                                <td width="9%">
+                                    <b>Ref.No</b>
+                                </td>
+                                <td width="15%">
+                                    <b>Reference</b>
+                                </td>
+                                <td width="7%">
+                                    <b>Job</b>
+                                </td>
+                                <td width="5%">
+                                    <b>Curr.</b>
+                                </td>
+                                <td width="10%">
+                                    <b>Debit</b>
+                                </td>
+                                <td width="10%">
+                                    <b>Credit</b>
+                                </td>
+                                <td width="10%">
+                                    <b>Balance</b>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid black;;;width:100%">
+                                <td style="border-bottom: 1px solid black;" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                        </t>
+                        <t t-if="data['type'] == 'data'">
+                            <tr width="100%" style="font-size:13px;" align="center">
+                                <td width="9%">
+                                    <span t-esc="data['date']" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                                <td width="15%">
+                                    <span t-esc="data['doc_type']"/>
+                                </td>
+                                <td width="10%">
+                                    <span t-esc="data['doc_no']"/>
+                                </td>
+                                <td width="9%">
+                                    <!--                                <span t-esc="data['ref_no']"/>-->
+                                </td>
+                                <td width="15%">
+                                    <span t-esc="data['reference']"/>
+                                </td>
+                                <td width="7%">
+                                </td>
+                                <td width="5%">
+                                    <b>
+                                        <span t-esc="data['currency']"/>
+                                    </b>
+                                </td>
+                                <td width="10%">
+                                    <t t-if="data['debit']!=0.00">
+                                        <span t-esc="'{:,.2f}'.format(data['debit'])"/>
+                                    </t>
+                                </td>
+                                <td width="10%">
+                                    <t t-if="data['credit']!=0.00">
+                                        <span t-esc="'{:,.2f}'.format(data['credit'])"/>
+                                    </t>
+                                </td>
+                                <td width="10%">
+                                    <t t-if="data['balance']!=0.00">
+                                        <span t-esc="'{:,.2f}'.format(data['balance'])"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                        </t>
+                    </table>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

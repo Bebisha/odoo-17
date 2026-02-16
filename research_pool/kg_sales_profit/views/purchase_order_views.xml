@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="purchase_field_view_form" model="ir.ui.view">
+        <field name="name">purchase.field.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="before">
+                <header>
+                    <button name="request" type="object" string="Request for Approval"
+
+                            class="oe_highlight"/>
+                    <button name="approve" string="Approve" type="object" class="oe_highlight"/>
+
+                    <button name="reject" string="Reject" type="object" class="oe_highlight"
+                    />
+                </header>
+            </xpath>
+            <div class="oe_button_box" position="after">
+                <field name="approval_state" invisible="1"/>
+                <div class="text-end" >
+                    <span class="badge bg-warning text-dark"
+                          >
+                        Approval Pending
+                    </span>
+                    <span class="badge bg-success text-white"
+                          >
+                        Approved
+                    </span>
+                    <span class="badge bg-danger text-white"
+                          >
+                        Rejected
+                    </span>
+                </div>
+                <field name="approvals" readonly="1" widget="approval"/>
+            </div>
+        </field>
+    </record>
+</odoo>

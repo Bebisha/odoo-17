@@ -1,0 +1,138 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="kg_guarantor_segment_tree_view">
+            <field name="name">Guarantor Segment</field>
+            <field name="model">kg.guarantor.segment</field>
+            <field name="arch" type="xml">
+                <!--                <tree create="false" edit="false">-->
+                <tree>
+                    <field name="set_id_gt1"/>
+                    <field name="gurantor_number"/>
+                    <field name="gurantor_name"/>
+
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="kg_guarantor_segment_form_view">
+            <field name="name">Guarantor Segment</field>
+            <field name="model">kg.guarantor.segment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <button name="btn_submit" string="Submit" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+                        <button name="btn_cancel" string="Cancel" type="object" data-hotkey="w"
+                                invisible="state not in ('draft','submited')"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submited"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="set_id_gt1" required="1"/>
+                                <field name="gurantor_number" required="1"/>
+                                <field name="gurantor_name" required="1"/>
+                                <field name="guarantor_spouse_name"/>
+                                <field name="gurantor_addres" required="1"/>
+                            </group>
+                            <group>
+                                <field name="gurantor_phnno_hom" required="1"/>
+                                <field name="gurantor_phnno_business" required="1"/>
+                                <field name="gurantor_dob" required="1"/>
+                                <field name="guarantor_administrative_sex" required="1"/>
+                                <field name="gurantor_type" required="1"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="gurantor_relationship" required="1"/>
+                                <field name="gurantor_ssn" required="1"/>
+                                <field name="gurantor_start_date" required="1"/>
+                                <field name="gurantor_end_date" required="1"/>
+                                <field name="guarantor_priorty"/>
+                                <field name="gurantor_emplyr_name" required="1"/>
+                                <field name="gurantor_employer_addres" required="1"/>
+                                <field name="gurantor_employer_phnno" required="1"/>
+                                <field name="guarantor_emp_id_no"/>
+                            </group>
+                            <group>
+                                <field name="gurantor_emp_status" required="1"/>
+                                <field name="guarantor_org_name"/>
+                                <field name="guarantor_bilng_flag"/>
+                                <field name="guarantor_credit_code"/>
+                                <field name="guarantor_death_date"/>
+                                <field name="guarantor_death_flag"/>
+                                <field name="guarantor_charg_adjst_code"/>
+                                <field name="guarantor_annual_incom"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="guarantor_house_siz"/>
+                                <field name="gurantor_emp_id_no" required="1"/>
+                                <field name="guarantor_martl_status"/>
+                                <field name="gurantor_hire_eff_date" required="1"/>
+                                <field name="emp_stop_date" required="1"/>
+                                <field name="living_depndency"/>
+                                <field name="ambulatory_status"/>
+                                <field name="citizenship"/>
+                                <field name="primary_lang"/>
+                            </group>
+                            <group>
+                                <field name="living_arrangment"/>
+                                <field name="publicity_code"/>
+                                <field name="protection_indicator"/>
+                                <field name="student_indicator"/>
+                                <field name="religion"/>
+                                <field name="mothr_name"/>
+                                <field name="nationality"/>
+                                <field name="ethnic_grp"/>
+                                <field name="contct_persns_name"/>
+                                <field name="contct_persns_contct_no"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="contact_reason"/>
+                                <field name="contact_relationship"/>
+                                <field name="job_title" required="1"/>
+                                <field name="job_code" required="1"/>
+                                <field name="emp_orgnz_name" required="1"/>
+                                <field name="handicap"/>
+                            </group>
+                            <group>
+                                <field name="job_status"/>
+                                <field name="grntr_financl_class"/>
+                                <field name="gratntr_race"/>
+                                <field name="gratntr_brth_place"/>
+                                <field name="vip_indicatr"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <!--                  <div class="o_attachment_preview"/>-->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="kg_guarantor_segment_action_form" model="ir.actions.act_window">
+            <field name="name">Guarantor Segment</field>
+            <field name="res_model">kg.guarantor.segment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

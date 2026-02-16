@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="gender_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Gender</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">gender.form</field>
+
+    </record>
+    <record id="gender_tree" model="ir.ui.view">
+        <field name="name">gender.tree.views</field>
+        <field name="model">gender.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="gender_form" model="ir.ui.view">
+        <field name="name">gender.form.views</field>
+        <field name="model">gender.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="gender_menu"
+              action="gender_action"
+              name="Gender"
+              parent="kg_nabidh.pid_menu"/>
+
+</odoo>

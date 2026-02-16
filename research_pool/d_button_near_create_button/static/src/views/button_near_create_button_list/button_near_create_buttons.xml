@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="d_button_near_create_button.ButtonNearCreateButtonView.Buttons" t-inherit="web.ListView.Buttons"
+       t-inherit-mode="primary" owl="1">
+        <xpath expr="//div[@t-if='props.showButtons']" position="after">
+            <button type="button" t-on-click="onCreateProject" class="btn btn-primary">
+                Create project here as well
+            </button>
+            <!-- Dropdown for salespersons -->
+          <select class="form-select" t-model="state.selectedProjectId" t-on-change="selectProject">
+                <option value="">Select a project...</option>
+                <t t-foreach="state.projects" t-as="project" t-key="project.id">
+                    <option t-att-value="project.id" t-esc="project.name"></option>
+                </t>
+            </select>
+            <div t-if="state.selectedUser">
+                <!-- Render CRM leads for the selected user here -->
+                <p>CRM Leads for {{ state.selectedUser }}</p>
+            </div>
+        </xpath>
+    </t>
+</templates>

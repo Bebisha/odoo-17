@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="treatment_refusal_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Treatment Refusal</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">treatment.refusal</field>
+
+    </record>
+    <record id="treatment_refusal_tree" model="ir.ui.view">
+        <field name="name">treatment.refusal.tree.views</field>
+        <field name="model">treatment.refusal</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="treatment_refusal_form" model="ir.ui.view">
+        <field name="name">treatment.refusal.form.views</field>
+        <field name="model">treatment.refusal</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="treatment_refusal_menu"
+              action="treatment_refusal_action"
+              name="Treatment Refusal"
+              parent="kg_nabidh.rxa_menu"/>
+
+</odoo>

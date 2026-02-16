@@ -1,0 +1,141 @@
+<odoo>
+    <data>
+
+         <record id="hr_salary_rule_sick_deduction" model="hr.salary.rule">
+            <field name="name">Sick Deduction</field>
+            <field name="code">SKD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -payslip.sick_deduction_amount</field>
+        </record>
+
+        <record id="hr_salary_rule_housing_allowance" model="hr.salary.rule">
+            <field name="name">Housing Allowance</field>
+            <field name="code">HRA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.housing_allowance</field>
+        </record>
+
+        <record id="hr_salary_rule_transport_allowance" model="hr.salary.rule">
+            <field name="name">Transport Allowance</field>
+            <field name="code">TRA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.transport_allowance</field>
+        </record>
+
+        <record id="hr_salary_rule_utilities_allowance" model="hr.salary.rule">
+            <field name="name">Utilities Allowance</field>
+            <field name="code">UTA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.utilities_allowance</field>
+        </record>
+
+        <record id="hr_salary_rule_offshore_allowance" model="hr.salary.rule">
+            <field name="name">Offshore Allowance</field>
+            <field name="code">OFA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.offshore_allowance * payslip.offshore_duration</field>
+        </record>
+
+        <record id="hr_salary_rule_other_allowance" model="hr.salary.rule">
+            <field name="name">Other Allowance</field>
+            <field name="code">OTA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.other_allowance</field>
+        </record>
+
+        <record id="hr_salary_rule_ssd_employee" model="hr.salary.rule">
+            <field name="name">Social Security Deduction (Employee) 7%</field>
+            <field name="code">SSDE7</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -(contract.wage + contract.ticket_flight_allowance * payslip.flight_ticket_duration + contract.hotel_allowance * payslip.hotel_duration + contract.housing_allowance + contract.transport_allowance + contract.utilities_allowance + contract.offshore_allowance * payslip.offshore_duration + contract.other_allowance - payslip.sick_deduction_amount) * 0.07</field>
+        </record>
+
+        <record id="hr_salary_rule_ssd_employer" model="hr.salary.rule">
+            <field name="name">Social Security Deduction (Employer) 10.5%</field>
+            <field name="code">SSDE10</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -(contract.wage + contract.ticket_flight_allowance * payslip.flight_ticket_duration + contract.hotel_allowance * payslip.hotel_duration + contract.housing_allowance + contract.transport_allowance + contract.utilities_allowance + contract.offshore_allowance * payslip.offshore_duration + contract.other_allowance - payslip.sick_deduction_amount) * 0.105</field>
+        </record>
+
+        <record id="hr_salary_rule_ssd_employer_1" model="hr.salary.rule">
+            <field name="name">Social Security Deduction (Employer) 1%</field>
+            <field name="code">SSDE1</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -(contract.wage + contract.ticket_flight_allowance * payslip.flight_ticket_duration + contract.hotel_allowance * payslip.hotel_duration + contract.housing_allowance + contract.transport_allowance + contract.utilities_allowance + contract.offshore_allowance * payslip.offshore_duration + contract.other_allowance - payslip.sick_deduction_amount) * 0.01</field>
+        </record>
+
+        <record id="hr_salary_rule_jsd_employee" model="hr.salary.rule">
+            <field name="name">Job Security Deduction (Employee) 1%</field>
+            <field name="code">JSDE1</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -(contract.wage + contract.ticket_flight_allowance * payslip.flight_ticket_duration + contract.hotel_allowance * payslip.hotel_duration + contract.housing_allowance + contract.transport_allowance + contract.utilities_allowance + contract.offshore_allowance * payslip.offshore_duration + contract.other_allowance - payslip.sick_deduction_amount) * 0.01</field>
+        </record>
+
+        <record id="hr_salary_rule_jsd_employer" model="hr.salary.rule">
+            <field name="name">Job Security Deduction (Employer) 1%</field>
+            <field name="code">JSDEM1</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -(contract.wage + contract.ticket_flight_allowance * payslip.flight_ticket_duration + contract.hotel_allowance * payslip.hotel_duration + contract.housing_allowance + contract.transport_allowance + contract.utilities_allowance + contract.offshore_allowance * payslip.offshore_duration + contract.other_allowance - payslip.sick_deduction_amount) * 0.01</field>
+        </record>
+        <record id="hr_salary_rule_jsd_employer" model="hr.salary.rule">
+            <field name="name">Unpaid</field>
+            <field name="code">UP101</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (((
+                contract.wage +
+                contract.housing_allowance +
+                contract.transport_allowance +
+                contract.utilities_allowance
+                ) + (
+                contract.wage +
+                contract.housing_allowance +
+                contract.transport_allowance +
+                contract.utilities_allowance
+                ) * 0.07 + (
+                    contract.wage +
+                    contract.housing_allowance +
+                    contract.transport_allowance +
+                    contract.utilities_allowance
+                ) * 0.01 + contract.offshore_allowance
+                + contract.other_allowance)/30)*payslip.unpaid_days
+            </field>
+        </record>
+
+    </data>
+</odoo>

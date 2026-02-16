@@ -1,0 +1,99 @@
+<section class="oe_container">
+	<div class="oe_row oe_spaced">
+		<h1 class="oe_slogan" style="color: rgb(28, 113, 216);">How to create button near create button on list view odoo 17</h1>
+		<p class="">Here is a module which is a quick tutorial to learn to create button near create button on list view</p>
+		<div class="oe_demo oe_screenshot">
+			<img src="overview.png" title="Button Near Create Button" alt="Button Near Create Button">
+		</div>
+	</div>
+</section>
+
+<section class="oe_container pt-3">
+	<div class="oe_row oe_spaced">
+		<h2 class="oe_slogan" style="color: rgb(28, 113, 216);">STEP 1</h2>
+		<p class="">First we start with JS Code</p>
+		<pre>
+/** @odoo-module */
+
+import { useService } from "@web/core/utils/hooks";
+import { ListController } from "@web/views/list/list_controller";
+
+export class ButtonNearCreateButtonController extends ListController {
+	setup() {
+		super.setup();
+		this.orm = useService("orm");
+	}
+
+	async onCreateProject() {
+		let project_data = { name : 'Test'};
+		// Both way will create project
+		await this.orm.call('project.project', 'action_create_project', [project_data], {}); // this one call a python method that we define in the project model
+		await this.orm.create("project.project", [project_data], {}); // this one call the ORM create method that Odoo already define for us
+		await this.model.root.load();
+		this.model.notify();
+	}
+
+}
+
+</pre>
+	</div>
+	<p>Extend logic from the List Controller, note most business logic are implemented here, like the logic of the create button for example so in order to have our logic we extend its from here</p>
+	<p>The method onCreateProject() is going to assign to a button that we are going to create then when press that button, we call a method in the js code or the ORM 'create' method</p>
+</section>
+
+<section class="oe_container pt-3">
+	<div class="oe_row oe_spaced">
+		<h2 class="oe_slogan" style="color: rgb(28, 113, 216);">STEP 2</h2>
+		<p class="">View inheritance to add button near create button</p>
+		<p>Create a xml file , you can name whatever you like, and the xml need to be like this</p>
+		<pre>
+&lttemplates id="template" xml:space="preserve">
+
+	&ltt t-name="d_button_near_create_button.ButtonNearCreateButtonView.Buttons" t-inherit="web.ListView.Buttons" t-inherit-mode="primary" owl="1">
+		&ltxpath expr="//div[@t-if='props.showButtons']" position="after">
+			&ltbutton type="button" t-on-click="onCreateProject" class="btn btn-primary">
+				Create project here as well
+			&lt/button>
+		&lt/xpath>
+	&lt/t>
+
+&lt/templates>
+		</pre>
+	</div>
+</section>
+
+<section class="oe_container pt-3">
+	<div class="oe_row oe_spaced">
+		<h2 class="oe_slogan" style="color: rgb(28, 113, 216);">STEP 3</h2>
+		<p class="">Register using registry in order to tell Odoo to recognize our code</p>
+		<pre>
+/** @odoo-module */
+
+import { listView } from "@web/views/list/list_view";
+import { registry } from "@web/core/registry";
+import { ButtonNearCreateButtonController as Controller } from './button_near_create_button_controller';
+
+export const ButtonNearCreateButtonView = {
+    ...listView,
+    Controller,
+    buttonTemplate: 'd_button_near_create_button.ButtonNearCreateButtonView.Buttons',
+};
+
+registry.category("views").add("button_near_create_button", ButtonNearCreateButtonView);
+		</pre>
+	</div>
+</section>
+
+<section class="oe_container pt-3">
+	<div class="oe_row oe_spaced">
+		<h2 class="oe_slogan" style="color: rgb(28, 113, 216);">STEP 4</h2>
+		<p class="">And most importantly is to remember to define js code in manifest. And you good to go</p>
+		<pre>
+'assets': {
+        'web.assets_backend': [
+            '/d_button_near_create_button/static/src/views/*/*',
+        ],
+    },
+		</pre>
+	</div>
+</section>

@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+<!--        <record id="ac_aging_analysis_report_menu_action" model="ir.actions.act_window">-->
+<!--            <field name="name">AC Aging Analysis</field>-->
+<!--            <field name="res_model">ac.aging.analysis.report.wizard</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="target">new</field>-->
+<!--        </record>-->
+
+<!--        <menuitem id="menu_ac_aging_analysis_report" action="ac_aging_analysis_report_menu_action"-->
+<!--                  name="AC Aging Analysis" parent="kg_ultracare_accounting.menu_reporting_config_accounting"/>-->
+
+
+        <record id="ac_aging_analysis_report_wizard" model="ir.ui.view">
+            <field name="name">AC Aging Analysis Wizard</field>
+            <field name="model">ac.aging.analysis.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                            <field name="period_length_type" readonly="1"/>
+                            <field name="result_selection" readonly="1"/>
+                            <field name="period_length_months" string="Period Length (months)" invisible="1"/>
+                            <field name="un_even" invisible="1"/>
+                            <field name="period_length"
+                                   attrs="{'invisible': ['|',('un_even', '=', True),('period_length_type', '=', 'months')]}"/>
+
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_ac_aging_analysis_report"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

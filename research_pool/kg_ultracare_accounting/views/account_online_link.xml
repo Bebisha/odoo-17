@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="kg_account_online_link_inherit" model="ir.ui.view">
+            <field name="name">account.online.link.inherit</field>
+            <field name="model">account.online.link</field>
+            <field name="inherit_id" ref="account_online_synchronization.account_online_link_view_form"/>
+            <field name="arch" type="xml">
+                <field name="last_refresh" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="next_refresh" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="kg_account_online_link_inherit_tree" model="ir.ui.view">
+            <field name="name">account.online.link.inherit.tree</field>
+            <field name="model">account.online.link</field>
+            <field name="inherit_id" ref="account_online_synchronization.account_online_link_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="last_refresh" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="next_refresh" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

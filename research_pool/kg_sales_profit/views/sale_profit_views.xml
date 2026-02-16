@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_sale_profit_report_tree" model="ir.ui.view">
+            <field name="name">sale.profit.report.tree</field>
+            <field name="model">sale.profit</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Profit Report" default_order="net_margin_amount desc">
+
+<!--                    <field name="name"/>-->
+                    <field name="product_id"/>
+                    <field name="code"/>
+                    <field name="date"/>
+                    <field name="unit_cost"/>
+                    <field name="total_cost"/>
+                    <field name="sales_price"/>
+                    <field name="quantity"/>
+                    <field name="proposed_amount"/>
+                    <field name="invoiced_amount"/>
+                    <field name="paid_amount"/>
+                    <field name="sales_commission"/>
+                    <field name="hr_cost"/>
+                    <field name="net_margin_percent"  widget="progressbar"/>
+                    <field name="net_margin_amount"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_sale_profit_report_graph" model="ir.ui.view">
+            <field name="name">sale.profit.report.graph</field>
+            <field name="model">sale.profit</field>
+            <field name="arch" type="xml">
+                <graph string="Sale Profit Graph" type="bar">
+                    <field name="date" interval="month"/>
+                    <field name="net_margin_amount" type="line" operator="sum"/>
+                    <field name="invoiced_amount" type="line" operator="avg"/>
+
+                </graph>
+            </field>
+        </record>
+
+
+        <record id="search_sale_profit_report" model="ir.ui.view">
+            <field name="name">sale.profit.report.search</field>
+            <field name="model">sale.profit</field>
+            <field name="arch" type="xml">
+                <search string="Search Sale Profit Report">
+                    <filter name="name" string="Name" domain="[]"/>
+                    <filter name="code" string="Code" domain="[]"/>
+                    <filter name="date" string="Date"
+                            domain="[('date', '&gt;=', context_today().strftime('%%Y-%%m-01')), ('date', '&lt;=', context_today().strftime('%%Y-%%m-%%d'))]"
+                            context="{'group_by': 'date'}"/>
+                    <filter name="unit_cost" string="Unit Cost" domain="[]"/>
+                    <filter name="total_cost" string="Total Cost" domain="[]"/>
+                    <filter name="sales_price" string="Sales Price" domain="[]"/>
+                    <filter name="quantity" string="Quantity" domain="[]"/>
+                    <filter name="proposed_amount" string="Proposed Amount" domain="[]"
+                    />
+                    <filter name="invoiced_amount" string="Invoiced Amount" domain="[]"
+                    />
+                    <!-- Add filters for other fields -->
+                    <filter name="paid_amount" string="Paid Amount" domain="[]"/>
+                    <filter name="sales_commission" string="Sales Commission" domain="[]"
+                    />
+                    <filter name="hr_cost" string="HR Cost" domain="[]"/>
+                    <filter name="net_margin_percent" string="Net Margin(%)" domain="[]"
+                    />
+                    <filter name="net_margin_amount" string="Net Margin Amount" domain="[]"
+                    />
+                    <group string="Group By">
+                        <filter string="Year" name="date" context="{'group_by': 'date'}"/>
+                         <filter string="Product name" name="product_id" context="{'group_by': 'product_id'}"/>
+                         <filter string="Net Profit " name="net_margin_amount" context="{'group_by': 'net_margin_amount'}"/>
+                        <!--                        <filter string="Product" name="product_id" context="{'group_by': 'product_id'}"/>-->
+                        <!--                        <filter string="PO number" name="po_number" context="{'group_by': 'po_number'}"/>-->
+
+                    </group>
+                    <!--                                        <group expand="0" string="Year">-->
+                    <!--                                            <filter string="Company" name="name" context="{'group_by': name}"/>-->
+                    <!--                                        </group>-->
+                </search>
+            </field>
+        </record>
+        <!--        <record id="model_id_view_search" model="ir.ui.view">-->
+        <!--        <field name="name">model.id.view.search</field>-->
+        <!--        <field name="model">model_id</field>-->
+        <!--        <field name="arch" type="xml">-->
+        <!--            <search>-->
+        <!--                <field name="field1"/>-->
+        <!--                <field name="field2"/>-->
+        <!--                <filter string="Archived" name="active" domain="[('active', '=',False)]"/>-->
+        <!--            </search>-->
+        <!--        </field>-->
+        <!--    </record>-->
+
+        <!-- Define an action for opening sale.profit records -->
+<!--        <record id="menu_action_sale_profit_report" model="ir.actions.act_window">-->
+<!--            <field name="name">Sale Profit Report</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">sale.profit</field>-->
+<!--            <field name="view_mode">tree,graph</field>-->
+<!--            <field name="view_id" ref="view_sale_profit_report_tree"/>-->
+<!--            <field name="search_view_id" ref="search_sale_profit_report"/>-->
+<!--            <field name="context">{"search_default_date":1, "group_by": "date:year"}</field>-->
+<!--            <field name="domain">[]</field>-->
+<!--        </record>-->
+
+
+        <record id="sales_profit_menu_actions" model="ir.actions.server">
+            <field name="name">Sales Profit</field>
+            <field name="model_id" ref="kg_sales_profit.model_sale_profit"/>
+            <field name="state">code</field>
+            <field name="code">action = model.sale_profit_report()</field>
+
+        </record>
+
+
+        <menuitem id="main_menuitem_sale_profit" parent="sale.sale_menu_root" name="Sales Profit" sequence="1"
+                  action="sales_profit_menu_actions"/>
+    </data>
+</odoo>

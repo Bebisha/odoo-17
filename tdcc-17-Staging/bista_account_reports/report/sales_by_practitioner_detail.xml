@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Template for Sales By practitioner with detail -->
+
+    <template id="sales_by_prititioner_detail">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <t t-set="total" t-value="0" />
+                    <div>
+                        <center>
+                            <b>
+                                <t t-esc="get_title" />
+                            </b>
+                        </center>
+                    </div>
+                    <div class="row" style="margin-top:30px;">
+                        <style>
+                            th {
+                            border-bottom: 1px solid black;
+                            }
+                        </style>
+                        <table class="table table-border" width="100%">
+                            <thead>
+                                <th>Date</th>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Clinic</th>
+                                <th>Service</th>
+                                <th>Practitioner</th>
+                                <th>Total</th>
+                                <th>Receipt</th>
+                                <th>Balance</th>
+                            </thead>
+                            <tbody>
+                                <t t-set="sale_total" t-value="0" />
+                                <t t-set="receipt_total" t-value="0" />
+                                <!--<t t-set="balance_total" t-value="0" />-->
+                                <t t-set="output" t-value="get_data_from_report" />
+                                <tr t-foreach="output.get('res')" t-as="data">
+                                    <td>
+                                        <span t-esc="data.get('date')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('id')" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('client_name')" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('clinic')" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('service')" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('physician')" />
+                                    </td>
+                                    <td>
+                                        <t t-if="data.get('move_type') == 'out_refund'">
+                                            <t t-if="data.get('total')">
+                                                <span t-esc="data.get('total')" />
+                                                <t t-set="sale_total" t-value="sale_total + data.get('total')" />
+                                            </t>
+
+                                        </t>
+                                        <t t-else="">
+                                            <t t-if="data.get('total')">
+                                                <span t-esc="data.get('total')" />
+                                                <t t-set="sale_total" t-value="sale_total + data.get('total')" />
+                                            </t>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-if="data.get('move_type') == 'out_refund'">
+                                            <t t-if="data.get('receipt')">
+                                                <span t-esc="data.get('receipt')" />
+                                                <t t-set="receipt_total" t-value="receipt_total + data.get('receipt')" />
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <t t-if="data.get('receipt')">
+                                                <span t-esc="data.get('receipt')" />
+                                                <t t-set="receipt_total" t-value="receipt_total + data.get('receipt')" />
+                                            </t>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-if="data.get('move_type') == 'out_refund'">
+                                            0
+                                        </t>
+                                        <t t-else="">
+                                            <span t-esc="data.get('balance')" />
+                                            <!--<t t-set="balance_total" t-value="balance_total + data.get('balance')" />-->
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tr>
+                                <td colspan="6" align="right">
+                                    <b>Total Sales</b>
+                                </td>
+                                <td>
+                                    <b>
+                                        <t t-esc="'%.2f'% sale_total" />
+                                    </b>
+                                </td>
+                                <td>
+                                    <b>
+                                        <t t-esc="'%.2f'% (receipt_total - output.get('balance'))" />
+                                    </b>
+                                </td>
+                                <td>
+                                    <b>
+                                        <t t-esc="'%.2f'% output.get('balance')" />
+                                    </b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

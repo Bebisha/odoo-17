@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="transcription_document_header_form">
+        <field name="name">transcription.document.header.form</field>
+        <field name="model">transcription.document.header</field>
+        <field name="arch" type="xml">
+            <form string="Transcription Document Header">
+                <sheet>
+
+                    <group>
+
+                        <field name="documents_type" options="{'no_create': True}"/>
+                        <field name="activity_date_time"/>
+                        <field name="unique_file_number"/>
+                        <field name="unique_document_number"/>
+                        <field name="document_completion_status_id"/>
+                        <field name="transcription_date_time"/>
+                        <field name="document_availability_status_id"/>
+                        <field name="activity_provider_code"/>
+                        <field name="first_name"/>
+                        <field name="last_name"/>
+                        <field name="originator_code_name"/>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

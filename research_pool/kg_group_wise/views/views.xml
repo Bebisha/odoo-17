@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="kg_branch_tree">
+      <field name="name">kg_branch tree</field>
+      <field name="model">kg_branch</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="name" required="1"/>
+          <field name="company_id" readonly="1"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="kg_branch_action_window">
+      <field name="name">Branches</field>
+      <field name="res_model">kg_branch</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+        <menuitem name="Branches" id="kg_branch_menu" parent="base.menu_users"
+              action="kg_branch_action_window"/>
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="kg_group_wise.action_server">
+      <field name="name">kg_group_wise server</field>
+      <field name="model_id" ref="model_kg_group_wise_kg_group_wise"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="kg_group_wise" id="kg_group_wise.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="kg_group_wise.menu_1" parent="kg_group_wise.menu_root"/>
+    <menuitem name="Menu 2" id="kg_group_wise.menu_2" parent="kg_group_wise.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="kg_group_wise.menu_1_list" parent="kg_group_wise.menu_1"
+              action="kg_group_wise.action_window"/>
+    <menuitem name="Server to list" id="kg_group_wise" parent="kg_group_wise.menu_2"
+              action="kg_group_wise.action_server"/>
+-->
+  </data>
+</odoo>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_time_off_form" name="Portal Time Off Form">
+        <t t-call="website.layout">
+            <style>
+                body {
+                    background-image: url('/kg_portal_hrms/static/description/img/6263624_3235815.jpeg');
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    height: 100vh;
+                    margin: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: Arial, sans-serif;
+                    color: #fff;
+                }
+                .form-container {
+                    background: rgba(0, 0, 0, 0.5);
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    width: 100%;
+                    max-width: 600px;
+                    box-sizing: border-box;
+                }
+                .form-container h1 {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                .form-container .form-group {
+                    margin-bottom: 15px;
+                }
+                .form-container label {
+                    display: block;
+                    margin-bottom: 5px;
+                }
+                .form-container input,
+                .form-container select,
+                .form-container textarea,
+                .form-container button {
+                    width: 100%;
+                    padding: 10px;
+                    border-radius: 5px;
+                    border: none;
+                    margin-bottom: 10px;
+                }
+                .form-container button {
+                    background-color: #007bff;
+                    color: white;
+                    cursor: pointer;
+                }
+                .form-container button:hover {
+                    background-color: #0056b3;
+                }
+                /* Hide attachment field by default */
+                #attachment_group {
+                    display: none;
+                }
+            </style>
+            <div class="container form-container">
+                <h1>Request Time Off</h1>
+                <form id="time_off_form" action="/portal/time_off_form/submit" method="post">
+                    <br/>
+                    <div class="form-group">
+                        <label for="employee_id">Employees</label>
+                        <input style="width:500px;" type="text" name="employee_id" t-att-value="employee_id"
+                               class="form-control" required="1"/>
+                    </div>
+                    <br/>
+
+                    <div class="form-group">
+                        <label for="holiday_status_id">Time Off Type</label>
+                        <select id="holiday_status_id" style="width:500px;" name="holiday_status_id" class="form-control link-style">
+                            <t t-foreach="leave_types" t-as="leave">
+                                <option t-att-value="leave.name">
+                                    <t t-esc="leave.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+
+                    <!-- Hidden attachment field -->
+                    <div class="form-group" id="attachment_group">
+                        <label for="attachment">Attachment</label>
+                        <input style="width:500px;" type="file" name="attachment" id="attachment" class="form-control"/>
+                    </div>
+
+                    <br/>
+                    <div class="form-group">
+                        <label for="start_date">Start Date</label>
+                        <input style="width:500px;" type="date" id="start_date" name="start_date" class="form-control"
+                               required="1"/>
+                    </div>
+                    <br/>
+
+                    <div class="form-group">
+                        <label for="end_date">End Date</label>
+                        <input style="width:500px;" type="date" id="end_date" name="end_date" class="form-control"
+                               required="1"/>
+                    </div>
+                    <br/>
+
+                    <div class="form-group">
+                        <label for="end_date">Duration</label>
+                        <input style="width:500px;" type="text" id="number_of_days_display"
+                               name="number_of_days_display" class="form-control"
+                               readonly="1"/>
+                    </div>
+                    <div id="date_error_message" style="color: red;"/>
+                    <br/>
+
+                    <div class="form-group">
+                        <label for="reason">Description</label>
+                        <textarea style="width:500px;" name="reason" class="form-control" required="1"/>
+                    </div>
+                    <br/>
+
+                    <button style="width:500px;" type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <!-- Include JavaScript -->
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var holidayStatusSelect = document.getElementById('holiday_status_id');
+                        var attachmentGroup = document.getElementById('attachment_group');
+
+                        // Function to toggle attachment field
+                        function toggleAttachmentField() {
+                            var selectedValue = holidayStatusSelect.value;
+                            if (selectedValue === 'SpecificValue') { // Replace 'SpecificValue' with the actual value that should show the attachment field
+                                attachmentGroup.style.display = 'block';
+                            } else {
+                                attachmentGroup.style.display = 'none';
+                            }
+                        }
+
+                        // Initial check
+                        toggleAttachmentField();
+
+                        // Listen for changes in the select field
+                        holidayStatusSelect.addEventListener('change', toggleAttachmentField);
+                    });
+                </script>
+            </div>
+        </t>
+    </template>
+
+    <template id="timeoff_portal_thanks" name="Employee Timeoff Thanks">
+        <t t-call="website.layout">
+            <style>
+                body {
+                    background-image: url('/kg_portal_hrms/static/description/img/image1.png');
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    height: 100vh;
+                    margin: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: Arial, sans-serif;
+                    color: #fff;
+                }
+                .thanks-container {
+                    background: rgba(0, 0, 0, 0.5); /* Dark overlay for better readability */
+                    padding: 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    width: 100%;
+                    max-width: 600px;
+                    box-sizing: border-box;
+                    text-align: center;
+                }
+                .thanks-container h2 {
+                    background-color: #ACD793;
+                    padding: 15px;
+                    border-radius: 5px;
+                    color: #333;
+                }
+                .thanks-container p {
+                    margin-top: 15px;
+                    font-size: 18px;
+                }
+            </style>
+            <div class="container thanks-container">
+                <h2 style="background-color:#ACD793;" align="center">Your Time Off request is successful !!</h2>
+                <p align="center">We have received your request and will get back to you soon.</p>
+            </div>
+        </t>
+    </template>
+</odoo>

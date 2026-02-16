@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="approval_type_tree">
+            <field name="name">Approval Type</field>
+            <field name="model">approval.type</field>
+            <field name="arch" type="xml">
+                <tree string="Approval Type Tree">
+                    <field name="name"/>
+                    <field name="user_ids"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="approval_type_form">
+            <field name="name">Approval Type Form</field>
+            <field name="model">approval.type</field>
+            <field name="arch" type="xml">
+                <form string="Approval Type Form">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="user_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="approval_type_menu_action" model="ir.actions.act_window">
+            <field name="name">Approval Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">approval.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The Approval Type</p>
+            </field>
+        </record>
+        <menuitem id="approval_type" name="Approval Type" parent="account.menu_finance_configuration"
+                  action="approval_type_menu_action" />
+    </data>
+</odoo>
+

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Observation PaperFormat -->
+        <record model="report.paperformat"
+            id="observation_form_paperformat">
+            <field name="name">Observation Form Paperformat</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- Observation Report Action -->
+        <record id="observation_report_action" model="ir.actions.report">
+            <field name="name">Observation Form</field>
+            <field name="model">observation.form</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_operations.report_observation_form_template</field>
+            <field name="report_file">bista_tdcc_operations.report_observation_form_template</field>
+            <field name="paperformat_id" ref="bista_tdcc_operations.observation_form_paperformat"/>
+            <field name="binding_type">report</field>
+        </record>
+<!--        <report id="observation_report_action" model="observation.form"-->
+<!--            string="Observation Form"-->
+<!--            name="bista_tdcc_operations.report_observation_form_template"-->
+<!--            file="bista_tdcc_operations.report_observation_form_template"-->
+<!--            report_type="qweb-pdf" />-->
+
+<!--        &lt;!&ndash; Add Paperformat in Report Action &ndash;&gt;-->
+<!--        <record model="ir.actions.report"-->
+<!--            id="bista_tdcc_operations.observation_report_action">-->
+<!--            <field name="paperformat_id"-->
+<!--                ref="bista_tdcc_operations.observation_form_paperformat" />-->
+<!--        </record>-->
+
+        <!-- Define Header and Footer -->
+        <template id="observation_form_header_footer">
+            <t t-set="company" t-value="res_company.sudo()" />
+            <div class="header">
+                <div class="row mb8">
+                    <div class="col-6">
+                        <img t-if="company.logo"
+                            t-att-src="image_data_uri(company.logo)" alt="Logo" height="150" />
+                    </div>
+                    <div class="col-6 text-right mb4">
+                        <img src="/bista_tdcc_operations/static/src/img/second.jpg"
+                            height="150" />
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div style="border-top: 1px solid black;">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <b>
+                                <span t-esc="company.name" style="font-size: 10pt;" />
+                            </b>
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <span style="font-size: 10pt;">PO Box</span>
+                            <span t-esc="company.zip" style="font-size: 10pt;" />
+                            <span t-esc="company.state_id.name" style="font-size: 12pt;" />,UAE&amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <span style="font-size: 10pt;">Call &amp;nbsp;</span>
+                            <span t-esc="company.phone" style="font-size: 12pt;" />
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <span t-esc="company.email" style="font-size: 12pt;" />
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <b>
+                                <span t-esc="company.website" style="font-size: 10pt;" />
+                            </b>
+                        </li>
+                    </ul>
+                    <div class="text-muted">
+                        Page:
+                        <span class="page" />
+                        of
+                        <span class="topage" />
+                    </div>
+                </div>
+            </div>
+            <div class="article">
+                <t t-raw="0" />
+            </div>
+        </template>
+
+        <!-- Main Observation Report Template -->
+        <template id="report_observation_form_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="bista_tdcc_operations.report_observation_form_document"
+                        t-lang="doc.student_id.lang" />
+                </t>
+            </t>
+        </template>
+
+        <!-- Document Observation Report -->
+        <template id="report_observation_form_document">
+            <t t-set="doc"
+                t-value="doc.with_context({'lang':doc.student_id.lang})" />
+            <t t-call="bista_tdcc_operations.observation_form_header_footer">
+                <div class="page">
+                    <div class="oe_structure" />
+                    <p style="text-align:center;color:black;font-weight:bold;">OBSERVATION FORM</p>
+                    <table class="table table-bordered"
+                        style="font-family: Arial; font-size: 14pt;text-align:justify;">
+                        <colgroup>
+                            <col width="25%" />
+                            <col width="25%" />
+                            <col width="15%" />
+                            <col width="35%" />
+                        </colgroup>
+                        <tr>
+                            <th style="border-color:black;" colspan="3">
+                                Child’s Name :
+                                <span t-field="doc.student_id.name"
+                                    style="font-weight:normal;padding-left:15px;" />
+                            </th>
+
+                            <th style="border-color:black;" colspan="1">
+                                Observation No:
+                                <span t-field="doc.observation_no"
+                                    style="font-weight:normal;padding-left:15px;" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="border-color:black;" colspan="2">
+                                Date:
+                                <span t-field="doc.date"
+                                    style="font-weight:normal;padding-left:15px;" />
+                            </th>
+                            <th style="border-color:black;" colspan="2">
+                                Term:
+                                <span t-field="doc.term_id.name"
+                                    style="font-weight:normal;padding-left:15px;" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="border-color:black;" height="90px" colspan="4">
+                                What did you find out about the child’s learning across any of
+                                the areas of learning?
+                                <br />
+                                <span t-field="doc.learning_observation"
+                                    style="font-weight:normal;" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="border-color:black;" height="90px" colspan="4">
+                                What was significant for the child?
+                                <br />
+                                <span t-field="doc.child_significant"
+                                    style="font-weight:normal;" />
+                            </th>
+                        </tr>
+                        <tr style="page-break-inside:avoid;">
+                            <th style="border-color:black;" height="140px" colspan="4">
+                                General:
+                                <br />
+                                <span t-field="doc.general" style="font-weight:normal;" />
+                            </th>
+                        </tr>
+                        <tr style="page-break-inside:avoid;">
+                            <th style="border-color:black;" height="160px" colspan="4">
+                                Communication and Language (LA, U, S) including child’s comments:
+                                <br />
+                                <span t-field="doc.communication"
+                                    style="font-weight:normal;" />
+                            </th>
+                        </tr>
+                        <tr style="page-break-inside:avoid;">
+                            <th style="border-color:black;" height="140px" colspan="4">
+                                Physical Development (MH):
+                                <br />
+                                <span t-field="doc.physical_dev_mh"
+                                    style="font-weight:normal;" />
+                            </th>
+                        </tr>
+                        <tr style="page-break-inside:avoid;">
+                            <th style="border-color:black;" height="160px" colspan="2">
+                                Physical Development (HSc):
+                                <br />
+                                <span t-field="doc.physical_dev_hsc"
+                                    style="font-weight:normal;" />
+                            </th>
+                            <th style="border-color:black;" height="160px" colspan="2">
+                                Personal, Social and Emotional Development (SC SA, MFB, MR):
+                                <br />
+                                <span t-field="doc.personal_dev" style="font-weight:normal;" />
+                            </th>
+                        </tr>
+                        <tr style="page-break-inside:avoid;">
+                            <th style="border-color:black;" height="220px" colspan="2">
+                                Literacy (R, W):
+                                <br />
+                                <span t-field="doc.literacy" style="font-weight:normal;" />
+                            </th>
+                            <th style="border-color:black;" height="220px" colspan="2">
+                                Mathematics (N, SMM):
+                                <br />
+                                <span t-field="doc.mathematics" style="font-weight:normal;" />
+                            </th>
+                        </tr>
+                        <tr style="page-break-inside:avoid;">
+                            <th style="border-color:black;" height="220px" colspan="2">
+                                Understanding the World (PC, W, IT):
+                                <br />
+                                <span t-field="doc.understanding_world"
+                                    style="font-weight:normal;" />
+                            </th>
+                            <th style="border-color:black;" height="220px" colspan="2">
+                                Expressive Arts and Design (EMM, I):
+                                <br />
+                                <span t-field="doc.expressive_art_design"
+                                    style="font-weight:normal;" />
+                            </th>
+                        </tr>
+                        <tr style="page-break-inside:avoid;">
+                            <th style="border-color:black;" height="280px" colspan="4">
+                                Contact with parents, including nurses comments:
+                                <span style="font-weight:normal;">
+                                    (name of educator / therapist, summary of discussion/s and actions)
+                                </span>
+                                <br />
+                                <span t-field="doc.parent_nurse_cmt"
+                                    style="font-weight:normal;" />
+                            </th>
+                        </tr>
+                        <tr style="page-break-inside:avoid;">
+                            <th style="border-color:black;" height="250px" colspan="2">
+                                Significant progress and achievements identified during the
+                                observation period:
+                                <br />
+                                <span t-field="doc.achievement" style="font-weight:normal;" />
+                            </th>
+                            <th style="border-color:black;" height="250px" colspan="2">
+                                Learning Priorities identified – next steps / recommendations for
+                                home?
+                                <br />
+                                <span t-field="doc.learning_priorities"
+                                    style="font-weight:normal;" />
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+</odoo>

@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="t-if">
+                website and website.website_show_price and not product.website_hide_price and not user_id._is_public()
+            </attribute>
+        </xpath>
+    </template>
+
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="t-if">
+                product.product_variant_ids and website.website_show_price and not product.website_hide_price and
+                not user_id._is_public()
+            </attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_wsale_product_btn')]" position="attributes">
+            <attribute name="t-if">
+                product.product_variant_ids and not user_id._is_public()
+            </attribute>
+        </xpath>
+    </template>
+
+    <!-- Hide Add To Cart Button and quantity selector if not website_show_price -->
+    <template id="product" inherit_id="website_sale.product">
+        <xpath
+                expr="//t[starts-with(@t-cache, 'pricelist,product')]"
+                position="attributes"
+        >
+            <attribute
+                    name="t-cache"
+                    add="website,website.website_show_price,product.website_hide_price"
+                    separator=","
+            />
+        </xpath>
+        <xpath expr="//a[@id='add_to_cart']" position="before">
+            <t t-set="user_authenticated" t-value="user_id != website.user_id"/>
+            <div
+                    class="alert alert-info"
+                    t-if="product.website_hide_price and (product.website_hide_price_message or website.website_hide_price_default_message) and user_authenticated"
+            >
+                <i class="fa fa-info-circle"/>
+                <span
+                        t-esc="product.website_hide_price_message or website.website_hide_price_default_message"
+                />
+            </div>
+        </xpath>
+    </template>
+
+    <template id="product_quantity" inherit_id="website_sale.product_quantity">
+        <xpath
+                expr="//div[contains(@t-attf-class, 'css_quantity')]"
+                position="attributes"
+        >
+            <attribute name="t-if">
+                website and website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+
+    <!-- Hide buy now button if "Buy Now Button" option is enabled and not website_show_price -->
+    <template id="product_buy_now" inherit_id="website_sale.product_buy_now">
+        <xpath
+                expr="//a[contains(@t-attf-class, 'o_we_buy_now')]"
+                position="attributes"
+        >
+            <attribute name="t-if">
+                website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+
+    <!-- Hide add to cart button if "Add to cart" option is enabled and not website_show_price -->
+    <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
+        <xpath expr="//a[hasclass('a-submit')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+
+    <template id="website_search_box" inherit_id="website.website_search_box">
+        <xpath expr="//input[@name='search']" position="attributes">
+            <attribute
+                    name="t-att-data-display-price"
+            >website and website.website_show_price
+            </attribute>
+        </xpath>
+    </template>
+
+    <template id="badge_extra_price" inherit_id="website_sale.badge_extra_price">
+        <xpath expr="//t[@t-name='website_sale.badge_extra_price']" position="attributes">
+            <attribute
+                    name="t-if"
+            >website and website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+
+    <template id="product_variants" inherit_id="website_sale.product_variants">
+        <xpath
+                expr="//span[hasclass('sign_badge_price_extra')]/.."
+                position="attributes">
+            <attribute
+                    name="t-if"
+                    separator=" and "
+                    add="website.website_show_price and not combination_info['website_hide_price']"
+            />
+        </xpath>
+    </template>
+
+    <!--    Payment Page-->
+    <template id="new_total" inherit_id="website_sale.total">
+        <xpath expr="//tr[@id='order_total_untaxed']" position="replace">
+            <tr id="order_total_untaxed">
+                <t t-if="website.website_show_price">
+                    <td id="cart_total_subtotal"
+                        class="border-0 pb-2 ps-0 pt-0 text-start text-muted"
+                        colspan="2">
+                        Subtotal
+                    </td>
+                    <td class="text-end border-0 pb-2 pe-0 pt-0">
+                        <span t-field="website_sale_order.amount_untaxed"
+                              class="monetary_field"
+                              style="white-space: nowrap;"
+                              t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                    </td>
+                </t>
+            </tr>
+        </xpath>
+        <xpath expr="//tr[@id='order_total_taxes']" position="replace">
+            <tr id="order_total_taxes">
+                <t t-if="website.website_show_price">
+                    <td colspan="2" class="text-muted border-0 ps-0 pt-0 pb-3">Taxes</td>
+                    <td class="text-end border-0 pe-0 pt-0 pb-3">
+                        <span t-field="website_sale_order.amount_tax"
+                              class="monetary_field"
+                              style="white-space: nowrap;"
+                              t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                    </td>
+                </t>
+            </tr>
+        </xpath>
+        <xpath expr="//tr[@id='order_total']" position="replace">
+            <tr id="order_total">
+                <t t-if="website.website_show_price">
+                    <td colspan="2" class="border-0 ps-0 pt-3">
+                        <strong>Total</strong>
+                    </td>
+                    <td class="text-end border-0 px-0 pt-3">
+
+                        <strong t-field="website_sale_order.amount_total"
+                                class="monetary_field text-end p-0"
+                                t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                    </td>
+                </t>
+            </tr>
+        </xpath>
+    </template>
+
+
+    <template id="new_price_totals" inherit_id="website_sale.cart_lines">
+        <xpath expr="//div[@name='website_sale_cart_line_price']" position="replace">
+            <t t-if="line.discount">
+                <del t-attf-class="#{'text-danger mr8'}"
+                     style="white-space: nowrap;"
+                     t-out="line.price_unit * line.product_uom_qty"
+                     t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+            </t>
+            <t t-if="website.show_line_subtotals_tax_selection == 'tax_excluded'"
+               t-set='product_price'
+               t-value='line.price_subtotal'/>
+            <t t-else=""
+               t-set='product_price'
+               t-value='line.price_total'/>
+
+            <t t-if="website.website_show_price">
+                <span t-out="product_price" style="white-space: nowrap;"
+                      t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+            </t>
+
+            <small t-if="not line._is_not_sellable_line() and line.product_id.base_unit_price"
+                   class="cart_product_base_unit_price d-block text-muted"
+                   groups="website_sale.group_show_uom_price">
+                <t t-call='website_sale.base_unit_price'>
+                    <t t-set='product' t-value='line.product_id'/>
+                    <t t-set='combination_info'
+                       t-value="{'base_unit_price':product._get_base_unit_price(product_price)}"/>
+                </t>
+            </small>
+
+        </xpath>
+    </template>
+
+    <template id="new_price_totals1" inherit_id="website_sale.suggested_products_list">
+        <xpath expr="//div[@name='website_sale_suggested_product_price']" position="replace">
+            <t t-set="combination_info"
+               t-value="product._get_combination_info_variant()"/>
+            <del t-attf-class="text-danger mr8 {{'' if combination_info['has_discounted_price'] else 'd-none'}}"
+                 t-esc="combination_info['list_price']"
+                 t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                 style="white-space: nowrap;"/>
+
+            <t t-if="website.website_show_price">
+                <span t-esc="combination_info['price']"
+                      t-options="{'widget': 'monetary','display_currency': website.currency_id}"
+                      style="white-space: nowrap;"/>
+            </t>
+
+        </xpath>
+    </template>
+
+    <!--    invoice-->
+    <template id="kg_portal_my_invoices_payment" name="Payment on My Invoices" inherit_id="account.portal_my_invoices">
+        <xpath expr="//t[@t-foreach='invoices']/tr/td[last()]" position="replace">
+            <t t-if="website.website_show_price">
+                <td class="text-end">
+                    <span t-out="-invoice.amount_residual if invoice.move_type == 'out_refund' else invoice.amount_residual"
+                          t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'/>
+                </td>
+            </t>
+
+        </xpath>
+
+    </template>
+
+    <template id="invoice_price_template_inherit_ids" inherit_id="account.portal_invoice_page">
+        <xpath expr="//div[hasclass('o_portal_invoice_sidebar')]/t[@t-call='portal.portal_record_sidebar']/t[2]"
+               position="replace">
+            <t t-set="title">
+                <t t-if="website.website_show_price">
+                    <h2>
+                        <span t-if="invoice.amount_residual > 0" t-field="invoice.amount_residual"/>
+                        <span t-else="1" t-field="invoice.amount_total"/>
+                    </h2>
+                </t>
+                <div class="small"
+                     t-if="invoice.payment_state not in ('paid', 'in_payment') and invoice.move_type == 'out_invoice'">
+                    <i class="fa fa-clock-o"/>
+                    <span class="o_portal_sidebar_timeago ml4" t-att-datetime="invoice.invoice_date_due"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+
+    <template id="kg_my_invoices_payment_1"
+              inherit_id="account.report_invoice_document">
+        <xpath expr="//td[@name='td_price_unit']" position="replace">
+
+            <t t-if="website.website_show_price">
+                <td name="td_price_unit"
+                    t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                    <span class="text-nowrap" t-field="line.price_unit">9.00</span>
+                </td>
+            </t>
+            <t t-else="">
+                <td></td>
+            </t>
+
+        </xpath>
+    </template>
+
+
+    <template id="kg_my_invoices_payment_13333332"
+              inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='right-elements']/div[@id='total']/div[hasclass('ms-auto')]/table" position="replace">
+            <t t-if="website.website_show_price">
+
+                <table class="table table-sm table-borderless avoid-page-break-inside">
+
+                    <!--Tax totals-->
+                    <t t-set="tax_totals" t-value="o.tax_totals"/>
+                    <t t-call="account.document_tax_totals"/>
+
+                    <!--Payments-->
+                    <t t-if="print_with_payments">
+                        <t t-if="o.payment_state != 'invoicing_legacy'">
+                            <t t-set="payments_vals"
+                               t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []"/>
+                            <t t-foreach="payments_vals" t-as="payment_vals">
+                                <tr t-if="payment_vals['is_exchange'] == 0">
+                                    <td>
+                                        <i class="oe_form_field text-end oe_payment_label">Paid on
+                                            <t t-out="payment_vals['date']" t-options='{"widget": "date"}'>2021-09-19
+                                            </t>
+                                        </i>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-out="payment_vals['amount']"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'>
+                                            20.00
+                                        </span>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="len(payments_vals) > 0">
+                                <tr class="border-black fw-bold">
+                                    <td>Amount Due</td>
+                                    <td class="text-end">
+                                        <span t-field="o.amount_residual">11.05</span>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </t>
+                </table>
+            </t>
+        </xpath>
+    </template>
+
+
+    <template id="kg_my_invoices_payment_12"
+              inherit_id="account.report_invoice_document">
+        <xpath expr="//td[@name='td_subtotal']" position="replace">
+
+            <t t-if="website.website_show_price">
+                <td name="td_subtotal" class="text-end o_price_total">
+                    <span class="text-nowrap" t-field="line.price_subtotal">27.00</span>
+                </td>
+            </t>
+            <t t-else="">
+                <td></td>
+            </t>
+
+        </xpath>
+    </template>
+
+
+    <template id="document_tax_totals_template1" inherit_id="account.document_tax_totals_template">
+        <xpath expr="//tr[@class='border-black o_subtotal']" position="replace">
+            <t t-if="website.website_show_price">
+                <tr class="border-black o_subtotal">
+                    <td>
+                        <strong t-out="subtotal['name']">Untaxed Amount</strong>
+                    </td>
+
+                    <td class="text-end">
+                        <span
+                                t-att-class="oe_subtotal_footer_separator"
+                                t-out="subtotal['formatted_amount']"
+                        >27.00
+                        </span>
+                    </td>
+                </tr>
+            </t>
+
+        </xpath>
+    </template>
+
+    <template id="document_tax_totals_template1111" inherit_id="account.document_tax_totals_template">
+        <xpath expr="//tr[@class='border-black o_total']" position="replace">
+            <t t-if="website.website_show_price">
+                <tr class="border-black o_total">
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td class="text-end">
+                        <span t-out="tax_totals['formatted_amount_total']">31.05</span>
+                    </td>
+                </tr>
+            </t>
+
+        </xpath>
+    </template>
+
+    <template id="invoice_labels_hide_price1" inherit_id="account.portal_my_invoices">
+        <xpath expr="//th[contains(string(), 'Amount Due')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th class="text-end">Amount Due</th>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="invoice_report_labels_hide_price1" inherit_id="account.report_invoice_document">
+        <xpath expr="//th[contains(string(), 'Amount')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th class="text-end">Amount</th>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="invoice_report_labels_hide_unit_price" inherit_id="account.report_invoice_document">
+        <xpath expr="//th[@name='th_priceunit']" position="replace">
+            <t t-if="website.website_show_price">
+                <th name="th_priceunit"
+                    t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                    <span>Unit Price</span>
+                </th>
+
+            </t>
+        </xpath>
+    </template>
+    <template id="invoice_report_labels_hide_taxes" inherit_id="account.report_invoice_document">
+        <xpath expr="//th[@name='th_taxes']" position="replace">
+            <t t-if="website.website_show_price">
+                <th name="th_taxes"
+                    t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                    <span>Taxes</span>
+                </th>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="invoice_report_labels_hide_taxes_amount" inherit_id="account.report_invoice_document">
+        <xpath expr="//td[@name='td_taxes']" position="replace">
+            <t t-if="website.website_show_price">
+                <td name="td_taxes"
+                    t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                    <span t-out="', '.join(map(lambda x: (x.invoice_label or x.name), line.tax_ids))" id="line_tax_ids">
+                        Tax 15%
+                    </span>
+                </td>
+            </t>
+        </xpath>
+    </template>
+
+    <!--    Sale Order -->
+    <template id="sale_order_inheritt_temp1" inherit_id="sale.portal_my_orders">
+        <xpath expr="//th[contains(text(), 'Total')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th class="text-end">Total</th>
+
+            </t>
+        </xpath>
+    </template>
+
+    <template id="sale_order_price_template11" inherit_id="sale.portal_my_orders">
+        <xpath expr="//td[@class='text-end']/span[@t-field='order.amount_total']" position="replace">
+            <t t-if="website.website_show_price">
+                <span t-field="order.amount_total"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="sale_order_price_template1122" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//td[@id='taxes']" position="replace">
+            <t t-if="website.website_show_price">
+                <td t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}" id="taxes">
+                    <span t-out="', '.join(map(lambda x: (x.description or x.name), line.tax_id))"/>
+                </td>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="sale_order_price_templat_inheritd2" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//t[@t-foreach='lines_to_report']/tr/t[@t-if='not line.display_type']/td[3]" position="replace">
+            <t t-if="website.website_show_price">
+                <td t-attf-class="text-end {{ 'd-none d-sm-table-cell' if report_type == 'html' else '' }}">
+                    <div
+                            t-if="line.discount &gt;= 0"
+                            t-field="line.price_unit"
+                            t-att-style="line.discount and 'text-decoration: line-through' or None"
+                            t-att-class="(line.discount and 'text-danger' or '') + ' text-end'"
+                    />
+                    <div t-if="line.discount">
+                        <t t-out="(1-line.discount / 100.0) * line.price_unit"
+                           t-options='{"widget": "float", "decimal_precision": "Product Price"}'/>
+                    </div>
+                </td>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="sale_order_price_labels_hide" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//th[contains(string(), 'Unit Price')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th t-attf-class="text-end {{ 'd-none d-sm-table-cell' if report_type == 'html' else '' }}">
+                    Unit Price
+                </th>
+            </t>
+        </xpath>
+        <xpath expr="//th[contains(string(), 'Disc.%')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th t-if="display_discount"
+                    t-attf-class="text-end {{ 'd-none d-sm-table-cell' if report_type == 'html' else '' }}">
+                    <span>Disc.%</span>
+                </th>
+            </t>
+        </xpath>
+        <xpath expr="//th[contains(string(), 'Taxes')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+                    id="taxes_header">
+                    <span>Taxes</span>
+                </th>
+            </t>
+        </xpath>
+        <xpath expr="//th[contains(string(), 'Amount')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th class="text-end" id="subtotal_header">
+                    <span>Amount</span>
+                </th>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="sale_order_price_template11223" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//td[@id='subtotal']" position="replace">
+            <t t-if="website.website_show_price">
+                <td t-if="not line.is_downpayment" class="text-end" id="subtotal">
+                    <span class="oe_order_line_price_subtotal" t-field="line.price_subtotal"/>
+                </td>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="sale_order_price_template_inherit_id" inherit_id="sale.sale_order_portal_template">
+        <xpath expr="//div[hasclass('o_portal_sale_sidebar')]/t[@id='sale_order_portal_sidebar']/t[2]"
+               position="replace">
+            <t t-set="title">
+                <t t-if="website.website_show_price">
+                    <h2 t-field="sale_order.amount_total" data-id="total_amount"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+
+    <!--    Purchase-->
+    <template id="purchase_order_price_template113" inherit_id="purchase.portal_my_purchase_rfqs">
+        <xpath expr="//td[@class='text-end']/span[@t-field='rfq.amount_total']" position="replace">
+            <t t-if="website.website_show_price">
+                <span t-field="rfq.amount_total"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="purchase_order_labels_pprice_hide_template113" inherit_id="purchase.purchase_order_portal_content">
+        <xpath expr="//th[contains(string(), 'Unit Price')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th t-if="not update_dates and order.state in ['purchase', 'done']"
+                    t-attf-class="text-end {{ 'd-none d-sm-table-cell' if report_type == 'html' else '' }}">Unit Price
+                </th>
+
+            </t>
+        </xpath>
+        <xpath expr="//th[contains(string(), 'Taxes')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th t-if="not update_dates and order.state in ['purchase', 'done']"
+                    t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                    <span>Taxes</span>
+                </th>
+            </t>
+        </xpath>
+        <xpath expr="//th[contains(string(), 'Amount')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th class="text-end" t-if="order.state in ['purchase', 'done']">
+                    <span>Amount</span>
+                </th>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="purchase_order_report_pprice_hide_template113" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//th[contains(string(), 'Unit Price')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th name="th_price_unit" class="text-end">
+                    <strong>Unit Price</strong>
+                </th>
+
+            </t>
+        </xpath>
+        <xpath expr="//th[contains(string(), 'Taxes')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th name="th_taxes">
+                    <strong>Taxes</strong>
+                </th>
+
+            </t>
+        </xpath>
+        <xpath expr="//th[contains(string(), 'Amount')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th name="th_subtotal" class="text-end">
+                    <strong>Amount</strong>
+                </th>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="purchase_order_report_pprice_hide_template1134" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//td[@class='text-end']/span[@t-field='line.price_unit']" position="replace">
+            <t t-if="website.website_show_price">
+                <span t-field="line.price_unit"/>
+            </t>
+            <t t-else="">
+                <span></span>
+            </t>
+
+        </xpath>
+        <xpath expr="//td[@name='td_taxes']" position="replace">
+            <t t-if="website.website_show_price">
+                <td name="td_taxes">
+                    <span t-esc="', '.join(map(lambda x: x.description or x.name, line.taxes_id))"/>
+                </td>
+            </t>
+
+        </xpath>
+        <xpath expr="//td[@class='text-end']/span[@t-field='line.price_subtotal']" position="replace">
+            <t t-if="website.website_show_price">
+                <span t-field="line.price_subtotal"
+                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+            </t>
+            <t t-else="">
+                <span></span>
+            </t>
+        </xpath>
+    </template>
+
+
+    <template id="purchase_order_price_template123" inherit_id="purchase.portal_my_purchase_orders">
+        <xpath expr="//td[@class='text-end']/span[@t-field='order.amount_total']" position="replace">
+            <t t-if="website.website_show_price">
+                <span t-field="order.amount_total"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="purchase_order_price_template1134" inherit_id="purchase.portal_my_purchase_orders">
+        <xpath expr="//th[contains(text(), 'Total')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th class="text-end">Total</th>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="purchase_order_price_template1133" inherit_id="purchase.portal_my_purchase_rfqs">
+        <xpath expr="//th[contains(text(), 'Total')]" position="replace">
+            <t t-if="website.website_show_price">
+                <th class="text-end">Total</th>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="purchase_order_price_template_inherit_idss" inherit_id="purchase.portal_my_purchase_order">
+        <xpath expr="//div[hasclass('o_portal_purchase_sidebar')]/t[@t-call='portal.portal_record_sidebar']/t[2]"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <t t-set="title">
+                    <h2 t-field="order.amount_total" data-id="total_amount"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="purchase_order_price_template1122" inherit_id="purchase.purchase_order_portal_content">
+        <xpath expr="//table[@id='purchase_order_table']/tbody[hasclass('purchase_tbody')]/t[@t-foreach='order.order_line']/tr"
+               position="replace">
+            <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic text-break' if line.display_type == 'line_note' else ''">
+                <t t-if="not line.display_type">
+                    <td id="product_name">
+                        <img t-att-src="image_data_uri(resize_to_48(line.product_id.image_1024))" alt="Product"
+                             class="d-none d-lg-inline"/>
+                        <span t-field="line.name"/>
+                    </td>
+                    <td class="text-end">
+                        <div id="quote_qty">
+                            <span t-field="line.product_qty"/>
+                            <span t-field="line.product_uom" groups="uom.group_uom"/>
+                        </div>
+                    </td>
+                    <td t-if="update_dates" class="text-end">
+                        <div class="container">
+                            <div class="mb-3">
+                                <div class="input-group date">
+                                    <input type="text"
+                                           class="form-control datetimepicker-input o-purchase-datetimepicker text-end"
+                                           t-att-data-access-token="order.access_token"
+                                           t-att-data-order-id="order.id"
+                                           t-att-data-line-id="line.id"
+                                           t-att-data-value="line.date_planned.isoformat()"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <t t-if="website.website_show_price">
+                        <td t-if="not update_dates and order.state in ['purchase', 'done']"
+                            t-attf-class="text-end {{ 'd-none d-sm-table-cell' if report_type == 'html' else '' }}">
+                            <div
+                                    t-field="line.price_unit"
+                                    class="text-end"
+                            />
+                        </td>
+                        <td t-if="not update_dates and order.state in ['purchase', 'done']"
+                            t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                            <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.taxes_id))"/>
+                        </td>
+                        <td class="text-end" t-if="not update_dates and order.state in ['purchase', 'done']">
+                            <span class="oe_order_line_price_subtotal" t-field="line.price_subtotal"/>
+                        </td>
+                    </t>
+                </t>
+                <t t-if="line.display_type == 'line_section'">
+                    <td colspan="99">
+                        <span t-field="line.name"/>
+                    </td>
+                    <t t-set="current_section" t-value="line"/>
+                    <t t-set="current_subtotal" t-value="0"/>
+                </t>
+                <t t-if="line.display_type == 'line_note'">
+                    <td colspan="99">
+                        <span t-field="line.name"/>
+                    </td>
+                </t>
+            </tr>
+        </xpath>
+    </template>
+
+    <template id="sales_report_view_details" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//th[@name='th_priceunit']"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <th name="th_priceunit" class="text-end">Unit Price</th>
+            </t>
+        </xpath>
+        <xpath expr="//th[@name='th_taxes']"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <th name="th_taxes" class="text-end">Taxes</th>
+
+            </t>
+        </xpath>
+        <xpath expr="//th[@name='th_subtotal']"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <th name="th_subtotal" class="text-end">
+                    <span>Amount</span>
+                </th>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="sales_report_view_details_amount" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//td[@name='td_priceunit']"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <td name="td_priceunit" class="text-end">
+                    <span t-field="line.price_unit">3</span>
+                </td>
+            </t>
+        </xpath>
+        <xpath expr="//td[@name='td_taxes']"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <td name="td_taxes" class="text-end">
+                    <span t-out="', '.join(map(lambda x: (x.description or x.name), line.tax_id))">
+                        Tax 15%
+                    </span>
+                </td>
+            </t>
+        </xpath>
+        <xpath expr="//td[@name='td_subtotal']"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
+                    <span t-field="line.price_subtotal">27.00</span>
+                </td>
+            </t>
+        </xpath>
+    </template>
+
+
+    <!--    POPUP-->
+    <template id="shop_popup_price_hide" inherit_id="website_sale_product_configurator.configure_optional_products">
+        <xpath expr="//th[@class='text-center td-price']"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <th class="text-center td-price">
+                    <span class="label">Price</span>
+                </th>
+            </t>
+        </xpath>
+        <xpath expr="//td[@name='price']/span[1]"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <span class="oe_price product_id" style="white-space: nowrap;"
+                      t-att-data-product-id="product.id"
+                      t-out="combination_info['price']"
+                      t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+            </t>
+        </xpath>
+
+        <xpath expr="//tr[hasclass('o_total_row')]/td"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <td colspan="4" class="text-end">
+                    <strong>Total:</strong>
+                    <span class="js_price_total fw-bold" style="white-space: nowrap;"
+                          t-att-data-product-id="product.id"
+                          t-out="combination_info['price'] * (add_qty or 1)"
+                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                </td>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="shop_popup_price_hide_optional_items"
+              inherit_id="website_sale_product_configurator.optional_product_items">
+        <xpath expr="//td[@class='text-center td-price']/div[2]"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <div class="oe_price" style="white-space: nowrap;"
+                     t-out="combination_info['price']"
+                     t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="sidebar_price_hide_optional_items"
+              inherit_id="website_sale.checkout_layout">
+        <xpath expr="//td[@name='website_sale_cart_summary_line_price']"
+               position="replace">
+            <t t-if="website.website_show_price">
+                <td t-attf-class="#{o_cart_sum_padding_top} td-price pe-0 text-end"
+                    name="website_sale_cart_summary_line_price">
+                    <span t-if="website.show_line_subtotals_tax_selection == 'tax_excluded'"
+                          t-field="line.price_subtotal" style="white-space: nowrap;"
+                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                    <span t-else=""
+                          t-field="line.price_total" style="white-space: nowrap;"
+                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                </td>
+            </t>
+        </xpath>
+    </template>
+
+    <!--Payment Page-->
+
+    <template id="custom_navigation_buttons" inherit_id="website_sale.navigation_buttons">
+        <xpath expr="//div/t" position="replace">
+            <t t-if="website_sale_order and website_sale_order.website_order_line">
+                <t t-if="xmlid == 'website_sale.payment'">
+                    <div t-if="not errors and not website_sale_order.amount_total"
+                         name="o_website_sale_free_cart">
+                        <form name="o_wsale_confirm_order"
+                              class="d-flex flex-column"
+                              target="_self"
+                              action="/shop/payment/validate"
+                              method="post">
+                            <input type="hidden"
+                                   name="csrf_token"
+                                   t-att-value="request.csrf_token()"
+                                   t-nocache="The csrf token must always be up to date."/>
+                        </form>
+                    </div>
+                    <t t-elif="not hide_payment_button">
+                        <t t-if="website.website_show_price">
+                            <t t-call="payment.submit_button"/>
+                        </t>
+                    </t>
+                </t>
+                <t t-else="">
+                    <a role="button" name="website_sale_main_button"
+                       t-attf-class="#{_cta_classes} btn btn-primary #{not website_sale_order._is_cart_ready() and 'disabled'} #{_form_send_navigation and 'order-lg-3 w-100 w-lg-auto ms-lg-auto' or 'w-100'}"
+                       t-att-href="step_specific_values['main_button_href']">
+                        <t t-out="step_specific_values['main_button']"/>
+                        <i class="fa fa-angle-right ms-2 fw-light"/>
+                    </a>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//div/div" position="replace">
+            <t t-if="website.website_show_price">
+                <div t-if="not hide_payment_button"
+                     t-attf-class="position-relative #{_form_send_navigation and 'd-flex d-lg-none' or 'd-flex'} w-100 justify-content-center align-items-center my-2 opacity-75">
+                    <hr class="w-100"/>
+                    <span class="px-3">or</span>
+                    <hr class="w-100"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="custom_confirmation" inherit_id="website_sale.confirmation" name="Custom Confirmation">
+        <xpath expr="//table[@class='table']" position="replace">
+            <t t-if="website.website_show_price">
+                <td class="text-end pe-0" width="100">
+                    <strong>Total:</strong>
+                </td>
+            </t>
+        </xpath>
+
+        <xpath expr="//h4[@class='text-start mt-3']" position="replace"/>
+
+        <xpath expr="//a[@role='button' and @class='d-none d-md-inline-block btn btn-primary ms-auto']"
+               position="replace"/>
+
+        <xpath expr="///div/t" position="replace">
+            <div class="mb-4">
+                <h5>
+                    <em>
+                        <span>Order</span>
+                        <span t-field="order.name"/>
+                        <t t-if="order.state == 'sale'">
+                            <i class="fa fa-check-circle ms-1"/>
+                        </t>
+                    </em>
+                </h5>
+            </div>
+        </xpath>
+    </template>
+</odoo>
+

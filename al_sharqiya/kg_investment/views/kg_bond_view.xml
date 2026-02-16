@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_kg_bonds_form" model="ir.ui.view">
+            <field name="name">kg.bonds.form</field>
+            <field name="model">kg.bonds</field>
+            <field name="arch" type="xml">
+                <form string="Bonds Form">
+                    <header>
+                        <button name="action_submit_manager" string="Submit to Manager" type="object"
+                                class="btn-primary" invisible="manager_approved==True"/>
+                        <button name="action_approve_bond" string="Approve" class="btn-primary" type="object"
+                                invisible="state!='to_approve'"/>
+                        <button name="calculate_amortisation" string="Calculate Amortization"
+                                class="btn-primary" type="object" invisible="state!='draft'"/>
+                        <button name="action_cancel" string="Cancel" class="btn-secondary"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,to_approve,posted,cancel"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="view_journal_entries" type="object"
+                                    class="oe_stat_button"
+                                    string="Journal Entries"
+                                    icon="fa-list"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="manager_approved" invisible="1"/>
+                                <field name="investment_id" domain="[('investment_type.is_bond','!=',False)]" readonly="state=='posted'"/>
+                                <field name="ISIN_code" readonly="state=='posted'"/>
+                                <field name="company_id" readonly="state=='posted'"/>
+                                <field name="date" readonly="state=='posted'"/>
+                                <field name="currency_id" readonly="state=='posted'"/>
+                                <field name="purchase_price" readonly="state=='posted'"/>
+                                <field name="no_of_shares" readonly="state=='posted'"/>
+                                <field name="face_value" readonly="state=='posted'"/>
+                                <field name="brokerage" readonly="state=='posted'"/>
+                                <field name="total_cost" readonly="state=='posted'"/>
+
+
+                            </group>
+                            <group>
+                                <field name="coupon_rate" widget="percentage" readonly="state=='posted'"/>
+                                <field name="coupon_periodicity" readonly="state=='posted'"/>
+                                <field name="coupon_payment" readonly="state=='posted'"/>
+                                <field name="coupon_begin_date" readonly="state=='posted'"/>
+                                <field name="broker_bank" readonly="state=='posted'"/>
+                                <field name="broker_id" invisible="broker_bank != 'broker' "
+                                       readonly="state=='posted'"/>
+                                <field name="bank_id" invisible="broker_bank != 'bank'" readonly="state=='posted'"/>
+                                <field name="settlement_date" readonly="state=='posted'"/>
+                                <field name="maturity_date" readonly="state=='posted'"/>
+                                <field name="yield_val" readonly="state=='posted'"/>
+<!--                                <field name="yield_value" widget="percentage"/>-->
+                                <field name="payment_frequency" readonly="state=='posted'"/>
+                                <field name="maturity_value" readonly="state=='posted'"/>
+                                <field name="account_id" readonly="state=='posted'"/>
+
+                                <!--                                <field name="cash_paid"/>-->
+                                <!--                                <field name="interest_accuired"/>-->
+                                <!--                                <field name="amortization"/>-->
+                                <!--                                <field name="carry_value"/>-->
+                            </group>
+                        </group>
+                        <notebook>
+
+
+                            <page string="Amortization">
+
+                                <field name="bond_line_ids" nolabel="1">
+                                    <tree create="false" delete="false" edit="false">
+                                        <field name="period"/>
+                                        <field name="cash_paid"/>
+                                        <field name="interest_accuired"/>
+                                        <field name="amortization"/>
+                                        <field name="carry_value"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_kg_bonds_tree" model="ir.ui.view">
+            <field name="name">kg.bonds.tree</field>
+            <field name="model">kg.bonds</field>
+            <field name="arch" type="xml">
+                <tree string="Bonds Tree View">
+                    <field name="name"/>
+                    <field name="investment_id"/>
+                    <field name="ISIN_code"/>
+                    <field name="date"/>
+                    <field name="coupon_payment"/>
+                    <field name="maturity_value"/>
+                    <!--                    <field name="cash_paid"/>-->
+                    <!--                    <field name="interest_accuired"/>-->
+                    <!--                    <field name="amortization"/>-->
+                    <!--                    <field name="carry_value"/>-->
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kg_bond_pivot" model="ir.ui.view">
+            <field name="name">kg.bonds.pivot</field>
+            <field name="model">kg.bonds</field>
+            <field name="arch" type="xml">
+                <pivot string="Bonds">
+                    <!-- Define your pivot view fields here -->
+                    <field name="investment_id" type="row"/>
+                    <!--                <field name="ISIN_code" type="measure"/>-->
+                    <field name="coupon_rate" type="measure"/>
+                    <field name="face_value" type="measure"/>
+                    <field name="maturity_value" type="measure"/>
+                    <field name="yield_val" type="measure"/>
+                    <!-- Add more fields as needed -->
+                </pivot>
+            </field>
+        </record>
+        <record id="action_kg_bonds" model="ir.actions.act_window">
+            <field name="name">Bonds</field>
+            <field name="res_model">kg.bonds</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="view_id" ref="view_kg_bonds_tree"/>
+        </record>
+    </data>
+</odoo>

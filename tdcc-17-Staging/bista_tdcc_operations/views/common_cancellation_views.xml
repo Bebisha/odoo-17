@@ -1,0 +1,85 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="common_cancellation_form">
+            <field name="name">common.cancellation.form</field>
+            <field name="model">common.cancellation</field>
+            <field name="arch" type="xml">
+                <form string="Common Cancellation Reason Form" create="false"
+                      edit="false" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="appointment_id"/>
+                                <field name="client_id"/>
+                                <field name="write_by_id"/>
+                                <field name="physician_id"/>
+                            </group>
+                            <group>
+                                <field name="cancel_id"/>
+                                <field name="date"/>
+                                <field name="day"/>
+                                <field name="start_time" widget="float_time"/>
+                                <field name="end_time" widget="float_time"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Common Cancellation List -->
+        <record model="ir.ui.view" id="appointment_common_cancellation_tree">
+            <field name="name">appointment.cancel.reason.tree</field>
+            <field name="model">common.cancellation</field>
+            <field name="arch" type="xml">
+                <tree string="Appoinment Common Cancellation" create="false"
+                      edit="false" delete="false">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="day"/>
+                    <field name="physician_id"/>
+                    <field name="start_time" widget="float_time"/>
+                    <field name="end_time" widget="float_time"/>
+                    <field name="cancel_id"/>
+                    <field name="write_by_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Common Cancellation Search -->
+        <record model="ir.ui.view" id="common_cancellation_search">
+            <field name="name">common.cancellation.search</field>
+            <field name="model">common.cancellation</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="physician_id"/>
+                    <field name="name"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Appointment Date" name="filter_date"
+                                date="date"/>
+                        <filter string="Physician" name="physician" domain="[]"
+                                context="{'group_by':'physician_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Common Cancellation Action -->
+        <record model="ir.actions.act_window" id="appointment_common_cancel_action">
+            <field name="name">Common Cancellation</field>
+            <field name="res_model">common.cancellation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Common Cancellation Menu -->
+        <menuitem id="common_cancellations_menu"
+                  name="Common Cancellation"
+                  action="appointment_common_cancel_action"
+                  parent="bista_tdcc_operations.appointment_menu"
+                  sequence="8"
+        />
+<!--        groups="bista_tdcc_operations.group_appointment_manager"-->
+    </data>
+
+
+</odoo>

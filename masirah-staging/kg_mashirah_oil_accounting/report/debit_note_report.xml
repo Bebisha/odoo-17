@@ -1,0 +1,332 @@
+<odoo>
+    <data>
+        <template id="report_debit_note_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <t t-if="doc.move_type == 'in_refund'">
+                            <div class="header">
+                                <table class='table-borderless' width="100%">
+                                    <tr width="100%">
+                                        <td width="100%" align="center" style="font-size:20px;">
+                                            <br/>
+                                            <strong>Debit Note</strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <table style="font-size:15px;border-collapse:collapse;border-radius: 5px 5px 5px 5px;width:100%;margin:5pt;border-bottom: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;">
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2" style="padding-top:5px;padding-left:5px;">
+                                        <strong>
+                                            <span t-field="doc.company_id.name"/>
+                                        </strong>
+                                    </td>
+                                    <td width="25%" colspan="3"
+                                        style="font-size:12px;border-left: 1px solid black;padding-top:5px;padding-left:5px;border-right: 1px solid black;">
+                                        <span>
+                                            Debit Note No.
+                                        </span>
+                                    </td>
+                                    <td width="25%" colspan="3"
+                                        style="font-size:12px;border-right: 1px solid black;padding-top:5px;padding-left:5px;">
+                                        <span>
+                                            Dated
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2" style="padding-top:5px;padding-left:5px;">
+                                        VATIN :
+                                        <span t-field="doc.company_id.vat"/>
+                                    </td>
+                                    <td width="25%" colspan="3"
+                                        style="font-size:12px;border-left: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-left:5px;border-right: 1px solid black;">
+                                        <strong>
+                                            <span t-field="doc.name"/>
+                                        </strong>
+                                    </td>
+                                    <td width="25%" colspan="3"
+                                        style="font-size:12px;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-left:5px;">
+                                        <b>
+                                            <span t-esc="doc.invoice_date.strftime('%d-%b-%Y')"/>
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2" style="padding-top:5px;padding-left:5px;"/>
+                                    <td width="25%" colspan="3"
+                                        style="font-size:12px;border-left: 1px solid black;padding-top:5px;padding-left:5px;border-right: 1px solid black;">
+                                        <span>
+                                            Supplier's Ref.
+                                        </span>
+                                    </td>
+                                    <td width="25%" colspan="3"
+                                        style="font-size:12px;border-right: 1px solid black;padding-top:5px;padding-left:5px;">
+                                        <span>
+                                            Other Reference(s)
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2" style="padding-top:5px;padding-left:5px;"/>
+                                    <td width="25%" colspan="3"
+                                        style="font-size:12px;border-left: 1px solid black;padding-top:5px;padding-left:5px;border-bottom: 1px solid black;border-right: 1px solid black;">
+                                        <strong>
+                                            <span t-field="doc.purchase_id.name"/>
+                                        </strong>
+                                    </td>
+                                    <td width="25%" colspan="3"
+                                        style="font-size:12px;border-right: 1px solid black;padding-top:5px;padding-left:5px;border-bottom: 1px solid black;">
+                                        <b>
+                                            <span t-esc="doc.ref"/>
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2"
+                                        style="padding-top:50px;padding-left:5px;border-bottom: 1px solid black;"/>
+                                    <td width="50%" colspan="6"
+                                        style="border-right: 1px solid black;border-left: 1px solid black;padding-top:50px;padding-left:5px;"/>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2"
+                                        style="padding-top:5px;padding-left:5px;font-size:12px;">
+                                        Consignee
+                                    </td>
+                                    <td width="50%" colspan="6"
+                                        style="border-left: 1px solid black;border-right: 1px solid black;padding-top:5px;padding-left:5px;"/>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2" style="padding-top:5px;padding-left:5px;">
+                                        <b>
+                                            <span t-field="doc.partner_id.name"/>
+                                        </b>
+                                    </td>
+                                    <td width="50%" colspan="6"
+                                        style="border-left: 1px solid black;border-right: 1px solid black;padding-top:5px;padding-left:5px;"/>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2"
+                                        style="padding-top:15px;padding-left:5px;padding-bottom:25px;border-bottom: 1px solid black;">
+                                        VATIN :
+                                        <span t-field="doc.partner_id.vat"/>
+                                    </td>
+                                    <td width="50%" colspan="6"
+                                        style="border-left: 1px solid black;border-right: 1px solid black;padding-top:5px;padding-left:5px;border-bottom: 1px solid black;padding-bottom:25px;"/>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2"
+                                        style="padding-top:5px;padding-left:5px;font-size:12px;">
+                                        Buyer
+                                    </td>
+                                    <td width="50%" colspan="6"
+                                        style="border-left: 1px solid black;padding-top:5px;padding-left:5px;border-right: 1px solid black;"/>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2" style="padding-top:5px;padding-left:5px;">
+                                        <b>
+                                            <span t-field="doc.partner_id.name"/>
+                                        </b>
+                                    </td>
+                                    <td width="50%" colspan="6"
+                                        style="border-left: 1px solid black;border-right: 1px solid black;padding-top:5px;padding-left:5px;"/>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2"
+                                        style="padding-top:15px;padding-left:5px;">
+                                        Country :
+                                        <span t-field="doc.partner_id.country_id.name"/>
+                                    </td>
+                                    <td width="50%" colspan="6"
+                                        style="border-left: 1px solid black;border-right: 1px solid black;padding-top:5px;padding-left:5px;"/>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="50%" align="left" colspan="2"
+                                        style="padding-top:5px;padding-left:5px;border-bottom: 1px solid black;padding-bottom:25px;">
+                                        VATIN :
+                                        <span t-field="doc.partner_id.vat"/>
+                                    </td>
+                                    <td width="50%" colspan="6"
+                                        style="padding-bottom:25px;border-left: 1px solid black;border-right: 1px solid black;padding-top:5px;padding-left:5px;border-bottom: 1px solid black;"/>
+                                </tr>
+                                <tr width="100%" align="center" style="font-size:12px;border-bottom: 1px solid black;">
+                                    <td width="5%"
+                                        style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;">
+                                        <span>SI No</span>
+                                    </td>
+                                    <td width="45%"
+                                        style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;">
+                                        <span>Particulars</span>
+                                    </td>
+                                    <td width="15%" colspan="2"
+                                        style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;">
+                                        <span>Quantity</span>
+                                    </td>
+                                    <td width="10%"
+                                        style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;">
+                                        <span>Rate</span>
+                                    </td>
+                                    <td width="5%"
+                                        style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;">
+                                        <span>Per</span>
+                                    </td>
+                                    <td width="10%"
+                                        style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;">
+                                        <span>Amount</span>
+                                    </td>
+                                    <td width="10%" style="padding-top:5px;padding-bottom:5px;">
+                                        <span>VAT %</span>
+                                    </td>
+                                </tr>
+                                <t t-set="i" t-value="1"/>
+                                <t t-set="total" t-value="0.00"/>
+                                <t t-foreach="doc.invoice_line_ids" t-as="line">
+                                    <tr width="100%" align="center"
+                                        style="font-size:12px;border-bottom: 1px solid black;">
+                                        <td width="5%"
+                                            style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;">
+                                            <span t-esc="i"/>
+                                            <t t-set="i" t-value="i+1"/>
+                                        </td>
+                                        <td width="45%"
+                                            style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <td width="15%" colspan="2"
+                                            style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;">
+                                            <span t-esc="'{:,.2f}'.format(line.quantity)"/>
+                                        </td>
+                                        <td width="10%" align="right"
+                                            style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;padding-right:5px;">
+                                            <span t-esc="'{:,.2f}'.format(line.price_unit)"/>
+                                        </td>
+                                        <td width="5%"
+                                            style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;">
+                                        </td>
+                                        <td width="10%" align="right"
+                                            style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;padding-right:5px;">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(line.price_subtotal)"/>
+                                                <span t-field="line.currency_id.name"/>
+                                                <t t-set="total" t-value="total+line.price_subtotal"/>
+                                            </b>
+                                        </td>
+                                        <td width="10%" style="padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.tax_ids"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="len(doc.invoice_line_ids)&lt;15">
+                                    <tr t-foreach="range(15-len(doc.invoice_line_ids))"
+                                        t-as="k"
+                                        style="height: 35px">
+                                        <td style="border-right:1px solid black;border-left:1px solid black;text-align:left;padding:5px"/>
+                                        <td style="border-right:1px solid black;text-align:left;padding:5px"/>
+                                        <td style="border-right:1px solid black;text-align:left;padding:5px"
+                                            colspan="2"/>
+                                        <td style="border-right:1px solid black;text-align:left;padding:5px"/>
+                                        <td style="border-right:1px solid black;text-align:left;padding:5px"/>
+                                        <td style="border-right:1px solid black;text-align:left;padding:5px"/>
+                                        <td style="border-right:1px solid black;text-align:left;padding:5px"/>
+                                    </tr>
+                                </t>
+                                <tr width="100%" align="center"
+                                    style="font-size:12px;border-bottom: 1px solid black;border-top: 1px solid black;">
+                                    <td width="5%"
+                                        style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;"/>
+
+                                    <td width="45%"
+                                        style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;">
+                                        <span>Total</span>
+                                    </td>
+
+                                    <td width="15%" colspan="2"
+                                        style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;"/>
+                                    <td width="10%"
+                                        style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;"/>
+                                    <td width="5%"
+                                        style="padding-top:5px;padding-right:5px;padding-bottom:5px;border-right: 1px solid black;"/>
+                                    <td width="10%" align="right"
+                                        style="padding-top:5px;padding-bottom:5px;border-right: 1px solid black;padding-right:5px;">
+                                        <b>
+                                            <span t-esc="'{:,.2f}'.format(total)"/>
+                                            <span t-field="doc.currency_id.name"/>
+                                        </b>
+                                    </td>
+                                    <td width="10%" style="padding-top:5px;padding-bottom:5px;"/>
+                                </tr>
+                                <tr width="100%" style="font-size:12px;">
+                                    <td width="50%" colspan="2" align="left"
+                                        style="padding-top:5px;padding-bottom:5px;padding-right:5px;padding-left:5px">
+                                        <span>Amount Chargeable (in words)</span>
+                                    </td>
+                                    <td width="50%" colspan="6" align="right"
+                                        style="padding-top:5px;padding-bottom:5px;padding-right:5px;padding-left:5px">
+                                        <span>E. &amp; O.E</span>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="font-size:14px;">
+                                    <td width="50%" colspan="2" align="left"
+                                        style="padding-top:5px;padding-bottom:5px;padding-right:5px;padding-left:5px">
+                                        <b>
+                                            <span t-esc="doc.currency_id.amount_to_text(total)"/>
+                                        </b>
+                                    </td>
+                                    <td width="50%" colspan="6" align="right"
+                                        style="padding-top:5px;padding-bottom:5px;padding-right:5px;padding-left:5px"/>
+                                </tr>
+                                <tr width="100%" style="font-size:14px;">
+                                    <td width="50%" colspan="2" align="left"
+                                        style="padding-top:5px;padding-bottom:5px;padding-right:5px;padding-left:5px;border-left: 1px solid black;"/>
+                                    <td width="50%" colspan="6" align="right"
+                                        style="padding-top:5px;padding-bottom:5px;padding-right:5px;padding-left:5px;border-left: 1px solid black;border-top: 1px solid black;">
+                                        <b>For
+                                            <span t-field="doc.company_id.name"/>
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="font-size:12px;">
+                                    <td width="50%" colspan="2" align="left"
+                                        style="padding-top:50px;padding-bottom:5px;padding-right:5px;padding-left:5px;border-left: 1px solid black;"/>
+                                    <td width="50%" colspan="6" align="right"
+                                        style="padding-top:50px;padding-bottom:5px;padding-right:5px;padding-left:5px;border-left: 1px solid black;">
+                                        <span>Authorised Signatory</span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class='table-borderless' width="100%">
+                                <tr width="100%">
+                                    <td width="100%" align="center" style="font-size:14px;">
+                                        This is a Computer Generated Document
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="footer">
+                                <table class='table-borderless' width="100%"
+                                       style="font-size:14px;">
+                                    <tr width="100%">
+                                        <td width="100%" align="center">
+                                            <span class="page"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <p style="color:#ff0000;text-align:center;">
+                                <b>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    Sorry! The Debit Note report only can be print through this option
+                                </b>
+                            </p>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

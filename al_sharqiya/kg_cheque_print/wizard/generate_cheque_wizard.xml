@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="generate_cheque_wizard_form_view" model="ir.ui.view">
+        <field name="model">generate.cheque.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="journal_id"  required="1"/>
+                        <field name="bank_account_id"/>
+<!--                        <field name="cheque_start_series"/>-->
+
+                    </group>
+                    <group>
+                        <field name="start_series" required="1" widget="integer"/>
+<!--                        <field name="start_seri" />-->
+                        <field name="zero_padding" required="1"/>
+                        <field name="leaf_count" required="1" />
+                        <field name="cheque_end_series" widget="integer"/>
+                    </group>
+
+                </group>
+
+                <footer>
+                    <button name="print_generate_cheque" string="Generate" type="object" class="btn-primary"/>
+                    <button name="cancel" special="cancel" string="Cancel" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="generate_cheque_wizard_action" model="ir.actions.act_window">
+        <field name="name">Generate cheque Book</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">generate.cheque.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="generate_cheque_wizard_menu_action" name="Generate cheque Book"
+              parent="account.menu_finance_entries_accounting_miscellaneous"
+              action="generate_cheque_wizard_action"/>
+</odoo>

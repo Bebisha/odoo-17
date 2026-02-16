@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sponsor_details_form_view" model="ir.ui.view">
+        <field name="name">sponsor.details.form.view</field>
+        <field name="model">sponsor.details</field>
+        <field name="arch" type="xml">
+            <form string="Sponsor Details">
+                <group>
+                    <group>
+                        <field
+                            name="sponsor_id"
+                            domain="[('is_sponsor','=',True)]"
+                            options="{'no_create_edit':True}"
+                            required="1"
+                        />
+                        <field name="available_balance"/>
+                        <label for="percentage"/>
+                        <div>
+                            <field name="percentage" class="oe_inline" required="1" readonly="1" force_save="1"/>
+                            <span class="o_form_label oe_inline">%</span>
+                        </div>
+                    </group>
+                    <group>
+                        <field name="invoice_id" readonly="1" invisible="1"  force_save="1"/>
+                        <field name="invoice_amount" readonly="1"  force_save="1"/>
+                        <field name="sponsor_amount" force_save="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="add_sponsor_details" string="ADD" type="object" class="btn-primary"
+                     context="{'available_balance':available_balance}"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

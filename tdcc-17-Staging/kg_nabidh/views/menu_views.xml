@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="patient_information_menu"
+              name="Patient Information"
+              parent="bista_tdcc_operations.configurations_menu"
+              sequence="0"
+    />
+    <menuitem id="kg_nabidh_code_type_menu"
+              name="Code Type"
+              parent="bista_tdcc_operations.operations_menu_root"
+              sequence="6"
+    />
+    <menuitem id="nk1_menu"
+              name="NK1"
+              parent="kg_nabidh_code_type_menu"
+              sequence="15"
+    />
+
+    <menuitem id="pid_menu"
+              name="PID"
+              parent="kg_nabidh_code_type_menu"
+              sequence="1"
+    />
+    <menuitem id="pv1_menu"
+              name="PV1"
+              parent="kg_nabidh_code_type_menu"
+              sequence="2"
+    />
+    <menuitem id="dg1_menu"
+              name="DG1"
+              parent="kg_nabidh_code_type_menu"
+              sequence="3"
+    />
+    <menuitem id="obx_menu"
+              name="OBX"
+              parent="kg_nabidh_code_type_menu"
+              sequence="4"
+    />
+    <menuitem id="orc_menu"
+              name="ORC"
+              parent="kg_nabidh_code_type_menu"
+              sequence="5"
+    />
+    <menuitem id="obr_menu"
+              name="OBR"
+              parent="kg_nabidh_code_type_menu"
+              sequence="6"
+    />
+    <menuitem id="rxr_menu"
+              name="RXR"
+              parent="kg_nabidh_code_type_menu"
+              sequence="7"
+    />
+    <menuitem id="txa_menu"
+              name="TXA"
+              parent="kg_nabidh_code_type_menu"
+              sequence="8"
+    />
+    <menuitem id="rxa_menu"
+              name="RXA"
+              parent="kg_nabidh_code_type_menu"
+              sequence="9"
+    />
+    <menuitem id="spm_menu"
+              name="SPM"
+              parent="kg_nabidh_code_type_menu"
+              sequence="11"
+    />
+    <menuitem id="al1_menu"
+              name="AL1"
+              parent="kg_nabidh_code_type_menu"
+              sequence="12"
+    />
+    <menuitem id="gt1_menu"
+              name="GT1"
+              parent="kg_nabidh_code_type_menu"
+              sequence="13"
+    />
+    <menuitem id="in1_menu"
+              name="IN1"
+              parent="kg_nabidh_code_type_menu"
+              sequence="14"
+    />
+    <menuitem id="zsh_menu"
+              name="ZSH"
+              parent="kg_nabidh_code_type_menu"
+              sequence="15"
+    />
+    <menuitem id="prb_menu"
+              name="PRB"
+              parent="kg_nabidh_code_type_menu"
+              sequence="16"
+    />
+
+
+</odoo>

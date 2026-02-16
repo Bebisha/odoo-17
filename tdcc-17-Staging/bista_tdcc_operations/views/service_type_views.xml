@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Service Type Form -->
+        <record model="ir.ui.view" id="service_type_form">
+            <field name="name">service.type.form</field>
+            <field name="model">service.type</field>
+            <field name="arch" type="xml">
+                <form string="Service Type Form">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options="{&quot;terminology&quot;: &quot;archive&quot;}" />
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" required="1" />
+                                <field name="code" />
+                            </group>
+                            <group>
+                                <field name="clinic_id" options="{'no_create': True}" />
+                                <field name="classroom_id" options="{'no_create': True}" />
+                                <field name="physician_id"
+                                    domain="[('is_physician', '=', True)]"
+                                    options="{'no_create': True}" />
+                                <field name="service_group_id"
+                                    options="{'no_create': True}" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Appointment Types">
+                                <field name="appointment_type_ids" colspan="4"
+                                    nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="name" />
+                                        <field name="code" />
+                                        <field name="length" />
+                                        <field name="chargeable" />
+                                        <field name="product_id" string="Price List" />
+                                        <field name="price" readonly="1" force_save="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Service Type List -->
+        <record model="ir.ui.view" id="service_type_tree">
+            <field name="name">service.type.tree</field>
+            <field name="model">service.type</field>
+            <field name="arch" type="xml">
+                <tree string="Service Type List">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="clinic_id" />
+                    <field name="classroom_id" />
+                    <field name="physician_id" />
+                    <field name="service_group_id" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Service Type Search -->
+        <record model="ir.ui.view" id="service_type_search">
+            <field name="name">service.type.search</field>
+            <field name="model">service.type</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="code" />
+                    <filter name="classroom_id_group_by" string="Classroom"
+                        context="{'group_by':'classroom_id'}" />
+                    <filter name="physician_group_by" string="Physician"
+                        context="{'group_by':'physician_id'}" />
+                    <filter name="service_group_group_by" string="Service Group"
+                        context="{'group_by':'service_group_id'}" />
+                    <filter string="Archived" name="inactive"
+                        domain="[('active','=',False)]" />
+                </search>
+            </field>
+        </record>
+
+        <!-- Service Type Action -->
+        <record model="ir.actions.act_window" id="service_type_action">
+            <field name="name">Service Types</field>
+            <field name="res_model">service.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Service Type Menu -->
+        <menuitem id="service_type_menu" action="service_type_action"
+            parent="bista_tdcc_operations.miscellaneous_configuration_menu"
+            sequence="2" />
+
+</odoo>

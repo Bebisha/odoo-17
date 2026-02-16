@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cheque_leaf_id" model="ir.ui.view">
+        <field name="name">cheque.leaf.tree</field>
+        <field name="model">cheque.leaf</field>
+        <field name="arch" type="xml">
+            <tree string="Cheque Book" sample="1">
+                <field name="name"/>
+                <field name="journal_id"/>
+                <!--                <field name="cheque_series"/>-->
+            </tree>
+        </field>
+    </record>
+    <!--  Cheque Book Form-->
+    <record id="cheque_leaf_form_id" model="ir.ui.view">
+        <field name="name">cheque.leaf.form</field>
+        <field name="model">cheque.leaf</field>
+        <field name="arch" type="xml">
+            <form string="Cheque Book">
+                <header>
+                    <button name="action_cheque_leaf_confirm" string="Confirm" class="oe_highlight" type="object"
+                            invisible="state in ['confirm','deactivate']"/>
+                    <button name="action_deactivate" string="Deactivate" class="oe_highlight" type="object"
+                            invisible="state=='deactivate'"/>
+                    <field name="state" widget="statusbar" class="o_field_statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="journal_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Cheque Leaf's" name="cheque_leaf_line">
+                            <field name="cheque_leaf_line_ids" readonly="1" create="false">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="journal_id"/>
+                                    <field name="account_payment_id"/>
+                                    <field name="status"/>
+                                    <button name="hold_cheque_leaf" string="Hold" class="oe_highlight"
+                                            type="object"
+                                           invisible="'|',('parent.state','=', 'draft'),('status','!=', 'draft')"
+
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cheque_leaf_id" model="ir.actions.act_window">
+        <field name="name">Cheque Book</field>
+        <field name="res_model">cheque.leaf</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Cheque Book
+            </p>
+        </field>
+    </record>
+    <menuitem id="cheque_leaf_form_menu" name="cheque Book"
+              parent="account.menu_finance_entries_accounting_miscellaneous" action="action_cheque_leaf_id"
+    />
+    <record id="cheque_leaf_company_rule" model="ir.rule">
+        <field name="name">Cheque Book Multi-Company Rule</field>
+        <field name="model_id" ref="model_cheque_leaf"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

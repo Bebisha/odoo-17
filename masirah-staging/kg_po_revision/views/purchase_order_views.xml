@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="po_revision_form">
+            <field name="name">po.form.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_confirm']" position="before">
+                    <field name="is_pm_approve" invisible="1"/>
+                    <field name="receipt_status" invisible="1"/>
+                    <button class="oe_highlight" type="object" name="custom_create_revision"
+                            string="Create Revision"
+                            invisible="receipt_status in ['partial','full'] or state not in ['cancel','purchase','done']"/>
+                </xpath>
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="show_revisedline" type="object" class="oe_stat_button" invisible="revision_count == 0"
+                            icon="fa-pencil-square-o">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="revision_count" readonly="1" force_save="1"/>
+                            </span>
+                            <span class="o_stat_text">Revisions</span>
+                        </div>
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

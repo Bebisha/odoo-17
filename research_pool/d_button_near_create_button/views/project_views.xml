@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_project" model="ir.ui.view">
+		<field name="name">view.project.inherit.form</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+		<field name="arch" type="xml">
+			<xpath expr="//tree" position="attributes">
+				<attribute name="js_class">button_near_create_button</attribute>
+				  <attribute name="class">dropdown-toggle</attribute>
+<!--                <attribute name="data-toggle">dropdown</attribute>-->
+			</xpath>
+		</field>
+	</record>
+</odoo>

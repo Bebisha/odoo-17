@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define Form View -->
+        <record id="view_kg_dividend_entry_form" model="ir.ui.view">
+            <field name="name">kg.dividend.entry.form</field>
+            <field name="model">kg.dividend.entry</field>
+            <field name="arch" type="xml">
+                <form string="Dividend Entry">
+                    <header>
+                        <button name="action_submit_manager" string="Submit to Manager" type="object"
+                                class="btn-primary" invisible="manager_approved==True"/>
+                        <button name="action_approve" string="Approve" type="object" class="btn-primary"
+                                invisible="state!='to_approve'"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,to_approve,posted,cancel"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="view_journal_entries" type="object"
+                                    class="oe_stat_button"
+                                    string="Journal Entries"
+                                    icon="fa-list"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="manager_approved" invisible="1"/>
+                                <field name="company_id"/>
+                                <field name="date"/>
+                                <field name="exchange_id"/>
+                                <field name="currency_id"/>
+                                <field name="investment_id"/>
+                                <field name="investment_type_id"/>
+                                <field name="old_doc_id"/>
+                            </group>
+                            <group>
+                                <field name="dividend_type"/>
+                                <field name="no_of_shares" invisible="dividend_type != 'stock'"/>
+                                <field name="amount" invisible="dividend_type != 'cash'"/>
+                                <field name="effective_date" invisible="dividend_type != 'stock'"/>
+                                <field name="broker_bank" />
+                                <field name="broker_id" invisible="broker_bank != 'broker' "/>
+                                <field name="bank_id" invisible="broker_bank != 'bank'"/>
+                                <field name="memo"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_kg_dividend_entry_tree" model="ir.ui.view">
+            <field name="name">kg.dividend.entry.tree</field>
+            <field name="model">kg.dividend.entry</field>
+            <field name="arch" type="xml">
+                <tree string="Dividend Entry">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="date"/>
+                    <field name="exchange_id"/>
+                    <field name="currency_id"/>
+                    <field name="investment_id"/>
+                    <field name="investment_type_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_kg_dividend_entry" model="ir.actions.act_window">
+            <field name="name">Dividend Entry</field>
+            <field name="res_model">kg.dividend.entry</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_kg_dividend_entry_tree"/>
+        </record>
+    </data>
+</odoo>

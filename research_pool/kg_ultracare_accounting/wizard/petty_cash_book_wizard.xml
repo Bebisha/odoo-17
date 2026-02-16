@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="petty_cash_book_report_menu_action" model="ir.actions.act_window">
+            <field name="name">Petty Cash Book</field>
+            <field name="res_model">petty.cash.book.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_petty_cash_book_report" action="petty_cash_book_report_menu_action"
+                  name="Petty Cash Book" parent="kg_ultracare_accounting.menu_reporting_config_accounting"/>
+
+        <record id="petty_cash_book_report_wizard_view" model="ir.ui.view">
+            <field name="name">Petty Cash Book Wizard</field>
+            <field name="model">petty.cash.book.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                        </group>
+                        <group name="date_to">
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_petty_cash_book_report"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

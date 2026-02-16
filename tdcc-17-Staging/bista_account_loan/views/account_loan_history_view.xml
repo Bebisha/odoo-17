@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2011 Alexis de Lattre <alexis.delattre@akretion.com>
+     Copyright 2016 Antonio Espinosa <antonio.espinosa@tecnativa.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+
+    <record id="account_loan_history_form" model="ir.ui.view">
+        <field name="name">account.loan.history.form</field>
+        <field name="model">account.loan.history</field>
+        <field name="arch" type="xml">
+            <form string="Loan">
+                <group>
+                    <field name="start_date" required="1"/>
+                    <field name="end_date" invisible="1"/>
+                    <field name="rate"/>
+                </group>
+                <footer>
+                    <button name="create_history" string="Apply"
+                            type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_loan_history_action" model="ir.actions.act_window">
+        <field name="name">Lease History</field>
+        <field name="res_model">account.loan.history</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_loan_id': active_id}</field>
+    </record>
+</odoo>

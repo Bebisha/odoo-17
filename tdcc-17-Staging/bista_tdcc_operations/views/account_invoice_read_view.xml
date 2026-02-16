@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Accounts Menu -->
+	    <menuitem id="tdcc_accounts_menu" name="Accounts"
+	              parent="bista_tdcc_operations.operations_menu_root"
+	              sequence="6"
+	              groups="bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_cofounder,bista_tdcc_operations.group_appointment_manager"/>
+
+        <!-- Customer Invoice Menu -->
+        <menuitem id="tdcc_customer_invoice_menu" name="Customer Invoice"
+                 action="account.action_move_out_invoice_type"
+                 parent="bista_tdcc_operations.tdcc_accounts_menu"
+                 groups="bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_cofounder,bista_tdcc_operations.group_appointment_manager"/>
+
+</odoo>

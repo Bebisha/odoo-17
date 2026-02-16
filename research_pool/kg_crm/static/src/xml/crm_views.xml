@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+   <t t-name="button_sale.ListView.Buttons" t-inherit="web.ListView.Buttons">
+       <xpath expr="//div[hasclass('o_list_buttons')]" position="inside">
+           <button type="button" class="btn btn-primary" style="margin-left: 10px;"  t-on-click="OnTestClick">
+               Click me
+           </button>
+       </xpath>
+   </t>
+</templates>
+
+
+
+
+
+
+
+
+
+
+<!--<templates xml:space="preserve">-->
+<!--       <t t-inherit="web.ListView.Selection" t-inherit-mode="extension">-->
+<!--     <xpath expr="//t[@t-if='nbSelected']" position="inside">-->
+<!--         <button type="button" class="btn btn-primary o_data_recycle_validate_button" id ="vadiate_id">-->
+<!--                    Validatehhhhhhhhhhhhhh-->
+<!--                </button>-->
+<!--     </xpath>-->
+<!--       </t>-->
+
+<!--&lt;!&ndash;    <t t-name="web.CustomAction">&ndash;&gt;-->
+<!--&lt;!&ndash;        <DropdownItem class="'o_custom_action_menu'" onSelected.bind="onClick">&ndash;&gt;-->
+<!--&lt;!&ndash;            <i class="fa fa-fw fa-bars me-1"/>Custom Action&ndash;&gt;-->
+<!--&lt;!&ndash;        </DropdownItem>&ndash;&gt;-->
+<!--&lt;!&ndash;    </t>&ndash;&gt;-->
+
+<!--</templates>-->

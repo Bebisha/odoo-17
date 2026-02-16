@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_tag_view_form_sharqiya" model="ir.ui.view">
+            <field name="name">account.account.tag.form.sharqiya</field>
+            <field name="model">account.account.tag</field>
+            <field name="inherit_id" ref="account.account_tag_view_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='applicability']" position="after">
+                    <field name="is_trial_balance"/>
+                </xpath>
+            </field>
+    </record>
+</odoo>

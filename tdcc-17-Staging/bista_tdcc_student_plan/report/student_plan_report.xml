@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Student Plan Report Action -->
+<!--    <report-->
+<!--        id="action_student_plan_report"-->
+<!--        model="student.plan"-->
+<!--        string="Student plan"-->
+<!--        name="bista_tdcc_student_plan.report_student_plan"-->
+<!--        file="bista_tdcc_student_plan.report_student_plan"-->
+<!--        report_type="qweb-pdf"/>-->
+<!--        menu = "False"-->
+
+     <record id="action_student_plan_report" model="ir.actions.report">
+        <field name="name">Student plan</field>
+        <field name="model">student.plan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_tdcc_student_plan.report_student_plan</field>
+        <field name="report_file">bista_tdcc_student_plan.report_student_plan</field>
+    </record>
+
+</odoo>

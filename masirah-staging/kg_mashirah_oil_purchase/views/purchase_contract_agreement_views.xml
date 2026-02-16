@@ -1,0 +1,137 @@
+<odoo>
+    <data>
+
+        <record id="menu_purchase_contract_action" model="ir.actions.act_window">
+            <field name="name">Purchase Contract Agreement</field>
+            <field name="res_model">purchase.contract.agreement</field>
+            <field name="view_mode">tree,form,activity,graph,pivot,kanban</field>
+        </record>
+
+        <menuitem id="menu_purchase_contract" name="Purchase Contract Agreement" action="menu_purchase_contract_action"
+                  parent="purchase.menu_purchase_root" sequence="6"/>
+
+        <record id="purchase_contract_view_tree" model="ir.ui.view">
+            <field name="name">Purchase Contract Agreement Tree View</field>
+            <field name="model">purchase.contract.agreement</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Contract Agreement">
+                    <field name="name"/>
+                    <field name="vendor_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="vendor_ref"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="purchase_contract_view_form" model="ir.ui.view">
+            <field name="name">Purchase Contract Agreement Form View</field>
+            <field name="model">purchase.contract.agreement</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Contract Agreement">
+                    <header>
+                        <field name="is_create_rfq" invisible="1"/>
+                        <field name="is_dm_approve" invisible="1"/>
+
+                        <button name="action_confirm" string="Confirm"
+                                type="object" class="oe_highlight" invisible="state != 'draft'"/>
+
+                        <button name="kg_dm_approve" type="object" string="Approve"
+                                invisible="is_dm_approve == True or state == 'cancel' or state == 'draft' "
+                                class="oe_highlight"/>
+
+                        <button name="create_rfq" string="Create RFQ"
+                                type="object" class="oe_highlight"
+                                invisible="is_create_rfq == False or state in ['close','cancel']"/>
+
+                        <button name="extend" string="Extend"
+                                type="object" class="oe_highlight"
+                                invisible="state in ['close','cancel'] or is_create_rfq == False"/>
+
+                        <button name="action_close" string="Close"
+                                type="object" class="oe_highlight"
+                                invisible="state in ['close','cancel'] or is_create_rfq == False"/>
+
+                        <button name="button_draft" string="Set to Draft" type="object" class="oe_highlight"
+                                invisible="state not in ['close','cancel']"/>
+
+                        <button name="action_cancel" string="Cancel"
+                                type="object"
+                                invisible="state == 'close' or state == 'cancel' or is_receipt == True"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,ongoing,close"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="action_view_purchase_order"
+                                    class="oe_stat_button"
+                                    icon="fa-pencil-square-o"
+                                    invisible="po_count == 0">
+                                <field name="po_count" widget="statinfo" string="RFQs/Order"/>
+                            </button>
+                        </div>
+                        <widget name="web_ribbon" title="Closed" invisible="state != 'close'"/>
+                        <widget name="web_ribbon" title="Cancelled" invisible="state != 'cancel'"
+                                bg_color="text-bg-danger"/>
+
+                        <div class="oe_title">
+                            <label for="name" string="Contract Reference"/>
+                            <h1>
+                                <field name="name" readonly="1" force_save="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="vendor_id" required="1" domain="[('supplier_rank', '>', 0)]"
+                                       readonly="is_create_rfq == True"/>
+                                <field name="vendor_ref" readonly="is_create_rfq == True"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="rfq_created_pc_lines" widget="many2many_tags" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="date_from" required="1" widget="date"
+                                       readonly="is_create_rfq == True"/>
+                                <field name="date_to" required="1" widget="date"
+                                       readonly="state == 'close'"/>
+                                <field name="purchase_ids" invisible="1" force_save="1" widget="many2many_tags"/>
+                                <field name="po_count" invisible="1"/>
+                                <field name="is_receipt" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="purchase_contract_line" string="Purchase Contract Line">
+                                <field name="purchase_contract_ids">
+                                    <tree editable="bottom">
+                                        <field name="id" column_invisible="1"/>
+                                        <field name="start_date" readonly="1"
+                                               force_save="1"/>
+                                        <field name="end_date" readonly="1"
+                                               force_save="1"/>
+                                        <field name="product_id" required="1"
+                                               readonly="parent.is_create_rfq == True"
+                                               options="{'no_edit': True, 'no_create': True}"/>
+                                        <field name="description" readonly="parent.is_create_rfq == True"
+                                               required="1"/>
+                                        <field name="uom_id" readonly="parent.is_create_rfq == True" required="1"
+                                               options="{'no_edit': True, 'no_create': True}"/>
+                                        <field name="unit_price" readonly="id in parent.rfq_created_pc_lines or parent.state == 'close'"
+                                               required="1" sum="Total"/>
+                                        <field name="company_id" column_invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

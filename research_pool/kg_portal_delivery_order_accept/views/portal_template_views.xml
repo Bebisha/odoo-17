@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_purchase" name="Show Requests for Quotation / Purchase Orders" customize_show="True"
+              inherit_id="portal.portal_my_home" priority="25">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/kg_portal_delivery_order_accept/static/description/img/icon1.png'"/>
+                <t t-set="title">Delivery Orders</t>
+                <t t-set="text">Views Delivery Order</t>
+                <t t-set="url" t-value="'/my/delivery/order'"/>
+                <t t-set="placeholder_count" t-value="'vendor_count'"/>
+                <img t-if="icon" t-att-src="icon" class="custom-icon"/>
+                <!--                <button class="btn btn-primary btn-sm"-->
+                <!--                        t-attf-style="background-color: {'green' if result == 'Invoice created successfully!' else 'red'};">-->
+                <!--                    Create Invoice-->
+                <!--                </button>-->
+
+            </t>
+        </xpath>
+    </template>
+    <template id="delivery_list_views" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'my_delivery_list_views'" class="breadcrumbs-item" style="margin-left:10px;">/
+                <span
+                        style="margin-left:10px;">Delivery Order
+                </span>
+            </li>
+
+        </xpath>
+    </template>
+    <template id="my_delivery_list_views" name="My Delivery Order">
+        <t t-call="portal.portal_layout">
+
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Delivery Order</t>
+            </t>
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-center">Delivery Order</th>
+                        <th class="text-center">Delivery Date</th>
+                        <th class="text-center">Dead Line</th>
+                        <th class="text-center">State</th>
+                        <!-- Add more headers as needed -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="pickings" t-as="picking">
+                        <tr>
+                            <td class="text-center">
+
+                                <t t-esc="picking.name"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="picking.scheduled_date" t-options='{"widget": "date"}'/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="picking.date_deadline" t-options='{"widget": "date"}'/>
+                            </td>
+                            <td class="text-center">
+                                <span t-esc="values[keys.index(picking.state)]"
+                                      class="badge rounded-pill text-bg-info"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-if="not picking.boolean">
+                                    <a class="btn btn-primary btn-sm green-button"
+                                       t-att-href="'/my/delivery/order/accept/' + str(picking.id)"
+                                       t-on-click="picking.boolean = true">
+                                        Accept
+                                    </a>
+                                </t>
+                                <t t-if="picking.boolean">
+                                    <a class="btn btn-primary btn-sm  text-bg-success orders_label_text_align"
+                                       t-att-href="'/my/delivery/order/paid/' + str(picking.id)"
+                                       t-on-click="picking.boolean = false">
+                                        Invoiced
+                                    </a>
+                                </t>
+                            </td>
+
+
+                            <!-- Add more columns to display additional information -->
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+<!--    <template id="confirmation_popup_template" name="Confirmation Popup">-->
+<!--    <div class="modal-header">-->
+<!--        <h5 class="modal-title">Confirmation</h5>-->
+<!--    </div>-->
+<!--    <div class="modal-body">-->
+<!--        <p>Are you sure you want to accept the delivery order?</p>-->
+<!--    </div>-->
+<!--    <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-primary" t-on-click="confirmAcceptance">Yes</button>-->
+<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>-->
+<!--    </div>-->
+<!--</template>-->
+
+
+
+    <!--    <template id="portal_my_home_purchase" name="Show Requests for Quotation / Purchase Orders" customize_show="True"-->
+    <!--              inherit_id="portal.portal_my_home" priority="25">-->
+    <!--        <xpath expr="//div[hasclass('o_portal_docs')]"  position="inside">-->
+    <!--            <t t-set="portal_vendor_category_enable" t-value="True"/>-->
+    <!--        </xpath>-->
+    <!--        <div id="portal_vendor_category" position="inside">-->
+    <!--            <t t-call="portal.portal_docs_entry">-->
+    <!--                &lt;!&ndash;              <t t-set="icon" t-value="'/purchase/static/src/img/rfq.svg'"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;                <t t-set="text">Follow your Requests for Quotation</t>&ndash;&gt;-->
+    <!--                <t t-set="title">Requests for Quotationghhhhhhhh</t>-->
+    <!--                &lt;!&ndash;              <t t-set="url" t-value="'/my/rfq'"/>&ndash;&gt;-->
+    <!--                <t t-set="placeholder_count" t-value="'rfq_count'"/>-->
+    <!--            </t>-->
+    <!--            <t t-call="portal.portal_docs_entry">-->
+    <!--                &lt;!&ndash;              <t t-set="icon" t-value="'/purchase/static/src/img/calculator.svg'"/>&ndash;&gt;-->
+    <!--                <t t-set="text">Follow orders you have to fulfill</t>-->
+    <!--&lt;!&ndash;                <t t-set="title">Our Ordersvvvvvvvvvvvvvvvvvvv</t>&ndash;&gt;-->
+    <!--                &lt;!&ndash;              <t t-set="url" t-value="'/my/purchase'"/>&ndash;&gt;-->
+    <!--                <t t-set="placeholder_count" t-value="'purchase_count'"/>-->
+    <!--            </t>-->
+    <!--        </div>-->
+    <!--    </template>-->
+</odoo>

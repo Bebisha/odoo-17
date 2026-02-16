@@ -1,0 +1,33 @@
+<odoo>
+    <data noupdate="1">
+        <record id="client_intake_form_sequence" model="ir.sequence">
+            <field name="name">Client Intake Form</field>
+            <field name="code">client.intake.form</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">CI</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="developmental_history_form_sequence" model="ir.sequence">
+            <field name="name">Developmental History Form Sequence</field>
+            <field name="code">developmental.history.form</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">DH</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="mrm_id_sequence" model="ir.sequence">
+            <field name="name">MRM Sequence</field>
+            <field name="code">res.partner</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">MRM</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

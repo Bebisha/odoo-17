@@ -1,0 +1,10 @@
+<odoo>
+    <template id="restrict_add_address" inherit_id="website_sale.row_addresses" name="restrict_to_add_address">
+        <xpath expr="//div/div[2]/a" position="replace"/>
+
+    </template>
+    <template id="restrict_add_edit" inherit_id="website_sale.address_kanban" name="restrict_add_edit">
+        <xpath expr="//div/div/t/a" position="replace"/>
+    </template>
+
+</odoo>

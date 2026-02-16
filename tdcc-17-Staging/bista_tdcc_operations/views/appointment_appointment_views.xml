@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Appointment Form -->
+    <record model="ir.ui.view" id="appointment_appointment_form_views">
+        <field name="name">appointment.appointment.form</field>
+        <field name="model">appointment.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Form">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="new,confirmed"/>
+                    <button name="action_appointment_confirm" string="Confirm"
+                            confirm="Are you sure you want to confirm the appointment ?"
+                            type="object" invisible=" state != 'new'" class="oe_highlight"
+                            groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_appointment_manager"/>
+                    <button name="action_student_arrive"
+                            string="Arrive"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="[(is_student_arrived != False) or (state not in ('confirmed', 'invoiced'))]"
+                            groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_practitioner,bista_tdcc_operations.group_appointment_manager"
+                            context="{'from_physician': True}"/>
+
+                    <button
+                            name="action_create_invoice"
+                            string="Create Invoice"
+                            confirm="Are you sure you want to create an invoice?"
+                            type="object"
+                            class="oe_highlight"
+                            context="{'from_account': True}"
+                            groups="account.group_account_invoice"
+                            invisible="[(state not in ('confirmed','arrive','dna')) or (hide_inv_btn == True) or (is_chargeable == 'non_chargeable')]"
+                    />
+
+                    <button
+                            name="action_dna"
+                            string="DNA"
+                            type="object"
+                            confirm="Are you sure you want to move to DNA?"
+                            invisible="is_student_arrived or state not in ('confirmed','invoiced')"
+                            context="{'from_physician': True}"
+                            groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_practitioner"
+                    />
+
+
+                    <button name="action_set_complete" string="Completed"
+                            type="object" invisible=" state != 'arrive'"
+                            groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_cre"/>
+                    <button name="action_request_cancel" string="Cancel"
+                            invisible=" state not in ('new','confirmed','invoiced','arrive','dna','cancelled')"
+                            type="object"
+                            groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_appointment_manager"/>
+                    <button name="action_set_to_draft" string="Set To Draft" invisible="state != 'cancelled' "
+                            type="object"
+                            groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_appointment_manager"/>
+                    <button name="%(bista_tdcc_operations.appointment_cancel_invoice_request_action)d"
+                            invisible="(invoice_count == 0) or (state in ('cancelled','done', 'arrive')) or (is_student_arrived == True)"
+                            string="Invoice cancel request" type="action"
+                            groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_appointment_manager"/>
+                    <button name="action_reschedule_appointment"
+                            string="Rearrange" type="object" invisible="state not in ('confirmed','invoiced') "
+                            groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_appointment_manager"/>
+
+                    <button name="action_additional_appointment_booking"
+                            string="Additional Booking" type="object"
+                            invisible=" state not in ('new','confirmed','invoiced','dna','arrive')"
+                            groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_appointment_manager"/>
+
+
+                    <button name="%(bista_tdcc_operations.appointment_update_clinical_note_action)d"
+                            string="Update Clinical Note" type="action"
+                            groups="bista_tdcc_operations.group_tdcc_practitioner"/>
+                    <button name="action_update_state_by_physician" string="Update State"
+                            type="object" invisible=" state not in ('confirmed','invoiced','dna','arrive')"
+                            context="{'from_physician': True}"
+                            groups="bista_tdcc_operations.group_tdcc_practitioner,bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_cre"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_invoice" type="object"
+                                class="oe_stat_button" icon="fa-money" invisible="invoice_count == 0 ">
+                            <field name="invoice_count" widget="statinfo"
+                                   string="Invoices"/>
+                        </button>
+                        <button name="toggle_active" type="object" invisible="1"
+                                class="oe_stat_button" icon="fa-archive"
+                                groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_appointment_manager">
+                            <field name="active" widget="boolean_button"
+                                   options="{&quot;terminology&quot;: &quot;archive&quot;}" invisible="1"/>
+                        </button>
+                    </div>
+                    <h1>
+                        Appointment
+                        <field name="name" class="oe_inline" readonly="1"
+                               invisible="name in '/' "/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="client_id" context="{'default_is_student':1}" options="{'no_create':True}"
+                                   readonly="state in ('confirmed','done','arrive','dna') " required="1"/>
+
+                            <field name="attendant_id" context="{'default_is_student':1}" options="{'no_create':True}"
+                                   readonly="state in ('confirmed','done','arrive','dna') "/>
+                            <field name="is_student_arrived" invisible="1"/>
+                            <field name="clinic_id" options="{'no_create':True,'no_open':True}"
+                                   required="1" readonly="state != 'new' "/>
+                            <field name="payment_term_id" options="{'no_create':True,'no_open':True}"
+                                   readonly=" state not in ('new','confirmed')"/>
+                            <field name="program_type" readonly="state != 'new' "/>
+                            <field name="is_chargeable"/>
+
+                            <field name="non_chargeable_reason"
+                                   invisible="1 if (is_chargeable == 'chargeable') or (not is_chargeable) else 0"/>
+
+</group>
+                        <group>
+                            <field name="tdcc_appointment_id" invisible="1"/>
+                            <field name="date"
+                                   readonly="state != 'dna' "/>
+                            <field name="sale_id"/>
+                            <field name="communication_type"
+                                   readonly="state != 'dna' "/>
+                            <field name="auto_reminder"/>
+                            <field name="hide_inv_btn" invisible="1"/>
+                            <field name="mail_send_duration"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Appointment Details">
+                            <group>
+                                <group>
+                                    <field name="service_group_id"
+                                           options="{'no_create':True,'no_open':True}"
+                                           readonly="state != 'new' "/>
+                                    <field name="service_type_id"
+                                           options="{'no_create':True,'no_open':True}"
+                                           readonly="state != 'new' "/>
+                                    <field name="service_type_domain_id" widget="many2many_tags" invisible="1"/>
+                                    <field name="appointment_type_domain_id" widget="many2many_tags" invisible="1"/>
+                                    <field name="appointment_type_id"
+                                           options="{'no_create':True,'no_open':True}"
+                                           readonly="state != 'new' "/>
+                                    <field name="room_id" options="{'no_create_edit': True}"
+                                           readonly="state != 'new' "/>
+                                    <field name="physician_id"
+                                           options="{'no_create':True,'no_open':True}"
+                                           readonly="state != 'new' "/>
+                                    <field name="teacher_ids" widget="many2many_tags"
+                                           readonly="state != 'new'"
+                                           invisible="1 if program_type == '360' else 0"
+                                           options="{'no_create':True,'no_open':True}"/>
+                                </group>
+                                <group>
+                                    <field name="start_date" required="1"
+                                           readonly="state != 'new' "/>
+                                    <field name="date_to" invisible="1"/>
+                                    <field name="end_date"
+                                           readonly="state != 'new' "/>
+                                    <field name="week_interval"
+                                           readonly="state != 'new' "
+                                           required="end_date != False "
+                                           invisible="end_date == False "/>
+                                    <field name="week_days_ids" widget="many2many_tags"
+                                           options="{'no_create' : True}"
+                                           readonly="state != 'new' "
+                                           required="end_date != False "
+                                           invisible="end_date == False "/>
+                                    <field name="duration" required="1" widget="float_time"
+                                           readonly="state != 'new' "/>
+                                    <field name="product_id"
+                                           readonly="state != 'new' "/>
+                                    <field name="price_subtotal" readonly="1" force_save="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Group Appointment Details"
+                              invisible="group_appointment_booking_id == False">
+                            <group>
+                                <group>
+                                    <field name="group_appointment_booking_id" readonly="1"
+                                           string="Group Appointment Ref."/>
+                                    <field name="service_group_id"
+                                           options="{'no_create':True,'no_open':True}"
+                                           readonly="state != 'new' "/>
+                                    <field name="service_type_id"
+                                           options="{'no_create':True,'no_open':True}"
+                                           readonly="state != 'new' "/>
+                                    <field name="appointment_type_id"
+                                           options="{'no_create':True,'no_open':True}"
+                                           readonly="state != 'new' "/>
+                                    <field name="room_id" options="{'no_create':True,'no_open':True}"
+                                           readonly="state != 'new' "/>
+
+                                    <field name="physician_id"
+                                           options="{'no_create':True,'no_open':True}"
+                                           readonly="state != 'new' "/>
+                                </group>
+                                <group>
+                                    <field name="appointment_date" string="Date" readonly="state != 'new' "/>
+                                    <field name="day" readonly="1"/>
+                                    <field name="start_time" widget="float_time" readonly="state != 'new' "/>
+                                    <field name="end_time" widget="float_time" readonly="state != 'new' "/>
+                                    <field name="duration" widget="float_time" readonly="state != 'new' "/>
+                                    <field name="product_id" readonly="state != 'new' "/>
+                                    <field name="price_subtotal" readonly="state != 'new' "/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Dates" name="dates" invisible=" end_date == False">
+                            <group>
+                                <group>
+                                    <button name="generate_comfort_days"
+                                            string="Generate Dates" type="object"
+                                            invisible="state != 'new' "
+
+                                            class="oe_highlight"
+                                            confirm="Are you sure you want to generate the Dates ?"/>
+                                </group>
+                            </group>
+                            <field name="appointment_line_ids">
+                                <tree string="Dates" editable="bottom" create="false"
+                                      delete="false">
+                                    <field name="name"/>
+                                    <field name="start_date"/>
+                                    <field name="physician_id"/>
+                                    <field name="room_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Cancellation" name="calcellation">
+                            <field name="common_cancellation_ids">
+                                <tree string="Days Cancelled">
+                                    <field name="date"/>
+                                    <field name="day"/>
+                                    <field name="start_time" widget="float_time"/>
+                                    <field name="end_time" widget="float_time"/>
+                                    <field name="cancel_id"/>
+                                    <field name="write_by_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Rearrange" name="rearrange">
+                            <field name="common_rearrangement_ids">
+                                <tree string="Days Rearranged">
+                                    <field name="start_date"/>
+                                    <field name="end_date"
+                                           column_invisible="parent.group_appointment_booking_id != False "/>
+                                    <field name="appointment_week_day"
+                                           column_invisible="parent.group_appointment_booking_id != False "/>
+                                    <field name="day_ids" widget="many2many_tags"
+                                           column_invisible="parent.group_appointment_booking_id != False "/>
+                                    <field name="start_time" widget="float_time"/>
+                                    <field name="end_time" widget="float_time"/>
+                                    <field name="rearrange_id"/>
+                                    <field name="write_by_id"/>
+                                    <field name="physician_id"
+                                           groups="bista_tdcc_operations.tdcc_appointments_see_all"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <group>
+                                <field name="clinical_notes"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Appointment List -->
+    <record model="ir.ui.view" id="appointment_appointment_tree_vew">
+        <field name="name">appointment.appointment.tree</field>
+        <field name="model">appointment.appointment</field>
+        <field name="arch" type="xml">
+            <tree string="Appointments" decoration-danger=" state == 'new'" >
+                <button name="action_create_invoice" type="object"
+                        confirm="Are you sure you want to create an invoice for this record?" icon="fa-money fa-lg"
+                        context="{'from_account': True}"
+                        invisible="(state not in ('confirmed','arrive','dna')) or (hide_inv_btn == True) or (is_chargeable == 'non_chargeable')"
+                        help="Will create an invoice based on the details."
+                        groups="account.group_account_invoice"/>
+
+                <button name="action_dna" type="object" context="{'from_physician': True}"
+                        icon="fa-stop-circle fa-lg"
+                        invisible="(is_student_arrived != False) or (state not in ('confirmed', 'invoiced'))"
+                        confirm="Are you sure you want to make it as DNA ?"
+                        groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_practitioner"/>
+
+                <button name="action_view_invoice" type="object"
+                         icon="fa-file-text fa-lg"
+                        invisible="invoice_count == 0"
+                        groups="bista_tdcc_operations.group_tdcc_cofounder,bista_tdcc_operations.group_appointment_manager,account.group_account_invoice,bista_tdcc_operations.group_appointment_manager"/>
+
+                <button name="action_send_appointment_mail"
+                        type="object" icon="fa-send-o fa-lg"
+                        invisible="state not in ('confirmed','arrive','dna','invoiced')"
+                        confirm="Are you sure you want to send the Mail?"
+                        groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_practitioner"/>
+                <field name="is_chargeable" column_invisible="1"/>
+                <field name="hide_inv_btn" column_invisible="1"/>
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="day" invisible="context.get('from_single_app', False)"/>
+                <field name="client_id" widget="many2one"/>
+                <field name="attendant_id" widget="many2one"/>
+                <field name="date_to" column_invisible="1"/>
+                <field name="clinic_id" column_invisible="1"/>
+                <field name="physician_id" widget="many2one"/>
+                <field name="room_id" widget="many2one"/>
+                <field name="service_type_id" widget="many2one"/>
+                <field name="appointment_type_id" widget="many2one"/>
+                <field name="duration" widget="float_time"/>
+                <field name="price_subtotal" sum="Total Amount"/>
+                <field name="is_student_arrived" column_invisible="1"/>
+                <field name="state"/>
+
+                <field name="invoice_count" column_invisible="1"/>
+
+
+            </tree>
+
+        </field>
+    </record>
+
+    <!-- Appointment Calendar view -->
+
+
+    <record id="view_appointment_appointment_calendar_client_view" model="ir.ui.view">
+        <field name="name">appointment.appointment.calendar.client</field>
+        <field name="model">appointment.appointment</field>
+        <field name="arch" type="xml">
+            <calendar date_start="start_date" date_stop="date_to" color="state" mode="week"  date_delay="duration" >
+                <field name="name"/>
+                <field name="state" filters="1" invisible="1"/>
+                <field name="client_id" domain="[('is_student', '=', True)]"/>
+                <field name="attendant_id" domain="[('is_student', '=', True)]"/>
+                <field name="appointment_type_id"/>
+                <field name="duration"  widget="float_time"/>
+                <field name="physician_id" groups="bista_tdcc_operations.group_tdcc_all_appointments"/>
+                <field name="room_id"/>
+            </calendar>
+        </field>
+    </record>
+
+
+    <record id="view_appointment_appointment_calendar_physician_view"
+            model="ir.ui.view">
+        <field name="name">appointment.appointment.calendar.physician</field>
+        <field name="model">appointment.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointment" date_start="start_date" date_stop="date_to"  date_delay="duration"
+                      color="state" mode="week">
+                <field name="state" filters="1" invisible="1"/>
+                <field name="client_id" domain="[('is_student', '=', True)]"/>
+                <field name="attendant_id" domain="[('is_student', '=', True)]"/>
+                <field name="appointment_type_id"/>
+                <field name="duration" widget="float_time"/>
+                <field name="physician_id" groups="bista_tdcc_operations.group_tdcc_all_appointments"/>
+                <field name="room_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Appointment Search -->
+    <record model="ir.ui.view" id="appointment_appointment_search_views">
+        <field name="name">appointment.appointment.search</field>
+        <field name="model">appointment.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="physician_id"/>
+                <field name="client_id"/>
+                <field name="room_id"/>
+                <field name="communication_type"/>
+                <field name="service_type_id"/>
+                <filter string="Chargeable" name="chargeable"
+                        domain="[('is_chargeable', '=', 'chargeable')]"/>
+                <filter string="Non Chargeable" name="non_chargeable"
+                        domain="[('is_chargeable', '=', 'non_chargeable')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state" domain="[]"
+                            context="{'group_by':'state'}"/>
+                    <filter string="Date" name="start_date" domain="[]"
+                            context="{'group_by':'start_date'}"/>
+                    <filter string="Physician" name="physician" domain="[]"
+                            context="{'group_by':'physician_id'}"/>
+                    <filter string="Client" name="client" domain="[]"
+                            context="{'group_by':'client_id'}"/>
+                    <filter string="Room" name="room" domain="[]"
+                            context="{'group_by':'room_id'}"/>
+                    <filter string="Communication" name="Communication"
+                            domain="[]" context="{'group_by':'communication_type'}"/>
+                    <filter string="Service Type" name="service_type"
+                            domain="[]" context="{'group_by':'service_type_id'}"/>
+                    <filter string="Appointment Type" name="Appointment Type"
+                            domain="[]" context="{'group_by':'appointment_type_id'}"/>
+                    <filter string="Archived" name="inactive"
+                            domain="[('active','=',False)]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Appointment Action -->
+
+    <record model="ir.actions.act_window"
+            id="appointment_view_calender_client_actions">
+        <field name="name">Appointments</field>
+        <field name="res_model">appointment.appointment</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="domain">[('group_appointment_booking_id', '=', False),('state','!=', 'cancelled')]</field>
+        <field name="view_id" ref="appointment_appointment_tree_vew"/>
+        <field name="context">{'from_single_app': True}</field>
+    </record>
+
+    <!-- Action for display Group Appointments of Client -->
+    <record model="ir.actions.act_window"
+            id="appointment_view_group_app_clients">
+        <field name="name">Group Appointments</field>
+        <field name="res_model">appointment.appointment</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="domain">[('group_appointment_booking_id', '!=', False),('state','!=', 'cancelled')]</field>
+        <field name="view_id" ref="appointment_appointment_tree_vew"/>
+    </record>
+
+    <record model="ir.actions.act_window"
+            id="appointment_view_calender_action">
+        <field name="name">Booked Appointments</field>
+        <field name="res_model">appointment.appointment</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_id"
+               ref="view_appointment_appointment_calendar_physician_view"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="appointment_view_action">
+        <field name="name">Appointments</field>
+        <field name="res_model">appointment.appointment</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="domain">[('state','!=', 'cancelled')]</field>
+    </record>
+
+    <!-- Cancel Appointment Action -->
+    <record model="ir.actions.act_window" id="cancel_appointment_view_action">
+        <field name="name">Cancel Appointments</field>
+        <field name="res_model">appointment.appointment</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="domain">[('state','=', 'cancelled')]</field>
+    </record>
+
+    <!-- Non Arrived Appointment Action -->
+    <record model="ir.actions.act_window" id="non_arrived_appointment_view_actions">
+        <field name="name">Non Arrived Appointments</field>
+        <field name="res_model">appointment.appointment</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="domain">[('is_student_arrived','=', False),
+            ('state', 'in', ('confirmed', 'invoiced')),
+            ('start_date', '&lt;', context_today().strftime('%Y-%m-%d'))]
+        </field>
+    </record>
+
+    <!-- Appointment Menu -->
+    <menuitem id="appointment_appointment_menus"
+              action="appointment_view_action"
+              parent="bista_tdcc_operations.appointment_menu" sequence="1"
+              groups="bista_tdcc_operations.group_tdcc_director,bista_tdcc_operations.group_tdcc_cre,account.group_account_invoice,bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_practitioner"/>
+
+
+    <!-- Cancel Appointment Menu -->
+    <menuitem id="cancel_appointment_menus"
+              action="cancel_appointment_view_action"
+              parent="appointment_menu" sequence="3"/>
+    <!--              groups="bista_tdcc_operations.group_tdcc_director,bista_tdcc_operations.group_tdcc_cre,account.group_account_invoice,bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_practitioner"-->
+
+    <!-- Non Arrived Appointment Menu -->
+    <menuitem id="non_arrived_appointment_menus"
+              action="non_arrived_appointment_view_actions"
+              parent="bista_tdcc_operations.appointment_menu" sequence="4"/>
+
+</odoo>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <!-- Email template for group appointment booking-->
+    <record id="group_appointment_booking_mail_template" model="mail.template">
+        <field name="name">Learning support group course confirmation</field>
+        <field name="model_id" ref="bista_tdcc_operations.model_group_appointment_booking"/>
+        <field name="subject">Learning support group course confirmation</field>
+        <field name="email_from">{{user.partner_id.email or ''}}</field>
+        <field name="email_to"></field>
+        <field name="body_html" type="html">
+            <div>
+            <p>
+                Dear Parents,<br/><br/>
+                It was a pleasure speaking with you today.<br/>
+                This is to inform you that we have registered client name for <t t-out="object.service_group_id.name"/>
+            </p>
+            <p>
+            <p>
+                Please note group sessions will be every:<br/>
+		 -       Day of week<br/>
+		 -       Time<br/>
+		Schedule as follows: <br/>
+		1)    day/month/year <br/>
+		2)    day/month/year <br/>
+		3)    day/month/year <br/>
+		4)    day/month/year <br/>
+		5)    day/month/year <br/>
+		6)    day/month/year <br/>
+		7)    day/month/year <br/>
+		8)    day/month/year <br/>
+		9)    day/month/year <br/>
+            </p>
+               The cost of the group course for this term is AEDXXX payable in advance. <br/><br/>
+ 
+				Please remember there are no refunds for missed dates. In the event that TDCC unexpectedly needs to cancel any of the sessions an alternative/make-up session will be offered at the end of the term.
+				Please arrange payment at your earliest convenience prior to sessions commencing, either: <br/><br/>
+				
+				a) In person, at The Developing Child Centre OR <br/>
+				b) By Credit card <br/> <br/>
+				  
+				If you choose to pay via your credit card, please complete the attached credit card authorization form and email it back to me.
+				 Should you need any further assistance, please do not hesitate to contact us. <br/>
+				 
+				We look forward to welcoming you to TDCC. <br/> <br/>
+            </p>
+            <p style="color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; margin: 0in 0in 0pt; line-height: 13.8pt;"><b><span style="font-family: Tahoma, sans-serif;"><font size="2" color="#666666">Best Regards,</font></span></b></p><p dir="ltr" style="color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; margin: 0in 0in 0pt; line-height: 13.8pt;"><i><span style="color: rgb(127, 127, 127); font-family: Tahoma, sans-serif;"><font></font></span></i> </p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><i><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(75, 172, 198);"><span style="font-family: tahoma, sans-serif; font-size: small;"></span>“If you judge a fish by its ability to climb a tree, it will live its whole life believing that it is stupid.”  Albert Einstein</span></i><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span style="font-size: 10pt; color: rgb(31, 73, 125);"> </span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">We think different. We teach different.</span></b><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">At The Developing Child Centre our approach is simple. We believe every child is brilliant and we nurture and build children’s confidence and abilities. We are dedicated to identifying, building and developing skills required by all children to feel confident and succeed.</span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span style="font-size: 10pt; color: rgb(31, 73, 125);"> </span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">The Developing Child Centre LLC</span></b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);"> PO Box 478527 Dubai, UAE | Phone +971 4 3011900</span><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(127, 127, 127);"> | <b><a href="http://www.tdcc.ae/" target="_blank" style="color: rgb(17, 85, 204);"><span style="color: rgb(127, 127, 127);">www.tdcc.ae</span></a></b></span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"> </span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89); background-image: initial; background-position: initial; background-repeat: initial;">This email and any attachments are confidential and may also be privileged. If you have received this message in error, please (a) notify the sender immediately, (b) destroy this email and any attachments, and (c) do not use, copy, store and/or disclose to any person this email and any attachments. Disclosing, copying, disseminating or otherwise taking any action in connection with this communication or the information in it is prohibited and may be unlawful.  Any views or opinions presented in this email are solely those of the author and do not necessarily represent The Developing Child Centre. </span></p>
+        </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+    
+    <!-- Email template for group appointment speech and language  booking-->
+    <record id="speech_and_language_mail_template" model="mail.template">
+        <field name="name">Speech and language group confirmation </field>
+        <field name="model_id" ref="bista_tdcc_operations.model_group_appointment_booking"/>
+        <field name="subject">Speech and language group confirmation </field>
+        <field name="email_from">${user.partner_id.email or ''}</field>
+        <field name="email_to"></field>
+        <field name="body_html" type="html">
+            <div>
+            <p>
+                Dear Parents,<br/><br/>
+                
+            </p>
+            <p>
+                We are delighted to confirm <b>client name'</b>s place for the for the coming term <b>Services</b>
+            </p>
+            Sessions are booked as follows
+            <p>
+                The cost of the course is 3000AED payable by 11th April 2015. Each course consists of ten weekly sessions (same time and day).
+            </p>
+            <p>
+                We respectfully advise no refunds or alternative sessions will be given for missed dates. In the event of the centre cancelling a session an alternative session will be offered.
+            </p>
+            <p>
+                At the time of advance payment and prior to the course starting, please notify us of any dates that will be missed during the course so they will not be charged. Failure to notify in advance will mean all dates are charged and no refund or alternative dates will be given. TDCC reserves the right to refuse entry to group sessions if pre-payment is not received.
+            </p>
+            
+            <p style="color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; margin: 0in 0in 0pt; line-height: 13.8pt;"><b><span style="font-family: Tahoma, sans-serif;"><font size="2" color="#666666">Best Regards,</font></span></b></p><p dir="ltr" style="color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; margin: 0in 0in 0pt; line-height: 13.8pt;"><i><span style="color: rgb(127, 127, 127); font-family: Tahoma, sans-serif;"><font></font></span></i> </p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><i><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(75, 172, 198);"><span style="font-family: tahoma, sans-serif; font-size: small;"></span>“If you judge a fish by its ability to climb a tree, it will live its whole life believing that it is stupid.”  Albert Einstein</span></i><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span style="font-size: 10pt; color: rgb(31, 73, 125);"> </span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">We think different. We teach different.</span></b><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">At The Developing Child Centre our approach is simple. We believe every child is brilliant and we nurture and build children’s confidence and abilities. We are dedicated to identifying, building and developing skills required by all children to feel confident and succeed.</span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span style="font-size: 10pt; color: rgb(31, 73, 125);"> </span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">The Developing Child Centre LLC</span></b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);"> PO Box 478527 Dubai, UAE | Phone +971 4 3011900</span><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(127, 127, 127);"> | <b><a href="http://www.tdcc.ae/" target="_blank" style="color: rgb(17, 85, 204);"><span style="color: rgb(127, 127, 127);">www.tdcc.ae</span></a></b></span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"> </span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89); background-image: initial; background-position: initial; background-repeat: initial;">This email and any attachments are confidential and may also be privileged. If you have received this message in error, please (a) notify the sender immediately, (b) destroy this email and any attachments, and (c) do not use, copy, store and/or disclose to any person this email and any attachments. Disclosing, copying, disseminating or otherwise taking any action in connection with this communication or the information in it is prohibited and may be unlawful.  Any views or opinions presented in this email are solely those of the author and do not necessarily represent The Developing Child Centre. </span></p>
+        </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+    
+    <!-- Email template for OT Hand Writing group  -->
+     <record id="ot_hand_writing_mail_template" model="mail.template">
+        <field name="name">OT Hand Writing group -</field>
+        <field name="model_id" ref="bista_tdcc_operations.model_group_appointment_booking"/>
+        <field name="subject">OT Hand Writing group -</field>
+        <field name="email_from">${user.partner_id.email or ''}</field>
+        <field name="email_to"></field>
+        <field name="body_html" type="html">
+            <div>
+            <p>
+                Dear Parents,<br/><br/>
+                
+            </p>
+             <p>
+                It was a pleasure speaking with you today.
+            </p>
+            <p>
+                This is to inform you that we have registered Client name  for 
+                ${object.service_group_id.name}
+            </p>
+            <p>
+                Please note group sessions will be every:<br/>
+         -       Day of week<br/>
+         -       Time<br/>
+			        Schedule as follows: <br/>
+			        1)    day/month/year <br/>
+			        2)    day/month/year <br/>
+			        3)    day/month/year <br/>
+			        4)    day/month/year <br/>
+			        5)    day/month/year <br/>
+			        6)    day/month/year <br/>
+			        7)    day/month/year <br/>
+			        8)    day/month/year <br/>
+			        9)    day/month/year <br/>
+            </p>
+               The cost of the group course for this term is AEDXXX payable in advance. <br/><br/>
+ 
+                Please remember there are no refunds for missed dates. In the event that TDCC unexpectedly needs to cancel any of the sessions an alternative/make-up session will be offered at the end of the term.
+                Please arrange payment at your earliest convenience prior to sessions commencing, either: <br/><br/>
+                
+                a) In person, at The Developing Child Centre OR <br/>
+                b) By Credit card <br/> <br/>
+                  
+                If you choose to pay via your credit card, please complete the attached credit card authorization form and email it back to me.
+                 Should you need any further assistance, please do not hesitate to contact us. <br/>
+                 
+                We look forward to welcoming you to TDCC. <br/> <br/>
+                 
+               <p style="color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; margin: 0in 0in 0pt; line-height: 13.8pt;"><b><span style="font-family: Tahoma, sans-serif;"><font size="2" color="#666666">Best Regards,</font></span></b></p><p dir="ltr" style="color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; margin: 0in 0in 0pt; line-height: 13.8pt;"><i><span style="color: rgb(127, 127, 127); font-family: Tahoma, sans-serif;"><font></font></span></i> </p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><i><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(75, 172, 198);"><span style="font-family: tahoma, sans-serif; font-size: small;"></span>“If you judge a fish by its ability to climb a tree, it will live its whole life believing that it is stupid.”  Albert Einstein</span></i><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span style="font-size: 10pt; color: rgb(31, 73, 125);"> </span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">We think different. We teach different.</span></b><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">At The Developing Child Centre our approach is simple. We believe every child is brilliant and we nurture and build children’s confidence and abilities. We are dedicated to identifying, building and developing skills required by all children to feel confident and succeed.</span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span style="font-size: 10pt; color: rgb(31, 73, 125);"> </span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">The Developing Child Centre LLC</span></b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);"> PO Box 478527 Dubai, UAE | Phone +971 4 3011900</span><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(127, 127, 127);"> | <b><a href="http://www.tdcc.ae/" target="_blank" style="color: rgb(17, 85, 204);"><span style="color: rgb(127, 127, 127);">www.tdcc.ae</span></a></b></span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"> </span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89); background-image: initial; background-position: initial; background-repeat: initial;">This email and any attachments are confidential and may also be privileged. If you have received this message in error, please (a) notify the sender immediately, (b) destroy this email and any attachments, and (c) do not use, copy, store and/or disclose to any person this email and any attachments. Disclosing, copying, disseminating or otherwise taking any action in connection with this communication or the information in it is prohibited and may be unlawful.  Any views or opinions presented in this email are solely those of the author and do not necessarily represent The Developing Child Centre. </span></p>
+        </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+    
+    <!-- Email template for Bakti/ Karin Group Therapy Appointment -->
+    <record id="bakti_karin_app_mail_template" model="mail.template">
+        <field name="name">Bakti/ Karin Group Therapy Appointment </field>
+        <field name="model_id" ref="bista_tdcc_operations.model_group_appointment_booking"/>
+        <field name="subject">Bakti/ Karin Group Therapy Appointment</field>
+        <field name="email_from">${user.partner_id.email or ''}</field>
+        <field name="email_to"></field>
+        <field name="body_html" type="html">
+            <div>
+            <p>
+                Dear Parents,<br/><br/>
+            </p>
+            
+			<p>We are pleased to confirm group therapy sessions for <b>Client Names</b></p>
+			 
+			Date and Time : <b>Appointment Date and time</b>
+			With: ${object.physician_id.name}, ${object.physician_id.position}
+			 
+			<p>The duration of the session is 1 hour, and the cost is 300 AED per session, payable on the day.</p>
+			 
+			<p>Please remember our 12-hours cancellation policy.</p>
+			 
+			Should you need to cancel or make any changes to the schedule please contact me or any of our client relationship executives.
+			 
+            
+        <p style="color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; margin: 0in 0in 0pt; line-height: 13.8pt;"><b><span style="font-family: Tahoma, sans-serif;"><font size="2" color="#666666">Best Regards,</font></span></b></p><p dir="ltr" style="color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; margin: 0in 0in 0pt; line-height: 13.8pt;"><i><span style="color: rgb(127, 127, 127); font-family: Tahoma, sans-serif;"><font></font></span></i> </p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><i><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(75, 172, 198);"><span style="font-family: tahoma, sans-serif; font-size: small;"></span>“If you judge a fish by its ability to climb a tree, it will live its whole life believing that it is stupid.”  Albert Einstein</span></i><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span style="font-size: 10pt; color: rgb(31, 73, 125);"> </span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">We think different. We teach different.</span></b><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">At The Developing Child Centre our approach is simple. We believe every child is brilliant and we nurture and build children’s confidence and abilities. We are dedicated to identifying, building and developing skills required by all children to feel confident and succeed.</span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span style="font-size: 10pt; color: rgb(31, 73, 125);"> </span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">The Developing Child Centre LLC</span></b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);"> PO Box 478527 Dubai, UAE | Phone +971 4 3011900</span><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(127, 127, 127);"> | <b><a href="http://www.tdcc.ae/" target="_blank" style="color: rgb(17, 85, 204);"><span style="color: rgb(127, 127, 127);">www.tdcc.ae</span></a></b></span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"> </span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89); background-image: initial; background-position: initial; background-repeat: initial;">This email and any attachments are confidential and may also be privileged. If you have received this message in error, please (a) notify the sender immediately, (b) destroy this email and any attachments, and (c) do not use, copy, store and/or disclose to any person this email and any attachments. Disclosing, copying, disseminating or otherwise taking any action in connection with this communication or the information in it is prohibited and may be unlawful.  Any views or opinions presented in this email are solely those of the author and do not necessarily represent The Developing Child Centre. </span></p>
+        </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+    
+    <!-- Email template for Social Skills Group Confirmation -->
+    <record id="social_group_confirm_mail_template" model="mail.template">
+        <field name="name">Social Skills Group Confirmation </field>
+        <field name="model_id" ref="bista_tdcc_operations.model_group_appointment_booking"/>
+        <field name="subject">Social Skills Group Confirmation </field>
+        <field name="email_from">${user.partner_id.email or ''}</field>
+        <field name="email_to"></field>
+        <field name="body_html" type="html">
+            <div>
+            <p>
+                Dear Parents,<br/><br/>
+                
+            </p>
+            <p>
+                It was a pleasure speaking with you today.
+            </p>
+            <p>
+                This is to inform you that we have registered Client name  for 
+                ${object.service_group_id.name}
+            </p>
+            <p>
+            <p>
+                Please note group sessions will be every:<br/>
+         -       Day of week<br/>
+         -       Time<br/>
+        Schedule as follows: <br/>
+        1)    day/month/year <br/>
+        2)    day/month/year <br/>
+        3)    day/month/year <br/>
+        4)    day/month/year <br/>
+        5)    day/month/year <br/>
+        6)    day/month/year <br/>
+        7)    day/month/year <br/>
+        8)    day/month/year <br/>
+        9)    day/month/year <br/>
+            </p>
+               The cost of the group course for this term is AEDXXX payable in advance. <br/><br/>
+ 
+                Please remember there are no refunds for missed dates. In the event that TDCC unexpectedly needs to cancel any of the sessions an alternative/make-up session will be offered at the end of the term.
+                Please arrange payment at your earliest convenience prior to sessions commencing, either: <br/><br/>
+                
+                a) In person, at The Developing Child Centre OR <br/>
+                b) By Credit card <br/> <br/>
+                  
+                If you choose to pay via your credit card, please complete the attached credit card authorization form and email it back to me.
+                 Should you need any further assistance, please do not hesitate to contact us. <br/>
+                 
+                We look forward to welcoming you to TDCC. <br/> <br/>
+            </p>
+            <p style="color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; margin: 0in 0in 0pt; line-height: 13.8pt;"><b><span style="font-family: Tahoma, sans-serif;"><font size="2" color="#666666">Best Regards,</font></span></b></p><p dir="ltr" style="color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; margin: 0in 0in 0pt; line-height: 13.8pt;"><i><span style="color: rgb(127, 127, 127); font-family: Tahoma, sans-serif;"><font></font></span></i> </p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><i><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(75, 172, 198);"><span style="font-family: tahoma, sans-serif; font-size: small;"></span>“If you judge a fish by its ability to climb a tree, it will live its whole life believing that it is stupid.”  Albert Einstein</span></i><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span style="font-size: 10pt; color: rgb(31, 73, 125);"> </span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">We think different. We teach different.</span></b><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">At The Developing Child Centre our approach is simple. We believe every child is brilliant and we nurture and build children’s confidence and abilities. We are dedicated to identifying, building and developing skills required by all children to feel confident and succeed.</span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small; line-height: 13.8pt;"><span style="font-size: 10pt; color: rgb(31, 73, 125);"> </span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);">The Developing Child Centre LLC</span></b><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89);"> PO Box 478527 Dubai, UAE | Phone +971 4 3011900</span><span lang="EN-GB" style="font-size: 9pt; font-family: Tahoma, sans-serif; color: rgb(127, 127, 127);"> | <b><a href="http://www.tdcc.ae/" target="_blank" style="color: rgb(17, 85, 204);"><span style="color: rgb(127, 127, 127);">www.tdcc.ae</span></a></b></span><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"></span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><span style="font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(31, 73, 125);"> </span></p><p class="MsoNormal" style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif; font-size: small;"><span lang="EN-GB" style="font-size: 7.5pt; font-family: Tahoma, sans-serif; color: rgb(89, 89, 89); background-image: initial; background-position: initial; background-repeat: initial;">This email and any attachments are confidential and may also be privileged. If you have received this message in error, please (a) notify the sender immediately, (b) destroy this email and any attachments, and (c) do not use, copy, store and/or disclose to any person this email and any attachments. Disclosing, copying, disseminating or otherwise taking any action in connection with this communication or the information in it is prohibited and may be unlawful.  Any views or opinions presented in this email are solely those of the author and do not necessarily represent The Developing Child Centre. </span></p>
+        </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+    
+</odoo>

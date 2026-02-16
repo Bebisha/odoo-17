@@ -1,0 +1,15 @@
+<odoo>
+    <record id="res_config_settings_view_form_hrms" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hrms</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="95"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='employee_rights_setting_container']" position="inside">
+                <setting help="Verifier for employee certificate" title="Verifier Certificate.">
+                    <field name="manager_id"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

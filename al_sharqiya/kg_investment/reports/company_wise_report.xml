@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_report_company_wise" model="ir.actions.report">
+        <field name="name">Company Wise Report</field>
+        <field name="model">companywise.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_investment.report_company_wise</field>
+        <field name="report_file">kg_investment.report_company_wise</field>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="report_company_wise">
+        <t t-call="web.html_container">
+            <div class="page">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover' width="100%">
+                        <tr>
+                            <td colspan="3" align="center">
+                                <span style="font-size:30px;">
+                                    <b>
+                                        Company Wise Report
+                                    </b>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td/>
+                            <td>
+                                Company:
+                                <strong>
+                                    <t t-esc="company"/>
+                                </strong>
+                            </td>
+
+                            <td width="55%" style="padding-left:160px;">
+                                Year:
+                                <strong>
+                                    <t t-esc="year"/>
+                                </strong>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td width="5%"/>
+                            <td width="55%">
+                                <strong>From:
+                                    <t t-esc="from_date"/>
+                                </strong>
+                            </td>
+                            <td width="40%" style="padding-left:160px;">
+                                <strong>To:
+                                    <t t-esc="to_date"/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div>
+                    <table style='border-collapse:collapse;width:100%;margin:5pt;border: 1px solid black;'>
+                        <thead style="border: 1px solid black;background-color:#ced3d4">
+                            <tr style="border: 1px solid black;height:30px;">
+                                <th style="border: 1px solid black;">Investment Type</th>
+                                <th style="border: 1px solid black;">Purchased Shares</th>
+                                <th style="border: 1px solid black;">Saled Shares</th>
+                                <th style="border: 1px solid black;">Purchased Share Value</th>
+                                <th style="border: 1px solid black;">Saled Share Value</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="values" t-as="value">
+                                <tr>
+                                    <td style="text-align:center;border: 1px solid black;">
+                                        <t t-esc="value['investment_type']"/>
+                                    </td>
+                                    <td style="text-align:center;border: 1px solid black;">
+                                        <t t-esc="value['total_purchased_qty']"/>
+                                    </td>
+                                    <td style="text-align:center;border: 1px solid black;">
+                                        <t t-esc="value['total_sold_qty']"/>
+                                    </td>
+                                    <td style="text-align:center;border: 1px solid black;">
+                                        <t t-esc="'{:,.2f}'.format(value['purchase_share_value'])"/>
+                                    </td>
+                                    <td style="text-align:center;border: 1px solid black;">
+                                        <t t-esc="'{:,.2f}'.format(value['sale_share_value'])"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

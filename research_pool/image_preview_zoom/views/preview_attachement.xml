@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherited sale order form view  for adding new field-->
+    <record id="view_form" model="ir.ui.view">
+
+        <field name="name">sale.order.form.inherit</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+
+                <field name="create_image_fr" widget="image_preview" />
+
+
+
+
+            </field>
+
+        </field>
+    </record>
+</odoo>

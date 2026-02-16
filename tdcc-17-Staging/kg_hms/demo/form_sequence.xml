@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="client_intake_sequence" model="ir.sequence">
+            <field name="name">client.intake.sequence</field>
+            <field name="code">client.intake.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">CI</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="developmental_history_sequence" model="ir.sequence">
+            <field name="name">dev.history.sequence</field>
+            <field name="code">dev.history.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">DH</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

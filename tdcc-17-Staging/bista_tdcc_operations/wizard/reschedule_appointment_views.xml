@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="appointment_reschedule_view_form" model="ir.ui.view">
+        <field name="name">appointment.reschedule.view.form</field>
+        <field name="model">reschedule.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="group_appointment_booking_id" invisible="1"/>
+                    <field name="reschedule_reason" widget="selection"/>
+                    <field name="rearrange_child_appointment"  invisible="group_appointment_booking_id != False"/>
+                </group>
+                <group>
+                    <group>
+                        <field name="start_date" invisible="group_appointment_booking_id != False"/>
+                        <field name="appointment_date" invisible="group_appointment_booking_id == False"/>
+                        <field name="day" invisible="1"/>
+                        <field name="start_time" widget="float_time" invisible="group_appointment_booking_id == False"/>
+                        <field name="end_time" widget="float_time" invisible="group_appointment_booking_id == False"/>
+                        <field name="end_date" invisible="group_appointment_booking_id != False" readonly="1"/>
+                        <field name="day_ids" widget="many2many_tags" invisible="end_date == False"/>
+                        <field name="duration" widget="float_time"/>
+                    </group>
+                    <group>
+                        <field name="appointment_type_id" options="{'no_create_edit': True, 'no_open': True}"
+                               invisible="group_appointment_booking_id != False" />
+                        <field name="room_id" options="{'no_create_edit': True, 'no_open': True}"/>
+                        <field name="physician_id" options="{'no_create_edit': True, 'no_open': True}"/>
+                        <field name="product_id" options="{'no_create_edit': True, 'no_open': True}"/>
+                        <field name="price_subtotal" readonly="1" force_save="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Rearrange" name="action_rearrange_appointment" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

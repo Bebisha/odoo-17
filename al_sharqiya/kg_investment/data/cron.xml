@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="ir_cron_bond_entry" model="ir.cron">
+            <field name="name">Posting Bond Entry</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_kg_bonds"/>
+            <field name="code">model.post_bond_journal_entries()</field>
+            <field name="state">code</field>
+        </record>
+        <record id="ir_cron_dividend_stock_entry" model="ir.cron">
+            <field name="name">Posting Dividend Stock Entry</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_kg_dividend_entry"/>
+            <field name="code">model.post_dividend_stock_entries()</field>
+            <field name="state">code</field>
+        </record>
+    </data>
+</odoo>

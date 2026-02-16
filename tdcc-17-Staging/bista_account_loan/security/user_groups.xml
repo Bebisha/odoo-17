@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record model="ir.module.category" id="loan_management">
+            <field name="name">Loan Management</field>
+            <field name="sequence">18</field>
+        </record>
+        <!-- <record id="group_loan_finance_approval" model="res.groups">
+            <field name="name">Finance Approval</field>
+            <field name="category_id" ref="loan_management"/>
+        </record>
+
+        <record id="group_loan_officer" model="res.groups">
+            <field name="name">Officer</field>
+            <field name="implied_ids" eval="[(4, ref('group_loan_finance_approval'))]"/>
+            <field name="category_id" ref="loan_management"/>
+        </record>
+
+        <record id="group_loan_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="implied_ids" eval="[(4, ref('group_loan_officer'))]"/>
+            <field name="category_id" ref="loan_management"/>
+        </record> -->
+
+        <record id="loan_rule_multi_company" model="ir.rule">
+            <field name="name">Loan Multi Company Rule</field>
+            <field name="model_id" ref="bista_account_loan.model_account_loan"/>
+            <field name="domain_force">['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>
+            <field eval="True" name="global"/>
+        </record>
+
+        <record id="loan_installment_rule_multi_company" model="ir.rule">
+            <field name="name">Loan Installment Multi Company Rule</field>
+            <field name="model_id" ref="bista_account_loan.model_account_loan_line"/>
+            <field name="domain_force">['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>
+            <field eval="True" name="global"/>
+        </record>
+    </data>
+</odoo>

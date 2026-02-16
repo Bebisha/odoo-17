@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="developing_child_centre.list">
+      <field name="name">developing_child_centre list</field>
+      <field name="model">developing_child_centre.developing_child_centre</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="developing_child_centre.action_window">
+      <field name="name">developing_child_centre window</field>
+      <field name="res_model">developing_child_centre.developing_child_centre</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="developing_child_centre.action_server">
+      <field name="name">developing_child_centre server</field>
+      <field name="model_id" ref="model_developing_child_centre_developing_child_centre"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="developing_child_centre" id="developing_child_centre.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="developing_child_centre.menu_1" parent="developing_child_centre.menu_root"/>
+    <menuitem name="Menu 2" id="developing_child_centre.menu_2" parent="developing_child_centre.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="developing_child_centre.menu_1_list" parent="developing_child_centre.menu_1"
+              action="developing_child_centre.action_window"/>
+    <menuitem name="Server to list" id="developing_child_centre" parent="developing_child_centre.menu_2"
+              action="developing_child_centre.action_server"/>
+-->
+  </data>
+</odoo>

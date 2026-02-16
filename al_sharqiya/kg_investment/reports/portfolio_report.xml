@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_report_portfolio_summary" model="ir.actions.report">
+        <field name="name">Portfolio Summary</field>
+        <field name="model">portfolio.summary.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_investment.report_portfolio_summary</field>
+        <field name="report_file">kg_investment.report_portfolio_summary</field>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="report_portfolio_summary">
+        <t t-call="web.html_container">
+            <div class="page">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover' width="100%">
+                        <tr>
+                            <td colspan="3" align="center">
+                                <span style="font-size:30px;">
+                                    <b>
+                                        Portfolio Summary Report
+                                    </b>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td/>
+                            <td>
+                                Company:
+                                <strong>
+                                    <t t-esc="company"/>
+                                </strong>
+                            </td>
+                            <!--                            <td style="padding-left:160px;">-->
+                            <!--                                Investment Type:<strong> <t t-esc="investment_type"/> </strong>-->
+                            <!--                            </td>-->
+                        </tr>
+                        <tr>
+                            <td width="5%"/>
+                            <td width="55%">
+                                Year:
+                                <strong>
+                                    <t t-esc="year"/>
+                                </strong>
+                            </td>
+                            <td width="40%" style="padding-left:160px;">
+                                Month:
+                                <strong>
+                                    <t t-esc="month"/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div>
+                    <table style='border-collapse:collapse;width:100%;margin:5pt;border: 1px solid black;'>
+                        <thead style="border: 1px solid black;background-color:#ced3d4">
+                            <tr style="border: 1px solid black;height:30px;">
+                                <th style="border: 1px solid black;">Investor Name</th>
+                                <th style="border: 1px solid black;">Currency</th>
+                                <th style="border: 1px solid black;">Exchange Rate</th>
+                                <th style="border: 1px solid black;">Avg Rate</th>
+                                <th style="border: 1px solid black;">No of shares</th>
+                                <th style="border: 1px solid black;">Values of Shares</th>
+                                <th style="border: 1px solid black;">Market</th>
+                                <th style="border: 1px solid black;">Market Rate</th>
+                                <th style="border: 1px solid black;">Market Value</th>
+                                <th style="border: 1px solid black;">Previous Market Value</th>
+                                <th style="border: 1px solid black;">Gain/Loss</th>
+                                <th style="border: 1px solid black;">Month</th>
+                                <th style="border: 1px solid black;">Year</th>
+
+                                <!--                                    <th style="border: 1px solid black;">YTD</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="total_share" t-value="0"/>
+
+                            <t t-foreach="values" t-as="data">
+
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['investment_name']"/>
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['currency']"/>
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['exchange_rate']"/>
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['avg_rate']"/>
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;padding-left:5px;">
+                                        <t t-esc="data['shares']"/>
+                                        <t t-set="total_share" t-value="total_share + data['shares']"/>
+
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['share_value']"/>
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['market']"/>
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['market_rate']"/>
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['market_value']"/>
+
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['previous_market_value']"/>
+
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['gain_loss']"/>
+
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['month']"/>
+
+                                    </td>
+                                    <td style="border: 1px solid black;text-align:center;">
+                                        <t t-esc="data['year']"/>
+
+                                    </td>
+                                </tr>
+                                <!--                                    </t>-->
+
+
+                            </t>
+
+                            <tr>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+                                <td style="text-align:center;border: 1px solid black;">
+                                    <b>
+                                        <span t-esc="total_share"/>
+                                    </b>
+                                </td>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+                                <td style="text-align:center;border: 1px solid black;"></td>
+
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

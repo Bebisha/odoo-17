@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="bond_report_wizard_view" model="ir.ui.view">
+            <field name="name">Bonds Report Wizard</field>
+            <field name="model">bond.report.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="company_id" required="1"/>
+                            <field name="year" required="1"/>
+
+                        </group>
+
+                    </group>
+                    <footer>
+
+                        <button
+                                name="bonds_report_button_xlsx"
+                                string="XLSX"
+                                type="object"/>
+                        <button string="CANCEL" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="bond_report_action" model="ir.actions.act_window">
+            <field name="name">Bonds Report</field>
+            <field name="res_model">bond.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_bond_report" name="Bonds Report" sequence="10"
+                  action="bond_report_action"
+                  parent="menu_reports_investment"/>
+    </data>
+</odoo>

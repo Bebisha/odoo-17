@@ -1,0 +1,228 @@
+<odoo>
+    <data>
+
+        <record id="client_intake_form" model="ir.actions.act_window">
+            <field name="name">Client Intake Form</field>
+            <field name="res_model">client.intake.form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Client Intake Form"
+                  sequence="4"
+                  id="second_level_menu"
+                  parent="kg_developing_child_centre.root_menu"
+                  action="kg_developing_child_centre.client_intake_form"/>
+
+
+        <record model="ir.ui.view" id="client_intake_tree_view">
+            <field name="name">Client Intake View</field>
+            <field name="model">client.intake.form</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false">
+                    <field name="name" readonly="1"/>
+                    <field name="first_name" force_save="1"/>
+                    <field name="last_name"/>
+                    <field name="date_of_birth"/>
+                    <field name="gender"/>
+                    <field name="nationality"/>
+                    <field name="company_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="client_intake_form_view">
+            <field name="name">Client Intake Form View</field>
+            <field name="model">client.intake.form</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <header>
+                        <button class="btn btn-primary" name="approve_action" type="object" string="Approve"
+                                invisible="state != 'draft'"/>
+                        <field name="state" widget="statusbar" status_visible="draft,approve"/>
+                    </header>
+                    <sheet>
+
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="ref" invisible="1" force_save="1"/>
+                                <field name="first_name" readonly="1" force_save="1"/>
+                                <field name="last_name" readonly="1"/>
+                                <field name="child_name" readonly="1"/>
+                                <field name="date_of_birth" readonly="1"/>
+                                <field name="gender" readonly="1"/>
+                                <field name="partner_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="nationality" readonly="1"/>
+                                <field name="primary_language" readonly="1"/>
+                                <field name="language_spoken" readonly="1"/>
+                                <field name="school_grade" readonly="1"/>
+                                <field name="contact_person" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string=" Parents / Caregiver Information">
+                                <group>
+                                    <group>
+                                        <field name="mother_name" readonly="1"/>
+                                        <field name="phone_number_1" readonly="1"/>
+                                        <field name="occupation_1" readonly="1"/>
+                                        <field name="mother_mail" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="father_name" readonly="1"/>
+                                        <field name="phone_number_2" readonly="1"/>
+                                        <field name="occupation_2" readonly="1"/>
+                                        <field name="father_mail" readonly="1"/>
+                                        <field name="parents_related_relative" readonly="1"/>
+                                        <field name="is_submitted" invisible="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Other Details">
+                                <div align="justify">
+                                    <group>
+                                        <group>
+                                            <field name="center" readonly="1"/>
+                                            <field name="describe" readonly="1"/>
+                                            <field name="child_health" readonly="1"/>
+                                        </group>
+                                        <group string="Please upload copy of your child Emirates ID ( front and back)">
+                                            <field name="doc_front" force_save="1" readonly="1"/>
+                                            <field name="doc_back" force_save="1" readonly="1"/>
+                                        </group>
+                                        <group>
+                                            <field name="confirm" readonly="1"/>
+                                        </group>
+                                    </group>
+
+                                </div>
+
+                            </page>
+                            <page string="Bill of Rights/ Privacy Information">
+                                <div class="col-md-12" align="justify">
+
+                                    <group align="justify">
+                                        <field name="edit_and_create" force_save="1" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <group align="justify">
+                                            <field name="terms_condition" readonly="1"/>
+                                        </group>
+                                        <group string="Name of Parent">
+                                            <field name="first_name_1" readonly="1"/>
+                                            <field name="last_name_1" readonly="1"/>
+                                        </group>
+                                        <group string="Name of Child">
+                                            <field name="first_name_2" readonly="1"/>
+                                            <field name="last_name_2" readonly="1"/>
+                                            <br/>
+                                        </group>
+                                        <group>
+                                            <field name="signature" readonly="1"/>
+                                        </group>
+                                    </group>
+                                </div>
+
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="client_intake_partner_button" model="ir.ui.view">
+            <field name="name">Partner details</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet " position="before">
+                    <header>
+                        <button name="pubish_action" string="Publish" type="object" class="btn btn-primary"/>
+                    </header>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="open_client_intake_form" type="object" class="oe_stat_button" string="Client Intake"
+                            icon="fa-files-o"/>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="before">
+                    <field name="mrm_sequence" readonly="1"/>
+
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="last_name" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="middle_name"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="first_name" required="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='street']" position="replace">
+                    <field name="street" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='street2']" position="replace">
+                    <field name="street2" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='city']" position="replace">
+                    <field name="city" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='state_id']" position="replace">
+                    <field name="state_id" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='zip']" position="replace">
+                    <field name="zip" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='country_id']" position="replace">
+                    <field name="country_id" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="replace">
+                    <field name="phone" required="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='bank_ids']" position="replace">
+                    <field name="bank_ids" required="1">
+                    </field>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="bill_of_rights_configuration" model="ir.ui.view">
+            <field name="name">Created bills of rights/privacy information</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//div[@id='companies']" position="before">
+<!--                 <xpath expr="//setting[@id='multi_company']" position="before">-->
+                    <!--                <div id="multi_company" position="before">-->
+                    <h2>Bill of Rights/ Privacy Information</h2>
+                    <br/>
+                    <div class="content-group">
+                        <div class="container">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <field name="edit_and_create" widget="html"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,1369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Document Action -->
+        <record id="action_hr_document" model="ir.actions.act_window">
+            <field name="name">Document</field>
+            <field name="res_model">hr.document</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">search,tree,form</field>
+            <field name="context">{'search_default_employee_id': active_id}</field>
+        </record>
+
+
+        <!--Root Employee Menu-->
+        <!--        <menuitem-->
+        <!--            id="menu_employee"-->
+        <!--            name="Employees"-->
+        <!--            parent="hr.menu_hr_root"-->
+        <!--            sequence="3"/>-->
+
+        <!-- Inherited HR Employee Form View -->
+        <record id="inherited_hr_employee_form_view_added_field" model="ir.ui.view">
+            <field name="name">inherited.hr.employee.form.view.added.field</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <!--  Added Field Joining Date,Employment Date,Marriage Date,Confirmation Date -->
+
+                <field name="category_ids" position="before">
+                    <div>
+                        <h3>
+                            <field name="first_name" class="oe_inline" placeholder="First Name"/>&amp;nbsp;&amp;nbsp;
+                            <field name="last_name" class="oe_inline" placeholder="Last Name"/>
+                        </h3>
+                    </div>
+                </field>
+
+                <xpath expr="//page[@name='personal_information']/group/group[3]"
+                       position="after">
+                    <group string="Parent's Information">
+                        <field name="father_name"/>
+                        <field name="mother_name"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//field[@name='emergency_contact']"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='emergency_phone']"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <field name="department_id" position="before">
+                    <field name="emp_id" required="1"/>
+                    <field name="is_new"/>
+                </field>
+
+                <xpath expr="//field[@name='passport_id']"
+                       position="after">
+                    <field name="passport_issue_country"/>
+                    <field name="passport_issue_date"/>
+                    <field name="passport_expiry_date"/>
+                    <field name="identification_expiry_date"/>
+                </xpath>
+
+                <xpath expr="//group[@name='emergency']" position="before">
+                    <group>
+                        <group name="Dates" string="Dates">
+                            <field name="date_joining"/>
+                            <field name="date_employment"/>
+                            <field name="date_confirmation"/>
+                            <field name="date_marriage"
+                                   invisible="marital != 'married'"/>
+
+                        </group>
+                    </group>
+                </xpath>
+
+                <!--                Employment documents-->
+                <xpath expr="/form/sheet/div/button[@name='action_open_contract']" position="before">
+                    <button name="%(bista_hr.action_hr_document)d"
+                            class="oe_stat_button"
+                            icon="fa-file"
+                            string="Documents"
+                            type="action"
+                            context="{'default_employee_id':active_id}"
+                    />
+                </xpath>
+
+                <xpath expr="//page[@name='personal_information']"
+                       position="after">
+                    <page string="Emergency Contacts" name="emergency_contact">
+                        <group>
+                            <group string="Emergency Contact 1">
+                                <field name="emergency_contact1" string="Emergency Contact"/>
+                                <field name="emergency_street1" string="Emergency Street"/>
+                                <field name="emergency_city1" string="Emergency City"/>
+                                <field name="emergency_country1" string="Emergency Country"/>
+                                <field name="emergency_zip1" string="Emergency Zip"/>
+                                <field name="emergency_phone1" strnig="Emergency phone"/>
+                                <field name="emergency_mobile1" string="Emergency Mobile"/>
+                                <field name="emergency_email1" string="Emergency Email"/>
+                                <field name="emergency_relation1" string="Emergency Relation"/>
+                            </group>
+                            <group string="Emergency Contact 2">
+                                <field name="emergency_contact2" string="Emergency Contact"/>
+                                <field name="emergency_street2" string="Emergency Street"/>
+                                <field name="emergency_city2" string="Emergency City"/>
+                                <field name="emergency_country2" string="Emergency Country"/>
+                                <field name="emergency_zip2" string="Emergency Zip"/>
+                                <field name="emergency_phone2" strnig="Emergency phone"/>
+                                <field name="emergency_mobile2" string="Emergency Mobile"/>
+                                <field name="emergency_email2" string="Emergency Email"/>
+                                <field name="emergency_relation2" string="Emergency Relation"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <!--added smart buttons for assets, insurance, visa, language, disabilities and qualifications-->
+                <button name="action_open_contract" position="after">
+                    <button name="on_smart_button_click"
+                            class="oe_stat_button"
+                            icon="fa-medkit"
+                            string="Insurance"
+                            type="object"
+                            context="{'action_id':'bista_hr.action_hr_insurance'}"
+                    />
+                    <button name="on_smart_button_click"
+                            class="oe_stat_button"
+                            icon="fa-address-card"
+                            string="Visa"
+                            type="object"
+                            context="{'action_id':'bista_hr.action_hr_visa'}"
+                    />
+                    <button name="on_smart_button_click"
+                            class="oe_stat_button"
+                            icon="fa-language"
+                            string="Language"
+                            type="object"
+                            context="{'action_id':'bista_hr.action_employee_language'}"
+                    />
+                    <button name="on_smart_button_click"
+                            class="oe_stat_button"
+                            icon="fa-certificate"
+                            string="Qualifications"
+                            type="object"
+                            context="{'action_id':'bista_hr.action_hr_qualifications'}"
+                    />
+                </button>
+
+                <!-- Added name arabic field inside employee form -->
+                <!-- <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                       <field name="name_arabic" placeholder="Employee Name (Arabic)"/>
+                    </h1>
+                </div> -->
+
+                <!--  Job Position Field Made A Required Field -->
+                <field name="job_id" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+
+                <!--  Made a work email field required -->
+                <xpath expr="//field[@name='coach_id']" position="after">
+                    <field name="is_create_user" invisible="1"/>
+                </xpath>
+                <field name="work_email" position="attributes">
+                    <attribute name="required">is_create_user == True
+                    </attribute>
+                </field>
+
+                <!--  Made a working hours field invisible -->
+                <field name="resource_calendar_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <!-- Change string of Identification No  -->
+                <field name="identification_id" position="attributes">
+                    <attribute name="string">Emirates ID</attribute>
+                </field>
+
+                <!-- Change string of Work Address -->
+                <field name="address_id" position="attributes">
+                    <attribute name="string">Work Location</attribute>
+                </field>
+
+                <!--                 Change string of work location-->
+                <field name="work_location_id" position="attributes">
+                    <attribute name="string">Work City</attribute>
+                </field>
+
+                <!-- added partner_id field after user_id -->
+                <field name="user_id" position="after">
+                    <field name="partner_id" readonly="1"/>
+                </field>
+
+                <!--placed habit, hobbies, and disabilities M2M fields into personal detail page-->
+                <xpath expr="//page[@name='personal_information']/group/group[4]" position="after">
+                    <group string="Habits &amp; Hobbies" name="grp_habits_hobbies">
+                        <field name="habit_ids" widget="many2many_tags"/>
+                        <field name="hobbies_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Disabilities" name="grp_disabilities">
+                        <field name="disability_ids" widget="many2many_tags"/>
+                    </group>
+                </xpath>
+
+                <!-- Added a field Family Details One2many Field,Documents,Visa O2m In Different Pages -->
+                <notebook position="inside">
+                    <page name="family_details" string="Family Details">
+                        <group>
+                            <field name="family_detail_ids" nolabel="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="employee_id" invisible="1"/>
+                                    <field name="family_relation_id"/>
+                                    <field name="contact_no"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="employee_id" invisible="1"/>
+                                        <field name="family_relation_id"/>
+                                        <field name="contact_no"/>
+                                        <field name="partner_address_id"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+
+                <!-- Renamed Field Private Address to Local Address -->
+                <field name="work_contact_id" position="attributes">
+                    <attribute name="string">Local Address</attribute>
+                </field>
+
+                <!--  Added Field Permanent Address -->
+                <field name="work_contact_id" position="after">
+                    <field name="partner_permanent_address_id"/>
+                </field>
+
+                <!--  Added Field Blood Group,Age -->
+                <field name="birthday" position="after">
+                    <field name="blood_group"/>
+                    <field name="age"/>
+                </field>
+
+                <!-- Added Field Work Country,Work Region -->
+                <field name="work_location_id" position="after">
+                    <field name="work_country_id"/>
+                    <field name="region_id" readonly="1" force_save="1"/>
+                </field>
+
+                <!-- Added Field Skype ID -->
+                <field name="work_phone" position="after">
+                    <field name="id_skype" widget="url"/>
+                    <!-- <field name="employee_code"/> -->
+                </field>
+
+                <!--  Added Field Height Weight With Its UOM -->
+                <field name="marital" position="after">
+                    <field name="religion_id"/>
+                    <label for="height" string="Height" invisible="1"/>
+                    <div style="width:100px;">
+                        <field name="height" style="width:50px;" invisible="1"/>
+                        <field name="height_uom_id" style="width:50px;" invisible="1"/>
+                    </div>
+                    <newline/>
+                    <label for="weight" string="Weight" invisible="1"/>
+                    <div style="width:100px;">
+                        <field name="weight" style="width:50px;" invisible="1"/>
+                        <field name="weight_uom_id" style="width:50px;" invisible="1"/>
+                    </div>
+                </field>
+
+                <!-- Group Work Permit Removed From Private Information Tab -->
+                <!--                <separator name="has_work_permit" position="attributes">-->
+                <!--                    <attribute name="invisible">1</attribute>-->
+                <!--                </separator>-->
+                <xpath expr="//page[@name='personal_information']/group/group[7]" position="replace">
+                    <group string="Education">
+                        <field name="certificate"/>
+                        <field name="study_field"/>
+                        <field name="study_school"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!--         form view for employee insurance-->
+        <record id="view_insurance_form" model="ir.ui.view">
+            <field name="name">view.insurance.form</field>
+            <field name="model">hr.insurance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                            <field name="state" widget="statusbar" clickable="1"/>
+                        </header>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Insurance Name" required="1"/>
+                            </h1>
+                        </div>
+                        <field name="type" required="1" widget="radio" options="{'horizontal': true}"/>
+                        <group>
+                            <group>
+                                <field name="insurance_type" required="1"/>
+                                <field name="from_date" required="1"/>
+                                <field name="to_date" required="1"/>
+                                <field name="amount"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="employee_id" required="1"/>
+                                <field name="family_id" domain="[('employee_id','=',employee_id)]"
+                                       context="{'default_employee_id':employee_id}"
+                                       invisible="type == 'employee'"
+                                       required="type == 'family'"/>
+
+                                <field name="family_relation_id"
+                                       invisible="type == 'employee'"
+                                       required="type == 'family'"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--         tree view for employee insurance-->
+        <record id="view_insurance_tree" model="ir.ui.view">
+            <field name="name">view.insurance.tree</field>
+            <field name="model">hr.insurance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="family_id"/>
+                    <field name="family_relation_id"/>
+                    <field name="insurance_type"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search View for employee insurance -->
+        <record id="view_insurance_filter" model="ir.ui.view">
+            <field name="name">hr.insurance.search</field>
+            <field name="model">hr.insurance</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action for Insurance -->
+        <record id="action_hr_insurance" model="ir.actions.act_window">
+            <field name="name">Insurance</field>
+            <field name="res_model">hr.insurance</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu for insurance -->
+        <menuitem
+                id="hr_menu_insurance"
+                name="Insurance"
+                action="action_hr_insurance"
+                parent="hr.menu_hr_employee_payroll"
+                sequence="6"
+                groups="hr.group_hr_manager"/>
+
+        <!-- tree view for employee language-->
+        <record id="view_language_tree" model="ir.ui.view">
+            <field name="name">view.language.tree</field>
+            <field name="model">employee.language</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="employee_id" invisible="1"/>
+                    <field name="language_id"/>
+                    <field name="can_read"/>
+                    <field name="can_write"/>
+                    <field name="can_speak"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for employee language -->
+        <record id="action_employee_language" model="ir.actions.act_window">
+            <field name="name">Language</field>
+            <field name="res_model">employee.language</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Inherited HR Employee Form View From HR Contract Module For Change The Field Bank Account Name-->
+        <record id="inherited_hr_employee_form_view_from_bista_contract_rename_field" model="ir.ui.view">
+            <field name="name">inherited.hr.employee.form.view.renamed.field</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2"/>
+            <field name="arch" type="xml">
+
+                <!-- Renamed Field Bank Account No. to Salary Account No. -->
+                <xpath expr="//field[@name='bank_account_id']" position="attributes">
+                    <attribute name="string">Salary Account No.</attribute>
+                    <attribute name="context">{'emp_id':active_id}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- form view for employee visa-->
+        <record id="view_visa_form" model="ir.ui.view">
+            <field name="name">view.visa.form</field>
+            <field name="model">hr.visa</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                            <field name="status" widget="statusbar" clickable="1"/>
+                        </header>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Visa Name" required="1"/>
+                            </h1>
+                        </div>
+                        <field name="type" widget="radio" nolabel="1" options="{'horizontal': true}"/>
+                        <group col="4">
+                            <field name="employee_id" context="{'default_employee_id':employee_id}" required="1"/>
+                            <field name="visa_type" required="1"/>
+                            <field name="family_member_id"
+                                   invisible="type != 'family'"
+                                   required="type == 'family'"
+                                   domain="[('employee_id','=',employee_id)]"
+                                   context="{'default_employee_id':employee_id}"/>
+                            <field name="family_relation_id"
+                                   invisible="type != 'family'"
+                                   required="type == 'family'"/>
+                            <field name="date_start" required="1"/>
+                            <field name="date_end" required="1"/>
+                            <field name="country_id" required="1"/>
+                            <field name="no_of_entry"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view for employee visa-->
+        <record id="view_visa_tree" model="ir.ui.view">
+            <field name="name">view.visa.tree</field>
+            <field name="model">hr.visa</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="visa_type"/>
+                    <field name="family_member_id"/>
+                    <field name="family_relation_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="country_id"/>
+                    <field name="no_of_entry"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search View for employee visa -->
+        <record id="view_visa_filter" model="ir.ui.view">
+            <field name="name">hr.visa.search</field>
+            <field name="model">hr.visa</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="country_id"/>
+                    <field name="status"/>
+                    <field name="type"/>
+                    <field name="family_member_id"/>
+                    <field name="family_relation_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Employee" name="employee"
+                                icon="terp-folder-green"
+                                domain="[('type','=','employee')]"/>
+                        <filter string="Start Date"
+                                icon="terp-folder-green"
+                                name="date_start"
+                                context="{'group_by': 'date_start'}"/>
+                        <filter string="End Date"
+                                icon="terp-folder-green"
+                                name="date_end"
+                                context="{'group_by': 'date_end'}"/>
+                        <filter string="Country"
+                                icon="terp-folder-green"
+                                name="country_id"
+                                context="{'group_by': 'country_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action for visa -->
+        <record id="action_hr_visa" model="ir.actions.act_window">
+            <field name="name">Visa</field>
+            <field name="res_model">hr.visa</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form,search</field>
+        </record>
+
+        <!-- Menu for Visa -->
+        <menuitem
+                id="menu_hr_visa"
+                action="action_hr_visa"
+                parent="hr.menu_hr_employee_payroll"
+                name="Visa"
+                groups="hr.group_hr_manager"
+                sequence="7"/>
+
+        <!-- form view for employee qualifications-->
+        <record id="view_qualifications_form" model="ir.ui.view">
+            <field name="name">view.qualifications.form</field>
+            <field name="model">hr.qualification</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_id" invisible="1"/>
+                            <field name="qualification_level_id"/>
+                            <field name="passing_year"/>
+                            <field name="grade"/>
+                            <field name="document"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view for employee qualifications-->
+        <record id="view_qualifications_tree" model="ir.ui.view">
+            <field name="name">view.qualifications.tree</field>
+            <field name="model">hr.qualification</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id" invisible="1"/>
+                    <field name="qualification_level_id"/>
+                    <field name="passing_year"/>
+                    <field name="grade"/>
+                    <field name="document"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for qualifications -->
+        <record id="action_hr_qualifications" model="ir.actions.act_window">
+            <field name="name">qualifications</field>
+            <field name="res_model">hr.qualification</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Added Field In HR Job Form View -->
+        <record id="inherited_hr_job_form_view_added_field" model="ir.ui.view">
+            <field name="name">inherited.hr.job.form.view.added.field</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='recruitment']" position="inside">
+                    <field name="groups_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--        Added Field In Res Company Form View -->
+        <record id="inherited_res_company_form_view_added_field" model="ir.ui.view">
+            <field name="name">inherited.res.company.form.view.added.field</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath
+                        expr="//form/sheet/notebook/page/group/group/field[@name='partner_id']"
+                        position="after">
+                    <field name="password" password="True"/>
+                </xpath>
+                <xpath expr="//field[@name='vat']"
+                       position="after">
+                    <field name="chart_template"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- HR Family Relation Form View -->
+        <record id="hr_family_relation_form_view" model="ir.ui.view">
+            <field name="name">hr.family.relation.form.view</field>
+            <field name="model">hr.family.relation</field>
+            <field name="arch" type="xml">
+                <form string="Family Relation">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--HR Family Relation Tree View-->
+        <record id="hr_family_relation_tree_view" model="ir.ui.view">
+            <field name="name">hr.family.relation.tree.view</field>
+            <field name="model">hr.family.relation</field>
+            <field name="arch" type="xml">
+                <tree string="Family Relation">
+                    <field name="name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--HR Family Relation Action-->
+        <record model="ir.actions.act_window" id="hr_family_relation_action">
+            <field name="name">Family Relation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.family.relation</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- HR Family Member Form View-->
+        <record id="hr_family_member_form_view" model="ir.ui.view">
+            <field name="name">hr.family.member.form.view</field>
+            <field name="model">hr.family</field>
+            <field name="arch" type="xml">
+                <form string="Family Members">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--                    <div class="o_not_full oe_button_box" name="button_box2">-->
+                            <button name="%(bista_hr.action_hr_insurance)d"
+                                    type="action"
+                                    string="Insurance"
+                                    class="oe_stat_button"
+                                    icon="fa-medkit"
+                                    context="{'search_default_employee_id':employee_id,'default_employee_id':employee_id}">
+                            </button>
+                            <button name="%(bista_hr.action_hr_visa)d"
+                                    type="action"
+                                    string="Visa"
+                                    class="oe_stat_button"
+                                    icon="fa-address-card"
+                                    context="{'search_default_employee_id':employee_id,'default_employee_id':employee_id}">
+                            </button>
+                            <!--                    </div>-->
+
+
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="family_relation_id"/>
+                            <field name="employee_id"/>
+                        </group>
+                    </sheet>
+
+                </form>
+
+
+            </field>
+        </record>
+        <!--        <record id="hr_family_member_form_view" model="ir.ui.view">-->
+        <!--            <field name="name">hr.family.member.form.view</field>-->
+        <!--            <field name="model">hr.family</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <sheet>-->
+        <!--                    -->
+        <!--                </sheet>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <!-- HR Family Member Tree View-->
+        <record id="hr_family_member_tree_view" model="ir.ui.view">
+            <field name="name">hr.family.member.tree.view</field>
+            <field name="model">hr.family</field>
+            <field name="arch" type="xml">
+                <tree string="Family Members">
+                    <field name="name"/>
+                    <field name="family_relation_id"/>
+                    <field name="employee_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--HR Family Member Action-->
+        <record model="ir.actions.act_window" id="hr_family_member_action">
+            <field name="name">Family Members</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.family</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu for Family Member -->
+        <menuitem
+                id="hr_menu_family_member"
+                name="Family Members"
+                action="hr_family_member_action"
+                parent="hr.menu_hr_employee_payroll"
+                sequence="5"
+                groups="hr.group_hr_manager"/>
+
+        <!-- Document Type Form View -->
+        <record id="document_type_form_view" model="ir.ui.view">
+            <field name="name">document.type.form.view</field>
+            <field name="model">document.type</field>
+            <field name="arch" type="xml">
+                <form string="Document Type">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="is_required"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Document Type Tree View -->
+        <record id="document_type_tree_view" model="ir.ui.view">
+            <field name="name">document.type.tree.view</field>
+            <field name="model">document.type</field>
+            <field name="arch" type="xml">
+                <tree string="Document Type">
+                    <field name="name"/>
+                    <field name="is_required"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Document Type Action-->
+        <record model="ir.actions.act_window" id="document_type_action">
+            <field name="name">Document Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">document.type</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- HR Qualification Level Form View -->
+        <record id="hr_qualification_level_form_view" model="ir.ui.view">
+            <field name="name">hr.qualification.level.form.view</field>
+            <field name="model">hr.family.relation</field>
+            <field name="arch" type="xml">
+                <form string="Qualification Level">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- HR Qualification Level Tree View-->
+        <record id="hr_qualification_level_tree_view" model="ir.ui.view">
+            <field name="name">hr.qualification.level.tree.view</field>
+            <field name="model">hr.qualification.level</field>
+            <field name="arch" type="xml">
+                <tree string="Qualification Level">
+                    <field name="name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--HR Qualification Level Action-->
+        <record model="ir.actions.act_window" id="hr_qualification_level_action">
+            <field name="name">Qualification Level</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.qualification.level</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Employee Habits Form View -->
+        <record id="employee_habits_form_view" model="ir.ui.view">
+            <field name="name">employee.habits.form.view</field>
+            <field name="model">employee.habits</field>
+            <field name="arch" type="xml">
+                <form string="Employee Habits">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Employee Habits Tree View-->
+        <record id="employee_habits_tree_view" model="ir.ui.view">
+            <field name="name">employee.habits.tree.view</field>
+            <field name="model">employee.habits</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Habits">
+                    <field name="name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Employee Habits Action-->
+        <record model="ir.actions.act_window" id="employee_habits_action">
+            <field name="name">Employee Habits</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.habits</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Employee Hobbies Form View -->
+        <record id="employee_hobbies_form_view" model="ir.ui.view">
+            <field name="name">employee.hobbies.form.view</field>
+            <field name="model">employee.hobbies</field>
+            <field name="arch" type="xml">
+                <form string="Employee Hobbies">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Employee Hobbies Tree View-->
+        <record id="employee_hobbies_tree_view" model="ir.ui.view">
+            <field name="name">employee.hobbies.tree.view</field>
+            <field name="model">employee.hobbies</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Hobbies">
+                    <field name="name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Employee Hobbies Action-->
+        <record model="ir.actions.act_window" id="employee_hobbies_action">
+            <field name="name">Employee Hobbies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.hobbies</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Employee Disability Form View -->
+        <record id="employee_disability_form_view" model="ir.ui.view">
+            <field name="name">employee.disability.form.view</field>
+            <field name="model">employee.disability</field>
+            <field name="arch" type="xml">
+                <form string="Employee Disability">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Employee Disability Tree View-->
+        <record id="employee_disability_tree_view" model="ir.ui.view">
+            <field name="name">employee.disability.tree.view</field>
+            <field name="model">employee.disability</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Disability">
+                    <field name="name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Employee Disability Action-->
+        <record model="ir.actions.act_window" id="employee_disability_action">
+            <field name="name">Employee Disability</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.disability</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Employee Work Location Form View -->
+        <record id="employee_work_location_form_view" model="ir.ui.view">
+            <field name="name">employee.work.location.form.view</field>
+            <field name="model">employee.work.location</field>
+            <field name="arch" type="xml">
+                <form string="Employee Work Location">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Employee Work Location Tree View-->
+        <record model="ir.ui.view" id="employee_work_location_tree_view">
+            <field name="name">employee.work.location.tree.view</field>
+            <field name="model">employee.work.location</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Work Location">
+                    <field name="name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Employee Work Location Action-->
+        <record model="ir.actions.act_window" id="employee_work_location_action">
+            <field name="name">Work City</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.work.location</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu HR Family Relation -->
+        <menuitem
+                id="menu_hr_family_relation"
+                action="hr_family_relation_action"
+                parent="hr.menu_human_resources_configuration"
+                name="Family Relation"
+                groups="hr.group_hr_manager"
+                sequence="8"
+        />
+
+        <!-- Menu Document Type -->
+        <menuitem
+                id="menu_document_type"
+                action="document_type_action"
+                parent="hr.menu_human_resources_configuration"
+                name="Document Type"
+                groups="hr.group_hr_manager"
+                sequence="7"
+        />
+
+        <!-- Menu HR Qualification Level -->
+        <menuitem
+                id="menu_hr_qualification_level"
+                action="hr_qualification_level_action"
+                parent="hr.menu_human_resources_configuration"
+                name="Qualification Level"
+                groups="hr.group_hr_manager"
+                sequence="9"
+        />
+
+        <!-- Menu Employee Habits -->
+        <menuitem
+                id="menu_employee_habits"
+                action="employee_habits_action"
+                parent="hr.menu_human_resources_configuration"
+                name="Habits"
+                groups="hr.group_hr_manager"
+                sequence="9"
+        />
+
+        <!-- Menu Employee Hobbies -->
+        <menuitem
+                id="menu_employee_hobbies"
+                action="employee_hobbies_action"
+                parent="hr.menu_human_resources_configuration"
+                name="Hobbies"
+                groups="hr.group_hr_manager"
+                sequence="9"
+        />
+
+        <!-- Menu Employee Disability -->
+        <menuitem
+                id="menu_employee_disability"
+                action="employee_disability_action"
+                parent="hr.menu_human_resources_configuration"
+                name="Disability"
+                groups="hr.group_hr_manager"
+                sequence="6"
+        />
+
+        <!-- Menu Employee Work Location -->
+        <menuitem
+                id="menu_employee_work_location"
+                action="employee_work_location_action"
+                parent="hr.menu_human_resources_configuration"
+                name="Work City"
+                groups="hr.group_hr_manager"
+                sequence="4"
+        />
+
+        <!-- Language Form View -->
+        <record id="language_form_view" model="ir.ui.view">
+            <field name="name">language.form.view</field>
+            <field name="model">language.language</field>
+            <field name="arch" type="xml">
+                <form string="Language">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="code"/>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Language Tree View-->
+        <record id="language_tree_view" model="ir.ui.view">
+            <field name="name">language.tree.view</field>
+            <field name="model">language.language</field>
+            <field name="arch" type="xml">
+                <tree string="Language">
+                    <field name="name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="code"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Language Action-->
+        <record model="ir.actions.act_window" id="language_language_action">
+            <field name="name">Languages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">language.language</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu Language -->
+        <menuitem
+                id="menu_language"
+                action="language_language_action"
+                parent="hr.menu_human_resources_configuration"
+                name="Languages"
+                groups="hr.group_hr_manager"
+                sequence="8"
+        />
+
+        <!-- Religion Tree View-->
+        <record id="hr_religion_tree_view" model="ir.ui.view">
+            <field name="name">hr.religion.tree.view</field>
+            <field name="model">hr.religion</field>
+            <field name="arch" type="xml">
+                <tree string="Religion">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Religion Form View -->
+        <record id="hr_religion_form_view" model="ir.ui.view">
+            <field name="name">hr.religion.form.view</field>
+            <field name="model">hr.religion</field>
+            <field name="arch" type="xml">
+                <form string="Religion">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Religion Action-->
+        <record model="ir.actions.act_window" id="action_hr_religion">
+            <field name="name">Religion</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.religion</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_hr_religion"
+                  action="action_hr_religion"
+                  parent="hr.menu_human_resources_configuration"
+                  groups="hr.group_hr_manager"
+                  sequence="6"/>
+
+        <!-- Form View of Region -->
+        <record id="view_cntry_group_form" model="ir.ui.view">
+            <field name="name">res.cntry.group.form</field>
+            <field name="model">res.country.group</field>
+            <field name="arch" type="xml">
+                <form string="Region">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Region name"/>
+                            <field name="name"/>
+                        </div>
+                        <group name="region">
+                            <field name="country_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View of Region -->
+        <record id="view_cntry_group_tree" model="ir.ui.view">
+            <field name="name">res.cntry.group.tree</field>
+            <field name="model">res.country.group</field>
+            <field name="arch" type="xml">
+                <tree string="Region">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Region Action-->
+        <record id="action_cntry_group" model="ir.actions.act_window">
+            <field name="name">Region</field>
+            <field name="res_model">res.country.group</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu for Region -->
+        <menuitem id="menuitem_hr_region"
+                  name="Region"
+                  action="action_cntry_group"
+                  parent="hr.menu_human_resources_configuration"
+                  groups="hr.group_hr_manager"
+                  sequence="5"/>
+
+        <!-- Employee Menu -->
+        <!--        <menuitem-->
+        <!--            id="hr.menu_open_view_employee_list_my"-->
+        <!--            action="hr.open_view_employee_list_my"-->
+        <!--            parent="menu_employee"-->
+        <!--            sequence="1"/>-->
+
+        <!--        &lt;!&ndash; Department Menu &ndash;&gt;-->
+        <!--        <menuitem-->
+        <!--                id="hr.menu_hr_department_tree"-->
+        <!--                action="hr.open_module_tree_department"-->
+        <!--                parent="menu_employee"-->
+        <!--                groups="hr.group_hr_user"-->
+        <!--                sequence="2"-->
+        <!--        />-->
+
+
+        <record id="inherit_view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <group name="purchase" position="after">
+                        <group string="Employee" name="employee">
+                            <field name="is_employee"/>
+                        </group>
+                    </group>
+                    <xpath expr="//field[@name='company_type']" position="after">
+                        <field name="unique_no"/>
+                    </xpath>
+
+
+                </data>
+            </field>
+        </record>
+
+        <record id="inherit_view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="before">
+                    <field name="unique_no"/>
+                </xpath>
+            </field>
+
+        </record>
+
+
+        <record id="inherit_view_partner_filter" model="ir.ui.view">
+            <field name="name">res.partner.search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <data>
+                    <filter name="inactive" position="after">
+                        <filter string="Employee" name="employee" domain="[('is_employee','=',1)]"/>
+                    </filter>
+                </data>
+            </field>
+        </record>
+
+        <record id="hr_contract_view_form_cal" model="ir.ui.view">
+            <field name="name">hr.contract.form.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <field name="resource_calendar_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!-- Document Form View -->
+        <record id="hr_document_form_view" model="ir.ui.view">
+            <field name="name">hr.document.form.view</field>
+            <field name="model">hr.document</field>
+            <field name="arch" type="xml">
+                <form string="Document">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="document_type_id"/>
+                            <field name="date_start"/>
+                            <field name="date_expiry"/>
+                            <field name="status"/>
+                            <field name="file" filename="file_name"/>
+                            <field name="employee_id" invisible="1"/>
+                            <field name="file_name" invisible='1'/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Document Tree View -->
+        <record id="hr_document_tree_view" model="ir.ui.view">
+            <field name="name">hr.document.tree.view</field>
+            <field name="model">hr.document</field>
+            <field name="arch" type="xml">
+                <tree string="Document">
+                    <field name="name"/>
+                    <field name="employee_id" invisible="1"/>
+                    <field name="document_type_id"/>
+                    <field name="date_start"/>
+                    <field name="date_expiry"/>
+                    <field name="status"/>
+                    <field name="file"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Document Search View -->
+        <record id="hr_document_search_view" model="ir.ui.view">
+            <field name="name">hr.document.search.view</field>
+            <field name="model">hr.document</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <filter name="group_employee" string="Employee" context="{'group_by':'employee_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Document Request Form View -->
+        <record id="document_request_form_view" model="ir.ui.view">
+            <field name="name">document.request.form.view</field>
+            <field name="model">document.request</field>
+            <field name="arch" type="xml">
+                <form string="Document Request">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                        <button name="action_confirm" string="Confirm" type="object"
+                                confirm="Are you sure you want to move to Confirm ?"
+                                invisible="state !='draft'"/>
+                        <button name="action_approved" string="Approve" type="object"
+                                confirm="Are you sure you want to move to Approve ?"
+                                invisible="state !='confirm'"/>
+                        <button name="action_reject" string="Reject" type="object"
+                                confirm="Are you sure you want to move to Reject ?"
+                                invisible="state !='confirm'"/>
+                        <button name="action_received" string="Received" type="object"
+                                confirm="Are you sure you want to move to Confirm ?"
+                                invisible="state !='approved'"/>
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="name" class="oe_inline" readonly="1"/>
+                            <field name="employee_id" options="{'no_create_edit': True}"
+                                   readonly="state != 'draft'"/>
+                            <field name="document_type_id" options="{'no_create_edit': True}"
+                                   readonly="state != 'draft'"/>
+                            <field name="req_date"
+                                   readonly="state not in ['draft', 'confirm']"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Document Request Tree View -->
+        <record id="document_request_tree_view" model="ir.ui.view">
+            <field name="name">document.request.tree.view</field>
+            <field name="model">document.request</field>
+            <field name="arch" type="xml">
+                <tree string="Document Request">
+                    <field name="employee_id" required="1"/>
+                    <field name="document_type_id" required="1"/>
+                    <field name="req_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Document Request Search View -->
+        <record id="document_request_search_view" model="ir.ui.view">
+            <field name="name">document.request.search.view</field>
+            <field name="model">document.request</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <filter name="group_employee" string="Employee" context="{'group_by':'employee_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action For Document Request -->
+        <record id="action_document_request" model="ir.actions.act_window">
+            <field name="name">Document Request</field>
+            <field name="res_model">document.request</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu For Document Request -->
+        <menuitem id="menuitem_docuemnt_request"
+                  name="Document Request"
+                  action="action_document_request"
+                  parent="hr.menu_hr_employee_payroll"/>
+
+    </data>
+</odoo>

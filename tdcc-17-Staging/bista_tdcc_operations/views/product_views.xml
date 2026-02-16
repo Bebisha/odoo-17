@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    <record id="product_normal_form_view_inherit_tdcc" model="ir.ui.view">-->
+<!--        <field name="name">product.product.tdcc</field>-->
+<!--        <field name="model">product.product</field>-->
+<!--        <field name="inherit_id" ref="product.product_normal_form_view"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='type']" position="after">-->
+<!--                <field name="tdcc_product_id" invisible="1"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+
+</odoo>
+
+        <!--         <record id="product_normal_form_view_inherit_tdcc" model="ir.ui.view">-->
+        <!--            <field name="name">product.product.tdcc</field>-->
+        <!--            <field name="model">product.product</field>-->
+        <!--            <field name="inherit_id" ref="product.product_normal_form_view"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <field name="default_type" position="after">-->
+        <!--                    <field name="tdcc_product_id" invisible="1"/>-->
+        <!--                </field>-->
+        <!--            </field>-->
+        <!--        </record>-->

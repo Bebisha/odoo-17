@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<template id="membership_form_template" name="Membership Form">
+    <t t-call="website.layout">
+        <div class="container">
+            <h1>Membership Form</h1>
+            <form action="/portal/membership/registrations" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                <div class="form-group">
+                    <label>Profile Picture</label>
+                    <input type="file" name="profile_picture" class="form-control"/>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="name" class="form-control" required="required"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" name="phone" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Street</label>
+                            <input type="text" name="street" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" name="city" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Zip / Postal Code</label>
+                            <input type="text" name="zip" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Country</label>
+                    <select name="country_id" class="form-control">
+                        <option value="">Select Country</option>
+                        <t t-foreach="countries" t-as="country">
+                            <option t-att-value="country.id" t-esc="country.name"/>
+                        </t>
+                    </select>
+                </div>
+
+                <h3>Membership Package Details</h3>
+                <div class="form-group">
+                    <label>Membership Type</label>
+                    <br/>
+                    <input type="radio" name="membership_type" value="free" checked="checked"/>
+                    Free Membership
+                    <br/>
+                    <input type="radio" name="membership_type" value="paid"/>
+                    Paid Membership
+                </div>
+                <div class="form-group">
+                    <label>Associate Member</label>
+                    <input type="text" name="associate_member" class="form-control"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+    </t>
+</template>
+
+<template id="membership_success_template" name="Membership Success">
+    <t t-call="website.layout">
+        <div class="container">
+            <h1>Thank You!</h1>
+            <p>Your membership request has been successfully submitted.</p>
+        </div>
+    </t>
+</template>
+
+</odoo>

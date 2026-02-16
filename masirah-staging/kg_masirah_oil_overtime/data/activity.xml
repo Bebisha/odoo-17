@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+
+        <record id="line_manager_approval_notification" model="mail.activity.type">
+            <field name="name">Line Manager Approval</field>
+            <field name="res_model">hr.overtime</field>
+        </record>
+
+        <record id="hr_manager_approval_notification" model="mail.activity.type">
+            <field name="name">HR Manager Approval</field>
+            <field name="res_model">hr.overtime</field>
+        </record>
+        <record id="finance_manager_approval_notification" model="mail.activity.type">
+            <field name="name">Finance Manager Approval</field>
+            <field name="res_model">hr.overtime</field>
+        </record>
+
+        <record id="overtime_request_approval_notification" model="mail.activity.type">
+            <field name="name">Overtime Request Approval</field>
+            <field name="res_model">hr.overtime</field>
+        </record>
+
+        <record id="reject_overtime_request_notification" model="mail.activity.type">
+            <field name="name">Reject Overtime Request</field>
+            <field name="res_model">hr.overtime</field>
+        </record>
+
+    </data>
+</odoo>

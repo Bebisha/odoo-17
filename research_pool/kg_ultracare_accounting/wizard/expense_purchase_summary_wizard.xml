@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+
+        <record id="expense_pur_summary_menu_action_report" model="ir.actions.act_window">
+            <field name="name">Expense Purchase Summary</field>
+            <field name="res_model">expense.purchase.summary.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_expense_pur_summary_report" action="expense_pur_summary_menu_action_report"
+                  parent="kg_ultracare_accounting.menu_reporting_config_accounting"/>
+
+        <record id="expense_pur_summary_view_id" model="ir.ui.view">
+            <field name="name">Expense Purchase Summary Wizard</field>
+            <field name="model">expense.purchase.summary.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group>
+                            <field name="year" required="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="current_year" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date_from" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date_to" invisible="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_expense_pur_sum_report"
+                                string="Print Report"
+                                type="object"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

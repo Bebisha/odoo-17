@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_hr_announcement_form" model="ir.ui.view">
+            <field name="name">hr.announcement.form</field>
+            <field name="model">hr.announcement</field>
+            <field name="arch" type="xml">
+                <form string="Announcements">
+                    <header>
+                        <button string="Send For Approval"  type="object" name="sent"
+                                groups="hr.group_hr_user" class="oe_highlight"  invisible = "state !=  'draft'"/>
+                        <button string="Approve"  class="btn-primary" groups="hr.group_hr_manager" type="object" name="approve"
+                                 invisible = "state !=  'to_approve'"/>
+                        <button  string="Refuse" groups="hr.group_hr_manager" type="object"  invisible ="state != 'to_approve'"
+                                name="reject"  />
+<!--                        <field name="field_name" options="{'invisible': [('state', '=', 'to_approve')]}" />-->
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,approved"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" class="oe_inline" readonly="state in ('approved','rejected')" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_start" readonly="state in ('approved','rejected')" />
+                                <field name="attachment_id" widget="many2many_binary" class="oe_inline"
+                                    readonly="state in ('approved','rejected')" />
+                            </group>
+                            <group>
+                                <field name="date_end" readonly="state in ('approved','rejected')" />
+                                <field name="requested_date" readonly="1"/>
+                                <field name="company_id" options="{'no_create': True}"
+                                groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="announcement" string="Letter">
+                                <field name="announcement"
+                                readonly="state in ('approved','rejected')" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_announcement_tree" model="ir.ui.view">
+            <field name="name">hr.announcement.tree</field>
+            <field name="model">hr.announcement</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" decoration-success="state == 'approved'" decoration-muted="state == 'rejected'" decoration-danger="state == 'to_approve'" >
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_hr_announcement_search" model="ir.ui.view">
+            <field name="name">hr.announcement.search</field>
+            <field name="model">hr.announcement</field>
+            <field name="arch" type="xml">
+                <search string="Announcements">
+                    <field name="name"/>
+                    <field name="state"/>
+                    <separator/>
+                    <filter name="approved_rewards" string="Approved Letters" domain="[('state', '=', 'approved')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="state" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hr_announcement" model="ir.actions.act_window">
+            <field name="name">Announcements</field>
+            <field name="res_model">hr.announcement</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_hr_announcement_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to Create a New Announcement.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="hr_announcement"
+                  name="Announcements"
+                  groups="hr.group_hr_user,hr.group_hr_manager"
+                  web_icon="kg_hr_announcements,static/description/icons_img.png"
+                  sequence="-6"/>
+
+        <menuitem id="hr_announcement_sub_menu"
+                  name="Announcements"
+                  action="action_hr_announcement"
+                  parent="hr_announcement"
+                  groups="hr.group_hr_user,hr.group_hr_manager"
+                  sequence="1"/>
+
+</odoo>

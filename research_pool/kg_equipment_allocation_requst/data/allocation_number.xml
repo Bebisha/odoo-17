@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="equipment_serial_number" model="ir.sequence">
+            <field name="name">Allocation Number</field>
+            <field name="code">allocation_number</field>
+            <field name="prefix">AL</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_training_course,training_course,model_training_course,,1,1,1,1
+access_employee_training_form,employee_training_form,model_employee_training_form,,1,1,1,1
+access_hr_religion,hr_religion,model_hr_religion,,1,1,1,1
+access_annual_leave_transfer,annual_leave_transfer,model_annual_leave_transfer,,1,1,1,1
+access_gratuity_settlement,gratuity_settlement,model_gratuity_settlement,,1,1,1,1
+access_leave_encashment,leave_encashment,model_leave_encashment,,1,1,1,1
+access_employee_certificates,employee_certificates,model_employee_certificates,,1,1,1,1
+access_payslip_report_wizard,payslip_report_wizard,model_payslip_report_wizard,,1,1,1,1
+access_hr_payslip_emp,hr_payslip_emp,model_hr_payslip,,1,0,0,0
+access_hr_payslip_workeddays,hr_payslip_workeddays,hr_payroll.model_hr_payslip_worked_days,,1,0,0,0
+access_hr_payslip_input,hr_payslip_input,hr_payroll.model_hr_payslip_input,,1,0,0,0
+access_hr_payslip_line,hr_payslip_line,hr_payroll.model_hr_payslip_line,,1,0,0,0
+

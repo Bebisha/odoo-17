@@ -1,0 +1,70 @@
+
+<odoo>
+    <data>
+        <record id="purchase_order_line_revised_form_view" model="ir.ui.view">
+            <field name="name">poline.revised.form.view</field>
+            <field name="model">poline.revised</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="currency_id" invisible="True"/>
+                            <field name="product_id_rev"/>
+                            <field name="name_rev"/>
+                            <field name="qty_rev"/>
+                            <field name="uom_rev"/>
+                            <field name="price_rev"/>
+                            <field name="subtotal_rev"/>
+                            <field name="total_rev"/>
+                            <field name="sale_person_line_id"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="purchase_order_line_revised_tree_view" model="ir.ui.view">
+            <field name="name">poline.revised.view.tree</field>
+            <field name="model">poline.revised</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="currency_id" invisible="True"/>
+                    <field name="product_id_rev"/>
+                    <field name="name_rev"/>
+                    <field name="qty_rev"/>
+                    <field name="uom_rev"/>
+                    <field name="price_rev" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="subtotal_rev" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="total_rev" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="purchase_order_line_revised_search_view">
+            <field name="name">poline.revised.information</field>
+            <field name="model">poline.revised</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="product_id_rev"/>
+                    <field name="name_rev"/>
+                    <field name="qty_rev"/>
+                    <field name="uom_rev"/>
+                    <field name="price_rev" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="subtotal_rev" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="total_rev" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <group expand="0" string="Group By">
+                        <filter name="Revised Line" context="{'group_by':'line_custom_id'}"/>
+                        <filter name="Product" context="{'group_by':'product_id_rev'}"/>
+                        <filter name="Description" context="{'group_by':'name_rev'}"/>
+                        <filter name="Quantity" context="{'group_by':'qty_rev'}"/>
+                        <filter name="Price List" context="{'group_by':'price_rev'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_purchase_order_line_revised">
+            <field name="name">RFQ/Purchase Order Revised Lines</field>
+            <field name="res_model">poline.revised</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'group_by': 'line_custom_id'}</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,109 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="kg_patient_demographic_tree_view">
+            <field name="name">Patient Additional Demographic</field>
+            <field name="model">kg.patient.demographic</field>
+            <field name="arch" type="xml">
+                <!--                <tree create="false" edit="false">-->
+                <tree>
+                    <field name="living_dependency"/>
+                    <field name="living_arrangement"/>
+                    <field name="patient_primary_facilty"/>
+                    <field name="primary_care_provider"/>
+                    <field name="student_indicator"/>
+                    <field name="handicap"/>
+                    <field name="living_will_code"/>
+                    <field name="organ_donor_code"/>
+                    <field name="duplicate_patient"/>
+                    <field name="publicity_code"/>
+                    <field name="protection_indicator"/>
+                    <field name="effective_date" widget="date"/>
+                    <field name="place_worship"/>
+                    <field name="directive_code"/>
+                    <field name="immun_registry_status"/>
+                    <field name="immun_registry_effective_date"/>
+                    <field name="publicity_code_effective_date"/>
+                    <field name="military_branch"/>
+                    <field name="military_rank"/>
+                    <field name="military_status"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="kg_patient_demographic_form_view">
+            <field name="name">Patient Additional Demographic</field>
+            <field name="model">kg.patient.demographic</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <button name="btn_submit" string="Submit" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+                        <button name="btn_cancel" string="Cancel" type="object" data-hotkey="w"
+                                invisible="state not in ('draft','submited')"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submited"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="primary_care_provider" required="1"/>
+                                <field name="publicity_code" required="living_arrangement != False"/>
+                                <field name="protection_indicator" required="1"/>
+                                <field name="effective_date" required="1"/>
+                                <field name="immun_registry_status" required="1"/>
+                            </group>
+                            <group>
+                                <field name="immun_registry_effective_date" required="1"/>
+                                <field name="publicity_code_effective_date" required="1"/>
+                                <field name="living_dependency"/>
+                                <field name="living_arrangement"/>
+                                <field name="patient_primary_facilty"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="student_indicator"/>
+                                <field name="handicap"/>
+                                <field name="living_will_code"/>
+                                <field name="organ_donor_code"/>
+                                <field name="seperate_bill"/>
+                                <field name="duplicate_patient"/>
+                            </group>
+                            <group>
+                                <field name="place_worship"/>
+                                <field name="directive_code"/>
+                                <field name="military_branch"/>
+                                <field name="military_rank"/>
+                                <field name="military_status"/>
+                            </group>
+                        </group>
+
+
+                    </sheet>
+                    <!--                  <div class="o_attachment_preview"/>-->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="patient_additional_demographic_form" model="ir.actions.act_window">
+            <field name="name">Patient Additional Demographic</field>
+            <field name="res_model">kg.patient.demographic</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

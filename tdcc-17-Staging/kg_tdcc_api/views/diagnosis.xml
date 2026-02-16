@@ -1,0 +1,95 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="kg_diagnosis_tree_view">
+            <field name="name">Diagnosis</field>
+            <field name="model">kg.diagnosis</field>
+            <field name="arch" type="xml">
+<!--                <tree create="false" edit="false">-->
+                <tree>
+                    <field name="set_id_dg1"/>
+                    <field name="diag_coding_method"/>
+
+                     <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="kg_diagnosis_form_view">
+            <field name="name">Diagnosis</field>
+            <field name="model">kg.diagnosis</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                            <button name="btn_submit" string="Submit" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+                           <button name="btn_cancel" string="Cancel" type="object" data-hotkey="w" invisible="state not in ('draft','submited')"/>
+                           <field name="state" widget="statusbar" statusbar_visible="draft,submited"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group >
+                                <field name="set_id_dg1" required="1"/>
+                                <field name="diag_coding_method" required="1"/>
+                                <field name="diag_code" required="1"/>
+                                <field name="diag_description" required="1"/>
+                                <field name="diag_date" required="1"/>
+                                <field name="diag_type" required="1"/>
+                                <field name="major_diag_categry" />
+
+                            </group>
+                            <group>
+                                 <field name="diag_related_group" />
+                                 <field name="drg_approv_indicator" />
+                                 <field name="drg_groupr_revw_code" />
+                                 <field name="outlier_type" />
+                                 <field name="outlier_days" />
+                                 <field name="outlier_cost" />
+                                 <field name="grpr_versn_type" />
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                 <field name="diag_priority" required="1"/>
+                                 <field name="diag_clinician" required="1"/>
+                                 <field name="diag_classification"/>
+                                 <field name="confidencial_indicatr"/>
+                                 <field name="attestation"/>
+                                 <field name="diag_identifier"/>
+                            </group>
+
+                        </group>
+
+
+                    </sheet>
+<!--                  <div class="o_attachment_preview"/>-->
+                    <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="activity_ids" widget="mail_activity"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+
+
+
+                </form>
+            </field>
+        </record>
+        <record id="kg_diagnosis_action_form" model="ir.actions.act_window">
+            <field name="name">Diagnosis</field>
+            <field name="res_model">kg.diagnosis</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+
+
+    </data>
+</odoo>

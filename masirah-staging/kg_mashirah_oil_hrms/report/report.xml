@@ -1,0 +1,132 @@
+<odoo>
+    <data>
+        <record id="kg_paper_format_to_whom_it_may_concern" model="report.paperformat">
+            <field name="name">To Whom It May Concern A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="gratuity_settlement_report" model="ir.actions.report">
+            <field name="name">Gratuity</field>
+            <field name="model">gratuity.settlement</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_mashirah_oil_hrms.gratuity_report_template</field>
+            <field name="report_file">kg_mashirah_oil_hrms.gratuity_report_template</field>
+            <field name="binding_model_id" ref="kg_mashirah_oil_hrms.model_gratuity_settlement"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="kg_mashirah_oil_hrms.kg_paper_format_gratuity"/>
+        </record>
+
+        <record id="kg_experience_cert" model="ir.actions.report">
+            <field name="name">Experience Certificate</field>
+            <field name="model">hr.employee</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_mashirah_oil_hrms.experience_certificate</field>
+            <field name="report_file">kg_mashirah_oil_hrms.experience_certificate</field>
+            <field name="binding_model_id" ref="hr.model_hr_employee"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="kg_experience_cert_with_seq" model="ir.actions.report">
+            <field name="name">Experience Certificate</field>
+            <field name="model">employee.certificates</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_mashirah_oil_hrms.experience_certificate_sequence</field>
+            <field name="report_file">kg_mashirah_oil_hrms.experience_certificate_sequence</field>
+            <field name="binding_model_id" eval="False"/>
+
+            <!--            <field name="binding_model_id" ref="kg_mashirah_oil_hrms.model_employee_certificates"/>-->
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="kg_salary_transfer" model="ir.actions.report">
+            <field name="name">Salary Transfer</field>
+            <field name="model">hr.employee</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_mashirah_oil_hrms.salary_transfer</field>
+            <field name="report_file">kg_mashirah_oil_hrms.salary_transfer</field>
+            <field name="binding_model_id" ref="hr.model_hr_employee"/>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="kg_salary_transfer_with_seq" model="ir.actions.report">
+            <field name="name">Salary Transfer</field>
+            <field name="model">employee.certificates</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_mashirah_oil_hrms.salary_transfer_sequence</field>
+            <field name="report_file">kg_mashirah_oil_hrms.salary_transfer_sequence</field>
+            <field name="binding_model_id" eval="False"/>
+
+            <!--            <field name="binding_model_id" ref="hr.model_hr_employee"/>-->
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="kg_to_whom_it_may_concern" model="ir.actions.report">
+            <field name="name">To Whom It May Concern</field>
+            <field name="model">hr.employee</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_mashirah_oil_hrms.to_whom_it_may_concern</field>
+            <field name="report_file">kg_mashirah_oil_hrms.to_whom_it_may_concern</field>
+            <field name="binding_model_id" ref="hr.model_hr_employee"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="kg_mashirah_oil_hrms.kg_paper_format_to_whom_it_may_concern"/>
+        </record>
+        <record id="kg_to_whom_it_may_concern_seq" model="ir.actions.report">
+            <field name="name">To Whom It May Concern</field>
+            <field name="model">employee.certificates</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_mashirah_oil_hrms.to_whom_it_may_concern_sequence</field>
+            <field name="report_file">kg_mashirah_oil_hrms.to_whom_it_may_concern_sequence</field>
+            <field name="binding_model_id" eval="False"/>
+
+            <!--            <field name="binding_model_id" ref="kg_mashirah_oil_hrms.model_employee_certificates"/>-->
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="kg_mashirah_oil_hrms.kg_paper_format_to_whom_it_may_concern"/>
+        </record>
+        <record id="kg_employement_status" model="ir.actions.report">
+            <field name="name">Employment Status</field>
+            <field name="model">employee.certificates</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_mashirah_oil_hrms.employee_status_sequence</field>
+            <field name="report_file">kg_mashirah_oil_hrms.employee_status_sequence</field>
+            <field name="binding_model_id" eval="False"/>
+
+            <!--            <field name="binding_model_id" ref="kg_mashirah_oil_hrms.model_employee_certificates"/>-->
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="kg_leave_application" model="ir.actions.report">
+            <field name="name">Leave Application</field>
+            <field name="model">hr.leave</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_mashirah_oil_hrms.leave_application</field>
+            <field name="report_file">kg_mashirah_oil_hrms.leave_application</field>
+            <field name="binding_model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <record id="kg_emp_training_report_action" model="ir.actions.report">
+            <field name="name">Employee Training</field>
+            <field name="model">employee.training.form</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_mashirah_oil_hrms.employee_training_report_tem</field>
+            <field name="report_file">kg_mashirah_oil_hrms.employee_training_report_tem</field>
+            <field name="binding_model_id" ref="kg_mashirah_oil_hrms.model_employee_training_form"/>
+            <field name="paperformat_id" ref="kg_mashirah_oil_hrms.kg_paper_format_training_form"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+    </data>
+
+</odoo>

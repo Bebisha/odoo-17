@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Add button to create purchase order -->
+        <record id="view_sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+               <xpath expr="//sheet/div[hasclass('oe_button_box')]" position="inside">
+                    <button name="action_view_related_purchase_orders" type="object" class="oe_stat_button" icon="fa-id-card-o"
+                            string="View Related Purchase Orders"/>
+               </xpath>
+
+                <xpath expr="//button[@name='action_cancel']" position="after">
+
+                    <button name="action_create_purchase_order" string="Create Purchase Order" type="object"
+                            class="oe_highlight" invisible="state != 'sale'"/>
+                </xpath>
+
+            </field>
+
+
+        </record>
+    </data>
+</odoo>

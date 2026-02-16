@@ -1,0 +1,25 @@
+<odoo>
+    <template id="product_listing_template" name="Product Listing">
+        <t t-foreach="products" t-as="product">
+            <div class="product">
+<!--                <div class="product-image">-->
+<!--                    <img t-att-src="product.image_1920" alt="Product Image"/>-->
+<!--                </div>-->
+                <div class="product-info">
+                    <h3>
+                        <a t-attf-href="/shop/product/{{product.id}}">
+                            <t t-esc="product.name"/>
+                        </a>
+                    </h3>
+                    <p>
+                        <t t-esc="product.description"/>
+                    </p>
+                    <p>Price:
+                        <t t-esc="product.list_price"/>
+                    </p>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

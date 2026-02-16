@@ -1,0 +1,135 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="kg_patient_visit_tree_view">
+            <field name="name">Patient Visit</field>
+            <field name="model">kg.patient.visit</field>
+            <field name="arch" type="xml">
+                <!--                <tree create="false" edit="false">-->
+                <tree>
+                    <field name="set_id_pv1"/>
+
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="kg_patient_visit_form_view">
+            <field name="name">Patient Visit</field>
+            <field name="model">kg.patient.visit</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <button name="btn_submit" string="Submit" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+                        <button name="btn_cancel" string="Cancel" type="object" data-hotkey="w"
+                               invisible="state not in('draft','submited')"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submited"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="set_id_pv1" required="1"/>
+                                <field name="patient_class" required="1"/>
+                                <field name="assigned_patient_location" required="1"/>
+                                <field name="admission_type" required="1"/>
+                                <field name="preadmit_number" required="1"/>
+                                <field name="prior_patient_location"/>
+                            </group>
+                            <group>
+                                <field name="attending_doctor" required="1"/>
+                                <field name="refering_doctor" required="1"/>
+                                <field name="consulting_doctor" required="1"/>
+                                <field name="hospital_service" required="1"/>
+                                <field name="temporary_location"/>
+                                <field name="preadmit_test_indicator"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="re_admission_indicator"/>
+                                <field name="admit_source" required="1"/>
+                                <field name="ambulatory_service"/>
+                                <field name="vip_indicator"/>
+                                <field name="admitting_doctor" required="1"/>
+                                <field name="patient_type"/>
+                                <field name="visit_number" required="1"/>
+                            </group>
+                            <group>
+                                <field name="financial_class"/>
+                                <field name="charg_price_indicator"/>
+                                <field name="courtesy_code"/>
+                                <field name="credit_rating"/>
+                                <field name="contract_code"/>
+                                <field name="contract_eff_date"/>
+                                <field name="contract_amount"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="contract_period"/>
+                                <field name="interest_code"/>
+                                <field name="transfer_bad_debt_code"/>
+                                <field name="transfer_bad_debt_code"/>
+                                <field name="bad_debt_agency_code"/>
+                                <field name="bad_debt_transfer_amount"/>
+                                <field name="bad_debt_recovery_amount"/>
+                            </group>
+                            <group>
+                                <field name="delete_account_indicator"/>
+                                <field name="delete_account_date"/>
+                                <field name="discharge_disposition" required="1"/>
+                                <field name="discharge_location" required="1"/>
+                                <field name="diet_type"/>
+                                <field name="servicing_facility"/>
+                                <field name="bed_status"/>
+                                <field name="account_status"/>
+                                <field name="pending_location"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="prior_temp_location"/>
+                                <field name="admit_date_time" required="1"/>
+                                <field name="discharg_date_time" required="1"/>
+                                <field name="current_patient_balance"/>
+                                <field name="total_charges"/>
+                            </group>
+                            <group>
+                                <field name="total_adjustments"/>
+                                <field name="total_payments"/>
+                                <field name="alternative_visit_id"/>
+                                <field name="visit_indicator"/>
+                                <field name="other_helthcr_provider"/>
+                            </group>
+
+                        </group>
+
+
+                    </sheet>
+                    <!--                  <div class="o_attachment_preview"/>-->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="patient_visit_action_form" model="ir.actions.act_window">
+            <field name="name">Patient Visit</field>
+            <field name="res_model">kg.patient.visit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

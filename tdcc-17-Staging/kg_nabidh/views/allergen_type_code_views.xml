@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="allergen_type_code_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Allergen Type code</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">allergen.type.code</field>
+
+    </record>
+    <record id="allergen_type_code_tree" model="ir.ui.view">
+        <field name="name">allergen.type.code.tree.views</field>
+        <field name="model">allergen.type.code</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="allergen_type_code_form" model="ir.ui.view">
+        <field name="name">allergen.type.code.form.views</field>
+        <field name="model">allergen.type.code</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="allergen_type_code_menu"
+              action="allergen_type_code_action"
+              name="Allergen Type Code"
+              parent="kg_nabidh.al1_menu"/>
+
+</odoo>

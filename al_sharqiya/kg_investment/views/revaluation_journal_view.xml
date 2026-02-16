@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define Form View -->
+        <record id="view_revaluation_journal_form" model="ir.ui.view">
+            <field name="name">kg.revaluation.journal.form</field>
+            <field name="model">kg.revaluation.journal</field>
+            <field name="arch" type="xml">
+                <form string="Revaluation Journal">
+                    <header>
+                        <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,posted"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="view_journal_entries" type="object"
+                                    class="oe_stat_button"
+                                    string="Journal Entries"
+                                    icon="fa-list"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+
+                                <field name="company_id"/>
+                                <field name="date"/>
+                                <field name="currency_id"/>
+                                <field name="journal_id"/>
+
+                            </group>
+                            <group>
+                                <field name="exchange_rate"/>
+                                <field name="reversible_transaction"/>
+                                <field name="amount"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+
+
+                            <page string="Lines">
+
+                                <field name="reval_line_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="account_id"/>
+                                        <field name="description"/>
+                                        <field name="debit"/>
+                                        <field name="credit"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_revaluation_journal_tree" model="ir.ui.view">
+            <field name="name">kg.revaluation.journal.tree</field>
+            <field name="model">kg.revaluation.journal</field>
+            <field name="arch" type="xml">
+                <tree string="Revaluation Journal">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="date"/>
+                    <field name="currency_id"/>
+                    <field name="journal_id"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_revaluation_journal" model="ir.actions.act_window">
+            <field name="name">Revaluation Journal</field>
+            <field name="res_model">kg.revaluation.journal</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_revaluation_journal_tree"/>
+        </record>
+    </data>
+</odoo>

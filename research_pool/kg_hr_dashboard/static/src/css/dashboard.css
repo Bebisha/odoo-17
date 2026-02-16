@@ -1,0 +1,25 @@
+/* Define styles for the hr_notification class */
+.hr_notification {
+    height: 400px;
+    overflow-y: auto;
+}
+
+/* Define styles for the hr_notification_head class */
+.hr_notification_head {
+    position: sticky;
+    top: 0;
+}
+
+/* Additional custom styles can be added here */
+.hr_notification_head {
+    font-size: 17px;
+    text-align: center;
+    padding: 12px 0;
+    color: #fff;
+    background: #875A7B;
+    margin-bottom: 9px;
+}
+.employee-image {
+    max-width: 50px; /* Adjust as needed */
+    max-height: 50px; /* Adjust as needed */
+}

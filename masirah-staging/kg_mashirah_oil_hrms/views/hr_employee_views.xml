@@ -1,0 +1,214 @@
+<odoo>
+    <data>
+
+        <record id="payroll_hr_employee_view_form_inherited_id" model="ir.ui.view">
+            <field name="name">payroll.hr.employee.view.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_payroll.payroll_hr_employee_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='registration_number']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_hr_employee_form_custom_public" model="ir.ui.view">
+            <field name="name">hr.employee.form.custom</field>
+            <field name="model">hr.employee.public</field>
+            <field name="inherit_id" ref="hr.hr_employee_public_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+
+                    <button string="Payslips" type="object" class="oe_highlight"
+                            icon="fa-dollar" name="action_open_payslips_emp"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_employee_form_custom_id" model="ir.ui.view">
+            <field name="name">hr.employee.form.custom</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='resource_calendar_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="expact_staff"/>
+                </xpath>
+
+
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+
+                    <button string="Payslips" type="object" class="oe_highlight"
+                            icon="fa-dollar" name="action_open_payslips_emp"/>
+                </xpath>
+
+                <xpath expr="//field[@name='job_title']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='image_1920']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='mobile_phone']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='work_phone']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='work_email']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='address_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='resource_calendar_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//h1" position="after">
+                    <h1>
+                        <field name="arabic_name" placeholder="Arabic name" style="font-size: min(2vw, 2.6rem);"/>
+                    </h1>
+                </xpath><xpath expr="//h2" position="after">
+                    <h2>
+                        <field name="arabic_job_name" placeholder="Arabic Job Position" />
+                    </h2>
+                </xpath>
+
+
+                <!--                Private Information-->
+
+
+                <xpath expr="//field[@name='private_street']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='private_email']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='private_phone']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='lang']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='emergency_contact']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='emergency_phone']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='certificate']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='study_field']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='study_school']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='country_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='passport_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='gender']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='birthday']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='place_of_birth']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='country_of_birth']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+                <!--                Coach Field-->
+                <xpath expr="//field[@name='coach_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='resource_calendar_id']" position="after">
+                    <field name="emp_civil_num" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='emp_civil_num']" position="after">
+                    <field name="emp_contract_masirah" widget="many2many_binary" required="1"
+                           string="Employee Contract(Masirah)"/>
+
+                </xpath>
+                <xpath expr="//field[@name='emp_contract_masirah']" position="after">
+                    <field name="emp_contract_labor" widget="many2many_binary" required="1"
+                           string="Employee Contract(Ministry Of Labor)"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='passport_id']" position="after">
+                    <field name="passport_exp_date" required="1"/>
+                </xpath>
+
+
+                <xpath expr="//field[@name='passport_exp_date']" position="after">
+                    <field name="date_of_join" required="1"/>
+                    <field name="clearance_certi" widget="many2many_binary" string="Clearance Certificate"/>
+                    <field name="civil_id" widget="many2many_binary" required="1" string="Civil ID"/>
+                    <field name="medical" widget="many2many_binary" required="1" string="Medical"/>
+
+
+                </xpath>
+
+                <field name="private_car_plate" position="after">
+                    <field name="religion_id" required="1"/>
+                </field>
+                <field name="job_id" position="after">
+                    <field name="grade_id" readonly="1"/>
+                </field>
+
+
+                <xpath expr="//notebook/page[@name='public']/div[@id='o_work_employee_container']/div[@id='o_work_employee_main']"
+                       position="inside">
+                    <group string="Employee Signature">
+
+                        <field name="sign_signature" widget="signature"
+                               options="{'full_name': 'display_name', 'size': ['',200]}"/>
+
+
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="kg_hr_employee_view_search" model="ir.ui.view">
+            <field name="name">kg.hr.employee.search.view.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="registration_number" string="Employee No."/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

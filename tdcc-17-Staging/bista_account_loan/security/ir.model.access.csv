@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_normal_user_customer_config,access.normal.user.account.config,base.model_ir_config_parameter,base.group_user,1,1,1,0
+access_account_loan_pay_amount,account_loan_pay_amount,model_account_loan_pay_amount,base.group_user,1,1,1,0
+access_lease_pay_full_amount,lease_pay_full_amount,model_lease_pay_full_amount,base.group_user,1,1,1,0
+access_reschedule_installment_wizard,reschedule_installment_wizard,model_reschedule_installment_wizard,base.group_user,1,1,1,0
+access_loan_reject_reason,loan_reject_reason,model_loan_reject_reason,base.group_user,1,1,1,0
+access_loan_report_print_finance,access_loan_report_print_finance,model_loan_report_print,account.group_account_user,1,1,1,1
+access_loan_report_print_officer,access_loan_report_print_officer,model_loan_report_print,account.group_account_user,1,1,1,1
+access_loan_report_print_manager,access_loan_report_print_manager,model_loan_report_print,account.group_account_manager,1,1,1,1
+access_account_loan,account.loan,model_account_loan,account.group_account_user,1,1,1,0
+access_account_loan_manager,account.loan,model_account_loan,account.group_account_manager,1,1,1,1
+access_account_loan_line,account.loan.line,model_account_loan_line,account.group_account_user,1,1,1,0
+access_account_loan_line_manager,account.loan.line,model_account_loan_line,account.group_account_manager,1,1,1,1
+access_account_loan_history,account.loan.history,model_account_loan_history,account.group_account_user,1,1,1,0
+access_account_loan_history_manager,account.loan.history,model_account_loan_history,account.group_account_manager,1,1,1,1

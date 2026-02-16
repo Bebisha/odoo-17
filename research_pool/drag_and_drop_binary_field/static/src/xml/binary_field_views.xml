@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="FieldBinaryFileDragAndDrop" owl="1">
+        <div id="pdf-link-container"></div>
+         <t t-if="props.record.data[props.name]">
+                    <FileUploader
+                        acceptedFileExtensions="'.pdf'"
+                        onUploaded.bind="onFileUploaded"
+                    >
+                          <t t-set-slot="toggler">
+                                   <button
+                                class="btn btn-secondary fa fa-preview o_select_file_button"
+                                data-tooltip="previews"
+                                aria-label="preview"
+                            />
+                          </t>
+                    </FileUploader>
+         </t>
+
+
+    </t>
+</templates>
+
+
+        <!--</templates>-->

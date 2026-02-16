@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record id="consolidated_aging_report_menu_action" model="ir.actions.act_window">
+            <field name="name">Consolidated Aging Analysis Receivables</field>
+            <field name="res_model">consolidated.aging.analysis.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_consolidated_aging_report" action="consolidated_aging_report_menu_action"
+                  name="Consolidated Aging Analysis Receivables"
+                  parent="kg_ultracare_accounting.menu_reporting_config_accounting"/>
+
+        <record id="consolidated_aging_report_wizard_view" model="ir.ui.view">
+            <field name="name">Consolidated Aging Analysis Receivables Wizard</field>
+            <field name="model">consolidated.aging.analysis.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+                    <group col="4">
+                        <field name="date_from" string="As On"/>
+                        <field name="period_length_type" readonly="1"/>
+                        <field name="result_selection" readonly="1"/>
+                        <field name="period_length_months" string="Period Length (months)" invisible="1"/>
+                        <field name="period_length"
+                               attrs="{'invisible': ['|',('un_even', '=', True),('period_length_type', '=', 'months')]}"/>
+                        <newline/>
+                        <field name="un_even" string="Uneven Interval" invisible="1"/>
+                        <newline/>
+                        <field name="period_length_uneven" string="No.of Periods"
+                               attrs="{'invisible': [('un_even', '=', False)]}"/>
+                        <newline/>
+                        <field name="period_ids" string="Periods" attrs="{'invisible': [('un_even', '=', False)]}">
+                            <tree editable="bottom" delete="false" create="false">
+                                <field name="si_no" string="Period" readonly="1" force_save="1"/>
+                                <field name="period" string="Period Length(Days)"/>
+
+                            </tree>
+                        </field>
+
+                    </group>
+                    <field name="journal_ids" required="0" invisible="1"/>
+                    <footer>
+                        <button name="button_payable" string="Print" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

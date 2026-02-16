@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <record id="masirah_oil_lock_button_access" model="res.groups">
+            <field name="name">Lock</field>
+            <field name="category_id" ref="base.module_category_administration_administration"/>
+        </record>
+    </data>
+
+</odoo>

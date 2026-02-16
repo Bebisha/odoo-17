@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_emp_department" model="ir.actions.act_window">
+        <field name="name">Employee Department</field>
+        <field name="res_model">employee.department</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_no content_smiling_face">
+                Create Employee Record
+            </p>
+        </field>
+    </record>
+
+    <record id="emp_department_view_form" model="ir.ui.view">
+        <field name="name">employee.department.view.form</field>
+        <field name="model">employee.department</field>
+        <field name="arch" type="xml">
+            <form string="School">
+                <sheet>
+                    <group>
+                        <field name="dept_name"/>
+                        <field name="manager"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="emp_department_view_tree" model="ir.ui.view">
+        <field name="name">employee.department.tree</field>
+        <field name="model">employee.department</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="dept_name"/>
+                <field name="manager"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="menu_my_model_dept" name="Department"
+              parent="menu_my_model_root"
+              action="action_emp_department"/>
+</odoo>

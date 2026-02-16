@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pharmacy_order_form" model="ir.ui.view">
+        <field name="name">pharmacy.order.form</field>
+        <field name="model">pharmacy.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="requested_give_code"/>
+                            <field name="requested_give_name"/>
+                            <field name="requested_amount_minimum" invisible="1"/>
+                            <field name="requested_given_unit" placeholder="mg"/>
+                            <field name="providers_administration_instructions" string="Route Of Administration"/>
+                            <field name="dosage" placeholder="0.5"/>
+                            <field name="frequency"/>
+<!--                            <field name="diag_action_co->-->
+                        </group>
+                        <group>
+                             <field name="administratio_time"/>
+                             <field name="expiration_date"/>
+                             <field name="status"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

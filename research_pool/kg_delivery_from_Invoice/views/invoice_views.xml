@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Extend the account.move form view -->
+        <record id="view_account_move_form_extend" model="ir.ui.view">
+            <field name="name">account.move.form.extend</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ref']" position="after">
+                 <field name="picking_type_id"/>
+                </xpath>
+
+                 <div class="oe_button_box" position="inside">
+
+                     <button name="stock" type="object" class="oe_stat_button" icon="fa-truck"
+                        string="Delivery" invisible="delivery_button_visible == False"/>
+
+                         <field name="delivery_button_visible" invisible="1"/>
+
+                </div>
+
+            </field>
+        </record>
+    </data>
+</odoo>

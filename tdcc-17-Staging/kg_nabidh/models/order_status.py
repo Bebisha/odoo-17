@@ -1,0 +1,10 @@
+
+from odoo import models, fields, api, _
+
+
+
+class KgOrderStatus(models.Model):
+    _name = 'order.status'
+
+    code = fields.Char(string="Code")
+    name = fields.Char(string="Description")

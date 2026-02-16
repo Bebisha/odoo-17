@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Service Group Form -->
+        <record model="ir.ui.view" id="service_group_form">
+            <field name="name">service.group.form</field>
+            <field name="model">service.group</field>
+            <field name="arch" type="xml">
+                <form string="Service Group Form">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options="{&quot;terminology&quot;: &quot;archive&quot;}" />
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" required="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Service Types">
+                                <field name="service_type_ids" colspan="4"
+                                    nolabel="1">
+                                    <tree>
+                                        <field name="name" />
+                                        <field name="code" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Service Group List -->
+        <record model="ir.ui.view" id="service_group_tree">
+            <field name="name">service.group.tree</field>
+            <field name="model">service.group</field>
+            <field name="arch" type="xml">
+                <tree string="Service Group List">
+                    <field name="name" />
+                    <field name="active" widget="boolean_toggle" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Service Group Search -->
+        <record model="ir.ui.view" id="service_group_search">
+            <field name="name">service.group.search</field>
+            <field name="model">service.group</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <filter string="Archived" name="inactive"
+                        domain="[('active','=',False)]" />
+                </search>
+            </field>
+        </record>
+
+        <!-- Service Group Action -->
+        <record model="ir.actions.act_window" id="service_group_action">
+            <field name="name">Service Groups</field>
+            <field name="res_model">service.group</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Service Group Menu -->
+        <menuitem id="service_group_menu"
+            action="service_group_action"
+            parent="bista_tdcc_operations.miscellaneous_configuration_menu"
+            sequence="1" />
+
+</odoo>

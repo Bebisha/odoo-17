@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_cash_book" model="ir.actions.report">
+            <field name="name">Cash Book</field>
+            <field name="model">account.cashbook.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_cash_book_report.report_pdf_cashbook</field>
+            <field name="report_file">kg_cash_book_report.report_pdf_cashbook</field>
+        </record>
+
+
+    </data>
+</odoo>

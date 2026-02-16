@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    <record id="allergy_information_action_new" model="ir.actions.act_window">-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="name">Allergy Information</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        <field name="res_model">patient.allergy.information</field>-->
+
+<!--    </record>-->
+<!--    <record id="allergy_information_tree" model="ir.ui.view">-->
+<!--        <field name="name">patient.allergy.information.tree</field>-->
+<!--        <field name="model">patient.allergy.information</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                <field name="allergy_type_codes"/>-->
+<!--                <field name="allergy_code_des"/>-->
+<!--                <field name="allergy_severty_code"/>-->
+<!--                <field name="allergy_reaction_code"/>-->
+
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+    <record id="allergy_information_form" model="ir.ui.view">
+        <field name="name">patient.allergy.information.form</field>
+        <field name="model">patient.allergy.information</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Type">
+                            <field name="allergy_code_des" options="{'no_create': True}" string=" Type"/>
+                            <field name="allergy_type_codes" options="{'no_create': True}" string="Type Description" invisible="1"/>
+
+                        </group>
+                        <group string="Code">
+                            <field name="allergy_type_codes" options="{'no_create': True}" string="Code Description"/>
+
+
+                        </group>
+                        <group>
+                            <field name="al1_date"/>
+                            <field name="allergy_severty_code" options="{'no_create': True}"/>
+                            <field name="allergy_reaction_code" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+<!--    <menuitem id="allergy_information_menu"-->
+<!--              action="allergy_information_action_new"-->
+<!--              name="Allergy Information"-->
+<!--              parent="kg_nabidh.patient_information_menu"/>-->
+
+</odoo>
+

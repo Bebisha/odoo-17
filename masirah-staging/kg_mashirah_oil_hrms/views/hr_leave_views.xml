@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <record id="view_hr_leave_form_custom" model="ir.ui.view">
+            <field name="name">hr.leave.form.custom</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+            <field name="arch" type="xml">
+                <field name="holiday_status_id" position="after">
+                    <field name="relation" readonly="state == 'validate1' or state == 'validate'"
+                           invisible="is_compassionate_leave != True" required="is_compassionate_leave == True"/>
+                    <field name="is_compassionate_leave"/>
+                </field>
+                <field name="name" position="after">
+                    <field name="balance_leave"/>
+                    <field name="leave_accrued" invisible="1"/>
+                    <field name="leaves_taken" invisible="1"/>
+                    <field name="approval_date" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_hr_attendance_view_inherit_filter" model="ir.ui.view">
+        <field name="name">kg.hr.attendance.view.inherit.filter</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="employee_id" string="Employee No." filter_domain="[('employee_id.registration_number','ilike', self)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    </data>
+</odoo>

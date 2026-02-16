@@ -1,0 +1,114 @@
+<odoo>
+    <data>
+        <record id="menu_emp_training_action" model="ir.actions.act_window">
+            <field name="name">Employee Training Form</field>
+            <field name="res_model">employee.training.form</field>
+            <field name="view_mode">tree,form,activity,graph,pivot,kanban</field>
+        </record>
+
+        <menuitem id="menu_emp_training" name="Employee Training Form" action="menu_emp_training_action"
+                  parent="hr.menu_hr_employee_payroll" sequence="7"/>
+
+        <record id="employee_training_view_tree" model="ir.ui.view">
+            <field name="name">Employee Training Tree View</field>
+            <field name="model">employee.training.form</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Training Form">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="type_of_course"/>
+                    <field name="training_from_date"/>
+                    <field name="training_to_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="emp_training_view_form" model="ir.ui.view">
+            <field name="name">Employee Training Form View</field>
+            <field name="model">employee.training.form</field>
+            <field name="arch" type="xml">
+                <form string="Employee Training Form">
+                    <header>
+                        <button name="kg_request" type="object" string="Request for Approval"
+                                invisible="is_request == False or is_wait_lm == True"
+                                class="oe_highlight"/>
+                        <button name="kg_lm_approve" type="object" string="Line Manager Approval"
+                                invisible="is_wait_lm == False or is_wait_hr == True or is_wait_gm == True"
+                                class="oe_highlight"/>
+                        <button name="kg_hr_approve" type="object" string="HR Approval"
+                                invisible="is_wait_lm == False or is_wait_hr == False or is_wait_gm == True or is_approved == True"
+                                class="oe_highlight"/>
+                        <button name="kg_gm_approve" type="object" string="GM Approval"
+                                invisible="is_wait_gm == False or is_approved == True"
+                                class="oe_highlight"/>
+                        <button name="kg_reject" type="object" string="Reject"
+                                invisible="is_wait_lm == False or is_approved == True"
+                                class="oe_highlight"/>
+                        <button name="kg_cancel" type="object" string="Cancel"
+                                invisible="is_request == False or is_wait_lm == True"
+                                class="oe_highlight"/>
+                        <button name="kg_action_confirm" type="object" string="Confirm"
+                                invisible="is_approved == False or state == 'confirm'"
+                                class="oe_highlight"/>
+                        <button name="kg_set_to_draft" type="object" string="Set to Draft"
+                                invisible="state != 'cancel'"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <widget name="web_ribbon" title="Confirmed" invisible="state != 'confirm'"/>
+                        <widget name="web_ribbon" title="Rejected" invisible="state != 'reject'"
+                                bg_color="text-bg-danger"/>
+                        <div class="oe_title">
+                            <label for="name" string="Reference"/>
+                            <h1>
+                                <field name="name" readonly="1" force_save="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="is_request" invisible="1"/>
+                            <field name="is_wait_lm" invisible="1"/>
+                            <field name="is_wait_hr" invisible="1"/>
+                            <field name="is_wait_gm" invisible="1"/>
+                            <field name="is_approved" invisible="1"/>
+                            <group>
+                                <field name="employee_id" required="1" readonly="state != 'draft'"/>
+                                <field name="type_of_course" required="1" readonly="state != 'draft'"/>
+                                <field name="training_from_date" required="1" widget="date"
+                                       readonly="state != 'draft'"/>
+                                <field name="training_to_date" required="1" widget="date" readonly="state != 'draft'"/>
+                            </group>
+                            <group>
+                                <field name="air_ticket_request" widget="boolean_toggle" readonly="state != 'draft'"/>
+                                <field name="departure_date" invisible="air_ticket_request == False"
+                                       readonly="state != 'draft'"/>
+                                <field name="return_date" invisible="air_ticket_request == False"
+                                       readonly="state != 'draft'"/>
+                                <field name="sector_from" invisible="air_ticket_request == False"
+                                       readonly="state != 'draft'"/>
+                                <field name="sector_to" invisible="air_ticket_request == False"
+                                       readonly="state != 'draft'"/>
+                            </group>
+                            <group>
+                                <field name="hotel" widget="boolean_toggle" readonly="state != 'draft'"/>
+                                <field name="remark" readonly="state != 'draft'"/>
+                            </group>
+                            <group>
+                                <field name="line_manager_id" readonly="1" force_save="1"/>
+                                <field name="hr_id" readonly="1" force_save="1"/>
+                                <field name="general_manager_id" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record id="action_account_general_ledger_report_pdf" model="ir.actions.report">
+            <field name="name">Account General Ledger Report</field>
+            <field name="model">account.general.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">Account General Ledger Report</field>
+            <field name="report_name">kg_al_sharqiya_accounting.account_general_report_template_id</field>
+            <field name="report_file">kg_al_sharqiya_accounting.account_general_report_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+         <record id="action_account_general_ledger_report_html" model="ir.actions.report">
+            <field name="name">Account General Ledger Report</field>
+            <field name="model">account.general.report.wizard</field>
+            <field name="report_type">qweb-html</field>
+            <field name="print_report_name">Account General Ledger Report</field>
+            <field name="report_name">kg_al_sharqiya_accounting.account_general_report_template_id</field>
+            <field name="report_file">kg_al_sharqiya_accounting.account_general_report_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_trail_balance_report_pdf" model="ir.actions.report">
+            <field name="name">Trial Balance Report</field>
+            <field name="model">trail.balance.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">Trial Balance Report</field>
+            <field name="report_name">kg_al_sharqiya_accounting.trail_balance_report_template_id</field>
+            <field name="report_file">kg_al_sharqiya_accounting.trail_balance_report_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_trail_balance_report_html" model="ir.actions.report">
+            <field name="name">Trial Balance Report</field>
+            <field name="model">trail.balance.report.wizard</field>
+            <field name="report_type">qweb-html</field>
+            <field name="print_report_name">Trial Balance Report</field>
+            <field name="report_name">kg_al_sharqiya_accounting.trail_balance_report_template_id</field>
+            <field name="report_file">kg_al_sharqiya_accounting.trail_balance_report_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,135 @@
+<odoo>
+    <data>
+        <template id="kg_day_book_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <table class='table table-borderless table-condensed table-hover' width="100%">
+                            <tr width="100%">
+                                <td width="100%" colspan="2">
+                                    <h2>
+                                        <strong>Day Book Report</strong>
+                                    </h2>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="50%" align="left">
+                                    <strong>Journals:</strong>
+                                    <span t-esc="journal_code"/>
+                                </td>
+                                <td width="50%" align="left">
+                                    <strong>Target Moves:</strong>
+                                    <span>All Posted Entries</span>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="50%" align="left">
+                                    <strong>
+                                        Date From:
+                                    </strong>
+                                    <span t-esc="start_date"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                                <td width="50%" align="left">
+                                    <strong>
+                                        Date To:
+                                    </strong>
+                                    <span t-esc="end_date"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                            </tr>
+                        </table>
+                      <table class="table table-sm" align="left" width="100%">
+                            <thead>
+                                <tr align="left" width="100%">
+                                    <td width="10%">
+                                        <strong>Date</strong>
+                                    </td>
+                                    <td width="5%" align="center">
+                                        <strong>JRNL</strong>
+                                    </td>
+                                    <td width="15%">
+                                        <strong>Partner</strong>
+                                    </td>
+                                    <td width="18%">
+                                        <strong>Account</strong>
+                                    </td>
+                                    <td width="15%">
+                                        <strong>Document Sequence</strong>
+                                    </td>
+                                    <td width="10%">
+                                        <strong>Invoice Date</strong>
+                                    </td>
+                                    <td width="22%">
+                                        <strong>Entry Label</strong>
+                                    </td>
+                                    <td width="10%" align="right">
+                                        <strong>Debit</strong>
+                                    </td>
+                                    <td width="10%" align="right">
+                                        <strong>Credit</strong>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="values" t-as="line" align="left">
+                                    <td width="10%">
+                                        <span t-esc="line['date']"
+                                              t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </td>
+                                    <td width="5%" align="center">
+                                        <span t-esc="line['journal_code']"/>
+                                    </td>
+                                    <td width="15%">
+                                        <span t-esc="line['partner_id']"/>
+                                    </td>
+                                    <td width="18%">
+                                        <span t-esc="line['account_id']"/>
+                                    </td>
+                                    <td width="10%">
+                                        <span t-esc="line['move']"/>
+                                    </td>
+                                    <td width="10%">
+                                        <span t-esc="line['invoice_date']"/>
+                                    </td>
+                                    <td width="22%">
+                                        <span t-esc="line['entry_label']"/>
+                                    </td>
+                                    <td width="10%" align="right">
+                                        <span t-esc="line['debit']"/>
+                                    </td>
+                                    <td width="10%" align="right">
+                                        <span t-esc="line['credit']"/>
+                                    </td>
+                                </tr>
+                                <tr width="100%">
+                                    <td width="80%" colspan="6"/>
+                                    <td width="10%" align="right">
+                                        <strong>
+                                            <t t-if="debit_total">
+                                                <span t-esc="debit_total"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>0.00</span>
+                                            </t>
+                                        </strong>
+                                    </td>
+                                    <td width="10%" align="right">
+                                        <strong>
+                                            <t t-if="credit_total">
+                                                <span t-esc="credit_total"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>0.00</span>
+                                            </t>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

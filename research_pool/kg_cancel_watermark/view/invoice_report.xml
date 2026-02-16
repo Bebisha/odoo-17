@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="invoice_document_watermark" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@class='page mb-4']" position="before">
+           <div class="row" t-if="o.state == 'cancel' and report_type == 'pdf'"
+                 style="position:fixed; top:350px; left:0; width:100%;  pointer-events:none; display:flex; justify-content:center; align-items:center;">
+                <div style="-webkit-transform:rotate(-45deg); color:black; font-size:9em; text-align:center; opacity:0.10;">
+                    Cancelled
+                </div>
+            </div>
+
+            <div class="row" t-if="o.state == 'draft' and report_type == 'pdf'"
+                 style="position:fixed; top:350px; left:0; width:100%;  pointer-events:none; display:flex; justify-content:center; align-items:center;">
+                <div style="-webkit-transform:rotate(-45deg); color:black; font-size:11em; text-align:center; opacity:0.10;">
+                    Draft
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+<!--     <template id="request_for_quotation_watermark" inherit_id="purchase.report_purchasequotation_document">-->
+<!--        <xpath expr="//div[@class='page']" position="before">-->
+<!--           <div class="row" t-if="o.state == 'cancel' and report_type == 'pdf'"-->
+<!--                 style="position:fixed; top:350px; left:0; width:100%;  pointer-events:none; display:flex; justify-content:center; align-items:center;">-->
+<!--                <div style="-webkit-transform:rotate(-45deg); color:black; font-size:9em; text-align:center; opacity:0.10;">-->
+<!--                    Cancelled-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row" t-if="o.state == 'draft' and report_type == 'pdf'"-->
+<!--                 style="position:fixed; top:350px; left:0; width:100%;  pointer-events:none; display:flex; justify-content:center; align-items:center;">-->
+<!--                <div style="-webkit-transform:rotate(-45deg); color:black; font-size:11em; text-align:center; opacity:0.10;">-->
+<!--                    Draft-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--    </template>-->
+</odoo>

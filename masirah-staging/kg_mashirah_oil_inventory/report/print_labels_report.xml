@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+
+        <template id="kg_report_simple_label2x7_inherit" inherit_id="product.report_simple_label2x7">
+            <xpath expr="//div[hasclass('o_label_full')]/div[hasclass('o_label_data')]/div[hasclass('text-end')]"
+                   position="replace">
+                <div class="o_label_extra_data text-end" style="line-height:normal">
+                    <t t-out="extra_html"/>
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('o_label_full')]/div[hasclass('o_label_data')]/div[hasclass('text-center')]/span[hasclass('text-nowrap')]"
+                   position="replace">
+                <span class="text-nowrap" t-field="product.category_code"/>
+                <t t-if="product.category_code and product.default_code">
+                    -
+                </t>
+                <span class="text-nowrap" t-field="product.default_code"/>
+                <br/>
+                <span class="text-nowrap" t-field="product.grade" style="position: relative; left: -19px;"/>
+
+            </xpath>
+        </template>
+
+        <template id="kg_report_simple_label4x7_inherit" inherit_id="product.report_simple_label4x7">
+            <xpath expr="//div[hasclass('o_label_full')]/div[hasclass('text-end')]" position="replace">
+                <div class="text-end" style="padding-top:0;padding-bottom:0"/>
+            </xpath>
+            <xpath expr="//div[hasclass('o_label_full')]/div[hasclass('o_label_small_barcode')]/span[hasclass('text-nowrap')]"
+                   position="replace">
+                <span class="text-nowrap" t-field="product.category_code"/>
+                <t t-if="product.category_code and product.default_code">
+                    -
+                </t>
+                <span class="text-nowrap" t-field="product.default_code"/>
+                <br/>
+                <span class="text-nowrap" t-field="product.grade" style="position: relative; left: -19px;"/>
+
+            </xpath>
+        </template>
+
+        <template id="kg_report_simple_label4x12_inherit" inherit_id="product.report_simple_label4x12">
+            <xpath expr="//div[hasclass('o_label_full')]/div[hasclass('o_label_price_medium')]" position="replace">
+                <div class="text-end" style="padding-top:0;padding-bottom:0"/>
+            </xpath>
+            <xpath expr="//div[hasclass('o_label_full')]/div[hasclass('o_label_left_column')]/span[hasclass('text-nowrap')]"
+                   position="replace">
+                <span class="text-nowrap" t-field="product.category_code"/>
+                <t t-if="product.category_code and product.default_code">
+                    -
+                </t>
+                <span class="text-nowrap" t-field="product.default_code"/>
+                <br/>
+                <span class="text-nowrap" t-field="product.grade" />
+            </xpath>
+        </template>
+
+        <template id="kg_report_simple_label4x12_no_price_inherit"
+                  inherit_id="product.report_simple_label4x12_no_price">
+            <xpath expr="//div[hasclass('o_label_full')]/div[hasclass('o_label_left_column')]/span[hasclass('text-nowrap')]"
+                   position="replace">
+                <span class="text-nowrap" t-field="product.category_code"/>
+                <t t-if="product.category_code and product.default_code">
+                    -
+                </t>
+                <span class="text-nowrap" t-field="product.default_code"/>
+                <br/>
+                <span class="text-nowrap" t-field="product.grade" />
+            </xpath>
+        </template>
+
+        <template id="kg_report_simple_label_dymo_inherit" inherit_id="product.report_simple_label_dymo">
+            <xpath expr="//div[hasclass('o_label_full')]/div[hasclass('text-end')]" position="replace">
+                <div class="text-end" style="padding: 0 4px;">
+                    <strong/>
+                    <div class="o_label_extra_data">
+                        <t t-out="extra_html"/>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('o_label_full')]/div[hasclass('o_label_left_column')]" position="replace">
+                <div class="o_label_left_column">
+                    <small t-field="product.category_code"/>
+                    <t t-if="product.category_code and product.default_code">
+                        -
+                    </t>
+                    <small class="text-nowrap" t-field="product.default_code"/>
+                    <br/>
+                    <small class="text-nowrap" t-field="product.grade" />
+
+                </div>
+            </xpath>
+        </template>
+
+
+    </data>
+</odoo>

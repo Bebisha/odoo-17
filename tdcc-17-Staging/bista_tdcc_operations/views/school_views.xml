@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- School Form -->
+        <record model="ir.ui.view" id="school_form">
+            <field name="name">school.form</field>
+            <field name="model">school.school</field>
+            <field name="arch" type="xml">
+                <form string="School Form">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options="{&quot;terminology&quot;: &quot;archive&quot;}" />
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" required="1" />
+                                <field name="code" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- School List -->
+        <record model="ir.ui.view" id="school_list">
+            <field name="name">school.list</field>
+            <field name="model">school.school</field>
+            <field name="arch" type="xml">
+                <tree string="School List">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="active" widget="boolean_toggle" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- School Search -->
+        <record model="ir.ui.view" id="school_search">
+            <field name="name">school.search</field>
+            <field name="model">school.school</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <filter string="Archived" name="inactive"
+                        domain="[('active','=',False)]" />
+                </search>
+            </field>
+        </record>
+
+        <!-- School Action -->
+        <record model="ir.actions.act_window" id="school_action">
+            <field name="name">Schools</field>
+            <field name="res_model">school.school</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- School Menu -->
+        <menuitem id="school_menu" action="school_action"
+            groups="bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_cofounder,bista_tdcc_operations.group_appointment_manager"
+            parent="bista_tdcc_operations.miscellaneous_configuration_menu" />
+
+</odoo>

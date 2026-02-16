@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="account_receivable_ledger_report_menu_action" model="ir.actions.act_window">
+            <field name="name">Account Receivables Ledger</field>
+            <field name="res_model">account.receivable.ledger.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_account_receivable_ledger_report" action="account_receivable_ledger_report_menu_action"
+                  name="Account Receivables Ledger" parent="kg_ultracare_accounting.menu_reporting_config_accounting"/>
+
+
+        <record id="account_receivable_ledger_report_wizard" model="ir.ui.view">
+            <field name="name">Account Receivables Ledger Wizard</field>
+            <field name="model">account.receivable.ledger.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_account_receivable_ledger_report"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

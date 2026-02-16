@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="receipt_form_header_footer">
+        <t t-set="company" t-value="res_company" />
+        <div class="header">
+
+            <t t-if="doc and 'company_id' in doc">
+                 <t t-set="company" t-value="doc.company_id.sudo()" />
+             </t>
+             <t t-if="not doc or not 'company_id' in doc">
+                 <t t-set="company" t-value="res_company" />
+             </t>
+            <div class="row mb8">
+                <div class="col-6">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"
+                    height="150"/>
+                </div>
+                <div class="col-6 text-right mb4">
+                    <div name="company_address" class="mb4">
+                        <ul class="list-unstyled">
+                        <strong><li t-if="company.name"><span t-esc="company.name"/></li></strong>
+                        <li t-if="company.street"><span t-field="company.street"/></li>
+                        <li t-if="company.state_id">
+                            <span t-field="company.state_id.name"/>
+                            <t t-if="company.country_id">
+                                , <span t-esc="company.country_id.name"/>
+                            </t>
+                        </li>
+                        <li t-if="company.zip">P.O Box <span t-field="company.zip"/></li>
+                        <li t-if="company.phone">Telephone : <span t-field="company.phone"/></li>
+                        <li t-if="company.email">Email : <span t-field="company.email"/></li>
+                        <li t-if="company.vat">TRN : <span t-field="company.vat"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        <div class="article">
+            <t t-raw="0" />
+        </div>
+    </template>
+
+    <!-- Main Transfer Form Template -->
+    <template id="report_receipt_form">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="bista_tdcc_reports.report_receipt_form_document" />
+            </t>
+        </t>
+    </template>
+
+    <template id="report_receipt_form_document">
+    <t t-set="company" t-value="res_company" />
+    <t t-call="bista_tdcc_reports.receipt_form_header_footer">
+        <div class="page">
+            <br/>
+            <div style="margin-top:10px;">
+                <center>
+                    <h6><b>Receipt Voucher</b></h6>
+                </center>
+            </div>
+            <table class="table table-borderless" style="margin-top:40px;">
+                <tr>
+                    <td>
+                        PartyID :
+                    </td>
+                    <td class="text-left">
+                        <t t-if="doc.partner_id">
+                            <t t-esc="doc.partner_id.vat"/>
+                        </t>
+                        <t t-else="">
+                            No Party ID available
+                        </t>
+                    </td>
+                    <td>
+                    </td>
+                    <td class="text-right">
+                        VoucherNo :
+                    </td>
+                    <td class="text-left">
+                        <t t-esc="doc.name"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Party Name :
+                    </td>
+                    <td class="text-left">
+                        <t t-if="doc.partner_id">
+                            <t t-esc="doc.partner_id.name"/>
+                        </t>
+                        <t t-else="">
+                            No Party Name available
+                        </t>
+                    </td>
+                    <td>
+                    </td>
+                    <td class="text-right">
+                        Date :
+                    </td>
+                    <td class="text-left">
+                        <t t-esc="doc.date"/>
+                    </td>
+                </tr>
+            </table>
+            <table class="table table-border" style="border: 2px solid black; margin-top:40px;">
+                <tr style="border: 2px solid black;">
+                    <th style="border: 2px solid black;"><b>Type</b></th>
+                    <th style="border: 2px solid black;"><b>Description</b></th>
+                    <th class="text-right" style="border: 2px solid black;"><b>Amount</b></th>
+                </tr>
+                <tr>
+                    <td style="border: 2px solid black;">
+                        <t t-if="doc.journal_id">
+                            <t t-if="doc.journal_id.code == 'pdc'">
+                                Cheque
+                            </t>
+                            <t t-else="">
+                                <t t-esc="doc.journal_id.name"/>
+                            </t>
+                        </t>
+                    </td>
+                    <td style="border: 2px solid black;">
+                        <t t-esc="doc.name"/>
+                    </td>
+                    <td class="text-right">
+                        <t t-esc="doc.amount"/>
+                    </td>
+                </tr>
+                <tr style="border: 2px solid black;">
+                    <td colspan="2">
+                        <b>
+                            <t t-esc="doc.currency_id.amount_to_text(doc.amount)"/>
+                        </b>
+                    </td>
+                    <td class="text-right">
+                        <b><t t-esc="doc.amount"/></b>
+                    </td>
+                </tr>
+            </table>
+            <br/> <br/> <br/> <br/> <br/> <br/>
+            <div class="row mb8">
+                <div class="col-8">
+                </div>
+                <div class="col-4 text-center mb4" style="border-top: 1px solid black;" >
+                    Accountant
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+
+</odoo>

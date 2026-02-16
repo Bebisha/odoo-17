@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="create_additional_booking_wizard_form" model="ir.ui.view">
+            <field name="name">additional.booking.wizard.form</field>
+            <field name="model">additional.booking</field>
+            <field name="arch" type="xml">
+                <form string="Additional Booking">
+                    <field name="date_ids" context="{'room_id' : context.get('room_id') or False,'physician_id' : context.get('physician_id') or False}">
+                        <tree string='Dates' editable='bottom'>
+                            <field name="startdate" required="1"/>
+                            <field name="room_id" required="0" options="{'no_create':True,'no_open':True}"/>
+                            <field name="physician_id" required="1" options="{'no_create':True,'no_open':True}"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="additional_booking" string="Additional booking" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="create_additional_booking_action" model="ir.actions.act_window">
+            <field name="name">Additional Booking</field>
+            <field name="res_model">additional.booking</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="transfer_form_header_footer">
+		<t t-set="company" t-value="res_company" />
+		<div class="header" style="margin-left:20px;">
+			<div class="row mb8">
+				<div class="col-6">
+					<img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+						alt="Logo" height="150" />
+				</div>
+			</div>
+		</div>
+		<div class="article">
+			<t t-raw="0" />
+		</div>
+		<div class="footer">
+			<div style="border-top: 1px solid black;">
+				<ul class="list-inline">
+					<li class="list-inline-item">
+						<b>
+							<span t-esc="company.name" style="font-size: 10pt;" />
+						</b>
+						&amp;nbsp;|
+					</li>
+					<li class="list-inline-item">
+						<span style="font-size: 10pt;">PO Box</span>
+						<span t-esc="company.zip" style="font-size: 10pt;" />
+						<span t-esc="company.state_id.name" style="font-size: 12pt;" />,UAE&amp;nbsp;|
+					</li>
+					<li class="list-inline-item">
+						<span style="font-size: 10pt;">Call &amp;nbsp;</span>
+						<span t-esc="company.phone" style="font-size: 12pt;" />
+						&amp;nbsp;|
+					</li>
+					<li class="list-inline-item">
+						<span t-esc="company.email" style="font-size: 12pt;" />
+						&amp;nbsp;|
+					</li>
+					<li class="list-inline-item">
+						<b>
+							<span t-esc="company.website" style="font-size: 10pt;" />
+						</b>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</template>
+
+	<!-- Main Transfer Form Template -->
+	<template id="report_quotation_form">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="bista_tdcc_reports.report_quotation_form_document" />
+			</t>
+		</t>
+	</template>
+
+	<template id="report_quotation_form_document">
+		<t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+		<t t-set="company" t-value="res_company" />
+		<t t-call="bista_tdcc_reports.transfer_form_header_footer">
+			<div class="page">
+				<div>
+					<p>
+						<strong>
+							<span t-esc="doc.partner_id.name" />
+						</strong>
+					</p>
+					<t t-if="doc.partner_id.country_id">
+						<p>
+							<span t-esc="doc.partner_id.country_id.name" />
+						</p>
+					</t>
+				</div>
+
+				<div class="text-right" style="margin-right:15%">
+					<span>
+						<strong>Date:</strong>
+					</span>
+					<b>
+						<span t-field="doc.date_order" t-options='{"format": "dd/MM/yyyy"}' />
+					</b>
+				</div>
+
+				<div style="margin-top:5px;">
+					<strong> Ref:</strong>
+					<span t-field="doc.name" />
+				</div>
+
+				<div align="center" style="margin-top:20px;">
+					<h4>
+						<b>Quotation</b>
+					</h4>
+				</div>
+
+				<style>
+					td, tr {
+					border: 1px solid black;
+					}
+
+					th {
+					border: 1px solid black;
+					background-color:pink;
+					}
+
+				</style>
+				<table
+					style="border: 1px solid black; width: 100%;
+                           height:auto;border-collapse: collapse;">
+					<thead>
+						<tr style="border-top:1px solid black !important">
+							<th class="text-center">SI. NO</th>
+							<th class="text-center">Description</th>
+							<th class="text-center">Quantity</th>
+							<th class="text-center">Unit Price</th>
+							<th class="text-center">Line Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<t t-set="count" t-value="1" />
+						<tr t-foreach="doc.order_line" t-as="line">
+							<td class="text-center">
+								<t t-esc="count" />
+							</td>
+							<td class="text-center">
+								<span t-field="line.name" />
+							</td>
+							<td class="text-center">
+								<span t-esc="'%.2f'% line.product_uom_qty" />
+							</td>
+							<td class="text-center">
+								<span t-field="line.price_unit" />
+							</td>
+							<td class="text-center">
+                                <span t-esc="(line.price_unit * line.product_uom_qty)" />
+                            </td>
+							<t t-set="count" t-value="count+1" />
+						</tr>
+						<tr>
+							<td colspan="4" class="text-center">Net Total</td>
+							<td class="text-center">
+								<span t-field="doc.amount_total" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br />
+				<div style="margin-top:150px;">
+					<div>
+						<h6>
+							<b>TERM &amp; CONDITIONS</b>
+						</h6>
+						<span>The Quotation is valid for 15 days.</span>
+						<br />
+						<span>Payment Terms: 100% on 1st day of appointment.</span>
+						<br />
+						<span>Payment options: cash/credit card/cheque/bank transfer
+						</span>
+						<br />
+						<span>Name of Account: The Developing Child Centre LLC</span>
+						<br />
+						<span>Bank Account no:019000001068</span>
+						<br />
+						<span>Bank Name: Mashreq Bank</span>
+						<br />
+						<span>Branch: Dubai Internet City</span>
+						<br />
+						<span>Swift Code. BOMLAEAD</span>
+					</div>
+				</div>
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<!-- <p style="page-break-before:always;"/> -->
+				<div>
+					<p
+						style="color:blue; font-family: Arial; font-size: 10pt; font-style: italic;">
+						“If you judge a fish by its ability to climb a tree,
+						it will
+						live its whole life believing that it is stupid.” Albert
+						Einstein
+					</p>
+					<p style="font-family: Arial; font-size: 10pt; font-weight: bold;">
+						We think different. We teach different.
+					</p>
+					<p style="font-family: Arial; font-size: 8pt;">
+						At The Developing Child Centre our approach is simple.
+						We believe
+						every child is brilliant and we nurture and build
+						children’s
+						confidence and abilities.
+						<br />
+						We are dedicated to identifying, building and developing
+						skills
+						required by all children to feel confident and succeed.
+					</p>
+				</div>
+			</div>
+		</t>
+	</template>
+</odoo>

@@ -1,0 +1,99 @@
+<odoo>
+    <data>
+        <record id="menu_annual_leave_transfer_action" model="ir.actions.act_window">
+            <field name="name">Annual Leave Transfer</field>
+            <field name="res_model">annual.leave.transfer</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_annual_leave_transfer" name="Annual Leave Transfer"
+                  action="menu_annual_leave_transfer_action"
+                  parent="hr_holidays.menu_hr_holidays_management"/>
+
+        <record id="annual_leave_transfer_view_tree" model="ir.ui.view">
+            <field name="name">Annual Leave Transfer Tree View</field>
+            <field name="model">annual.leave.transfer</field>
+            <field name="arch" type="xml">
+                <tree string="Annual Leave Transfer">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="leave_type_id"/>
+                    <field name="transfer_leaves"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="annual_leave_transfer_view_form" model="ir.ui.view">
+            <field name="name">Annual Leave Transfer Form View</field>
+            <field name="model">annual.leave.transfer</field>
+            <field name="arch" type="xml">
+                <form string="Annual Leave Transfer">
+                    <header>
+                        <button name="kg_request" type="object" string="Request for Approval"
+                                invisible="is_request == False or is_wait_hrm == True"
+                                class="oe_highlight"/>
+                        <button name="kg_hrm_approve" type="object" string="HR Manager Approval"
+                                invisible="is_wait_hrm == False or is_approved == True or is_rejected == True"
+                                class="oe_highlight"/>
+                        <button name="kg_reject" type="object" string="Reject"
+                                invisible="is_wait_hrm == False or is_approved == True or is_rejected == True"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                    </header>
+                    <sheet>
+                        <widget name="web_ribbon" title="Approved" invisible="state != 'approved'"/>
+                        <widget name="web_ribbon" title="Rejected" invisible="state != 'reject'"
+                                bg_color="text-bg-danger"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="action_view_allocations"
+                                    class="oe_stat_button" string="Allocations"
+                                    icon="fa-pencil-square-o"
+                                    invisible="state != 'approved'">
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" string="Reference"/>
+                            <h1>
+                                <field name="name" readonly="1" force_save="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="is_request" invisible="1"/>
+                            <field name="is_wait_hrm" invisible="1"/>
+                            <field name="is_approved" invisible="1"/>
+                            <field name="is_rejected" invisible="1"/>
+                            <field name="allocation_id" invisible="1"/>
+                            <group>
+                                <field name="employee_id" required="1" readonly="is_wait_hrm == True"/>
+                            </group>
+                            <group>
+                                <field name="leave_type_id" required="1" readonly="1" force_save="1"/>
+                                <field name="transfer_date" readonly="1" force_save="1"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group/>
+                            <group/>
+                            <group string="Leaves Details">
+                                <field name="allocated_leaves" readonly="1" force_save="1" required="1"/>
+                                <field name="balance_leaves" readonly="1" force_save="1" required="1"/>
+                                <field name="transfer_leaves" required="1" readonly="is_wait_hrm == True"/>
+                            </group>
+                            <group string="Validity Dates">
+                                <field name="validity_date_from" required="1" readonly="is_wait_hrm == True"/>
+                                <field name="validity_date_to" required="1" readonly="is_wait_hrm == True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

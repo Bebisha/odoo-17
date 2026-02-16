@@ -1,0 +1,66 @@
+<odoo>
+    <data>
+        <record id="view_move_form_inherit_purchase" model="ir.ui.view">
+            <field name="name">account.move.inherit.purchase</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="purchase_vendor_bill_id" position="attributes">
+                    <attribute name="domain">[('purchase_order_id', 'in',
+                        purchase_order_ids),('partner_id','=',partner_id)]
+                    </attribute>
+                    <attribute name="force_save">True</attribute>
+                </field>
+                <field name="purchase_vendor_bill_id" position="after">
+                    <field name="purchase_order_ids" invisible="1" force_save="1" widget="many2many_tags"/>
+                    <field name="first_label" invisible="1"/>
+                </field>
+                <xpath expr="//field[@name='invoice_line_ids']/tree//field[@name='analytic_distribution']"
+                       position="after">
+                    <field name="analytic_distribution_amount" widget="analytic_distribution" readonly="1"
+                           force_save="1" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_kg_move_line_tree" model="ir.ui.view">
+            <field name="name">kg.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree default_order="account_id, name, debit, credit, is_reconciled" editable="bottom" create="0"
+                      edit="1"
+                      import="1" sample="1">
+                    <field name="account_id"/>
+                    <field name="name"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="company_id"/>
+                    <field name="is_reconciled" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_move_line_reconcile" model="ir.actions.act_window">
+            <field name="name">Account Move Line</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_mode">tree</field>
+            <!--            <field eval="False" name="view_id"/>-->
+            <field name="view_id" ref="view_kg_move_line_tree"/>
+            <field name="domain">[('account_id.account_type','=','asset_cash'),('is_reconciled','=',False)]
+            </field>
+            <!--            <field name="context">{'default_detailed_type':'product','default_kg_internal_type':'spare'}</field>-->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Move Lines
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="account_reconciliation_move_line" name="Bank Reconciliation"
+                  parent="account.menu_finance_entries_actions"
+                  action="action_move_line_reconcile"/>
+
+        <record model="ir.ui.menu" id="account.menu_action_account_payments_receivable">
+            <field name='name'>Receipt</field>
+        </record>
+    </data>
+</odoo>

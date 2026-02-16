@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="navigation_buttons_inherited" inherit_id="website_sale.navigation_buttons"
+              name="Navigation buttons with custom redirection">
+        <xpath expr="//a[@name='website_sale_main_button']" position="replace">
+            <a role="button" name="website_sale_main_button"
+               class="btn btn-primary #{not website_sale_order._is_cart_ready() and 'disabled'} #{_form_send_navigation and 'order-lg-3 w-100 w-lg-auto ms-lg-auto' or 'w-100'}"
+               href="/shop/checkout">
+                <t t-out="step_specific_values['main_button']"/>
+                <i class="fa fa-angle-right ms-2 fw-light"/>
+            </a>
+        </xpath>
+    </template>
+<!--    <template id="hide_payment_functionality" inherit_id="website_sale.payment" name="Hide Payment Functionality"-->
+<!--              active="False"/>-->
+    <!--    <template id="payment_hide_section" inherit_id="payment" name="Payment (Hide Section)">-->
+    <!--        <xpath expr="//div[@id='address_on_payment']" position="attributes">-->
+    <!--            <attribute name="t-if">False</attribute>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+
+    <!--    <template id="payment_submit_button_inherit" inherit_id="website_sale.payment.submit_button"-->
+    <!--              name="Inherited Submit Button">-->
+    <!--        <t t-set="submit_button_label">Confirm Order</t>-->
+    <!--    </template>-->
+
+
+</odoo>

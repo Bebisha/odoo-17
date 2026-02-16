@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="website_sale_field" inherit_id="website_sale.total">
+        <xpath expr="//tr[@id='order_total_untaxed']" position="before">
+            <tr id="website_dept">
+                <b>
+                    <label>Employee :</label>
+                </b>
+                <select name="employee_id" id="employee_input" style="width:150px;">
+                    <option value="0">Select an Employee...</option>
+                    <t t-foreach="employees" t-as="employee">
+                        <option t-att-value="employee.id">
+                            <t t-esc="employee.emp_name"/>
+                        </option>
+                    </t>
+                </select>
+            </tr>
+            <div style="height:20px"/>
+
+        </xpath>
+    </template>
+</odoo>

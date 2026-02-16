@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="salary_transfer_sequence">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header">
+                            <img t-att-src="image_data_uri(doc.company_id.logo)" style="height:150px;width:170px;margin-top:-15px; margin-left: 110px
+                                             position:fixed;right:50px;top:30px;" alt="Company Logo"/>
+                        </div>
+                        <div>
+                            <table class='table-borderless' width="100%">
+                                <tr>
+                                    <td colspan="2">
+                                        Date:
+                                        <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        Bank:
+                                        <span t-esc="doc.employee_id.bank_account_id.bank_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        Branch
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        Ref:
+                                        <span t-esc="doc.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="padding-top:20px;">
+                                        Dear Manager,
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%" style="padding-top: 20px;">
+                                        <strong>Employee Name</strong>
+                                    </td>
+                                    <td width="80%" style="padding-top: 20px;">
+                                        <span t-esc="doc.employee_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%" style="padding-top: 10px;">
+                                        <strong>Designation</strong>
+                                    </td>
+                                    <td width="80%" style="padding-top: 10px;">
+                                        <span t-esc="doc.employee_id.job_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%" style="padding-top: 10px;">
+                                        <strong>Date Of Joining</strong>
+                                    </td>
+                                    <td width="80%" style="padding-top: 10px;">
+                                        <t t-if="doc.employee_id.date_of_join">
+                                            <span t-esc="doc.employee_id.date_of_join.strftime('%d-%m-%Y')"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%" style="padding-top: 10px;">
+                                        <strong>Salary</strong>
+                                    </td>
+                                    <td width="80%" style="padding-top: 10px;">
+                                        <span t-esc="doc.employee_id.contract_id.wage"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%" style="padding-top: 10px;">
+                                        <strong>Bank Account No.</strong>
+                                    </td>
+                                    <td width="80%" style="padding-top: 10px;">
+                                        <span t-esc="doc.employee_id.bank_account_id.acc_number"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="padding-top: 20px;" align="justify">
+                                        <p>
+                                            This is to certify that the above named person is employed by our
+                                            organization. At the Employee&apos;s request,
+                                            the Employee&apos;s monthly payroll entitlements will be deposited in the
+                                            above mentioned account with your Bank until MOL
+                                            receives a clearance certificate from the Bank or termination of employment,
+                                            whichever occurs first.
+                                        </p>
+                                        <p>
+                                            This letter is issued at the Employee&apos;s request, and not withstanding
+                                            anything to the contrary, MOL makes no representations,
+                                            warranties or covenants, expressed or implied, or hereby assumes any
+                                            commitment or obligation with respect to the Bank,
+                                            and shall have no liability whatever in the event of any failure by MOL to
+                                            proceed as outlined in the preceding paragraph.
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="left" style="padding-top:40px;">
+                                        Yours sincerely,
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="left" style="padding-top:20px;">
+                                        <strong>
+                                            <span t-field="doc.employee_id.parent_id.name"/>
+                                            <br/>
+                                            <span t-field="doc.employee_id.parent_id.job_id"/>
+
+                                            <br/>
+                                            <span t-field="doc.company_id.name"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="footer">
+                            <table class='table-borderless' width="100%">
+                                <tr width="100%">
+                                    <td align="center">
+                                        <strong>
+                                            <span t-esc="doc.company_id.name"/>
+                                        </strong>
+                                        <br/>
+                                        <span t-esc="doc.company_id.street"/>
+                                        <br/>
+                                        Bldg. No.<span t-esc="doc.company_id.bldg_no"/>, Way No.<span
+                                            t-esc="doc.company_id.way_no"/>,
+                                        <span t-esc="doc.company_id.street2"/>
+                                        <br/>
+                                        Postal Code<span t-esc="doc.company_id.zip"/>,<span
+                                            t-esc="doc.company_id.city"/>,
+                                        <span t-esc="doc.company_id.state_id.name"/>
+                                        <br/>
+                                        Phone No.<span t-esc="doc.company_id.phone"/>, Fax<span
+                                            t-esc="doc.company_id.fax"/>,CR No.
+                                        <span t-esc="doc.company_id.company_registry"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+
+        <record id="finance_manager_approval_notification" model="mail.activity.type">
+            <field name="name">Finance Manager Approval</field>
+            <field name="res_model">account.payment</field>
+        </record>
+
+        <record id="general_manager_approval_notification" model="mail.activity.type">
+            <field name="name">General Manager Approval</field>
+            <field name="res_model">account.payment</field>
+        </record>
+
+        <record id="vendor_bill_approval_notification" model="mail.activity.type">
+            <field name="name">Vendor Approval</field>
+            <field name="res_model">account.payment</field>
+        </record>
+
+
+        <record id="reject_vendor_bill_notification" model="mail.activity.type">
+            <field name="name">Reject Vendor Bill</field>
+            <field name="res_model">account.payment</field>
+        </record>
+
+        <record id="outside_gcc_supplies" model="account.tax.group">
+            <field name="name">Outside GCC Supplies</field>
+        </record>
+                <record id="local_purchase" model="account.tax.group">
+            <field name="name">Local Purchases</field>
+        </record>
+        <record id="gcc_purchase" model="account.tax.group">
+            <field name="name">GCC Purchases</field>
+        </record>
+        <record id="outside_gcc_purchase" model="account.tax.group">
+            <field name="name">Outside GCC Purchases</field>
+        </record>
+        <record id="capital_goods" model="account.tax.group">
+            <field name="name">Capital Goods</field>
+        </record>
+          <record id="tax_adjustment_journal" model="account.journal">
+            <field name="name">Tax Adjustment</field>
+            <field name="type">general</field>
+            <field name="code">TA</field>
+        </record>
+    </data>
+</odoo>

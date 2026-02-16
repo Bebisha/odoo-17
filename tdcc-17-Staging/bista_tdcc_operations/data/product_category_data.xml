@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+    <!-- Create Service Product Category -->
+    <record id="product_category_service" model="product.category">
+        <field name="parent_id" ref="product.product_category_all" />
+        <field name="name">Services</field>
+    </record>
+
+    <record id="product_category_360" model="product.category">
+        <field name="parent_id"
+            ref="bista_tdcc_operations.product_category_service" />
+        <field name="name">360</field>
+<!--        <field name="property_account_income_categ_id"-->
+<!--            ref="l10n_tdcc_coa.tdcc_account_41022" />-->
+    </record>
+
+    <record id="product_category_eip" model="product.category">
+        <field name="parent_id"
+            ref="bista_tdcc_operations.product_category_service" />
+        <field name="name">EIP</field>
+<!--        <field name="property_account_income_categ_id"-->
+<!--            ref="l10n_tdcc_coa.tdcc_account_41020" />-->
+    </record>
+
+    <record id="product_category_eiip" model="product.category">
+        <field name="parent_id"
+            ref="bista_tdcc_operations.product_category_service" />
+        <field name="name">Intensive Program</field>
+<!--        <field name="property_account_income_categ_id"-->
+<!--            ref="l10n_tdcc_coa.tdcc_account_41020" />-->
+    </record>
+
+    <record id="product_category_taaleem" model="product.category">
+        <field name="parent_id"
+            ref="bista_tdcc_operations.product_category_service" />
+        <field name="name">Taaleem</field>
+<!--        <field name="property_account_income_categ_id"-->
+<!--            ref="l10n_tdcc_coa.tdcc_account_41023" />-->
+    </record>
+
+</odoo>

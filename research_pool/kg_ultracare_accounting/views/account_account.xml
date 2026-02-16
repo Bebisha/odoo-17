@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+
+        <record id="view_account_inherit_type" model="ir.ui.view">
+            <field name="name">account.account.inherit.type</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list"/>
+            <field name="arch" type="xml">
+                <field name="account_type" position="replace">
+                    <field name="account_type" widget="account_type_selection"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_account_inherit_form_type" model="ir.ui.view">
+            <field name="name">account.account.inherit.type.form</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <field name="account_type" position="replace">
+                    <field name="account_type" widget="account_type_selection"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

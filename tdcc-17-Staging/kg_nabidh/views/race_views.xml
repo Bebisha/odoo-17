@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="race_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Race</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">race.form</field>
+
+    </record>
+    <record id="race_tree" model="ir.ui.view">
+        <field name="name">race.form.views</field>
+        <field name="model">race.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="race_form" model="ir.ui.view">
+        <field name="name">race.form.views</field>
+        <field name="model">race.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="race_menu"
+              action="race_action"
+              name="Race"
+              parent="kg_nabidh.pid_menu"/>
+
+</odoo>

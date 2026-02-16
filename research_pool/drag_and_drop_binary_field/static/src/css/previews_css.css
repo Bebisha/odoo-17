@@ -1,0 +1,67 @@
+/* Overlay to blur the background */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+}
+
+/* Modal styling */
+.modal-pdf {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1001;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+/* Content within the modal */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header and footer styling */
+.modal-header, .modal-footer {
+  padding: 10px;
+  background: #f1f1f1;
+}
+
+/* Header flex for positioning the close button and download link */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Container for PDF with scroll and overflow properties */
+.pdf-container {
+  overflow: auto; /* Allows both horizontal and vertical scrolling */
+  flex: 1;
+  position: relative;
+  max-height: 80vh; /* Restricts height for scrolling */
+}
+
+/* Canvas for rendering pages of the PDF */
+.pdf-page-canvas {
+  display: block;
+  margin: auto;
+  max-width: 100%; /* Ensures canvas scales properly */
+  max-height: 100%; /* Ensures canvas scales properly */
+}
+
+/* Footer with buttons for zooming and printing */
+.modal-footer {
+  display: flex;
+  justify-content: center;
+}

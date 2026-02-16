@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Wizard view to create purchase order -->
+        <record id="view_create_purchase_wizard" model="ir.ui.view">
+            <field name="name">create.purchase.wizard.form</field>
+            <field name="model">create.purchase.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Create Purchase Order">
+                    <group>
+                        <field name="vendor_id"/>
+                        <field name="order_type"/>
+                        <field name="line_ids"/>
+                        <field name="sale_order_id"/>
+                        <field name="create_po_button" invisible="1"/>
+                        <field name="create_rfq_button" invisible="1"/>
+
+                    </group>
+                    <footer>
+                        <button name="create_purchase_order" string="Create Purchase Order" type="object" class="btn-primary" invisible="create_po_button != True"/>
+                        <button name="create_purchase_rfq" string="Create Request for Quotation" type="object" class="btn-primary" invisible="create_rfq_button != True"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    <record id="view_create_purchase_line_form" model="ir.ui.view">
+        <field name="name">create.purchase.line.form</field>
+        <field name="model">create.purchase.line</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Order Line">
+                <group>
+<!--                    <field name="wizards_id"/>-->
+                    <field name="product_id"/>
+                    <field name="product_qty"/>
+                    <field name="price_unit"/>
+                </group>
+            </form>
+        </field>
+    </record>
+         <record id="view_create_purchase_line_tree" model="ir.ui.view">
+        <field name="name">create.purchase.line.tree</field>
+        <field name="model">create.purchase.line</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Order Lines">
+                <field name="product_id"/>
+                <field name="product_qty"/>
+                <field name="price_unit"/>
+
+            </tree>
+        </field>
+    </record>
+    </data>
+</odoo>

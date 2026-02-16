@@ -1,0 +1,425 @@
+<!--  Copyright 2018 ForgeFlow, S.L. (https://www.forgeflow.com)
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).  -->
+<odoo>
+    <template id="partner_statement.outstanding_statement_document">
+
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context({'lang': lang})"/>
+            <t t-set="address">
+                <address
+                        t-esc="get_inv_addr(o)"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
+                />
+                <div t-if="o.vat" class="mt16">
+                    <t t-esc="company.country_id.vat_label or 'Tax ID'"/>
+                    :
+                    <span t-field="o.vat"/>
+                </div>
+            </t>
+            <div class="page">
+                <div class="oe_structure"/>
+                <h2>Statement of Account</h2>
+<!--                <t t-esc="d" class="m-0"/>-->
+
+                <div id="informations" class="row mt32 mb32">
+                    <div class="col-3 bm-2">
+                        <strong>Date:</strong>
+                        <p t-esc="d['today']" class="m-0"/>
+                    </div>
+                    <div class="col-3 bm-2">
+                        <strong>Partner Name:</strong>
+                        <p t-field="o.name" class="m-0"/>
+                    </div>
+                    <div t-if="o.ref" class="col-3 bm-2">
+                        <strong>Partner Code:</strong>
+                        <p t-field="o.ref" class="m-0"/>
+                    </div>
+                </div>
+                <t t-if="d['currencies']">
+                    <br/>
+                    <t t-foreach="d['currencies'].items()" t-as="currency">
+                        <!--                        <t t-esc="currency"/>-->
+                        <t t-set="display_currency" t-value="Currencies[currency[0]]"/>
+                        <t t-set="currency" t-value="currency[1]"/>
+                        <p>
+                            <span t-esc="'' if account_type == 'receivable' else 'Supplier '"/>
+                            Statement up to
+                            <span t-esc="d['end']"/>
+                            in
+                            <span t-esc="display_currency.name"/>
+                        </p>
+                        <br/>
+                        <table class="table table-sm  table-condensed" style="border-collapse:collapse;">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>LPONO / DESCRIPTION</th>
+                                    <th>Source Document</th>
+                                    <!--                                     <th>Due Date</th> -->
+                                    <th>AGAINST</th>
+                                    <th class="amount">Debit Amount</th>
+                                    <th class="amount">Credit Amount</th>
+                                    <th class="amount">Balance Amount</th>
+                                </tr>
+                            </thead>
+                            <style>
+                                td {
+                                font-size: 12px;
+                                }
+                                th {
+                                font-size: 12px;
+                                }
+
+                            </style>
+                            <tbody>
+                                <t t-set="debit_tot" t-value="0"/>
+                                <t t-set="credit_tot" t-value="0"/>
+                                <tr t-foreach="currency['lines']" t-as="line"
+                                    t-att-class="'statement-blocked' if line['blocked'] else ''">
+                                    <td>
+                                        <span t-esc="line['date']"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-if="line['name'] != '/'">
+                                            <t t-if="not line['ref']">
+                                                <span t-esc="line['name']"/>
+                                            </t>
+                                            <t t-if="line['ref']">
+                                                <span t-esc="line['ref']"/>
+                                            </t>
+<!--                                            <span t-esc="line['ref']"/>-->
+<!--                                            <t t-if="line['ref'] and line['name']">-->
+<!--                                                &lt;!&ndash;                                                <t t-if="line['name'] not in line['ref'] or line['name'] == line['ref']">&ndash;&gt;-->
+<!--                                                &lt;!&ndash;                                                    <span t-esc="line['name']"/>&ndash;&gt;-->
+<!--                                                &lt;!&ndash;                                                </t>&ndash;&gt;-->
+<!--                                                <t t-if="line['ref'] not in line['name']">-->
+<!--                                                    <span t-esc="line['ref']"/>-->
+<!--                                                </t>-->
+<!--                                            </t>-->
+                                        </t>
+                                        <t t-if="line['name'] == '/'">
+                                            <span t-esc="line['ref']"/>
+                                        </t>
+                                    </td>
+
+
+                                    <td>
+                                        <t t-if="line['picking_id']">
+                                            <span t-esc="line['picking_id']"/>
+                                        </t>
+                                        <!--                                         <span t-esc="line['move_id']" /> -->
+                                        <!--                                         picking_id -->
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['move_id']"/>
+                                    </td>
+                                    <!--                                     <td> -->
+                                    <!--                                         <span t-esc="line['date_maturity']" /> -->
+                                    <!--                                     </td> -->
+
+                                    <td class="amount">
+                                        <span t-esc="line['debit']"
+                                              t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>
+                                        <t t-set="debit_tot" t-value="debit_tot+line['debit']"/>
+                                    </td>
+                                    <td class="amount">
+                                        <span t-esc="line['credit']"
+                                              t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>
+                                        <t t-set="credit_tot" t-value="credit_tot+line['debit']"/>
+                                    </td>
+                                    <td class="amount">
+                                        <span t-esc="line['balance']"
+                                              t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>
+                                    </td>
+                                </tr>
+                                <tr style="border:1px solid black;border-collapse:collapse;">
+                                    <!--                                    <td  style="border-top:1px solid black;"/>-->
+                                    <td colspan="3" class="text_right" style="border:1px solid black;align:right;">
+                                        <b>TOTAL OUTSTANDING :</b>
+                                    </td>
+                                    <td/>
+                                    <td class="amount" style="border:1px solid black;">
+                                        <b>
+                                            <span t-esc="debit_total"
+                                                  t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>
+                                        </b>
+                                    </td>
+                                    <td class="amount" style="border:1px solid black;">
+                                        <b>
+                                            <span t-esc="credit_total"
+                                                  t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>
+                                        </b>
+                                    </td>
+                                    <td class="amount" style="border:1px solid black;">
+                                        <b>
+                                            <span t-esc="currency['amount_due']"
+                                                  t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>
+                                        </b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <t t-call="partner_statement.aging_buckets" t-if="currency['buckets']"/>
+                        <t t-if="pdc_data"/>
+                        <p>
+                            POST DATED CHEQUES OUTSTANDING:
+                        </p>
+                        <table class="table table-sm table-statement">
+                            <thead>
+                                <tr>
+                                    <th class="text_centre">
+                                        Docno
+                                    </th>
+                                    <th class="text_centre">
+                                        Date
+                                    </th>
+                                    <th class="text_centre">
+                                        Doctype
+                                    </th>
+                                    <th class="text_centre">
+                                        Agnst
+                                    </th>
+
+                                    <th class="text_centre">
+                                        Amount
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="buckets" t-value="currency['buckets']"/>
+                                <tr t-foreach="pdc_data" t-as="pdc">
+                                    <td class="left">
+                                        <span t-esc="pdc.get('name')"/>
+                                    </td>
+
+
+                                    <td class="left">
+                                        <span t-esc="pdc.get('payment_date')"/>
+                                    </td>
+                                    <td class="left">
+                                        <span t-esc="pdc.get('payment_type')"/>
+                                    </td>
+                                    <td class="left">
+                                        <span t-esc="pdc.get('ref')"/>
+                                    </td>
+                                    <td class="amount">
+                                        <span t-esc="'%.2f' % pdc.get('payment_amount')"/>
+                                    </td>
+                                </tr>
+
+                                <tr style="border:1px solid black;border-collapse:collapse;">
+                                    <td colspan="2" style="border-top:1px solid black;"/>
+                                    <td style="border:1px solid black;">
+                                        <b>TOTAL OUTSTANDING :</b>
+                                    </td>
+                                    <td/>
+                                    <!--                                    <td class="amount" style="border:1px solid black;">-->
+                                    <!--                                        <b>-->
+                                    <!--                                            <span t-esc="debit_total"-->
+                                    <!--                                                  t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>-->
+                                    <!--                                        </b>-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td class="amount" style="border:1px solid black;">-->
+                                    <!--                                        <b>-->
+                                    <!--                                            <span t-esc="credit_total"-->
+                                    <!--                                                  t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>-->
+                                    <!--                                        </b>-->
+                                    <!--                                    </td>-->
+                                    <td class="amount" style="border:1px solid black;">
+                                        <b>
+                                            <span t-esc="total"
+                                                  t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>
+                                        </b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <!--                                    <td class="amount">-->
+                            <!--                                        Check-->
+                            <!--                                    </td>-->
+                            <!--                                    <td class="amount">-->
+                            <!--                                    </td>-->
+                            <!--                                    <td class="amount">-->
+                            <!--                                        <span t-esc="pdc.get('pdc_bank_id')"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td class="amount">-->
+                            <!--                                        <span t-esc="pdc.get('bill_ref')"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td class="amount">-->
+                            <!--                                        <span t-esc="pdc.get('pdc_cheque_date')"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td class="amount">-->
+                            <!--                                        <span t-esc="pdc.get('price_subtotal')"-->
+                            <!--                                              t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+                            <!--                                <tr style="border:1px solid black">-->
+                            <!--                                    <td style="border:1px solid black;" colspan="5">-->
+                            <!--                                        <b>-->
+                            <!--                                            <center>TOTAL PDC IN HAND :</center>-->
+                            <!--                                        </b>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td style="border-top:1px solid black;border-right:none"></td>-->
+                            <!--                                    <td style="border-top:1px solid black"></td>-->
+                            <!--                                    <td style="border:1px solid black">-->
+                            <!--                                        <b>-->
+                            <!--                                            <span t-esc="pdc_total_amount"-->
+                            <!--                                                  t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>-->
+                            <!--                                        </b>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+                            <!--                            </tbody>-->
+                        </table>
+                    </t>
+                    <div style="text-align: right;">
+                        <strong style="padding-right: 10px;">Balance Outstanding:</strong>
+
+                        <span t-esc="'{0:,.2f}'.format(currency['amount_due'] - total)"/>
+                    </div>
+                </t>
+                <p t-if="d.get('no_entries')">
+                    <strong>The partner doesn't have due entries.</strong>
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <!--    <template id="pdc_template">-->
+    <!--        <p>-->
+    <!--            POST DATED CHEQUES OUTSTANDING:-->
+    <!--        </p>-->
+    <!--        <table class="table table-sm table-statement">-->
+    <!--            <thead>-->
+    <!--                <tr>-->
+    <!--                    <th class="amount">-->
+    <!--                        Docno-->
+    <!--                    </th>-->
+    <!--                    <th class="amount">-->
+    <!--                        Date-->
+    <!--                    </th>-->
+    <!--                    <th class="amount">-->
+    <!--                        Doctype-->
+    <!--                    </th>-->
+    <!--                    <th class="amount">-->
+    <!--                        Agnst-->
+    <!--                    </th>-->
+    <!--                    <th class="amount">-->
+    <!--                        Chsbnk-->
+    <!--                    </th>-->
+    <!--                    <th class="amount">-->
+    <!--                        Chqno-->
+    <!--                    </th>-->
+    <!--                    <th class="amount">-->
+    <!--                        Chqdt-->
+    <!--                    </th>-->
+    <!--                    <th class="amount">-->
+    <!--                        Chqbal-->
+    <!--                    </th>-->
+    <!--                </tr>-->
+    <!--            </thead>-->
+    <!--            <tbody>-->
+    <!--                <t t-set="buckets" t-value="currency['buckets']"/>-->
+    <!--                <tr t-foreach="pdc_data" t-as="pdc">-->
+    <!--                    <td class="amount">-->
+    <!--                        <span t-esc="pdc.get('name')"/>-->
+    <!--                    </td>-->
+    <!--                    <td class="amount">-->
+    <!--                        <span t-esc="pdc.get('date')"/>-->
+    <!--                    </td>-->
+    <!--                    <td class="amount">-->
+    <!--                        Check-->
+    <!--                    </td>-->
+    <!--                    <td class="amount">-->
+    <!--                    </td>-->
+    <!--                    <td class="amount">-->
+    <!--                        <span t-esc="pdc.get('pdc_bank_id')"/>-->
+    <!--                    </td>-->
+    <!--                    <td class="amount">-->
+    <!--                        <span t-esc="pdc.get('bill_ref')"/>-->
+    <!--                    </td>-->
+    <!--                    <td class="amount">-->
+    <!--                        <span t-esc="pdc.get('pdc_cheque_date')"/>-->
+    <!--                    </td>-->
+    <!--                    <td class="amount">-->
+    <!--                        <span t-esc="pdc.get('price_subtotal')"-->
+    <!--                              t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>-->
+    <!--                    </td>-->
+    <!--                </tr>-->
+    <!--                <tr style="border:1px solid black">-->
+    <!--                    <td style="border:1px solid black;" colspan="5">-->
+    <!--                        <b>-->
+    <!--                            <center>TOTAL PDC IN HAND :</center>-->
+    <!--                        </b>-->
+    <!--                    </td>-->
+    <!--                    <td style="border-top:1px solid black;border-right:none"></td>-->
+    <!--                    <td style="border-top:1px solid black"></td>-->
+    <!--                    <td style="border:1px solid black">-->
+    <!--                        <b>-->
+    <!--                            <span t-esc="pdc_total_amount"-->
+    <!--                                  t-options="{'widget': 'monetary', 'display_currency': display_currency}"/>-->
+    <!--                        </b>-->
+    <!--                    </td>-->
+    <!--                </tr>-->
+
+
+    <!--                &lt;!&ndash;                <tr style="border:1px solid black">&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <t t-set="deb" t-value="buckets.get('balance', 0.0)"/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <td style="border:1px solid black" colspan="5"><b><center>BALANCE OUTSTANDING :</center></b></td>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <td style="border:1px solid black"><b><span t-esc="buckets.get('balance', 0.0)"&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    t-options="{'widget': 'monetary', 'display_currency': display_currency}"/> </b></td>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <td style="border:1px solid black"><b><span t-esc="pdc_total_amount"&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    t-options="{'widget': 'monetary', 'display_currency': display_currency}"/> </b></td>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <td style="border:1px solid black"><b><span t-esc="deb - pdc_total_amount"&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    t-options="{'widget': 'monetary', 'display_currency': display_currency}"/> </b></td>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                </tr>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                <tr>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <td colspan="8">&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        Please arrange your remittance to the following bank account,<br/><br/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        <span t-esc="company.bank_details"/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        Benificiary Name&#160;&#160;: <b>BRIGHT WELD MIDDLE EAST FZE</b><br/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        Bank Name&#160;&#160;:&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        <br/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        Account Number&#160;&#160;:&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        <br/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        IBAN Number&#160;&#160;:&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        <br/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        Swift Code&#160;&#160;:&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        <br/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                        Address&#160;&#160;: Unit No:MO06100, ADIB Building, Jebel Ali Free Zone Authority (jafza) - Dubai, UAE.&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    </td>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                </tr>&ndash;&gt;-->
+    <!--            </tbody>-->
+
+    <!--        </table>-->
+    <!--    </template>-->
+    <template id="outstanding_statement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="d" t-value="data.get(o.id)"/>
+                <t t-call="partner_statement.outstanding_statement_document" t-lang="o.lang"/>
+            </t>
+        </t>
+    </template>
+    <record id="action_print_outstanding_statement" model="ir.actions.report">
+        <field name="name">Outstanding Statement</field>
+        <field name="model">res.partner</field>
+        <field name="report_name">partner_statement.outstanding_statement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_file">partner_statement.outstanding_statement</field>
+    </record>
+    <record id="action_print_outstanding_statement_html" model="ir.actions.report">
+        <field name="name">Outstanding Statement</field>
+        <field name="model">res.partner</field>
+        <field name="report_name">partner_statement.outstanding_statement</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_file">partner_statement.outstanding_statement</field>
+    </record>
+    <record id="action_print_outstanding_statement_xlsx" model="ir.actions.report">
+        <field name="name">Outstanding Statement XLSX</field>
+        <field name="model">res.partner</field>
+        <field name="type">ir.actions.report</field>
+        <field name="report_name">partner_statement.report_outstanding_statement_xlsx</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_file">report_outstanding_statement</field>
+    </record>
+</odoo>

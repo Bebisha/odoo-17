@@ -1,0 +1,466 @@
+<odoo>
+    <data>
+        <template id="gratuity_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="header" align="center">
+                            <strong
+                                    style="text-decoration: underline;font-size:18px;font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif;">
+                                FINAL SETTLEMENT STATEMENT
+                            </strong>
+                        </div>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="3">
+                                    <strong style="font-size:15px;">Employment Particulars</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:22%;">
+                                    <strong style="font-size:12px;">Name of employee</strong>
+
+                                </td>
+                                <td>
+                                    <span style="font-size:12px;">:</span>
+
+                                </td>
+                                <td>
+                                    <span style="font-size:12px;" t-field="o.employee_id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong style="font-size:12px;">Position</strong>
+
+
+                                </td>
+                                <td>
+                                    <span style="font-size:12px;">:</span>
+
+
+                                </td>
+                                <td>
+
+                                    <span style="font-size:12px;" t-field="o.employee_id.job_id"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="16px" colspan="3"/>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong style="font-size:12px;">Date of Joining</strong>
+
+
+                                </td>
+                                <td>
+                                    <strong style="font-size:12px;">:</strong>
+
+
+                                </td>
+                                <td>
+                                    <span style="font-size:12px;" t-esc="o.join_date.strftime('%d-%b-%Y')"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong style="font-size:12px;">Date of Leaving</strong>
+
+
+                                </td>
+                                <td>
+                                    <strong style="font-size:12px;">:</strong>
+
+
+                                </td>
+                                <td>
+                                    <span style="font-size:12px;" t-esc="o.releiving_date.strftime('%d-%b-%Y')"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong style="font-size:12px;">Total days worked</strong>
+
+                                </td>
+                                <td>
+                                    <strong style="font-size:12px;">:</strong>
+
+
+                                </td>
+                                <td>
+
+                                    <span style="font-size:12px;" t-field="o.total_days_worked"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong style="font-size:12px;">Unpaid Days</strong>
+
+                                </td>
+                                <td>
+                                    <strong style="font-size:12px;">:</strong>
+
+                                </td>
+                                <td style="font-size:12px;">
+                                    <t t-set="total_unpaid_days" t-value="o.total_days_worked-o.unpaid_days"/>
+
+                                    <t t-esc="total_unpaid_days"/>
+
+                                </td>
+                            </tr>
+                        </table>
+                        <style>
+                            table,td,tr{
+<!--                            border: 1px solid;border-collapse: collapse;-->
+                            padding-top:6px;
+                            font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif;
+                            }
+
+                        </style>
+                        <table width="100%">
+                            <tr>
+                                <td style="padding-top:12px;" colspan="5">
+                                    <strong style="font-size:15px;text-decoration: underline;">Relevant Terms of
+                                        Employment
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:10px;width:38%;">
+                                    <strong style="font-size:12px;">Gross Salary per month</strong>
+                                </td>
+                                <td style="padding-top:12px;width:15%;">
+                                    <strong style="font-size:12px;">Month</strong>
+                                </td>
+                                <td style="padding-top:12px;">
+                                    <strong style="font-size:12px;">Days</strong>
+                                    <br/>
+                                </td>
+                                <td style="padding-top:12px;" width="10%">
+                                    <strong style="font-size:12px;" t-field="o.amount_gratuity"/>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+
+                                <td style="">
+                                    <strong style="font-size:12px;">Annual Leave Eligibility</strong>
+                                </td>
+                                <td>
+
+                                </td>
+                                <td colspan="2" style="padding-top:12px;">
+                                    <strong style="font-size:12px;">30</strong>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong style="text-decoration: underline;font-size:15px;">1. Salary and Benefits
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>
+                                    <span style="font-size:12px; padding-left:38px;">
+                                        a) Salary for the month for
+                                    </span>
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <strong style="font-size:12px;">30</strong>
+                                </td>
+                                <td>
+                                    <strong style="font-size:12px;" t-field="o.amount_gratuity"/>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <span style="font-size:12px; padding-left:38px;">
+                                        b) Salary in-lieu notice period (months)
+
+                                    </span>
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <strong style="font-size:12px;">-</strong>
+                                </td>
+                                <td>
+                                    <strong style="font-size:12px;" t-field="o.amount_gratuity"/>
+
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-size:12px;padding-left:38px;">
+                                        c) Annual leave balance (working days)
+
+                                    </span>
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <strong style="font-size:12px;">10</strong>
+                                </td>
+                                <td>
+                                    <t t-set="annual_leave_cal" t-value="(o.amount_gratuity/22)*10"/>
+
+                                    <strong style="font-size:12px;">
+                                        <t t-esc="'{:,.2f}'.format(annual_leave_cal)"/>
+
+                                    </strong>
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-size:12px;padding-left:38px;">
+                                        d) Gratuity (eligible days)
+
+                                    </span>
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <strong style="font-size:12px;" t-field="o.unpaid_days"/>
+                                </td>
+                                <td style="width:25%;">
+                                    <t t-set="gratuity_total" t-value="(o.amount_gratuity/365)*o.unpaid_days"/>
+                                    <strong style="font-size:12px;">
+                                        <t t-esc="'{:,.2f}'.format(gratuity_total)"/>
+                                    </strong>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-size:12px;padding-left:38px;">
+                                        e) Other allowances
+
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-size:12px;padding-left:38px;">
+                                        f) Additional salaries/Bonus
+
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-size:12px;padding-left:38px;">
+                                        g) Reimbursements
+
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="width:25%;">
+
+                                </td>
+                                <td style="width:25%;">
+                                </td>
+                                <td style="width:30%;">
+
+                                </td>
+                                <td align="center">
+                                    <t t-set="total_calcu"
+                                       t-value="(o.amount_gratuity*2)+gratuity_total+annual_leave_cal"/>
+                                    <strong style="font-size:12px;">
+                                        <t t-esc="'{:,.2f}'.format(total_calcu)"/>
+                                    </strong>
+
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <strong style="text-decoration: underline;font-size:15px;">2. Deductions
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>
+                                    <span style="font-size:12px; padding-left:38px;">
+                                        a) PASI Deduction
+
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-size:12px;padding-left:38px;">
+                                        b) Advances
+
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:80%;">
+                                    <span style="font-size:12px;padding-left:38px;">
+                                        c) Others
+
+                                    </span>
+                                </td>
+
+
+                                <td align="center">
+                                    <t t-set="total_calcu"
+                                       t-value="(o.amount_gratuity*2)+gratuity_total+annual_leave_cal"/>
+                                    <strong style="font-size:12px;">
+                                        <t t-esc="'{:,.2f}'.format(total_calcu)"/>
+                                    </strong>
+
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <table width="87%">
+                            <tr>
+                                <td>
+                                    <strong style="font-size:15px;">TOTAL FINAL SETTLEMENT
+                                    </strong>
+                                </td>
+
+
+                                <td>
+                                    <strong style="font-size:12px;">USD
+                                    </strong>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <strong style="font-size:12px;">OMR
+                                    </strong>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table>
+                            <tr>
+                                <td style="width:25%;padding-top:25px;">
+                                    <span style="font-size:15px;">Prepared By:</span>
+                                    <span>......................................................................</span>
+
+                                </td>
+
+
+                                <td style="width:25%; padding-top:25px;">
+                                    <span style="font-size:15px;">Verified By:</span>
+                                    <span>......................................................................</span>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="center">
+                                    <span style="font-size:12px;">FM</span>
+                                </td>
+
+                                <td align="center">
+                                    <span style="font-size:12px;">Accounts Signatory</span>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td style="width:25%;padding-top:25px;">
+                                    <span style="font-size:15px;">Approved By:</span>
+                                    <span>......................................................................</span>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <span style="font-size:12px;">Director</span>
+                                </td>
+
+
+                            </tr>
+                        </table>
+
+
+                        <table>
+                            <tr>
+                                <td style="padding-top:30px;">
+                                    <strong style="font-size:15px;">Employee's Acceptance:</strong>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding-top:15px;">
+                                    <span style="font-size:12px;">I confirm that I have received the above as full and
+                                        final
+                                        settlement of all my dues from
+                                        Masirah Oil Limited.
+                                        I also confirm that I do not have any financial or other claims over the
+                                        company.
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <table>
+                            <tr>
+                                <td style="padding-top:20px;">
+                                    <strong style="font-size:15px;">Employee's Signature</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:15px;">
+                                    <span style="font-size:15px;">Date:</span>
+                                    <span style="font-size:20px;"/>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+        <record id="delivery_order_template_name" model="mail.template">
+            <field name="name">DELIVERY ORDER EMAIL TEMPLATE NAME</field>
+            <field name="model_id" ref="sale_order_email.model_stock_picking"/>
+            <field name="subject">{{ object.company_id.name }}</field>
+            <field name="email_from">{{(object.company_id.email)}}</field>
+            <field name="partner_to">{{object.partner_id.id}}</field>
+            <field name="description">Add Description</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>
+                        <b>Dear <t t-out="object.partner_id.name"/>,
+                        </b>
+                        <br/>
+
+                        Your Delivery Order for  <t t-out="object.name"/> has been Shipped.
+                        <br/>
+                        <br/>
+
+                        <b>Order Details:</b>
+                        <br/>
+                        <br/>
+                        - Order Number:
+                        <t t-out="object.name"/>
+                        <br/>
+                        <br/>
+                        - Delivery Date:
+                        <t t-out="object.scheduled_date"/>
+                        <br/>
+                        <br/>
+                        -  Deadline:
+                        <t t-out="object.date_deadline"/>
+                        <br/>
+                        <br/>
+
+                        <a class="btn btn-primary" role="button"
+                           t-att-href="'%s'%object.env.context.get('customer_url')">View
+                            Delivery Order
+                        </a>
+                        <br/>
+                        <br/>
+
+                        Thank you for your business.
+                        <br/>
+                        <br/>
+                        Best regards,
+                        <br/>
+                        <br/>
+                        <t t-out=" object.company_id.name"/>
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

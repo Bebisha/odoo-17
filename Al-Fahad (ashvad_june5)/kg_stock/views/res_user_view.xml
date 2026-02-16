@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_users_form_inherit" model="ir.ui.view">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='password_fields']" position="after">
+                <group>
+                    <field name="show_product_price" string="Show Product Price"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

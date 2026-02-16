@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="group_manager" model="res.groups">
+            <field name="name">Manager</field>
+        </record>
+        <record id="manager_approval" model="mail.activity.type">
+            <field name="name">Manager Approval</field>
+            <field name="res_model">kg.purchase.order</field>
+        </record>
+
+    </data>
+</odoo>

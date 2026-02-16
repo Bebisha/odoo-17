@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="specimen_type_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Specimen Type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">specimen.type</field>
+
+    </record>
+    <record id="specimen_type_tree" model="ir.ui.view">
+        <field name="name">specimen.type.tree.views</field>
+        <field name="model">specimen.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="abnormal_flag_form" model="ir.ui.view">
+        <field name="name">specimen.type.form.views</field>
+        <field name="model">specimen.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="specimen_type_menu"
+              action="specimen_type_action"
+              name="Specimen Type"
+              parent="kg_nabidh.spm_menu"/>
+
+</odoo>

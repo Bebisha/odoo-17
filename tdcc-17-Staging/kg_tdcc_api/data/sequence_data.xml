@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="seq_kg_patient_demographic" model="ir.sequence">
+            <field name="name">Patient Additional Demographc</field>
+            <field name="code">kg.patient.demographic</field>
+            <field name="prefix">PD1-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_nok" model="ir.sequence">
+            <field name="name">Next Of Kin/Associated Parties</field>
+            <field name="code">kg.associated.parties</field>
+            <field name="prefix">NK1-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_patient_visit" model="ir.sequence">
+            <field name="name">Patient Visit</field>
+            <field name="code">kg.patient.visit</field>
+            <field name="prefix">PV1-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_pv_additional_information" model="ir.sequence">
+            <field name="name">Patient Visit Additional Information</field>
+            <field name="code">kg.pv.additional.info</field>
+            <field name="prefix">PV2-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_observation" model="ir.sequence">
+            <field name="name">Observation / Result</field>
+            <field name="code">kg.observation</field>
+            <field name="prefix">OBX-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_allergy_info" model="ir.sequence">
+            <field name="name">Patient Allergy Information</field>
+            <field name="code">kg.patient.allergy.info</field>
+            <field name="prefix">AL1-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_diagnosis" model="ir.sequence">
+            <field name="name">Diagnosis</field>
+            <field name="code">kg.diagnosis</field>
+            <field name="prefix">DG1-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_diag_related_grp_segment" model="ir.sequence">
+            <field name="name">Diagnosis Related Group Segment</field>
+            <field name="code">kg.diag.group.segment</field>
+            <field name="prefix">DRG-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_procedures_segment" model="ir.sequence">
+            <field name="name">Procedures Segment</field>
+            <field name="code">kg.procedures.segment</field>
+            <field name="prefix">PR1-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_guarantor_segment" model="ir.sequence">
+            <field name="name">Guarantor Segment</field>
+            <field name="code">kg.guarantor.segment</field>
+            <field name="prefix">GT1-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_insurance" model="ir.sequence">
+            <field name="name">Insurance</field>
+            <field name="code">kg.insurance</field>
+            <field name="prefix">IN1-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_patient_merge" model="ir.sequence">
+            <field name="name">Patient Merge</field>
+            <field name="code">kg.patient.merge</field>
+            <field name="prefix">MRG-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_common_order" model="ir.sequence">
+            <field name="name">Common Order</field>
+            <field name="code">kg.common.order</field>
+            <field name="prefix">ORC-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_observation_request" model="ir.sequence">
+            <field name="name">Observation Request</field>
+            <field name="code">kg.observation.request</field>
+            <field name="prefix">OBR-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_message_acknowledgement" model="ir.sequence">
+            <field name="name">Message Acknowledgement</field>
+            <field name="code">kg.message.acknowledgement</field>
+            <field name="prefix">MSA-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_z_segment_consent" model="ir.sequence">
+            <field name="name">Z Segment Consent</field>
+            <field name="code">kg.segment.consent</field>
+            <field name="prefix">ZSC-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_segment_social_history" model="ir.sequence">
+            <field name="name">Z Segment Social History</field>
+            <field name="code">kg.segment.social.history</field>
+            <field name="prefix">ZSH-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_kg_segment_famil_history" model="ir.sequence">
+            <field name="name">Z Segment Family History</field>
+            <field name="code">kg.segment.family.history</field>
+            <field name="prefix">ZFH-</field>
+            <field name="padding">2</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <record id="seq_gratuity" model="ir.sequence">
+            <field name="name">Gratuity Settlement</field>
+            <field name="code">gratuity.settlement</field>
+            <field name="prefix">GS</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

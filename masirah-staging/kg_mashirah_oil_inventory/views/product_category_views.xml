@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+
+        <record id="view_product_category_form_inherit" model="ir.ui.view">
+            <field name="name">Product Category Form View Inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='first']" position="replace">
+                    <group>
+                        <group name="first" col="2">
+                            <field name="parent_id" class="oe_inline"/>
+                        </group>
+                        <group name="code_name" col="2">
+                            <field name="code" class="oe_inline" required="1"/>
+                            <field name="sequence_id" class="oe_inline" invisible="1" force_save="1"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_category_tree_inherit" model="ir.ui.view">
+            <field name="name">Product Category Tree View Inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_list_view"/>
+            <field name="arch" type="xml">
+                <field name="display_name" position="after">
+                    <field name="code"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

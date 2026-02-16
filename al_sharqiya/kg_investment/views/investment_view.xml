@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_exchange_master_form" model="ir.ui.view">
+        <field name="name">exchange.master.form</field>
+        <field name="model">kg.exchange</field>
+        <field name="arch" type="xml">
+            <form string="Exchange">
+
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="currency_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_exchange_master_tree" model="ir.ui.view">
+        <field name="name">exchange.master.tree</field>
+        <field name="model">kg.exchange</field>
+        <field name="arch" type="xml">
+            <tree string="Exchange" editable="bottom">
+                <field name="name"/>
+                <field name="currency_id"/>
+                <!-- Add more fields as needed -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_investment_type_form" model="ir.ui.view">
+        <field name="name">kg.investment.type.form</field>
+        <field name="model">kg.investment.type</field>
+        <field name="arch" type="xml">
+            <form string="Investment Type">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="is_fvtpl"/>
+                            <field name="is_fvoci"/>
+                            <field name="is_bond"/>
+                            <field name="stock_valuation_account_id"/>
+                            <field name="stock_journal_id"/>
+                            <field name="stock_input_account_id"/>
+                            <field name="stock_output_account_id"/>
+                        </group>
+                        <group>
+                            <field name="market_account_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_investment_type_tree" model="ir.ui.view">
+        <field name="name">kg.investment.type.tree</field>
+        <field name="model">kg.investment.type</field>
+        <field name="arch" type="xml">
+            <tree string="Investment Type">
+                <field name="name"/>
+                <field name="stock_valuation_account_id"/>
+                <field name="stock_journal_id"/>
+                <field name="stock_input_account_id"/>
+                <field name="stock_output_account_id"/>
+                <!-- Add more fields as needed -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_investment_entry_form" model="ir.ui.view">
+        <field name="name">kg.investment.entry.form</field>
+        <field name="model">kg.investment.entry</field>
+        <field name="arch" type="xml">
+            <form string="Investment Entry">
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_po" type="object"
+                                class="oe_stat_button"
+                                string="Purchase Order"
+                                icon="fa-pencil-square-o"/>
+                        <button name="action_view_so" type="object"
+                                class="oe_stat_button"
+                                string="Sale Order"
+                                icon="fa-pencil-square-o"/>
+                        <button class="oe_stat_button" name="action_view_qty" icon="fa-cubes" type="object">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value d-flex gap-1">
+                                    <field name="qty_on_hand" nolabel="1" class="oe_inline"/>
+                                </span>
+                                <span class="o_stat_text">On Hand</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="isin_code"/>
+                            <field name="investment_type"/>
+                            <field name="qty_on_hand"/>
+                        </group>
+                        <group>
+                            <field name="face_value"/>
+                            <field name="market_value"/>
+                            <field name="country_id"/>
+                            <field name="currency_id"/>
+                            <field name="account_id"/>
+                            <field name="fvoci" invisible="1"/>
+                            <field name="revaluation_account_id" invisible="fvoci ==False"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_investment_entry_tree" model="ir.ui.view">
+        <field name="name">kg.investment.entry.tree</field>
+        <field name="model">kg.investment.entry</field>
+        <field name="arch" type="xml">
+            <tree string="Investment Entry">
+                <field name="isin_code"/>
+                <field name="name"/>
+                <field name="investment_type"/>
+                <field name="face_value"/>
+                <field name="country_id"/>
+                <field name="currency_id"/>
+                <field name="qty_on_hand"/>
+                <!-- Add more fields as needed -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_exchange_master" model="ir.actions.act_window">
+        <field name="name">Exchange</field>
+        <field name="res_model">kg.exchange</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_exchange_master_tree"/>
+    </record>
+    <record id="action_investment_type" model="ir.actions.act_window">
+        <field name="name">Investment Type</field>
+        <field name="res_model">kg.investment.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_investment_type_tree"/>
+    </record>
+    <record id="action_investment_entry" model="ir.actions.act_window">
+        <field name="name">Investment Entry</field>
+        <field name="res_model">kg.investment.entry</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_investment_entry_tree"/>
+    </record>
+</odoo>

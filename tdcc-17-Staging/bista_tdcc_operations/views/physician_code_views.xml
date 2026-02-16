@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Physician Code Form -->
+        <record model="ir.ui.view" id="physician_code_form">
+            <field name="name">physician.code.form</field>
+            <field name="model">physician.code</field>
+            <field name="arch" type="xml">
+                <form string="Physician Code Form">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" required="1" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Physician Code List -->
+        <record model="ir.ui.view" id="physician_code_tree">
+            <field name="name">physician.code.tree</field>
+            <field name="model">physician.code</field>
+            <field name="arch" type="xml">
+                <tree string="Physician Code List">
+                    <field name="name" required="1" />
+                    <field name="active" widget="boolean_toggle" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Physician Code Search -->
+        <record model="ir.ui.view" id="physician_code_search">
+            <field name="name">physician.code.search</field>
+            <field name="model">physician.code</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <filter string="Archived" name="inactive"
+                        domain="[('active','=',False)]" />
+                </search>
+            </field>
+        </record>
+
+        <!-- Physician Code Action -->
+        <record model="ir.actions.act_window" id="physician_code_action">
+            <field name="name">Physician Code</field>
+            <field name="res_model">physician.code</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Physician Code Menu -->
+        <menuitem id="physician_code_menu"
+            action="physician_code_action"
+            parent="bista_tdcc_operations.miscellaneous_configuration_menu"
+            sequence="10" />
+
+</odoo>

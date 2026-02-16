@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record id="purchase_order_revised_form_view_custom" model="ir.ui.view">
+            <field name="name">purchase.order.revised.form.view.custom</field>
+            <field name="model">po.revised</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="purchase_order_id"/>
+                            <field name="revised_number"/>
+                            <field name="sale_person_id"/>
+                        </group>
+                    </group>
+                    <field name="revised_line_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="product_id_rev"/>
+                            <field name="name_rev"/>
+                            <field name="qty_rev"/>
+                            <field name="uom_rev"/>
+                            <field name="price_rev"/>
+                            <field name="subtotal_rev"/>
+                            <field name="total_rev"/>
+                        </tree>
+                    </field>
+                </form>
+            </field>
+        </record>
+        <record id="purchase_order_revised_tree_view_custom" model="ir.ui.view">
+            <field name="name">po.order.revised.tree.view.custom</field>
+            <field name="model">po.revised</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="purchase_order_id"/>
+                    <field name="revised_number"/>
+                    <field name="sale_person_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_purchase_order_revised">
+            <field name="name">Purchase Order Revised</field>
+            <field name="res_model">po.revised</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

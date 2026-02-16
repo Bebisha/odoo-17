@@ -1,0 +1,127 @@
+$complete: #35a573;
+$complete-lite: #96c1ae;
+$active: #4496c1;
+$reject: #cb6162;
+$reject-lite: #dd9899;
+$mute: #e6e6e6;
+.approval-flow {
+  margin: 1rem;
+  background: #fff;
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    color: darken($mute, 33%);
+    > .step {
+      position: relative;
+      display: table-cell;
+      text-align: center;
+      font-size: 0.875rem;
+      color: #6d6875;
+      & .round-info {
+        display: block;
+        margin: 0 auto;
+        background: #ffffff;
+        border: 2px solid $mute;
+        color: $mute;
+        width: 2.5rem;
+        height: 2.5rem;
+        text-align: center;
+        line-height: 1.9rem;
+        border-radius: 100%;
+        position: relative;
+        z-index: 1;
+        border: 2px solid;
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+        cursor: pointer !important;
+        &.done {
+          color: $complete;
+        }
+        &.reject {
+          color: $reject;
+        }
+        &.next {
+          color: $active;
+          font-size: 1.4rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          display: block;
+        }
+        &.upcoming {
+          color: $mute;
+          border-color: $mute;
+        }
+        &.finish {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $complete;
+          border-color: $complete;
+          font-size: 1.5rem;
+        }
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        background: $mute;
+        width: 100%;
+        height: 0.125rem;
+        top: 3rem;
+        left: 50%;
+        color: #c7c7c7;
+        opacity: 0.7;
+      }
+      &:last-child:after {
+        display: none;
+      }
+      .status {
+        position: absolute;
+        display: block;
+        background: none;
+        width: 100%;
+        height: 0.125rem;
+        top: 2.5rem;
+        left: 50%;
+        z-index: 1;
+        color: #adadad;
+
+        &.approve {
+            color: $complete-lite
+        }
+        &.reject {
+            color: #dd9899
+        }
+        strong {
+          padding: 6px;
+          background: #fff;
+          border-radius: 10px;
+          z-index: 1;
+          font-size: 0.8rem;
+        }
+      }
+      &.is-approve {
+        &:after {
+          content: "";
+          background: $complete-lite;
+          color: $complete;
+        }
+      }
+      &.is-reject {
+        &:after {
+          content: "";
+          background: $reject-lite;
+          color: $reject;
+        }
+      }
+      &:last-child .status {
+        display: none;
+      }
+    }
+  }
+}

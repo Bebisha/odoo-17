@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="email_report_form_footer">
+            <t t-set="company" t-value="res_company"/>
+            <div class="article">
+                <t t-raw="0"/>
+            </div>
+            <div class="footer">
+                <div>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <b>
+                                <span t-esc="company.name" style="font-size: 10pt;"/>
+                            </b>
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <span style="font-size: 10pt;">PO Box</span>
+                            <span t-esc="company.zip" style="font-size: 10pt;"/>
+                            <span t-esc="company.state_id.name" style="font-size: 12pt;"/>,UAE&amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <span style="font-size: 10pt;">Phone &amp;nbsp;</span>
+                            <span t-esc="company.phone" style="font-size: 12pt;"/>
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <span t-esc="company.email" style="font-size: 12pt;"/>
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <b>
+                                <span t-esc="company.website" style="font-size: 10pt;"/>
+                            </b>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+
+        <!-- Main Email Form Template -->
+        <template id="report_email_form">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="bista_tdcc_reports.report_email_form_document"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_email_form_document">
+            <t t-set="company" t-value="res_company"/>
+            <t t-call="bista_tdcc_reports.email_report_form_footer">
+                <div class="page">
+                    <div>
+                        <p>
+                            <span t-raw="doc.body_html"/>
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+
+</odoo>

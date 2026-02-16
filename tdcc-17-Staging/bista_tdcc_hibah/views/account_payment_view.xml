@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_payment_form_hibah" model="ir.ui.view">
+        <field name="name">account.payment.form.Hibah</field>
+        <field name="model">account.payment</field>
+
+        <field name="arch" type="xml">
+            <form string="Register Payment">
+                <header>
+                    <button name="post" class="oe_highlight" invisible="state != 'draft'" string="Confirm"
+                            type="object"/>
+                    <button name="action_draft" class="oe_highlight" invisible="state != 'cancelled'"
+                            string="Set To Draft" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted,reconciled,cancelled"/>
+                </header>
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" name="button_open_journal_entry"
+                            string="Journal Items" type="object"
+                            groups="account.group_account_user"
+                            icon="fa-bars" invisible=" 'account_move_ids' == [] "/>
+                    <!--                                    options="{'invisible':[('account_move_ids','=',[])]}"/>-->
+                    <!--                                    options="{'invisible':[('move_line_ids','=',[])]}" -->
+
+                    <!--                            <field name="move_line_ids" invisible="1"/>-->
+                    <button class="oe_stat_button" name="button_open_invoices"
+                            string="Invoices" type="object"
+                            icon="fa-bars" invisible=" 'has_invoices' == False "/>
+                    <!--                                    options="{'invisible':[('has_invoices','=',False)]}" />-->
+                    <button name="action_open_manual_reconciliation_widget" type="object"
+                            string="Payment Matching" class="oe_stat_button" icon="fa-dollar"
+                            groups="account.group_account_user"
+                            invisible=" 'reconciled_invoices_type' == True"/>
+<!--                    <button class="oe_stat_button" name="open_payment_matching_screen"-->
+<!--                            string="Payment Matching" type="object" invisible=" 'reconciled_invoices_type' == True "-->
+<!--                            icon="fa-university"/>-->
+                    <!--                                    options="{'invisible':[('reconciled_invoices_type','=',True)]}" icon="fa-university"/>-->
+                    <!--                            <field name="has_invoices" invisible="1"/>-->
+                    <field name="reconciled_invoices_type" invisible="1"/>
+                </div>
+                <sheet>
+
+                    <field name="id" invisible="1"/>
+                    <div class="oe_title" invisible="state == 'draft'">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="payment_type" invisible="1" widget="radio" readonly="state != 'draft'"/>
+                            <field name="partner_type" widget="selection"
+                                   required="state == 'draft' or payment_type in ['inbound', 'outbound']"
+                                   readonly="state != 'draft'"/>
+                            <field name="partner_id" options="{'no_create_edit':True}" string="Sponsor"
+                                   required="state != 'draft' and payment_type in ('inbound', 'outbound')"
+                                   invisible="payment_type not in ('inbound', 'outbound')"
+                                   readonly="state != 'draft'"
+                                   context="{'default_is_company': True, 'default_supplier': payment_type == 'outbound', 'default_customer': payment_type == 'inbound'}"/>
+                            <field name="company_id"/>
+                            <field name="journal_id" widget="selection" />
+                            <field name="suitable_journal_ids" invisible="1"/>
+                            <field name="hide_post_button" invisible="1"/>
+
+                            <label for="amount"/>
+                            <div name="amount_div" class="o_row">
+                                <field name="amount" readonly="state != 'draft'"/>
+                                <field name="currency_id" options="{'no_create': True, 'no_open': True}"
+                                       groups="base.group_multi_currency" readonly="state != 'draft'"/>
+                            </div>
+                            <field name="bank_partner_id" readonly="'state' != 'draft'"
+                                   required="show_partner_bank_account == True"
+                                   invisible=" show_partner_bank_account == True"
+                                   context="{'default_partner_id': id}"/>
+                            <field name="show_partner_bank_account" invisible="1"/>
+                            <field name="payment_method_code" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date" readonly="state != 'draft'"/>
+                            <field name="ref" invisible="state != 'draft' or ref == False"
+                                   readonly="state != 'draft'"/>
+                            <field name="payment_transaction_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hibah_action_account_sponsor_payments" model="ir.actions.act_window">
+        <field name="name">Sponsor Payment</field>
+        <field name="res_model">account.payment</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="context">{'default_payment_type': 'inbound',
+            'default_partner_type': 'customer',
+            'from_sponsor_payment':True}
+        </field>
+        <field name="domain">[('partner_type', '=', 'customer'),
+            ('partner_id.is_sponsor', '=', True)]
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register a Hibah funds
+            </p>
+        </field>
+    </record>
+
+    <record id="action_sponsar_payment_tree" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="account.view_account_payment_tree"/>
+        <field name="act_window_id" ref="hibah_action_account_sponsor_payments"/>
+    </record>
+
+    <record id="action_sponsar_payment_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_account_payment_form_hibah"/>
+        <field name="act_window_id" ref="hibah_action_account_sponsor_payments"/>
+    </record>
+
+    <menuitem id="menu_action_account_payments_sponsor_Hibah"
+              action="hibah_action_account_sponsor_payments"
+              parent="bista_tdcc_operations.sponsor_main_menu"
+              sequence="2"
+    />
+    <!--    <menuitem id="sponsor_menu" action="sponsor_action"-->
+    <!--              parent="bista_tdcc_operations.sponsor_main_menu" sequence="1"/>-->
+
+</odoo>

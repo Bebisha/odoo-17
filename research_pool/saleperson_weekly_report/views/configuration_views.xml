@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_res_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sales</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <div class="app_settings_block" data-string="recipient" string="Recipient"
+                     data-key="operation_inherits">
+                    <h2>SalesPerson Recipients</h2>
+                    <div class="row mt16 o_settings_container" id="recipient_settings">
+                        <div class="col-12 col-lg-6 o_setting_box" id="domain_setting_recipient">
+                            <div class="o_setting_right_pane">
+                                <label for="sales_report_recipients" string="SalesPerson Recipient"/>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <field name="sales_report_recipients" widget="many2many_tags"/>
+                                        <p class="text-muted">
+                                            Recipients who will receive the weekly sales report email.
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

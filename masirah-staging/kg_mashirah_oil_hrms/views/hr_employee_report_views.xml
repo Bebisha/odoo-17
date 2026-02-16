@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record id="kg_contract_employee_report_view_search" model="ir.ui.view">
+            <field name="name">kg.contract.employee.report.view.search</field>
+            <field name="model">hr.contract.employee.report</field>
+            <field name="inherit_id" ref="hr_contract_reports.contract_employee_report_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="employee_id" string="Employee No." filter_domain="[('employee_id.registration_number','ilike', self)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="kg_hr_employee_skill_report_view_search" model="ir.ui.view">
+            <field name="name">kg.hr.employee.skill.report.view.search</field>
+            <field name="model">hr.employee.skill.report</field>
+            <field name="inherit_id" ref="hr_skills.hr_employee_skill_report_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="employee_id" string="Employee No." filter_domain="[('employee_id.registration_number','ilike', self)]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

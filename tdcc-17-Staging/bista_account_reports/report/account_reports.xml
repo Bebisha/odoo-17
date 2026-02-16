@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <!-- Report action for Receipt by payment Method -->
+    <!--    <report-->
+    <!--            id="report_by_paymentmethod"-->
+    <!--            string="Report By Payment Method"-->
+    <!--            model="account.payment"-->
+    <!--            report_type="qweb-pdf"-->
+    <!--            name="bista_account_reports.report_bypaymentmethod"-->
+    <!--            file="bista_account_reports.report_bypaymentmethod"-->
+    <!--            menu="False"/>-->
+    <record id="report_by_paymentmethod" model="ir.actions.report">
+        <field name="name">Report By Payment Method</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.report_bypaymentmethod</field>
+        <field name="report_file">bista_account_reports.report_bypaymentmethod</field>
+    </record>
+
+
+    <!-- Report action for Receipt by payment Method Summary -->
+<!--    <report-->
+<!--            id="report_payment_method_summary"-->
+<!--            string="Report By Payment Method Summary"-->
+<!--            model="account.payment"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_account_reports.report_bypaymentmethodsummary"-->
+<!--            file="bista_account_reports.report_bypaymentmethodsummary"-->
+<!--            menu="False"/>-->
+
+    <record id="report_payment_method_summary" model="ir.actions.report">
+        <field name="name">Report By Payment Method Summary</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.report_bypaymentmethodsummary</field>
+        <field name="report_file">bista_account_reports.report_bypaymentmethodsummary</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Report action for Receipt by payment Method Summary(JE) -->
+<!--    <report-->
+<!--            id="report_payment_method_summary_je"-->
+<!--            string="Report By Payment Method Summary(JE)"-->
+<!--            model="account.move.line"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_account_reports.reportbypaymentmethodsummaryje"-->
+<!--            file="bista_account_reports.reportbypaymentmethodsummaryje"-->
+<!--            menu="False"/>-->
+
+    <record id="report_payment_method_summary_je" model="ir.actions.report">
+        <field name="name">Report By Payment Method Summary(JE)</field>
+        <field name="model">account.move.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.reportbypaymentmethodsummaryje</field>
+        <field name="report_file">bista_account_reports.reportbypaymentmethodsummaryje</field>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <!-- Report action for sale by practitioner summary -->
+<!--    <report-->
+<!--            id="report_sales_by_practitioner_summary"-->
+<!--            string="Sales by Pratitioner Summary Report"-->
+<!--            model="account.move"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_account_reports.sales_by_prititioner_summary"-->
+<!--            file="bista_account_reports.sales_by_prititioner_summary"-->
+<!--            menu="False"/>-->
+
+    <record id="report_sales_by_practitioner_summary" model="ir.actions.report">
+        <field name="name">Sales by Practitioner Summary Report</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.sales_by_prititioner_summary</field>
+        <field name="report_file">bista_account_reports.sales_by_prititioner_summary</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Report action for Appointment by practitioner -->
+<!--    <report-->
+<!--            id="report_app_by_practitioner"-->
+<!--            string="Appointment By Pratitioner Report"-->
+<!--            model="account.move"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_account_reports.appointment_by_practitioner"-->
+<!--            file="bista_account_reports.appointment_by_practitioner"-->
+<!--            menu="False"/>-->
+
+    <record id="report_app_by_practitioner" model="ir.actions.report">
+        <field name="name">Appointment By Practitioner Report</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.appointment_by_practitioner</field>
+        <field name="report_file">bista_account_reports.appointment_by_practitioner</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Report Action for Allocation by Practitioner -->
+<!--    <report-->
+<!--            id="report_allocation_by_prac"-->
+<!--            string="Allocation By Pratitioner Report"-->
+<!--            model="account.payment"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_account_reports.allocation_by_practitioner"-->
+<!--            file="bista_account_reports.allocation_by_practitioner"-->
+<!--            menu="False"/>-->
+
+    <record id="report_allocation_by_prac" model="ir.actions.report">
+        <field name="name">Allocation By Practitioner Report</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.allocation_by_practitioner</field>
+        <field name="report_file">bista_account_reports.allocation_by_practitioner</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Report Action for Sales  by Service Type -->
+<!--    <report-->
+<!--            id="report_sales_by_service_type"-->
+<!--            string="Sales By Service Report"-->
+<!--            model="account.move"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_account_reports.sales_by_service_type"-->
+<!--            file="bista_account_reports.sales_by_service_type"-->
+<!--            menu="False"/>-->
+
+    <record id="report_sales_by_service_type" model="ir.actions.report">
+        <field name="name">Sales By Service Report</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.sales_by_service_type</field>
+        <field name="report_file">bista_account_reports.sales_by_service_type</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Report Action for Sales  by Service Type  summary -->
+<!--    <report-->
+<!--            id="report_sales_by_service_type_summary"-->
+<!--            string="Sales By Service Report Summary"-->
+<!--            model="account.payment"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_account_reports.sales_by_service_type_summary"-->
+<!--            file="bista_account_reports.sales_by_service_type_summary"-->
+<!--            menu="False"/>-->
+
+    <record id="report_sales_by_service_type_summary" model="ir.actions.report">
+        <field name="name">Sales By Service Report Summary</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.sales_by_service_type_summary</field>
+        <field name="report_file">bista_account_reports.sales_by_service_type_summary</field>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <!-- Report Action for Account Move Report -->
+<!--    <report-->
+<!--            id="account_move_report"-->
+<!--            model="account.move"-->
+<!--            string="Journal Entries"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_account_reports.account_move_report_template"-->
+<!--            file="bista_account_reports.account_move_report_template"-->
+<!--    />-->
+
+    <record id="account_move_report" model="ir.actions.report">
+        <field name="name">ournal Entries</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.account_move_report_template</field>
+        <field name="report_file">bista_account_reports.account_move_report_template</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Paper format for custom report -->
+    <record id="annual_invoice_paperformat" model="report.paperformat">
+        <field name="name">Annual Invoice Paperformat</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+    <!--        <field name="report_ids"-->
+    <!--                    eval="[(4,ref('bista_account_reports.action_annual_invoice'))]"></field>-->
+
+
+    <!--    <report-->
+    <!--            id="action_annual_invoice"-->
+    <!--            string="Annual Invoice"-->
+    <!--            model="account.invoice"-->
+    <!--            report_type="qweb-pdf"-->
+    <!--            name="bista_account_reports.report_annual_invoice"-->
+    <!--            file="bista_account_reports.report_annual_invoice"-->
+    <!--            menu="False"/>-->
+    <record id="action_annual_invoice" model="ir.actions.report">
+        <field name="name">Annual Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.report_annual_invoice</field>
+        <field name="report_file">bista_account_reports.report_annual_invoice</field>
+        <field name="paperformat_id" ref="bista_account_reports.annual_invoice_paperformat"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <!-- Paper format for Sales by Practitioner -->
+    <record id="sales_by_practitioner_paperformat" model="report.paperformat">
+        <field name="name">Sales by Practitioner</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">15</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">10</field>
+        <field name="dpi">90</field>
+        <!--        <field name="report_ids"-->
+        <!--                    eval="[(4,ref('bista_account_reports.report_sales_by_practitioner_detail'))]"></field>-->
+    </record>
+    <!-- Report action for sales by practitioner  -->
+    <!--   <report-->
+    <!--            id="report_sales_by_practitioner_detail"-->
+    <!--            string="Sales By Pratitioner Detail Report"-->
+    <!--            model="account.invoice"-->
+    <!--            report_type="qweb-pdf"-->
+    <!--            name="bista_account_reports.sales_by_prititioner_detail"-->
+    <!--            file="bista_account_reports.sales_by_prititioner_detail"-->
+    <!--            menu="False"/>-->
+    <record id="report_sales_by_practitioner_detail" model="ir.actions.report">
+        <field name="name">Sales By Pratitioner Detail Report</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.sales_by_prititioner_detail</field>
+        <field name="report_file">bista_account_reports.sales_by_prititioner_detail</field>
+        <field name="paperformat_id" ref="bista_account_reports.sales_by_practitioner_paperformat"/>
+        <field name="binding_type">report</field>
+    </record>
+    <!--    <record id="report_sales_by_practitioner_detail" model="ir.actions.report">-->
+    <!--        <field name="name">Sales By Pratitioner Detail Report</field>-->
+    <!--        <field name="model">account.move</field>-->
+    <!--        <field name="report_type">qweb-pdf</field>-->
+    <!--        <field name="report_name">bista_tdcc_operations.sales_by_prititioner_detail</field>-->
+    <!--        <field name="report_file">bista_tdcc_operations.sales_by_prititioner_detail</field>-->
+    <!--        <field name="paperformat_id" ref="bista_tdcc_operations.sales_by_practitioner_paperformat"/>-->
+    <!--        <field name="binding_type">report</field>-->
+    <!--    </record>-->
+
+    <!--Vat Report paper format -->
+    <record id="vat_report_view_paperformat" model="report.paperformat">
+        <field name="name">Vat Report View Report</field>
+        <field name="default">True</field>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line">False</field>
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+    </record>
+
+<!--    <report-->
+<!--                id="action_vat_report"-->
+<!--                string="Vat Report"-->
+<!--                model="account.invoice.tax"-->
+<!--                report_type="qweb-pdf"-->
+<!--                name="bista_account_reports.vat_report_pdf"-->
+<!--                file="bista_account_reports.vat_report_pdf"-->
+<!--                menu="False"/>-->
+
+    <record id="action_vat_report" model="ir.actions.report">
+        <field name="name">Vat Report</field>
+        <field name="model">account.tax</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_account_reports.vat_report_pdf</field>
+        <field name="report_file">bista_account_reports.vat_report_pdf</field>
+        <field name="paperformat_id" ref="vat_report_view_paperformat"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>
+

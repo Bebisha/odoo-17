@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="tdcc_client_date_comfortable_form" model="ir.ui.view">
+            <field name="name">client.date.comfortable.form</field>
+            <field name="model">client.date.comfortable</field>
+            <field name="arch" type="xml">
+                <form string="Client Date Comfortable">
+                    <field name="line_ids">
+                        <tree string='Comfortable' delete='false' editable='bottom'>
+                            <field name="allow"/>
+                            <field name="date" readonly="1" required="1"/>
+                            <field name="day" readonly="1"/>
+                            <field name="start_time" widget="float_time" readonly="1"/>
+                            <field name="end_time" widget="float_time" readonly="1"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="action_create_appointment_schedule" string="Confirm"
+                        type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="tdcc_action_open_date_comfortable" model="ir.actions.act_window">
+            <field name="name">Comfortable Dates</field>
+            <field name="res_model">client.date.comfortable</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,46 @@
+<t t-name="ProductItem" t-inherit="point_of_sale.ProductItem" t-inherit-mode="extension" owl="1">
+    <xpath expr="//article[hasclass('product')]" position="inside">
+        <style>
+            .ribbon {
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+            position: absolute;
+            }
+            .ribbon::before,
+            .ribbon::after {
+            position: absolute;
+            z-index: -1;
+            content: '';
+            display: block;
+            border: 5px solid #2980b9;
+            }
+            .ribbon span {
+            position: absolute;
+            display: block;
+            width: 50px;
+            padding: 15px 0;
+            background-color: #3498db;
+            box-shadow: 0 5px 10px rgba(0,0,0,.1);
+            color: #fff;
+            font: 700 10px/1 'Lato', sans-serif;
+            text-shadow: 0 1px 1px rgba(0,0,0,.2);
+            text-transform: uppercase;
+            text-align: center;
+            }
+
+        </style>
+        <t t-if="env.pos.config.show_onhand_qty">
+            <div class="product-qty" t-if="onhand_qty == 0">
+                <span class="a-size-medium a-color-danger" style="color:red;">Out of stock</span>
+            </div>
+            <div class="product-qty" t-if="onhand_qty &gt;0">
+                <span class="a-size-medium a-color-danger" style="color:green;">
+                    <t t-esc="onhand_qty"/>
+                    item(s) left in stock
+                </span>
+            </div>
+        </t>
+
+    </xpath>
+</t>

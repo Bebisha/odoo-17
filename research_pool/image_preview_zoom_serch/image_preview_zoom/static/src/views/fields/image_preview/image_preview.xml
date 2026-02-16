@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="image_preview_zoom.ImagePreviewField" t-inherit="web.ImageField" t-inherit-mode="primary" owl="1">
+        <xpath expr="//img[hasclass('img')]" position="attributes">
+            <attribute name="t-on-click">onClickImage</attribute>
+        </xpath>
+        <xpath expr="//img[hasclass('img-fluid')]" position="after">
+            <button type="button" class="o_image_preview_icon btn btn-secondary fa fa-search"
+                    style="position: absolute; top: 5px; right: 5px; z-index: 10;"
+                    title="Preview"
+                    aria-label="Preview"
+                    t-on-click="onClickIcon"/>
+        </xpath>
+<!--        <xpath expr="//i[hasclass('fa fa-file-pdf')]" position="after">-->
+<!--            <button type="button" class="o_pdf_preview_icon btn btn-secondary fa fa-file-pdf"-->
+<!--                    style="position: absolute; top: 5px; right: 5px; z-index: 10;"-->
+<!--                    title="Preview PDF"-->
+<!--                    aria-label="Preview PDF"-->
+<!--                    t-on-click="onClickIcon"/>-->
+<!--        </xpath>-->
+    </t>
+</templates>

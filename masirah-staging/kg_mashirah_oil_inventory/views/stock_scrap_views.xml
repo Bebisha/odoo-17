@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record id="kg_stock_scrap_form_view_inherit" model="ir.ui.view">
+            <field name="name">kg.stock.scrap.form.inherit</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_validate']" position="before">
+                    <field name="is_request" invisible="1"/>
+                    <field name="is_fm_approve" invisible="1"/>
+                    <field name="is_stock_scrap_approve" invisible="1"/>
+                    <field name="is_reject" invisible="1"/>
+
+                    <button name="kg_request" type="object" string="Request for Approval"
+                            invisible="is_request == False or is_fm_approve == True"
+                            class="oe_highlight"/>
+                    <button name="kg_fm_approve" type="object" string="Finance Manager Approval"
+                            invisible="is_fm_approve == False or is_stock_scrap_approve == True or is_reject == True"
+                            class="oe_highlight"/>
+                    <button name="kg_reject" type="object" string="Reject"
+                            invisible="is_fm_approve == False or is_stock_scrap_approve == True or is_reject == True"
+                            class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="after">
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success"
+                            invisible="is_stock_scrap_approve == False"/>
+                    <widget name="web_ribbon" title="Rejected" bg_color="bg-danger" invisible="is_reject == False"/>
+                </xpath>
+                <field name="message_follower_ids" position="after">
+                    <field name="activity_ids"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="to_whom_it_may_concern_sequence">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header">
+                            <table class='table-borderless' width="100%">
+                                <tr width="100%">
+                                    <td align="left">
+                                        <img t-att-src="image_data_uri(doc.company_id.logo)"
+                                             style="height:150px;width:170px;margin-top:-15px;" align="center"
+                                             alt="Company Logo"/>
+                                    </td>
+                                    <td align="right">
+                                        <span class="page"/>: الرقـــم
+                                        <br/>
+                                        <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>: التاريخ
+                                        <br/>
+                                        <span t-esc="doc.name"/>: رقم
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <table class='table table-borderless table-condensed table-hover'
+                                   style="margin-top:40px;font-size:18px;border-collapse:collapse;border-radius: 5px 5px 5px 5px;width:100%;margin:5pt;border-bottom: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;">
+                                <tr style="border-bottom: 1px solid black;">
+                                    <td width="50%"
+                                        style="border-right:1px solid black; font-size:20px; text-align:center">
+                                        <strong>To Whom It May Concern</strong>
+                                    </td>
+                                    <td width="50%" style="font-size:20px; text-align:center">
+                                        <strong>شهادة لمن يهمه الأمر</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50%" style="border-right:1px solid black">
+                                        This to certify that Mr/Ms.<span t-esc="doc.employee_id.name"/>has worked for
+                                        <span t-esc="doc.company_id.name"/>Company since<span t-esc="doc.employee_id.date_of_join"/>, worked as:<span
+                                            t-esc="doc.employee_id.job_id.name"/>.He receives a total salary of
+                                        <span t-esc="doc.employee_id.contract_id.total_salary"/>
+                                        /- (Omani Rial including all allowances.
+                                    </td>
+                                    <td width="50%">
+                                        هذا للتأكيد على أن السيد / السيدة.<span t-esc="doc.employee_id.name"/>عمل في
+                                        شركة مصيرة للنفط المحدودة منذ<span t-esc="doc.employee_id.date_of_join"/>، وعمل
+                                        كـ:<span t-esc="doc.employee_id.job_id.name "/>.يحصل على راتب إجمالي قدره
+                                        <span t-esc="doc.employee_id.contract_id.total_salary"/>
+                                        /- (ريال عماني شاملة كافة البدلات.
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid black;">
+                                    <td width="50%"
+                                        style="border-right:1px solid black; padding-top:20px;padding-bottom:10px;">
+                                        This certificate been issued upon the request of the above name without any
+                                        responsibility on the part of this company.
+                                    </td>
+                                    <td width="50%" style="padding-top:20px; padding-bottom:10px;">
+                                        وقد أعطيت له هذه الشهادة بناءً على طلبه دون تحمل الشركة أدنى مسؤولية تجاه الغير.
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid black; height:70pt;">
+                                    <td width="50%" style="border-right:1px solid black; padding-top:15px;">
+                                        This certificate been issued upon the request of the above name without any
+                                        responsibility on the part of this company.
+                                    </td>
+                                    <td width="50%" style="border-right:1px solid black; padding-top:15px;">
+                                        وقــد أعطيت له هـذه الشهــاده بنــاء علــى طلبه, دون تحمل إدارة الـشـركة أدنــى
+                                        مسؤولية تجاهه.
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid black; height:40pt;">
+                                    <td width="50%" align="center"
+                                        style="border-right:1px solid black; font-size:19px; text-align:center">
+                                        <span t-field="doc.employee_id.parent_id"/>
+                                        <br/>
+                                        <span t-field="doc.employee_id.parent_id.job_id"/>
+
+                                    </td>
+                                    <td width="50%" align="center" style="font-size:20px; text-align:center">
+                                        سالم الفارسي
+                                        <br/>
+                                        مدير الماليه والموارد البشرية
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="footer">
+                            <table class='table-borderless' width="100%">
+                                <tr width="100%">
+                                    <td align="center">
+                                        <strong>
+                                            <span t-esc="doc.company_id.name"/>
+                                        </strong>
+                                        <br/>
+                                        <span t-esc="doc.company_id.street"/>
+                                        <br/>
+                                        <t t-if="doc.company_id.bldg_no">Bldg. No.<span t-esc="doc.company_id.bldg_no"/>
+                                            ,
+                                        </t>
+                                        <t t-if="doc.company_id.way_no">Way No.<span t-esc="doc.company_id.way_no"/>,
+                                        </t>
+                                        <span t-esc="doc.company_id.street2"/>
+                                        <br/>
+                                        <span t-esc="doc.company_id.city"/>,
+                                        <span t-esc="doc.company_id.state_id.name"/>
+                                        <br/>
+                                        <t t-if="doc.company_id.phone">Phone No.<span t-esc="doc.company_id.phone"/>,
+                                        </t>
+                                        <t t-if="doc.company_id.fax">Fax<span t-esc="doc.company_id.fax"/>,
+                                        </t>
+                                        <t t-if="doc.company_id.company_registry">CR No.
+                                            <span t-esc="doc.company_id.company_registry"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

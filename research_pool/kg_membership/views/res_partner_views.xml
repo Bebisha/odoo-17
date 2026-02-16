@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="kgview_partner_form">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" name="action_associate_member_views"
+                        context="{'default_partner_id': id, 'default_type':'opportunity'}"
+                        type="object" icon="fa-credit-card">
+                    <field string="Associate Member" name="associate_member_count" widget="statinfo"/>
+                </button>
+            </div>
+            <xpath expr="//sheet" position="before">
+
+                <header>
+
+
+                    <button name="action_associate_member" string="Create Associate Member" type="object"
+                            class="oe_highlight" invisible="is_associate_member == True"/>
+                </header>
+            </xpath>
+
+            <xpath expr="//page[@name='membership']/group" position="inside">
+                <group>
+                    <field name="is_membership" invisible="is_associate_member == True"/>
+                    <field name="is_associate_member" invisible="1"/>
+                    <field name="membership_number" invisible="is_associate_member == True"/>
+                    <field name="associate_membership_number" invisible=" is_associate_member == False "/>
+                </group>
+                <group>
+                    <field name="associate_member_ids"  widget="many2many_tags"/>
+
+                </group>
+
+
+            </xpath>
+            <xpath expr="//field[@name='associate_member']" position="attributes">
+
+                <attribute name="invisible">[('is_associate_member', '=', True)]</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="kgview_partner_form_01" model="ir.ui.view">
+        <field name="name">res.partner.search.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="membership.view_res_partner_member_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter string="Is membership" name="is_membership" domain="[('is_membership', '=', True)]"/>
+                <filter string="Is Associate Member" name="is_associate_member"
+                        domain="[('is_associate_member', '=', True)]"/>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="membership.action_membership_members">
+        <field name="name">Members</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="search_view_id" ref="kgview_partner_form_01"/>
+        <field name="context">{"search_default_is_membership": 1 }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new member
+            </p>
+            <p>
+                Odoo helps you easily track all activities related to a member:
+                Current Membership Status, Discussions and History of Membership, etc.
+            </p>
+        </field>
+    </record>
+    <!--     <record model="ir.actions.act_window" id="action_membership_members">-->
+    <!--            <field name="name">Members</field>-->
+    <!--            <field name="res_model">res.partner</field>-->
+    <!--            <field name="view_mode">kanban,tree,form,activity</field>-->
+    <!--            <field name="search_view_id" ref="view_res_partner_member_filter"/>-->
+    <!--            <field name="context">{"search_default_all_members": 1, "default_free_member": True}</field>-->
+    <!--            <field name="help" type="html">-->
+    <!--                <p class="o_view_nocontent_smiling_face">-->
+    <!--                  Add a new member-->
+    <!--                </p><p>-->
+    <!--                  Odoo helps you easily track all activities related to a member: -->
+    <!--                  Current Membership Status, Discussions and History of Membership, etc.-->
+    <!--                </p>-->
+    <!--            </field>-->
+    <!--        </record>-->
+
+
+</odoo>

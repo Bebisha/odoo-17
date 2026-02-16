@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Template for Sales By practitioner with detail/summary -->
+    <template id="sales_by_prititioner_summary">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <t t-set="total" t-value="0"/>
+                    <div>
+                        <center>
+                            <p>
+                                <b>
+                                    <t t-esc="get_title"/>
+                                </b>
+                            </p>
+                        </center>
+                    </div>
+                    <table class="table table-border" width="100%">
+                        <thead>
+                            <th>Practitioner</th>
+                            <th>Sales</th>
+                            <th>Receipts</th>
+                            <th>Balance Due</th>
+                        </thead>
+                        <tbody>
+                            <t t-set="sale_total" t-value="0"/>
+                            <t t-set="total" t-value="0"/>
+                            <t t-set="receipt_total" t-value="0"/>
+                            <t t-set="balance_total" t-value="0"/>
+                            <t t-foreach="get_data_from_report" t-as="data">
+                                <tr>
+                                    <td>
+                                        <span t-esc="data.get('physician')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('sales')"/>
+                                        <t t-set="sale_total" t-value="sale_total + data.get('sales')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('receipt')"/>
+                                        <t t-set="receipt_total" t-value="receipt_total + data.get('receipt')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('balance')"/>
+                                        <t t-set="balance_total" t-value="balance_total + data.get('balance')"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tr>
+                            <td>
+                                <b>Total Sales</b>
+                            </td>
+                            <td>
+                                <b>
+                                    <t t-esc="sale_total"/>
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    <t t-esc="receipt_total"/>
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    <t t-esc="balance_total"/>
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

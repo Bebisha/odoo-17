@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_mail_server_tdcc_user,access_mail_server_tdcc_user,base.model_ir_mail_server,base.group_user,1,1,1,0
+access_fetchmail_server_tdcc_user,access_fetchmail_server_tdcc_user,fetchmail.model_fetchmail_server,base.group_user,1,1,1,0

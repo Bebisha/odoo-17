@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record id="kg_hr_payroll_report_view_search" model="ir.ui.view">
+            <field name="name">kg.hr.payroll.report.view.search</field>
+            <field name="model">hr.payroll.report</field>
+            <field name="inherit_id" ref="hr_payroll.payroll_report_view_search"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="employee_id" string="Employee No." filter_domain="[('employee_id.registration_number','ilike', self)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_hr_work_entry_report_view_search" model="ir.ui.view">
+            <field name="name">kg.hr.work.entry.report.view.search</field>
+            <field name="model">hr.work.entry.report</field>
+            <field name="inherit_id" ref="hr_payroll.hr_work_entry_report_view_search"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="employee_id" string="Employee No." filter_domain="[('employee_id.registration_number','ilike', self)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_hr_salary_attachment_report_view_search" model="ir.ui.view">
+            <field name="name">kg.hr.salary.attachment.report.search</field>
+            <field name="model">hr.salary.attachment.report</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_attachment_report_view_search"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="employee_id" string="Employee No." filter_domain="[('employee_id.registration_number','ilike', self)]"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,231 @@
+<odoo>
+    <record model="ir.ui.view" id="view_partner_list_form_inherited">
+        <field name="name">view.partner.form.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <!--            <xpath expr="//page[@name='additiona_details']//group[@name='is_partner']" position="after">-->
+            <xpath expr="//page[@name='additiona_details']//group[@name='is_partner']" position="after">
+                <group>
+                    <group>
+                        <field name="is_send_Ao3" invisible="1"/>
+                        <field name="is_send_Ao4" invisible="1"/>
+                        <field name="is_send_Ao8" invisible="1"/>
+                        <field name="is_send_A11" invisible="1"/>
+
+                        <!-- Second Group -->
+                        <field name="is_send_A39" invisible="1"/>
+                        <field name="is_send_A31" invisible="1"/>
+
+                    </group>
+                    <group>
+                        <field name="is_vip"/>
+                        <field name="is_vip_sent" invisible="1"/>
+                        <field name="is_global"/>
+                        <field name="is_facility"/>
+                        <field name="is_merge" invisible="1"/>
+
+
+                    </group>
+
+
+                </group>
+
+            </xpath>
+            <xpath expr="//form/sheet/group/group/field[@name='category_id']"
+                   position="after">
+                <field name="merge_record_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='dob']" position="attributes">
+                <attribute name="required">is_physician ==  True</attribute>
+            </xpath>
+            <xpath expr="//field[@id='individual']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+
+
+            <xpath expr="//page[@name='additiona_details']" position="inside">
+
+                <group>
+<!--                    <group string="Transfer Form">-->
+<!--                        <field name="nationality" options="{'no_create': True}"/>-->
+<!--                    </group>-->
+                    <group string="Message Header" invisible="1">
+                        <field name="msg_val"/>
+                        <field name="message_type"/>
+                        <field name="date_message"/>
+
+                    </group>
+                    <group string="Event Type" colspan="1" invisible="1">
+                        <field name="event_type_id"/>
+                        <field name="event_date"/>
+                    </group>
+                    <group string="Patient Identification" name="allergy">
+                        <field name="patient_identifer_ids" nolabel="1" colspan="2">
+                            <tree create="true" edit="buttom">
+                                <field name="full_name" column_invisible="1"/>
+                                <field name="patient_identifier_list" column_invisible="1"/>
+                                <field name="pass_no"/>
+                                <field name="nationality" options="{'no_create': True}"/>
+                                <field name="religion" options="{'no_create': True}"/>
+                                <field name="marital_status" options="{'no_create': True}"/>
+                                <field name="administrative_sex" options="{'no_create': True}"/>
+                                <field name="primary_lang" options="{'no_create': True}"/>
+                                <field name="emi_id" placeholder="12345678" column_invisible="1"/>
+                                <field name="birthday"/>
+                                <field name="pass_no"/>
+                                <field name="patient_profession_id"/>
+
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Associated Parties" name="parties" invisible="1">
+                        <field name="associated_parties_ids" nolabel="1" colspan="2">
+                            <tree create="true" edit="buttom">
+                                <field name="set_id_nk1" column_invisible="1"/>
+                                <field name="full_name" column_invisible="1"/>
+                                <field name="complete_address" column_invisible="1"/>
+                                <field name="phone_number" placeholder="Please enter your mobile number"/>
+                                <field name="relationship" options="{'no_create': True}"/>
+                                <field name="emergency_contact"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Guarantor" name="guarantor" invisible="1">
+                        <field name="guarantor_ids" nolabel="1" colspan="2">
+                            <tree create="true" edit="buttom">
+                                <field name="set_id_gtl" column_invisible="1"/>
+                                <field name="guarantor_name"/>
+                                <field name="guarantor_relationship" options="{'no_create': True}"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Segment Family History" name="family" invisible="1">
+                        <field name="segment_family_history_ids" nolabel="1" colspan="2">
+                            <tree create="true" edit="buttom">
+                                <field name="set_id_zfh" column_invisible="1"/>
+                                <field name="fam_member_name"/>
+                                <field name="status"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="specimen Source" name="specimen">
+                        <field name="specimen_type_modifier_ids" nolabel="1" colspan="2">
+                            <tree create="true" edit="buttom">
+                                <field name="specimen_id"/>
+                                <field name="specimen_type_id"/>
+                                <field name="specimen_date_time"/>
+                                <field name="specimen_source_id" placeholder="Blood/"/>
+<!--                                <field name="specimen_condition_id" placeholder="Fasting/"/>-->
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Segment Social History" name="social">
+                        <field name="segment_social_history_ids" nolabel="1" colspan="2">
+                            <tree create="true" edit="buttom">
+                                <field name="set_id_ssh" column_invisible="1"/>
+                                <field name="social_habits"/>
+                                <field name="social_habit_categorys"/>
+                                <field name="social_habit_qty_id"/>
+
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Z Segment Consent" name="consent">
+                        <field name="z_consent_ids" nolabel="1" colspan="2">
+                            <tree create="true" edit="buttom">
+                                <field name="is_opted"/>
+                                <field name="facility_from_date"/>
+                                <field name="global_from_date"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Insurance" name="insurance" invisible="1">
+                        <field name="insurance_ids" nolabel="1" colspan="2">
+                            <tree create="true" edit="buttom">
+                                <field name="set_id_inr" column_invisible="1"/>
+                                <field name="insured_name"/>
+                                <field name="in_company_name"/>
+                                <field name="health_plan_id"/>
+                                <field name="insurence_compny_id"/>
+                                <field name="policy_no"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="client_intake_partner" model="ir.ui.view">
+        <field name="name">Partner details</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//sheet" position="before">
+
+                    <header>
+
+
+                        <button name="action_appointment" string="Create Appointment" type="object"
+                                class="oe_highlight" invisible="state != 'new'"/>
+                        <button name="action_merge_patient" string="Merge" type="object"
+                                invisible="state != 'new'"/>
+                        <button name="action_update" string="Update" type="object"
+                                invisible="1"/>
+                        <button name="discharge_event" string="Discharge Event" type="object"
+                                invisible="1"/>
+                        <button name="action_update_a31" string="A31" type="object"
+                                invisible="1"/>
+
+                        <button name="action_vo4" string="V04" type="object"
+                                invisible="1"/>
+                        <button name="cancel_admit" string="Cancel Admit" type="object"
+                                invisible="1"/>
+                        <!--                        <button name="get_values_A39" string="Merge Patient" type="object" class="oe_highlight"  />-->
+                        <button name="oder_message_O01" string="O01" type="object"
+                                invisible="1"/>
+                        <!--                        <button name="problem_record_pc1" string="PC1" type="object"-->
+                        <!--                                invisible="state != 'new'"/>-->
+                        <button name="original_document_notification" string="T02" type="object"
+                                invisible="1"/>
+                        <button name="edit_notification" string="T08" type="object"
+                                invisible="1"/>
+                        <button name="unsolicited_transmission_observation" string="R01" type="object"
+
+                                invisible="1"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="new,register,dischager"/>
+                        <!--                        <widget name="web_ribbon" title="Discharge"-->
+                        <!--                                invisible="state != 'dischager'  " />-->
+                        <widget name="web_ribbon" title="Discharge" bg_color="text-bg-danger"
+                                invisible="state != 'dischager'  "/>
+
+                    </header>
+                </xpath>
+                <xpath expr="//button[@name='action_view_opportunity']" position="before">
+                    <button name="action_appoinment" type="object" class="oe_stat_button" icon="fa-id-card-o"
+                            string="Appointment"/>
+                    <button name="action_merge" type="object" class="oe_stat_button" icon="fa-id-card-o"
+                            string="Merge"/>
+                </xpath>
+                <xpath expr="//field[@name='mobile']" position="attributes">
+                    <attribute name="required">is_physician ==  True</attribute>
+                </xpath>
+
+            </data>
+        </field>
+    </record>
+
+    <record id="physion_res_partner_inherit" model="ir.ui.view">
+        <field name="name">Partner details</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="bista_tdcc_operations.res_partner_field_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='physician_code_id']" position="before">
+                <field name="sheryan_id" invisible="is_physician !=  True"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

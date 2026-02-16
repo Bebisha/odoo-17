@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record id="kg_reporting_accounting_action" model="ir.actions.act_window">
+            <field name="name">Reporting</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_reporting_config_accounting"
+                  name="Reporting" parent="account.menu_finance_reports" action="kg_reporting_accounting_action"/>
+
+
+        <record id="unpaid_invoice_report_action" model="ir.actions.act_window">
+            <field name="name">Unpaid Invoice</field>
+            <field name="res_model">unpaid.invoice.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_unpaid_invoice_report" action="unpaid_invoice_report_action"
+                  parent="kg_ultracare_accounting.menu_reporting_config_accounting"/>
+
+
+        <record id="unpaid_invoice_report_wizard" model="ir.ui.view">
+            <field name="name">Unpaid Invoice Wizard</field>
+            <field name="model">unpaid.invoice.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_unpaid_invoice_report"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

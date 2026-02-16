@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+
+        <record id="purchase_manager_approval_notification" model="mail.activity.type">
+            <field name="name">Purchase Manager Approval</field>
+            <field name="res_model">purchase.order</field>
+        </record>
+
+        <record id="general_manager_approval_notification" model="mail.activity.type">
+            <field name="name">General Manager Approval</field>
+            <field name="res_model">purchase.order</field>
+        </record>
+
+        <record id="purchase_order_approval_notification" model="mail.activity.type">
+            <field name="name">Purchase Order Approval</field>
+            <field name="res_model">purchase.order</field>
+        </record>
+
+
+        <record id="reject_purchase_order_notification" model="mail.activity.type">
+            <field name="name">Reject Purchase Order</field>
+            <field name="res_model">purchase.order</field>
+        </record>
+
+
+    </data>
+</odoo>

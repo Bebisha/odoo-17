@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_template_form" model="ir.ui.view">
+        <field name="name">product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="membership.membership_products_form"/>
+        <field name="arch" type="xml">
+
+            <!--            <xpath expr="//group[@name='membership_details']/label" position="before">-->
+            <!--                <label for="membership_interval" string="Membership Duration"/>-->
+            <!--                <div class="o_row">-->
+            <!--                    <field name="interval_type" placeholder="Select Interval Type" required="1"/>-->
+            <!--                    <field name="interval_value" placeholder="Enter Value" required="1"/>-->
+            <!--                </div>-->
+
+            <!--            </xpath>-->
+            <xpath expr="//group[@name='membership_details']" position="replace">
+                <group>
+                    <label for="membership_date_from" string="Membership Date"/>
+                    <div class="o_row">
+                        <field name="membership_date_from" required="1"/>
+
+                        <field name="membership_date_to" required="1"/>
+                    </div>
+
+
+                    <label for="interval_type" string="Membership Duration"/>
+                    <div class="o_row">
+                        <field name="interval_value" required="1"/>
+
+                        <field name="interval_type" placeholder="" required="1"/>
+                    </div>
+
+                    <field name="list_price" string="Membership Fee"/>
+                    <field
+                            name="property_account_income_id"/>
+                    <field name="taxes_id" widget="many2many_tags" string="Taxes"/>
+
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

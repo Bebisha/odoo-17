@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="account_ledger_report_menu_action" model="ir.actions.act_window">
+            <field name="name">Account Ledger</field>
+            <field name="res_model">account.ledger.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_account_ledger_report" action="account_ledger_report_menu_action"
+                  name="Account Ledger" parent="kg_ultracare_accounting.menu_reporting_config_accounting"/>
+
+        <record id="account_ledger_report_wizard_view" model="ir.ui.view">
+            <field name="name">Account Ledger Wizard</field>
+            <field name="model">account.ledger.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                        </group>
+                        <group name="date_to">
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_account_ledger_report"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

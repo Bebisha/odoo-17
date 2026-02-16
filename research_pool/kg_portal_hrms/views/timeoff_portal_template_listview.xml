@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="portal_my_home_time_off" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/kg_portal_hrms/static/description/img/icon1.png'"/>
+                <t t-set="title">TimeOff</t>
+                <t t-set="url" t-value="'/employee/timeoff'"/>
+                <t t-set="placeholder_count" t-value="'time_count'"/>
+                <img t-if="icon" t-att-src="icon" class="custom-icon"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_timeoff_listview" name="Portal Timeoff">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Time Off</t>
+            </t>
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Start Date</td>
+                        <td>End Date</td>
+                        <td>Time Off Type</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="timeoff" t-as="employee">
+                        <tr>
+                            <td>
+                                <a t-attf-href="/my/employee_time_off/#{employee.id}">
+                                    <t t-out="employee.employee_id"/>
+                                </a>
+                            </td>
+
+                            <td>
+                                <t t-out="employee.start_date"/>
+                            </td>
+                            <td>
+                                <t t-out="employee.end_date"/>
+                            </td>
+                            <td>
+                                <t t-out="employee.holiday_status_id"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+    <template id="vendors_form_view_portal" inherit_id="portal.portal_sidebar">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <style>
+                body {
+                background-image: url('/kg_portal_hrms/static/description/img/image3.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 100vh;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: Arial, sans-serif;
+                color: #fff;
+                }
+            </style>
+            <div class="mt16">
+                <h1 align="center" style="color: #333; font-family: 'Arial', sans-serif; margin-bottom: 20px;">
+                    <label>Portal TimeOff</label>
+                </h1>
+                <section
+                        style="background-color: rgba(249, 249, 249, 0.7); padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+
+
+                    <div class="container py-5">
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="card mb-4"
+                                     style="border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                                    <div class="card-body">
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0" style="font-weight: bold;">Full Name :</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="employee.employee_id"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0" style="font-weight: bold;">Time Off Type :</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <p class="text-muted mb-0">
+                                                        <t t-out="employee.holiday_status_id"/>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <hr>
+
+                                                <div class="row mb-3">
+                                                    <div class="col-sm-3">
+                                                        <p class="mb-0" style="font-weight: bold;">Start Date :</p>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <p class="text-muted mb-0">
+                                                            <t t-out="employee.start_date"/>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </hr>
+
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0" style="font-weight: bold;">End Date :</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <p class="text-muted mb-0">
+                                                        <t t-out="employee.end_date"/>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </hr>
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0" style="font-weight: bold;">Duration :</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="employee.number_of_days_display"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0" style="font-weight: bold;">Description :</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <p class="text-muted mb-0">
+                                                        <t t-out="employee.reason"/>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </hr>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </xpath>
+    </template>
+
+
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="sale_order_document_watermark" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@class='page']" position="before">
+           <div class="row" t-if="doc.state == 'cancel' and report_type == 'pdf'"
+                 style="position:fixed; top:350px; left:0; width:100%;  pointer-events:none; display:flex; justify-content:center; align-items:center;">
+                <div style="-webkit-transform:rotate(-45deg); color:black; font-size:9em; text-align:center; opacity:0.10;">
+                    Cancelled
+                </div>
+            </div>
+
+            <div class="row" t-if="doc.state == 'draft' and report_type == 'pdf'"
+                 style="position:fixed; top:350px; left:0; width:100%;  pointer-events:none; display:flex; justify-content:center; align-items:center;">
+                <div style="-webkit-transform:rotate(-45deg); color:black; font-size:11em; text-align:center; opacity:0.10;">
+                    Draft
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

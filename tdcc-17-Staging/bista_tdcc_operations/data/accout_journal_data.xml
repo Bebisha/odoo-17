@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+    <data noupdate="1">
+
+        <record model="account.journal" id="tdcc_cheque_journal">
+            <field name="name">Cheque</field>
+            <field name="code">cheque</field>
+            <field name="type">bank</field>
+<!--            <field name="default_debit_account_id"-->
+<!--                ref="l10n_tdcc_coa.tdcc_account_11205"/>-->
+<!--            <field name="default_credit_account_id"-->
+<!--                ref="l10n_tdcc_coa.tdcc_account_11205"/>-->
+        </record>
+<!--        <record model="account.journal" id="tdcc_cheque_journal">-->
+<!--    <field name="name">Cheque</field>-->
+<!--    <field name="code">cheque</field>-->
+<!--    <field name="type">bank</field>-->
+<!--    <field name="default_debit_account_id" ref="l10n_tdcc_coa.tdcc_coa_tdcc_account_11205"/>-->
+<!--    <field name="default_credit_account_id" ref="l10n_tdcc_coa.tdcc_coa_tdcc_account_11205"/>-->
+<!--</record>-->
+
+
+        <record model="account.journal" id="tdcc_credit_card_journal">
+            <field name="name">Credit Card</field>
+            <field name="code">CC</field>
+            <field name="type">bank</field>
+<!--             <field name="default_account_id"-->
+<!--                ref="l10n_tdcc_coa.tdcc_account_11204"/>-->
+<!--            <field name="default_account_id"-->
+<!--                ref="l10n_tdcc_coa.tdcc_account_11204"/>-->
+        </record>
+
+        <record model="account.journal"
+            id="tdcc_petty_cash_donna">
+            <field name="name">Petty Cash Donna</field>
+            <field name="code">PC</field>
+            <field name="type">cash</field>
+<!--            <field name="default_debit_account_id"-->
+<!--                ref="l10n_tdcc_coa.tdcc_account_11606"/>-->
+<!--            <field name="default_credit_account_id"-->
+<!--                ref="l10n_tdcc_coa.tdcc_account_11606"/>-->
+        </record>
+
+        <record model="account.journal"
+            id="tdcc_petty_cash_accounts">
+            <field name="name">Petty Cash Accounts</field>
+            <field name="code">PCA</field>
+            <field name="type">cash</field>
+<!--            <field name="default_debit_account_id"-->
+<!--                ref="l10n_tdcc_coa.tdcc_account_11104"/>-->
+<!--            <field name="default_credit_account_id"-->
+<!--                ref="l10n_tdcc_coa.tdcc_account_11104"/>-->
+        </record>
+
+        <!-- <record model="account.journal" id="tdcc_bank_transfer_journal">
+            <field name="name">Bank Transfer</field>
+            <field name="code">BT</field>
+            <field name="type">bank</field>
+        </record> -->
+
+        <!-- <record model="account.journal"
+            id="tdcc_invoice_correction_journal">
+            <field name="name">Invoice Correction</field>
+            <field name="code">IC</field>
+            <field name="type">bank</field>
+            <field name="default_debit_account_id"
+                ref="l10n_tdcc_coa.1_tdcc_account_11205"></field>
+            <field name="default_credit_account_id"
+                ref="l10n_tdcc_coa.1_tdcc_account_11205"></field>
+        </record> -->
+
+        <!-- <record model="account.journal" id="tdcc_mashreq_bank_journal">
+            <field name="name">Mashreq Bank</field>
+            <field name="code">MB</field>
+            <field name="type">bank</field>
+            <field name="default_debit_account_id"
+                ref="l10n_tdcc_coa.1_tdcc_account_11205"></field>
+            <field name="default_credit_account_id"
+                ref="l10n_tdcc_coa.1_tdcc_account_11205"></field>
+        </record> -->
+
+        <record model="account.journal"
+            id="tdcc_mashreq_bank_credit_card_journal">
+            <field name="name">Mashreq Bank Credit Card (Company)</field>
+            <field name="code">MBCC</field>
+            <field name="type">bank</field>
+<!--            <field name="default_debit_account_id"-->
+<!--                ref="l10n_tdcc_coa.tdcc_account_11206"/>-->
+<!--            <field name="default_credit_account_id"-->
+<!--                ref="l10n_tdcc_coa.tdcc_account_11206"/>-->
+        </record>
+
+    </data>
+</odoo>

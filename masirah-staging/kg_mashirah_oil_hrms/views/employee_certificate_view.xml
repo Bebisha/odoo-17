@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <record id="menu_emp_certificate_action" model="ir.actions.act_window">
+            <field name="name">Employee Certificates</field>
+            <field name="res_model">employee.certificates</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_emp_certificate" name="Employee Certificates" action="menu_emp_certificate_action"
+                  parent="hr.hr_menu_hr_reports" sequence="7"/>
+
+        <record id="employee_certificate_view_tree" model="ir.ui.view">
+            <field name="name">Employee Certificates Tree View</field>
+            <field name="model">employee.certificates</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Certificates">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="certificate"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="emp_certificates_view_form" model="ir.ui.view">
+            <field name="name">Employee Certificates Form View</field>
+            <field name="model">employee.certificates</field>
+            <field name="arch" type="xml">
+
+                <form string="Employee Certificates ">
+                    <header>
+                        <button string="Print Outgoing Letter" type="object" class="oe_highlight"
+                                name="print_certificate_report"/>
+
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Reference"/>
+                            <h1>
+                                <field name="name" readonly="1" force_save="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="is_created" invisible="1"/>
+                                <field name="employee_id" required="1" readonly= "is_created == True"/>
+                                <field name="certificate" required="1" readonly= "is_created == True"/>
+                                <field name="manager_id" invisible="1"/>
+
+                            </group>
+
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

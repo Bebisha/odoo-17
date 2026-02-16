@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+          <menuitem
+                id="menu_payslip_report"
+                name="Payslip Report"
+                action="action_payslip_wizard"
+                sequence="19"
+                parent="hr_payroll.menu_hr_payroll_report"/>
+    </data>
+</odoo>

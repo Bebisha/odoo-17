@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="balance_sheet_schedule_report_menu_action" model="ir.actions.act_window">
+            <field name="name">Balance Sheet Schedule</field>
+            <field name="res_model">balance.sheet.schedule.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_balance_sheet_schedule_report" action="balance_sheet_schedule_report_menu_action"
+                  name="Balance Sheet Schedule" parent="kg_ultracare_accounting.menu_reporting_config_accounting"/>
+
+        <record id="balance_sheet_schedule_report_wizard_view" model="ir.ui.view">
+            <field name="name">Balance Sheet Schedule Wizard</field>
+            <field name="model">balance.sheet.schedule.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                        </group>
+                        <group name="date_to">
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_balance_sheet_schedule_report"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

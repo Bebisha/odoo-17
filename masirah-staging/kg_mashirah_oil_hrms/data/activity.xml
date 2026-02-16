@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+
+        <record id="line_manager_approval_notification" model="mail.activity.type">
+            <field name="name">Line Manager Approval</field>
+            <field name="res_model">employee.training.form</field>
+        </record>
+        <record id="general_manager_approval_notification" model="mail.activity.type">
+            <field name="name">General Manager Approval</field>
+            <field name="res_model">employee.training.form</field>
+        </record>
+          <record id="hr_approval_notification" model="mail.activity.type">
+            <field name="name">HR Approval</field>
+            <field name="res_model">employee.training.form</field>
+        </record>
+        <record id="training_form_approval_notification" model="mail.activity.type">
+            <field name="name">Employee Training Approval</field>
+            <field name="res_model">employee.training.form</field>
+        </record>
+        <record id="reject_employee_training_notification" model="mail.activity.type">
+            <field name="name">Reject Employee Training</field>
+            <field name="res_model">employee.training.form</field>
+        </record>
+
+
+        <record id="hr_manager_approval_notification" model="mail.activity.type">
+            <field name="name">HR Manager Approval</field>
+            <field name="res_model">annual.leave.transfer</field>
+        </record>
+        <record id="annual_transfer_approval_notification" model="mail.activity.type">
+            <field name="name">Annual Leave Transfer Approval</field>
+            <field name="res_model">annual.leave.transfer</field>
+        </record>
+        <record id="reject_annual_leave_transfer_notification" model="mail.activity.type">
+            <field name="name">Reject Annual Leave Transfer</field>
+            <field name="res_model">annual.leave.transfer</field>
+        </record>
+
+
+        <record id="line_manager_approval_notification" model="mail.activity.type">
+            <field name="name">Line Manager Approval</field>
+            <field name="res_model">leave.encashment</field>
+        </record>
+        <record id="hr_manager_approval_notification" model="mail.activity.type">
+            <field name="name">HR Manager Approval</field>
+            <field name="res_model">leave.encashment</field>
+        </record>
+        <record id="leave_encashment_approval_notification" model="mail.activity.type">
+            <field name="name">leave Encashment Approval</field>
+            <field name="res_model">leave.encashment</field>
+        </record>
+        <record id="reject_leave_encashment_notification" model="mail.activity.type">
+            <field name="name">Reject Leave Encashment</field>
+            <field name="res_model">leave.encashment</field>
+        </record>
+
+
+    </data>
+</odoo>

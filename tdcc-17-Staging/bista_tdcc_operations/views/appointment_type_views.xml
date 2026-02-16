@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Appointment Type Form -->
+        <record model="ir.ui.view" id="appointment_type_form">
+            <field name="name">appointment.type.form</field>
+            <field name="model">appointment.type</field>
+            <field name="arch" type="xml">
+                <form string="Appointment Type Form">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options="{&quot;terminology&quot;: &quot;archive&quot;}" />
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" required="1" />
+                                <field name="length" widget="float_time" />
+                                <field name="code" />
+                                <field name="chargeable" />
+                            </group>
+                            <group>
+                                <field name="product_id" options="{'no_create':True,'no_open':True}" required="1" />
+                                <field name="service_type_id" invisible="0" />
+                                <field name="price" />
+                                <field name="clinic_id" options="{'no_create':True,'no_open':True}"/>
+                                <field name="tdcc_appointment_type_id" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Appointment Type List -->
+        <record model="ir.ui.view" id="appointment_type_tree">
+            <field name="name">appointment.type.tree</field>
+            <field name="model">appointment.type</field>
+            <field name="arch" type="xml">
+                <tree string="Appointment Type List">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="length" />
+                    <field name="chargeable" />
+                    <field name="product_id" string="Price List" />
+                    <field name="price" />
+                    <field name="service_type_id" invisible="1" />
+                    <field name="active" widget="boolean_toggle" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Appointment Type Search -->
+        <record model="ir.ui.view" id="appointment_type_search">
+            <field name="name">appointment.type.search</field>
+            <field name="model">appointment.type</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="product_id" />
+                    <field name="length" />
+                    <field name="code" />
+                    <group expand="0" string="Group By">
+                        <filter string="Name" name="name" domain="[]"
+                            context="{'group_by':'name'}" />
+                        <filter string="Price List" name="product_id" domain="[]"
+                            context="{'group_by':'product_id'}" />
+                        <filter string="Length" name="length" domain="[]"
+                            context="{'group_by':'length'}" />
+                        <filter string="Code" name="code" domain="[]"
+                            context="{'group_by':'code'}" />
+                        <filter string="Archived" name="inactive"
+                            domain="[('active','=',False)]" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Appointment Type Action -->
+        <record model="ir.actions.act_window"
+            id="appointment_type_action">
+            <field name="name">Appointment Types</field>
+            <field name="res_model">appointment.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Appointment Type Menu -->
+        <menuitem id="appointment_type_menu"
+            action="appointment_type_action"
+            parent="bista_tdcc_operations.360_configuration_menu" sequence="3" />
+
+</odoo>

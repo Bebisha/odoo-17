@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record id="job_grade_view_form" model="ir.ui.view">
+            <field name="name">Job Grade Form View</field>
+            <field name="model">job.grade</field>
+            <field name="arch" type="xml">
+                <form string="Job Grade">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="grade_code" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="job_grade_view_tree" model="ir.ui.view">
+            <field name="name">Job Grade Tree View</field>
+            <field name="model">job.grade</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="grade_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_job_grade" model="ir.actions.act_window">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Job Grade</field>
+            <field name="view_mode">tree,form</field>
+            <field name="res_model">job.grade</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create New Job Grade
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="employee_menu_configuration_job_grade"
+              name="Job Grade"
+              parent="hr.menu_config_recruitment"
+              action="action_job_grade"/>
+
+    </data>
+</odoo>

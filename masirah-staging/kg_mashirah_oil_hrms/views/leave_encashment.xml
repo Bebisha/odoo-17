@@ -1,0 +1,108 @@
+<odoo>
+    <data>
+
+        <record id="menu_leave_encashment_action" model="ir.actions.act_window">
+            <field name="name">Leave Encashment</field>
+            <field name="res_model">leave.encashment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_leave_encashment"
+                  name="Leave Encashment"
+                  action="menu_leave_encashment_action"
+                  parent="hr_holidays.menu_hr_holidays_management"/>
+
+
+        <record id="leave_encashment_view_tree" model="ir.ui.view">
+            <field name="name">Leave Encashment Tree View</field>
+            <field name="model">leave.encashment</field>
+            <field name="arch" type="xml">
+                <tree string="Leave Encashment">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="leave_type_id"/>
+                    <field name="approved_date"/>
+                    <field name="paid_leaves"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="leave_encashment_view_form" model="ir.ui.view">
+            <field name="name">Leave Encashment Form View</field>
+            <field name="model">leave.encashment</field>
+            <field name="arch" type="xml">
+                <form string="Leave Encashment">
+                    <header>
+                        <button name="kg_request" type="object" string="Request for Approval"
+                                invisible="is_request == False or is_wait_lm_approve == True"
+                                class="oe_highlight"/>
+                        <button name="kg_lm_approve" type="object" string="Line Manager Approval"
+                                invisible="is_wait_lm_approve == False or is_wait_hrm_approve == True"
+                                class="oe_highlight"/>
+                        <button name="kg_hrm_approve" type="object" string="HR Manager Approval"
+                                invisible="is_wait_hrm_approve == False or state == 'approved'"
+                                class="oe_highlight"/>
+                        <button name="kg_reject" type="object" string="Reject"
+                                invisible="is_wait_lm_approve == False or state == 'approved'"
+                                class="oe_highlight"/>
+                        <button name="kg_cancel" type="object" string="Cancel"
+                                invisible="is_request == False or is_wait_lm_approve == True"
+                                class="oe_highlight"/>
+                        <button name="kg_action_draft" type="object" string="Reset To Draft"
+                                invisible="state != 'cancel'"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                    </header>
+                    <sheet>
+                        <widget name="web_ribbon" title="Approved" invisible="state != 'approved'"/>
+                        <widget name="web_ribbon" title="Rejected" invisible="state != 'reject'"
+                                bg_color="text-bg-danger"/>
+                        <div class="oe_title">
+                            <label for="name" string="Request For Leave Encashment"/>
+                            <h1>
+                                <field name="name" readonly="1" force_save="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="is_request" invisible="1"/>
+                            <field name="is_wait_lm_approve" invisible="1"/>
+                            <field name="is_wait_hrm_approve" invisible="1"/>
+                            <group>
+                                <field name="employee_ids" widget="many2many_tags" invisible="1"/>
+                                <field name="employee_id" required="1" readonly="state != 'draft'" domain="[('id','=',employee_ids)]"/>
+                                <field name="manager_id" readonly="1" force_save="1"/>
+                                <field name="department_id" readonly="1" force_save="1"/>
+                                <field name="job_id" readonly="1" force_save="1"/>
+                                <field name="contract_id" required="1" readonly="1" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="leave_type_id" readonly="1" force_save="1"/>
+                                <field name="approved_date" readonly="1" force_save="1"/>
+                                <field name="allocation_id" readonly="1" force_save="1"/>
+                            </group>
+                            <group string="Leaves Details">
+                                <field name="allocated_leaves" readonly="1" force_save="1"/>
+                                <field name="balance_leaves" readonly="1" force_save="1"/>
+                                <field name="paid_leaves" readonly="state != 'draft'"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                            </group>
+                            <group string="Amount">
+                                <field name="gross_per_day" readonly="1" force_save="1"/>
+                                <field name="amount" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

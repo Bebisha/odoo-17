@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="kg_inherit_payment_term_form_view" model="ir.ui.view">
+            <field name="name">account.payment.term.inherit</field>
+            <field name="model">account.payment.term</field>
+            <field name="inherit_id" ref="account.view_payment_term_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="cash_customer"/>
+                </xpath>
+            </field>
+        </record>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'account_payment_term_immediate'), ('module', '=', 'account')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+        <record id="account.account_payment_term_immediate" model="account.payment.term">
+            <field name="cash_customer">True</field>
+        </record>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'account_payment_term_immediate'), ('module', '=', 'account')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+    </data>
+</odoo>

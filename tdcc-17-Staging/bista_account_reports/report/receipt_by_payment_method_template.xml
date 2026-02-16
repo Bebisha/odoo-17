@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Template for receipt by payment method with detail/summary with client 
+		and without Treatment Type -->
+
+	<template id="report_bypaymentmethod">
+		<t t-call="web.html_container">
+			<t t-call="web.internal_layout">
+				<div class="page">
+					<div>
+						<center>
+							<b>
+								<t t-esc="get_title" />
+							</b>
+						</center>
+					</div>
+					<div class="row" style="margin-top:30px;">
+						<style>
+							th {
+							border-bottom: 1px solid black;
+							}
+						</style>
+					</div>
+					<table width="100%">
+						<thead>
+							<th>Receipt No.</th>
+							<th>Date</th>
+							<th>Client</th>
+							<th>Payment Method</th>
+							<th>Amount</th>
+						</thead>
+						<tbody>
+							<t t-set="grand_total" t-value="0" />
+							<t t-foreach="get_data_from_report" t-as="data">
+								<t t-set="total" t-value="0" />
+								<t t-set="all_total" t-value="0" />
+								<t t-set="payment_method" t-value="" />
+								<tr t-foreach="data_value" t-as="val">
+									<td>
+										<span t-esc="val.get('receipt_number')" />
+									</td>
+									<td>
+										<span t-esc="val.get('payment_date','')" />
+									</td>
+									<td>
+										<span t-esc="val.get('client_name')" />
+									</td>
+									<td>
+										<span t-esc="val.get('payment_method','')" />
+									</td>
+									<td>
+										<span t-esc="val.get('amount', 0)" />
+									</td>
+									<t t-set="total" t-value="total+val.get('amount', 0)" />
+									<t t-set="all_total" t-value="all_total+val.get('amount', 0)" />
+									<t t-set="payment_method" t-value="val.get('payment_method','')" />
+								</tr>
+								<tr>
+									<td>
+										<b>
+											<span t-esc="payment_method" />
+										</b>
+									</td>
+									<td colspan="3" align="center">
+										<b>Total: </b>
+									</td>
+									<td>
+										<b>
+											<span t-esc="total" />
+										</b>
+										<t t-set="grand_total" t-value="grand_total+total" />
+									</td>
+								</tr>
+							</t>
+							<tr>
+								<td></td>
+								<td colspan="3" align="center">
+									<b>Grand Total</b>
+								</td>
+								<td>
+									<b>
+										<span t-esc="grand_total" />
+									</b>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>
+

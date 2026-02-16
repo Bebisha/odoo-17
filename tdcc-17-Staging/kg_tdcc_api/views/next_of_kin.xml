@@ -1,0 +1,129 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="kg_associated_parties_tree_view">
+            <field name="name">Next of Kin / associated parties</field>
+            <field name="model">kg.associated.parties</field>
+            <field name="arch" type="xml">
+                <!--                <tree create="false" edit="false">-->
+                <tree>
+                    <field name="set_id"/>
+                    <field name="first_name"/>
+                    <field name="middle_name"/>
+                    <field name="last_name"/>
+
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="kg_associated_parties_form_view">
+            <field name="name">Next of Kin / associated parties</field>
+            <field name="model">kg.associated.parties</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <button name="btn_submit" string="Submit" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+                        <button name="btn_cancel" string="Cancel" type="object" data-hotkey="w"
+                                invisible="state not in ('draft','submited')"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submited"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="set_id" required="1"/>
+                                <field name="first_name" required="1"/>
+                                <field name="middle_name"/>
+                                <field name="last_name"/>
+                                <field name="relationship" required="set_id != 'False' and first_name != 'False'"/>
+
+                            </group>
+                            <group label="Phone Number">
+                                <field name="address" required="1"/>
+                                <field name="cell_phn_no" required="1"/>
+                                <field name="home_phn_no"/>
+                                <field name="email"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="business_phn_no" required="1"/>
+                                <field name="emergency_contact" required="1"/>
+                                <field name="start_date" required="1"/>
+                                <field name="end_date" required="1"/>
+                            </group>
+                            <group>
+                                <field name="nok_job_title"/>
+                                <field name="nok_job_code"/>
+                                <field name="nok_job_emp_no"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="organization_name" required="1"/>
+                                <field name="maritual_status"/>
+                                <field name="administrative_sex"/>
+                                <field name="birth_date"/>
+                                <field name="living_dependency"/>
+                                <field name="ambulatory_status"/>
+                                <field name="citizenship"/>
+                                <field name="primary_lang"/>
+                            </group>
+                            <group>
+                                <field name="living_arrangement"/>
+                                <field name="publicity_code"/>
+                                <field name="protection_indicator"/>
+                                <field name="student_indicator"/>
+                                <field name="religion"/>
+                                <field name="mothers_name"/>
+                                <field name="nationality"/>
+                                <field name="ethnic_group"/>
+                                <field name="contact_reason"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="contact_persons_name" required="1"/>
+                                <field name="contact_persons_phn_no" required="1"/>
+                                <field name="nok_identifiers"/>
+                                <field name="job_status"/>
+                            </group>
+                            <group>
+                                <field name="race"/>
+                                <field name="handicap"/>
+                                <field name="contact_persn_secrty_no"/>
+                                <field name="nok_birth_place"/>
+                                <field name="vip_indicator"/>
+                            </group>
+
+                        </group>
+
+
+                    </sheet>
+                    <!--                  <div class="o_attachment_preview"/>-->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="nok_associated_parties_form" model="ir.actions.act_window">
+            <field name="name">Next of Kin / associated parties</field>
+            <field name="res_model">kg.associated.parties</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

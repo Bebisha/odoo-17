@@ -1,0 +1,33 @@
+<odoo>
+    <record id="kg_sale_order_rule_company" model="ir.rule">
+        <field name="name">Sale Order Rule: Company Access</field>
+        <field name="model_id" ref="model_kg_sale_order"/>
+        <field name="domain_force">['|',('company_id', 'in', company_ids),('company_id', '=', False)]</field>
+        <!--        <field name="groups" eval="[(4, ref('base.group_user'))]"/>-->
+    </record>
+    <record id="kg_purchase_order_rule_company" model="ir.rule">
+        <field name="name">Purchase Order Rule: Company Access</field>
+        <field name="model_id" ref="model_kg_purchase_order"/>
+        <field name="domain_force">['|',('company_id', 'in', company_ids),('company_id', '=', False)]</field>
+    </record>
+     <record id="kg_dividend_rule_company" model="ir.rule">
+        <field name="name">Dividend Rule: Company Access</field>
+        <field name="model_id" ref="model_kg_dividend_entry"/>
+        <field name="domain_force">['|',('company_id', 'in', company_ids),('company_id', '=', False)]</field>
+    </record>
+     <record id="kg_bonds_rule_company" model="ir.rule">
+        <field name="name">Bonds Rule: Company Access</field>
+        <field name="model_id" ref="model_kg_bonds"/>
+        <field name="domain_force">['|',('company_id', 'in', company_ids),('company_id', '=', False)]</field>
+    </record>
+    <record id="kg_market_rate_rule_company" model="ir.rule">
+        <field name="name">Market Rate Rule: Company Access</field>
+        <field name="model_id" ref="model_market_rate_updation"/>
+        <field name="domain_force">['|',('company_id', 'in', company_ids),('company_id', '=', False)]</field>
+    </record>
+    <record id="kg_revaluation_journal_rule_company" model="ir.rule">
+        <field name="name">Revaluation Journal Rule: Company Access</field>
+        <field name="model_id" ref="model_kg_revaluation_journal"/>
+        <field name="domain_force">['|',('company_id', 'in', company_ids),('company_id', '=', False)]</field>
+    </record>
+</odoo>

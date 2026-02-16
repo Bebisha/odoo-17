@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--    <record id="segment_family_history_action" model="ir.actions.act_window">-->
+    <!--        <field name="type">ir.actions.act_window</field>-->
+    <!--        <field name="name">Z Segment Family History</field>-->
+    <!--        <field name="view_mode">tree,form</field>-->
+    <!--        <field name="res_model">segment.family.history</field>-->
+
+    <!--    </record>-->
+    <!--    <record id="segment_family_history_tree" model="ir.ui.view">-->
+    <!--        <field name="name">patient.allergy.information.tree</field>-->
+    <!--        <field name="model">segment.family.history</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <tree>-->
+    <!--                 <field name="name"/>-->
+    <!--                 <field name="status"/>-->
+    <!--            </tree>-->
+    <!--        </field>-->
+    <!--    </record>-->
+    <record id="segment_family_history_form" model="ir.ui.view">
+        <field name="name">segment.family.history.form</field>
+        <field name="model">segment.family.history</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                    <group>
+                        <group>
+
+                            <field name="fam_member_name"/>
+                            <field name="status"/>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="notes_comments_form" model="ir.ui.view">
+        <field name="name">notes.comments.form</field>
+        <field name="model">notes.comments</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="source_comment"/>
+                        </group>
+                        <group>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--    <menuitem id="segment_family_history_menu"-->
+    <!--              action="segment_family_history_action"-->
+    <!--              name="Z Segment Family History"-->
+    <!--              parent="kg_nabidh.patient_information_menu"/>-->
+
+</odoo>

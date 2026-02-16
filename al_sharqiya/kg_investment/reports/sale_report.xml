@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_report_sale_summary" model="ir.actions.report">
+        <field name="name">Sale Summary</field>
+        <field name="model">sale.summary.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_investment.report_sale_summary</field>
+        <field name="report_file">kg_investment.report_sale_summary</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_sale_summary">
+        <t t-call="web.html_container">
+            <div class="page">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover' width="100%">
+                        <tr>
+                            <td colspan="3" align="center">
+                                <span style="font-size:25px;">
+                                    <b>
+                                        Yearly Sales/ Sell Analysis
+                                    </b>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="5%"/>
+                            <td width="55%">
+                                <strong>From:
+                                    <t t-esc="start_year"/>
+                                </strong>
+                            </td>
+                            <td width="40%" style="padding-left:160px;">
+                                <strong>To:
+                                    <t t-esc="end_year"/>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td/>
+                            <td>
+                                <strong>Company:
+                                    <t t-esc="company"/>
+                                </strong>
+                            </td>
+                            <td style="padding-left:160px;">
+                                <strong>Investment Type:
+                                    <t t-esc="investment_type"/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <t t-if="report_type == 'yearly'">
+                        <table style='border-collapse:collapse;width:100%;margin:5pt;border: 1px solid black;'>
+                            <thead>
+                                <tr style="border: 1px solid black;height:30px;background-color:#ced3d4">
+                                    <th rowspan="2" style="border: 1px solid black;">INVESTMENT</th>
+                                    <t t-foreach="range(start_year, end_year+1)" t-as="year">
+                                        <th colspan="3" style="border: 1px solid black;">
+                                            <t t-esc="year"/>
+                                        </th>
+                                    </t>
+                                </tr>
+                                <tr style="border: 1px solid black;height:30px;background-color:#E0E5E5">
+                                    <t t-foreach="range(start_year, end_year+1)" t-as="_">
+                                        <th style="border: 1px solid black;">No. Of Shares</th>
+                                        <th style="border: 1px solid black;">Share Rate</th>
+                                        <th style="border: 1px solid black;">Share Value</th>
+                                    </t>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="year_wise" t-as="investment">
+                                    <tr style="border: 1px solid black;height:30px;">
+                                        <td style="border: 1px solid black;">
+                                            <t t-esc="investment"/>
+                                        </td>
+                                        <t t-foreach="year_wise[investment].items()" t-as="year">
+                                            <td style="border: 1px solid black;" align="center">
+                                                <t t-esc="year[1]['no_shares']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;" align="center">
+                                                <t t-esc="year[1]['cost']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;" align="center">
+                                                <t t-esc="year[1]['share_value']"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>
+                                        <strong>Grand Total</strong>
+                                    </td>
+                                    <t t-foreach="year_totals.items()" t-as="year_total">
+                                        <td style="border: 1px solid black;" align="center">
+                                            <t t-esc="year_total[1]['no_shares']"/>
+                                        </td>
+                                        <td style="border: 1px solid black;" align="center">
+                                            <t t-esc="year_total[1]['cost']"/>
+                                        </td>
+                                        <td style="border: 1px solid black;" align="center">
+                                            <t t-esc="year_total[1]['share_value']"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                    <t t-else="">
+                        <table style='border-collapse:collapse;width:100%;margin:5pt;border: 1px solid black;'>
+                            <thead>
+                                <tr style="border: 1px solid black; height: 30px;">
+                                    <th rowspan="2" style="border: 1px solid black;">INVESTMENT</th>
+                                    <!-- Iterate over dynamically determined month names -->
+                                    <t t-foreach="months_list" t-as="month">
+                                        <th colspan="3" style="border: 1px solid black;">
+                                            <t t-esc="month"/>
+                                        </th>
+                                    </t>
+                                </tr>
+                                <tr style="border: 1px solid black;">
+                                    <!-- Generate sub-headings for each month dynamically -->
+                                    <t t-foreach="months_list" t-as="month">
+                                        <th style="border: 1px solid black;">No Shares</th>
+                                        <th style="border: 1px solid black;">Cost</th>
+                                        <th style="border: 1px solid black;">Share Value</th>
+                                    </t>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="year_wise" t-as="investment">
+                                    <tr style="border: 1px solid black;height:30px;">
+                                        <td style="border: 1px solid black;">
+                                            <t t-esc="investment"/>
+                                        </td>
+                                        <t t-foreach="year_wise[investment].items()" t-as="year">
+                                            <td style="border: 1px solid black;" align="center">
+                                                <t t-esc="year[1]['no_shares']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;" align="center">
+                                                <t t-esc="year[1]['cost']"/>
+                                            </td>
+                                            <td style="border: 1px solid black;" align="center">
+                                                <t t-esc="year[1]['share_value']"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>
+                                        <strong>Grand Total</strong>
+                                    </td>
+                                    <t t-foreach="month_totals.items()" t-as="month_total">
+                                        <td style="border: 1px solid black;" align="center">
+                                            <t t-esc="month_total[1]['no_shares']"/>
+                                        </td>
+                                        <td style="border: 1px solid black;" align="center">
+                                            <t t-esc="month_total[1]['cost']"/>
+                                        </td>
+                                        <td style="border: 1px solid black;" align="center">
+                                            <t t-esc="month_total[1]['share_value']"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="appointment_appointment_form_inherited">
+        <field name="name">appointment.appointment.form.inherited.views</field>
+        <field name="model">appointment.appointment</field>
+        <field name="inherit_id" ref="bista_tdcc_operations.appointment_appointment_form_views"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_request_cancel']" position="before">
+
+                <field name="is_checkin" invisible="1"/>
+                <button name="action_checkin" string="Checkin/New encounter" type="object" class="oe_highlight"
+                        invisible="(state != 'confirmed'),(is_checkin != True)"/>
+
+                <field name="is_checkout" invisible="1"/>
+                <button name="action_update" string="Update" type="object"
+                />
+                <button name="problem_record_pc1" string="PC1(Problem Record message)" type="object"
+                        invisible="is_checkin != True"/>
+                <button name="unsolicited_transmission_observation" string="R01(Observation)" type="object"
+
+                        invisible="is_checkin != True"/>
+                <button name="action_vo4" string="V04(Vaccination message)" type="object"
+                        invisible="is_checkin != True"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="after">
+                <widget name="web_ribbon" title="Checkin" bg_color="bg-success"
+                        invisible="is_checkin != True "/>
+                <widget name="web_ribbon" title="Checkout" bg_color="bg-danger" invisible="is_checkout != True "/>
+
+            </xpath>
+<!--            <xpath expr="//page[@name='notes']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+
+
+            <xpath expr="//page[@name='notes']" position="after">
+
+                <page string="Observations" name="observations">
+                    <field name="observations_ids" nolabel="1">
+                        <tree create="true">
+                            <field name="set_id_obx" column_invisible="1"/>
+                            <!--                            <field name="per_org_name"/>-->
+                            <field name="observation_identifier" options="{'no_create': True}"/>
+                            <field name="ObservationIdentifier_units_id" options="{'no_create': True}"/>
+
+                            <field name="observation_value"/>
+                            <field name="observation_value_heart" column_invisible="1"/>
+                            <field name="units"/>
+                            <field name="value_type" options="{'no_create': True}"/>
+                            <!--                            <field name="observation_result_status"/>-->
+                        </tree>
+                    </field>
+
+                </page>
+                <page string="Diagnosis Information" name="diagnosis" invisible="1">
+                    <field name="diagnosis_information_ids" nolabel="1">
+                        <tree create="true">
+                            <field name="set_id_dg1" column_invisible="1"/>
+                            <field name="diag_code"/>
+                            <field name="diag_description"/>
+                            <field name="diag_type" options="{'no_create': True}"/>
+                            <field name="diag_priority"/>
+                            <field name="diag_action_code"/>
+                            <field name="diagnosis_coding_method"/>
+                            <!--                            <field name="diag_related_group"/>-->
+                        </tree>
+                    </field>
+
+                </page>
+                <page string="Procedures Segment" name="procedures">
+                    <field name="procedures_segment_ids" nolabel="1">
+                        <tree create="true">
+                            <field name="set_id_prl" column_invisible="1"/>
+                            <field name="procedure_code" />
+                            <field name="procedure_id"/>
+                            <field name="physician_id" column_invisible="1"/>
+                            <field name="procedure_priority" column_invisible="1"/>
+                        </tree>
+                    </field>
+
+                </page>
+                <page string="Patient Allergy Information" name="allergy">
+                    <field name="allergy_information_ids" nolabel="1">
+                        <tree create="true">
+                            <field name="set_id_al1" column_invisible="1"/>
+                            <field name="allergy_type_codes" options="{'no_create': True}" string="Type Description"/>
+                            <field name="allergy_code_des" options="{'no_create': True}" string="Type"/>
+                            <field name="allergy_severty_code" options="{'no_create': True}"/>
+                            <field name="allergy_reaction_code" options="{'no_create': True}"/>
+                        </tree>
+                    </field>
+
+                </page>
+                <page string="Patient Visit" name="patient_visit">
+                    <field name="patient_visit_ids" nolabel="1">
+                        <tree create="true">
+                            <field name="patient_visit"/>
+                            <field name="full_name"/>
+                            <field name="visit_type"/>
+                            <field name="admission_type" options="{'no_create': True}"/>
+                            <field name="discharge_disposition_id" options="{'no_create': True}"/>
+
+                        </tree>
+                    </field>
+
+                </page>
+                <page string="Order Message" name="oder_message">
+                    <field name="common_order_ids" nolabel="1">
+                        <tree create="true">
+                            <field name="order_control"/>
+                            <field name="order_status"/>
+                            <field name="date_transaction"/>
+                            <field name="confidentiality_code" string="Operation codeSystem"/>
+                            <field name="order_type" string="Medication"/>
+                            <field name="name" column_invisible="1"/>
+                            <field name="ordering_provider" column_invisible="1"/>
+                            <field name="priority" column_invisible="1"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="interval" column_invisible="1"/>
+                            <field name="quantity" column_invisible="1"/>
+
+                        </tree>
+                    </field>
+
+                </page>
+                <page string="Pharmacy/Treatment Order" name="pharmacy_oder">
+                    <field name="pharmacy_order_ids" nolabel="1">
+                        <tree create="true">
+                            <field name="requested_give_code"/>
+                            <field name="requested_give_name"/>
+                            <field name="requested_amount_minimum"/>
+                            <field name="requested_given_unit"/>
+                            <field name="providers_administration_instructions" string="Route Of Administration"/>
+                            <field name="dosage"/>
+                            <field name="frequency"/>
+                        </tree>
+                    </field>
+
+                </page>
+                <page string="Problems" name="orgin_edit_document">
+                    <field name="problems_form_ids" nolabel="1">
+                        <tree create="true">
+
+                            <field name="icdcode_id"/>
+                            <field name="problem_des_id"/>
+                            <field name="problem_id_code"/>
+                            <field name="status_id"/>
+                            <field name="action_date_time"/>
+                            <field name="problem_established_date"/>
+                            <field name="problem_classification" column_invisible="1"/>
+
+                        </tree>
+                    </field>
+
+                </page>
+                <page string="Transcription Document Header" name="transcription_document" invisible="1">
+                    <field name="transcription_document_ids" nolabel="1">
+                        <tree create="true">
+                            <field name="documents_type" options="{'no_create': True}"/>
+                            <field name="activity_date_time"/>
+                            <field name="unique_file_number"/>
+                            <field name="unique_document_number"/>
+                            <field name="document_completion_status_id"/>
+                            <field name="transcription_date_time"/>
+                            <field name="document_availability_status_id"/>
+                            <field name="activity_provider_code"/>
+                            <field name="originator_code_name"/>
+                        </tree>
+                    </field>
+
+                </page>
+                <page string="Comments" name="notes">
+                    <field name="nte_ids" nolabel="1">
+                        <tree create="true">
+                            <field name="set_id_nte" column_invisible="1"/>
+                            <field name="source_comment" string="Note Type"/>
+                            <field name="note" string="Note Text"/>
+
+                        </tree>
+                    </field>
+
+                </page>
+                <page string="Observation Request" name="notes" invisible="1">
+                    <field name="observations_result_ids" nolabel="1">
+                        <tree create="true">
+                            <field name="full_name" column_invisible="1"/>
+                            <field name="result_status_id" options="{'no_create': True}" column_invisible="1"/>
+                            <field name="diagnostic_service_section_id" options="{'no_create': True}"
+                                   column_invisible="1"/>
+
+                            <field name="universal_service_des"/>
+                            <!--                            <field name="patient_profession_id"/>-->
+
+                            <field name="universal_service_code"/>
+                            <field name="observation_date_time"/>
+                            <field name="results_report_date"/>
+                            <field name="abnormal_flag_id"/>
+
+
+                        </tree>
+                    </field>
+
+                </page>
+
+
+            </xpath>
+            <xpath expr="//field[@name='physician_id']" position="after">
+
+                <field name="sheryan_id" placeholder="12345678"/>
+                <field name="admit_source" options="{'no_create': True}"/>
+                <field name="hospital_service" options="{'no_create': True}"/>
+                <field name="visit_number" placeholder=" OP0001556210......."/>
+            </xpath>
+            <xpath expr="//field[@name='room_id']" position="after">
+                <field name="bed_number_id"/>
+                <field name="bed_type" string="Bed Type"/>
+            </xpath>
+
+        </field>
+    </record>
+    <record model="ir.ui.view" id="appointment_appointment_tree_vew_inherited">
+        <field name="name">appointment.appointment.tree.inherited.views</field>
+        <field name="model">appointment.appointment</field>
+        <field name="inherit_id" ref="bista_tdcc_operations.appointment_appointment_tree_vew"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_send_appointment_mail']" position="after">
+                <field name="is_checkin" column_invisible="1"/>
+                <button name="action_checkin"
+                        type="object" icon="oi-arrow-right"
+                        invisible="is_checkin == True or state != 'confirmed'"
+                        groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_practitioner"/>
+
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

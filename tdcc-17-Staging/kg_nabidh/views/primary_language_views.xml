@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="primary_language_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Primary Language</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">primary.language</field>
+
+    </record>
+    <record id="primary_language_tree" model="ir.ui.view">
+        <field name="name">primary.language.tree.views</field>
+        <field name="model">primary.language</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="primary_language_form" model="ir.ui.view">
+        <field name="name">primary.language.views</field>
+        <field name="model">primary.language</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="primary_language_menu"
+              action="primary_language_action"
+              name="primary language"
+              parent="kg_nabidh.pid_menu"/>
+
+</odoo>

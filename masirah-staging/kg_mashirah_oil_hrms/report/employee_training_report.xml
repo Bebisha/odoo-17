@@ -1,0 +1,226 @@
+<odoo>
+    <data>
+        <template id="employee_training_report_tem">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header">
+                            <table class='table table-borderless table-condensed table-hover'>
+                                <tr width="100%" align="center">
+                                    <td width="100%" align="center">
+                                        <t t-if="doc.company_id.logo">
+                                            <img t-att-src="image_data_uri(doc.company_id.logo)" style="height:150px;width:170px;margin-top:-15px; margin-left: 110px
+                                             position:fixed;right:50px;top:30px;" alt="Company Logo"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr width="100%" align="center">
+                                    <td width="100%" align="center" style="font-size:20px;">
+                                        <b>
+                                            <span>Application Training Form</span>
+                                        </b>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <table width="100%"
+                               style="font-size:12px;border-collapse:collapse;border-radius: 5px 5px 5px 5px;width:100%;margin:5pt;border-bottom: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;">
+                            <tr width="100%">
+                                <td width="20%"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <b>Name</b>
+                                </td>
+                                <td width="80%" colspan="7"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <span t-field="doc.employee_id.name"/>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="20%"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <b>Type of Course</b>
+                                </td>
+                                <td width="80%" colspan="7"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <span t-field="doc.type_of_course"/>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="20%"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <b>Training Request Date</b>
+                                </td>
+                                <td width="10%" align="right"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    From
+                                </td>
+                                <td width="30%" colspan="3"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <span t-field="doc.training_from_date"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                                <td width="10%" align="right"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    To
+                                </td>
+                                <td width="30%" colspan="2"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <span t-field="doc.training_to_date"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="20%" rowspan="3"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <b>Air Ticket Request</b>
+                                </td>
+                                <td width="20%" rowspan="3" colspan="2"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:60px;padding-bottom:10px;padding-right:10px;">
+                                    <t t-if="doc.air_ticket_request">
+                                        <b>
+                                            <span style="color:#006600;">o Yes</span>
+                                        </b>
+                                        <br/>
+                                        <br/>
+                                        <span>o No</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span>o Yes</span>
+                                        <br/>
+                                        <br/>
+                                        <b>
+                                            <span style="color:#800000;">o No</span>
+                                        </b>
+                                    </t>
+                                </td>
+                                <td width="30%" colspan="3" align="center"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <b>Date</b>
+                                </td>
+                                <td width="30%" colspan="2" align="center"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <b>Sector(Airport)</b>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="15%" align="center"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    Departure
+                                </td>
+                                <td width="15%" colspan="2" align="center"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    Return
+                                </td>
+                                <td width="15%" align="center"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    From
+                                </td>
+                                <td width="15%" align="center"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    To
+                                </td>
+                            </tr>
+                            <tr width="100%" align="center">
+                                <td width="15%"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:30px;padding-left:10px;padding-bottom:30px;padding-right:10px;">
+                                    <span t-field="doc.departure_date"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                                <td width="15%" colspan="2"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:30px;padding-left:10px;padding-bottom:30px;padding-right:10px;">
+                                    <span t-field="doc.return_date"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                                <td width="15%"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:30px;padding-left:10px;padding-bottom:30px;padding-right:10px;">
+                                    <span t-field="doc.sector_from"/>
+                                </td>
+                                <td width="15%"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:30px;padding-left:10px;padding-bottom:30px;padding-right:10px;">
+                                    <span t-field="doc.sector_to"/>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="20%"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <b>Hotel</b>
+                                </td>
+                                <td width="80%" colspan="7"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:60px;padding-bottom:10px;padding-right:10px;">
+                                    <t t-if="doc.hotel">
+                                        <b>
+                                            <span style="color:#006600;">o Yes</span>
+                                        </b>
+                                        <br/>
+                                        <br/>
+                                        <span>o No</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span>o Yes</span>
+                                        <br/>
+                                        <br/>
+                                        <b>
+                                            <span style="color:#800000;">o No</span>
+                                        </b>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="20%"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <b>Order / Remarks</b>
+                                </td>
+                                <td width="80%" colspan="7"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <span t-field="doc.remark"/>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="20%" rowspan="2"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    <b>Signature</b>
+                                </td>
+                                <td width="20%" colspan="2"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    Employee
+                                </td>
+                                <td width="30%" colspan="3"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    Line Manager
+                                </td>
+                                <td width="30%" colspan="2"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:10px;padding-left:10px;padding-bottom:10px;padding-right:10px;">
+                                    General Manager
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="20%" colspan="2"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:30px;padding-left:10px;padding-bottom:30px;padding-right:10px;">
+                                    <t t-if="doc.employee_id.sign_signature">
+                                        <img t-attf-src="data:image/*;base64,{{doc.employee_id.sign_signature}}"
+                                             />
+                                    </t>
+                                </td>
+                                <td width="30%" colspan="3"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:30px;padding-left:10px;padding-bottom:30px;padding-right:10px;">
+                                    <t t-if="doc.line_manager_id.sign_signature">
+                                        <img t-attf-src="data:image/*;base64,{{doc.line_manager_id.sign_signature}}"
+                                            />
+                                    </t>
+                                </td>
+                                <td width="30%" colspan="2"
+                                    style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:30px;padding-left:10px;padding-bottom:30px;padding-right:10px;">
+                                    <t t-if="doc.general_manager_id.sign_signature">
+                                        <img t-attf-src="data:image/*;base64,{{doc.general_manager_id.sign_signature}}"
+                                             />
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+

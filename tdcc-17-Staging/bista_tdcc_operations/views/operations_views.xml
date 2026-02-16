@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Operations Menu -->
+    <menuitem id="operations_menu_root" name="Operations"
+              web_icon="bista_tdcc_operations,static/description/icon.png"/>
+
+    <!-- Accounting -> Reporting -> TDCC Account Reports Menu -->
+    <menuitem id="menu_account_tdcc_reports"
+              name="TDCC Account Reports"
+              parent="account.menu_finance_reports"
+    />
+
+    <!-- Communication Menu -->
+    <menuitem id="communication_menu_root" name="Communication"
+              groups="group_tdcc_communication"
+              web_icon="bista_tdcc_operations,static/description/icon1.png"/>
+
+    <!-- SMS/Email Menu -->
+    <menuitem id="sma_email_config_menu" name="SMS/Email Configuration"
+              parent="bista_tdcc_operations.communication_menu_root"
+              sequence="1" />
+
+    <!-- Message Menu -->
+    <menuitem id="custom_menu_mail_message" name="Message"
+              action="mail.action_view_mail_message"
+              parent="bista_tdcc_operations.sma_email_config_menu"
+              sequence="1" active="False"/>
+
+    <!-- Email Menu -->
+    <menuitem id="custom_menu_mail_mail" name="Emails"
+              action="bista_tdcc_operations.action_view_mail_mail_tdcc_inherit"
+              parent="bista_tdcc_operations.sma_email_config_menu"
+              sequence="2"/>
+
+    <!-- Template Menu -->
+    <menuitem id="custom_menu_email_templates" name="Templates"
+              action="mail.action_email_template_tree_all"
+              parent="bista_tdcc_operations.sma_email_config_menu"
+              sequence="3"/>
+
+    <!-- Incoming Menu -->
+    <menuitem id="custom_menu_action_fetchmail_server_tree"
+              name="Incoming Mail Server"
+              action="mail.action_email_server_tree"
+              parent="bista_tdcc_operations.sma_email_config_menu"
+              sequence="4"/>
+
+    <!-- Outgoing Menu -->
+    <menuitem id="custom_menu_mail_servers" name="Outgoing Mail Server"
+              action="base.action_ir_mail_server_list"
+              parent="bista_tdcc_operations.sma_email_config_menu"
+              sequence="5"/>
+
+    <!-- SMS Menu -->
+    <menuitem id="menu_sms_comm" name="SMS" parent="bista_tdcc_operations.sma_email_config_menu"
+            sequence="6"/>
+
+    <!-- SMS Server -->
+    <menuitem id="menu_sms_servers_comm" parent="bista_tdcc_operations.menu_sms_comm"
+              action="bista_sms_global.action_ir_sms_server_list" sequence="1"
+              groups="bista_tdcc_operations.group_appointment_manager" />
+
+    <!-- SMS Template -->
+<!--    <menuitem id="menu_action_sms_template_tree_comm" action="bista_sms_global.action_sms_template" -->
+<!--                parent="menu_sms_comm" sequence="2"/>-->
+
+    <!-- Messages -->
+    <menuitem action="bista_sms_global.action_messages"
+              id="menu_action_messages_tree_comm" parent="bista_tdcc_operations.menu_sms_comm"
+              sequence="3" />
+
+    <!-- appointment Menu -->
+    <menuitem id="appointment_menu" name="360"
+              parent="bista_tdcc_operations.operations_menu_root"
+              groups="bista_tdcc_operations.group_tdcc_practitioner,bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_director,bista_tdcc_operations.group_tdcc_cre,account.group_account_invoice"
+              sequence="3"/>
+
+    <!-- EIP Menu -->
+    <menuitem id="eip_menu" name="EIP"
+              parent="bista_tdcc_operations.operations_menu_root" sequence="4"
+              groups="bista_tdcc_operations.group_tdcc_director,bista_tdcc_operations.group_tdcc_eip_eiip_manager,bista_tdcc_operations.group_eip_user"
+    />
+    <!-- EIIP Menu -->
+    <menuitem id="eiip_menu" name="EIIP"
+              parent="bista_tdcc_operations.operations_menu_root"
+              groups="bista_tdcc_operations.group_tdcc_director,bista_tdcc_operations.group_tdcc_eip_eiip_manager"
+              sequence="5"/>
+
+
+    <!-- configurations Menu -->
+    <menuitem id="configurations_menu" name="Configuration"
+              parent="bista_tdcc_operations.operations_menu_root" sequence="7"
+              groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_director,bista_tdcc_operations.group_tdcc_cofounder,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_eip_eiip_manager"/>
+
+    <!-- 360 Configuration Menu -->
+    <menuitem id="360_configuration_menu" name="360"
+              parent="bista_tdcc_operations.configurations_menu"/>
+
+    <!-- EIP & EIIP Configuration Menu -->
+    <menuitem id="eip_eiip_configuration_menu" name="EIP &amp; EIIP"
+              parent="bista_tdcc_operations.configurations_menu"
+              groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_director,bista_tdcc_operations.group_tdcc_cofounder,bista_tdcc_operations.group_tdcc_eip_eiip_manager"/>
+
+    <!-- Miscellaneous Configuration Menu -->
+    <menuitem id="miscellaneous_configuration_menu" name="Miscellaneous"
+              parent="bista_tdcc_operations.configurations_menu"
+              groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_director,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_eip_eiip_manager"/>
+
+    <!-- Call menu -->
+    <!-- <menuitem id="custom_call_menu" name="Calls"
+              action="bista_tdcc_operations.action_mail_message_tdcc"
+              parent="bista_tdcc_operations.miscellaneous_configuration_menu"
+              sequence="10"/>-->
+
+    <!-- TO DO Call menu -->
+    <menuitem id="custom_todo_call_menu" name="ToDo Calls"
+              action = "bista_tdcc_operations.action_mail_activity_tdcc"
+              parent="bista_tdcc_operations.miscellaneous_configuration_menu"
+              sequence="11"/>
+
+    <menuitem id="product_pricelist_menu" name="Price List"
+              action="product.product_template_action_all"
+              parent="bista_tdcc_operations.miscellaneous_configuration_menu"
+              sequence="9"/>
+
+</odoo>

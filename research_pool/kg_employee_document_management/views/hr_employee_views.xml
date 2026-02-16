@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook/page[@name='hr_settings']" position="after">
+                    <page string="Document">
+                        <field name="document_ids">
+                            <tree>
+                                <field name="document_type_id"/>
+                                <field name="name"/>
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="expiry_date"/>
+                               <field name="attachment_filename" string="Attachment" column_invisible="1"/>
+                               <field name="download_link" widget="url"/>
+                                <button type="object" class="btn-icon" name="unlink" string="" style="padding-left: 4px;"/>
+
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+
+            </field>
+        </record>
+    </data>
+</odoo>

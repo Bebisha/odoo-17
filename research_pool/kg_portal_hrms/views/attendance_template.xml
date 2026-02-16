@@ -1,0 +1,148 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<odoo>
+    <template id="portal_emp_attendance" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/kg_portal_hrms/static/description/img/icn2.png'"/>
+                <t t-set="title">Attendance</t>
+                <t t-set="url" t-value="'/employee/attendance'"/>
+                <t t-set="placeholder_count" t-value="'att_count'"/>
+                <img t-if="icon" t-att-src="icon" class="custom-icon"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_emp_attendance_list_view" name="Portal Attendance">
+    <t t-call="portal.portal_layout">
+        <t t-set="breadcrumbs_searchbar" t-value="True"/>
+        <t t-call="portal.portal_searchbar">
+            <t t-set="title">Attendance</t>
+        </t>
+        <t t-call="portal.portal_table">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Check In</td>
+                    <td>Check Out</td>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="attend" t-as="att">
+                    <tr>
+                        <td>
+                            <t t-esc="att['employee_name']"/>
+                        </td>
+                        <td>
+                            <t t-esc="att['check_in_local']"/>
+                        </td>
+                        <td>
+                            <t t-esc="att['check_out_local']"/>
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </t>
+    </t>
+</template>
+
+
+    <template id="attendance_template" name="Attendance Page">
+        <t t-call="website.layout">
+            <style>
+                body {
+                background-image: url('/kg_portal_hrms/static/description/img/14562375_5483049.jpeg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 100vh;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: Arial, sans-serif;
+                color: #fff;
+                }
+
+                .attendance-container h1 {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 56px;
+                color: white;
+                margin-bottom: 20px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                }
+
+                .attendance-container button {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 24px;
+                padding: 20px 40px;
+                border-radius: 50px;
+                border: none;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                transition: background-color 0.3s, transform 0.3s;
+                }
+
+                .attendance-container button:hover {
+                transform: translateY(-3px);
+                }
+
+                .btn-danger {
+                background: linear-gradient(45deg, #ff4e50, #f9d423);
+                color: white;
+                }
+
+                .btn-success {
+                background: linear-gradient(45deg, #34e89e, #0f3443);
+                color: white;
+                }
+
+                .attendance-container p {
+                font-family: 'Arial', sans-serif;
+                font-size: 20px;
+                color: #666;
+                }
+
+                @media (max-width: 600px) {
+                .attendance-container {
+                padding: 20px;
+                }
+
+                .attendance-container h1 {
+                font-size: 28px;
+                }
+
+                .attendance-container button {
+                font-size: 20px;
+                padding: 15px 30px;
+                }
+                }
+            </style>
+            <div class="container attendance-container" align="center">
+                <br/>
+
+                <b>
+                    <h1 style="color:#EB5B00; background-color: rgba(150, 201, 244, 0.5);font-size:85px;">Attendance</h1>
+                </b>
+
+
+                <br/>
+                <br/>
+                <br/>
+                <t t-if="user.employee_id">
+                    <form method="post"
+                          t-attf-action="/my/attendance/#{'checkin' if not user.employee_id.attendance_state == 'checked_in' else 'checkout'}">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <button type="submit"
+                                t-attf-class="btn #{'btn-danger' if not user.employee_id.attendance_state == 'checked_in' else 'btn-success'}">
+                            <i class="fa fa-#{'sign-in-alt' if not user.employee_id.attendance_state == 'checked_in' else 'sign-out-alt'}"
+                               style="margin-right: 10px;"/>
+                            <t t-esc="'Check In' if not user.employee_id.attendance_state == 'checked_in' else 'Check Out'"/>
+                        </button>
+                    </form>
+                </t>
+
+            </div>
+        </t>
+    </template>
+
+
+</odoo>
+

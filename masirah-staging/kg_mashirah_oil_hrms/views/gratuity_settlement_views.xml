@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+        <record id="menu_gratuity_settlement_action" model="ir.actions.act_window">
+            <field name="name">Gratuity Settlement</field>
+            <field name="res_model">gratuity.settlement</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="gratuity_settlement_view_tree" model="ir.ui.view">
+            <field name="name">Gratuity Settlement Tree View</field>
+            <field name="model">gratuity.settlement</field>
+            <field name="arch" type="xml">
+                <tree string="Gratuity Settlement">
+                    <field name="sequence_num"/>
+                    <field name="employee_id"/>
+                    <field name="current_contract"/>
+                    <field name="manager_new_id"/>
+                    <field name="total_days_worked"/>
+                    <field name="department_id"/>
+                    <field name="state"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="gratuity_settlement_view_form" model="ir.ui.view">
+            <field name="name">Gratuity Settlement Form View</field>
+            <field name="model">gratuity.settlement</field>
+            <field name="arch" type="xml">
+                <form string="Gratuity Settlement">
+                    <header>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done,cancel"/>
+                        <button name="action_confirm" string="Confirm"
+                                type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                        <button name="action_done" type="object" string=" Done" class="oe_highlight"
+                                invisible="state == 'draft' or state == 'done' or state == 'cancel'"/>
+                        <button name="action_cancel" string="Cancel"
+                                invisible="state == 'cancel'"
+                                type="object"/>
+                        <button name="action_reset" string="Reset"
+                                invisible="state == 'draft' or state == 'done' or state == 'confirm'"
+                                type="object"/>
+
+                    </header>
+                    <sheet>
+                        <widget name="web_ribbon" title="Done" invisible="state != 'done'"/>
+                        <widget name="web_ribbon" title="Cancelled" invisible="state != 'cancel'"
+                                bg_color="text-bg-danger"/>
+                        <div class="oe_title">
+                            <label for="sequence_num" string=" Reference"/>
+                            <h1>
+                                <field name="sequence_num" readonly="1" force_save="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_id" readonly="state == 'confirm'"/>
+                                <field name="current_contract"/>
+                                <field name="join_date" required="1" readonly="state == 'confirm'"/>
+                                <field name="manager_new_id"/>
+                                <field name="department_id"/>
+                            </group>
+                            <group>
+                                <field name="releiving_date" required="1" readonly="state == 'confirm'"/>
+                                <field name="total_days_worked"/>
+                                <field name="unpaid_days"/>
+                                <field name="service_year"/>
+                                <field name="amount_gratuity"/>
+                                <field name="wage" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="menu_gratuity_settlement"
+                  name="Gratuity Settlement"
+                  action="menu_gratuity_settlement_action"
+                  parent="hr_payroll.menu_hr_payroll_payslips"
+                  sequence="4"/>
+
+
+    </data>
+</odoo>

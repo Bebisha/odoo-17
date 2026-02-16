@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <!-- Menu Item -->
+        <menuitem id="menu_employee_leave_report" name="Employee Leave Report" parent="hr.menu_hr_root" sequence="10"/>
+
+        <!-- Action -->
+<record id="action_employee_leave_report" model="ir.actions.act_window">
+    <field name="name">Employee Leave Report</field>
+    <field name="res_model">employee.leave.report</field>
+    <field name="view_mode">tree,form</field>
+<!--    <field name="view_type">tree</field>-->
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            Click to create a new leave record for an employee.
+        </p>
+    </field>
+</record>
+
+        <!-- Action Window -->
+        <record id="view_employee_leave_report_tree" model="ir.ui.view">
+            <field name="name">employee.leave.report.tree</field>
+            <field name="model">employee.leave.report</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Leave Report">
+                    <field name="name"/>
+                    <field name="leave_type_id"/>
+                    <field name="total_leave_allocation"/>
+                    <field name="total_leave_taken"/>
+                    <field name="leave_remaining"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Menu Action -->
+        <record id="menu_action_employee_leave_report" model="ir.actions.act_window">
+            <field name="name">Employee Leave Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.leave.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_employee_leave_report_tree" name="Employee Leave Report" parent="menu_employee_leave_report" action="menu_action_employee_leave_report" sequence="10"/>
+    </data>
+</odoo>

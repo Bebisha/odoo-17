@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="message_compose_wizard_form">
+            <field name="name">message.compose.form</field>
+            <field name="model">message.compose</field>
+            <field name="arch" type="xml">
+                <form string="Compose SMS">
+                    <group>
+                        <field name="sms_server_id" invisible="0"/>
+                        <field name="from_number"/>
+                        <field name="to_number"/>
+                    </group>
+                    <field name="message"/>
+                    <field name="model" invisible="1"/>
+                    <group col="4">
+                        <field name="sms_template_id" options="{'no_create': True}"
+                              domain="[('model','=',model)]" context="{'default_model': model, 'default_message':message}"/>
+                    </group>
+                    <footer>
+                        <button string="Send" name="send_message" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="send_sms_global_form_action" model="ir.actions.act_window">
+	        <field name="name">Send Message</field>
+	        <field name="res_model">message.compose</field>
+<!--	        <field name="view_type">form</field>-->
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+         </record>
+    </data>
+</openerp>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!-- Inherit the sale order form view -->
+        <record id="view_sale_order_form_custom" model="ir.ui.view">
+            <field name="name">sale.order.form.custom</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="client_order_ref" readonly="state in ['sale','done']"
+                           invisible="state not in ['sale','done']"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

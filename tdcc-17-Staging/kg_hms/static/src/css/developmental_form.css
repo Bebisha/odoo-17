@@ -1,0 +1,21 @@
+
+	nav {
+		display: flex;
+		justify-content: center;
+		margin: 20px 0 0;
+
+		button {
+			flex: 0 0 auto;
+			margin: 0 5px;
+
+			cursor: pointer;
+
+			color: #333;
+			background: none;
+			border: 1px solid;
+			letter-spacing: 1px;
+			padding: 5px 10px;
+		}
+	}
+
+}

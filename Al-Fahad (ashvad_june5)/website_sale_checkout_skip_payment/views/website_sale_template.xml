@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
+         License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+    <template id="payment" inherit_id="website_sale.payment" priority="25">
+        <xpath expr="//div[@id='address_on_payment']" position="before">
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div t-if="website.checkout_skip_payment">
+                            <a role="button" href="/shop/cart" class="btn btn-secondary">
+                                <i class="fa fa-chevron-left"></i>
+                                Return to Cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+
+                <div>
+                    <div class="js_skip_payment" t-if="website.checkout_skip_payment" id="skip_payment_method">
+                        <form id="sale_order_form" target="_self" action="/shop/confirmation" method="post"
+                              class="form-inline float-right">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="employee_input" class="col-md-2">
+                                        <b>Employee:</b>
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="employee_id" id="employee_input" class="form-control col-md-4 mr-2">
+                                        <option value="0">Select an Employee...</option>
+                                        <t t-foreach="employees" t-as="employee">
+                                            <option t-att-value="employee.id">
+                                                <t t-esc="employee.emp_name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <input type="text" name="client_order_ref" id="client_order_ref"
+                                           class="form-control col-md-4 mr-2" placeholder="Enter Reference number"/>
+                                </div>
+
+                            </div>
+                            <br/>
+
+                            <div class="row">
+                                <div class="col-md-9"/>
+                                <div class="col-md-3" align="right">
+                                    <button type="submit" class="btn btn-primary mb-2" name="confirm_sale_order">
+                                        Confirm
+                                        <i class="fa fa-chevron-right"/>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </xpath>
+
+
+        <xpath expr="//t[@name='website_sale_non_free_cart']" position="attributes">
+            <attribute
+                    name="t-if"
+                    separator=" "
+                    add="and not website.checkout_skip_payment"
+            />
+        </xpath>
+        <!--        <xpath expr="//div[hasclass('js_payment')]" position="attributes">-->
+        <!--            <attribute-->
+        <!--                name="t-if"-->
+        <!--                separator=" "-->
+        <!--                add="and not website.checkout_skip_payment"-->
+        <!--            />-->
+        <!--        </xpath>-->
+    </template>
+    <template id="confirmation" inherit_id="website_sale.confirmation">
+        <!--        <xpath expr="//t[@t-if='payment_tx_id.state == &quot;done&quot;']" position="attributes">-->
+        <!--            <attribute name="t-if">payment_tx_id.state == 'done' or (website.checkout_skip_payment and order.state ==-->
+        <!--                'sale')-->
+        <!--            </attribute>-->
+        <!--        </xpath>-->
+
+        <xpath
+                expr="//t[@t-call='website_sale.payment_confirmation_status']"
+                position="after"
+        >
+            <div
+                    class="alert alert-info"
+                    role="alert"
+                    t-if="website.checkout_skip_payment"
+            >
+                <span t-field="website.website_sale_checkout_skip_message"/>
+            </div>
+        </xpath>
+        <!-- Hide payment related info if skip payment step -->
+        <xpath
+                expr="//t[@t-call='website_sale.payment_confirmation_status']"
+                position="attributes"
+        >
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+    </template>
+    <template id="order_state_message">
+        <p>Your order is waiting manual confirmation.</p>
+        <br/>
+    </template>
+
+
+</odoo>

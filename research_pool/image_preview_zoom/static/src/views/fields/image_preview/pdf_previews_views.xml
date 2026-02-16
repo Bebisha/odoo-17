@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="file_preview_zoom.FilePreviewField">
+        <!-- Button with the specific classes -->
+        <button class="btn btn-link btn-sm lh-1 fa fa-download o_download_file_button">
+            <i class="fa fa-2x fa-warning"></i>
+        </button>
+        <!-- Container for file preview -->
+        <div class="file-preview-container">
+            <img class="file-preview-image" style="display: none;" />
+            <div class="file-name-display">No file selected</div>
+        </div>
+    </t>
+</templates>
+
+<!--    <t t-name="file_preview_zoom.FilePreviewField">-->
+<!--        -->
+<!--        <button class="btn btn-link btn-sm lh-1 fa fa-download o_download_file_button">-->
+<!--            <i class="fa fa-eye"></i>-->
+<!--        </button>-->
+<!--        &lt;!&ndash; Container for file preview &ndash;&gt;-->
+<!--        <div class="file-preview-container">-->
+<!--            <img class="file-preview-image" style="display: none;" />-->
+<!--            <div class="file-name-display">No file selected</div>-->
+<!--        </div>-->
+<!--    </t>-->
+<!--     <t t-name="file_preview_zoom.FilePreviewField" t-inherit="web.BinaryField">-->
+<!--        <xpath expr="//label[hasclass('o_select_file_button')]" position="replace">-->
+<!--            <label class="o_select_file_button btn btn-sm btn-link p-0">-->
+<!--                <FileUploader-->
+<!--                    acceptedFileExtensions="props.acceptedFileExtensions"-->
+<!--                    onUploaded.bind="update"-->
+<!--                >-->
+<!--                    <t t-set-slot="toggler">-->
+<!--                        <i class="fa fa-upload fa-fw"/> Upload your fileuuuuuuuuuuu-->
+<!--                    </t>-->
+<!--                </FileUploader>-->
+<!--            </label>-->
+<!--        </xpath>-->
+<!--     </t>-->
+

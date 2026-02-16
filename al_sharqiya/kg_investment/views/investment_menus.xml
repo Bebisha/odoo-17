@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem name="Portfolio Management" id="menu_investment_root" sequence="85" web_icon="kg_investment,static/description/icon.png"/>
+
+        <menuitem id="menu_transactions"
+                  name="Transactions"
+                  parent="menu_investment_root"
+                  sequence="1"/>
+        <menuitem id="menu_configuration_investment"
+                  name="Configuration"
+                  parent="menu_investment_root"
+                  sequence="3"/>
+        <menuitem id="menu_reports_investment"
+                  name="Reports"
+                  parent="menu_investment_root"
+                  sequence="2"/>
+        <menuitem id="menu_purchases"
+                  name="Purchases"
+                  action="action_kg_purchase_order_form"
+                  parent="menu_transactions"
+                  sequence="1"/>
+        <menuitem id="menu_sales"
+                  name="Sales"
+                  action="action_kg_sale_order_form"
+                  parent="menu_transactions"
+                  sequence="2"/>
+        <menuitem id="menu_dividend_entry"
+                  name="Dividend Entry"
+                  action="action_kg_dividend_entry"
+                  parent="menu_transactions"
+                  sequence="3"/>
+        <menuitem id="menu_market_rate_updation"
+                  name="Market Rate Updation"
+                  action="action_market_rate_updation"
+                  parent="menu_transactions"
+                  sequence="4"/>
+        <menuitem id="menu_revaluation_journal"
+                  name="Revaluation Journal"
+                  action="action_revaluation_journal"
+                  parent="menu_transactions"
+                  sequence="5"/>
+        <menuitem id="menu_kg_bonds"
+                  name="Bonds"
+                  action="action_kg_bonds"
+                  parent="menu_transactions"
+                  sequence="6"/>
+        <menuitem id="menu_exchange_master"
+                  name="Exchange"
+                  sequence="5"
+                  action="action_exchange_master"
+                  parent="menu_configuration_investment"/>
+        <menuitem id="menu_investment_settings"
+                  name="Settings"
+                  sequence="1"
+                  action="action_investment_settings"
+                  parent="menu_configuration_investment"/>
+        <menuitem id="menu_investment_type"
+                  name="Investment Type"
+                  sequence="2"
+                  action="action_investment_type"
+                  parent="menu_configuration_investment"/>
+        <menuitem id="menu_investment_entry"
+                  name="Investment Entry"
+                  sequence="3"
+                  action="action_investment_entry"
+                  parent="menu_configuration_investment"/>
+        <menuitem id="menu_kg_stock_quantity"
+                  name="Stock Quantity "
+                  sequence="4"
+                  action="action_kg_stock_quant"
+                  parent="menu_configuration_investment"/>
+
+    </data>
+</odoo>

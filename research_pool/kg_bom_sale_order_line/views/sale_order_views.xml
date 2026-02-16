@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define a new model for the Bill of Materials -->
+        <!--        <record id="model_bom" model="ir.model">-->
+        <!--            <field name="name">Bill of Materials</field>-->
+        <!--            <field name="model">custom.sale.order.bom</field>-->
+        <!--            <field name="inherit_id" ref="sale.model_sale_order"/>-->
+        <!--            <field name="inherit_model">sale.order.line</field>-->
+        <!--        </record>-->
+
+        <!-- Define the bill of materials model -->
+        <record id="model_sale_order_bom" model="ir.ui.view">
+            <field name="name">sale.order.bom</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+           <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+               <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+
+                 <field name="bom_id" string="Bill of Materials"/>
+            </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

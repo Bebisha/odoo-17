@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Top Menu : Commissions  -->
+        <menuitem name="Commissions"
+                  groups="bista_tdcc_commission.group_sale_commission_tdcc"
+                  id="menu_sales_commissions_management"
+                  parent="account_accountant.menu_accounting" sequence="4"/>
+
+        <!-- Tree view : Sales Commissions -->
+        <record model="ir.ui.view" id="tdcc_sales_commission_tree">
+            <field name="name">Sales Commissions</field>
+            <field name="model">sale.commission</field>
+            <field name="arch" type="xml">
+                <tree string="Commissions" create="false" delete="false">
+                    <field name="name" />
+                    <field name="partner_id" context="{'only_name': True}" string="Salesperson"/>
+                    <field name="start_date" />
+                    <field name="end_date" />
+                    <field name="commission_cut_off_date"/>
+                    <field name="clinic_id" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="sales_amount" sum="Total Sales"/>
+                    <field name="commission_by_receipt" string="Payable commission"
+                    sum="Total Commission"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Form view : Sales Commissions -->
+        <record model="ir.ui.view" id="tdcc_sales_commission_form">
+            <field name="name">Sales commissions</field>
+            <field name="model">sale.commission</field>
+            <field name="arch" type="xml">
+                <form string="Commission" create="false" edit="false" delete="false">
+                    <header>
+                        <button name="action_post_expense" string="Post Expense" type="object"
+                                class="btn-primary" invisible="state != 'draft'"/>
+                        <button name="action_cancel_commission" string="Cancel"
+                                type="object" class="btn-primary" invisible="state in ['draft', 'expense_booked']" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,expense_booked,paid" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="view_expense_book_entries"
+                                string="Expense Book Entries" type="object" invisible="state not in ['expense_booked', 'paid']"
+
+                                icon="fa-bars"/>
+                        </div>
+                        <div>
+                            <h1 class="mt0">
+                                <field name="name" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id" invisible="state == 'draft'"
+
+                                    context="{'only_name': True}" string="Salesperson"/>
+                                <field name="start_date" invisible="state == 'draft'"/>
+                                <field name="end_date" invisible="state == 'draft'"/>
+                            </group>
+                            <group>
+                                <field name="commission_cut_off_date"
+                                    invisible="state == 'draft'"/>
+                                <field name="clinic_id" invisible="state == 'draft'"/>
+                                <field name="currency_id" invisible="state == 'draft'"/>
+                            </group>
+                            <group>
+                                <field name="sales_limit" readonly="1"/>
+                                <field name="sales_amount"/>
+                                <field name="receipt_amount"/>
+                            </group>
+                            <group>
+                                <field name="commission_by_sales"/>
+                                <field name="commission_by_receipt"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Sales Commission Lines">
+                                <field name="commission_line_ids"
+                               invisible="state == 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="commission_id" invisible="1"/>
+                                        <field name="commission_date" string="Date"/>
+                                        <field name="partner_id" invisible="1"/>
+                                        <field name="source"/>
+                                        <field name="commission_amount" sum="Total Amount"/>
+                                        <field name="payment_amount" sum="Total Amount From"/>
+                                        <field name="state"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="untaxed_payment_amount" invisible="1"/>
+                                        <field name="taxed_payment_amount" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Sales Commissions Search -->
+        <record model="ir.ui.view" id="sale_commission_search_view">
+            <field name="name">sale.commission.search</field>
+            <field name="model">sale.commission</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="partner_id" string="Salesperson"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Salesperson" name="partner_id" domain="[]"
+                            context="{'group_by':'partner_id'}" />
+                        <filter string="Status" name="state" domain="[]"
+                            context="{'group_by':'state'}" />
+                        <filter string="Date" name="start_date" domain="[]"
+                            context="{'group_by':'start_date'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action : Sales Commissions -->
+        <record model="ir.actions.act_window" id="action_sales_commission">
+            <field name="name">Sales Commissions</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.commission</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu : Sales Commissions Worksheets -->
+        <menuitem id="menu_sales_commission_worksheets"
+                  parent="menu_sales_commissions_management"
+                  action="action_sales_commission"
+                  sequence="1"/>
+
+
+        <!-- Tree view : Sales Commissions Line-->
+        <record model="ir.ui.view" id="show_unposted_comm_line_tree">
+            <field name="name">Sales Commissions Lines</field>
+            <field name="model">sale.commission.line</field>
+            <field name="arch" type="xml">
+                <tree string="Commissions" create="false" edit="false">
+                    <field name="commission_id"/>
+                    <field name="partner_id"/>
+                    <field name="commission_date" string="Date"/>
+                    <field name="source"/>
+                    <field name="commission_amount" sum="Total Amount"/>
+                    <field name="state"/>
+                    <field name="currency_id" invisible="1"/>
+                    <button name="action_cancel" type="object" icon="fa-close"
+                           string="Cancel" invisible="state != 'unpaid'"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action : Sales Commissions line-->
+        <record model="ir.actions.act_window" id="action_show_unposted_comm_line_tree">
+            <field name="name">Sales Commissions Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.commission.line</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree</field>
+            <field name="domain">[('state', '=', 'unpaid'),
+                                  ('commission_amount', '>', 0.00)]</field>
+        </record>
+        
+        <!-- Inherit Account register payment -->
+       <!--  <record id="inherited_account_register_payment_view_custom"
+        model="ir.ui.view">
+        <field name="name">inherited.account.payment.invoice.wizard.form.custom
+        </field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id"
+            ref="account.view_account_payment_invoice_form" />
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="user_id" options="{'no_create_edit': True}"/>
+            </field>
+        </field>
+    </record> -->
+    
+</odoo>

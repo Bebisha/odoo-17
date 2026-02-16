@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="employee_status_sequence">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header">
+                            <img t-att-src="image_data_uri(doc.company_id.logo)" style="height:150px;width:170px;margin-top:-15px; margin-left: 110px
+                                             position:fixed;right:50px;top:30px;" alt="Company Logo"/>
+                        </div>
+                        <div>
+                            <table class='table-borderless' width="100%" style="font-size:20px;">
+                                <tr>
+                                    <td colspan="2">
+                                        Ref:
+                                        <span t-esc="doc.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        Date:
+                                        <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h2 align="center">Employment Status</h2>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2" style="padding-top: 20px;">
+                                        <p>
+                                            This to certify that Mr/Ms.<span t-esc="doc.employee_id.name"/>, ID:
+                                            <span t-esc="doc.employee_id.registration_number"/>
+                                            ,
+                                            has been working for
+                                            <span t-esc="doc.company_id.name"/>
+                                            Company since<span
+                                                t-esc="doc.employee_id.date_of_join"/>, as<span
+                                                t-esc="doc.employee_id.job_id.name"/>.
+
+                                        </p>
+                                        <p>
+                                            He is performing his duties, contributing to the progress of the Company as
+                                            one team and we are pleased with his ethics.
+                                        </p>
+                                        <p>
+                                            This certificate has been issued upon the request of the employee without
+                                            any responsibility on the part of the Company.
+                                        </p>
+                                    </td>
+                                </tr>
+                                <br/>
+                                <tr>
+                                    <td colspan="2" align="left" style="padding-top:40px;">
+                                        <strong>
+                                            <span t-field="doc.employee_id.parent_id"/>
+                                            <br/>
+                                            <span t-field="doc.employee_id.parent_id.job_id"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="footer">
+                            <table class='table-borderless' width="100%">
+                                <tr width="100%">
+                                    <td align="center">
+                                        <strong>
+                                            <span t-esc="doc.company_id.name"/>
+                                        </strong>
+                                        <br/>
+                                        <span t-esc="doc.company_id.street"/>
+                                        <br/>
+                                        Bldg. No.<span t-esc="doc.company_id.bldg_no"/>, Way No.<span
+                                            t-esc="doc.company_id.way_no"/>,
+                                        <span t-esc="doc.company_id.street2"/>
+                                        <br/>
+                                        Postal Code<span t-esc="doc.company_id.zip"/>,<span
+                                            t-esc="doc.company_id.city"/>,
+                                        <span t-esc="doc.company_id.state_id.name"/>
+                                        <br/>
+                                        Phone No.<span t-esc="doc.company_id.phone"/>, Fax<span
+                                            t-esc="doc.company_id.fax"/>,CR No.
+                                        <span t-esc="doc.company_id.company_registry"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record id="kg_day_brook_report_menu_action_report" model="ir.actions.act_window">
+            <field name="name">Day Book Report</field>
+            <field name="res_model">day.book.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="accounting_custom_reports_root_menu" name="Reports"
+                  parent="account.menu_finance_reports"/>
+
+        <menuitem id="kg_menu_day_book_report" action="kg_day_brook_report_menu_action_report" sequence="1"
+                  parent="accounting_custom_reports_root_menu"/>
+
+        <record id="kg_day_book_report_wizard" model="ir.ui.view">
+            <field name="name">Day Book Report Wizard</field>
+            <field name="model">day.book.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="start_date" required="1"/>
+                            <field name="end_date" required="1"/>
+                        </group>
+                        <group>
+                            <field name="company_id" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_day_book_report" class="oe_highlight"
+                                string="PDF"
+                                type="object"/>
+                        <button
+                                name="print_day_book_xlsx" class="oe_highlight"
+                                string="Excel"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <!-- Appointment Notification Scheduler -->
+    <record model="ir.cron" id="appointment_appointment_cron">
+        <field name="name">Appointment Pre Notification</field>
+        <field name="model_id" ref="bista_tdcc_operations.model_appointment_appointment"/>
+        <field name="state">code</field>
+        <field name="code">model.appointment_mail()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Appointment Invoice Generation Scheduler -->
+    <record model="ir.cron" id="appointment_appointment_invoice_cron">
+        <field name="name">Appointment Pre Invoice Generation</field>
+        <field name="model_id" ref="bista_tdcc_operations.model_appointment_appointment"/>
+        <field name="state">code</field>
+        <field name="code">model.appointment_generate_invoice()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+</odoo>

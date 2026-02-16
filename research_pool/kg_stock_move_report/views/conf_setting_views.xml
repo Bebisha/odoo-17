@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_view_res_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.stock</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <div class="app_settings_block" data-string="stock_recipient" string="Recipient"
+                     data-key="stock_operation_inherits">
+                    <h2>Recipients Mail(stock move)</h2>
+                    <div class="row mt16 o_settings_container" id="stock_recipient_settings">
+                        <div class="col-12 col-lg-6 o_setting_box" id="stock_setting_recipient">
+                            <div class="o_setting_right_pane">
+                                <label for="stock_recipient_id" string="Recipients Mail"/>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <field name="stock_recipient_id" widget="many2many_tags"/>
+                                        <p class="text-muted">
+                                            Recipients who will receive the weekly stock report email.
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

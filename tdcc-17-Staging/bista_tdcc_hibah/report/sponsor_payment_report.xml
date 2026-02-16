@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Report Action for Sponsor Payment -->
+    <!--     <report-->
+    <!--         id="action_report_sponsor_payment"-->
+    <!--         string="Sponsor Payments Details"-->
+    <!--         model="res.partner"-->
+    <!--         report_type="qweb-pdf"-->
+    <!--         name="bista_tdcc_hibah.report_sponsor_payment"-->
+    <!--         file="bista_tdcc_hibah.report_sponsor_payment"-->
+    <!--         menu="False"/>-->
+
+
+    <!-- Report Action for Account Statement Report -->
+    <!--            <report-->
+    <!--            id="action_report_account_statement"-->
+    <!--            string="Account Statement"-->
+    <!--            model="res.partner"-->
+    <!--            report_type="qweb-pdf"-->
+    <!--            name="bista_tdcc_hibah.report_account_statement_tdcc"-->
+    <!--            file="bista_tdcc_hibah.report_account_statement_tdcc"-->
+    <!--            menu="False"/>-->
+    <!--            -->
+    <!-- Sponsor payment Report paper format -->
+    <record id="sponsor_payment_report_paperformat" model="report.paperformat">
+        <field name="name">Sponsor Payment report</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+<!--        <field name="report_ids"-->
+<!--               eval="[(4, ref('action_report_sponsor_payment'))]"></field>-->
+    </record>
+    <record id="action_report_sponsor_payment" model="ir.actions.report">
+        <field name="name">Sponsor Payments Details</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_tdcc_hibah.report_sponsor_payment</field>
+        <field name="report_file">bista_tdcc_hibah.report_sponsor_payment</field>
+        <field name="paperformat_id" ref="bista_tdcc_hibah.sponsor_payment_report_paperformat"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Statement of Account Report View paper format -->
+    <record id="statement_of_account_view_paperformat" model="report.paperformat">
+        <field name="name">Statement Of Account Report</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+<!--        <field name="report_ids"-->
+<!--               eval="[(4, ref('action_report_account_statement'))]"></field>-->
+    </record>
+      <record id="action_report_account_statement" model="ir.actions.report">
+        <field name="name">Account Statement</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bista_tdcc_hibah.report_account_statement_tdcc</field>
+        <field name="report_file">bista_tdcc_hibah.report_account_statement_tdcc</field>
+        <field name="paperformat_id" ref="bista_tdcc_hibah.statement_of_account_view_paperformat"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>
+
+

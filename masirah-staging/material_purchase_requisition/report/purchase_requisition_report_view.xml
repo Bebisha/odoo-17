@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="purchase_requisition_template_view">
+            <t t-call="web.external_layout">
+                <div class="page">
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <div class="row">
+                        <h2 style="text-align : left;">Material Requisition
+                            <span t-field="o.sequence"/>
+                            <span>-</span>
+                            <span t-field="o.state"/>
+                        </h2>
+                        <br/>
+                    </div>
+
+                    <table style="border-collapse: collapse;width: 100%;" class="table table-condensed">
+                        <tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;height:50%;">
+                            <td>
+                                <strong>Employee :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.sudo().employee_id.name"/>
+                            </td>
+
+                            <td>
+                                <strong>Requisition Date :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.requisition_date"/>
+                            </td>
+                        </tr>
+
+                        <tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">
+                            <td>
+                                <strong>Department :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.department_id.name"/>
+                            </td>
+
+                            <td>
+                                <strong>Received Date :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.received_date"/>
+                            </td>
+
+                        </tr>
+
+                        <tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">
+                            <td>
+                                <strong>Requisition Responsible :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.requisition_responsible_id.name"/>
+                            </td>
+
+                            <td>
+                                <strong>Requisition Deadline</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.requisition_deadline_date"/>
+                            </td>
+                        </tr>
+
+                        <tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">
+                            <td>
+                                <strong>Company :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.company_id.name"/>
+                            </td>
+
+                            <td>
+                                <strong></strong>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                    <h2>Other Information</h2>
+                    <br/>
+                    <table style="border-collapse: collapse;width: 100%;" class="table table-condensed">
+                        <tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;height:50%;">
+                            <td>
+                                <strong>Confirmed By :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.confirmed_by_id.name"/>
+                            </td>
+
+                            <td>
+                                <strong>Confirmed Date :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.confirmed_date"/>
+                            </td>
+                        </tr>
+
+                        <tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">
+                            <td>
+                                <strong>Department Manager :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.department_manager_id.name"/>
+                            </td>
+
+                            <td>
+                                <strong>Department Approval Date :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.department_approval_date"/>
+                            </td>
+
+                        </tr>
+
+                        <tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">
+                            <td>
+                                <strong>Approved By :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.approved_by_id.name"/>
+                            </td>
+
+                            <td>
+                                <strong>Approved Date :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.approved_date"/>
+                            </td>
+                        </tr>
+
+                        <tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">
+                            <td>
+                                <strong>Rejected By :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.rejected_by.name"/>
+                            </td>
+
+                            <td>
+                                <strong>Rejected Date :</strong>
+                            </td>
+                            <td>
+                                <span t-field="o.rejected_date"/>
+                            </td>
+
+                        </tr>
+                    </table>
+
+                    <h2>Picking Details</h2>
+                    <br/>
+                    <table style="border-collapse: collapse;width: 100%;" class="table table-condensed">
+                        <t t-if="o.use_manual_locations==True">
+                            <tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;height:50%;">
+                                <td>
+                                    <strong>Source Location :</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.source_location_id"/>
+                                </td>
+
+                                <td>
+                                    <strong>Destination Location :</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.destination_location_id"/>
+                                </td>
+                            </tr>
+                        </t>
+
+                        <!--                        <t t-if="o.use_manual_locations==False">-->
+                        <!--                            <tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">-->
+                        <!--                                <td><strong >Internal Picking : </strong> </td>-->
+                        <!--                                <td><span t-field="o.internal_picking_id.name" /></td>-->
+                        <!--                            -->
+                        <!--                            </tr>-->
+                        <!--                        </t>-->
+
+                    </table>
+
+
+                    <h2>Requisition Lines</h2>
+                    <br/>
+                    <table style="border-collapse: collapse;width: 100%;" class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Requisition Action</th>
+                                <th>Product</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Unit Of Measure</th>
+                                <!-- <th>Vendors</th> -->
+                            </tr>
+                        </thead>
+                        <tbody class="consumed_tbody">
+                            <t t-foreach="o.requisition_line_ids" t-as="requisition">
+                                <tr>
+                                    <td>
+                                        <span t-field="requisition.requisition_action"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="requisition.product_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="requisition.description"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="requisition.qty"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="requisition.uom_id.name"/>
+                                    </td>
+                                    <!-- <td>
+                                        <span t-field="requisition.vendor_id.name" />
+                                    </td> -->
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+                        <h4 class="col-md-6">Employee Signature :</h4>
+                        <h4 class="col-md-6">Date :</h4>
+                        <br/>
+                    </div>
+                    <div class="row">
+                        <h4 class="col-md-6">Manager Signature :</h4>
+                        <h4 class="col-md-6">Date :</h4>
+                        <br/>
+                    </div>
+                    <div class="row">
+                        <h4 class="col-md-6">Approve Signature :</h4>
+                        <h4 class="col-md-6">Date :</h4>
+                        <br/>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="purchase_requisition_temp_id">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <t t-if="o.state=='new'">
+                                <div class="watermark"
+                                     style="position:absolute;opacity:0.5;font-size:3em;width:100%;text-align:center;z-index:1000;">
+                                    <img t-att-src="'bi_material_purchase_requisitions/static/draft_watermark.png'"
+                                         style="width:670px;height:670px"/>
+                                </div>
+                            </t>
+                            <table class="table table-sm table-bordered text-center"
+                                   style="border: 1px solid black;width:100%">
+                                <tr>
+                                    <td colspan="12">
+                                        <h3>
+                                            <strong>PURCHASE REQUISITION</strong>
+                                        </h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start" colspan="7">
+                                        Document No:
+                                        <span t-field="o.sequence"/>
+                                    </td>
+                                    <td class="text-start" colspan="5">
+                                        Date:
+                                        <span t-field="o.requisition_date"
+                                              t-options='{"widget": "date" ,"format": "dd-MMM-yy"}'/>
+
+                                    </td>
+                                </tr>
+                                <t if="o.mr_ids">
+                                    <tr>
+                                        <td class="text-start" colspan="12">
+                                            Material Requisition:
+                                            <span t-esc="', '.join(o.mr_ids.mapped('sequence'))"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td class="text-start" colspan="12">
+                                        Description:
+                                        <!--                                        <span t-field="o.remarks"/>-->
+                                        <span t-field="o.reason_for_requisition"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">
+                                        S/N
+                                    </td>
+                                    <td colspan="2">
+                                        Item Code
+                                    </td>
+                                    <td colspan="3">
+                                        Jobs / Description
+                                    </td>
+                                    <td colspan="1">
+                                        Qty
+                                    </td>
+                                    <td colspan="1">
+                                        Uom
+                                    </td>
+                                    <!--                                    <td >-->
+                                    <!--                                        Rate-->
+                                    <!--                                    </td>-->
+                                    <td colspan="1">
+                                        Qty Avlb.
+                                    </td>
+                                    <td colspan="3">
+                                        Remarks
+                                    </td>
+                                </tr>
+                                <t t-foreach="o.requisition_line_ids" t-as="requisition">
+                                    <tr>
+                                        <td colspan="1">
+                                            <span t-esc="requisition_index + 1"/>
+                                        </td>
+                                        <td colspan="2">
+
+                                            <span t-field="requisition.product_id.default_code"/>
+                                        </td>
+                                        <td class="text-start" colspan="3">
+                                            <span t-field="requisition.product_id.name"/>
+                                        </td>
+                                        <td colspan="1">
+                                            <span t-field="requisition.qty"/>
+                                        </td>
+                                        <td colspan="1">
+                                            <span t-field="requisition.uom_id.name"/>
+                                        </td>
+                                        <!--                                        <td style="padding-top: 10px;padding-bottom: 10px;text-align:right;border-right: 1px solid black;border-bottom: 1px solid black;border-left: 1px solid black">-->
+                                        <!--                                            <span t-esc="'{:,.3f}'.format(requisition.product_id.standard_price)"/>-->
+                                        <!--                                        </td>-->
+                                        <td colspan="1">
+                                            <span t-field="requisition.product_id.qty_available"/>
+                                        </td>
+                                        <td class="text-start" colspan="3">
+                                            <span t-field="requisition.pr_remarks"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                            <div class="footer">
+                                <table class="table table-sm text-center" style="border: 1px solid black;width:100%">
+                                    <tr>
+                                        <td class="text-start" colspan="8">
+                                            Requested by:
+                                            <span t-esc="o.employee_id.name"/>
+                                        </td>
+                                        <td class="text-start" colspan="5">
+                                            Completion Date :
+                                            <t t-if="o.completion_date">
+                                                <span t-esc="o.completion_date.strftime('%d/%m/%Y %H:%M %p')"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start" colspan="12"
+                                            style="border: 1px solid black;">
+                                            Created By :
+                                            <span t-esc="o.create_uid.name"/>
+
+                                        </td>
+                                    </tr>
+                                    <t t-if="o.approvals_json and o.approvals_json['approved_vals']">
+                                        <tr height="30px" class="justify-content-center">
+                                            <t t-set="approved_level"
+                                               t-value="[val for val in o.approvals_json['approved_vals'] if not val['is_rejected']]"/>
+                                            <t t-foreach="approved_level" t-as="val">
+                                                <t t-set="val_no" t-value="len(o.approvals_json['approved_vals'])"/>
+                                                <t t-set="usr"
+                                                   t-value="o.env['res.users'].browse(val['approval_user']['id'])"/>
+                                                <t t-set="colspan_no" t-value="12/val_no"/>
+                                                <td t-attf-colspan="{{colspan_no}}" valign="middle">
+                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                                           style="background-color: white; padding: 0; border-collapse:separate;">
+                                                        <tr>
+                                                            <td valign="middle">
+                                                                <b>
+                                                                    <span t-esc="val['level']"/>
+                                                                </b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr t-if="usr.sign_signature">
+                                                            <td>
+                                                                <!--                                                                <t >-->
+                                                                <img t-att-src="image_data_uri(usr.sign_signature)"
+                                                                     style="height: 15mm; width: 60mm;"/>
+
+                                                                <!--<img t-att-src="image_data_uri(usr.sign_signature)" style="max-height: 4cm; max-width: 4cm;"/>-->
+                                                                <!--                                                                </t>-->
+                                                            </td>
+                                                        </tr>
+                                                        <tr align="center">
+                                                            <td style="text-align:center;">
+                                                                <span style="font-size: 10px;" t-esc="usr.name"/>
+                                                                <br/>
+                                                                <span style="font-size: 9px;"
+                                                                      t-esc="datetime.datetime.strptime(val['approval_time'], '%Y-%m-%d %H:%M:%S').strftime('%d/%m/%Y %H:%M %p')"/>
+                                                                <hr style="border: 1px solid black; width:30%; margin: 0 auto"/>
+                                                                <span style="font-size: 7px;">
+                                                                    <i>Name/Signature/Date</i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </table>
+                                <table class="table table-borderless" style="width:100%;">
+                                    <tr>
+                                        <td colspan="4">
+                                            <small>
+                                                Printed by:
+                                                <t t-esc="user_id.name"/>
+                                            </small>
+                                        </td>
+                                        <td colspan="4">
+                                            <small>
+                                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M %p')"
+                                                      align="left"/>
+                                            </small>
+                                        </td>
+                                        <td colspan="4">
+                                            <small align="right">
+                                                <span>Page</span>
+                                                <span class="page"/>
+                                                of
+                                                <span class="topage"/>
+                                            </small>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+

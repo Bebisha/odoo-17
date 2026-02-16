@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="experience_certificate">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header">
+                            <table class='table-borderless' width="100%">
+                                <tr width="100%">
+                                    <td align="right">
+                                        <span class="page"/>: الرقـــم<br/>
+                                        <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>: التاريخ
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <h2 align="center" style="margin-bottom:40px;">EXPERIENCE CERTIFICATE</h2>
+                            <table class='table table-borderless table-condensed table-hover' style="font-size:18px;border-collapse:collapse;border-radius: 5px 5px 5px 5px;width:100%;margin:5pt;border-bottom: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;">
+                                <tr style="border-bottom: 1px solid black; height:40pt;">
+                                    <td width="50%" style="border-right:1px solid black; padding-top:10px; font-size:20px; text-align:center"><strong> Employment Status</strong></td>
+                                    <td width="50%" style="font-size:20px; text-align:center"><strong>الحالة الوظيفية</strong></td>
+                                </tr>
+                                <tr align="center" style="border-bottom: 1px solid black; height:80pt;">
+                                    <td width="50%" style="border-right:1px solid black; padding-top:15px;">
+                                        This to certify that Mr/Ms. <span t-field="doc.name"/>, ID:<span t-esc="doc.registration_number"/> Is working for <span t-esc="doc.company_id.name"/> Company since <span t-esc="doc.date_of_join"/>, working as:<span t-esc="doc.job_id.name"/>.
+                                    </td>
+                                    <td width="50%" style="padding-top:15px;">
+                                        هذا للتأكيد على أن السيد / السيدة. <span t-esc="doc.name"/>، المعرف:<span t-esc="doc.registration_number"/> يعمل لدى شركة مصيرة للنفط المحدودة منذ <span t-esc="doc.date_of_join"/> ، يعمل كـ:<span t-esc="doc.job_id.name"/>.
+                                    </td>
+                                </tr>
+                                <tr align="center"  style="border-bottom: 1px solid black; height:80pt;">
+                                    <td width="50%" style="padding-top:20px; border-right:1px solid black;">
+                                        She/He is performing her duties, contributing on the progress of work as one team and we are pleased with her ethics.
+                                    </td>
+                                    <td width="50%" style="padding-top:20px;">
+                                        حيث ان المذكور مواظباً على أداء واجباته ومساهماً في سير العمل بروح الفريق الواحد, وذا حسن السيرة والسلوك.
+                                    </td>
+                                </tr>
+                                <tr align="center"  style="border-bottom: 1px solid black; height:80pt;">
+                                    <td width="50%" style="padding-top:20px; border-right:1px solid black;">
+                                        This certificate been issued upon the request of the above name without any responsibility on the part of this company.
+                                    </td>
+                                    <td width="50%" style="padding-top:20px; border-right:1px solid black;">
+                                        وقــد أعطيت له هـذه الشهــاده بنــاء علــى طلبه, دون تحمل إدارة الـشـركة أدنــى مسؤولية تجاهه.
+                                    </td>
+                                </tr>
+                                <tr align="center"  style="border-bottom: 1px solid black; height:40pt;">
+                                    <td width="50%" style="border-right:1px solid black; font-size:20px; text-align:center">
+                                        <span t-esc="doc.manager_id.name"/><br/><span t-field="doc.manager_id.job_id.name"/>
+                                    </td>
+                                    <td width="50%" style="font-size:20px; text-align:center">
+                                        مايــــــــكل هوبكيـــنسون
+                                        <br/> المدير العام
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="footer">
+                            <table class='table-borderless' width="100%">
+                                <tr width="100%">
+                                    <td width="100%" style="text-align:right;color:red;">.أي شطب أو تعديل في هذه الشهادة تـُعتبر ملغية</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

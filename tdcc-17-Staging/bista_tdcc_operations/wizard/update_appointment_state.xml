@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="appointment_update_state_form" model="ir.ui.view">
+            <field name="name">appoitment.update.state.form</field>
+            <field name="model">update.appointment.state</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <label for="state" string="State"/>
+                         <field name="state" required="1"/>
+                    </sheet>
+                    <footer>
+                        <button string="Update" name="update_state" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="appointment_update_state_action" model="ir.actions.act_window">
+                <field name="name">Update Appointment State</field>
+                <field name="res_model">update.appointment.state</field>
+                <field name="view_mode">form</field>
+                <field name="context">{'appointment_id':active_id}</field>
+                <field name="target">new</field>
+        </record>
+
+</odoo>

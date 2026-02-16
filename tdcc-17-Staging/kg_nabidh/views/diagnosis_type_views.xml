@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="diagnosis_type_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Diagnosis Type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">diagnosis.type</field>
+
+    </record>
+    <record id="diagnosis_type_tree" model="ir.ui.view">
+        <field name="name">diagnosis.type.views</field>
+        <field name="model">diagnosis.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="diagnosis_type_form" model="ir.ui.view">
+        <field name="name">diagnosis.type.form.views</field>
+        <field name="model">diagnosis.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="diagnosis_type_menu"
+              action="diagnosis_type_action"
+              name="Diagnosis Type"
+              parent="kg_nabidh.dg1_menu"/>
+
+
+
+</odoo>

@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="kg_account_payment_form_inherit" model="ir.ui.view">
+            <field name="name">Account Payment Inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_bank_id" position="after">
+                    <field name="cheque_no" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    <field name="cheque_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </field>
+            </field>
+        </record>
+        <record id="kg_account_payment_register_inherit" model="ir.ui.view">
+            <field name="name">Account Payment Register Inherit</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_bank_id" position="after">
+                    <field name="cheque_no"/>
+                </field>
+                <field name="communication" position="after">
+                    <field name="cheque_date"/>
+                    <field name="account_payment_id" invisible="1"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

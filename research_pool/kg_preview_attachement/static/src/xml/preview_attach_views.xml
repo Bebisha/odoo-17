@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="O2mMultiDelete">
+        <div class="o_field_x2many">
+            <!-- Preview Button -->
+            <i class="fa fa-eye" t-on-click="previewSelected" title="Preview Selected"></i>
+        </div>
+    </t>
+</templates>
+
+

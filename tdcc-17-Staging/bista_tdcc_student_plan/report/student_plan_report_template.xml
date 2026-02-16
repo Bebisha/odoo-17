@@ -1,0 +1,2254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- First page show only image template -->
+        <template id="report_student_plan_image_document">
+            <t t-call="web.basic_layout">
+            <div class="page">
+                <center>
+                    <img src="bista_tdcc_student_plan/static/src/img/student_plan.png"/>
+                </center>
+            </div>
+            <p style="page-break-before:always;"/>
+            </t>
+        </template>
+
+        <!-- Initial 5+ Plus Plan Type Template -->
+        <template id="report_student_plan_initial_5plus_document">
+            <t t-call="web.basic_layout">
+
+                <!-- Footer -->
+                <!-- <div class="footer not-first-page"> -->
+                <div class="footer">
+                    <div style="border-top: 1px solid black;">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                               <b><span t-esc="company.name" style="font-size: 10pt;"/></b>&amp;nbsp;|
+                            </li>
+                            <li class="list-inline-item">
+                               <span style="font-size: 10pt;">PO Box</span><span t-esc="company.zip" style="font-size: 10pt;"/>
+                               <span t-esc="company.state_id.name" style="font-size: 12pt;"/>,UAE&amp;nbsp;|
+                            </li>
+                            <li class="list-inline-item">
+                                <span style="font-size: 10pt;">Call &amp;nbsp;</span>
+                                <span t-esc="company.phone" style="font-size: 12pt;"/>&amp;nbsp;|
+                            </li>
+                            <li class="list-inline-item">
+                               <span t-esc="company.email" style="font-size: 12pt;"/>&amp;nbsp;|
+                            </li>
+                            <li class="list-inline-item">
+                               <b><span t-esc="company.website" style="font-size: 10pt;"/></b>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                                height:35px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td style="width:15%;">Child’s Name:</td>
+                                <td style="width:30%;">
+	                                <span t-esc="doc.student_id.name"/>
+                                </td>
+                                <td style="width:15%;">Date of Birth:</td>
+                                <td style="width:10%;">
+                                    <span t-esc="doc.date_of_birth"/>
+                                </td>
+                                <td style="width:10%;" colspan="2">Term:
+                                    <span t-esc="doc.term_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                 <td>Lead Educator:</td>
+                                 <td>
+                                    <span t-esc="doc.lead_educator_id.name"/>
+                                 </td>
+                                 <td>Educator:</td>
+                                 <td colspan="3">
+                                    <span t-esc="doc.educator_id.name"/>
+                                 </td>
+                            </tr>
+                             <tr>
+                                 <td>Date Produced:</td>
+                                 <td>
+                                    <span t-esc="doc.date_produced"/>
+                                 </td>
+                                 <td>Date to be Reviewed:</td>
+                                 <td colspan="3">
+                                    <span t-esc="doc.date_review"/>
+                                 </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Communication and Language -->
+                    <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Communication and Language</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Speaking and Listening </b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_comm"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_comm"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_comm"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_comm"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Physical Development -->
+                    <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Physical Development</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Moving and Handling</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_moving"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_moving"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_moving"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_moving"/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Health and Self-Care</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_health"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_health"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_health"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_health"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <p style="page-break-before:always;"/>
+                    <!-- Personal, Social and Emotional Development -->
+                    <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Personal, Social and Emotional Development</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Self-Confidence and Self-Awareness</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_confidence"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_confidence"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_confidence"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_confidence"/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Managing Feelings and Behaviour</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_behavior"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_behaviour"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_behaviour"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_behaviour"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Making Relationships</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_relationship"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_relationship"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_relationship"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_relationship"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Literacy -->
+                    <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Literacy</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Reading</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_reading"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_reading"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_reading"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_reading"/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Writing</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_writing"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_writing"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_writing"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_writing"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p style="page-break-before:always;"/>
+
+                    <!-- Mathematics -->
+                    <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Mathematics</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Number</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_number"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_number"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_number"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_number"/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Shape, Space and Measure</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_measure"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_measure"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_measure"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_measure"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                   <!-- Understanding the world -->
+                    <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Understanding the World</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>People and communities</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_people"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_people"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_people"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_people"/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>The World</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_world"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_world"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_world"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_world"/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Technology</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_technology"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_technology"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_technology"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_technology"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p style="page-break-before:always;"/>
+
+                    <!-- Expressive Arts and Design -->
+                    <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Expressive Arts and Design</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Exploring Media and Materials</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_media"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_media"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_media"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_media"/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Being Imaginative</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_imaginative"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_imaginative"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_imaginative"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_imaginative"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p style="page-break-before:always;"/>
+
+                    <div class="row" style="margin-top:20px;">
+	                    <style>
+	                            td {
+	                                border: 1px solid black;
+	                                padding:2px;
+	                            }
+	                    </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+	                             <td style="width:15%;">Child’s Name:</td>
+	                             <td style="width:30%;">
+	                                <span t-esc="doc.student_id.name"/>
+	                             </td>
+	                             <td style="width:15%;">Date of Birth:</td>
+	                             <td style="width:10%;">
+	                                <span t-esc="doc.date_of_birth"/>
+	                             </td>
+	                             <td style="width:10%;" colspan="2">Term:
+	                                <span t-esc="doc.term_id.name"/>
+	                             </td>
+                            </tr>
+	                        <tr>
+	                             <td>Lead Educator:</td>
+	                             <td>
+	                                <span t-esc="doc.lead_educator_id.name"/>
+	                             </td>
+	                             <td>Educator:</td>
+	                             <td colspan="3">
+	                                <span t-esc="doc.educator_id.name"/>
+	                             </td>
+	                        </tr>
+	                         <tr>
+	                             <td>Date Produced:</td>
+	                             <td>
+	                                <span t-esc="doc.date_produced"/>
+	                             </td>
+	                             <td>Date to be Reviewed:</td>
+	                             <td colspan="3">
+	                                <span t-esc="doc.date_review"/>
+	                             </td>
+	                        </tr>
+                        </table>
+                    </div>
+
+                   <div class="row" style="margin-top:20px;">
+                        <style>
+                            td {
+                                    border: 1px solid black;
+                                    padding:2px;
+                                }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;" >
+                            <tr>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Parent Signature</p>
+                                </td>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Parent Name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Educator Signature</p>
+                                </td>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Educator Name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Lead Educator Signature</p>
+                                </td>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Lead Educator Name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Director of Education Signature</p>
+                                </td>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Director of Education Name</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </t>
+        </template>
+
+        <!-- Initial Plan Type Template -->
+        <template id="report_student_plan_initial_document">
+            <t t-call="web.basic_layout">
+
+                <!-- Footer -->
+                <!-- <div class="footer not-first-page"> -->
+                <div class="footer">
+                    <div style="border-top: 1px solid black;">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                               <b><span t-esc="company.name" style="font-size: 10pt;"/></b>&amp;nbsp;|
+                            </li>
+                            <li class="list-inline-item">
+                               <span style="font-size: 10pt;">PO Box</span><span t-esc="company.zip" style="font-size: 10pt;"/>
+                               <span t-esc="company.state_id.name" style="font-size: 12pt;"/>,UAE&amp;nbsp;|
+                            </li>
+                            <li class="list-inline-item">
+                                <span style="font-size: 10pt;">Call &amp;nbsp;</span>
+                                <span t-esc="company.phone" style="font-size: 12pt;"/>&amp;nbsp;|
+                            </li>
+                            <li class="list-inline-item">
+                               <span t-esc="company.email" style="font-size: 12pt;"/>&amp;nbsp;|
+                            </li>
+                            <li class="list-inline-item">
+                               <b><span t-esc="company.website" style="font-size: 10pt;"/></b>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                                height:35px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td style="width:15%;">Child’s Name:</td>
+                                <td style="width:30%;">
+                                    <span t-esc="doc.student_id.name"/>
+                                </td>
+                                <td style="width:15%;">Date of Birth:</td>
+                                <td style="width:10%;">
+                                    <span t-esc="doc.date_of_birth"/>
+                                </td>
+                                <td style="width:10%;" colspan="2">Term:
+                                    <span t-esc="doc.term_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                 <td>Lead Educator:</td>
+                                 <td>
+                                    <span t-esc="doc.lead_educator_id.name"/>
+                                 </td>
+                                 <td>Educator:</td>
+                                 <td colspan="3">
+                                    <span t-esc="doc.educator_id.name"/>
+                                 </td>
+                            </tr>
+                             <tr>
+                                 <td>Date Produced:</td>
+                                 <td>
+                                    <span t-esc="doc.date_produced"/>
+                                 </td>
+                                 <td>Date to be Reviewed:</td>
+                                 <td colspan="3">
+                                    <span t-esc="doc.date_review"/>
+                                 </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Communication and Language -->
+                    <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Communication and Language</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 1 - Listening and Attention (LA)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                        <li>Listens attentively in a range of situations</li>
+                                        <li>Listens to stories, accurately anticipating key events and respond to what they hear with relevant comments, questions or actions.
+                                        </li>
+                                        <li>
+                                             Gives attention to what others say and respond appropriately, while engaged in another activity
+                                        </li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_listening"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_listening"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_listening"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_listening"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 2 – Understanding (U)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                        <li>Follows instructions involving several ideas or actions</li>
+                                        <li>Answer ‘how’ and ‘why’ questions about experiences and in response to stories or events
+                                        </li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_understanding"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_understanding"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_understanding"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_understanding"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 3 – Speaking (S)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                        <li>Expresses themselves effectively, showing awareness of listeners’ needs</li>
+                                        <li>Use past, present and future forms accurately when talking about events that have happened or are to happen in the future
+                                        </li>
+                                        <li>
+                                         Develops own narratives and explanations by connecting ideas or events
+                                        </li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_speaking"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_speaking"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_speaking"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_speaking"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                     <p style="page-break-before:always;"/>
+
+                     <!--Physical Ddevelopment -->
+                     <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Physical Development</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 4 – Moving and Handling (MH)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                        <li>Shows good control and co-ordination in large and small movements</li>
+                                        <li>Moves confidently  in a range of ways, safely negotiating space
+                                        </li>
+                                        <li>
+                                            Handles equipment and tools effectively, including pencils for writing
+                                        </li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_moving"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_moving"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_moving"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_moving"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 5 – Health and Self-Care (HSC)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                        <li>Knows importance for good health of physical exercise, and healthy diet and talk about ways to keep healthy and safe
+                                        </li>
+                                        <li>
+                                            Manages own basic hygiene and personal needs successfully including dressing and going to the toilet independently
+                                        </li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_health"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_health"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_health"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_health"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                     <p style="page-break-before:always;"/>
+
+                    <!--Personal, Social and Emotional Development -->
+                     <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Personal,Social and EMotional Development</b></center>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 6 – Self-Confidence and Self-Awareness (SC SA)
+                                    </b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                        <li>Is confident to try new activities</li>
+                                        <li>Can say why likes some activities more than others</li>
+                                        <li>Is confident to speak in a familiar group</li>
+                                        <li>Will talk about own ideas</li>
+                                        <li>Will choose the resources needed for chosen activities</li>
+                                        <li>Says when they do or don’t need help</li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_confidence"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_confidence"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_confidence"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_confidence"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 7 -  Managing Feelings and Behavior (MFB)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                       <li>Talks about how they and others show feelings</li>
+                                       <li>Talks about their own and others’ behavior and its consequences and know that some behavior is unacceptable</li>
+                                       <li>Works as part of a group or class and understands and follows the rules</li>
+                                       <li>Adjusts behavior to different situations</li>
+                                       <li>Takes changes of routine in stride</li>
+
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_behavior"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_behaviour"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_behaviour"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_behaviour"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 8 -Making Relationships (MR)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                        <li>Plays co-operatively, taking turns with others</li>
+                                        <li>Takes account of other’s ideas about how to organize activity
+                                        </li>
+                                        <li>
+                                             Shows sensitivity to others’ needs and feelings
+                                        </li>
+                                        <li>Forms positive relationships with adults and other children
+                                        </li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_relationship"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_relationship"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_relationship"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_relationship"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p style="page-break-before:always;"/>
+
+                    <!-- Literacy-->
+
+                     <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Literacy</b></center>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 9 - Reading (R)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                        <li>Reads and understand simple sentences</li>
+                                        <li>Uses phonic knowledge to decode regular words and reads then aloud accurately
+                                        </li>
+                                        <li>
+                                             Reads some common irregular words
+                                        </li>
+                                        <li>Demonstrates understanding when talking with others about what they have read</li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_reading"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_reading"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_reading"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_reading"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 10 - Writing (W)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                        <li>Uses phonic knowledge to write words in ways which match spoken sounds </li>
+                                        <li>Writes some irregular common words</li>
+                                        <li>Writes simple sentences which can be read by themselves and others </li>
+                                        <li>Words are spelt correctly and others are phonetically plausible
+                                        </li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_writing"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_writing"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_writing"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_writing"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                     <p style="page-break-before:always;"/>
+
+                    <!-- Mathematics -->
+
+                     <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Mathematics</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 11 - Numbers (N)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                       <li>Counts reliably with numbers from 1 to 20</li>
+                                       <li>Places numbers in order</li>
+                                       <li>Says which number is one more or one less than a given number
+                                       </li>
+                                       <li>Uses quantities and objects adds and subtracts to single-digit numbers and counts on or back to find the answer</li>
+                                       <li>Solves problems including doubling, halving and sharing</li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_number"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_number"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_number"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_number"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 12- Shape, Space and Measure (SMM)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                       <li>Uses everyday language to talk about size, weight, capacity, position, distance, time and money to compare quantities and objects and to solve problems</li>
+                                       <li>Recognizes, creates and describes patterns</li>
+                                       <li>Explores characteristics of everyday objects and shapes and uses mathematical language to describe them</li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_measure"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_measure"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_measure"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_measure"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                     <p style="page-break-before:always;"/>
+
+                    <!-- Understanding the World-->
+                     <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Understanding the World</b></center>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 13- People and Communities (C)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                       <li>Can talk about past and present events in own lives and in the lives of own family members</li>
+                                       <li>Knows that other children don’t always enjoy the same things, and are sensitive to this</li>
+                                       <li>Knows about similarities and differences between themselves and others, and among families, communities and traditions</li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_people"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_people"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_people"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_people"/>
+                                    </p>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 14- The World (W)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                      <li>Knows about similarities and differences in relation to places, objects, materials and living things</li>
+                                      <li>Can talk about the features of own immediate environment and how environments might vary from one to another</li>
+                                      <li>Can make observations of animals and plants and explain why some things occur, and talk about changes</li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_world"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_world"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_world"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_world"/>
+                                    </p>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 15- Technology (IT)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                       <li>Recognizes that a range of technology is used in places such as homes and the TDCC</li>
+                                       <li>Selects and uses technology for particular purposes</li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_technology"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_technology"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_technology"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_technology"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                     <p style="page-break-before:always;"/>
+
+                    <!--Expressive Arts and Design -->
+
+                     <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:20px;color: #92d050;">
+                                    <center><b>Expressive Arts and Design</b></center>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 16- Exploring Media and Materials (EMM)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                       <li>Can sing songs, make music and dance, and experiment with ways of changing them</li>
+                                       <li>Can safely use and explore a variety of materials, tools and techniques, experimenting with color, design, texture form and function</li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_media"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_media"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_media"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_media"/>
+                                    </p>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Early Learning Goal 17- Being Imaginative (I)</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:20px;">
+                                    <ui>
+                                       <li>Can use what learnt about media and materials in original ways, thinking about uses and purposes</li>
+                                       <li>Can represent own ideas, thoughts and feelings through design and technology, art, music, dance, role play and stories</li>
+                                    </ui>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Short Term Targets</b>
+                                    <p>
+                                        <span t-esc="doc.targets_imaginative"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Strategy / resources / techniques</b>
+                                    <p>
+                                        <span t-esc="doc.strategy_imaginative"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:auto;width:85%">
+                                    <b>Progress</b>
+                                    <p>
+                                        <span t-esc="doc.progress_imaginative"/>
+                                    </p>
+                                </td>
+                                <td style="height:auto;">
+                                    <b>Date Achieved</b>
+                                    <p>
+                                        <span t-esc="doc.date_achieved_imaginative"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <p style="page-break-before:always;"/>
+
+                    <div class="row" style="margin-top:20px;">
+                        <style>
+                                td {
+                                    border: 1px solid black;
+                                    padding:2px;
+                                }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                 <td style="width:15%;">Child’s Name:</td>
+                                 <td style="width:30%;">
+                                    <span t-esc="doc.student_id.name"/>
+                                 </td>
+                                 <td style="width:15%;">Date of Birth:</td>
+                                 <td style="width:10%;">
+                                    <span t-esc="doc.date_of_birth"/>
+                                 </td>
+                                 <td style="width:10%;" colspan="2">Term:
+                                    <span t-esc="doc.term_id.name"/>
+                                 </td>
+                            </tr>
+                            <tr>
+                                 <td>Lead Educator:</td>
+                                 <td>
+                                    <span t-esc="doc.lead_educator_id.name"/>
+                                 </td>
+                                 <td>Educator:</td>
+                                 <td colspan="3">
+                                    <span t-esc="doc.educator_id.name"/>
+                                 </td>
+                            </tr>
+                             <tr>
+                                 <td>Date Produced:</td>
+                                 <td>
+                                    <span t-esc="doc.date_produced"/>
+                                 </td>
+                                 <td>Date to be Reviewed:</td>
+                                 <td colspan="3">
+                                    <span t-esc="doc.date_review"/>
+                                 </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                   <div class="row" style="margin-top:20px;">
+                        <style>
+                            td {
+                                    border: 1px solid black;
+                                    padding:2px;
+                                }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;" >
+                            <tr>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Parent Signature</p>
+                                </td>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Parent Name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Educator Signature</p>
+                                </td>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Educator Name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Lead Educator Signature</p>
+                                </td>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Lead Educator Name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Director of Education Signature</p>
+                                </td>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Director of Education Name</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+        <!-- Summer Plan Type Template -->
+        <template id="report_student_plan_summer_document">
+            <t t-call="web.basic_layout">
+
+                <!-- Header -->
+                <!-- <div class="row mb8 header first-page" style="margin-left:20px;"> -->
+                <div class="row mb8 header first-page" style="margin-left:20px;">
+                
+                    <div class="col-6">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"
+                        height="150"/>
+                    </div>
+                    <div class="col-6 text-right mb4">
+                        <img src="/bista_tdcc_student_plan/static/src/img/second.jpg"
+                          height="150"/>
+                    </div>
+                </div>
+
+                <!-- Footer : First page only-->
+                <div class="footer">
+                   <!--  <div class="first-page">
+                        <p style="color:blue; font-family: Arial; font-size: 6pt; font-style: italic;">
+	                        “If you judge a fish by its ability to climb a tree,
+	                        it will live its whole life believing that it is stupid.” Albert Einstein
+	                    </p>
+	                    <p style="font-family: Arial; font-size: 8pt;">
+	                        <b>We think different. We teach different.</b>
+	                    </p>
+	                    <p style="font-family: Arial; font-size: 6pt;">
+	                        At The Developing Child Centre our approach is simple.
+	                        We believe every child is brilliant and we nurture and build
+	                        children’s confidence and abilities.<br/>
+	                        We are dedicated to identifying, building and developing
+	                        skills required by all children to feel confident and succeed.
+	                    </p>
+                    </div> -->
+                    <div style="border-top: 1px solid black;">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                               <b><span t-esc="company.name" style="font-size: 10pt;"/></b>&amp;nbsp;|
+                            </li>
+                            <t t-if="company.state_id or company.zip or company.country_id">
+	                            <li class="list-inline-item">
+	                               <t t-if="company.zip">
+	                                    <span style="font-size: 8pt;">PO Box</span><span t-esc="company.zip" style="font-size: 8pt;"/>
+	                               </t>
+	                               <t t-if="company.state_id">
+	                                    <span t-esc="company.state_id.name" style="font-size: 8pt;"/>
+	                               </t>
+	                               <t t-if="company.country_id">
+                                        ,<span t-esc="company.country_id.name" style="font-size: 8pt;"/>&amp;nbsp;|
+                                   </t>
+	                            </li>
+                            </t>
+                            <t t-if="company.phone">
+	                            <li class="list-inline-item">
+	                                <span style="font-size: 8pt;">Call &amp;nbsp;</span>
+	                                <span t-esc="company.phone" style="font-size: 8pt;"/>&amp;nbsp;|
+	                            </li>
+                            </t>
+                            <li class="list-inline-item">
+                               <span t-esc="company.email" style="font-size: 8pt;"/>&amp;nbsp;|
+                            </li>
+                            <li class="list-inline-item">
+                               <b><span t-esc="company.website" style="font-size: 10pt;"/></b>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div style="margin-top:10px;">
+                        <center>
+	                        <h3 style="color:#A9A9A9">Individual Education Plan - Summer
+	                            <span t-esc="doc.term_id.name"/>
+	                        </h3>
+                        </center>
+                    </div>
+                    <div class="row" style="margin-top:20px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                                height:35px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td style="width:15%;">Child’s Name:</td>
+                                <td style="width:30%;">
+                                    <span t-esc="doc.student_id.name"/>
+                                </td>
+                                <td style="width:15%;">Date of Birth:</td>
+                                <td style="width:10%;">
+                                    <span t-esc="doc.date_of_birth"/>
+                                </td>
+                                <td style="width:10%;" colspan="2">Term:
+                                    <span t-esc="doc.term_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                 <td>Lead Educator:</td>
+                                 <td>
+                                    <span t-esc="doc.lead_educator_id.name"/>
+                                 </td>
+                                 <td>Educator:</td>
+                                 <td colspan="3">
+                                    <span t-esc="doc.educator_id.name"/>
+                                 </td>
+                            </tr>
+                            <tr>
+                                 <td>Speech Therapist/s:</td>
+                                 <td>
+                                    <span t-esc="doc.speech_therapist_id.name"/>
+                                 </td>
+                                 <td>Occupational Therapist/s:</td>
+                                 <td colspan="3">
+                                    <span t-esc="doc.occupational_therapist_id.name"/>
+                                 </td>
+                            </tr>
+                             <tr>
+                                 <td>Date Produced:</td>
+                                 <td>
+                                    <span t-esc="doc.date_produced"/>
+                                 </td>
+                                 <td>Date to be Reviewed:</td>
+                                 <td colspan="3">
+                                    <span t-esc="doc.date_review"/>
+                                 </td>
+                            </tr>
+                            <tr>
+                                 <td>Group:</td>
+                                 <td>
+                                    <span t-esc="doc.service_group_id.name"/>
+                                 </td>
+                                 <td>Number of weeks:</td>
+                                 <td colspan="3">
+                                    <span t-esc="doc.no_of_weeks"/>
+                                 </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Communication and Language -->
+                    <div class="row" style="margin-top:30px;">
+                        <style>
+                            td {
+                                border: 1px solid black;
+                                padding:2px;
+                            }
+                        </style>
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>BUILD confidence </b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px">
+                                        <span t-esc="doc.build_confidence_points"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Review</b>
+                                    <p>
+                                        <span t-esc="doc.build_confidence_review"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Improve Social Skill </b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px">
+                                        <span t-esc="doc.improve_social_points"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Review</b>
+                                    <p>
+                                        <span t-esc="doc.improve_social_review"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Develop Communication Skills </b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px">
+                                        <span t-esc="doc.develop_communication_points"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Review</b>
+                                    <p>
+                                        <span t-esc="doc.develop_communication_review"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Enhance attention &amp; Listening Skills </b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px">
+                                        <span t-esc="doc.enhance_attention_points"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:auto;">
+                                    <b>Review</b>
+                                    <p>
+                                        <span t-esc="doc.enhance_attention_review"/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <p style="page-break-before:always;"/>
+                    <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                            <tr>
+                                <td colspan="2" style="height:30px;background-color: #D3D3D3">
+                                    <b>Recommended next steps</b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="height:30px">
+                                        <span t-esc="doc.recommended_next_step"/>
+
+                                </td>
+                            </tr>
+
+                        </table>
+                    <div style="margin-top:50px;">
+                        <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;" >
+                            <tr>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Educator Signature</p>
+                                </td>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Educator Name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Director of Education Signature</p>
+                                </td>
+                                <td width="50%" height="80px" style="border: 1px solid black;padding-top:50px;padding-left:50px;">
+                                    ____________________________________
+                                    <p>Director of Education Name</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </t>
+        </template>
+
+        <template id="report_student_plan">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-set="company" t-value="doc.company_id.sudo()"/>
+                    <t t-if="doc.plan_type in ('iep_intial_5_plus','iep_intial')">
+                        <t t-call="bista_tdcc_student_plan.report_student_plan_image_document"/>
+                    </t>
+                    <t t-if="doc.plan_type == 'iep_intial_5_plus'">
+                        <t t-call="bista_tdcc_student_plan.report_student_plan_initial_5plus_document"
+                        t-lang="doc.student_id.lang"/>
+                    </t>
+                    <t t-if="doc.plan_type == 'iep_intial'">
+                        <t t-call="bista_tdcc_student_plan.report_student_plan_initial_document"
+                        t-lang="doc.student_id.lang"/>
+                    </t>
+                    <t t-if="doc.plan_type == 'iep_summer'">
+                        <t t-call="bista_tdcc_student_plan.report_student_plan_summer_document"
+                        t-lang="doc.student_id.lang"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+</odoo>

@@ -1,0 +1,214 @@
+<odoo>
+    <data>
+        <template id="account_general_report_template_id">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <div class="header">
+                        <div style="border-collapse: collapse; text-align: center; width: 100%;">
+                            <div style="text-align: center; width: 100%;">
+                                <b>
+                                    <h3>
+                                        <span t-esc="company_name"/>
+                                    </h3>
+                                </b>
+                            </div>
+                        </div>
+                        <div style="border-collapse: collapse; width: 100%;">
+                            <div style="text-align: center; width: 100%;">
+                                <b>
+                                    <t t-if="company_zip">
+                                        Post Box :
+                                        <span t-esc="company_zip"/>
+                                    </t>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                    <t t-if="company_phone">
+                                        Tel :
+                                        <span t-esc="company_phone"/>
+                                    </t>
+                                    <t t-if="company_mobile">
+                                        Fax :
+                                        <span t-esc="company_mobile"/>
+                                    </t>
+                                    <t t-if="company_email">
+                                        <u>
+                                            <span t-esc="company_email"/>
+                                        </u>
+                                    </t>
+                                    <![CDATA[ &nbsp; ]]>
+                                    <t t-if="company_website">
+                                        <u>
+                                            <span t-esc="company_website"/>
+                                        </u>
+                                    </t>
+                                </b>
+                            </div>
+                        </div>
+                        <div style="border-bottom: 1px solid black;width:100%">
+                            <div style="border-bottom: 1px solid black;" width="100%"/>
+                        </div>
+                        <div style="border-collapse: collapse; width: 100%;">
+                            <div style="text-align: center; width: 100%;">
+                                <b>
+                                    <span>
+                                        <br/>
+                                        <u>ACCOUNT GENERAL LEDGER REPORT</u>
+                                    </span>
+                                </b>
+                            </div>
+                        </div>
+                        <div style="border-collapse: collapse; width: 100%;">
+                            <div style="text-align: center; width: 100%;">
+                                <b>
+                                    <span>
+                                        FROM
+                                        <span t-esc="start_date"
+                                              t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        TO
+                                        <span t-esc="end_date"
+                                              t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </span>
+                                </b>
+                            </div>
+                        </div>
+                    </div>
+                    <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                        <thead>
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td width="8%" align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <b>Date</b>
+                                </td>
+                                <td width="15%" align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <b>Journal Entry</b>
+                                </td>
+                                <td width="31%" align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <b>Label</b>
+                                </td>
+                                <td width="13%" align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <b>Debit</b>
+                                </td>
+                                <td width="13%" align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <b>Credit</b>
+                                </td>
+                                <td width="20%" align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <b>Running Balance</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <t t-foreach="values" t-as="data">
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td width="100%" align="left" colspan="6"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <t t-if="data['account_code']">
+                                        <b>
+                                            <span t-esc="data['account_code']"/>
+                                        </b>
+                                    </t>
+                                    <t t-if="data['account_name']">
+                                        <b>
+                                            <span t-esc="data['account_name']"/>
+                                        </b>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td width="100%" align="right" colspan="6"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <b>Opening Balance :
+                                        <span t-esc="data['opening_balance']"/>
+                                        <span t-esc="data['company_currency']"/>
+                                    </b>
+                                </td>
+                            </tr>
+
+                            <t t-foreach="data['aml_details']" t-as="line">
+                                <tr width="100%"
+                                    style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                    <td width="8%" align="left"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="line['date']"
+                                              t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </td>
+                                    <td width="15%" align="left"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="line['journal_entry']"/>
+                                    </td>
+                                    <td width="31%" align="left"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="line['name']"/>
+                                    </td>
+                                    <td width="13%" align="right"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="line['debit']"/>
+                                        <span t-esc="line['company_currency']"/>
+                                    </td>
+                                    <td width="13%" align="right"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="line['credit']"/>
+                                        <span t-esc="line['company_currency']"/>
+                                    </td>
+                                    <td width="20%" align="right"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="line['running_balance']"/>
+                                        <span t-esc="line['company_currency']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td width="100%" align="right" colspan="6"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <b>Closing Balance :
+                                        <span t-esc="data['closing_balance']"/>
+                                        <span t-esc="data['company_currency']"/>
+                                    </b>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                    <div class="footer">
+                        <table class="table table-borderless table-condensed table-hover" width="100%">
+                            <tr width="100%">
+                                <td width="100%" colspan="2"/>
+                            </tr>
+                            <tr style="border-bottom: 1px solid black;width:100%">
+                                <td style="border-bottom: 1px solid black;" colspan="2" width="100%"/>
+                            </tr>
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="50%" align="left">
+                                    <b>Run Date :
+                                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/>
+                                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S %p')"/>
+                                    </b>
+                                </td>
+                                <td width="50%" align="right">
+                                    <b>
+                                        <span>
+                                            Page
+                                            <span class="page"/>
+                                            of
+                                            <span class="topage"/>
+                                        </span>
+                                    </b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

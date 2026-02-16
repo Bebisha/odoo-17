@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="kg_view_update_payment_cheque" model="ir.ui.view">
+        <field name="name">kg.view.update.payment.cheque</field>
+        <field name="model">update.payment.cheque</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="current_cheque_leaf_id"/>
+                            <field name="cancel_cheque"/>
+                        </group>
+                        <group>
+                            <field name="cheque_series"/>
+                            <field name="new_cheque_leaf_id"/>
+
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="update_cheque_leaf" string="Update Cheque" type="object" class="btn-primary"/>
+                        <button name="cancel" special="cancel" string="Cancel" type="object" class="btn-secondary"/>
+                    </footer>
+                    <hr/>
+                    <div style="text-align:justify" name="info">
+                        <span class="o_form_label">
+                            Updating time will cancel the previous cheque
+                        </span>
+                    </div>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="product_brand_action" model="ir.actions.act_window">
+        <field name="name">Brand</field>
+        <field name="res_model">update.payment.cheque</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

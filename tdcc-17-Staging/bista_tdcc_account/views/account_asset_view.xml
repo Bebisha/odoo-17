@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Restrict Prepayment Expense records from Asset view -->
+    <record model="ir.actions.act_window"
+            id="account_asset.view_account_asset_form">
+        <field name="domain">[('category_id.type', '=', 'purchase'),
+            ('prepayment_expense', '=', False)]
+        </field>
+    </record>
+
+    <!-- Prepayment Expense Action -->
+    <record model="ir.actions.act_window"
+            id="action_account_asset_asset_prepayment_form">
+        <field name="name">Prepayment Expense</field>
+        <field name="res_model">account.asset.asset</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id"
+               ref="account_asset.view_account_asset_asset_purchase_tree"/>
+        <field name="domain">[('category_id.type', '=', 'purchase'),
+            ('prepayment_expense', '=', True)]
+        </field>
+        <field name="context">{'default_prepayment_expense': True,
+            'default_type': 'purchase'}
+        </field>
+    </record>
+
+    <!-- Prepayment Expense Menu -->
+    <menuitem parent="account.menu_finance_entries_management"
+              id="menu_action_account_asset_asset_prepayment"
+              action="action_account_asset_asset_prepayment_form"
+              sequence="101" groups="account.group_account_manager"/>
+
+    <!-- Modified Asset category form view for Prepayments -->
+    <record model="ir.ui.view"
+            id="view_account_asset_category_form_prepayments">
+        <field name="name">account.asset.category.form.prepayments</field>
+        <field name="model">account.asset.category</field>
+        <field name="inherit_id"
+               ref="account_asset.view_account_asset_category_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='method_end']" position="after">
+                <field name="prepayment_expense" invisible="1"/>
+            </xpath>
+            <xpath expr="//label[@for='name'][1]" position="replace">
+                <label for="name" string="Asset Type" class="oe_edit_only"
+                       invisible="type != 'purchase' or prepayment_expense == True"/>
+                <label for="name" string="Prepayment Expense Type" class="oe_edit_only"
+                       invisible="prepayment_expense == False"/>
+            </xpath>
+            <xpath expr="//label[@for='account_asset_id'][1]" position="replace">
+                <label for="account_asset_id"
+                       invisible="type != 'purchase' or prepayment_expense == True"
+                       style="font-weight: bold" class="o_light_label"/>
+                <label for="account_asset_id"
+                       string="Prepayment Expense Account"
+                       invisible="prepayment_expense == False"
+                       style="font-weight: bold" class="o_light_label"/>
+            </xpath>
+            <xpath expr="//label[@for='account_depreciation_id']" position="replace">
+                <label for="account_depreciation_id"
+                       invisible="type != 'purchase' or prepayment_expense == True"
+                       style="font-weight: bold" class="o_light_label"/>
+                <label for="account_depreciation_id" string="Depreciation Entries: Prepayment Account"
+                       invisible="prepayment_expense == False"
+                       style="font-weight: bold" class="o_light_label"/>
+            </xpath>
+            <xpath expr="//field[@name='date_first_depreciation']" position="replace">
+                <label for="date_first_depreciation" string="First Deduction Date"/>
+                <field name="date_first_depreciation" nolabel="1"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Asset Action -->
+    <record model="ir.actions.act_window"
+            id="account_asset.action_account_asset_asset_list_normal_purchase">
+        <field name="domain">[('type', '=', 'purchase'), ('prepayment_expense',
+            '=', False)]
+        </field>
+    </record>
+
+
+    <!-- Prepayment Expense Type Action -->
+    <record model="ir.actions.act_window"
+            id="action_account_asset_asset_list_expense_prepayment">
+        <field name="name">Prepayment Expense Types</field>
+        <field name="res_model">account.asset.category</field>
+        <field name="domain">[('type', '=', 'purchase'), ('prepayment_expense',
+            '=', True)]
+        </field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{'default_type': 'purchase',
+            'default_prepayment_expense': True}
+        </field>
+    </record>
+
+
+    <!-- Prepayment Expense Menu -->
+    <menuitem parent="account.account_management_menu"
+              id="menu_action_account_asset_asset_expense_prepayment"
+              action="action_account_asset_asset_list_expense_prepayment"
+              sequence="6"/>
+
+    <!-- Modify Asset form for Prepayment Expenses -->
+    <record model="ir.ui.view" id="view_account_asset_asset_form_prepayments">
+        <field name="name">account.asset.asset.form.prepayments</field>
+        <field name="model">account.asset.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='compute_depreciation_board']" position="replace">
+                <button type="object" name="compute_depreciation_board" string="Compute Amortization"
+                        invisible=" state != 'draft'"/>
+            </xpath>
+            <xpath expr="//field[@name='analytic_tag_ids']" position="after">
+                <field name="prepayment_expense" invisible="1"/>
+            </xpath>
+            <xpath expr="//label[@for='name']" position="replace">
+                <label for="name" class="oe_edit_only" invisible="prepayment_expense == False"/>
+                <label for="name" class="oe_edit_only" string="Prepayment Name"
+                       invisible="prepayment_expense == False"/>
+            </xpath>
+            <xpath expr="//field[@name='salvage_value']" position="attributes">
+                <attribute name="invisible">type != 'purchase' or prepayment_expense == True
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="context">{'default_type': 'purchase', 'default_prepayment_expense':
+                    prepayment_expense}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_first_depreciation']" position="replace">
+                <label for="date_first_depreciation" string="Deduction Date"/>
+                <field name="date_first_depreciation" nolabel="1"/>
+            </xpath>
+            <xpath expr="//field[@name='first_depreciation_manual_date']" position="replace">
+                <label for="first_depreciation_manual_date" string="First Deduction Date"/>
+                <field name="first_depreciation_manual_date" nolabel="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

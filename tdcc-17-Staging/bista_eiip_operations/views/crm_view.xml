@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <record id="inheritd_form_view_crm_lead" model="ir.ui.view">
+            <field name="name">inheritd.form.crm.lead</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='extra']" position="after">
+                    <page name='EIIP' string='Intensive Program'
+                          invisible="program_type != 'eiip'">
+                        <group>
+                            <group>
+                                <field name="group_id"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="crm_case_form_view_oppor" model="ir.ui.view">
+            <field name="name">crm.lead.form.opportunity</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='lead']/group/group[@name='Misc']"
+                    position="after">
+                    <group string="Intensive Program  Details" name="eiip_details" invisible="program_type != 'eiip'">
+                        <field name="group_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_case_form_view_oppor_quot_change_eiip" model="ir.ui.view">
+	        <field name="name">crm.lead.oppor.inherited.crm.eiip.tdcc</field>
+	        <field name="model">crm.lead</field>
+	        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor" />
+	        <field name="arch" type="xml">
+	            <xpath expr="//button" position="attributes">
+	                <attribute name='context'>{'search_default_partner_id': partner_id,
+	                    'default_partner_id': partner_id,
+	                    'default_team_id': team_id,
+	                    'default_campaign_id': campaign_id,
+	                    'default_medium_id': medium_id,
+	                    'default_origin': name,
+	                    'default_source_id': source_id,
+	                    'default_program_type':program_type,
+	                    'default_group_id':group_id,
+	                    'default_start_date':start_date,
+	                    'default_end_date':end_date,
+	                    }
+	                </attribute>
+	            </xpath>
+	        </field>
+        </record>
+    </data>
+</odoo>

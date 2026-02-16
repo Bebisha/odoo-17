@@ -1,0 +1,254 @@
+<odoo>
+    <data>
+
+        <record id="developmental_history_form" model="ir.actions.act_window">
+            <field name="name">Developmental History Form</field>
+            <field name="res_model">developmental.history.form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="root_menu" name="Developing Child"/>
+        <menuitem id="first_level_menu" sequence="5" parent="root_menu" action="developmental_history_form">
+        </menuitem>
+
+
+        <record model="ir.ui.view" id="developmental_history_tree_view">
+            <field name="name">Developmental History View</field>
+            <field name="model">developmental.history.form</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false">
+                    <field name="name" readonly="1"/>
+                    <field name="today_date"/>
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                    <field name="date_of_birth"/>
+                    <field name="age"/>
+                    <field name="nationality"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="developmental_history_form_view">
+            <field name="name">Developmental History Form View</field>
+            <field name="model">developmental.history.form</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <header>
+                        <button class="btn btn-primary" name="approve_action_developmental" type="object"
+                                string="Approve" invisible = " state != 'draft'"/>
+                        <field name="state" widget="statusbar" status_visible="draft,approve"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="ref_dev" readonly="1" force_save="1" invisible="1"/>
+                                <field name="today_date" readonly="1"/>
+                                <field name="first_name" readonly="1" force_save="1"/>
+                                <field name="last_name" readonly="1" force_save="1"/>
+                                <field name="child_name" readonly="1" force_save="1"/>
+                                <field name="age" readonly="1"/>
+                                <field name="date_of_birth" readonly="1"/>
+                                <field name="gender" readonly="1"/>
+                                <field name="nationality" readonly="1"/>
+                                <field name="is_submitted_dev" readonly="1" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="language_spoken" readonly="1"/>
+                                <field name="dominant_language" readonly="1"/>
+                                <field name="current_school" readonly="1"/>
+                                <field name="school_year_grade" readonly="1"/>
+                                <field name="classroom_teacher" readonly="1"/>
+                                <field name="partner_id_dev" readonly="1"/>
+
+                            </group>
+                        </group>
+
+                        <notebook>
+
+                            <page string="II. Parents / Caregiver Information">
+                                <group>
+                                    <group>
+                                        <field name="mother_name" readonly="1"/>
+                                        <field name="phone_number_1" readonly="1"/>
+                                        <field name="nationality_1" readonly="1"/>
+                                        <field name="mother_mail" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="father_name" readonly="1"/>
+                                        <field name="phone_number_2" readonly="1"/>
+                                        <field name="nationality_2" readonly="1"/>
+                                        <field name="father_mail" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="home_address" readonly="1"/>
+                                        <field name="previous_place" readonly="1"/>
+                                    </group>
+                                    <group string="Who lives at home with your child?">
+
+                                        <field name="siblings" readonly="1"/>
+                                        <field name="grandparents" readonly="1"/>
+                                        <field name="others" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="III. Health Information About Your Child">
+                                <group>
+                                    <group>
+                                        <field name="main_concern" readonly="1"/>
+                                        <field name="first_notice" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <span role="separator">
+                                            <b>Have you ever sought advice from: (please tick)</b>
+                                        </span>
+                                        <field name="speech_language_therapist" readonly="1"/>
+                                        <field name="occupational_therapist" readonly="1"/>
+                                        <field name="physiotherapist" readonly="1"/>
+                                        <field name="educational_psychologist" readonly="1"/>
+                                        <field name="check_box_other" readonly="1" invisible="1"/>
+                                        <field name="any_other_1" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="other_medical" readonly="1"/>
+                                        <field name="parents_related_relative" readonly="1"/>
+                                        <field name="upload_report" readonly="1"/>
+                                        <field name="child_general_health" readonly="1"/>
+                                        <field name="physical_difficulties" readonly="1"/>
+                                        <field name="hearing_test" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="ear_infections" readonly="1"/>
+                                        <field name="screened_tested" readonly="1"/>
+                                        <field name="wear_glasses" readonly="1"/>
+                                        <field name="past_present_medications" readonly="1"/>
+                                        <field name="allergies" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="IV. Early Years Development">
+                                <group>
+                                    <group>
+                                        <span role="separator">
+                                            <b>Birth Information</b>
+                                        </span>
+                                        <field name="full_term_delivery" readonly="1"/>
+                                        <field name="full_term_cesarean" readonly="1"/>
+                                        <field name="pre_term" readonly="1"/>
+                                        <field name="during_pregnancy" readonly="1"/>
+                                        <field name="problems" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="crawling" readonly="1"/>
+                                        <field name="sitting" readonly="1"/>
+                                        <field name="walking" readonly="1"/>
+                                        <field name="babbling" readonly="1"/>
+                                        <field name="first_words" readonly="1"/>
+                                        <field name="short_sentences" readonly="1"/>
+                                        <field name="child_like" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="V. Social Interaction and Communication Development">
+                                <group>
+                                    <group>
+                                        <field name="child_communicate" readonly="1"/>
+                                        <field name="child_understanding" readonly="1"/>
+                                        <field name="child_understanding_instruction_school" readonly="1"/>
+                                        <field name="child_interact" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="child_easy_understand" readonly="1"/>
+                                        <field name="speaking_fluently" readonly="1"/>
+                                        <field name="family_speech" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                        </notebook>
+                        <notebook>
+
+                            <page string="VI. Motor and Sensory Development">
+                                <group>
+                                    <group>
+                                        <field name="carrying_fine_motor" readonly="1"/>
+                                        <field name="child_dressing" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="bump" readonly="1"/>
+                                        <field name="figuring_activities" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="VII. Your Child at School">
+                                <group>
+                                    <group>
+                                        <field name="school_experience" readonly="1"/>
+                                        <field name="enjoy_school" readonly="1"/>
+                                        <field name="dislike_activities" readonly="1"/>
+                                        <field name="perspective" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="raised_concerns" readonly="1"/>
+                                        <field name="help" readonly="1"/>
+                                        <field name="help_support_feel" readonly="1"/>
+                                        <field name="different_behaviour" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="VIII. Previous Diagnosis">
+                                <group>
+                                    <group>
+                                        <span role="separator">
+                                            <b>Previous Diagnosis (if applicable) please tick</b>
+                                        </span>
+                                        <field name="speech_language_delay" readonly="1"/>
+                                        <field name="motor_delay" readonly="1"/>
+                                        <field name="sensory_processing_disorder" readonly="1"/>
+                                        <field name="add" readonly="1"/>
+                                        <field name="global_development" readonly="1"/>
+                                        <field name="asd" readonly="1"/>
+                                        <field name="drs_stutter_stammer" readonly="1"/>
+                                        <field name="other_checkbox" readonly="1" invisible="1"/>
+                                        <field name="any_other_2" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="assessment_consultation" readonly="1"/>
+                                        <field name="other_like_information" readonly="1"/>
+                                        <field name="signature" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="developmental_history_partner_button" model="ir.ui.view">
+            <field name="name">Developmental Partner details</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="open_developmental_history_form" type="object" class="oe_stat_button"
+                            string="Developmental History" icon="fa-files-o"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

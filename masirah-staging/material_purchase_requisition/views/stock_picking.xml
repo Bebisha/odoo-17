@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_form_inherit_pr" model="ir.ui.view">
+        <field name="name">stock.picking.inherited.form.pr</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']"
+                   position="attributes">
+                <attribute name="column_invisible">parent.picking_type_code == 'incoming'</attribute>
+                <!--                <attribute name="readonly">is_initial_demand_editable == False or show_operations == True and is_locked-->
+                <!--                    == True and is_initial_demand_editable == False-->
+                <!--                </attribute>-->
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']"
+                   position="after">
+                <field name="product_uom_qty" string="Order Qty"
+                       column_invisible="parent.picking_type_code != 'incoming'"/>
+
+                <!--                attrs="{'column_invisible': ['|', ('parent.picking_type_code', '!=',-->
+                <!--                'incoming'),('parent.immediate_transfer', '=', True)], 'readonly': ['|', ('is_initial_demand_editable',-->
+                <!--                '=', False), '&amp;', '&amp;', ('show_operations', '=', True), ('is_locked', '=', True),-->
+                <!--                ('is_initial_demand_editable', '=', False)]}"/>-->
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity']"
+                   position="attributes">
+                <attribute name="readonly">product_id == False</attribute>
+                <attribute name="column_invisible">parent.picking_type_code == 'incoming' or parent.state == 'draft'
+                </attribute>
+
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity']"
+                   position="after">
+                <field name="quantity" string="Received Qty"
+                       readonly="product_id == False"
+                       column_invisible="parent.picking_type_code != 'incoming' or parent.state == 'draft'"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

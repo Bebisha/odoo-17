@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sales_profit_menu_action" model="ir.actions.server">
+        <field name="name">Sales Profit</field>
+        <field name="model_id" ref="model_sale_profit"/>
+        <field name="state">code</field>
+        <field name="code">action = model.create_sale()</field>
+    </record>
+
+</odoo>

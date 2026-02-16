@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ethinic_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Ethinic</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">ethinic.form</field>
+
+    </record>
+    <record id="ethinic_tree" model="ir.ui.view">
+        <field name="name">ethinic.form.views</field>
+        <field name="model">ethinic.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="ethinic_form" model="ir.ui.view">
+        <field name="name">ethinic.form.views</field>
+        <field name="model">ethinic.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="ethinic_menu"
+              action="ethinic_action"
+              name="Ethinic"
+              parent="kg_nabidh.nk1_menu"/>
+
+
+
+</odoo>

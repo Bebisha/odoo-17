@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mail_message_tdcc_view_tree" model="ir.ui.view">
+        <field name="name">mail.message.tree.view.tdcc</field>
+        <field name="model">mail.message</field>
+        <field name="arch" type="xml">
+            <tree string="Messages" create="false">
+                <field name="date" />
+                <field name="author_id" string="Created By" />
+                <field name="subject" />
+                <field name="body" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="mail_message_tdcc_view_form" model="ir.ui.view">
+        <field name="name">mail.message.form.view.tdcc</field>
+        <field name="model">mail.message</field>
+        <field name="arch" type="xml">
+            <form string="Message" delete="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="subject" />
+                            <field name="date" />
+                            <field name="email_from" />
+                            <field name="author_id" />
+                            <field name="record_name" />
+<!--                            <field name="moderator_id" />-->
+                            <field name="mail_activity_type_id"></field>
+                        </group>
+                        <group>
+                            <field name="parent_id" />
+                            <field name="model" />
+                            <field name="res_id" />
+                            <field name="message_type" />
+                            <field name="subtype_id" />
+<!--                            <field name="moderation_status" />-->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Body">
+                            <field name="body" options="{'style-inline': true}" />
+                        </page>
+                        <page string="Gateway">
+                            <group>
+                                <group>
+                                    <field name="reply_to" />
+                                    <field name="reply_to_force_new" />
+                                </group>
+                                <group>
+                                    <field name="message_id" />
+                                    <field name="mail_server_id" />
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Recipients">
+                            <group>
+                                <group>
+                                    <field name="partner_ids" widget="many2many_tags" />
+<!--                                    <field name="channel_ids" widget="many2many_tags" />-->
+                                </group>
+                                <group>
+                                    <field name="partner_ids" widget="many2many_tags" />
+                                    <field name="starred_partner_ids" widget="many2many_tags" />
+                                </group>
+                            </group>
+                            <group>
+                                <field name="notification_ids">
+                                    <tree>
+                                        <field name="res_partner_id" />
+                                        <field name="is_read" />
+<!--                                        <field name="is_email" />-->
+                                        <field name="notification_status" />
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Tracking">
+                            <field name="tracking_value_ids" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Server action for Calls -->
+    <record id="action_mail_message_call_tdcc" model="ir.actions.act_window">
+        <field name="name">Calls</field>
+        <field name="res_model">mail.message</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="bista_tdcc_operations.mail_message_tdcc_view_tree" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a Call.
+                </p>
+            </field>
+    </record>
+
+    <!-- Server action for SMS -->
+    <!-- <record id="action_mail_message_sms_tdcc" model="ir.actions.server"> 
+        <field name="name">SMS</field> <field name="model_id" ref="mail.model_mail_message"/> 
+        <field name="binding_model_id" ref="mail.model_mail_message"/> <field name="state">code</field> 
+        <field name="code"> action = { 'type': 'ir.actions.act_window', 'domain': 
+        [('mail_activity_type_id','=',env.ref('bista_tdcc_operations.mail_activity_data_sms').id), 
+        ('res_id','=',env.context['active_id']), ('model', '=', 'res.partner')], 
+        'res_model': 'mail.message', 'display_name': ('Calls'), 'views': [(env.ref('bista_tdcc_operations.mail_message_tdcc_view_tree').id, 
+        'tree'), (env.ref('bista_tdcc_operations.mail_message_tdcc_view_form').id, 
+        'form')], } </field> </record> -->
+
+    <!-- Server Action for Email -->
+    <record id="action_mail_message_email_tdcc" model="ir.actions.server">
+        <field name="name">Emails</field>
+        <field name="model_id" ref="mail.model_mail_message" />
+        <field name="binding_model_id" ref="mail.model_mail_message" />
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+            'type': 'ir.actions.act_window',
+            'domain':
+            [('mail_activity_type_id','=',env.ref('mail.mail_activity_data_email').id),
+            ('res_id','=',env.context['active_id']),
+            ('model', '=', 'res.partner')],
+            'res_model': 'mail.message',
+            'display_name': ('Emails'),
+            'views': [(env.ref('bista_tdcc_operations.mail_message_tdcc_view_tree').id,
+            'tree'),
+            (env.ref('bista_tdcc_operations.mail_message_tdcc_view_form').id,
+            'form')],
+            }
+        </field>
+    </record>
+
+    <record id="action_mail_mail_email_tdcc" model="ir.actions.act_window">
+        <field name="name">Emails</field>
+        <field name="res_model">mail.mail</field>
+<!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Server action for Mail Mail -->
+    <!-- <record id="action_mail_mail_email_tdcc" model="ir.actions.server">
+        <field name="name">Emails</field>
+        <field name="model_id" ref="mail.model_mail_mail" />
+        <field name="binding_model_id" ref="mail.model_mail_mail" />
+        <field name="state">code</field>
+        <field name="code">
+partner = env['res.partner'].search([
+    ('id', '=', env.context['active_id']),
+])
+action = {
+    'type': 'ir.actions.act_window',
+    'res_model': 'mail.mail',
+    'display_name': ('Emails'),
+    'domain': [ '|',('recipient_ids', 'in', env.context['active_id']),
+                                ('email_to','=', partner.email)],
+    'views': [(env.ref('mail.view_mail_tree').id, 'tree'),
+                                  (env.ref('mail.view_mail_form').id, 'form')],
+}
+        </field>
+    </record> -->
+
+</odoo>

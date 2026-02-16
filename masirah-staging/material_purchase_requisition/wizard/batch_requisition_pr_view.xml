@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_batch_pr_requisition" model="ir.ui.view">
+        <field name="name">Batch PR Requisition</field>
+        <field name="model">batch.pr.requisition</field>
+        <field name="arch" type="xml">
+            <form string="Batch PR Requisition">
+                <group>
+                    <group>
+                        <field name="user_id"/>
+                        <field name="employee_id"/>
+                        <field name="vendor_ids" widget="many2many_tags"/>
+                        <field name="company_id"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="pr_requisition_ids" widget="many2many_tags"/>
+                </group>
+                <notebook>
+                    <page string="Requisitions Lines">
+                        <field name="requisition_line_ids">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="description"/>
+                                <field name="qty"/>
+                                <field name="available_qty"/>
+                                <field name="uom_id"/>
+                                <field name="price_unit"/>
+                                <field name="currency_id"/>
+                                <field name="pr_requisition_ids" widget="many2many_tags" optional="hide"/>
+                                <field name="pr_req_line_ids" widget="many2many_tags" optional="hide"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="create_po_requisition" type="object"
+                            string="Create and View PO"
+                            class="btn-primary" data-hotkey="q"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_batch_pr_requisition" model="ir.actions.act_window">
+        <field name="name">Batch PR Requisition</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">batch.pr.requisition</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="menu_batch_pr_requisition"
+              name="Batch Purchase Requisition"
+              parent="menu_batch_requisition"
+              action="action_batch_pr_requisition"
+              groups="group_purchase_requisition_user"
+              sequence="4"/>
+</odoo>

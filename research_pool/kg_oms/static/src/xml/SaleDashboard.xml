@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="kg_oms.SaleDashboard" owl="1">
+        <div align="left" style="margin-top: 20px; overflow: auto;" class="container-fluid o_pj_dashboard">
+            <h3>OMS - Order Management System</h3>
+        </div>
+        <div class="container-fluid" style="max-height: 100vh; overflow-y: auto;">
+            <div class="row m-0 p-0">
+                <div class="col-lg-3 m-0 p-0">
+                    <div id="LastWeekSales" class="shadow-sm border m-2 p-3 text-center"
+                         style="background-color: #BFEA7C; border-radius: 10px;">
+                        <button class="h2 fw-bold text-dark" style="font-size: 24px;" t-on-click="_fetch_data">Loading...</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 m-0 p-0">
+                    <div id="LastMonthSales" class="shadow-sm border m-2 p-3 text-center"
+                         style="background-color: #F3CCF3; border-radius: 10px;">
+                        <div class="h2 fw-bold text-dark" style="font-size: 24px;">Loading...</div>
+                        <div class="h5 text-muted">Last Month</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 m-0 p-0">
+                    <div id="LastYearSales" class="shadow-sm border m-2 p-3  text-center"
+                         style="background-color: #DFF5FF; border-radius: 10px;">
+                        <div class="h2 fw-bold text-dark" style="font-size: 24px;">Loading...</div>
+                        <div class="h5 text-muted">Last Year</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 m-0 p-0">
+                    <div id="TotalSales" class="shadow-sm border m-2 p-3  text-center"
+                         style="background-color: #BC7FCD; border-radius: 10px;">
+                        <div class="h2 fw-bold text-dark" style="font-size: 24px;">Loading...</div>
+                        <div class="h5 text-muted">Total Amount</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

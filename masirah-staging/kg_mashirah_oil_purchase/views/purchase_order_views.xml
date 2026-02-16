@@ -1,0 +1,89 @@
+<odoo>
+    <data>
+        <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">Purchase Order</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_ref" position="after">
+                    <field name="number_rfq"  readonly="1"/>
+                </field>
+                <xpath expr="//button[@name='button_done']" position="attributes">
+                    <attribute name="groups">kg_mashirah_oil_purchase.masirah_oil_lock_button_access</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='button_confirm']" position="before">
+
+                    <field name="is_request" invisible="1"/>
+                    <field name="is_pm_approve" invisible="1"/>
+                    <field name="is_gm_approve" invisible="1"/>
+                    <field name="is_rfq_approve" invisible="1"/>
+                    <field name="is_reject" invisible="1"/>
+
+                    <button name="kg_request" type="object" string="Request for Approval"
+                            invisible="is_request == False or is_pm_approve == True"
+                            class="oe_highlight"/>
+                    <button name="kg_pm_approve" type="object" string="Purchase Manager Approval"
+                            invisible="is_pm_approve == False or is_gm_approve == True"
+                            class="oe_highlight"/>
+                    <button name="kg_gm_approve" type="object" string="GM Approval"
+                            invisible="is_gm_approve == False or is_rfq_approve == True"
+                            class="oe_highlight"/>
+                    <button name="kg_reject" type="object" string="Reject"
+                            invisible="is_pm_approve == False or is_rfq_approve == True"
+                            class="oe_highlight"/>
+                </xpath>
+
+
+                <field name="partner_ref" position="after">
+                    <field name="purchase_contract_id" readonly="1" force_save="1"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="amount_in_currency" invisible="1"/>
+                </field>
+
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+                <field name="fiscal_position_id" position="after">
+                    <field name="inspection"/>
+                    <field name="qa_condition"/>
+                </field>
+                <field name="picking_type_id" position="after">
+                    <field name="project_analytic_account_id"/>
+                    <field name="remarks"/>
+                    <field name="analytic_distribution" invisible="1"/>
+
+                </field>
+
+                <xpath expr="//notebook/page[@name='purchase_delivery_invoice']/group/group[@name='invoice_info']"
+                       position="after">
+                    <group name="kg_users" string="Approval Users">
+                        <field name="requested_by" readonly="1" force_save="1"/>
+                        <field name="verified_by" readonly="1" force_save="1"/>
+                        <field name="approved_by" readonly="1" force_save="1"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//div[@name='reminder']" position="after">
+                    <field name="po_type"/>
+                </xpath>
+
+
+            </field>
+        </record>
+
+
+        <record id="view_stock_purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">Purchase Stock Order</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="incoterm_location" position="after">
+                    <field name="deliver_to_location" required="1"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

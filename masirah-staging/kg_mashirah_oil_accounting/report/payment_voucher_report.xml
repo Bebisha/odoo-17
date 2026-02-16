@@ -1,0 +1,157 @@
+<odoo>
+    <data>
+        <template id="report_payment_voucher_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header">
+                            <table class='table-borderless' width="100%">
+                                <tr width="100%">
+                                    <td width="75%" align="center" style="font-size:20px;">
+                                        <br/>
+                                        <strong>
+                                            <span t-field="doc.company_id.name"/>
+                                        </strong>
+                                    </td>
+                                    <td width="25%"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td width="75%" align="center" style="font-size:20px;">
+                                        <br/>
+                                        <strong>Payment Voucher</strong>
+                                    </td>
+                                    <td width="25%"/>
+                                </tr>
+                            </table>
+                        </div>
+                        <table class='table-borderless' width="100%">
+                            <tr width="100%">
+                                <td width="50%" align="left" style="font-size:14px;">
+                                    No :
+                                    <b>
+                                        <span t-field="doc.name"/>
+                                    </b>
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;">
+                                    Dated :
+                                    <b>
+                                        <span t-esc="doc.date.strftime('%d-%b-%Y')"/>
+                                    </b>
+                                </td>
+                                <td width="25%"/>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table class='table-borderless' width="100%">
+                            <tr width="100%">
+                                <td width="75%" colspan="2" style="border-bottom: 1px solid black;"/>
+                                <td width="25%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="50%" align="left" style="font-size:14px;padding-left:50px;">
+                                    <span>Particulars</span>
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;">
+                                    <span>Amount</span>
+                                </td>
+                                <td width="25%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="75%" colspan="2" style="border-top: 1px solid black;"/>
+                                <td width="25%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="50%" align="left" style="font-size:14px;">
+                                    <b>
+                                        <span>Account:</span>
+                                    </b>
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;"/>
+                                <td width="25%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="50%" align="left" style="font-size:14px;padding-left:50px;">
+                                    <span t-field="doc.partner_id.name"/>
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;">
+                                    <span t-esc="'{:,.2f}'.format(doc.amount)"/>
+                                </td>
+                                <td width="25%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="50%" align="left" style="font-size:14px;padding-top:300px;">
+                                    <b>
+                                        <span>Through:</span>
+                                    </b>
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;padding-top:300px;"/>
+                                <td width="25%" style="padding-top:300px;"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="50%" align="left" style="font-size:14px;padding-left:50px;">
+                                    <span t-field="doc.journal_id.default_account_id"/>
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;"/>
+                                <td width="25%"/>
+                            </tr>
+                            <t t-if="doc.ref">
+                                <tr width="100%">
+                                    <td width="50%" align="left" style="font-size:14px;">
+                                        <b>
+                                            <span>On Account of:</span>
+                                        </b>
+                                    </td>
+                                    <td width="25%" align="right" style="font-size:14px;"/>
+                                    <td width="25%"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td width="50%" align="left" style="font-size:14px;padding-left:50px;">
+                                        <span t-field="doc.ref"/>
+                                    </td>
+                                    <td width="25%" align="right" style="font-size:14px;"/>
+                                    <td width="25%"/>
+                                </tr>
+                            </t>
+                            <tr width="100%">
+                                <td width="50%" align="left" style="font-size:14px;">
+                                    <b>
+                                        <span>Amount (in words):</span>
+                                    </b>
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;"/>
+                                <td width="25%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="50%" align="left" style="font-size:14px;padding-left:50px;">
+                                    <span t-esc="doc.currency_id.amount_to_text(doc.amount)"/>
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;"/>
+                                <td width="25%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="50%" align="left" style="font-size:14px;padding-left:50px;"/>
+                                <td width="25%" align="right"
+                                    style="font-size:14px;border-top: 1px solid black;border-bottom: 1px solid black;">
+                                    <b>
+                                        <span t-field="doc.currency_id.symbol"/>
+                                        <span t-esc="'{:,.2f}'.format(doc.amount)"/>
+                                    </b>
+                                </td>
+                                <td width="25%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="50%" align="left" style="font-size:14px;padding-top:100px;">
+                                    <span>Receiver's Signature</span>
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;padding-top:100px;">
+                                    <span>Authorised Signatory</span>
+                                </td>
+                                <td width="25%"/>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

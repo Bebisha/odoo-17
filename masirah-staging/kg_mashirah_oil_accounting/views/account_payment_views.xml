@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="view_account_invoice_form_custom" model="ir.ui.view">
+            <field name="name">account.payment.form.custom</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_post']" position="after">
+
+
+                    <field name="is_request" invisible="1"/>
+                    <field name="is_fm_approve" invisible="1"/>
+                    <field name="is_gm_approve" invisible="1"/>
+                    <field name="is_bill_approve" invisible="1"/>
+                    <field name="is_reject" invisible="1"/>
+
+
+                    <button name="kg_request" type="object" string="Request for Approval" invisible="1"
+                            class="oe_highlight"/>
+                    <button name="kg_fm_approve" type="object" string="Finance Manager Approve"
+                             invisible="1"
+                            class="oe_highlight"/>
+                    <button name="kg_gm_approve" type="object" string="GM Approve"
+                            invisible="1"
+                            class="oe_highlight"/>
+                    <button name="kg_reject" type="object" string="Reject"
+                            invisible="1"
+                            class="oe_highlight"/>
+                </xpath>
+
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

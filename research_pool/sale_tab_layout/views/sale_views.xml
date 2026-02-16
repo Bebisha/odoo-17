@@ -1,0 +1,68 @@
+<odoo>
+    <record id="view_order_form_custom_aircraft" model="ir.ui.view">
+        <field name="name">sale.order.form.custom.aircraft</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='order_lines']" position="replace">
+                <page name="order_lines" string="Aircraft Selection">
+                    <field name="order_line" widget="one2many_list" nolabel="1">
+                    <tree editable="bottom" string="Aircraft Lines">
+                        <field name="product_id"/>
+                        <field name="price_unit"/>
+                        <field name="aircraft_preview" widget="html" readonly="1"/>
+                    </tree>
+
+                                                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="kg_charter_quoate_action_quotations_with_onboarding" model="ir.actions.act_window">
+        <field name="name">Charter Quote</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_id" ref="sale_tab_layout.view_order_form_custom_aircraft"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new quotation, the first step of a new sale!
+            </p>
+            <p>
+                Once the quotation is confirmed by the customer, it becomes a sales order.
+                <br/>
+                You will be able to create an invoice and collect the payment.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="charter_menu" action="kg_charter_quoate_action_quotations_with_onboarding" sequence="21"
+              parent="sale.sale_order_menu"/>
+    <record id="view_product_template_form_aircraft" model="ir.ui.view">
+        <field name="name">product.template.form.aircraft</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page string="Aircraft Details">
+                    <group>
+                        <field name="aircraft_name" invisible="1"/>
+                        <field name="year_of_manufacture"/>
+                        <field name="refurbished"/>
+                        <field name="seats"/>
+                        <field name="wifi"/>
+                        <field name="smoking"/>
+                    </group>
+                    <group>
+                        <field name="remarks"/>
+                    </group>
+                    <group string="Images" colspan="2">
+                        <field name="image_main" widget="image" class="oe_avatar"/>
+                        <field name="image_layout" widget="image" class="oe_avatar"/>
+                        <field name="image_interior" widget="image" class="oe_avatar"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

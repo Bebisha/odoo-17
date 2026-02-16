@@ -1,0 +1,324 @@
+<odoo>
+    <data>
+        <template id="account_receivable_template_id">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span>
+                                        P.O. BOX :
+                                    </span>
+                                    <span t-esc="company_zip"/>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>,
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <b>ACCOUNT RECEIVABLES LEDGER</b>
+                        </center>
+                    </div>
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td>
+                                <span>
+                                    As on
+                                </span>
+                                <span><![CDATA[&nbsp;]]></span>
+                                <span>
+                                    <span t-esc="date_from" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <t t-foreach="datas" t-as="data">
+                    <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                        <t t-if="data['type'] == 'customer'">
+                            <tr width="100%">
+                                <td width="10%" align="left">
+                                    <t t-if="data['customer_code'] != 'FALSE'">
+                                        <b>
+                                            <span t-esc="data['customer_code']"/>
+                                        </b>
+                                    </t>
+                                </td>
+                                <td width="90%" align="left" colspan="9">
+                                    <t t-if="data['customer_name'] != 'FALSE'">
+                                        <b>
+                                            <span t-esc="data['customer_name']"/>
+                                        </b>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid black;width:100%">
+                                <td style="border-bottom: 1px solid black;" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="10%" align="left" style="font-size:13px;">
+                                    <b>Date</b>
+                                </td>
+                                <td width="10%" align="center" style="font-size:13px;">
+                                    <b>Type</b>
+                                </td>
+                                <td width="8%" align="center" style="font-size:13px;">
+                                    <b>DocNo.</b>
+                                </td>
+                                <td width="14%" align="center" style="font-size:13px;">
+                                    <b>Ref.</b>
+                                </td>
+                                <td width="10%" align="center" style="font-size:13px;">
+                                    <b>Ref Date</b>
+                                </td>
+                                <td width="8%" align="center" style="font-size:13px;">
+                                    <b>JobNo.</b>
+                                </td>
+                                <td width="10%" align="center" style="font-size:13px;">
+                                    <b>Inv. Amt</b>
+                                </td>
+                                <td width="10%" align="center" style="font-size:13px;">
+                                    <b>Paid Amt</b>
+                                </td>
+                                <td width="10%" align="center" style="font-size:13px;">
+                                    <b>Balance</b>
+                                </td>
+                                <td width="10%" align="center" style="font-size:13px;">
+                                    <b>PDC Amt</b>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr style="border-bottom: 1px solid black;;;width:100%">
+                                <td style="border-bottom: 1px solid black;" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="34%" align="left" colspan="3">
+                                    <b>Job Code</b>
+                                </td>
+                                <td width="66%" colspan="7" align="left">
+                                    <b>Job Name</b>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                        </t>
+                        <t t-if="data['type'] == 'data'">
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="10%" align="left">
+                                    <span t-esc="data['date']" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                                <td width="10%" align="center">
+                                    <span t-esc="data['journal_type']"/>
+                                </td>
+                                <td width="8%" align="center">
+                                    <!--                                    <span t-esc="data['doc_no']"/>-->
+                                </td>
+                                <td width="14%" align="center">
+                                    <span t-esc="data['ref']"/>
+                                </td>
+                                <td width="10%" align="left">
+                                    <span t-esc="data['ref_date']"/>
+                                </td>
+                                <td width="8%" align="center">
+                                    <!--                                    <span t-esc="data['journal_type']"/>-->
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['invoice_amount']">
+                                        <span t-esc="'{:,.2f}'.format(data['invoice_amount'])"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['paid_amount']">
+                                        <span t-esc="'{:,.2f}'.format(data['paid_amount'])"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['balance']">
+                                        <span t-esc="'{:,.2f}'.format(data['balance'])"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['pdc_amount']">
+                                        <span t-esc="'{:,.2f}'.format(data['pdc_amount'])"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="data['type'] == 'amount'">
+                            <tr style="border-bottom: 1px solid black;;;width:100%">
+                                <td style="border-bottom: 1px solid black;" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="60%" colspan="6"/>
+                                <td width="10%" align="center">
+                                    <b>
+                                        <span t-esc="'{:,.2f}'.format(data['total_invoice_amount'])"/>
+                                    </b>
+                                </td>
+                                <td width="10%" align="center">
+                                    <b>
+                                        <span t-esc="'{:,.2f}'.format(data['total_paid_amount'])"/>
+                                    </b>
+                                </td>
+                                <td width="10%" align="center">
+                                    <b>
+                                        <span t-esc="'{:,.2f}'.format(data['total_balance'])"/>
+                                    </b>
+                                </td>
+                                <td width="10%" align="center">
+                                    <b>
+                                        <span t-esc="'{:,.2f}'.format(data['total_pdc_amount'])"/>
+                                    </b>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr style="border-bottom: 1px solid black;;;width:100%">
+                                <td style="border-bottom: 1px solid black;" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                        </t>
+                    </table>
+                </t>
+                <div class="footer">
+                    <table class="table table-borderless table-condensed table-hover">
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="5%" align="left">
+                                <span>Date:</span>
+                            </td>
+                            <td width="12%" align="left">
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                            </td>
+                            <td width="20%" align="left">
+                            </td>
+                            <td width="63%" align="right">
+                                <span>
+                                    Page
+                                    <span class="page"/>
+                                    of
+                                    <span class="topage"/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

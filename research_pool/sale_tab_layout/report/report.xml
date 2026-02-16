@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_aircraft" model="report.paperformat">
+        <field name="name">PO Print</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">19</field>
+        <field name="disable_shrinking" eval="False"/>
+        <field name="dpi">90</field>
+    </record>
+    <record id="action_report_saleorder_aircraft" model="ir.actions.report">
+        <field name="name">Aircraft Quote</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sale_tab_layout.report_saleorder_aircrafts</field>
+        <field name="report_file">sale_tab_layout.report_saleorder_aircrafts</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="print_report_name">'Aircraft Quote - %s' % (object.name)</field>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="sale_tab_layout.paperformat_aircraft"/>
+    </record>
+
+
+</odoo>

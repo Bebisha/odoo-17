@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id='kg_payslip_inherited' inherit_id="hr_payroll.report_payslip_lang">
+            <xpath expr="//t[@t-call='web.html_container']" position="replace">
+                <t  t-call="web.html_container">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <div class="header">
+                                <img t-att-src="image_data_uri(o.company_id.logo)" style="height:150px;width:170px;margin-top:-15px;" align="right" alt="Company Logo"/>
+                            </div>
+                            <div>
+                                <table class='table table-borderless table-condensed table-hover' align="center" style="margin-top:40px;font-size:18px;border-collapse:collapse;border-radius: 5px 5px 5px 5px;width:100%;margin:5pt;border-bottom: 2px solid black;border-top: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
+                                    <tr width="100%">
+                                        <td colspan="4">
+                                            <strong><span t-esc="o.company_id.name" style="text-transform: uppercase;"/></strong>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td colspan="2">
+                                            <strong>Oman Branch</strong>
+                                        </td>
+                                        <td width="20%">
+                                            <strong>Dated:</strong>
+                                        </td>
+                                        <td width="20%">
+                                            <strong t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td colspan="2">
+                                            <strong>Salary Month of <span t-esc="datetime.datetime.now().strftime('%b\'%y')"/></strong>
+                                        </td>
+                                        <td width="20%">
+                                            <strong>Employee No.:</strong>
+                                        </td>
+                                        <td width="20%">
+                                            <span t-esc="o.employee_id.registration_number"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td width="20%"  style="padding-top:30px;">
+                                            <strong>Name</strong>
+                                        </td>
+                                        <td colspan="3"  style="padding-top:30px;">
+                                            <strong t-esc="o.employee_id.name" style="text-transform:uppercase;"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td width="20%">
+                                            <strong>Position</strong>
+                                        </td>
+                                        <td colspan="3">
+                                            <strong t-esc="o.employee_id.job_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td width="20%">
+                                            <strong>Job Grade</strong>
+                                        </td>
+                                        <td colspan="3">
+                                            <strong t-esc="o.employee_id.grade_id"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td width="20%">
+                                            <strong>Cost Center</strong>
+                                        </td>
+                                        <td colspan="3">
+                                            <strong t-esc="o.employee_id.contract_id.analytic_account_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td width="20%">
+                                            <strong>Bank Name</strong>
+                                        </td>
+                                        <td colspan="3">
+                                            <strong t-esc="o.employee_id.bank_account_id.bank_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td width="20%">
+                                            <strong>Bank Account</strong>
+                                        </td>
+                                        <td colspan="2">
+                                            <strong t-esc="o.employee_id.bank_account_id.acc_number"/>
+                                        </td><td width="20%" align="right">
+                                            <strong>OMR</strong>
+                                        </td>
+
+                                    </tr>
+                                    <tr width="100%" style="border-top:1px solid black;border-bottom:1px solid black;">
+                                        <td width="20%" style="border-right: 1px solid black;">
+                                            <strong>Gross Salary</strong></td>
+                                        <td width="40%" style="border-right: 1px solid black;"/>
+                                        <td width="20%" style="border-right: 1px solid black;"/>
+                                        <td width="20%" style="border-right: 1px solid black;"/>
+                                    </tr>
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <t t-if="line.category_id.code in ['BASIC','ALW'] and line.total != 0.0">
+                                            <tr width="100%" style="border-top:1px solid black;border-bottom:1px solid black;">
+                                                <td width="20%" style="border-right: 1px solid black;"/>
+                                                <td width="40%" style="border-right: 1px solid black;">
+                                                    <span t-esc="line.name"/>
+                                                </td>
+                                                <td width="20%" style="border-right: 1px solid black;"/>
+                                                <td width="20%" style="border-right: 1px solid black;" align="right">
+                                                    <span t-esc="line.total"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="line.category_id.code == 'GROSS' and line.total != 0.0">
+                                            <tr width="100%" style="border-top:1px solid black;border-bottom:1px solid black;">
+                                                <td width="20%" style="border-right: 1px solid black;">
+                                                    <strong>Gross Salary</strong>
+                                                </td>
+                                                <td width="40%" style="border-right: 1px solid black;"/>
+                                                <td width="20%" style="border-right: 1px solid black;"/>
+                                                <td width="20%" style="border-right: 1px solid black;" align="right">
+                                                    <strong t-esc="'{:,.2f}'.format(line.total)"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <tr width="100%" style="border-top:1px solid black;border-bottom:1px solid black;">
+                                        <td width="20%" style="border-right: 1px solid black;">
+                                            <strong>Deductions</strong></td>
+                                        <td width="40%" style="border-right: 1px solid black;"/>
+                                        <td width="20%" style="border-right: 1px solid black;"/>
+                                        <td width="20%" style="border-right: 1px solid black;"/>
+                                    </tr>
+                                    <t t-set="tot_ded" t-value="0"/>
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <t t-if="line.category_id.code == 'DED' and line.total != 0.0">
+                                            <tr width="100%" style="border-top:1px solid black;border-bottom:1px solid black;">
+                                                <td width="20%" style="border-right: 1px solid black;"/>
+                                                <td width="40%" style="border-right: 1px solid black;">
+                                                    <span t-esc="line.name"/>
+                                                </td>
+                                                <td width="20%" style="border-right: 1px solid black;"/>
+                                                <td width="20%" style="border-right: 1px solid black;" align="right">
+                                                    <t t-set="tot_ded" t-value="tot_ded + line.total"/>
+                                                    <span t-esc="line.total"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <tr width="100%" style="border-top:1px solid black;border-bottom:1px solid black;">
+                                        <td width="20%" style="border-right: 1px solid black;">
+                                            <strong>Total Deductions</strong>
+                                        </td>
+                                        <td width="40%" style="border-right: 1px solid black;"/>
+                                        <td width="20%" style="border-right: 1px solid black;"/>
+                                        <td width="20%" style="border-right: 1px solid black;" align="right">
+                                            <strong t-esc="'{:,.2f}'.format(tot_ded)"/>
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <t t-if="line.category_id.code == 'NET' and line.total != 0.0">
+                                            <tr width="100%" style="border-top:1px solid black;border-bottom:1px solid black;">
+                                                <td width="20%" style="border-right: 1px solid black;">
+                                                    <strong t-esc="line.name"/>
+                                                </td>
+                                                <td width="40%" style="border-right: 1px solid black;"/>
+                                                <td width="20%" style="border-right: 1px solid black;"/>
+                                                <td width="20%" style="border-right: 1px solid black;" align="right">
+                                                    <strong t-esc="line.total"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <tr width="100%" style="border-top:1px solid black;border-bottom:1px solid black;">
+                                        <td width="20%" style="border-right: 1px solid black;">
+                                            <strong>Other Deductions</strong>
+                                        </td>
+                                        <td width="40%" style="border-right: 1px solid black;"/>
+                                        <td width="20%" style="border-right: 1px solid black;"/>
+                                        <td width="20%" style="border-right: 1px solid black;" align="right"/>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

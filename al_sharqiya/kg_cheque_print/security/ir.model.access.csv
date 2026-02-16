@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kg_cheque_layout,kg_cheque_layout,model_kg_cheque_layout,,1,1,1,1
+access_generate_cheque_wizard,access_generate_cheque_wizard,model_generate_cheque_wizard,base.group_user,1,1,1,1
+access_cheque_leaf,access_cheque_leaf,model_cheque_leaf,base.group_user,1,1,0,1
+access_cheque_leaf_line,access_cheque_leaf_line,model_cheque_leaf_line,base.group_user,1,1,1,1
+access_update_payment_cheque,access_update_payment_cheque,model_update_payment_cheque,base.group_user,1,1,1,1

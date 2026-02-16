@@ -1,0 +1,150 @@
+<odoo>
+    <data>
+        <template id="journal_voucher_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="header">
+                            <table class='table-borderless' width="100%">
+                                <tr width="100%">
+                                    <td width="75%" align="center" style="font-size:20px;">
+                                        <br/>
+                                        <strong>
+                                            <span t-field="o.company_id.name"/>
+                                        </strong>
+                                    </td>
+                                    <td width="25%"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td width="75%" align="center" style="font-size:20px;">
+                                        <br/>
+                                        <strong>Journal Voucher</strong>
+                                    </td>
+                                    <td width="25%"/>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <table class='table-borderless' width="100%">
+                            <tr width="100%">
+                                <td width="50%" align="left" style="font-size:14px;">
+                                    No :
+                                    <b>
+                                        <span t-field="o.name"/>
+                                    </b>
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;">
+                                    Dated :
+                                    <b>
+                                        <span t-esc="o.date.strftime('%d-%b-%Y')"/>
+                                    </b>
+                                </td>
+                                <td width="25%"/>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table class='table-borderless' width="100%">
+                            <thead>
+                                <tr width="100%">
+                                    <td width="75%" colspan="3" style="border-bottom: 1px solid black;"/>
+                                    <td width="25%"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td width="30%" align="left" style="font-size:15px;">
+                                        <strong>Particulars</strong>
+                                    </td>
+                                    <td width="20%" align="right"
+                                        style="font-size:15px; #484848;text-align:right;">
+                                        <strong>Debit</strong>
+                                    </td>
+                                    <td width="20%" align="right"
+                                        style="font-size:15px; #484848;text-align:right;">
+                                        <strong>Credit</strong>
+                                    </td>
+                                    <td width="20%"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td width="75%" colspan="3" style="border-top: 1px solid black;"/>
+                                    <td width="25%"/>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.line_ids" t-as="line">
+                                    <tr>
+                                        <td align="left">
+                                            <t t-esc="line.account_id.name"/>
+                                        </td>
+                                        <td align="right" style=" #484848;text-align:right;">
+                                            <t t-esc="line.debit"/>
+                                        </td>
+                                        <td align="right" style=" #484848;text-align:right;">
+                                            <t t-esc="line.credit"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <tr width="100%">
+                                <td width="30%" align="left" style="font-size:14px;padding-top:300px;">
+
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;padding-top:300px;"/>
+                                <td width="25%" style="padding-top:300px;"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="30%" align="left" style="font-size:14px;padding-left:50px;">
+
+                                </td>
+                                <td width="25%" align="right" style="font-size:14px;"/>
+                                <td width="25%"/>
+                            </tr>
+
+                            <t t-if="o.payment_reference">
+                                <tr width="100%">
+                                    <td width="30%" align="left" style="font-size:14px;">
+                                        <b>
+                                            <span>On Account of:</span>
+                                        </b>
+                                    </td>
+                                    <td width="25%" align="right" style="font-size:14px;"/>
+                                    <td width="25%"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td width="30%" align="left" style="font-size:14px;padding-left:50px;">
+                                        <span t-field="o.payment_reference"/>
+                                    </td>
+                                    <td width="25%" align="right" style="font-size:14px;"/>
+                                    <td width="25%"/>
+                                </tr>
+
+                            </t>
+                             <tr width="100%">
+                                <td width="70%" colspan="2" align="left" style="font-size:14px;padding-left:50px;"/>
+                                <td width="25%" align="right"
+                                    style="font-size:14px;border-top: 1px solid black;border-bottom: 1px solid black;">
+                                    <b>
+                                        <span t-field="o.currency_id.symbol"/>
+<!--                                        <t t-esc="sum(o.line_ids.mapped('debit'))"/>-->
+                                        <span t-esc="'{:,.2f}'.format(sum(o.line_ids.mapped('debit')))"/>
+                                    </b>
+                                </td>
+                                <td width="25%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="50%" colspan="2" align="left" style="font-size:14px;padding-top:100px;"/>
+                                <td width="25%" align="right" style="font-size:18px;padding-top:100px;">
+                                    <span>Authorised Signatory</span>
+                                </td>
+                                <td width="25%"/>
+                            </tr>
+                        </table>
+
+
+
+
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

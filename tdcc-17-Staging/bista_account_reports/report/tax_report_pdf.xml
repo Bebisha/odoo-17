@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Template for Vat Report -->
+
+    <template id="vat_report_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <t t-if="doc and 'company_id' in doc">
+                        <t t-set="company" t-value="doc.company_id.sudo()"/>
+                    </t>
+                    <t t-if="not doc or not 'company_id' in doc">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                    <div>
+                        <span>
+                            <b>The Developing Child Center LLC</b>
+                            <br/>
+                            <t t-esc="company.street"/>
+                            <t t-esc="company.street2"/>
+                            <br/>
+                            <t t-if="company.city">
+                                <t t-esc="company.city.name"/>,
+                            </t>
+                            <t t-if="company.country_id">
+                                <t t-esc="company.country_id.name"/>
+                            </t>
+
+                        </span>
+                        <br/>
+                        <span>Email:</span>
+                        <t t-esc="company.email"/>
+                        <br/>
+                        <span>Tel:</span>
+                        <t t-esc="company.phone"/>
+                        <br/>
+                        <span>Fax:</span>
+                    </div>
+                    <div>
+                        <center>
+                            <b>
+                                Vat Report
+                            </b>
+                        </center>
+                    </div>
+                    <div style="margin-top:30px;">
+                    </div>
+                    <style>
+                        th ,tr,td{
+                        border: 1px solid black;
+                        text-align:center;
+                        }
+
+                    </style>
+                    <table
+                            style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                        <thead>
+                            <th>VNo</th>
+                            <th>InvNo</th>
+                            <th>Date</th>
+                            <th>Account Name</th>
+                            <th>TRNNo</th>
+                            <th>Description</th>
+                            <th>
+                                VAT
+                                <br/>
+                                Amount(AED)
+                            </th>
+                            <th>TAXAmt</th>
+                            <th>TotalAmt</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="9" style="text-align:left">
+                                    <b>Input VAT</b>
+                                </td>
+                            </tr>
+                            <t t-set="vat_total" t-value="0"/>
+                            <t t-set="tax_total" t-value="0"/>
+                            <t t-set="total" t-value="0"/>
+                            <t t-foreach="get_with_trn_data" t-as="data">
+                                <tr>
+                                    <td>
+                                        <span t-esc="data.get('vno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('invno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('invoicedate')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('mainaccountname')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('trnno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('desciption')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'% data.get('debit')"/>
+                                        <t t-set="vat_total" t-value="vat_total + data.get('debit')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % (data.get('taxamount') or 0)"/>
+                                        <t t-set="tax_total" t-value="tax_total + data.get('taxamount')"/>
+                                    </td>
+                                    <td>
+                                        <t t-set="total_amt"
+                                           t-value="(float(data.get('debit', 0.0)) or 0.0) + (float(data.get('taxamount', 0.0)) or 0.0)"/>
+
+
+                                        <span t-esc="'%.2f'% total_amt"/>
+                                        <t t-set="total" t-value="total + total_amt"/>
+                                    </td>
+
+                                </tr>
+                            </t>
+                            <t t-foreach="get_without_trn_data" t-as="data">
+                                <tr>
+                                    <td>
+                                        <span t-esc="data.get('vno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('invno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('invoicedate')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('mainaccountname')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('trnno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('desciption')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'% data.get('debit')"/>
+                                        <t t-set="vat_total" t-value="vat_total + data.get('debit')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % (data.get('taxamount') or 0)"/>
+                                        <t t-set="tax_total" t-value="tax_total + data.get('taxamount')"/>
+                                    </td>
+                                    <td>
+                                        <t t-set="total_amt"
+                                           t-value="(float(data.get('debit', 0.0)) or 0.0) + (float(data.get('taxamount', 0.0)) or 0.0)"/>
+
+
+                                        <span t-esc="'%.2f'% total_amt"/>
+                                        <t t-set="total" t-value="total + total_amt"/>
+                                    </td>
+
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="6" align="right">
+                                    <b>Sub Total</b>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% vat_total"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% tax_total"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% total"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" align="right">
+                                    <b>Net Total</b>
+                                </td>
+                                <td>
+                                    <span t-esc="vat_total"/>
+                                </td>
+                                <td>
+                                    <span t-esc="tax_total"/>
+                                </td>
+                                <td>
+                                    <span t-esc="total"/>
+                                </td>
+                            </tr>
+
+                            <!-- For OutPut Vat -->
+                            <tr>
+                                <td colspan="9" style="text-align:left">
+                                    <b>Output VAT</b>
+                                </td>
+                            </tr>
+                            <t t-set="cus_vat_total" t-value="0"/>
+                            <t t-set="cus_tax_total" t-value="0"/>
+                            <t t-set="cus_total" t-value="0"/>
+                            <t t-foreach="get_customer_vat_data" t-as="data">
+                                <tr>
+                                    <td>
+                                        <span t-esc="data.get('vno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('invno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('invoicedate')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('mainaccountname')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('trnno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('desciption')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('debit')"/>
+                                        <t t-set="cus_vat_total" t-value="cus_vat_total + data.get('debit')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % (data.get('taxamount') or 0)"/>
+                                        <t t-set="cus_tax_total" t-value="cus_tax_total + data.get('taxamount')"/>
+                                    </td>
+                                    <td>
+                                        <t t-set="total_amt"
+                                           t-value="(float(data.get('debit', 0.0)) or 0.0) + (float(data.get('taxamount', 0.0)) or 0.0)"/>
+
+
+                                        <span t-esc="'%.2f'% total_amt"/>
+                                        <t t-set="cus_total" t-value="cus_total + total_amt"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="6" align="right">
+                                    <b>Sub Total</b>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% cus_vat_total"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% cus_tax_total"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% cus_total"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" align="right">
+                                    <b>Net Total</b>
+                                </td>
+                                <td>
+                                    <span t-esc="cus_vat_total"/>
+                                </td>
+                                <td>
+                                    <span t-esc="cus_tax_total"/>
+                                </td>
+                                <td>
+                                    <span t-esc="cus_total"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="text-align:left">
+                                    <b>VAT Non-Refundable Expense</b>
+                                </td>
+                            </tr>
+                            <t t-set="vat_total_trn" t-value="0"/>
+                            <t t-set="tax_total_trn" t-value="0"/>
+                            <t t-set="total_trn" t-value="0"/>
+                            <t t-foreach="get_without_trn_data" t-as="data">
+                                <tr>
+                                    <td>
+                                        <span t-esc="data.get('vno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('invno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('invoicedate')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('mainaccountname')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('trnno')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="data.get('desciption')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'% data.get('debit')"/>
+                                        <t t-set="vat_total_trn" t-value="vat_total_trn + data.get('debit')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % (data.get('taxamount') or 0)"/>
+                                        <t t-set="tax_total_trn" t-value="tax_total_trn + data.get('taxamount')"/>
+                                    </td>
+                                    <td>
+                                        <t t-set="total_amt"
+                                           t-value="(float(data.get('debit', 0.0)) or 0.0) + (float(data.get('taxamount', 0.0)) or 0.0)"/>
+
+
+                                        <span t-esc="'%.2f'% total_amt"/>
+                                        <t t-set="total_trn" t-value="total_trn + total_amt"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="6" align="right">
+                                    <b>Sub Total</b>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% vat_total_trn"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% tax_total_trn"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% total_trn"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" align="right">
+                                    <b>Net Total</b>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% vat_total_trn"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% tax_total_trn"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'% total_trn"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="pdc_receipts_register_report_menu_action" model="ir.actions.act_window">
+            <field name="name">PDC Receipts Register</field>
+            <field name="res_model">pdc.receipts.register.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_pdc_receipts_register_report" action="pdc_receipts_register_report_menu_action"
+                  name="PDC Receipts Register" parent="kg_ultracare_accounting.menu_reporting_config_accounting"/>
+
+        <record id="pdc_receipts_register_report_wizard_view" model="ir.ui.view">
+            <field name="name">PDC Receipts Register Wizard</field>
+            <field name="model">pdc.receipts.register.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                        </group>
+                        <group name="date_to">
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_pdc_receipts_register_report"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

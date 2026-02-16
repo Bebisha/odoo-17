@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+   <template id="report_weekly_sales">
+    <t t-call="web.basic_layout">
+        <div class="page">
+            <center>
+                <b>
+                    <h3>Weekly Sales Report</h3>
+                </b>
+            </center>
+            <center>
+                <b>
+                    <t t-esc="datetime.datetime.now().strftime('%Y-%m-%d')"/>
+                    To
+                    <t t-esc="(datetime.datetime.now() + datetime.timedelta(days=6)).strftime('%Y-%m-%d')"/>
+                </b>
+            </center>
+            <br/>
+
+            <t t-foreach="docs.get_salesperson_groups().items()" t-as="salesperson_group">
+                <center>
+                    <b>
+                        <h4><t t-esc="salesperson_group[0]"/></h4>
+                    </b>
+                </center>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Order Number</th>
+                            <th>Customer</th>
+                            <th>Total Amount</th>
+                            <th>Order Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="salesperson_group[1]" t-as="order">
+                            <tr>
+                                <td>
+                                    <t t-esc="order.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="order.partner_id.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="order.amount_total"/>
+                                </td>
+                                <td>
+                                    <t t-esc="order.date_order.strftime('%Y-%m-%d')"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <br/>
+            </t>
+        </div>
+    </t>
+</template>
+
+
+    <record id="report_weekly_sale" model="ir.actions.report">
+        <field name="name">Weekly Sales Report</field>
+        <field name="model">sale.order</field>
+        <field name="binding_model_id" ref="model_sale_order"/>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">saleperson_weekly_report.report_weekly_sales</field>
+        <field name="report_file">saleperson_weekly_report.report_weekly_sales</field>
+    </record>
+
+</odoo>

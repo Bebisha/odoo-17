@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define the Journal record -->
+<!--         <record id="purchase_account_journal" model="account.journal">-->
+<!--            <field name="name">Purchase</field>-->
+<!--            <field name="code">PUR</field>-->
+<!--            <field name="type">general</field>-->
+<!--            <field name="sequence">89</field>-->
+<!--            <field name="alias_name">purchase_entry</field>-->
+<!--        </record>-->
+<!--        <record id="sale_account_journal" model="account.journal">-->
+<!--            <field name="name">Sales</field>-->
+<!--            <field name="code">SL</field>-->
+<!--            <field name="type">general</field>-->
+<!--            <field name="sequence">88</field>-->
+<!--            <field name="alias_name">sale_entry</field>-->
+<!--        </record>-->
+        <record id="bond_account_journal" model="account.journal">
+            <field name="name">Bonds</field>
+            <field name="code">BNJ</field>
+            <field name="type">general</field>
+            <field name="sequence">90</field>
+            <field name="alias_name">bond</field>
+        </record>
+        <record id="market_rate_account_journal" model="account.journal">
+            <field name="name">Market Rate Journal</field>
+            <field name="code">MRJ</field>
+            <field name="type">general</field>
+            <field name="sequence">91</field>
+            <field name="alias_name">market_rate_journal</field>
+        </record>
+<!--        <record id="dividend_account_journal" model="account.journal">-->
+<!--            <field name="name">Dividend Journal</field>-->
+<!--            <field name="code">DJ</field>-->
+<!--            <field name="type">general</field>-->
+<!--            <field name="sequence">92</field>-->
+<!--            <field name="alias_name">dividend_journal</field>-->
+<!--        </record>-->
+         <record id="revaluation_account_journal" model="account.journal">
+            <field name="name">Revaluation Journal</field>
+            <field name="code">RJ</field>
+            <field name="type">general</field>
+            <field name="sequence">93</field>
+            <field name="alias_name">revaluation_journal</field>
+        </record>
+        <record id="reversible_account_journal" model="account.journal">
+            <field name="name">Reversible Journal</field>
+            <field name="code">RVJ</field>
+            <field name="type">general</field>
+            <field name="sequence">94</field>
+            <field name="alias_name">reversible_journal</field>
+        </record>
+        <record id="bond_entry" model="kg.investment.type">
+            <field name="name">Bond</field>
+            <field name="is_bond">True</field>
+        </record>
+    </data>
+</odoo>

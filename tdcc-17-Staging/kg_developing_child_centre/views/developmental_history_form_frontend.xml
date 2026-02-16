@@ -1,0 +1,1682 @@
+<odoo>
+    <data>
+
+
+
+        <template id="history_form" name="Developmental History Form">
+            <t t-call="website.layout">
+                <div class="container">
+                    <div class="col-md-12">
+                        <form id="dev_form_id" action="/DevelopmentalHistoryForm/submit" enctype="multipart/form-data"
+                              method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <br/>
+
+
+                            <div id="cid_1" class="form-input-wide" data-type="control_head">
+                                <div class="form-header-group  header-default">
+
+                                    <div class="header-text">
+                                        <h1 id="header_1" class="form-header" data-component="header">
+                                            <center>
+                                                <font size="6">Developmental History Form</font>
+                                            </center>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+
+                            <style>
+                                .collapsible {
+                                background-color: #f1f1f1;
+                                color: black;
+                                cursor: pointer;
+                                padding: 18px;
+                                width: 100%;
+                                border: none;
+                                text-align: left;
+                                outline: none;
+                                font-size: 15px;
+                                }
+
+                                .collapsible:after {
+                                content: '\002B';
+                                color: black;
+                                font-weight: bold;
+                                float: right;
+                                margin-left: 5px;
+                                }
+
+                                .non_collapsible_content {
+                                cursor: pointer;
+                                width: 100%;
+                                outline: none;
+                                font-size: 15px;
+                                padding: 0 18px;
+                                overflow: hidden;
+                                background-color: #f1f1f1;
+                                }
+
+                                .non_collapsible {
+                                background-color: #f1f1f1;
+                                color: black;
+                                cursor: pointer;
+                                padding: 18px;
+                                width: 100%;
+                                border: none;
+                                text-align: left;
+                                outline: none;
+                                font-size: 15px;
+                                }
+
+                                .collapsible.active:after {
+                                content: "\2212";
+                                }
+
+                                .content {
+                                padding: 0 18px;
+                                max-height: 0;
+                                overflow: hidden;
+                                transition: max-height 0.2s ease-out;
+                                background-color: #f1f1f1;
+                                }
+                            </style>
+
+                            <button type="button" class="non_collapsible">
+                                <b>I. Child Identification Information</b>
+                            </button>
+                            <div class="non_collapsible_content">
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Today's date</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Date" class="form-control" name="today_date"
+                                               t-att-value="datetime.datetime.now().strftime('%Y-%m-%d')" readonly="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Name of Child</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div class="contact-form row">
+                                        <div class="col-md-4">
+                                            <div>
+                                                <input type="Text" name="first_name"
+                                                       class="form-control s_website_form_input"
+                                                       data-otherhint="First Name"
+                                                       size="20" id="first_name" placeholder="First Name"
+                                                       t-att-value="first_name"
+                                                       t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                                <input type="hidden" name="sign" id="sign"/>
+                                            </div>
+                                            <br/>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div>
+                                                <input type="Char" name="last_name"
+                                                       class="form-control s_website_form_input"
+                                                       data-otherhint="Last Name"
+                                                       size="20" id="input_213" placeholder="Last Name"
+                                                       t-att-value="last_name"
+                                                       t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Date of Birth</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+
+                                        <input type="Date" class="form-control" name="date_of_birth"
+                                               id="date_of_birth" t-att-value="date_of_birth"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Age</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+
+                                        <input type="Number" class="form-control" name="age" id="age"
+                                               t-att-value="age"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Nationality:</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <select name="nationality" class="form-control link-style"
+                                                t-att-disabled="'disabled' if is_submitted_dev == True else None" required="1">
+                                            <option data-otherhint="Country"
+                                                    size="20" id="input_1" placeholder="Country"
+                                                    t-att-disabled="'disabled' if is_submitted_dev == True else None" required="1"/>
+                                            <t t-foreach="country_rec" t-as="country"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None" required="1">
+                                                <option t-esc="country.name" t-att-value="country.id"
+                                                        t-att-selected="country.id == nationality"
+                                                        t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                required="1"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Sex</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+
+                                    <br/>
+                                    <li class="list-inline-item mr-1">
+                                        <label class="col-form-label col-sm-auto s_website_form_label" title="">
+                                            <input type="radio" class="js_variant_change always" name="gender"
+                                                   value="male" title="Male" data-value_id="male"
+                                                   data-value_name="Male" data-attribute_name="Gender"
+                                                   t-att-checked="gender == 'male'"
+                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                <![CDATA[&nbsp;]]>Male
+                                            </input>
+                                        </label>
+                                    </li>
+
+
+                                    <li class="list-inline-item mr-1">
+                                        <label class="col-form-label col-sm-auto s_website_form_label" title="">
+                                            <input type="radio" class="js_variant_change always" name="gender"
+                                                   value="female" title="Female" data-value_id="female"
+                                                   data-value_name="Female" data-attribute_name="Gender"
+                                                   t-att-checked="gender == 'female'"
+                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                <![CDATA[&nbsp;]]>Female
+                                            </input>
+                                        </label>
+                                    </li>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Language spoken at home:</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Text" name="language_spoken"
+                                               class="form-control s_website_form_input" t-att-value="language_spoken"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">What is your child's dominant language?</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="dominant_language"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="dominant_language"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Current School</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="current_school"
+                                               class="form-control s_website_form_input" t-att-value="current_school"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">School year/grade:</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="school_year_grade"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="school_year_grade"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Classroom Teacher</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="classroom_teacher"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="classroom_teacher"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+                                <br/>
+
+                            </div>
+
+                            <button type="button" class="collapsible">
+                                <b>II. Parents / Caregiver Information</b>
+                            </button>
+                            <div class="content">
+                                <br/>
+
+                                <div class="col-md-12">
+
+                                    <span class="color_mark" style="color:#F00">*</span>
+
+                                    <div class="contact-form row">
+                                        <div class="col-md-4">
+
+                                            <div>
+                                                <input name="mother_name" type="Text"
+                                                       class="form-control s_website_form_input"
+                                                       data-otherhint="Mother's Name"
+                                                       size="20" id="input_213" placeholder="Mother's Name"
+                                                       t-att-value="mother_name"
+                                                       t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                            </div>
+                                            <br/>
+
+                                        </div>
+                                        <br/>
+                                        <div class="col-md-4">
+                                            <div>
+                                                <input name="phone_number_1"
+                                                       class="form-control s_website_form_input"
+                                                       data-otherhint="Phone Number"
+                                                       size="20" id="phone_number" placeholder="Phone Number"
+                                                       type="text" pattern="[0-9]+" maxlength="12" minlength="5"
+                                                       t-att-value="phone_number_1"
+                                                       t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                required="1"/>
+                                            </div>
+                                            <br/>
+
+                                        </div>
+                                        <br/>
+                                        <div class="col-md-4">
+                                            <div>
+                                                <select name="nationality_1" class="form-control link-style"
+                                                        t-att-disabled="'disabled' if is_submitted_dev == True else None" required="1">
+                                                    <option data-otherhint="Country"
+                                                            size="20" id="input_2" placeholder="Country"
+                                                            t-att-disabled="'disabled' if is_submitted_dev == True else None" required="1"/>
+                                                    <t t-foreach="country_rec" t-as="country"
+                                                       t-att-disabled="'disabled' if is_submitted_dev == True else None" required="1">
+                                                        <option t-esc="country.name" t-att-value="country.id"
+                                                                t-att-selected="country.id == nationality_1"
+                                                                t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                        required="1"/>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Mother's Email</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="email" name="mother_mail"
+                                               class="form-control s_website_form_input" t-att-value="mother_mail"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1" />
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <div class="col-md-12">
+                                    <label>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div class="contact-form row">
+                                        <div class="col-md-4">
+
+                                            <div>
+                                                <input name="father_name" type="Text"
+                                                       class="form-control s_website_form_input"
+                                                       data-otherhint="Father's Name"
+                                                       size="20" id="input_213" placeholder="Father's Name"
+                                                       t-att-value="father_name"
+                                                       t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"
+                                                />
+                                            </div>
+                                            <br/>
+
+                                        </div>
+                                        <br/>
+                                        <div class="col-md-4">
+                                            <div>
+                                                <input name="phone_number_2"
+                                                       class="form-control s_website_form_input"
+                                                       data-otherhint="Phone Number"
+                                                       size="20" id="phone_number" placeholder="Phone Number"
+                                                       type="text" pattern="[0-9]+" maxlength="12" minlength="5"
+                                                       t-att-value="phone_number_2"
+                                                       t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"
+                                                />
+                                            </div>
+                                            <br/>
+
+                                        </div>
+                                        <br/>
+                                        <div class="col-md-4">
+                                            <div>
+                                                <select name="nationality_2" class="form-control link-style"
+                                                        t-att-disabled="'disabled' if is_submitted_dev == True else None" required="1">
+                                                    <option data-otherhint="Country"
+                                                            size="20" id="input_3" placeholder="Country"
+                                                            t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                    required="1"/>
+                                                    <t t-foreach="country_rec" t-as="country"
+                                                       t-att-disabled="'disabled' if is_submitted_dev == True else None" required="1">
+                                                        <option t-esc="country.name" t-att-value="country.id"
+                                                                t-att-selected="country.id == nationality_2"
+                                                                t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                        required="1"/>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Father's Email</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="email" class="form-control s_website_form_input"
+                                               name="father_mail" t-att-value="father_mail"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Home Address:</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="home_address"
+                                               class="form-control s_website_form_input" t-att-value="home_address"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Previous places your family has lived? (If
+                                            applicable)
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="previous_place"
+                                               class="form-control s_website_form_input" t-att-value="previous_place"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Who lives at home with your child?</span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Siblings:</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="siblings" class="form-control s_website_form_input"
+                                               t-att-value="siblings"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                        required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Grandparents:</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="grandparents"
+                                               class="form-control s_website_form_input" t-att-value="grandparents"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Others</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="others" class="form-control s_website_form_input"
+                                               t-att-value="others"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                        required="1"/>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+
+                            <button type="button" class="collapsible">
+                                <b>III. Health Information About Your Child</b>
+                            </button>
+                            <div class="content">
+                                <br/>
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">What is your main concern?</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+<!--                                        <textarea id="main_concern" name="main_concern"-->
+<!--                                                  class="form-control s_website_form_input" style="height:3cm;"-->
+<!--                                                  t-att-value="main_concern"-->
+<!--                                                  t-att-readonly="'readonly' if is_submitted_dev == True else None">-->
+<!--                                            <t t-esc="main_concern" id="res"/>-->
+<!--                                        </textarea>-->
+                                         <textarea id="main_concern" name="main_concern"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="main_concern" t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == True else None" required="1"/>
+                                        <textarea id="main_concern_new" name="main_concern_new"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="main_concern_new" t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == False else None">
+                                            <t t-esc="main_concern" t-att-disabled="disabled"/>
+                                        </textarea>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="col-form-label s_website_form_label" align="justify">
+                                        <span class="website_form">When did you first notice difficulties?</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="first_notice"
+                                               class="form-control s_website_form_input" t-att-value="first_notice"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Have you ever sought advice from: (please tick)
+                                        </span>
+                                    </label>
+                                    <div>
+                                        <input type="checkbox" class="js_variant_change always"
+                                               name="speech_language_therapist"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>Speech and
+                                            language therapist
+                                        </input>
+                                        <br/>
+                                        <input type="checkbox" class="js_variant_change always"
+                                               name="occupational_therapist"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>Occupational therapist
+
+
+                                        </input>
+                                        <br/>
+                                        <input type="checkbox" class="js_variant_change always" name="physiotherapist"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>Physiotherapist
+
+                                        </input>
+                                        <br/>
+                                        <input type="checkbox" class="js_variant_change always"
+                                               name="educational_psychologist"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>Educational
+                                            Psychologist
+                                        </input>
+                                        <br/>
+
+                                                <input type="Char" name="any_other_1"
+                                                       class="form-control s_website_form_input"
+                                                       data-otherhint="Other"
+                                                       size="20" id="any_other_4" placeholder="Other"
+                                                       t-att-value="any_other_1"
+                                                       t-att-readonly="'readonly' if is_submitted_dev == True else None"/>
+
+<!--                                        <div>-->
+<!--                                            <input type='checkbox' name="check_box_other" id="other_check" data-toggle='collapse' data-target='#collapsediv1'-->
+<!--                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">-->
+<!--                                                <![CDATA[&nbsp;]]>Other-->
+<!--                                            </input>-->
+<!--                                        </div>-->
+<!--                                        <div id='collapsediv1'>-->
+<!--                                            <input type="Char" name="any_other_1"-->
+<!--                                                   class="form-control s_website_form_input"-->
+<!--                                                   data-otherhint="Other" size="20" id="any_other_4"-->
+<!--                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"/>-->
+<!--                                        </div>-->
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Has your child had any other medical assessments,
+                                            hospitalizations or surgeries?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="other_medical"
+                                               class="form-control s_website_form_input" t-att-value="other_medical"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+                                <br/>
+
+
+                                <div class="col-md-12" align="justify">
+                                    <div>
+                                        <input type='checkbox' data-toggle='collapse' data-target='#collapsediv9'
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <strong><![CDATA[&nbsp;]]>Can you provide reports or results of previous
+                                                medical
+                                            </strong>
+                                        </input>
+                                    </div>
+
+                                    <div id='collapsediv9'>
+                                        <input type="file" name="upload_report" id="upload_report"
+                                               accept=".pdf,.png,.jpeg,.jpg"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"/>
+                                    </div>
+
+                                </div>
+                                <br/>
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Describe your child's general health</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+<!--                                        <textarea id="child_general_health" name="child_general_health"-->
+<!--                                                  class="form-control s_website_form_input" style="height:3cm;"-->
+<!--                                                  t-att-readonly="'readonly' if is_submitted_dev == True else None">-->
+<!--                                            <t t-esc="child_general_health"/>-->
+
+<!--                                        </textarea>-->
+                                         <textarea id="child_general_health" name="child_general_health"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="child_general_health" t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == True else None" required="1"/>
+                                        <textarea id="child_general_health_new" name="child_general_health_new"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="child_general_health_new" t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == False else None">
+                                            <t t-esc="child_general_health" t-att-disabled="disabled"/>
+                                        </textarea>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does your child have any physical difficulties?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="physical_difficulties"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="physical_difficulties"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Has your child had a hearing test? When?</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="hearing_test"
+                                               class="form-control s_website_form_input" t-att-value="hearing_test"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does your child have a history of ear infections?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="ear_infections"
+                                               class="form-control s_website_form_input" t-att-value="ear_infections"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Has your child’s vision recently been screened or
+                                            tested?
+                                            When? Results?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="screened_tested"
+                                               class="form-control s_website_form_input" t-att-value="screened_tested"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does your child wear glasses?</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="wear_glasses"
+                                               class="form-control s_website_form_input" t-att-value="wear_glasses"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Please list any past or present medications your
+                                            child
+                                            has taken
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                     <textarea id="past_present_medications" name="past_present_medications"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="past_present_medications" t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == True else None" required="1"/>
+                                        <textarea id="past_present_medications_new" name="past_present_medications_new"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="past_present_medications_new" t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == False else None">
+                                            <t t-esc="past_present_medications" t-att-disabled="disabled"/>
+                                        </textarea>
+<!--                                    <textarea id="child_health" name="past_present_medications"-->
+<!--                                              class="form-control s_website_form_input" style="height:3cm;"-->
+<!--                                              t-att-readonly="'readonly' if is_submitted_dev == True else None">-->
+<!--                                        <t t-esc="past_present_medications"/>-->
+<!--                                    </textarea>-->
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does your child have any allergies (food or non-food
+                                            related)? Please list.
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+<!--                                    <textarea id="child_health" name="allergies"-->
+<!--                                              class="form-control s_website_form_input"-->
+<!--                                              style="height:3cm;"-->
+<!--                                              t-att-readonly="'readonly' if is_submitted_dev == True else None">-->
+<!--                                        <t t-esc="allergies"/>-->
+<!--                                    </textarea>-->
+                                     <textarea id="allergies" name="allergies"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="allergies" t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == True else None" required="1"/>
+                                        <textarea id="allergies_new" name="allergies_new"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="allergies_new" t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == False else None">
+                                            <t t-esc="allergies" t-att-disabled="disabled"/>
+                                        </textarea>
+                                    <br/>
+                                </div>
+                            </div>
+
+                            <button type="button" class="collapsible">
+                                <b>IV. Early Years Development</b>
+                            </button>
+                            <div class="content">
+                                <div class="col-md-12">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Have you ever sought advice from: (please tick)
+                                        </span>
+                                    </label>
+                                    <div>
+                                        <input type="checkbox" class="js_variant_change always"
+                                               name="full_term_delivery"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>Full term
+                                            delivery
+                                        </input>
+                                        <br/>
+                                        <input type="checkbox" class="js_variant_change always"
+                                               name="full_term_cesarean"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>Full term
+                                            cesarean section
+                                        </input>
+                                        <br/>
+
+                                         <input type="Char" name="pre_term"
+                                                       class="form-control s_website_form_input"
+                                                       data-otherhint="Pre-Term(how many weeks?)"
+                                                       size="20" id="any_other_4" placeholder="Pre-Term(how many weeks?)"
+                                                       t-att-value="pre_term"
+                                                       t-att-readonly="'readonly' if is_submitted_dev == True else None"/>
+
+<!--                                        <div>-->
+<!--                                            <input type='checkbox' data-toggle='collapse' data-target='#collapsediv2'-->
+<!--                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">-->
+<!--                                                <![CDATA[&nbsp;]]>Pre-Term(how many weeks?)-->
+<!--                                            </input>-->
+
+<!--                                        </div>-->
+<!--                                        <div id='collapsediv2'>-->
+<!--                                            <input type="Char" name="pre_term"-->
+<!--                                                   class="form-control s_website_form_input collapse_checkbox"-->
+<!--                                                   data-otherhint="Other" size="20" id="any_other_3"-->
+<!--                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"/>-->
+<!--                                        </div>-->
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Were there any difficulties during pregnancy or
+                                            birth?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="during_pregnancy"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="during_pregnancy"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Were there any problems with feeding or drinking?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="problems" class="form-control s_website_form_input"
+                                               t-att-value="problems"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">What age was your child when he/she reached these
+                                            milestones?
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Crawling</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="crawling" class="form-control s_website_form_input"
+                                               t-att-value="crawling"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Sitting</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="sitting" class="form-control s_website_form_input"
+                                               t-att-value="sitting"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Walking</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="walking" class="form-control s_website_form_input"
+                                               t-att-value="walking"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Babbling</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="babbling" class="form-control s_website_form_input"
+                                               t-att-value="babbling"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">First words</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="first_words"
+                                               class="form-control s_website_form_input" t-att-value="first_words"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Short sentences (two words together)</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="short_sentences"
+                                               class="form-control s_website_form_input" t-att-value="short_sentences"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">What was your child like as a baby?</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="child_like" class="form-control s_website_form_input"
+                                               t-att-value="child_like"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+
+                            <button type="button" class="collapsible">
+                                <b>V. Social Interaction and Communication Development</b>
+
+                            </button>
+                            <div class="content">
+                                <br/>
+
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">How does your child communicate with
+                                            you/siblings/peers?
+                                            ( E.g. Words, phrases, sentences, signs, gestures?)
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="child_communicate"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="child_communicate"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Do you think your child’s understanding and use of
+                                            language is different from his/her peers?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="child_understanding"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="child_understanding"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does your child understand and follow instructions at
+                                            home and at school?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="child_understanding_instruction_school"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="child_understanding_instruction_school"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">How does your child interact with other children and
+                                            adults?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="child_interact"
+                                               class="form-control s_website_form_input" t-att-value="child_interact"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Do you find it easy to understand your child? Does
+                                            your
+                                            child have difficulty making certain sounds?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="child_easy_understand"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="child_easy_understand"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does your child ever appear to have difficulty
+                                            “getting
+                                            their words out” or speaking fluently?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="speaking_fluently"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="speaking_fluently"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Is there a history in your family of speech and
+                                            language
+                                            difficulties?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="family_speech"
+                                               class="form-control s_website_form_input" t-att-value="family_speech"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+
+                            <button type="button" class="collapsible">
+                                <b>VI. Motor and Sensory Development</b>
+                            </button>
+                            <div class="content">
+                                <br/>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Compared to other children your child’s age, does
+                                            your
+                                            child have difficulty with carrying out fine motor tasks e.g. cutting,
+                                            drawing?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="carrying_fine_motor"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="carrying_fine_motor"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does your child have difficulty with getting dressed,
+                                            using cutlery etc.?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="child_dressing"
+                                               class="form-control s_website_form_input" t-att-value="child_dressing"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does he/she bump into objects and other people?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="bump" class="form-control s_website_form_input"
+                                               t-att-value="bump"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does your child appear to have difficulty with
+                                            figuring
+                                            out activities and how to do them, e.g. planning activities?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="figuring_activities"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="figuring_activities"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+
+
+                            <button type="button" class="collapsible">
+                                <b>VII. Your Child at School</b>
+                            </button>
+                            <div class="content">
+                                <br/>
+
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does or did your child ever experience any
+                                            difficulties
+                                            at school?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="school_experience"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="school_experience"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does your child enjoy school? What
+                                            subjects/activities
+                                            does he or she enjoy most?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="enjoy_school"
+                                               class="form-control s_website_form_input" t-att-value="enjoy_school"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Are there subjects or activities your child dislikes?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="dislike_activities"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="dislike_activities"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">From your perspective how does your child get along
+                                            with
+                                            teachers, adults and other children at school?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="perspective"
+                                               class="form-control s_website_form_input" t-att-value="perspective"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Has school raised any concerns about your child?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="raised_concerns"
+                                               class="form-control s_website_form_input" t-att-value="raised_concerns"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">What help, if any has your child received at school?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="help" class="form-control s_website_form_input"
+                                               t-att-value="help"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Do you feel that your child needs any extra help or
+                                            support?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="help_support_feel"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="help_support_feel"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify" style="margin-bottom:15px;">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Does your child’s behaviour differ between home and
+                                            school?
+                                        </span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="different_behaviour"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="different_behaviour"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="button" class="collapsible">
+                                <b>VIII. Previous Diagnosis</b>
+
+                            </button>
+                            <div class="content">
+                                <div class="col-md-12">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Previous Diagnosis (if applicable) please tick.
+                                        </span>
+                                    </label>
+                                </div>
+
+
+                                <div class="col-md-12" align="justify">
+                                    <input type="checkbox" class="js_variant_change always" name="speech_language_delay"
+                                           value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                           data-value_name="Condition_1" data-attribute_name="Condition"
+                                           t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                        <![CDATA[&nbsp;]]>Speech and
+                                        Language
+                                        Delay
+                                    </input>
+                                    <br/>
+                                    <input type="checkbox" class="js_variant_change always" name="motor_delay"
+                                           value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                           data-value_name="Condition_1" data-attribute_name="Condition"
+                                           t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                        <![CDATA[&nbsp;]]>Motor delay
+                                    </input>
+                                    <br/>
+                                    <input type="checkbox" class="js_variant_change always"
+                                           name="sensory_processing_disorder"
+                                           value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                           data-value_name="Condition_1" data-attribute_name="Condition"
+                                           t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                        <![CDATA[&nbsp;]]>Sensory
+                                        processing
+                                        disorder
+                                    </input>
+                                    <br/>
+                                    <input type="checkbox" class="js_variant_change always" name="add"
+                                           value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                           data-value_name="Condition_1" data-attribute_name="Condition"
+                                           t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                        <![CDATA[&nbsp;]]>ADD (attention
+                                        deficit disorder)
+                                    </input>
+                                    <br/>
+                                    <input type="checkbox" class="js_variant_change always" name="global_development"
+                                           value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                           data-value_name="Condition_1" data-attribute_name="Condition"
+                                           t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                        <![CDATA[&nbsp;]]>Global
+                                        development
+                                        delay
+                                    </input>
+                                    <br/>
+                                    <input type="checkbox" class="js_variant_change always" name="asd"
+                                           value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                           data-value_name="Condition_1" data-attribute_name="Condition"
+                                           t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                        <![CDATA[&nbsp;]]>ASD(autistic
+                                        spectrum disorder)
+
+                                    </input>
+                                    <br/>
+                                    <input type="checkbox" class="js_variant_change always" name="drs_stutter_stammer"
+                                           value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                           data-value_name="Condition_1" data-attribute_name="Condition"
+                                           t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                        <![CDATA[&nbsp;]]>Dysfluency -
+                                        stutter or stammer
+                                    </input>
+                                    <br/>
+
+                                    <input type="Char" name="other_checkbox"
+                                                       class="form-control s_website_form_input"
+                                                       data-otherhint="Other"
+                                                       size="20" id="any_other_4" placeholder="Other"
+                                                       t-att-value="other_checkbox"
+                                                       t-att-readonly="'readonly' if is_submitted_dev == True else None"/>
+
+
+<!--                                    <div>-->
+<!--                                        <input type='checkbox' name="other_checkbox" data-toggle='collapse' data-target='#collapsediv3'-->
+<!--                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">-->
+<!--                                            <![CDATA[&nbsp;]]>Other-->
+<!--                                        </input>-->
+<!--                                    </div>-->
+<!--                                    <div id='collapsediv3'>-->
+<!--                                        <input type="Char" name="any_other_2"-->
+<!--                                               class="form-control s_website_form_input collapse_checkbox"-->
+<!--                                               data-otherhint="Other" size="20" id="any_other_2"-->
+<!--                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"/>-->
+<!--                                    </div>-->
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">What do you hope will be achieved by this
+                                            assessment/consultation?
+                                        </span>
+                                    </label>
+                                    <div>
+<!--                                        <textarea id="main_concern_1" name="assessment_consultation"-->
+<!--                                                  class="form-control s_website_form_input" style="height:3cm;"-->
+<!--                                                  t-att-readonly="'readonly' if is_submitted_dev == True else None">-->
+<!--                                            <t t-esc="main_concern_1"/>-->
+<!--                                        </textarea>-->
+                                         <textarea id="assessment_consultation" name="assessment_consultation"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="assessment_consultation" t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == True else None" required="1"/>
+                                        <textarea id="assessment_consultation_new" name="assessment_consultation_new"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="assessment_consultation_new" t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == False else None">
+                                            <t t-esc="assessment_consultation" t-att-disabled="disabled"/>
+                                        </textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" align="justify">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Is there any other information you would like us to
+                                            know
+                                            about your child?
+                                        </span>
+                                    </label>
+                                    <div>
+                                        <input type="Char" name="other_like_information"
+                                               class="form-control s_website_form_input"
+                                               t-att-value="other_like_information"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None" required="1"/>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+
+
+                            <button type="button" class="non_collapsible">
+                                <b>
+                                    <span class="website_form">Signature</span>
+                                </b>
+                                <b>
+                                    <span class="color_mark" style="color:#F00">*</span>
+                                </b>
+                            </button>
+                            <div class="non_collapsible_content">
+
+                                <div class="form-field col-12">
+                                    <div id="signature_srr" style="border: 1px dotted gray;">
+                                        <div class="buttons" id="signature_srr" style="text-align: center;">
+                                            <textarea id="signature_capture" name="signature"
+                                                      style="display: none;height:10px">
+                                            </textarea>
+                                            <img id="signature" t-att-src="signature"
+                                                 alt="attachment_id"
+                                                 width="256"
+                                                 t-att-class="'d-none' if not signature or signature[:28] == 'data:application/pdf;base64,' else ''"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="buttons">
+                                    <a type="button" id="clear_dev" class="btn btn-link"
+                                       t-att-hidden="'hidden' if is_submitted_dev == True else None">
+                                        Clear
+                                    </a>
+                                </div>
+
+
+                                <br/>
+
+
+                                <div style="width: 200px;">
+                                    <button id="submit_button" type="submit" class="btn btn-primary"
+                                            t-att-hidden="'hidden' if is_submitted_dev == True else None">Submit
+                                    </button>
+                                </div>
+                                <br/>
+
+                            </div>
+                            <br/>
+
+                            <script>
+
+                                var coll = document.getElementsByClassName("collapsible");
+                                var i;
+
+                                for (i = 0; i &lt; coll.length; i++) {
+                                coll[i].addEventListener("click", function() {
+                                this.classList.toggle("active");
+                                var content = this.nextElementSibling;
+                                if (content.style.maxHeight){
+                                content.style.maxHeight = null;
+                                } else {
+                                content.style.maxHeight = content.scrollHeight + "px";
+                                }
+                                });
+                                }
+                            </script>
+
+
+                        </form>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="developmental_submit_form" name="Thank You">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container">
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                <p style="text-align:center;">
+                                    <img src="https://cdn.jotfor.ms/img/check-icon.png" alt="" width="128" height="128"
+                                         class="activeTyIcon"/>
+                                </p>
+                                <div style="text-align:center;">
+                                    <h1 style="text-align:center;">Thank You !</h1>
+                                    <p style="text-align:center;">Your submission has been received.</p>
+                                    <span style="text-align:center;">Your Reference ID :
+                                        <t t-esc="ref_id"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+<!--         <record id="developmental_frontend" model="website.menu">-->
+<!--            <field name="name">Developmental History Form</field>-->
+<!--            <field name="url">/DevelopmentalHistoryForm</field>-->
+<!--            <field name="parent_id" ref="website.main_menu"/>-->
+<!--            <field name="sequence" type="int">40</field>-->
+<!--        </record>-->
+<!--        <template id="client_intake_backend" name="client intake backend" inherit_id="web.assets_frontend">-->
+<!--            <xpath expr="." position="inside">-->
+<!--                <script type="text/javascript" src="/kg_developing_child_centre/static/src/js/condition.js"/>-->
+<!--            </xpath>-->
+<!--        </template>-->
+
+    </data>
+</odoo>
+
+
+        <!--                                var coll = document.getElementsByClassName("collapsible");-->
+        <!--                                                            var collapse_checkbox = document.getElementsByClassName("collapse_checkbox");-->
+        <!--                            &lt;!&ndash;                                var i;&ndash;&gt;-->
+        <!--                                                            var j;-->
+
+        <!--                                for (i = 0; i &lt; coll.length; i++) {-->
+        <!--                                coll[i].addEventListener("click", function() {-->
+        <!--                                this.classList.toggle("active");-->
+        <!--                                var content = this.nextElementSibling;-->
+        <!--                                if (content.style.display === "block") {-->
+        <!--                                content.style.display = "none";-->
+        <!--                                }-->
+        <!--                                else {-->
+        <!--                                content.style.display = "block";-->
+        <!--                                }-->
+        <!--                                });-->
+        <!--                                }-->
+
+        <!--                                                            for (j = 0; j &lt; collapse_checkbox.length; j++) {-->
+        <!--                                                            collapse_checkbox[j].addEventListener("change", function() {-->
+        <!--                                                            this.classList.toggle("active");-->
+        <!--                                                            var other_213 = document.getElementById('#other_213');-->
+
+        <!--                                                            console.log('@@@@@@@@@@@@',collapse_checkbox[j])-->
+        <!--                                                            &lt;!&ndash;                                console.log('@@@@@@@@@@@@',other_213.style.display)&ndash;&gt;-->
+        <!--                                                            var content_checkbox = this.nextElementSibling;-->
+        <!--                                                            if (content_checkbox.style.display === "block") {-->
+        <!--                                                            content_checkbox.style.display = "none";-->
+        <!--                                                            }-->
+        <!--                                                            else {-->
+        <!--                                                            content_checkbox.style.display = "block";-->
+        <!--                                                            }-->
+        <!--                                                            });-->
+        <!--                                                            }-->
+
+
+        <!--                                <div class="col-md-12" align="justify">-->
+        <!--                                    <label class="col-form-label s_website_form_label">-->
+        <!--                                        <span class="website_form">If yes, kindly upload the report:</span>-->
+        <!--                                        <span class="color_mark" style="color:#F00">*</span>-->
+        <!--                                    </label>-->
+        <!--                                    <div>-->
+        <!--                                        <input type="file" name="upload_report" id="upload_report" />-->
+
+        <!--                                    </div>-->
+        <!--                                </div>-->
+
+        <!--                            <style>-->
+        <!--                                .collapsible {-->
+        <!--                                background-color:#35979c;-->
+        <!--                                color: white;-->
+        <!--                                cursor: pointer;-->
+        <!--                                padding: 18px;-->
+        <!--                                width: 100%;-->
+        <!--                                border: none;-->
+        <!--                                text-align: left;-->
+        <!--                                outline: none;-->
+        <!--                                font-size: 15px;-->
+        <!--                                }-->
+
+        <!--                                .non_collapsible {-->
+        <!--                                background-color: #714B67;-->
+        <!--                                color: white;-->
+        <!--                                cursor: pointer;-->
+        <!--                                padding: 18px;-->
+        <!--                                width: 100%;-->
+        <!--                                border: none;-->
+        <!--                                text-align: left;-->
+        <!--                                outline: none;-->
+        <!--                                font-size: 15px;-->
+        <!--                                }-->
+
+        <!--                                .non_collapsible_content {-->
+        <!--                                cursor: pointer;-->
+        <!--                                width: 100%;-->
+        <!--                                outline: none;-->
+        <!--                                font-size: 15px;-->
+        <!--                                padding: 0 18px;-->
+        <!--                                overflow: hidden;-->
+        <!--                                background-color: #f1f1f1;-->
+
+        <!--                                }-->
+
+        <!--                                &lt;!&ndash;                                .active, .collapsible:hover {&ndash;&gt;-->
+        <!--                                &lt;!&ndash;                                background-color: #a37598&ndash;&gt;-->
+
+        <!--                                &lt;!&ndash;                                ;&ndash;&gt;-->
+        <!--                                &lt;!&ndash;                                }&ndash;&gt;-->
+
+        <!--                                .content {-->
+        <!--                                padding: 0 18px;-->
+        <!--                                display: none;-->
+        <!--                                overflow: hidden;-->
+        <!--                                background-color: #f1f1f1;-->
+        <!--                                }-->
+
+        <!--                                .collapsible_content_signature {-->
+        <!--                                cursor: pointer;-->
+        <!--                                width: 100%;-->
+        <!--                                outline: none;-->
+        <!--                                font-size: 15px;-->
+        <!--                                padding: 0 18px;-->
+        <!--                                overflow: hidden;-->
+        <!--                                background-color: #f1f1f1;-->
+
+        <!--                                }-->
+
+        <!--                            </style>-->
+
+        <!--                                .active, .collapsible:hover {-->
+        <!--                                background-color: #555;-->
+        <!--                                }-->
+
+        <!--                                .active, .collapsible:ondrop {-->
+        <!--&lt;!&ndash;                                background-color: #ccc;&ndash;&gt;-->
+        <!--                                content: "\2212";-->
+        <!--                                }-->
+
+        <!--                                background-color: white;-->
+
+
+        <!--                            <button type="button" class="non_collapsible">I. Child Identification Information</button>-->
+
+        <!--                            <div class="non_collapsible_content">-->
+
+
+        <!--                            <button type="button" class="collapsible">II. Parents / Caregiver Information</button>-->
+        <!--                            <div class="content">-->
+
+
+        <!--                                    <div id='collapsediv1' class='collapse div1'>-->
+        <!--                                        <input type="Char" name="any_other_1"-->
+        <!--                                               class="form-control s_website_form_input collapse_checkbox"-->
+        <!--                                               data-otherhint="Other" size="20" id="any_other_4"/>-->
+        <!--                                    </div>-->
+        <!--                                    <div>-->
+        <!--                                        <li class="list-inline-item mr-1">-->
+        <!--                                            <label class="css_attribute_color" title="">-->
+        <!--                                                <input type="radio" class="js_variant_change always"-->
+        <!--                                                       name="parents_related_relative" value="yes" title="Yes"-->
+        <!--                                                       data-value_id="yes" data-value_name="Yes"-->
+        <!--                                                       data-attribute_name="parents_related_relative"><![CDATA[&nbsp;]]>-->
+        <!--                                                    Yes-->
+        <!--                                                </input>-->
+        <!--                                            </label>-->
+        <!--                                        </li>-->
+
+        <!--                                        <li class="list-inline-item mr-1">-->
+        <!--                                            <label class="css_attribute_color" title="">-->
+        <!--                                                <input type="radio" class="js_variant_change always"-->
+        <!--                                                       name="parents_related_relative" value="no" title="No"-->
+        <!--                                                       data-value_id="no" data-value_name="No"-->
+        <!--                                                       data-attribute_name="parents_related_relative"><![CDATA[&nbsp;]]>-->
+        <!--                                                    No-->
+        <!--                                                </input>-->
+        <!--                                            </label>-->
+        <!--                                        </li>-->
+        <!--                                    </div>-->
+
+
+
+
+

@@ -1,0 +1,93 @@
+<odoo>
+    <data>
+
+        <record id="menu_material_consumption_action" model="ir.actions.act_window">
+            <field name="name">Material Consumption</field>
+            <field name="res_model">material.consumption</field>
+            <field name="view_mode">tree,form,activity,graph,pivot,kanban</field>
+        </record>
+
+        <menuitem id="menu_material_consumption" name="Material Consumption" action="menu_material_consumption_action"
+                  parent="stock.menu_stock_warehouse_mgmt" sequence="11"/>
+
+        <record id="material_consumption_view_tree" model="ir.ui.view">
+            <field name="name">Material Consumption Tree View</field>
+            <field name="model">material.consumption</field>
+            <field name="arch" type="xml">
+                <tree string="Material Consumption">
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="material_consumption_view_form" model="ir.ui.view">
+            <field name="name">Material Consumption Form View</field>
+            <field name="model">material.consumption</field>
+            <field name="arch" type="xml">
+                <form string="Material Consumption">
+                    <header>
+                        <button name="action_confirm" string="Confirm"
+                                type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="action_view_stock_moves"
+                                    class="oe_stat_button"
+                                    icon="fa-pencil-square-o"
+                                    invisible="sm_count == 0">
+                                <field name="sm_count" widget="statinfo" string="Stock Moves"/>
+                            </button>
+                        </div>
+                        <widget name="web_ribbon" title="Expired" invisible="is_expire != True"
+                                bg_color="text-bg-danger"/>
+                        <group>
+                            <group>
+                                <field name="date_from" readonly="1" force_save="1" widget="date"/>
+                                <field name="date_to" required="1" widget="date"
+                                       readonly="state == 'confirm' or is_expire == True"/>
+                                <field name="is_expire" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="name" readonly="1" force_save="1"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="destination_location" invisible="1"/>
+                                <field name="sm_count" invisible="1"/>
+                                <field name="move_ids" invisible="1" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="material_consumption_line" string="Material Consumption Line">
+                                <field name="material_consumption_ids"
+                                       readonly="state == 'confirm'  or is_expire == True">
+                                    <tree editable="bottom">
+                                        <field name="source_location" required="1" domain="[('usage', '=', 'internal')]"
+                                               options="{'no_edit': True, 'no_create': True}"/>
+                                        <field name="product_id" required="1"
+                                               options="{'no_edit': True, 'no_create': True}"/>
+                                        <field name="lot_id"
+                                               options="{'no_edit': True, 'no_create': True}"/>
+                                        <field name="cost_center" required="1" force_save="1"
+                                               options="{'no_edit': True, 'no_create': True}"/>
+                                        <field name="quantity" required="1" sum="Total"/>
+                                        <field name="available_qty" optional="hide"/>
+                                        <field name="company_id" column_invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

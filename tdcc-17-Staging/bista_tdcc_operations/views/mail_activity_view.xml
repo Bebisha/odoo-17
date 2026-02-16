@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_mail_activity_tdcc" model="ir.actions.act_window">
+        <field name="name">ToDo Calls</field>
+        <field name="res_model">mail.activity</field>
+<!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_assignedto': 1, 'default_activity_type_id': 2}</field>
+    </record>
+
+    <record id="mail_activity_view_search_tdcc" model="ir.ui.view">
+        <field name="name">mail.activity.view.search</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter string="Assigned To" name="assignedto" context="{'group_by': 'user_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

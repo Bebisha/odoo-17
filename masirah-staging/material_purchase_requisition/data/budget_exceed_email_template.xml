@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <record id="budget_email_template_id" model="mail.template">
+            <field name="name">Budget Exceed</field>
+            <field name="model_id" ref="material_purchase_requisition.model_purchase_requisitions"/>
+            <field name="email_from">{{object.create_uid.email}}</field>
+            <field name="subject">Reminder: Budget is Exceeded the Limit</field>
+            <field name="body_html">
+                <![CDATA[
+                <p>
+                    <br/>
+                     <p>Dear Team,</p>
+                    <br/>
+                    <p>This is a friendly reminder that the budget for the following requisition has exceeded the limit:</p>
+                    <p>Please take necessary actions to address this budget overrun.</p>
+                    <br/>
+                    <br/>
+                    <p>Best regards,</p>
+                    <br/>
+                    <span t-out="object.env.user.name"/>
+                </p>
+                <br/>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,102 @@
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.investment</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="50"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <app string="Portfolio Management"
+                         data-string="Portfolio Management"
+                         name="kg_investment">
+                        <block title="Stock Accounts" name="portfolio_management">
+                            <setting string="Stock Accounts">
+
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <label for="stock_valuation_account" string="Stock Valuation Account"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="stock_valuation_account" class="oe_inline"/>
+                                    </div>
+                                    <div class="mt16">
+                                        <label for="stock_input_account" string="Stock Input Account"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="stock_input_account" class="oe_inline"/>
+                                    </div>
+                                    <div class="mt16">
+                                        <label for="stock_output_account" string="Stock Output Account"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="stock_output_account" class="oe_inline"
+                                        />
+                                    </div>
+                                    <div class="mt16">
+                                        <label for="stock_account_journal" string="Stock Account Journal"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="stock_account_journal" class="oe_inline"
+                                        />
+                                    </div>
+                                </div>
+
+                            </setting>
+                        </block>
+                        <block title="Sales Accounts" name="market_rate">
+                            <setting>
+
+                                <div class="content-group">
+                                    <div class=" row mt16">
+                                        <label for="market_fvtpl_account_id" string="FVTPL Account"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="market_fvtpl_account_id" class="oe_inline"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="market_fvoci_account_id" string="FVOCI Account"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="market_fvoci_account_id" class="oe_inline"/>
+                                    </div>
+
+
+                                </div>
+
+                            </setting>
+                        </block>
+                        <block title="Accounts" name="accountss">
+                            <setting>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <label for="dividend_account_id" string="Dividend Account"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="dividend_account_id" class="oe_inline"/>
+                                    </div>
+                                    <div class="mt16">
+                                        <label for="bond_account_id" string="Bonds Account"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="bond_account_id" class="oe_inline"/>
+                                    </div>
+                                    <div class="mt16">
+                                        <label for="revaluation_account_id" string="Revaluation Reserve Account"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="revaluation_account_id" class="oe_inline"/>
+                                    </div>
+
+
+                                </div>
+
+                            </setting>
+                        </block>
+                    </app>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_investment_settings" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'kg_investment','bin_size': False}</field>
+        </record>
+    </data>
+</odoo>
+

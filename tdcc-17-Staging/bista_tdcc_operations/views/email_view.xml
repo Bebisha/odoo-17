@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Email form view for adding create, edit, delete false -->
+    <record model="ir.ui.view" id="tdcc_view_mail_form_inherit">
+        <field name="name">tdcc.mail.mail.form.inherit</field>
+        <field name="model">mail.mail</field>
+        <field name="arch" type="xml">
+            <form string="Email message" create="0" edit="0" delete="0">
+                <header>
+                    <button name="send" string="Send Now" type="object" invisible="state != 'outgoing'"
+                            class="oe_highlight"/>
+                    <button name="mark_outgoing" string="Retry" type="object"
+                            invisible="state not in ('exception','cancel')"/>
+                    <button name="cancel" string="Cancel" type="object" invisible="state != 'outgoing'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="outgoing,sent,received,exception,cancel"/>
+                </header>
+                <sheet>
+                    <field name="mail_message_id" required="0" invisible="1"/>
+                    <label for="subject" class="oe_edit_only"/>
+                    <h2>
+                        <field name="subject"/>
+                    </h2>
+                    <div style="vertical-align: top;">
+                        by
+                        <field name="author_id" class="oe_inline" string="User"/>
+                        on
+                        <field name="date" readonly="1" class="oe_inline"/>
+                        <button name="%(mail.action_email_compose_message_wizard)d" string="Reply" type="action"
+                                icon="fa-reply text-warning"
+                                context="{'default_composition_mode':'reply', 'default_parent_id': mail_message_id}"
+                                invisible="state not in ('exception','cancel','received','sent')"/>
+                    </div>
+                    <group>
+                        <field name="email_from"/>
+                        <field name="email_to"/>
+                        <field name="recipient_ids" widget="many2many_tags"/>
+                        <field name="email_cc"/>
+                        <field name="reply_to"/>
+                        <field name="scheduled_date"/>
+                    </group>
+                    <notebook>
+                        <page string="Body">
+                            <field name="body_html" widget="html" options="{'style-inline': true}"/>
+                        </page>
+                        <page string="Advanced" groups="base.group_no_one">
+                            <group>
+                                <group string="Status">
+                                    <field name="auto_delete"/>
+                                    <field name="is_notification"/>
+                                    <field name="message_type"/>
+                                    <field name="mail_server_id"/>
+                                    <field name="model"/>
+                                    <field name="res_id"/>
+                                </group>
+                                <group string="Headers">
+                                    <field name="message_id"/>
+                                    <field name="references"/>
+                                    <field name="headers"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Attachments">
+                            <field name="attachment_ids"/>
+                        </page>
+                        <page string="Failure Reason" invisible="state != 'exception'">
+                            <field name="failure_reason"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!--     Email tree view for create, edit, delete false -->
+    <record model="ir.ui.view" id="tdcc_view_mail_tree_inherited">
+        <field name="name">tdcc.mail.mail.tree.inherit</field>
+        <field name="model">mail.mail</field>
+        <field name="arch" type="xml">
+            <tree string="Emails" decoration-muted="state in ('sent', 'cancel')" decoration-info="state=='outgoing'"
+                  decoration-danger="state=='exception'" create="0" edit="0" delete="0">
+                <field name="date"/>
+                <field name="subject"/>
+                <field name="author_id" string="User"/>
+                <field name="message_id" invisible="1"/>
+                <field name="recipient_ids" invisible="1"/>
+                <field name="model" invisible="1"/>
+                <field name="res_id" invisible="1"/>
+                <field name="email_from" invisible="1"/>
+                <field name="state" invisible="1"/>
+                <field name="message_type" invisible="1"/>
+                <button name="send" string="Send Now" type="object" icon="fa-paper-plane text-success"
+                        invisible="state != 'outgoing'"/>
+                <button name="mark_outgoing" string="Retry" type="object" icon="fa-repeat text-success"
+                        invisible="state not in ('exception','cancel')"/>
+
+                <button name="cancel" string="Cancel Email" type="object" icon="fa-times-circle text-danger"
+                        invisible="state != 'outgoing'"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Action of Email -->
+    <record id="action_view_mail_mail_tdcc_inherit" model="ir.actions.act_window">
+        <field name="name">Emails</field>
+        <field name="res_model">mail.mail</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="context">{}</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('tdcc_view_mail_tree_inherited')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('tdcc_view_mail_form_inherit')})]"/>
+    </record>
+
+</odoo>

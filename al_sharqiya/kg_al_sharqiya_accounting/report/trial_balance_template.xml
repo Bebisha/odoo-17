@@ -1,0 +1,281 @@
+<odoo>
+    <!--    <data>-->
+    <template id="trail_balance_report_template_id">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <div class="header">
+                    <div style="border-collapse: collapse; text-align: center; width: 100%;">
+                        <div style="text-align: center; width: 100%;">
+                            <b>
+                                <h3>
+                                    <span t-esc="company_name"/>
+                                </h3>
+                            </b>
+                        </div>
+                    </div>
+                    <div style="border-collapse: collapse; width: 100%;">
+                        <div style="text-align: center; width: 100%;">
+                            <b>
+                                <t t-if="company_zip">
+                                    Post Box :
+                                    <span t-esc="company_zip"/>
+                                </t>
+                                <t t-if="company_state">
+                                    <span t-esc="company_state"/>
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                                <t t-if="company_phone">
+                                    Tel :
+                                    <span t-esc="company_phone"/>
+                                </t>
+                                <t t-if="company_mobile">
+                                    Fax :
+                                    <span t-esc="company_mobile"/>
+                                </t>
+                                <t t-if="company_email">
+                                    <u>
+                                        <span t-esc="company_email"/>
+                                    </u>
+                                </t>
+                                <![CDATA[ &nbsp; ]]>
+                                <t t-if="company_website">
+                                    <u>
+                                        <span t-esc="company_website"/>
+                                    </u>
+                                </t>
+                            </b>
+                        </div>
+                    </div>
+                    <div style="border-bottom: 1px solid black;width:100%">
+                        <div style="border-bottom: 1px solid black;" width="100%"/>
+                    </div>
+                    <div style="border-collapse: collapse; width: 100%;">
+                        <div style="text-align: center; width: 100%;">
+                            <b>
+                                <span>
+                                    <br/>
+                                    <u>TRAIL BALANCE REPORT</u>
+                                </span>
+                            </b>
+                        </div>
+                    </div>
+                    <div style="border-collapse: collapse; width: 100%;">
+                        <div style="text-align: center; width: 100%;">
+                            <b>
+                                <span>
+                                    FROM
+                                    <span t-esc="start_date"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    TO
+                                    <span t-esc="end_date"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </span>
+                            </b>
+                        </div>
+                    </div>
+                </div>
+                <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                    <thead>
+                        <tr width="100%"
+                            style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                            <td width="10%" align="center" style="border-right: 1pt solid black;padding:5px;">
+                                <b>Account NO</b>
+                            </td>
+                            <td width="20%" align="center" style="border-right: 1pt solid black;padding:5px;">
+                                <b>Account Name</b>
+                            </td>
+                            <td width="10%" align="center" style="border-right: 1pt solid black;padding:5px;">
+                                <b>Opening Balance</b>
+                            </td>
+                            <td width="10%" align="center" style="border-right: 1pt solid black;padding:5px;">
+                                <b>Txn Debit</b>
+                            </td>
+                            <td width="10%" align="center" style="border-right: 1pt solid black;padding:5px;">
+                                <b>Txn Credit</b>
+                            </td>
+                            <td width="10%" align="center" style="border-right: 1pt solid black;padding:5px;">
+                                <b>Txn Balance</b>
+                            </td>
+                            <td width="10%" align="center" style="border-right: 1pt solid black;padding:5px;">
+                                <b>Closing Debit</b>
+                            </td>
+                            <td width="10%" align="center" style="border-right: 1pt solid black;padding:5px;">
+                                <b>Closing Credit</b>
+                            </td>
+                            <td width="12%" align="center" style="border-right: 1pt solid black;padding:5px;">
+                                <b>Closing Balance</b>
+                            </td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <t t-foreach="values" t-as="data">
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td width="100%" align="left" colspan="9"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>
+                                        <t t-esc="data"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <t t-esc="values_value"/>
+                            </tr>
+                            <t t-set="total_opening_balance" t-value="0"/>
+                            <t t-set="total_debit" t-value="0"/>
+                            <t t-set="total_credit" t-value="0"/>
+                            <t t-set="total_closing_balance" t-value="0"/>
+                            <t t-set="total_closing_debit" t-value="0"/>
+                            <t t-set="total_closing_credit" t-value="0"/>
+                            <t t-set="total_closing_blnc" t-value="0"/>
+                            <t t-foreach="data_value" t-as="line">
+
+                                <tr width="100%"
+                                    style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                    <td width="10%" align="left" style="border-right: 1pt solid black;padding:5px;">
+                                        <span t-esc="line['account_code']"/>
+                                    </td>
+                                    <td width="20%" align="left" style="border-right: 1pt solid black;padding:5px;">
+                                        <span t-esc="line['account_name']"/>
+                                    </td>
+                                    <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                        <span t-esc="'%.2f'% line['opening_balance']"/>
+                                        <t t-set="total_opening_balance"
+                                           t-value="total_opening_balance+line['opening_balance']"/>
+                                        <span t-esc="line['company_currency']"/>
+                                    </td>
+                                    <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                        <span t-esc="'%.2f'% line['debit']"/>
+                                        <t t-set="total_debit" t-value="total_debit+line['debit']"/>
+                                        <span t-esc="line['company_currency']"/>
+                                    </td>
+                                    <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                        <span t-esc="'%.2f'% line['credit']"/>
+                                        <t t-set="total_credit" t-value="total_credit+line['credit']"/>
+                                        <span t-esc="line['company_currency']"/>
+                                    </td>
+                                    <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                        <span t-esc="'%.2f'% line['txn_balance']"/>
+                                        <t t-set="total_closing_balance"
+                                           t-value="total_closing_balance+line['txn_balance']"/>
+                                        <span t-esc="line['company_currency']"/>
+                                    </td>
+                                    <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                        <span t-esc="'%.2f'% line['closing_debit']"/>
+                                        <t t-set="total_closing_debit"
+                                           t-value="total_closing_debit+line['closing_debit']"/>
+                                        <span t-esc="line['company_currency']"/>
+                                    </td>
+                                    <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                        <span t-esc="'%.2f'% line['closing_credit']"/>
+                                        <t t-set="total_closing_credit"
+                                           t-value="total_closing_credit+line['closing_credit']"/>
+                                        <span t-esc="line['company_currency']"/>
+                                    </td>
+                                    <td width="12%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                        <span t-esc="'%.2f'% line['closing_balance']"/>
+                                        <t t-set="total_closing_blnc"
+                                           t-value="total_closing_blnc+line['closing_balance']"/>
+                                        <span t-esc="line['company_currency']"/>
+                                    </td>
+                                </tr>
+
+
+                            </t>
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td width="10%" align="left" colspan="2"
+                                    style="border-right: 1pt solid black;padding:5px;">
+                                    <b>Total</b>
+                                </td>
+                                <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                    <strong>
+                                        <span t-esc="'%.2f'% total_opening_balance"/>
+                                        <span t-esc="data_value[0]['company_currency']"/>
+                                    </strong>
+                                </td>
+                                <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                    <strong>
+                                        <span t-esc="'%.2f'% total_debit"/>
+                                        <span t-esc="data_value[0]['company_currency']"/>
+                                    </strong>
+                                </td>
+                                <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                    <strong>
+                                        <span t-esc="'%.2f'% total_credit"/>
+                                        <span t-esc="data_value[0]['company_currency']"/>
+                                    </strong>
+                                </td>
+                                <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                    <strong>
+                                        <span t-esc="'%.2f'% total_closing_balance"/>
+                                        <span t-esc="data_value[0]['company_currency']"/>
+                                    </strong>
+                                </td>
+                                <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                    <!-- Add logic here for total debit or credit -->
+                                    <strong>
+                                        <span t-esc="'%.2f'% total_closing_debit"/>
+                                        <span t-esc="data_value[0]['company_currency']"/>
+                                    </strong>
+                                </td>
+                                <td width="10%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                    <!-- Add logic here for total debit or credit -->
+                                    <strong>
+                                        <span t-esc="'%.2f'% total_closing_credit"/>
+                                        <span t-esc="data_value[0]['company_currency']"/>
+                                    </strong>
+                                </td>
+                                <td width="12%" align="right" style="border-right: 1pt solid black;padding:5px;">
+                                    <!-- Add logic here for total debit or credit -->
+                                    <strong>
+                                        <span t-esc="'%.2f'% total_closing_blnc"/>
+                                        <span t-esc="data_value[0]['company_currency']"/>
+                                    </strong>
+                                </td>
+                            </tr>
+
+                        </t>
+                        <!-- Totals Row -->
+
+
+                    </tbody>
+                </table>
+                <div class="footer">
+                    <table class="table table-borderless table-condensed table-hover" width="100%">
+                        <tr width="100%">
+                            <td width="100%" colspan="2"/>
+                        </tr>
+                        <tr style="border-bottom: 1px solid black;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="2" width="100%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="50%" align="left">
+                                <b>Run Date :
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/>
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S %p')"/>
+                                </b>
+                            </td>
+                            <td width="50%" align="right">
+                                <b>
+                                    <span>
+                                        Page
+                                        <span class="page"/>
+                                        of
+                                        <span class="topage"/>
+                                    </span>
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+    <!--    </data>-->
+</odoo>
+
+

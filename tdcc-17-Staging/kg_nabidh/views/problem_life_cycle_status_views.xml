@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="life_cycle_status_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">life cycle status</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">life.cycle.status</field>
+
+    </record>
+    <record id="life_cycle_status_tree" model="ir.ui.view">
+        <field name="name">life.cycle.status.tree.views</field>
+        <field name="model">life.cycle.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="life_cycle_status_form" model="ir.ui.view">
+        <field name="name">life.cycle.status.form.views</field>
+        <field name="model">life.cycle.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="life_cycle_status_menu"
+              action="life_cycle_status_action"
+              name="Life Cycle Status"
+              parent="kg_nabidh.prb_menu"/>
+
+</odoo>

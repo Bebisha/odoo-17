@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="custom_cheque_header_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <div class="header">
+            <div class="row">
+                <div class="col-3 mb4" >
+                </div>
+            </div>
+        </div>
+        <div class="footer"/>
+
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-out="0"/>
+        </div>
+    </template>
+
+
+    <template id="kg_cheque_print_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <!--                <t t-call="kg_cheque_print.custom_cheque_header_layout"-->
+                    <!--                   t-attf-style="height: {{o.journal_id.cheque_layout_id.header_height}}cm;">-->
+                    <!--<div t-attf-style="position: absolute; top: {{o.journal_id.cheque_layout_id.header_height}}cm; left: {{o.journal_id.cheque_layout_id.table_margin_left}}cm;">-->
+                    <div class="page"
+                         t-attf-style="font-size:{{o.journal_id.cheque_layout_id.font_size}}px;">
+
+                        <div class="col-12"
+                             style="position: relative; top: {{o.journal_id.cheque_layout_id.sig_row_height}}cm;">
+                            <span t-attf-style="position: absolute; top: {{o.journal_id.cheque_layout_id.chequeno_top}}cm; left: {{o.journal_id.cheque_layout_id.chequeno_left}}cm;"/>
+                            <span t-attf-style="position: absolute; top: {{o.journal_id.cheque_layout_id.date_top}}cm; left: {{o.journal_id.cheque_layout_id.date_left}}cm;"
+                                  t-esc="o.cheque_transaction_date"
+                                  t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd/MMM/yyyy&quot;}"/>
+                            <span t-attf-style="position: relative; top: {{o.journal_id.cheque_layout_id.payee_top}}cm; left: {{o.journal_id.cheque_layout_id.payee_left}}cm;"
+                                  t-esc="o.cheque_payee_name"/>
+                            <span t-attf-style="position: absolute; top: {{o.journal_id.cheque_layout_id.date_top}}cm; left: {{o.journal_id.cheque_layout_id.date_left}}cm;"/>
+                            <span t-esc="o.check_amount_in_words"
+                                  t-attf-style="position: absolute; width: 15cm; top: {{o.journal_id.cheque_layout_id.word_top}}cm; left: {{o.journal_id.cheque_layout_id.word_left}}cm; font-weight:{{'bold' if o.journal_id.cheque_layout_id.font_bold else 'normal'}}">
+                                <!--                                <strong>-->
+                                <!--<t t-esc="amount_text_without_last_rial"/>-->
+                                <!--<t t-if="round((o.amount - rial)* 1000)">and <t t-esc="baisa/1000"/>-->
+                                <!--</t>-->
+                                <!--Only-->
+                                <!--                                </strong>-->
+                                <!--                                                </span>-->
+                            </span>
+                            <span t-attf-style="position: absolute; top: {{o.journal_id.cheque_layout_id.amount_top}}cm; left: {{o.journal_id.cheque_layout_id.amount_left}}cm;"
+                                  t-esc="o.amount"
+                                  t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 3}"/>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <record id="kg_cheque_print_report" model="ir.actions.report">
+        <field name="name">Cheque</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_cheque_print.kg_cheque_print_template</field>
+        <field name="report_file">kg_cheque_print.kg_cheque_print_template</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>
+
+

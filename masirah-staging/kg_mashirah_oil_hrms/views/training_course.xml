@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="menu_training_course_action" model="ir.actions.act_window">
+            <field name="name">Training Course</field>
+            <field name="res_model">training.course</field>
+            <field name="view_mode">tree,form,activity,graph,pivot,kanban</field>
+        </record>
+
+        <menuitem id="menu_training_course" name="Training Course" action="menu_training_course_action"
+                  parent="hr.menu_config_employee" sequence="2"/>
+
+        <record id="training_course_view_tree" model="ir.ui.view">
+            <field name="name">Training Course Tree View</field>
+            <field name="model">training.course</field>
+            <field name="arch" type="xml">
+                <tree string="Training Course">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="training_course_view_form" model="ir.ui.view">
+            <field name="name">Training Course Form View</field>
+            <field name="model">training.course</field>
+            <field name="arch" type="xml">
+                <form string="Training Course">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="creditors_status_report_menu_action" model="ir.actions.act_window">
+            <field name="name">Creditors Status</field>
+            <field name="res_model">creditors.status.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_creditors_status_report" action="creditors_status_report_menu_action"
+                  name="Creditors Status" parent="kg_ultracare_accounting.menu_reporting_config_accounting"/>
+
+
+        <record id="creditors_status_report_wizard" model="ir.ui.view">
+            <field name="name">Creditors Status Wizard</field>
+            <field name="model">creditors.status.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_end" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_creditors_status_report"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

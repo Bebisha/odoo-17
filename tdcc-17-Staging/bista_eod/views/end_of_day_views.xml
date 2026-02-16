@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="tdcc_eod_view_kanban" model="ir.ui.view">
+            <field name="name">EOD.Dashboard</field>
+            <field name="model">dashboard.eod</field>
+            <field name="arch" type="xml">
+                <kanban
+                    class="oe_background_grey o_kanban_dashboard o_salesteam_kanban"
+                    create="0">
+                    <field name="name" />
+                    <field name="color" />
+                    <field name="tile_type" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)}">
+                                <div t-attf-class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <div class="o_primary">
+                                            <span>
+                                                <t t-esc="record.name.raw_value" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_manage_button_section">
+                                        <a class="o_kanban_manage_toggle_button" href="#">
+                                            <i class="fa fa-ellipsis-v" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="container o_kanban_card_content">
+                                    <div class="row o_kanban_card_upper_content">
+                                        <div class="col-6 o_kanban_primary_left">
+                                        </div>
+                                        <div class="col-6 o_kanban_primary_right"
+                                            style="padding-bottom:0;">
+                                            <div class="row">
+                                                <div class="col-xs-8">
+                                                    <t t-if="record.tile_type.raw_value == 'appointment'">
+	                                                    <a name="action_open_appointment_view" type="object" context="{'from_dna':True}">
+	                                                    <field name="dna_appointment_count" />
+	                                                    <t t-if="record.dna_appointment_count.raw_value == 1">DNA Appointment</t>
+	                                                    <t t-else="">DNA Appointments</t>
+	                                                    </a>
+                                                    </t>
+                                                    <t t-if="record.tile_type.raw_value == 'out_invoice'">
+                                                        <a name="action_open_invoice_view" type="object" context="{'today_due':True}">
+                                                        <field name="customer_inv_today_due_date_count" />
+                                                        <t t-if="record.customer_inv_today_due_date_count.raw_value == 1">Due Invoice</t>
+                                                        <t t-else="">Due Invoices</t>
+                                                        </a>
+                                                    </t>
+                                                    <t t-if="record.tile_type.raw_value == 'in_invoice'">
+                                                        <a name="action_open_invoice_view" type="object" context="{'today_due':True}">
+                                                        <field name="supplier_inv_today_due_date_count" />
+                                                        <t t-if="record.supplier_inv_today_due_date_count.raw_value == 1">Due Invoice</t>
+                                                        <t t-else="">Due Invoices</t>
+                                                        </a>
+                                                    </t>
+                                                    <t t-if="record.tile_type.raw_value == 'customer_payment'">
+                                                        <a name="action_open_invoice_view" type="object">
+                                                        <field name="unpaid_customer_payment_count" />
+                                                        <t t-if="record.unpaid_customer_payment_count.raw_value == 1">Payment</t>
+                                                        <t t-else="">Payments</t>
+                                                        </a>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-8">
+                                                    <t t-if="record.tile_type.raw_value == 'appointment'">
+	                                                    <a name="action_open_appointment_view" type="object" context="{'from_cancel':True}">
+	                                                    <field name="cancelled_appointment_count" />
+	                                                    <t t-if="record.dna_appointment_count.raw_value == 1">Cancelled Appointment</t>
+	                                                    <t t-else="">Cancelled Appointments</t>
+	                                                    </a>
+                                                    </t>
+                                                    <t t-if="record.tile_type.raw_value == 'out_invoice'">
+                                                        <a name="action_open_invoice_view" type="object">
+                                                        <field name="customer_inv_past_due_date_count" />
+                                                        <t t-if="record.customer_inv_past_due_date_count.raw_value == 1">Overdue Invoice</t>
+                                                        <t t-else="">Overdue Invoices</t>
+                                                        </a>
+                                                    </t>
+                                                    <t t-if="record.tile_type.raw_value == 'in_invoice'">
+                                                        <a name="action_open_invoice_view" type="object">
+                                                        <field name="supplier_inv_past_due_date_count" />
+                                                        <t t-if="record.supplier_inv_past_due_date_count.raw_value == 1">Overdue Invoice</t>
+                                                        <t t-else="">Overdue Invoices</t>
+                                                        </a>
+                                                    </t>
+                                                    <t t-if="record.tile_type.raw_value == 'customer_payment'">
+                                                        <a name="action_open_invoice_view" type="object" context="{'from_pdc_payment': True}">
+                                                        <field name="pdc_payment_count" />
+                                                        <t t-if="record.pdc_payment_count.raw_value == 1">PDC Payment</t>
+                                                        <t t-else="">PDC Payments</t>
+                                                        </a>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-8">
+                                                    <t t-if="record.tile_type.raw_value == 'appointment'">
+                                                        <a name="action_open_appointment_view" type="object" context="{'from_unattended':True}">
+                                                        <field name="unattended_appointment_count" />
+                                                        <t t-if="record.unattended_appointment_count.raw_value == 1">Unattended Appointment</t>
+                                                        <t t-else="">Unattended Appointments</t>
+                                                        </a>
+                                                    </t>
+                                                    <t t-if="record.tile_type.raw_value == 'out_invoice'">
+                                                        <a name="action_open_invoice_view" type="object" context="{'from_cancel_invoice':True}">
+                                                        <field name="cancelled_invoice_count" />
+                                                        <t t-if="record.cancelled_invoice_count.raw_value == 1">Cancelled Invoice</t>
+                                                        <t t-else="">Cancelled Invoices</t>
+                                                        </a>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-8">
+                                                    <t t-if="record.tile_type.raw_value == 'out_invoice'">
+                                                        <a name="action_open_invoice_view" type="object" context="{'from_cancel_invoice_req':True}">
+                                                        <field name="inv_cancel_req_count" /> Invoice Cancel Request
+                                                        </a>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
+                                    <div t-if="widget.editable"
+                                        class="o_kanban_card_manage_settings row">
+                                        <div class="col-xs-8">
+                                            <ul class="oe_kanban_colorpicker"
+                                            data-field="color" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="action_tdcc_eod_dashboard"
+            model="ir.actions.act_window">
+            <field name="name">End of Day Process</field>
+            <field name="res_model">dashboard.eod</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">kanban</field>
+        </record>
+
+        <menuitem id="menu_tdcc_eod_dashboard" name="Dashboard"
+            parent="bista_tdcc_operations.operations_menu_root"
+            action="action_tdcc_eod_dashboard"
+            groups="account.group_account_invoice"
+            sequence="-1" />
+</odoo>
