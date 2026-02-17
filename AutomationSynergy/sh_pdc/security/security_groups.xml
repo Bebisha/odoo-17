@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pdc_cheque_management_filter_llc" model="ir.rule">
+        <field name="name">PDC Cheque Management</field>
+        <field ref="model_pdc_wizard" name="model_id"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

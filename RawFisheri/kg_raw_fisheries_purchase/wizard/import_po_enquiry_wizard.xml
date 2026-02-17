@@ -1,0 +1,31 @@
+<odoo>
+
+    <record id="view_po_enquiry_import_wizard" model="ir.ui.view">
+        <field name="name">import.po.enquiry.wizard.form</field>
+        <field name="model">import.po.enquiry.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Purchase Enquiry">
+                <group>
+                    <field name="upload_file" filename="filename" widget="binary" required="1"/>
+                    <field name="filename" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="action_import_file" type="object" string="Import" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_import_purchase_enquiry_wizard" model="ir.actions.act_window">
+        <field name="name">Import Enquiries</field>
+        <field name="res_model">import.po.enquiry.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+<!--    <menuitem id="menu_import_purchase_enquiry" sequence="2"-->
+<!--              action="action_import_purchase_enquiry_wizard" parent="purchase_enquiries_main"/>-->
+
+</odoo>

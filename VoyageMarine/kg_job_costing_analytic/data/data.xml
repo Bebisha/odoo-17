@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <record id="analytic_plan_job" model="account.analytic.plan">
+            <field name="name">Job Order</field>
+            <field name="default_applicability">optional</field>
+        </record>
+    </data>
+
+</odoo>

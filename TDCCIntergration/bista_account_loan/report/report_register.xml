@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports Loan Request-->
+<!--        <report-->
+<!--                id="account_loan"-->
+<!--                model="account.loan"-->
+<!--                string="Loan Reqeust"-->
+<!--                report_type="qweb-pdf"-->
+<!--                name="bista_account_loan.report_loan_request"-->
+<!--                file="bista_account_loan.report_loan_request"-->
+<!--        />-->
+
+        <record id="account_loan" model="ir.actions.report">
+            <field name="name">Loan Reqeust</field>
+            <field name="model">account.loan</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_account_loan.report_loan_request</field>
+            <field name="report_file">bista_account_loan.report_loan_request</field>
+            <field name="binding_type">report</field>
+        </record>
+
+
+<!--        <report-->
+<!--                id="action_loan_report"-->
+<!--                model="account.loan"-->
+<!--                string="Loan Report"-->
+<!--                report_type="qweb-pdf"-->
+<!--                name="bista_account_loan.report_loan"-->
+<!--                file="bista_account_loan.report_loan"-->
+<!--                menu="False"-->
+<!--        />-->
+
+        <record id="action_loan_report" model="ir.actions.report">
+            <field name="name">Loan</field>
+            <field name="model">account.loan</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_account_loan.report_loan</field>
+            <field name="report_file">bista_account_loan.report_loan</field>
+            <field name="binding_type">report</field>
+        </record>
+
+<!--        <report-->
+<!--                id="action_loan_summmary_report"-->
+<!--                model="account.loan"-->
+<!--                string="Loan Summary"-->
+<!--                report_type="qweb-pdf"-->
+<!--                name="bista_account_loan.report_loan_summary"-->
+<!--                file="bista_account_loan.report_loan_summary"-->
+<!--                menu="False"-->
+<!--        />-->
+
+        <record id="action_loan_summmary_report" model="ir.actions.report">
+            <field name="name">Loan Summary</field>
+            <field name="model">account.loan</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_account_loan.report_loan_summary</field>
+            <field name="report_file">bista_account_loan.report_loan_summary</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

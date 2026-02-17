@@ -1,0 +1,102 @@
+<odoo>
+    <record id="paperformat_job_receipt_report" model="report.paperformat">
+        <field name="name">Job Receipt</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">350</field>
+        <field name="page_width">215</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">23</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">25</field>
+        <field name="dpi">90</field>
+    </record>
+    <record id="action_job_receipt_report" model="ir.actions.report">
+        <field name="name">Job Receipt</field>
+        <field name="model">crm.lead</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_voyage_marine_crm.report_job_receipt_tmp_id</field>
+        <field name="report_file">kg_voyage_marine_crm.report_job_receipt_tmp_id</field>
+        <field name="binding_model_id" ref="crm.model_crm_lead"/>
+        <field name="print_report_name">'Job Receipt - %s' % object.enq_no</field>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="kg_voyage_marine_crm.paperformat_job_receipt_report"/>
+    </record>
+
+    <record id="action_inspection_report" model="ir.actions.report">
+        <field name="name">INSPECTION REPORT</field>
+        <field name="model">crm.lead</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_voyage_marine_crm.report_inspection_tmp_id</field>
+        <field name="report_file">kg_voyage_marine_crm.report_inspection_tmp_id</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="print_report_name">'INSPECTION REPORT - %s' % object.enq_no</field>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="kg_voyage_marine_sale.paperformat_qtn_order"/>
+    </record>
+    <record id="action_inspection_check_list_report" model="ir.actions.report">
+        <field name="name">Incoming Material Inspections Check List</field>
+        <field name="model">crm.lead</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_voyage_marine_crm.report_inspection_tmp_check_list_id</field>
+        <field name="report_file">kg_voyage_marine_crm.report_inspection_tmp_check_list_id</field>
+        <field name="binding_model_id" ref="crm.model_crm_lead"/>
+        <field name="print_report_name">'Incoming Material Inspections Check List - %s' % object.enq_no</field>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="kg_voyage_marine_sale.paperformat_qtn_order"/>
+    </record>
+    <record id="action_inspection_out_report" model="ir.actions.report">
+        <field name="name">Material Out Inspection Form</field>
+        <field name="model">crm.lead</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_voyage_marine_crm.report_inspection_tmp_out_id</field>
+        <field name="report_file">kg_voyage_marine_crm.report_inspection_tmp_out_id</field>
+        <field name="binding_model_id" ref="crm.model_crm_lead"/>
+        <field name="print_report_name">'Material Out Inspection Form - %s' % object.enq_no</field>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="kg_voyage_marine_sale.paperformat_qtn_order"/>
+    </record>
+
+    <record id="action_inspection_report_view" model="ir.actions.report">
+        <field name="name">Inspection Report</field>
+        <field name="model">inspection.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_voyage_marine_crm.inspection_report_tmpl_id</field>
+        <field name="report_file">kg_voyage_marine_crm.inspection_report_tmpl_id</field>
+        <field name="binding_model_id" ref="kg_voyage_marine_crm.model_inspection_report"/>
+        <field name="print_report_name">'Inspection Report - %s' % object.name</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="paperformat_condition_report" model="report.paperformat">
+        <field name="name">Condition Report</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">350</field>
+        <field name="page_width">215</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">23</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">25</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_condition_report_view" model="ir.actions.report">
+        <field name="name">Condition Report</field>
+        <field name="model">inspection.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_voyage_marine_crm.condition_report_tmpl_id</field>
+        <field name="report_file">kg_voyage_marine_crm.condition_report_tmpl_id</field>
+        <field name="binding_model_id" ref="kg_voyage_marine_crm.model_inspection_report"/>
+        <field name="print_report_name">'Condition Report - %s' % object.name</field>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="kg_voyage_marine_crm.paperformat_condition_report"/>
+    </record>
+
+</odoo>

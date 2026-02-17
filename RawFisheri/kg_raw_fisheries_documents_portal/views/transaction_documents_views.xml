@@ -1,0 +1,188 @@
+<odoo>
+
+    <record id="action_transaction_documents" model="ir.actions.act_window">
+        <field name="name">Transaction Documents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">transaction.documents</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <menuitem id="main_menu_transaction_documents" name="Transaction Documents"
+              web_icon="kg_raw_fisheries_documents_portal,static/description/transaction_doc.png">
+        <menuitem id="menu_transaction_documents" action="action_transaction_documents" sequence="0"/>
+    </menuitem>
+
+    <record id="transaction_documents_tree_view" model="ir.ui.view">
+        <field name="name">Transaction Documents Tree View</field>
+        <field name="model">transaction.documents</field>
+        <field name="arch" type="xml">
+            <tree string="Transaction Documents" default_order="name desc">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="files_ref"/>
+                <field name="user_id"/>
+                <field name="assignees_ids" widget="many2many_tags"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'"
+                       decoration-success="state == 'submit'" decoration-muted="state == 'cancel'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="transaction_documents_form_view" model="ir.ui.view">
+        <field name="name">Transaction Documents Form View</field>
+        <field name="model">transaction.documents</field>
+        <field name="arch" type="xml">
+            <form string="Transaction Documents">
+                <field name="state" invisible="1"/>
+                <field name="file" invisible="1"/>
+                <field name="filename" invisible="1"/>
+                <header>
+                    <button name="action_submit" type="object" string="submit" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn btn-secondary"
+                            invisible="state == 'cancel'"/>
+                    <button name="action_draft" type="object" string="Set To Draft" class="btn btn-secondary"
+                            invisible="state != 'cancel'"/>
+                    <button name="action_preview" type="object" string="Preview" class="btn btn-secondary"
+                            invisible="1"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" required="1" readonly="state in ['submit','cancel']"/>
+                            <field name="user_id" required="1" readonly="1"/>
+                            <field name="assignees_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="date" required="1" readonly="state in ['submit','cancel']"/>
+                            <field name="company_id" required="1" readonly="state in ['submit','cancel']"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="files" string="Files">
+                            <field name="doc_line_ids">
+                                <tree editable="bottom">
+                                    <field name="name" required="1" readonly="status == 'approved'"/>
+                                    <field name="type_id" required="1" readonly="status == 'approved'"/>
+                                    <field name="file" required="1" widget="binary" filename="filename"
+                                           readonly="status == 'approved'"/>
+                                    <field name="filename" required="1" readonly="status == 'approved'"/>
+                                    <field name="must_be_approved" readonly="status == 'approved'"/>
+                                    <field name="reject_reason" readonly="1" force_save="1"
+                                           invisible="status in ['approved']"/>
+                                    <field name="status" readonly="1" force_save="1"
+                                           decoration-info="status == 'no_need_approve'"
+                                           decoration-danger="status == 'rejected'"
+                                           decoration-primary="status == 'waiting_for_approve'"
+                                           decoration-success="status == 'approved'"
+                                           widget="badge"/>
+                                    <button name="action_set_to_draft" string="Set to Draft" type="object"
+                                            icon="fa-undo" invisible="status != 'rejected'"/>
+                                    <button name="action_resend" string="Resend" type="object" icon="fa-paper-plane"
+                                            invisible="status != 'draft'"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="files_ref" string="Files Reference">
+                            <field name="files_ref" readonly="1" force_save="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="transaction_documents_search_filter_view" model="ir.ui.view">
+        <field name="name">Transaction Documents Search Filter View</field>
+        <field name="model">transaction.documents</field>
+        <field name="arch" type="xml">
+            <search string="Transaction Documents">
+                <field name="name"/>
+                <field name="type_id"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="state"/>
+                <field name="files_ref"/>
+
+                <separator/>
+                <filter string="Today" name="filter_today"
+                        domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+
+                <filter string="Current Month" name="filter_current_month"
+                        domain="[('date','&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]"/>
+
+                <filter string="Previous Month" name="filter_previous_month"
+                        domain="['&amp;', ('date', '&gt;=', (context_today() - relativedelta(months=1)).strftime('%Y-%m-01')),('date', '&lt;', (context_today() - relativedelta(months=0)).strftime('%Y-%m-01'))]"/>
+
+                <separator/>
+                <filter name="state_draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="state_submit" string="Submitted" domain="[('state','=','submit')]"/>
+                <filter name="state_cancel" string="Cancelled" domain="[('state','=','cancel')]"/>
+
+                <group expand="1" string="Group By">
+                    <filter string="Type" name="groupby_type_id" context="{'group_by':'type_id'}"/>
+                    <filter string="Customer" name="groupby_partner_id" context="{'group_by':'partner_id'}"/>
+                    <filter string="Created User" name="groupby_user_id" context="{'group_by':'user_id'}"/>
+                    <filter string="Date" name="groupby_date" context="{'group_by':'date'}"/>
+                    <filter string="State" name="groupby_state" context="{'group_by':'state'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="transaction_documents_kanban_view" model="ir.ui.view">
+        <field name="name">Transaction Documents Kanban View</field>
+        <field name="model">transaction.documents</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column" default_order="date desc">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <div class="o_kanban_details">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                                <br/>
+                                <field name="partner_id"/>
+                                <field name="date"/>
+                                <div>
+                                    <field name="state" widget="badge"
+                                           decoration-info="state == 'draft'"
+                                           decoration-success="state == 'submit'"
+                                           decoration-muted="state == 'cancel'"/>
+                                </div>
+                                <div class="mt8">
+                                    <small>By:
+                                        <field name="user_id"/>
+                                    </small>
+                                </div>
+                                <div class="mt8 o_kanban_html_field">
+                                    <t t-if="record.files_ref.raw_value">
+                                        <div>
+                                            <field name="files_ref" widget="html"/>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+</odoo>

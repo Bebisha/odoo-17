@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="DailyNotesDashboardMain">
+        <div class="o_dashboards">
+            <div class="container-fluid o_dailynotes_dashboard">
+            </div>
+        </div>
+    </t>
+
+    <t t-name="DailyNotesDashboard">
+        <div class="col-md-12">
+            <div class="container">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-lg-4">
+                            <div class="row">
+                              <div class="col-md-12 mt32">
+                              </div>
+                            </div>
+                            <div class="text-center col-xs-4 col-sm-4 col-lg-4 dailynotes_info">
+                                <div class="oe_app card_actions">
+                                    <h1><t t-esc="widget.dailynotes_count"/></h1>
+                                    <div class="oe_app_caption" style="color: #4a3c3c;">
+                                        Daily Notes
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-lg-4">
+                            <div class="row">
+                              <div class="col-md-12 mt32">
+                              </div>
+                            </div>
+                            <div class="text-center col-xs-4 col-sm-4 col-lg-4 dna_appointments">
+                                <div class="oe_app card_actions">
+                                    <h1><t t-esc="widget.dna_appointment_count"/></h1>
+                                    <div class="oe_app_caption" style="color: #4a3c3c;">
+                                        DNA Appointments
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-lg-4">
+                            <div class="row">
+                              <div class="col-md-12 mt32">
+                              </div>
+                            </div>
+                            <div class="text-center col-xs-4 col-sm-4 col-lg-4 inv_cancel_request"
+                                name="bista_tdcc_operations.invoice_cancel_req_action">
+                                <div class="oe_app card_actions">
+                                    <h1><t t-esc="widget.inv_cancel_request_count"/></h1>
+                                    <div class="oe_app_caption" style="color: #4a3c3c;">
+                                        Invoice Cancel Requests
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </t>
+
+</templates>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="marital_status_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Marital status</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">marital.status</field>
+
+    </record>
+    <record id="marital_status_tree" model="ir.ui.view">
+        <field name="name">marital.status.tree.views</field>
+        <field name="model">marital.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="marital_status_form" model="ir.ui.view">
+        <field name="name">marital.status.form.views</field>
+        <field name="model">marital.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="marital_status_action_menu"
+              action="marital_status_action"
+              name="Marital status"
+              parent="kg_nabidh.pid_menu"/>
+
+</odoo>

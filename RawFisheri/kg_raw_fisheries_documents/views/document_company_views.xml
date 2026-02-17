@@ -1,0 +1,23 @@
+<odoo>
+
+    <record model='ir.ui.view' id='document_company_tree_view'>
+        <field name="name">document.company.tree</field>
+        <field name="model">document.company</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="document_company_action" model="ir.actions.act_window">
+        <field name="name">Document Company</field>
+        <field name="res_model">document.company</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="document_company_menuitem" name="Document Company" parent="documents.Config" sequence="7"
+              action="document_company_action"/>
+
+
+</odoo>

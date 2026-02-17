@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!-- menu catch reports -->
+        <menuitem id="menu_catch_reporting" name="Reporting"
+                  parent="kg_raw_fisheries_entries.main_menu_entries"/>
+
+        <!-- action daily catch report wizard -->
+        <record id="action_daily_catch_report_wizard" model="ir.actions.act_window">
+            <field name="name">Daily Catch Report</field>
+            <field name="target">new</field>
+            <field name="res_model">daily.catch.report.wizard</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <!-- menu daily catch report wizard -->
+        <menuitem id="menu_daily_catch_report_wizard" name="Daily Catch Report"
+                  parent="kg_raw_fisheries_entries.menu_catch_reporting"
+                  action="action_daily_catch_report_wizard" sequence="15"/>
+
+    </data>
+</odoo>

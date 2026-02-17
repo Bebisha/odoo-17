@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="kg_patient_allergy_info_tree_view">
+            <field name="name">Patient Allergy Information</field>
+            <field name="model">kg.patient.allergy.info</field>
+            <field name="arch" type="xml">
+                <!--                <tree create="false" edit="false">-->
+                <tree>
+                    <field name="set_id_al1"/>
+
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="kg_patient_allergy_info_form_view">
+            <field name="name">Patient Allergy Information</field>
+            <field name="model">kg.patient.allergy.info</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <button name="btn_submit" string="Submit" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+                        <button name="btn_cancel" string="Cancel" type="object" data-hotkey="w"
+                               invisible="state not in ('draft','submited')"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submited"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="set_id_al1" required="1"/>
+                                <field name="allergy_type_code" required="1"/>
+                                <field name="allergy_code_descrptn" required="1"/>
+                            </group>
+                            <group>
+                                <field name="allergy_severty_code" required="1"/>
+                                <field name="allergy_reaction_code" required="1"/>
+                                <field name="identification_date" required="1"/>
+
+                            </group>
+
+                        </group>
+
+
+                    </sheet>
+                    <!--                  <div class="o_attachment_preview"/>-->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="kg_patient_allergy_info_action_form" model="ir.actions.act_window">
+            <field name="name">Patient Allergy Information</field>
+            <field name="res_model">kg.patient.allergy.info</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

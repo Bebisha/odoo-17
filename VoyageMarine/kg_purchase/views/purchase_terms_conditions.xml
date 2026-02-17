@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_purchase_terms_conditions_tree" model="ir.ui.view">
+        <field name="name">purchase.terms.conditions.tree</field>
+        <field name="model">purchase.terms.conditions</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_purchase_terms_conditions_form" model="ir.ui.view">
+        <field name="name">purchase.terms.conditions.form</field>
+        <field name="model">purchase.terms.conditions</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page string="Terms and Conditions">
+                            <field name="description" placeholder="Enter terms and conditions..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_purchase_terms_conditions" model="ir.actions.act_window">
+        <field name="name">Terms &amp; Conditions</field>
+        <field name="res_model">purchase.terms.conditions</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_purchase_terms_conditions"
+              name="Terms &amp; Conditions"
+              parent="purchase.menu_purchase_config"
+              sequence="10"/>
+    <menuitem id="menu_purchase_terms_conditions_action"
+              name="Manage Terms &amp; Conditions"
+              action="action_purchase_terms_conditions"
+              parent="menu_purchase_terms_conditions"/>
+</odoo>

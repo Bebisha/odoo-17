@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <template id="worksheet_page"
+                  inherit_id="quality_control.worksheet_page">
+
+            <xpath expr="//div[@class='page']" position="replace">
+                <div class="page">
+                    <div name="quality_check">
+                        <strong style="margin-right: 7px;">Inspected By:</strong>
+                        <span t-field="doc.name"/>
+                    </div>
+                    <div name="transfer">
+                        <strong style="margin-right: 7px;">Transfer:</strong>
+                        <span t-field="doc.picking_id"/>
+                    </div>
+                    <div name="products">
+                        <strong style="margin-right: 7px;">Product:</strong>
+                        <span t-field="doc.product_id"/>
+                    </div>
+                    <div name="tested_by">
+                        <strong style="margin-right: 7px;">Tested by:</strong>
+                        <span t-field="doc.user_id"/>
+                    </div>
+                    <div name="tested_on">
+                        <strong style="margin-right: 7px;">Tested on:</strong>
+                        <span t-field="doc.control_date"/>
+                    </div>
+                    <div name="test_type">
+                        <strong style="margin-right: 7px;">Test Type:</strong>
+                        <span t-field="doc.test_type_id"/>
+                    </div>
+                    <div name="instructions">
+                        <strong style="margin-right: 7px;">Instruction:</strong>
+                        <p t-field="doc.note" class="mt-4"/>
+                        <div class="oe_structure"/>
+                    </div>
+                    <div t-if="doc.additional_note">
+                        <strong>Notes:</strong>
+                        <span t-field="doc.additional_note"/>
+                    </div>
+                    <div class="oe_structure"/>
+                    <t name="origin"/>
+                    <div name="lot" t-if="doc.lot_id"/>
+                    <div t-if="doc.user_id"/>
+                    <div t-if="doc.control_date"/>
+                    <div/>
+                    <div t-if="doc.additional_note"/>
+                    <t name="qc_content"/>
+                </div>
+            </xpath>
+            <!--             <xpath expr="//t[@name='origin']" position="inside">-->
+
+            <!--                <div t-if="doc.note">-->
+            <!--                    <strong>Instruction:</strong><br/>-->
+            <!--                </div>-->
+
+            <!--                <div class="oe_structure"></div>-->
+            <!--            </xpath>-->
+
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+kg_purchase.access_create_purchaseorder,access_create_purchaseorder,kg_purchase.model_create_purchaseorder,base.group_user,1,1,1,1,
+kg_purchase.access_getsale_orderdata,access_getsale_orderdata,kg_purchase.model_getsale_orderdata,base.group_user,1,1,1,1,
+kg_purchase.access_purchase_terms_conditions,access_purchase_terms_conditions,kg_purchase.model_purchase_terms_conditions,base.group_user,1,1,1,1,
+access_sale_po_creation,sale_po_creation,model_sale_po_creation,,1,1,1,1
+access_sale_po_creation_line,sale_po_creation_line,model_sale_po_creation_line,,1,1,1,1
+access_vendor_group,vendor_group,model_vendor_group,,1,1,1,1
+

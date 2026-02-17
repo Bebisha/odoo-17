@@ -1,0 +1,147 @@
+<odoo>
+    <template id="analytic_job_costing_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header">
+                            <table class='table table-borderless table-condensed table-hover'>
+                                <tr width="100%">
+                                    <td style="width: 30%;" align="left">
+                                        <t t-if="doc.company_id.logo">
+                                            <img t-attf-src="data:image/*;base64,{{doc.company_id.logo}}"
+                                                 height="100px" width="75%"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 50%;font-size:12px;" align="right"/>
+                                </tr>
+                            </table>
+                        </div>
+                        <t t-set="lines" t-value="doc._get_job_costing_lines()"/>
+                        <t t-if="lines">
+                            <table class='table table-borderless table-condensed table-hover'>
+                                <tr width="100%">
+                                    <td width="100%" colspan="2" align="center">
+                                        <strong>
+                                            <span>Job Costing Report of</span>
+                                            <span t-esc="doc.name"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                            <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                                <tr width="100%"
+                                    style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                    <td align="center"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <strong>CODE</strong>
+                                    </td>
+                                    <td align="center"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <strong>DIVISION</strong>
+                                    </td>
+                                    <td align="center"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <strong>DESCRIPTION</strong>
+                                    </td>
+                                    <td align="center"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <strong>QUANTITY</strong>
+                                    </td>
+                                    <td align="center"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <strong>EXPENSE</strong>
+                                    </td>
+                                    <td align="center"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <strong>INCOME</strong>
+                                    </td>
+
+                                </tr>
+                                <t t-foreach="lines" t-as="l">
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-esc="l['code']"/>
+                                        </td>
+                                        <td align="center"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-esc="l['division']"/>
+                                        </td>
+                                        <td align="left"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-esc="l['description']"/>
+                                        </td>
+                                        <td align="center"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-esc="l['qty']"/>
+                                        </td>
+                                        <td align="right"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-esc="l['expense']"/>
+                                        </td>
+                                        <td align="right"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-esc="l['income']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-set="tot" t-value="doc._get_job_totals()"/>
+                                <tr width="100%"
+                                    style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                    <td align="right" colspan="4"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <b>Total</b>
+                                    </td>
+                                    <td align="right"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <t t-esc="tot['total_expense']"/>
+                                    </td>
+                                    <td align="right"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <t t-esc="tot['total_income']"/>
+                                    </td>
+                                </tr>
+                                <tr width="100%"
+                                    style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-bottom: 1pt solid black;">
+                                    <td align="right" colspan="4"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <b>Profit</b>
+                                    </td>
+
+                                    <td align="right" colspan="2"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <t t-esc="tot['profit']"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+
+                        <div class="footer">
+                            <table class='table-borderless' width="100%" style="font-size:12px;">
+                                <tr width="100%" style="font-size:12px;">
+                                    <td width="50%" align="left" style="padding-top:5px;">
+                                        <span>Date</span>
+                                        <span t-esc="datetime.datetime.today().strftime('%d/%m/%Y')"/>
+                                    </td>
+                                    <td width="50%" align="right" style="padding-top:5px;">
+                                        <span>Page:
+                                            <span class="page"/>
+                                            of
+                                            <span class="topage"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
+
+

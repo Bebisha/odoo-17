@@ -1,0 +1,73 @@
+<odoo>
+
+    <record model="ir.ui.view" id="kg_view_task_form2_project_inherit">
+        <field name="name">kg.project.task.form.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <!--            <xpath expr="//field[@name='user_ids']" position="attributes">-->
+            <!--                <attribute name="context">{'search_default_unassigned': 1}</attribute>-->
+            <!--            </xpath>-->
+            <field name="tag_ids" position="after">
+                <field name="job_no" readonly="1" force_save="1" invisible="1"/>
+                <field name="vessel_id" readonly="1" force_save="1"/>
+                <field name="remarks"/>
+            </field>
+            <field name="tag_ids" position="before">
+                <field name="coordinator_ids"
+                       class="o_task_user_field"
+                       options="{'no_open': True, 'no_quick_create': True}"
+                       widget="many2many_avatar_user"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="kg_project_task_view_tree_main_base_inherit">
+        <field name="name">kg.project.task.list.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.project_task_view_tree_main_base"/>
+        <field name="arch" type="xml">
+            <field name="user_ids" position="after">
+                <field name="coordinator_ids" widget="many2many_avatar_user"/>
+                <field name="job_no" readonly="1" force_save="1" invisible="1"/>
+                <field name="vessel_id" readonly="1" force_save="1"/>
+            </field>
+            <field name="stage_id" position="before">
+                <field name="remarks" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="kg_view_task_search_form_base_inherit">
+        <field name="name">kg.project.task.search.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form_base"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="after">
+                <field name="job_no" invisible="1"/>
+                <field name="vessel_id"/>
+            </field>
+            <xpath expr="//group/filter[@name='customer']" position="after">
+                <filter string="Vessel" name="vessel_id" context="{'group_by': 'vessel_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="filter_task_vessel_job" model="ir.filters">
+        <field name="name">Deadline Wise</field>
+        <field name="model_id">project.task</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['vessel_id','date_deadline']}</field>
+        <field name="is_default" eval="False"/>
+    </record>
+
+    <record id="filter_task_vessel_job_start_date" model="ir.filters">
+        <field name="name">Start Date Wise</field>
+        <field name="model_id">project.task</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['vessel_id','start_date']}</field>
+        <field name="is_default" eval="False"/>
+    </record>
+
+
+</odoo>

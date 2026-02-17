@@ -1,0 +1,34 @@
+<odoo>
+  <data>
+
+      <record id="earnings_ded_import_view" model="ir.ui.view">
+        <field name="name">Import Earnings and Deductions</field>
+        <field name="model">earnings.deduction.import</field>
+        <field name="arch" type="xml">
+          <form string="Import Earnings and Deductions">
+
+            <group colspan="4">
+                <field name="earnings_ded_excel_file"/>
+            </group>
+            <footer>
+                <button name="import_earnings_ded_excel" string="Import" type="object" class="oe_highlight"/>
+                <button name="export_employee_earnings" string="Export Template" type="object" class="oe_highlight"/>
+                or
+                <button string="Cancel" class="oe_link" special="cancel"/>
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="action_earnings_ded_import" model="ir.actions.act_window">
+        <field name="name">Earnings and Deduction Import</field>
+        <field name="res_model">earnings.deduction.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+<!--      <menuitem id="import_earnings_ded" name="Import Earnings and Deduction"-->
+<!--               parent="deduction_management.main_menu_deduction" action="action_earnings_ded_import" sequence="7"/>-->
+
+  </data>
+</odoo>

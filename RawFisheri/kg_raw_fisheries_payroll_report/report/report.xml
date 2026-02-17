@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="action_payroll_report" model="ir.actions.report">
+            <field name="name">Payroll Report Detailed</field>
+            <field name="model">payroll.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_raw_fisheries_payroll_report.payroll_report_template</field>
+            <field name="report_file">kg_raw_fisheries_payroll_report.payroll_report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

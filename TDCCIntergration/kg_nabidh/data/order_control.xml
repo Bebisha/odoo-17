@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="order_cn" model="order.control">
+            <field name="code">CN</field>
+            <field name="name">Combined result</field>
+        </record>
+        <record id="order_cr" model="order.control">
+            <field name="code">CR</field>
+            <field name="name">Canceled as requested</field>
+        </record>
+        <record id="order_dc" model="order.control">
+            <field name="code">DC</field>
+            <field name="name">Discontinue order/service request</field>
+        </record>
+        <record id="order_de" model="order.control">
+            <field name="code">DE</field>
+            <field name="name">Data errors</field>
+        </record>
+        <record id="order_df" model="order.control">
+            <field name="code">DF</field>
+            <field name="name">Order/service refill request denied</field>
+        </record>
+        <record id="order_dr" model="order.control">
+            <field name="code">DR</field>
+            <field name="name">Discontinued as requested</field>
+        </record>
+        <record id="order_fu" model="order.control">
+            <field name="code">FU</field>
+            <field name="name">Order/service refilled, unsolicited</field>
+        </record>
+        <record id="order_hd" model="order.control">
+            <field name="code">HD</field>
+            <field name="name">Hold order request</field>
+        </record>
+        <record id="order_hr" model="order.control">
+            <field name="code">HR</field>
+            <field name="name">On hold as requested</field>
+        </record>
+        <record id="order_li" model="order.control">
+            <field name="code">LI</field>
+            <field name="name">Link order/service to patient care problem or goal</field>
+        </record>
+        <record id="order_na" model="order.control">
+            <field name="code">NA</field>
+            <field name="name">Number assigned</field>
+        </record>
+        <record id="order_nw" model="order.control">
+            <field name="code">NW</field>
+            <field name="name">New order/service</field>
+        </record>
+        <record id="order_oc" model="order.control">
+            <field name="code">OC</field>
+            <field name="name">Order/service canceled</field>
+        </record>
+        <record id="order_od" model="order.control">
+            <field name="code">OD</field>
+            <field name="name">Order/service discontinued</field>
+        </record>
+        <record id="order_oe" model="order.control">
+            <field name="code">OE</field>
+            <field name="name">Order/service released</field>
+        </record>
+        <record id="order_of" model="order.control">
+            <field name="code">OF</field>
+            <field name="name">Order/service refilled as requested</field>
+        </record>
+        <record id="order_oh" model="order.control">
+            <field name="code">OH</field>
+            <field name="name">Order/service held</field>
+        </record>
+        <record id="order_ok" model="order.control">
+            <field name="code">OK</field>
+            <field name="name">Order/service accepted &amp; OK</field>
+        </record>
+        <record id="order_op" model="order.control">
+            <field name="code">OP</field>
+            <field name="name">Notification of order for outside dispense</field>
+        </record>
+        <record id="order_or" model="order.control">
+            <field name="code">OR</field>
+            <field name="name">Released as requested</field>
+        </record>
+        <record id="order_pa" model="order.control">
+            <field name="code">PA</field>
+            <field name="name">Parent order/service</field>
+        </record>
+        <record id="order_pr" model="order.control">
+            <field name="code">PR</field>
+            <field name="name">Previous Results with new order/service</field>
+        </record>
+        <record id="order_py" model="order.control">
+            <field name="code">PY</field>
+            <field name="name">Notification of replacement order for outside dispense</field>
+        </record>
+        <record id="order_re" model="order.control">
+            <field name="code">RE</field>
+            <field name="name">Observations/Performed Service to follow</field>
+        </record>
+        <record id="order_rf" model="order.control">
+            <field name="code">RF</field>
+            <field name="name">Refill order/service request</field>
+        </record>
+        <record id="order_rl" model="order.control">
+            <field name="code">RL</field>
+            <field name="name">Release previous hold</field>
+        </record>
+        <record id="order_ro" model="order.control">
+            <field name="code">RO</field>
+            <field name="name">Replacement order</field>
+        </record>
+        <record id="order_rp" model="order.control">
+            <field name="code">RP</field>
+            <field name="name">Order/service replace request</field>
+        </record>
+        <record id="order_rq" model="order.control">
+            <field name="code">RQ</field>
+            <field name="name">Replaced as requested</field>
+        </record>
+        <record id="order_rr" model="order.control">
+            <field name="code">RR</field>
+            <field name="name">Request received</field>
+        </record>
+        <record id="order_ru" model="order.control">
+            <field name="code">RU</field>
+            <field name="name">Replaced unsolicited</field>
+        </record>
+        <record id="order_sc" model="order.control">
+            <field name="code">SC</field>
+            <field name="name">Status changed</field>
+        </record>
+        <record id="order_sn" model="order.control">
+            <field name="code">SN</field>
+            <field name="name">Send order/service number</field>
+        </record>
+        <record id="order_sr" model="order.control">
+            <field name="code">SR</field>
+            <field name="name">Response to send order/service status request</field>
+        </record>
+        <record id="order_ss" model="order.control">
+            <field name="code">SS</field>
+            <field name="name">Send order/service status request</field>
+        </record>
+        <record id="order_ua" model="order.control">
+            <field name="code">UA</field>
+            <field name="name">Unable to accept order/service</field>
+        </record>
+        <record id="order_uc" model="order.control">
+            <field name="code">UC</field>
+            <field name="name">Unable to cancel</field>
+        </record>
+        <record id="order_ud" model="order.control">
+            <field name="code">UD</field>
+            <field name="name">Unable to discontinue</field>
+        </record>
+        <record id="order_uf" model="order.control">
+            <field name="code">UF</field>
+            <field name="name">Unable to refill</field>
+        </record>
+        <record id="order_uh" model="order.control">
+            <field name="code">UH</field>
+            <field name="name">Unable to put on hold</field>
+        </record>
+        <record id="order_um" model="order.control">
+            <field name="code">UM</field>
+            <field name="name">Unable to replace</field>
+        </record>
+        <record id="order_un" model="order.control">
+            <field name="code">UN</field>
+            <field name="name">Unlink order/service from patient care problem or goal</field>
+        </record>
+        <record id="order_ur" model="order.control">
+            <field name="code">UR</field>
+            <field name="name">Unable to release</field>
+        </record>
+        <record id="order_ux" model="order.control">
+            <field name="code">UX</field>
+            <field name="name">Unable to change</field>
+        </record>
+        <record id="order_xo" model="order.control">
+            <field name="code">XO</field>
+            <field name="name">Change order/service request</field>
+        </record>
+        <record id="order_xx" model="order.control">
+            <field name="code">XX</field>
+            <field name="name">Order/service changed, unsol.</field>
+        </record>
+
+    </data>
+</odoo>

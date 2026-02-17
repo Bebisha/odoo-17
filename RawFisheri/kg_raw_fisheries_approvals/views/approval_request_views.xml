@@ -1,0 +1,60 @@
+<odoo>
+
+    <record id="kg_approvals_form_view_inherit" model="ir.ui.view">
+        <field name="name">kg_approval.request.form.inherit</field>
+        <field name="model">approval.request</field>
+        <field name="inherit_id" ref="approvals.approval_request_view_form"/>
+        <field name="arch" type="xml">
+            <field name="reference" position="after">
+                <field name="move_id" readonly="1"/>
+            </field>
+            <xpath expr="//button[@name='action_refuse']" position="replace">
+                <button name="action_refuse" string="Refuse" type="object"
+                        invisible="request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending' or move_id"
+                        data-hotkey="z"/>
+            </xpath>
+            <xpath expr="//button[@name='action_approve']" position="after">
+                <button name="action_reject" string="Refuse" type="object"
+                        invisible="request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending' or not move_id"
+                        data-hotkey="z"/>
+                <button name="action_forward" string="Forward" type="object"
+                        invisible="request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending' or not move_id"
+                        data-hotkey="z"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="kg_approvals_tree_view_inherit" model="ir.ui.view">
+        <field name="name">kg_approval.request.tree.inherit</field>
+        <field name="model">approval.request</field>
+        <field name="inherit_id" ref="approvals.approval_request_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="currency_id" column_invisible="1"/>
+                <field name="vendor_id"/>
+            </field>
+            <field name="request_status" position="before">
+                <field name="amount" widget="monetary"/>
+            </field>
+            <field name="request_owner_id" position="after">
+                <field name="approve_users_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+
+    <menuitem id="approvals.approvals_approval_menu_all" active="False"/>
+    <menuitem id="kg_approvals_approval_menu_all" parent="approvals.approvals_menu_manager" name="All Approvals"
+              action="approvals.approval_request_action_all" sequence="20"
+              groups="kg_raw_fisheries_approvals.show_all_approvals_menu"/>
+
+    <record id="kg_my_approval_menu_action" model="ir.actions.act_window">
+        <field name="name">My Approvals</field>
+        <field name="res_model">approval.request</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('approve_users_ids','in',uid)]</field>
+    </record>
+
+    <menuitem id="kg_my_approvals_menu" parent="approvals.approvals_menu_manager" name="My Approvals"
+              action="kg_my_approval_menu_action" sequence="21"/>
+
+</odoo>

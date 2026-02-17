@@ -1,0 +1,40 @@
+<odoo>
+    <!-- Make Master -->
+    <record id="view_rec_model_form" model="ir.ui.view">
+        <field name="name">rec.model.form</field>
+        <field name="model">rec.model</field>
+        <field name="arch" type="xml">
+            <form string="Model">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_rec_model_tree" model="ir.ui.view">
+        <field name="name">rec.model.tree</field>
+        <field name="model">rec.model</field>
+        <field name="arch" type="xml">
+            <tree string="Model">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_rec_model" model="ir.actions.act_window">
+        <field name="name">Models</field>
+        <field name="res_model">rec.model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_rec_model" name="Model" parent="stock.menu_product_in_config_stock"
+              action="action_rec_model"/>
+</odoo>

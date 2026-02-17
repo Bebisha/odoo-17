@@ -1,0 +1,60 @@
+<odoo>
+    <record id="kg_create_rfq_form_view_inherit" model="ir.ui.view">
+        <field name="name">Create RFQ Form – Domain Changed</field>
+        <field name="model">kg.create.rfq.wizard</field>
+        <field name="inherit_id" ref="kg_voyage_marine_crm.kg_create_rfq_form_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Replace the vendor_id domain -->
+            <xpath expr="//field[@name='vendor_id']" position="attributes">
+                <attribute name="domain">['|',('partner_type','=','vendor'), ('partner_type', '=', False)]</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="vendor_rfq_mail_view_form_inherit" model="ir.ui.view">
+        <field name="name">vendor.rfq.mail.view.form.inherit</field>
+        <field name="model">vendor.rfq.mail</field>
+
+        <!-- Inheriting from material_purchase_requisition -->
+        <field name="inherit_id" ref="material_purchase_requisition.vendor_rfq_mail_view_form"/>
+
+        <field name="arch" type="xml">
+            <!-- Update vendor_ids domain -->
+            <xpath expr="//field[@name='vendor_ids']" position="attributes">
+                <attribute name="domain">['|',('partner_type','=','vendor'),('partner_type', '=', False)]</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="kg_purchase_requisition_inherit" model="ir.ui.view">
+        <field name="name">kg.purchase.requisition.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase_requisition.purchase_order_form_inherit"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="replace">
+                <field name="is_quantity_copy" invisible="1"/>
+                <field name="partner_id" widget="res_partner_many2one"
+                       domain="['|', ('partner_type','=','vendor'),('partner_type', '=', False)]"
+                       context="{'res_partner_search_mode': 'supplier', 'show_vat': True}"
+                       readonly="is_quantity_copy == 'none' or state in ['purchase', 'done', 'cancel']"
+                       placeholder="Name, TIN, Email, or Reference" force_save="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_pr_po_form_inherit" model="ir.ui.view">
+        <field name="name">pr.po.creation.form.inherit</field>
+        <field name="model">pr.po.creation</field>
+        <field name="inherit_id" ref="material_purchase_requisition.view_pr_po_form"/>
+        <field name="arch" type="xml">
+            <field name="vendor_id"
+                   domain="['|', ('partner_type','=','vendor'),('partner_type', '=', False)]"
+                   options="{'no_create': True, 'no_create_edit':True}"/>
+        </field>
+    </record>
+
+
+
+
+</odoo>

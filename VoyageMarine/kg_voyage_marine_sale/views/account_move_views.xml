@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="kg_view_move_form_inherit_form_id" model="ir.ui.view">
+        <field name="name">kg.account.move.view.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='invoice_tab']/field/tree/field[@name='product_id']" position="before">
+                <field name="code"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='aml_tab']/field/tree/field[@name='name']" position="before">
+                <field name="code" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_line_form_inh_id" model="ir.ui.view">
+        <field name="name">account.move.line.form.inh</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position='before'>
+                <field name="code"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_line_tree_inh_id" model="ir.ui.view">
+        <field name="name">account.move.line.tree.inh</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position='before'>
+                <field name="code" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

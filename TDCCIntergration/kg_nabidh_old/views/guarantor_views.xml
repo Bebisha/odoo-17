@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    <record id="guarantor_form_action" model="ir.actions.act_window">-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="name">Guarantor</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        <field name="res_model">guarantor.form</field>-->
+
+<!--    </record>-->
+<!--    <record id="guarantor_form_tree" model="ir.ui.view">-->
+<!--        <field name="name">guarantor.form.views</field>-->
+<!--        <field name="model">guarantor.form</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                   <field name="name"/>-->
+
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+    <record id="guarantor_form_form" model="ir.ui.view">
+        <field name="name">guarantor.form.views</field>
+        <field name="model">guarantor.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                    <group>
+                        <group>
+                            <label for="full_name" string="Name"/>
+                            <div>
+                                <div class="o_address_format" name="div_address">
+                                    <field name="first_name" placeholder="First Name..." class="o_first_name"/>
+                                    <field name="last_name" class="o_last_name" placeholder="Last Name......."/>
+                                    <field name="full_name" widget="text" readonly="1" invisible="1"/>
+                                </div>
+                            </div>
+                            <field name="guarantor_relationship" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <label for="complete_address" string="Address"/>
+                            <div>
+                                <div class="o_address_format" name="div_address">
+                                    <field name="street" placeholder="Street..." class="o_address_street"/>
+                                    <!--                                 <field name="street2" placeholder="Street 2..." class="o_address_street"/> -->
+                                    <field name="city" placeholder="City" class="o_address_city"/>
+                                    <field name="states" class="o_address_state" placeholder="State"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                    <field name="country" placeholder="Country" class="o_address_country" options="{'no_create': True}"/>
+                                    <field name="addres_type" placeholder="Address type" class="o_address_country"/>
+                                    <field name="complete_address" widget="text" readonly="1" invisible="1"/>
+                                    <field name="phone_number"/>
+
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+<!--    <menuitem id="guarantor_menu"-->
+<!--              action="guarantor_form_action"-->
+<!--              name="Guarantor"-->
+<!--              parent="kg_nabidh.patient_information_menu"/>-->
+
+</odoo>

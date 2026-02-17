@@ -1,0 +1,42 @@
+<odoo>
+    <record id="import_bom_wizard_form" model="ir.ui.view">
+        <field name="name">import.bom.wizard</field>
+        <field name="model">import.bom.wizard</field>
+        <field name="arch" type="xml">
+            <form string="BOM Template">
+                <sheet>
+                    <group>
+                        <!--                        <field name="fname" invisible="1"/>-->
+                        <!--                        <field name="is_ok" invisible="1"/>-->
+                        <!--                        <field name="kg_binary_field" filename="fname"-->
+                        <!--                                string="Attachment"-->
+                        <!--                                readonly="1"  invisible="is_ok==False"/>-->
+                        <field name="filename" invisible="1"/>
+                        <field name="data_file"/>
+                        <!--                        <button name="export_file" string="Load File" type="object"-->
+                        <!--                                class="oe_highlight"/>-->
+                        <!--                        <button name="load_api" string="Load Apk" type="object"-->
+                        <!--                                class="oe_highlight"/>-->
+                    </group>
+                    <footer>
+                        <button name="export_file" string="Load File" type="object"
+                                class="oe_highlight"/>
+                        <button string="Close" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="bom_import_wizard" model="ir.actions.act_window">
+        <field name="name">BOM Import</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">import.bom.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="import_bom_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="bom_template" name="Import BOM " parent="project.menu_project_config"
+              action="bom_import_wizard" sequence="40"/>
+
+</odoo>

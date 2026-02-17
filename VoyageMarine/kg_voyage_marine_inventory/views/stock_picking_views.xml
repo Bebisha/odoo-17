@@ -1,0 +1,135 @@
+<odoo>
+    <data>
+
+        <record id="kg_stock_picking_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="backorder_id" position="after">
+                    <field name="boe_ids" readonly="1" force_save="1" widget="many2many_tags" invisible="1"/>
+                    <field name="vessel_name" readonly="state == 'done'" invisible="1"/>
+                    <field name="lpo" readonly="state == 'done'" invisible="picking_type_code != 'outgoing'"/>
+                    <field name="lpo_date" readonly="state == 'done'" invisible="picking_type_code != 'outgoing'"/>
+                    <field name="customer_id" invisible="1"/>
+                    <field name="is_qty_available" invisible="1"/>
+                </field>
+                <field name="origin" position="after">
+                    <field name="so_ids" readonly="1" force_save="1" widget="many2many_tags"/>
+                    <field name="po_ids" readonly="1" force_save="1" widget="many2many_tags" invisible="1"/>
+                    <field name="items_landed_warehouse" readonly="state == 'done'"
+                           invisible="picking_type_code != 'incoming'"/>
+                    <field name="landed_date" invisible="not items_landed_warehouse" readonly="state == 'done'"/>
+                    <field name="customer_ref"/>
+                </field>
+                <xpath expr="//notebook/page[@name='operations']" position="after">
+                    <page name="main_product_line_ids" string="Main Products">
+                        <field name="main_product_line_ids" widget="section_and_note_one2many" readonly="1"
+                               force_save="1">
+                            <tree editable="bottom" create="false">
+                                <field name="product_id" readonly="1" force_save="1"/>
+                                <field name="description" widget="section_and_note_text" readonly="1" force_save="1"/>
+                                <field name="quantity" readonly="1" force_save="1"/>
+                                <field name="uom_id" readonly="1" force_save="1"/>
+                                <field name="remarks"/>
+                                <field name="boe_id" column_invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="service_product_line_ids" string="Service Products">
+                        <field name="service_product_line_ids" widget="section_and_note_one2many" readonly="1"
+                               force_save="1">
+                            <tree editable="bottom" create="false">
+                                <field name="product_id" readonly="1" force_save="1"/>
+                                <field name="description" widget="section_and_note_text" readonly="1" force_save="1"/>
+                                <field name="qty" readonly="1" force_save="1"/>
+                                <field name="uom_id" readonly="1" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="pack_operation_group" string="Checklist">
+                        <group string="Receipt Checklist"
+                               invisible="picking_type_code != 'incoming'">
+                            <field name="checklist_packaging"/>
+                            <field name="checklist_physical_condition"/>
+                            <field name="checklist_delivered_qty"/>
+                            <field name="checklist_shipping_docs"/>
+                            <field name="checklist_coc_coo"/>
+                            <field name="checklist_invoice"/>
+                            <field name="checklist_expiration_date"/>
+                        </group>
+
+                        <group string="Delivery Order Checklist"
+                               invisible="picking_type_code != 'outgoing'">
+                            <field name="checklist_commercial_invoice"/>
+                            <field name="checklist_packing_list"/>
+                            <field name="checklist_coc"/>
+                            <field name="checklist_coo"/>
+                            <field name="checklist_delivery_order"/>
+                            <field name="checklist_invoice_do"/>
+                            <field name="checklist_payment_received"/>
+                        </group>
+                    </page>
+
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='extra']/group/group[@name='other_infos']" position="after">
+                    <group string="Address" name="address">
+                        <field name="partner_shipping_id" force_save="1"/>
+                        <field name="partner_invoice_id" force_save="1"/>
+                    </group>
+                </xpath>
+                <xpath expr="//button[@name='do_print_picking']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(stock.action_report_delivery)d']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!--                <xpath expr="//button[@name='do_print_picking']" position="after">-->
+                <!--                    <button name="print_dn" string="Print DN" type="object" class="oe_highlight"-->
+                <!--                            invisible="1"-->
+                <!--                            data-hotkey="o"/>-->
+                <!--                </xpath>-->
+            </field>
+        </record>
+
+        <record id="view_stock_inherit_o12" model="ir.ui.view">
+            <field name="name">stock.stock.search.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.product_product_stock_tree"/>
+            <field name="arch" type="xml">
+                <field name="free_qty" position="before">
+                    <field name="show_onhand" column_invisible="1"/>
+                    <field name="this_year_onhand"/>
+                    <field name="this_year_incoming"/>
+                    <field name="this_year_outgoing"/>
+                </field>
+
+            </field>
+        </record>
+
+
+        <record id="view_stock_inherit_02" model="ir.ui.view">
+            <field name="name">stock.stock.search.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.product_search_form_view_stock_report"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <filter string="This Year Movements" name="this_year_movements" domain="[('show_onhand', '>', 0)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="kg_vpicktree_view_inherit" model="ir.ui.view">
+            <field name="name">kg.stock.picking.tree.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <field name="scheduled_date" position="after">
+                    <field name="expected_arrival_date"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

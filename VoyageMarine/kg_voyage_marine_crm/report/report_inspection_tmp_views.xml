@@ -1,0 +1,357 @@
+<odoo>
+    <template id="report_inspection_tmp_id">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header" style="margin-bottom:20px;">
+                            <table class='table table-borderless table-condensed table-hover'>
+                                <tr width="100%">
+                                    <td style="width: 50%;" align="left">
+                                        <t t-if="doc.company_id.logo">
+                                            <img t-attf-src="data:image/*;base64,{{doc.company_id.logo}}"
+                                                 height="100px" width="75%"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 50%;font-size:14px;" align="right">
+                                        <t t-if="doc.company_id.name">
+                                            <strong>
+                                                <span t-field="doc.company_id.name"/>
+                                            </strong>
+                                            <br/>
+                                        </t>
+                                        <t t-if="doc.company_id.phone">
+                                            <span t-field="doc.company_id.phone"/>
+                                            <i class="fa fa-phone" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="doc.company_id.mobile">
+                                            <span t-field="doc.company_id.mobile"/>
+                                            <i class="fa fa-fax" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="doc.company_id.email">
+                                            <span t-field="doc.company_id.email"/>
+                                            <i class="fa fa-envelope" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="doc.company_id.zip">
+                                            <span>P.O. Box:
+                                                <span t-field="doc.company_id.zip"/>,
+                                            </span>
+                                        </t>
+                                        <t t-if="doc.company_id.city">
+                                            <span t-field="doc.company_id.city"/>,
+                                        </t>
+                                        <t t-if="doc.company_id.state_id">
+                                            <span t-field="doc.company_id.state_id.name"/>
+                                        </t>
+                                        <t t-if="doc.company_id.country_id">
+                                            <span t-field="doc.company_id.country_id.code"/>
+                                        </t>
+                                        <i class="fa fa-map-marker" aria-hidden="true"
+                                           style="margin-left: 5px;border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <!--                                <tr width="100%">-->
+                                <!--                                    <td style="width: 100%;font-size:14px;" align="right" colspan="2">-->
+                                <!--                                        <t t-if="doc.company_id.vat">-->
+                                <!--                                            <span style="font-size: 14px;font-weight: bold;">TRN:</span>-->
+                                <!--                                            <span t-if="doc.company_id.vat"-->
+                                <!--                                                  style="font-size: 14px;font-weight: bold; display: inline; margin-left: 5px;"-->
+                                <!--                                                  t-esc="doc.company_id.vat"/>-->
+                                <!--                                        </t>-->
+                                <!--                                    </td>-->
+                                <!--                                </tr>-->
+                                <!--                                <tr width="100%" style="margin:0">-->
+                                <!--                                    <td style="width: 100%;border-top: 1pt solid black;" colspan="2"/>-->
+                                <!--                                </tr>-->
+                            </table>
+                        </div>
+                        <t t-if="doc.company_id.vat">
+                            <table width="100%" style="margin-top: 10px;" class="table-borderless">
+                                <tr>
+                                    <td style="width: 100%; font-size: 14px;padding-bottom:10px;" align="right">
+                                        <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                                        <span style="font-size: 14px; font-weight: bold; margin-left: 5px;"
+                                              t-esc="doc.company_id.vat"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                        <table width="100%" style="margin-top: 10px;" class="table-borderless">
+                            <tr>
+                                <td align="center">
+                                    <strong>INSPECTION REPORT</strong>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <table border="1" cellspacing="0" cellpadding="5" width="100%">
+                            <tr style="height: 50px;">
+                                <td >
+                                    <strong>CLIENT NAME:</strong>
+                                </td>
+                                        <td colspan="3"><span t-field="doc.partner_id.name"/></td>
+                                <!--        <td></td>-->
+                                <!--        <td></td>-->
+                            </tr>
+                            <tr style="height: 50px;">
+                                <td>
+                                    <strong>VESSEL NAME:</strong>
+                                </td>
+                                <td> <span t-field="doc.vessel_id.name"/></td>
+                                <td>
+                                    <strong>DATE:</strong>
+                                </td>
+                                <td><span t-field="doc.date_deadline"/> </td>
+                            </tr>
+                            <tr style="height: 50px;">
+                                <td>
+                                    <strong>LOCATION:</strong>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <strong>Enq. No:</strong>
+                                </td>
+                                <td><span t-field="doc.enq_no"/></td>
+                            </tr>
+                        </table>
+
+                        <br/>
+                        <br/>
+                        <table border="1" cellspacing="0" cellpadding="5" width="100%">
+                            <tr style="height: 50px;">
+                                <td>
+                                    <strong>EQUIPMENT:</strong>
+                                </td>
+
+                            </tr>
+                            <tr style="height: 50px;">
+                                <td>
+                                    <strong>MODEL NO:</strong>
+                                </td>
+
+                            </tr>
+                            <tr style="height: 50px;">
+                                <td>
+                                    <strong>SERIAL NO:</strong>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <table border="1" cellspacing="0" cellpadding="5" width="100%" class="table-borderless">
+                            <tr style="height: 50px;">
+                                <td>
+                                    <strong>TYPE OF SERVICE:</strong>
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Supply
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Maintanance
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>New
+                                    Installation
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Testing
+                                    &amp; Certification
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <table border="1" cellspacing="0" cellpadding="5" width="100%">
+
+                            <tr>
+                                <td colspan="4">
+                                    <strong>Work Description:</strong>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <strong>Findings:</strong>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <strong>Remedial Action:</strong>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <table border="1" cellspacing="0" cellpadding="5" width="100%" class="table-borderless">
+                            <tr>
+                                <td colspan="4">
+                                    <strong>SPARES REQUIRED:</strong>
+                                </td>
+                            </tr>
+                            <br/>
+                            <table border="1" cellspacing="0" cellpadding="5" width="100%" >
+                                <tr>
+                                    <td>
+                                        <strong>SL NO.</strong>
+                                    </td>
+                                    <td>
+                                        <strong>DESCRIPTION</strong>
+                                    </td>
+                                    <td>
+                                        <strong>PART NO</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Qty Unit</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                        <br/>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <br/>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <br/>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <table cellspacing="0" cellpadding="5" width="100%" class="table-borderless">
+                            <tr style="height: 50px;">
+                                <td>
+                                    <strong>GENERAL REQUIREMENT:</strong>
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Hotwork
+                                    Permit
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Scafolding
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Craneage
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Ventilation
+
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <table cellspacing="0" cellpadding="5" width="100%" class="table-borderless">
+                            <tr style="height: 50px;">
+                                <td width="35%">
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Outfit
+                                    Removal
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Lifting
+                                </td>
+                                <td>
+                                    <input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>
+                                    Transportation
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Other(If
+                                    Any)
+
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <table cellspacing="0" cellpadding="5" width="100%" class="table-borderless">
+                            <tr style="height: 50px;">
+                                <td>
+                                    <strong>DOCUMENT AVAILABLE:</strong>
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Drawings
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Sample
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Photograph
+                                </td>
+                                <td><input style="margin-left: 5%;" type="checkbox" id="checkbox_packaging"/>Other(If
+                                    Any)
+
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <table cellspacing="0" cellpadding="5" width="100%" class="table-borderless">
+                            <!--                            <tr>-->
+                            <!--                                <td colspan="4">-->
+                            <!--                                    <strong>GENERAL REQUIREMENT:</strong>-->
+                            <!--                                    <br/>-->
+                            <!--                                    Hotwork Permit Scaffolding Craneage-->
+                            <!--                                    Ventilation-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+                            <!--                            <tr>-->
+                            <!--                                <td colspan="4">-->
+                            <!--                                    Outfit Removal Lifting Transportation Other-->
+                            <!--                                    (If Any)-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+                            <!--                            <tr>-->
+                            <!--                                <td colspan="4">-->
+                            <!--                                    <strong>DOCUMENT AVAILABLE:</strong>-->
+                            <!--                                    <br/>-->
+                            <!--                                    Drawings Sample Photograph Other (If Any)-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+                            <tr width="100%" >
+                                <td width="40%" style="padding-top:30px;border-bottom: 1px solid black">
+                                    <span>
+                                        <strong>
+                                            Inspected By:
+                                        </strong>
+                                    </span>
+                                </td>
+                                <td width="20%" style="padding-top:30px;">
+
+                                </td>
+                                <td width="40%" style="padding-top:30px;border-bottom: 1px solid black">
+                                    <span>
+                                        <strong>
+                                            Verified By:
+                                        </strong>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

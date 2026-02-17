@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="report_material_purchase_requisition">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page" style="font-size:12px;">
+                        <div class="header">
+
+                            <table class="table table-borderless table-condensed table-hover">
+                                <tr width="100%">
+                                    <td style="width:100%;" align="right">
+                                        <t t-if="doc.company_id.logo">
+                                            <img t-attf-src="data:image/*;base64,{{doc.company_id.logo}}" height="100px"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <table class="table table-borderless table-condensed table-hover">
+
+                                <tr>
+                                    <td style="text-align:center; padding-top:10px; padding-bottom:10px;">
+                                        <h3 style="margin:0;">
+                                            <strong>
+                                                <span style="text-decoration:underline;">
+                                                    Material Requisition
+                                                </span>
+                                            </strong>
+                                        </h3>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        <!-- ================= HEADER ================= -->
+
+
+
+                        <!-- ================= JOB INFO ================= -->
+                        <!--                <div class="row">-->
+                        <!--                    <div class="col-6">-->
+                        <!--                        <strong>Job No:</strong>-->
+                        <!--                        <span t-field="doc.so_id.name"/>-->
+                        <!--                    </div>-->
+                        <!--                    <div class="col-6">-->
+                        <!--                        <strong>RFQ Nos:</strong>-->
+                        <!--                        <span t-esc="', '.join(doc.po_ids.mapped('name'))"/>-->
+                        <!--                    </div>-->
+                        <!--                </div>-->
+
+                        <br/>
+                        <div class="row">
+                            <div class="col-8">
+                                <p>
+                                    <strong>MR No: </strong>
+                                    <span t-field="doc.sequence"/>
+                                    <br/>
+                                    <strong>Client: </strong>
+                                    <span t-field="doc.employee_id.name"/>
+                                    <br/>
+
+                                    <strong>Vessel: </strong>
+                                    <span t-field="doc.vessel_id"/>
+                                    <br/>
+
+                                    <strong>Location: </strong>
+                                    <span t-field="doc.destination_location_id.name"/>
+                                </p>
+                            </div>
+
+                            <div class="col-4 text-right">
+                                <p>
+                                    <strong>Date: </strong>
+                                    <span t-field="doc.requisition_date"/>
+                                    <br/>
+
+                                    <strong>Qtn. No: </strong>
+                                    <span t-field="doc.so_id.quotation_reference"/>
+                                    <br/>
+                                    <strong>Job No: </strong>
+                                    <span t-field="doc.so_id.name"/>
+                                    <br/>
+                                    <strong>RFQ Nos: </strong>
+                                    <span t-esc="', '.join(doc.po_ids.filtered(lambda p: p.state not in ['purchase', 'cancel']).mapped('name'))"/>
+                                    <br/>
+                                    <strong>PO Nos: </strong>
+                                    <span t-esc="', '.join(doc.po_ids.filtered(lambda p: p.state == 'purchase').mapped('name'))"/>
+
+                                </p>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <!-- ================= ITEM TABLE ================= -->
+                        <table class="table table-bordered" width="100%" style="font-size:11px;border: 1pt solid black;">
+                            <thead>
+                                <tr>
+                                    <th width="4%">Sl No</th>
+<!--                                    <th width="6%">Code</th>-->
+                                    <th width="8%">Item Code</th>
+<!--                                    <th width="12%">Product</th>-->
+                                    <th width="14%">Item Description</th>
+                                    <th width="10%">Model</th>
+                                    <th width="8%">Part No</th>
+                                    <th width="6%">Qty</th>
+                                    <th width="6%">UOM</th>
+                                    <th width="8%">ETA</th>
+                                    <th width="8%">Status</th>
+                                    <th width="10%">Remarks</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <t t-set="sl" t-value="1"/>
+                                <t t-foreach="doc.requisition_line_ids" t-as="line">
+                                    <tr>
+                                        <!-- Sl No -->
+                                        <td>
+                                            <t t-esc="sl"/>
+                                            <t t-set="sl" t-value="sl + 1"/>
+                                        </td>
+
+                                        <!-- Code -->
+<!--                                        <td>-->
+<!--                                            <span t-field="line.code"/>-->
+<!--                                        </td>-->
+
+                                        <!-- Item Code -->
+                                        <td>
+                                            <span t-field="line.product_id.default_code"/>
+                                        </td>
+
+                                        <!-- Product -->
+<!--                                        <td>-->
+<!--                                            <span t-field="line.product_id.name"/>-->
+<!--                                        </td>-->
+
+                                        <!-- Item Description -->
+                                        <td>
+                                            <span t-field="line.description"/>
+                                        </td>
+
+                                        <!-- Model -->
+                                        <td>
+                                            <span t-field="line.product_id.product_tmpl_id.model"/>
+                                        </td>
+
+                                        <!-- Part No -->
+                                        <td>
+                                            <span t-field="line.product_id.product_tmpl_id.part_no"/>
+                                        </td>
+
+                                        <!-- Qty -->
+                                        <td style="text-align:right;">
+                                            <span t-field="line.qty"/>
+                                        </td>
+
+                                        <!-- UOM -->
+                                        <td>
+                                            <span t-field="line.uom_id.name"/>
+                                        </td>
+
+                                        <!-- ETA -->
+                                        <td>
+                                            <span t-field="line.requisition_id.requisition_deadline_date"/>
+                                        </td>
+
+                                        <!-- Status -->
+                                        <td>
+                                            <span t-field="line.requisition_id.state"/>
+                                        </td>
+
+                                        <!-- Remarks -->
+                                        <td>
+                                            <span t-field="line.remarks"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+
+                        <!-- ================= NOTES ================= -->
+                        <br/>
+                        <!-- General Note Heading -->
+                        <div style="margin-top:10px;">
+                            <strong style="text-decoration: underline;">
+                                General Note:
+                            </strong>
+                        </div>
+
+                        <!-- General Note Box -->
+                        <table class="table table-bordered" width="100%" style="margin-top:5px;border: 1pt solid black;">
+                            <tr>
+                                <td style="
+            padding:8px;
+            height:50px;
+            vertical-align:top;
+            overflow:hidden;
+        ">
+                                    <t t-raw="doc.reason_for_requisition"/>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <br/>
+
+                        <!-- ================= SIGNATURES ================= -->
+                        <table width="100%" style="margin-top:20px; font-size:12px;" class="table-borderless">
+
+                            <!-- Requested By -->
+                            <tr>
+                                <td style="padding-bottom:20px;">
+                                    <strong>Requested By:
+                                    </strong>
+
+                                    <div style="
+            margin-top:15px;
+            border-bottom:1px solid #000;
+            width:40%;
+            padding-bottom:2px;
+        ">
+                                        <span t-field="doc.create_uid.name"/>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <!-- Required Date -->
+                            <tr>
+                                <td style="padding-bottom:20px;">
+                                    <strong>Required date:
+                                    </strong>
+                                    <div style="margin-top:15px; border-bottom:1px solid #000; width:40%;">
+                                        <span t-field="line.requisition_id.requisition_deadline_date"/>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Acknowledged By -->
+                            <tr>
+                                <td style="padding-bottom:20px;">
+                                    <strong>Acknowledged by:
+                                    </strong>
+                                    <div style="margin-top:15px; border-bottom:1px solid #000; width:40%;">
+                                        <span t-field="line.requisition_id.approved_by_id"/>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <div style="margin-top:30px; border-top:1px solid #000; padding-top:8px;">
+                            <p style="text-align:center; font-style:italic; font-size:11px; margin:0;">
+                                A professional Supplier and Service provider for All Electrical &amp; Instrumentation,
+                                Automation &amp; Control, Fire &amp; Safety, Navigation and Communication and
+                                Calibration
+                                requirements for Marine, Oil &amp; Gas and Energy Industry.
+                            </p>
+                        </div>
+                        <div class="footer">
+
+                            <!-- Footer -->
+                            <div style="border-top:1px solid #000; margin-top:15px; padding-top:6px; font-size:10px;">
+
+                                <table width="100%" class="table-borderless">
+                                    <tr>
+
+                                        <!-- LEFT -->
+                                        <td width="33%" style="vertical-align:top;">
+                                            <strong>Form No.</strong>
+                                            <span t-esc="doc.get_file_name_from_folder()"/>
+                                            <br/>
+                                            <strong>Issue:</strong>
+                                            <br/>
+                                            <strong>Date:</strong>
+                                            <span t-field="doc.requisition_date"/>
+                                        </td>
+
+                                        <!-- CENTER -->
+                                        <td width="34%" style="text-align:center; vertical-align:top;">
+                                            <strong>www.voyagemarine.ae</strong>
+                                        </td>
+
+                                        <!-- RIGHT -->
+                                        <td width="33%" style="text-align:right; vertical-align:top;">
+                                            ISO 9001:2015;
+                                            <br/>
+                                            ISO 45001:2018;
+                                            <br/>
+                                            ISO 17025:2017
+                                            <br/>
+                                            <em>Material Request Form</em>
+                                        </td>
+
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

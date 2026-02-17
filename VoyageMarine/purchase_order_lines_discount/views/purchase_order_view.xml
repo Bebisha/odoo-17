@@ -1,0 +1,26 @@
+<!-- > Copyright (c) 2023 Sayed Hassan (sh-odoo@hotmail.com)-->
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">purchase.order.form.discount</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="after">
+                <field name="fixed_discount" optional="hide"/>
+            </xpath>
+            <xpath expr="//field[@name='tax_totals']" position="before">
+                <field name="amount_discount" colspan="2" readonly="1" invisible="amount_discount == 0"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_po_line_form" model="ir.ui.view">
+        <field name="name">purchase.order.form.discount</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="before">
+                <field name="amount_discount" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

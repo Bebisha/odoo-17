@@ -1,0 +1,151 @@
+<odoo>
+    <!-- Salesperson Users -->
+    <record id="user_adil" model="res.users">
+        <field name="name">Adil</field>
+        <field name="login">adil@example.com</field>
+    </record>
+
+    <record id="user_srinivas_reddy" model="res.users">
+        <field name="name">Srinivas Reddy</field>
+        <field name="login">srinivas.reddy@example.com</field>
+    </record>
+
+    <record id="user_jocuain" model="res.users">
+        <field name="name">Jocuain</field>
+        <field name="login">jocuain@example.com</field>
+    </record>
+
+    <record id="user_shiela_mariz" model="res.users">
+        <field name="name">SHIELA MARIZ B. CALDERON</field>
+        <field name="login">shiela.calderon@example.com</field>
+    </record>
+
+    <record id="user_jairaj" model="res.users">
+        <field name="name">Jairaj</field>
+        <field name="login">jairaj@example.com</field>
+    </record>
+
+    <record id="user_ali" model="res.users">
+        <field name="name">Ali</field>
+        <field name="login">ali@example.com</field>
+    </record>
+
+    <record id="user_samun" model="res.users">
+        <field name="name">Samun</field>
+        <field name="login">samun@example.com</field>
+    </record>
+
+    <record id="user_nayaz" model="res.users">
+        <field name="name">Nayaz</field>
+        <field name="login">nayaz@example.com</field>
+    </record>
+
+    <record id="user_waqar_azeem" model="res.users">
+        <field name="name">Waqar Azeem</field>
+        <field name="login">waqar.azeem@example.com</field>
+    </record>
+
+    <record id="user_akhil" model="res.users">
+        <field name="name">Akhil</field>
+        <field name="login">akhil@example.com</field>
+    </record>
+
+    <record id="user_kaisar_rana" model="res.users">
+        <field name="name">Kaisar Ali Rana</field>
+        <field name="login">kaisar.rana@example.com</field>
+    </record>
+
+    <record id="user_muhammad_fasalu" model="res.users">
+        <field name="name">MUHAMMAD FASALU</field>
+        <field name="login">muhammad.fasalu@example.com</field>
+    </record>
+
+    <record id="user_riyas_deen" model="res.users">
+        <field name="name">Riyas Deen</field>
+        <field name="login">riyas.deen@example.com</field>
+    </record>
+
+    <record id="user_kiran" model="res.users">
+        <field name="name">Kiran</field>
+        <field name="login">kiran@example.com</field>
+    </record>
+
+    <record id="user_divya_mohandas" model="res.users">
+        <field name="name">Divya Mohandas</field>
+        <field name="login">divya.mohandas@example.com</field>
+    </record>
+
+    <record id="user_sujith" model="res.users">
+        <field name="name">Sujith</field>
+        <field name="login">sujith@example.com</field>
+    </record>
+
+    <record id="user_shabbir" model="res.users">
+        <field name="name">Shabbir</field>
+        <field name="login">shabbir@example.com</field>
+    </record>
+
+    <record id="user_qasim" model="res.users">
+        <field name="name">Qasim</field>
+        <field name="login">qasim@example.com</field>
+    </record>
+
+    <record id="user_ajith" model="res.users">
+        <field name="name">Ajith</field>
+        <field name="login">ajith@example.com</field>
+    </record>
+
+    <record id="user_mary_sweety" model="res.users">
+        <field name="name">Mary Sweety</field>
+        <field name="login">mary.sweety@example.com</field>
+    </record>
+
+    <!-- Company 1 -->
+    <record id="partner_aikah_general_trading" model="res.partner">
+        <field name="name">Aikah Establishment for General Trading</field>
+        <field name="company_type">company</field>
+        <field name="is_company">True</field>
+        <field name="supplier_rank">1</field>
+
+    </record>
+
+    <!-- Company 2 -->
+    <record id="partner_al_ghandi_switchgears" model="res.partner">
+        <field name="name">Al Ghandi Switchgears Industry</field>
+        <field name="company_type">company</field>
+        <field name="is_company">True</field>
+        <field name="supplier_rank">1</field>
+
+    </record>
+
+    <!-- Company 3 -->
+    <record id="partner_al_inshrah_industry" model="res.partner">
+        <field name="name">AL INSHRAH INDUSTRY LLC</field>
+        <field name="company_type">company</field>
+        <field name="is_company">True</field>
+        <field name="supplier_rank">1</field>
+    </record>
+    <record id="partner_electric_LLC" model="res.partner">
+        <field name="name">See Electric Trading LLC</field>
+        <field name="company_type">company</field>
+        <field name="is_company">True</field>
+        <field name="supplier_rank">1</field>
+    </record>
+    <record id="partner_aikah_gen_LLC" model="res.partner">
+        <field name="name">Aikah General Trading LLC</field>
+        <field name="company_type">company</field>
+        <field name="is_company">True</field>
+        <field name="supplier_rank">1</field>
+    </record>
+    <record id="partner_al_LLC" model="res.partner">
+        <field name="name">AL Khoory Switch Gear Trading LLC</field>
+        <field name="company_type">company</field>
+        <field name="is_company">True</field>
+        <field name="supplier_rank">1</field>
+    </record>
+    <record id="vendor_tag_tb_power_supply_manufacturer" model="res.partner.category">
+        <field name="name">TB &amp; POWER SUPPLY MANUFACTURER</field>
+    </record>
+
+
+</odoo>

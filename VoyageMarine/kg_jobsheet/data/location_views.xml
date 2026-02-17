@@ -1,0 +1,11 @@
+<odoo>
+    <data noupdate="0">
+        <record id="kg_jobsheet_used_locations" model="stock.location">
+            <field name="name">Service Location</field>
+            <field name="usage">internal</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+            <field name="is_service_location">True</field>
+            <field name="company_id"></field>
+        </record>
+    </data>
+</odoo>

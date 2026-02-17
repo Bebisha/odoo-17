@@ -1,0 +1,129 @@
+<odoo>
+    <data>
+        <record id="kg_view_move_form_inherit_form" model="ir.ui.view">
+            <field name="name">kg.account.move.view.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_vendor_bill_id']" position="after">
+                    <field name="partner_invoice_id"
+                           context="{'default_type':'invoice', 'show_address': False, 'show_vat': False}"
+                           readonly="state == 'posted'"/>
+<!--                    <field name="division_id" required="state == 'draft' and move_type in ['in_invoice','out_invoice']"-->
+<!--                           readonly="state == 'posted'"-->
+<!--                           invisible="move_type not in ['in_invoice','out_invoice']"/>-->
+                    <field name="boe_ref"
+                           readonly="state == 'posted'"
+                           invisible="move_type not in ['in_invoice','out_invoice']"/>
+                    <field name="vessel_id" readonly="state == 'posted'"/>
+                    <field name="type_id"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="domain">
+    [('parent_id', '=', False),
+     ('is_company', '=', True),
+     '|',
+     ('partner_type', '=', 'vendor'),
+     ('partner_type', '=', False)]
+</attribute>
+
+
+                </xpath>
+
+                <field name="narration" position="after">
+                    <field name="freight_custom"/>
+                    <field name="custom_charge"/>
+                </field>
+                <xpath expr="//group[hasclass('oe_invoice_lines_tab')]" position="inside">
+                    <group colspan="8"/>
+                    <group colspan="4">
+                        <group class="oe_subtotal_footer">
+                            <field name="amount_total"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook/page[@name='invoice_tab']/field/tree/field[@name='product_id']"
+                       position="before">
+                    <field name="division_id"/>
+                </xpath>
+                <xpath expr="//notebook/page[@name='aml_tab']/field/tree/field[@name='name']" position="before">
+                    <field name="division_id" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_move_line_tree_inh_id" model="ir.ui.view">
+            <field name="name">account.move.line.tree.inh</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position='before'>
+                    <field name="division_id" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_move_line_form_inh" model="ir.ui.view">
+            <field name="name">account.move.line.form.inh</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position='after'>
+                    <field name="has_abnormal_deferred_dates" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_move_filter_inherits" model="ir.ui.view">
+            <field name="name">account.move.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/group" position="inside">
+                    <field name="type_id"/>
+                    <filter string="Local" name="local" domain="[('type_id', '=', 'local')]"/>
+                    <filter string="Middle East" name="meast" domain="[('type_id', '=', 'meast')]"/>
+                    <filter string="International" name="international" domain="[('type_id', '=', 'international')]"/>
+                    <filter string="Sister Concern" name="sisconcern" domain="[('type_id', '=', 'sisconcern')]"/>
+                    <filter string="Subcontracting" name="subcontracting"
+                            domain="[('type_id', '=', 'subcontracting')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_type_id" string="Type" context="{'group_by': 'type_id'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="inherit_view_account_payment_search" model="ir.ui.view">
+            <field name="name">account.payment.search.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="type_id"/>
+                    <filter string="Local" name="local" domain="[('type_id', '=', 'local')]"/>
+                    <filter string="Middle East" name="meast" domain="[('type_id', '=', 'meast')]"/>
+                    <filter string="International" name="international" domain="[('type_id', '=', 'international')]"/>
+                    <filter string="Sister Concern" name="sisconcern" domain="[('type_id', '=', 'sisconcern')]"/>
+                    <filter string="Subcontracting" name="subcontracting"
+                            domain="[('type_id', '=', 'subcontracting')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_type_id" string="Type" context="{'group_by': 'type_id'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="account_payment_inherit" model="ir.ui.view">
+            <field name="name">account.payment.form.inherits</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="type_id"/>
+                    <field name="division_id"/>
+                </field>
+
+            </field>
+        </record>
+
+        <menuitem id="menu_sale_order" name="Sale Order" parent="account_accountant.menu_accounting"
+                  action="sale.action_orders" sequence="2"/>
+
+    </data>
+</odoo>

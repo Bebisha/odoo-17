@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hospital_service_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Hospital Service</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">hospital.service</field>
+
+    </record>
+    <record id="hospital_service_tree" model="ir.ui.view">
+        <field name="name">hospital.service.tree.views</field>
+        <field name="model">hospital.service</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="hospital_service_form" model="ir.ui.view">
+        <field name="name">hospital.service.form.views</field>
+        <field name="model">hospital.service</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="hospital_service_menu"
+              action="hospital_service_action"
+              name="Hospital Service"
+              parent="kg_nabidh.pv1_menu"/>
+
+</odoo>

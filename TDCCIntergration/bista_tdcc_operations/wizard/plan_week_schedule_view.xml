@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="plan_week_schedule_form" model="ir.ui.view">
+            <field name="name">plan.week.schedule.form</field>
+            <field name="model">plan.week.schedule</field>
+            <field name="arch" type="xml">
+                <form string="Plan Week Schedule">
+                    <field name="line_ids">
+                        <tree string='Schedule' delete='false' editable='bottom'>
+                            <field name="allow"/>
+                            <field name="day_list" readonly="1"/>
+                            <field name="start_time" widget="float_time"/>
+                            <field name="end_time" widget="float_time"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="create_week_schedule" string="Create Week Schedule" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_open_week_schedule" model="ir.actions.act_window">
+            <field name="name">Week Schedule</field>
+            <field name="res_model">plan.week.schedule</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

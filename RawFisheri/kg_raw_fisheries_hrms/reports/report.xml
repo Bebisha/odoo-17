@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--  Paperformat for leave application form  -->
+        <record id="kg_paper_format_leave_application_form" model="report.paperformat">
+            <field name="name">Leave Application A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">70</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">60</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!--  Action for resigned employees pdf report  -->
+        <record id="action_report_resigned_employees_pdf" model="ir.actions.report">
+            <field name="name">Resigned Employees</field>
+            <field name="model">hr.employee</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_raw_fisheries_hrms.report_resigned_employees_pdf</field>
+            <field name="report_file">kg_raw_fisheries_hrms.report_resigned_employees_pdf</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!--  Action for leave application form  -->
+        <record id="action_report_resigned_employees_pdf" model="ir.actions.report">
+            <field name="name">Leave Application Form</field>
+            <field name="model">hr.leave</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_raw_fisheries_hrms.leave_application_form</field>
+            <field name="report_file">kg_raw_fisheries_hrms.leave_application_form</field>
+            <field name="binding_model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="paperformat_id" ref="kg_raw_fisheries_hrms.kg_paper_format_leave_application_form"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!--  Action for employee entry report  -->
+        <record id="action_employee_entries_report" model="ir.actions.report">
+            <field name="name">Employee Entry Report</field>
+            <field name="model">entry.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_raw_fisheries_hrms.employee_entry_report</field>
+            <field name="report_file">kg_raw_fisheries_hrms.employee_entry_report</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!--  Action for shop entry report  -->
+        <record id="action_shop_entries_report" model="ir.actions.report">
+            <field name="name">Shop Entry Report</field>
+            <field name="model">shop.entry.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_raw_fisheries_hrms.shop_entry_report</field>
+            <field name="report_file">kg_raw_fisheries_hrms.shop_entry_report</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!--  Action for discharge entry report  -->
+        <record id="action_discharge_entries_report" model="ir.actions.report">
+            <field name="name">Discharge Entry Report</field>
+            <field name="model">discharge.entry.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_raw_fisheries_hrms.discharge_entry_report</field>
+            <field name="report_file">kg_raw_fisheries_hrms.discharge_entry_report</field>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

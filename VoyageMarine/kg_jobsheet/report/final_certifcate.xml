@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_final_calibration_dimension_product">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            * {
+                                font-size: 14px;
+                            }
+                        </style>
+
+                        <h2 style="text-align: center;">CERTIFICATE OF CALIBRATION</h2>
+
+                        <!-- Client Information -->
+                        <table class="table table-sm">
+                            <tr>
+                                <td style="border: none;">Client</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.partner_id.name"/>
+                                </td>
+                                <td style="border: none;">Certificate No</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.job_ref_calibration.certificate_no"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none;">Address</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.partner_id.street"/>,,<span t-field="o.partner_id.state" style="font-size:14px;"/>,<span t-field="o.partner_id.vat" style="font-size:14px;"/>
+                                </td>
+                                <td style="border: none;">Calibration Date</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.job_ref_calibration.calibration_date"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none;"></td>
+                                <td style="border: none;"></td>
+                                <td style="border: none;"></td>
+                                <td style="border: none;">Rec Due Date</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.job_ref_calibration.recommended_due_date"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none;"></td>
+                                <td style="border: none;"></td>
+                                <td style="border: none;"></td>
+                                <td style="border: none;">Date of Receiving</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.job_ref_calibration.received_date"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- Unit Under Calibration -->
+                        <table class="table table-sm">
+                            <tr>
+                                <th colspan="6">UNIT UNDER CAL.</th>
+                            </tr>
+                            <tr>
+                                <td style="border: none;">UNIT UNDER CAL</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.job_ref_calibration.product_id.name"/>
+                                </td>
+
+                                <td style="border: none;"></td>
+                                <td style="border: none;"></td>
+                                <td style="border: none;"></td>
+                            </tr>
+                            <tr>
+                                <td style="border: none;">Make</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.make_id.name"/>
+                                </td>
+                                <td style="border: none;">Model</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.model_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none;">Serial No</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.lot_id.name"/>
+                                </td>
+                                <td style="border: none;">Range</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.job_ref_calibration.unit_range"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none;">Resolution</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.job_ref_calibration.unit_resolution"/>
+                                </td>
+                                <td style="border: none;">Accuracy</td>
+                                <td style="border: none;">:</td>
+                                <td style="border: none;">
+                                    <span t-field="o.job_ref_calibration.unit_accuracy"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Environmental Conditions -->
+                        <table class="table table-sm">
+                            <tr>
+                                <th colspan="2">Environmental Condition</th>
+                            </tr>
+                            <tr style=" text-align: center;">
+                                <td>Temperature (°C)</td>
+                                <td>
+                                    Humidity (%)
+                                </td>
+                            </tr>
+                            <tr style=" text-align: center;">
+                                <td class="text-center">
+                                    <span t-field="o.job_ref_calibration.temperature_with_accuracy"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.job_ref_calibration.humidity_with_accuracy"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Master Equipments -->
+                        <table class="table table-sm">
+                            <tr>
+                                <th colspan="5">Master Equipments</th>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <th>Make</th>
+                                <th>Serial No</th>
+                                <th>Traceability Cert.No</th>
+                                <th>Traceable to</th>
+                            </tr>
+                            <tr style=" text-align: center;" t-foreach="o.job_ref_calibration.product_template_ids" t-as="me">
+                                <td>
+                                    <span t-field="me.product_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="me.equipment_make"/>
+                                </td>
+                                <td>
+                                    <span t-field="me.equipment_serial_no"/>
+                                </td>
+                                <td>
+                                    <span t-field="me.equipment_certificate_no"/>
+                                </td>
+                                <td>
+                                    <span t-field="me.equipment_traceability"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Calibration Methods and Reference Standards -->
+                        <table class="table table-sm">
+                            <tr>
+                                <th colspan="4">Calibration Methods and Reference Standards</th>
+                            </tr>
+                            <tr>
+                                <th>Work instruction No</th>
+                                <th>Standards</th>
+                                <th>Any other</th>
+                                <th>Test Method Variations</th>
+                            </tr>
+                            <tr style=" text-align: center;">
+                                <td>
+                                    <span t-field="o.job_ref_calibration.work_instruction"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.job_ref_calibration.standards"/>
+                                </td>
+                                <td>
+                                    <span/>
+                                </td>
+                                <td>
+                                    <span t-field="o.job_ref_calibration.test_method_variation"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-borderless">
+                            <tr class="table table-borderless">
+                                <td style="width: 50%; text-align: left; border: none;">Calibrated By</td>
+                                <td style="width: 50%; text-align: right; border: none;">Approved By</td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        <table style="width: 100%; " class="table table-borderless">
+                            <tr>
+                                <td>
+                                    <t t-raw="o.job_ref_calibration.calibration_notes"/>
+                                </td>
+                            </tr>
+                        </table>
+                         <table style="width: 100%; " class="table table-borderless">
+                            <tr>
+                                <td style="width: 50%; text-align: right; border: none;">Cert.No:<span t-field="o.job_ref_calibration.certificate_no"/></td>
+                            </tr>
+                        </table>
+                         <div style="page-break-before: always;"></div>
+                        <table style="width: 100%; " class="table table-borderless">
+                            <tr>
+                                <th>CALIBRATION RESULTS</th>
+                            </tr>
+                        </table>
+                        <table style="width: 100%;" class="table table-sm">
+                            <tr>
+                                <td>
+                                    <t t-raw="o.certificate_content_view"/>
+                                </td>
+                            </tr>
+                        </table>
+                         <table style="width: 100%; " class="table table-borderless">
+                            <tr>
+                                <th>*****End of  Certificate*****</th>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

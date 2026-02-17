@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_po_form" model="ir.ui.view">
+        <field name="name">Invoice Orders</field>
+        <field name="model">sale.po.creation</field>
+        <field name="arch" type="xml">
+            <form string="Sales From PO">
+                <sheet>
+                    <p class="oe_grey">
+                        Purchase order will be created in draft so that you can review
+                        them before Confirm.
+                    </p>
+                    <group>
+                        <group>
+                            <field name="so_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="vendor_id"
+                                   domain="[('supplier_rank','&gt;', 0),('is_approved', '=', True)]"
+                                   options="{'no_create': True, 'no_create_edit':True}"/>
+                        </group>
+                    </group>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="sale_order_id"/>
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="purchase_rate"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="create_draft_po" id="create_draft_po" string="Create Purchase Order" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_sale_po_wizard" model="ir.actions.act_window">
+        <field name="name">Create RFQ</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.po.creation</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+
+</odoo>

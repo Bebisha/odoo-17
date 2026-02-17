@@ -1,0 +1,133 @@
+<odoo>
+    <template id="scan_gmusic_club_template" name="Scan Music Club Form">
+        <t t-call="website.layout">
+            <style>
+
+                footer { display: none !important; }
+                header{display:none !important;}
+
+                .qr-social-row {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                margin-top: 40px;
+                white-space: nowrap;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                }
+
+                .qr-item {
+                text-align: center;
+                flex: 0 0 auto;
+                }
+
+                .qr-item img {
+                width: 120px;
+                height: 120px;
+                }
+
+                .qr-item a {
+                display: block;
+                margin-top: 8px;
+                font-size: 24px;
+                color: #000;
+                text-decoration: none;
+                }
+
+                .qr-item a:hover {
+                color: #007bff;
+                }
+
+                .qr-item a .fa-facebook {
+                color: #1877F2;
+                }
+
+                .qr-item a .fa-instagram {
+                color: #E4405F;
+                }
+
+                .qr-item a .fa-tiktok {
+                color: #010101;
+                }
+
+                .qr-item a:hover .fa-facebook {
+                color: #145dbf;
+                }
+
+                .qr-item a:hover .fa-instagram {
+                color: #cc3366;
+                }
+
+                .qr-item a:hover .fa-tiktok {
+                color: #ff0050;
+                }
+
+            </style>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const agentNameInput = document.getElementById("agent_name");
+                    const qrImg = document.getElementById("qr-code-img");
+                    const qrSection = document.getElementById("qr-section");
+                    const applicationPage = document.getElementById("application-page-link");
+                    const agentIdInput = document.getElementById("agent_id");
+                    const baseUrl = window.location.origin + "/join_gmusic_club/";
+
+                    function updateQRSection() {
+                        const agentName = agentNameInput.value;
+                        const agentId = agentIdInput.value;
+
+                        if (agentName &amp;&amp; agentId) {
+                            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${baseUrl}${agentId}&amp;size=120x120`;
+                            qrImg.src = qrUrl;
+                            qrSection.style.display = 'block';
+                            applicationPage.display = 'block';
+                        } else {
+                            qrImg.src = "";
+                            qrSection.style.display = 'none';
+                            applicationPage.style.display = 'none';
+                        }
+                    }
+
+                    updateQRSection();
+                    agentNameInput.addEventListener("input", updateQRSection);
+                });
+            </script>
+
+            <section class="gshock-scan-section gshock-form-section">
+                <div class="container" style="width: 80%; border-radius: 20px !important;">
+                    <h2>Scan and Join the
+                        <br/>
+                        CASIO MUSIC Club!
+                    </h2>
+                    <div class="g-shock-form">
+                        <div class="form-group">
+                            <input type="hidden" name="agent_id" id="agent_id"
+                                   class="custom-input" t-att-value="agent_id"/>
+                            <input type="hidden" name="agent_name" id="agent_name" t-att-value="agent_name"/>
+                            <span class="agent-name-text" style="font-size: 18px;">
+                                <t t-esc="agent_name"/>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div id="qr-section" style="display: none;">
+                        <h6>Scan below to visit our join page</h6>
+                        <div class="qr-social-row">
+                            <div class="qr-item">
+                                <img id="qr-code-img"
+                                     src=""
+                                     alt="Agent QR Code"
+                                     style="width: 120px; height: 120px;"/>
+                                <a t-att-href="'/join_gmusic_club/' + str(agent_id)" id="agentFormURL" class="btn btn-primary" role="button">Click Here!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </t>
+    </template>
+</odoo>

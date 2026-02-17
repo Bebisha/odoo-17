@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <record id="appointment_reminder_mail_template" model="mail.template">
+        <field name="name">Appointment Reminder</field>
+        <field name="model_id" ref="bista_tdcc_operations.model_appointment_appointment"/>
+        <field name="subject">Appointment Reminder on - {{ format_datetime(object.start_date) }}</field>
+        <field name="email_from">{{ user.partner_id.email or '' }}</field>
+        <field name="email_to">{{ object.client_id.email or '' }}</field>
+        <field name="partner_to"/>
+        <field name="body_html" type="html">
+            <div>
+                <p>
+                    Hello,
+                    <br/>
+                    <br/>
+                    This is a reminder that
+                    <t t-out="object.client_id.name or ''"/>
+                    has an appointment booked on
+                    <t t-out="format_datetime(object.start_date) or ''"/>
+                    with <t t-out="object.physician_id.name or ''"/>.
+                </p>
+                <br/>
+                Thank you and have a lovely day.
+                <br/>
+                <br/>
+                Kind Regards,
+                <br/>
+                TDCC Team
+            </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+    <record id="appointment_notification_mail_template" model="mail.template">
+        <field name="name">Appointment Notification</field>
+        <field name="model_id" ref="bista_tdcc_operations.model_appointment_appointment"/>
+        <field name="subject">Appointment Booked on - {{ format_date(object.start_date) }}</field>
+        <field name="email_from">{{ user.partner_id.email or '' }}</field>
+        <field name="email_to"></field>
+        <field name="partner_to">{{ object.client_id.email or '' }}</field>
+        <field name="body_html" type="html">
+            <div>
+                <p>
+                    Hello <b><t t-out="object.client_id.name or ''"/></b>,
+                    <br/>
+                    <br/>
+                    Your appointment has been booked on <b><t t-out="format_date(object.start_date) or ''"/></b> with physician <b>
+                    <t t-out="object.name or ''"/></b>.
+                    % if <t t-out="object.name or ''"/>:
+                    <b>Appointment Ref No : <t t-out="object.name or ''"/></b>
+                    <br/>
+                    % endif
+                </p>
+
+                <br/>
+                Thank you and have a lovely day.
+                <br/>
+                <br/>
+                Kind Regards,
+                <br/>
+                <b>TDCC Team</b>
+            </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+    <record id="appointment_cancellation_mail_template" model="mail.template">
+        <field name="name">Appointment Cancellation</field>
+        <field name="model_id" ref="bista_tdcc_operations.model_appointment_cancel"/>
+        <field name="subject">Cancellation request for appointment - {{ ctx.get('reference') }}</field>
+        <field name="email_from">{{ user.partner_id.email or '' }}</field>
+        <field name="partner_to">{{ ctx.get('send_to') }}</field>
+        <field name="body_html" type="html">
+            <div>
+                <p>
+                    Hello,
+                    <br/>
+                    <br/>
+                    Following appointment has request for cancellation due to ${object.cancel_reason_id.name}.
+                    <br/>
+                    <br/>
+                    Appointment Ref: <t t-out="ctx.get('reference')"/>
+                    <br/>
+                    Client: <t t-out="ctx.get('client')"/>
+                    <br/>
+                    Appointment Date: <t t-out="ctx.get('schedule_date')"/>
+                    <br/>
+                </p>
+                <br/>
+                Thank you and have a lovely day.
+                <br/>
+                <br/>
+            </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+    <!-- Email template for cancel invoice send to Accounts -->
+    <record id="app_cancel_send_mail_template" model="mail.template">
+        <field name="name">Invoice Cancellation Request from Appointment</field>
+        <field name="model_id" ref="bista_tdcc_operations.model_appointment_appointment"/>
+        <field name="subject">Invoice Cancel request</field>
+        <field name="email_from"></field>
+        <field name="body_html" type="html">
+            <div>
+                <p>
+                    Hello,
+                    <br/>
+                    <br/>
+                    Following invoice has request for cancellation from <b><t t-out="ctx.get('req_from')"/></b>.
+                    <br/>
+                    <br/>
+                    % if <t t-out="ctx.get('invoice_no')"/>:
+                    <b>Invoice : <t t-out="ctx.get('invoice_no')"/></b>
+                    <br/>
+                    % endif
+                    <b>Appointment Ref: <t t-out="ctx.get('appointment')"/></b>
+                    <br/>
+                    <b>Client: <t t-out="ctx.get('client')"/></b>
+                    <br/>
+                    <b>Appointment Date: <t t-out="ctx.get('schedule_date')"/></b>
+                    <br/>
+                </p>
+                <br/>
+                <br/>
+                Do not hesitate to contact me if you have any question.
+                <br/>
+                <br/>
+                Thank you and have a lovely day.
+                <br/>
+                <br/>
+            </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+</odoo>

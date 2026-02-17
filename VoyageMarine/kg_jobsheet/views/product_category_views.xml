@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+
+        <record id="product_category_form_inherit" model="ir.ui.view">
+            <field name="name">Product Category Form View Inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="is_calibration" invisible="1"/>
+                    <field name="is_lsa" invisible="1"/>
+                    <field name="is_ffa" invisible="1"/>
+                    <field name="is_navigation_communication" invisible="1"/>
+                    <field name="is_field_service" invisible="1"/>
+                    <field name="scope_code" />
+
+
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

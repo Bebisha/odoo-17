@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+
+        <record id="view_jobcosting_wizard_form" model="ir.ui.view">
+            <field name="name">job.costing.wizard.form</field>
+            <field name="model">job.costing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="saleoder_id" widget="many2many_tags"/>
+                            <field name="is_jobsheet" />
+<!--                            <field name="calibration_ids" widget="many2many_tags"/>-->
+<!--                            <field name="lsa_ids" widget="many2many_tags"  />-->
+<!--                            <field name="ffa_ids" widget="many2many_tags"  />-->
+<!--                            <field name="navigation_communication_ids" widget="many2many_tags"  />-->
+<!--                            <field name="field_service_ids" widget="many2many_tags" />-->
+                            <!--                            <field name="revision_reason" required="1"/>-->
+                            <!--                            <field name="is_reject" invisible="1"/>-->
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Print Jobcosting" type="object" name="load_job_costing_data" class="btn-primary"
+                               />
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_job_costing_wizard" model="ir.actions.act_window">
+            <field name="name">Job Costing Report</field>
+            <field name="res_model">job.costing</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_jobcosting_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="job_costing_reports" name="JobCosting Report" parent="sale.menu_sale_report" sequence="1"
+                  action="action_job_costing_wizard"/>
+
+    </data>
+</odoo>

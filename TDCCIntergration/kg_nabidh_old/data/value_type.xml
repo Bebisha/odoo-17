@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="value_ed" model="value.type">
+            <field name="code">ED</field>
+            <field name="name">Encapsulated Data Field Type</field>
+        </record>
+
+        <record id="value_nm" model="value.type">
+            <field name="code">NM</field>
+            <field name="name">Numeric Field Type</field>
+        </record>
+
+        <record id="value_st" model="value.type">
+            <field name="code">ST</field>
+            <field name="name">String Data. Field Type</field>
+        </record>
+
+    </data>
+</odoo>

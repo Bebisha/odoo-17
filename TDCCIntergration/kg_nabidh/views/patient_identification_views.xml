@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--     <record id="allergy_information_action_new" model="ir.actions.act_window"> -->
+    <!--         <field name="type">ir.actions.act_window</field> -->
+    <!--         <field name="name">Allergy Information</field> -->
+    <!--         <field name="view_mode">tree,form</field> -->
+    <!--         <field name="res_model">patient.allergy.information</field> -->
+    <!--     </record> -->
+    <!--     <record id="allergy_information_tree" model="ir.ui.view"> -->
+    <!--         <field name="name">patient.allergy.information.tree</field> -->
+    <!--         <field name="model">patient.allergy.information</field> -->
+    <!--         <field name="arch" type="xml"> -->
+    <!--             <tree> -->
+    <!--                 <field name="allergy_type_codes"/> -->
+    <!--                 <field name="allergy_code_des"/> -->
+    <!--                 <field name="allergy_severty_code"/> -->
+    <!--                 <field name="allergy_reaction_code"/> -->
+    <!--             </tree> -->
+    <!--         </field> -->
+    <!--     </record> -->
+    <record id="patient_identification_form" model="ir.ui.view">
+        <field name="name">patient.identification.form</field>
+        <field name="model">patient.identification</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+<!--                        <group invisible="1">-->
+<!--                            <label for="full_name" string="Name"/>-->
+<!--                            <div>-->
+<!--                                <div class="o_address_format" name="div_address">-->
+<!--                                    <field name="first_name" placeholder="First Name..." class="o_first_name"/>-->
+<!--                                    <field name="middle_name" placeholder="Middle Name......" class="o_middle_name"/>-->
+<!--                                    <field name="last_name" class="o_last_name" placeholder="Last Name......."/>-->
+<!--                                    <field name="full_name" widget="text" readonly="1" invisible="1"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </group>-->
+                        <group>
+                            <field name="patient_identifier_list" invisible="1"/>
+                            <field name="administrative_sex" options="{'no_create': True}"/>
+                            <field name="marital_status" options="{'no_create': True}"/>
+                            <field name="primary_lang" options="{'no_create': True}"/>
+                            <field name="pid_date"/>
+<!--                            <field name="patient_profession_id"/>-->
+                            <field name="identity_unknown_indicator"/>
+                            <field name="patient_death_indicator"/>
+                             <field name="last_update_facility" invisible="1"/>
+                        </group>
+                        <group>
+
+                            <field name="religion" options="{'no_create': True}"/>
+                            <!--                            <field name="religion"/>-->
+                            <field name="nationality" options="{'no_create': True}"/>
+                            <field name="pass_no"/>
+                            <field name="emi_id" placeholder="12345678" invisible="1"/>
+                            <!--                            <field name="birthday"/>-->
+
+                        </group>
+                        <group>
+                             <field name="living_arrangement" invisible="1"/>
+                             <field name="publicity_code" invisible="1"/>
+                             <field name="protection_indicator" invisible="1"/>
+                             <field name="student_indicator" invisible="1"/>
+                             <field name="employment_status"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--     <menuitem id="allergy_information_menu" -->
+    <!--               action="allergy_information_action_new" -->
+    <!--               name="Allergy Information" -->
+    <!--               parent="kg_nabidh.patient_information_menu"/> -->
+</odoo>

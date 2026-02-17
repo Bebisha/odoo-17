@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <template id="annual_invoice_form_header_footer">
+            <t t-set="company" t-value="res_company" />
+            <div class="header">
+                <div class="row mb8">
+                    <div class="col-6">
+                        <img t-if="company.logo"
+                            t-att-src="image_data_uri(company.logo)" alt="Logo" height="150" />
+                    </div>
+                    <div class="col-6 text-right mb4">
+                        <img src="/bista_account_reports/static/src/img/second.jpg"
+                            height="150" />
+                    </div>
+                </div>
+            </div>
+            <div class="article" t-att-data-oe-model="doc and doc._name"
+                t-att-data-oe-id="doc and doc.id"
+                t-att-data-oe-lang="doc and doc.env.context.get('lang')">
+                <t t-raw="0" />
+            </div>
+            <div class="footer">
+                <div style="border-top: 1px solid black;">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <b>
+                                <span t-esc="company.name" style="font-size: 10pt;" />
+                            </b>
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <span style="font-size: 10pt;">PO Box</span>
+                            <span t-esc="company.zip" style="font-size: 10pt;" />
+                            <span t-esc="company.state_id.name" style="font-size: 12pt;" />,UAE&amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <span style="font-size: 10pt;">Call &amp;nbsp;</span>
+                            <span t-esc="company.phone" style="font-size: 12pt;" />
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <span t-esc="company.email" style="font-size: 12pt;" />
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <b>
+                                <span t-esc="company.website" style="font-size: 10pt;" />
+                            </b>
+                        </li>
+                    </ul>
+                    <div class="text-muted">
+                        Page:
+                        <span class="page" />
+                        of
+                        <span class="topage" />
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="report_annual_invoice_form_document">
+            <t t-call="bista_account_reports.annual_invoice_form_header_footer">
+                <t t-set="doc"
+                    t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+                <t t-set="company" t-value="res_company" />
+                <div class="page">
+                    <center>
+                        <span style="font-weight:bold;font-size:18pt;">Annual Invoice</span>
+                    </center>
+                    <div style="margin:30px;">
+                        <p calss="text-justify" style="font-size:14pt">
+                            This certificate verifies that
+                            <strong>
+                                <span t-esc="doc.partner_id.name" />
+                            </strong>
+                            is registered at
+                            The Developing Child Centre to commence
+                            <span t-if="doc.partner_id.gender == 'male'">
+                                his
+                            </span>
+                            <span t-else="">
+                                her
+                            </span>
+                            Individual Education Plan at the Early
+                            Intervention Program,from
+                            <strong><span t-esc="doc.annual_invoice_date.strftime('%d %B %Y')"/></strong>
+                        </p>
+                    </div>
+
+                    <style>
+                        th, td, tr {
+                            border: 1px solid black;
+                            padding:3px;
+                        }
+                    </style>
+
+                    <table
+                        style="border: 1px solid black;width:100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Name</strong>
+                                </td>
+                                <td>
+                                    <span t-esc="doc.partner_id.name" />
+                                </td>
+                                <td>
+                                    <strong>Date</strong>
+                                </td>
+                                <td>
+                                    <span t-esc="doc.date_invoice" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Date of Birth</strong>
+                                </td>
+                                <td>
+                                    <span t-esc="doc.partner_id.dob" />
+                                </td>
+                                <td>
+                                    <strong>Class</strong>
+                                </td>
+                                <td><span t-esc="doc.class_id.name" /></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Invoice No</strong>
+                                </td>
+                                <td>
+                                    <span t-esc="doc.number" />
+                                </td>
+                                <td>
+                                    <strong>Account Ref</strong>
+                                </td>
+                                <td><span t-esc="doc.generate_account_ref()" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <table
+                        style="border: 1px solid black;width:80%;
+                                margin:auto;">
+                        <head>
+                            <tr style="background-color:#afeeee;">
+                                <th class="text-center">Description</th>
+                                <th class="text-center">Amount</th>
+                            </tr>
+                        </head>
+                        <body>
+                            <tr t-foreach="doc.invoice_line_ids" t-as="line">
+                                <td>
+                                    <span t-esc="line.name" />
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="line.price_total"
+                                    t-options="{'widget': 'monetary',
+                                                'display_currency': doc.currency_id}"/>
+                                </td>
+                            </tr>
+                        </body>
+                    </table>
+                    <br />
+                    <table
+                        style="border: 1px solid black;
+                            width:80%;margin:auto;">
+                        <tr>
+                            <td class="text-center">
+                                <strong>Total Payment</strong>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="doc.amount_total"
+                                    t-options="{'widget': 'monetary',
+                                                    'display_currency': res_company.currency_id}" />
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+
+                    <span style="font-size:12pt;"><strong>Please note that all fees are non refundable</strong></span>
+
+                    <br /><br /><br /><br />
+                    <p class="text-center">Tracey Warren B.Ed(Hons). M.Ed</p>
+                    <p class="text-center">Director of Education</p>
+                    <br />
+                    <p style="font-size:12pt;margin-left:12px;">The following are our bank details</p>
+                    <div style="margin-left:12px;">
+                        <span>Name of Account : The Developing Child Centre L.L.C</span>
+                        <br />
+                        <span>Bank Account no. 019000001068</span>
+                        <br />
+                        <span>IBAN no. AE050330000019000001068</span>
+                        <br />
+                        <span>Bank Name. Mashreq Bank</span>
+                        <br />
+                        <span>Branch. Dubai Internet City</span>
+                        <br />
+                        <span>Swift Code. BOMLAEAD</span>
+                    </div>
+                    <br/>
+                    <p class="text-center" style="color:blue; font-family: Arial; font-size: 10pt; font-style: italic;">
+                        “If you judge a fish by its ability to climb a tree,
+                        it will live its whole life believing that it is stupid.” Albert Einstein
+                    </p>
+                    <p class="text-center" style="font-family: Arial; font-size: 10pt; font-weight: bold;">
+                            We think different. We teach different.
+                    </p>
+                     <p class="text-center" style="font-family: Arial; font-size: 8pt;">
+	                    At The Developing Child Centre our approach is simple.
+	                    We believe every child is brilliant and we nurture and build
+	                    children’s confidence and abilities.<br/>
+	                    We are dedicated to identifying, building and developing
+	                    skills required by all children to feel confident and succeed.
+                    </p>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_annual_invoice">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t
+                        t-call="bista_account_reports.report_annual_invoice_form_document" />
+                </t>
+            </t>
+        </template>
+
+</odoo>

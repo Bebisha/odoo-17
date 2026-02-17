@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="0">
+
+        <record model="dashboard.eod" id="tdcc_eod_appointment">
+            <field name="name">Appointments</field>
+            <field name="color">2</field>
+            <field name="tile_type">appointment</field>
+        </record>
+
+        <record model="dashboard.eod" id="tdcc_eod_customer_invoice">
+            <field name="name">Customer Invoice</field>
+            <field name="color">3</field>
+            <field name="tile_type">out_invoice</field>
+        </record>
+
+        <record model="dashboard.eod" id="tdcc_eod_vendor_bills">
+            <field name="name">Vendor Bills</field>
+            <field name="color">4</field>
+            <field name="tile_type">in_invoice</field>
+        </record>
+
+        <record model="dashboard.eod" id="tdcc_eod_customer_payment">
+            <field name="name">Customer Payment</field>
+            <field name="color">5</field>
+            <field name="tile_type">customer_payment</field>
+        </record>
+
+     </data>
+
+</odoo>

@@ -1,0 +1,12 @@
+<odoo>
+    <data noupdate="0">
+        <record id="document_quality_forms_folder" model="documents.folder">
+            <field name="name">QHC</field>
+        </record>
+        <record id="document_inspection_form_folder" model="documents.folder">
+            <field name="name">Inspection</field>
+            <field name="parent_folder_id" ref="document_quality_forms_folder"/>
+        </record>
+
+    </data>
+</odoo>

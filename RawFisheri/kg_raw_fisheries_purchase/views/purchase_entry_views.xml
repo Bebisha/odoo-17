@@ -1,0 +1,186 @@
+<odoo>
+    <record id="action_purchase_entry" model="ir.actions.act_window">
+        <field name="name">Purchase Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.entry</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'create':False}</field>
+    </record>
+
+    <menuitem id="menu_purchase_entry" parent="main_menu_purchase_enquiry" action="action_purchase_entry" sequence="2"/>
+
+    <record id="purchase_entry_tree_view" model="ir.ui.view">
+        <field name="name">Purchase Entry Tree View</field>
+        <field name="model">purchase.entry</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Entry" default_order="id desc">
+                <field name="name"/>
+                <field name="order_no"/>
+                <field name="date_of_order"/>
+                <field name="acc_no" optional="hide"/>
+                <field name="prepared_user"/>
+                <field name="page_pic" optional="hide"/>
+                <field name="enquiry_type_id"/>
+                <field name="po_create_user_id"/>
+                <field name="serial_no"/>
+                <field name="path" optional="hide"/>
+                <field name="note" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="purchase_amount" widget="monetary"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'"
+                       decoration-primary="state == 'confirm'"
+                       decoration-success="state == 'approved'"
+                       decoration-danger="state == 'rejected'"
+                       decoration-muted="state == 'cancel'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="purchase_entry_form_view" model="ir.ui.view">
+        <field name="name">Purchase Entry Form View</field>
+        <field name="model">purchase.entry</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Entry">
+                <field name="state" invisible="1"/>
+                <field name="received_status" invisible="1"/>
+                <header>
+                    <button name="action_draft" type="object" string="Set To Draft" class="btn btn-secondary"
+                            invisible="state != 'cancel'"/>
+                    <button name="action_confirm" type="object" string="Confirm" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_send_mail" type="object" string="Send By Email" class="oe_highlight"
+                            invisible="state not in ['confirm','draft']"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn btn-secondary"
+                            invisible="state in ['cancel','approved']"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <!--                    <widget name="web_ribbon" title="Approved" bg_color="bg-success"-->
+                    <!--                            invisible="state not in ['approved']"/>-->
+                    <!--                    <widget name="web_ribbon" title="Rejected" bg_color="bg-danger" invisible="state != 'rejected'"/>-->
+
+                    <widget name="web_ribbon" title="Partial Received" bg_color="bg-success"
+                            invisible="received_status not in ['partial']"/>
+                    <widget name="web_ribbon" title="Received" bg_color="bg-success"
+                            invisible="received_status not in ['full']"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="vendor_id" readonly="state == 'approved'"/>
+                            <field name="vessel_id" readonly="state == 'approved'"/>
+                            <field name="order_no" readonly="state == 'approved'"/>
+                            <field name="date_of_order" readonly="state == 'approved'"/>
+                            <field name="po_create_user_id" readonly="state == 'approved'"/>
+                            <field name="serial_no" readonly="state == 'approved'"/>
+                        </group>
+                        <group>
+                            <field name="purchase_enquiry_id" readonly="1" force_save="1"/>
+                            <field name="acc_no" readonly="state == 'approved'"/>
+                            <field name="prepared_user" readonly="state == 'approved'"/>
+                            <field name="page_pic" readonly="state == 'approved'"/>
+                            <field name="enquiry_type_id" readonly="state == 'approved'"/>
+                            <field name="currency_id" readonly="state == 'approved'"/>
+                        </group>
+                        <group/>
+                        <group/>
+                        <group/>
+                        <group/>
+                        <group string="Details">
+                            <field name="ship_to" readonly="state == 'approved'"/>
+                            <field name="bill_to" readonly="state == 'approved'"/>
+                        </group>
+                        <group string="Details">
+                            <field name="path" readonly="state == 'approved'"/>
+                            <field name="note" readonly="state == 'approved'"/>
+                        </group>
+                        <group string="Acknowledgement from Vendor" invisible="state != 'rejected'">
+                            <field name="reject_reason" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="entry_lines" string="Entry Lines">
+                            <field name="po_entry_ids">
+                                <tree editable="bottom">
+                                    <field name="order_no" optional="hide"/>
+                                    <field name="date" optional="hide"/>
+                                    <field name="part_no"/>
+                                    <field name="description"/>
+                                    <field name="initial_ordered_qty" readonly="1" force_save="1"/>
+                                    <field name="qty"/>
+                                    <field name="received_qty"/>
+                                    <field name="uom_id"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                    <field name="po_enquiry_line_id" column_invisible="1"/>
+                                    <field name="price" widget="Monetary"/>
+                                    <field name="tax_ids" widget="many2many_tags"/>
+                                    <field name="discount"/>
+                                    <field name="tax_amount" column_invisible="1"/>
+                                    <field name="total_tax_excl" widget="Monetary" readonly="1"/>
+                                    <field name="total" widget="Monetary" readonly="1"/>
+                                </tree>
+                            </field>
+                            <group col="11">
+                                <group colspan="8"/>
+                                <group colspan="3">
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="untaxed_amount"/>
+                                        <field name="taxed_amount"/>
+                                        <field name="purchase_amount" string="Total"/>
+                                    </group>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+     <record id="purchase_entry_search_filter_view" model="ir.ui.view">
+        <field name="name">Purchase Entry Search Filter View</field>
+        <field name="model">purchase.entry</field>
+        <field name="arch" type="xml">
+            <search string="Purchase Entry">
+                <field name="name"/>
+                <field name="order_no"/>
+                <field name="enquiry_type_id"/>
+                <field name="prepared_user"/>
+                <field name="state"/>
+
+                <separator/>
+                <filter string="Today" name="filter_today"
+                        domain="[('date_of_order', '=', context_today().strftime('%Y-%m-%d'))]"/>
+
+                <filter string="Current Month" name="filter_current_month"
+                        domain="[('date_of_order','&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]"/>
+
+                <filter string="Previous Month" name="filter_previous_month"
+                        domain="['&amp;', ('date_of_order', '&gt;=', (context_today() - relativedelta(months=1)).strftime('%Y-%m-01')),('date_of_order', '&lt;', (context_today() - relativedelta(months=0)).strftime('%Y-%m-01'))]"/>
+
+                <separator/>
+                <filter name="state_draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="state_confirm" string="Confirmed" domain="[('state','=','confirm')]"/>
+                <filter name="state_approved" string="Approved" domain="[('state','=','approved')]"/>
+                <filter name="state_rejected" string="Rejected" domain="[('state','=','rejected')]"/>
+                <filter name="state_cancel" string="Cancelled" domain="[('state','=','cancel')]"/>
+
+                <group expand="1" string="Group By">
+                    <filter string="Type" name="groupby_enquiry_type_id" context="{'group_by':'enquiry_type_id'}"/>
+                    <filter string="Order Date" name="groupby_date_of_order" context="{'group_by':'date_of_order'}"/>
+                    <filter string="State" name="groupby_state" context="{'group_by':'state'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="sale_order_view_form_inherit_id" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="vessel_id" readonly="state in ['sale','done']"/>
+                <field name="batch_id" readonly="state in ['sale','done']"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="batch_info" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                <field name="weight" force_save="1" sum="Total Weight" digits="[16,3]"/>
+                <field name="batch_id" force_save="1" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                <field name="default_code"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="attributes">
+                <attribute name="sum">Total Quantity</attribute>
+                <attribute name="digits">[16,3]</attribute>
+            </xpath>
+            <xpath expr="//group[@name='sale_shipping']//div" position="after">
+                <field name="delivery_term" invisible="1"/>
+                <field name="delivery_terms_id"/>
+                <field name="country_origin"/>
+                <field name="country_supply"/>
+                <field name="place_of_loading"/>
+                <field name="place_loading" invisible="1"/>
+            </xpath>
+        </field>
+
+    </record>
+
+</odoo>

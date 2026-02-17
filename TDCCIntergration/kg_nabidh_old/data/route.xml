@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Route of Administration Master Data -->
+    <data noupdate="1">
+
+        <record id="route_000" model="route.form">
+            <field name="code">ROA000</field>
+            <field name="name">N/A</field>
+        </record>
+        <record id="route_001" model="route.form">
+            <field name="code">ROA001</field>
+            <field name="name">Dental</field>
+        </record>
+        <record id="route_002" model="route.form">
+            <field name="code">ROA002</field>
+            <field name="name">Dental Infiltration Inj. Dental Block</field>
+        </record>
+        <record id="route_003" model="route.form">
+            <field name="code">ROA003</field>
+            <field name="name">Dental Injection</field>
+        </record>
+        <record id="route_004" model="route.form">
+            <field name="code">ROA004</field>
+            <field name="name">Epidural</field>
+        </record>
+        <record id="route_006" model="route.form">
+            <field name="code">ROA006</field>
+            <field name="name">Epidural Peripheral Nerve Blocks Caudal</field>
+        </record>
+        <record id="route_010" model="route.form">
+            <field name="code">ROA010</field>
+            <field name="name">External</field>
+        </record>
+        <record id="route_011" model="route.form">
+            <field name="code">ROA011</field>
+            <field name="name">Genital</field>
+        </record>
+        <record id="route_012" model="route.form">
+            <field name="code">ROA012</field>
+            <field name="name">IM</field>
+        </record>
+        <record id="route_013" model="route.form">
+            <field name="code">ROA013</field>
+            <field name="name">Implant</field>
+        </record>
+        <record id="route_033" model="route.form">
+            <field name="code">ROA033</field>
+            <field name="name">Infiltration Dental Block</field>
+        </record>
+        <record id="route_034" model="route.form">
+            <field name="code">ROA034</field>
+            <field name="name">Intra-Amniotic</field>
+        </record>
+        <record id="route_036" model="route.form">
+            <field name="code">ROA036</field>
+            <field name="name">Intra-Articular</field>
+        </record>
+        <record id="route_037" model="route.form">
+            <field name="code">ROA037</field>
+            <field name="name">Intra-Arterial</field>
+        </record>
+        <record id="route_038" model="route.form">
+            <field name="code">ROA038</field>
+            <field name="name">Intracavernosal</field>
+        </record>
+        <record id="route_041" model="route.form">
+            <field name="code">ROA041</field>
+            <field name="name">Intraventricular</field>
+        </record>
+        <record id="route_042" model="route.form">
+            <field name="code">ROA042</field>
+            <field name="name">Intramammary</field>
+        </record>
+        <record id="route_043" model="route.form">
+            <field name="code">ROA043</field>
+            <field name="name">Intra-Periodontal Pocket</field>
+        </record>
+        <record id="route_044" model="route.form">
+            <field name="code">ROA044</field>
+            <field name="name">Intra-Peritoneal</field>
+        </record>
+        <record id="route_047" model="route.form">
+            <field name="code">ROA047</field>
+            <field name="name">Intratracheal</field>
+        </record>
+        <record id="route_048" model="route.form">
+            <field name="code">ROA048</field>
+            <field name="name">Intraurethral</field>
+        </record>
+        <record id="route_049" model="route.form">
+            <field name="code">ROA049</field>
+            <field name="name">Intravaginal</field>
+        </record>
+        <record id="route_050" model="route.form">
+            <field name="code">ROA050</field>
+            <field name="name">Intra Vesically</field>
+        </record>
+        <record id="route_051" model="route.form">
+            <field name="code">ROA051</field>
+            <field name="name">IV Catheter</field>
+        </record>
+        <record id="route_052" model="route.form">
+            <field name="code">ROA052</field>
+            <field name="name">IV Infusion</field>
+        </record>
+        <record id="route_065" model="route.form">
+            <field name="code">ROA065</field>
+            <field name="name">Local Oral Dental</field>
+        </record>
+        <record id="route_066" model="route.form">
+            <field name="code">ROA066</field>
+            <field name="name">Local Oral</field>
+        </record>
+        <record id="route_070" model="route.form">
+            <field name="code">ROA070</field>
+            <field name="name">Nasal</field>
+        </record>
+        <record id="route_071" model="route.form">
+            <field name="code">ROA071</field>
+            <field name="name">Nebulisation</field>
+        </record>
+        <record id="route_072" model="route.form">
+            <field name="code">ROA072</field>
+            <field name="name">Ocular</field>
+        </record>
+        <record id="route_074" model="route.form">
+            <field name="code">ROA074</field>
+            <field name="name">Oral</field>
+        </record>
+        <record id="route_075" model="route.form">
+            <field name="code">ROA075</field>
+            <field name="name">Oral Inhalation</field>
+        </record>
+        <record id="route_083" model="route.form">
+            <field name="code">ROA083</field>
+            <field name="name">Orally Tube Feeding</field>
+        </record>
+        <record id="route_084" model="route.form">
+            <field name="code">ROA084</field>
+            <field name="name">Otic</field>
+        </record>
+        <record id="route_085" model="route.form">
+            <field name="code">ROA085</field>
+            <field name="name">Parenteral</field>
+        </record>
+        <record id="route_087" model="route.form">
+            <field name="code">ROA087</field>
+            <field name="name">Peritoneal Dialysis</field>
+        </record>
+        <record id="route_088" model="route.form">
+            <field name="code">ROA088</field>
+            <field name="name">Rectal</field>
+        </record>
+        <record id="route_089" model="route.form">
+            <field name="code">ROA089</field>
+            <field name="name">SC</field>
+        </record>
+        <record id="route_090" model="route.form">
+            <field name="code">ROA090</field>
+            <field name="name">Spinal</field>
+        </record>
+        <record id="route_091" model="route.form">
+            <field name="code">ROA091</field>
+            <field name="name">Sublingual</field>
+        </record>
+        <record id="route_092" model="route.form">
+            <field name="code">ROA092</field>
+            <field name="name">Topical</field>
+        </record>
+        <record id="route_093" model="route.form">
+            <field name="code">ROA093</field>
+            <field name="name">Topical Anal</field>
+        </record>
+        <record id="route_095" model="route.form">
+            <field name="code">ROA095</field>
+            <field name="name">Transdermal</field>
+        </record>
+        <record id="route_096" model="route.form">
+            <field name="code">ROA096</field>
+            <field name="name">Transmucosal</field>
+        </record>
+        <record id="route_097" model="route.form">
+            <field name="code">ROA097</field>
+            <field name="name">Vaginal</field>
+        </record>
+        <record id="route_100" model="route.form">
+            <field name="code">ROA100</field>
+            <field name="name">Miscellaneous</field>
+        </record>
+        <record id="route_108" model="route.form">
+            <field name="code">ROA108</field>
+            <field name="name">Intracardiac</field>
+        </record>
+        <record id="route_112" model="route.form">
+            <field name="code">ROA112</field>
+            <field name="name">Intradermal</field>
+        </record>
+        <record id="route_114" model="route.form">
+            <field name="code">ROA114</field>
+            <field name="name">Submucosal</field>
+        </record>
+        <record id="route_117" model="route.form">
+            <field name="code">ROA117</field>
+            <field name="name">Intraosseous</field>
+        </record>
+        <record id="route_120" model="route.form">
+            <field name="code">ROA120</field>
+            <field name="name">Intracisternal</field>
+        </record>
+        <record id="route_125" model="route.form">
+            <field name="code">ROA125</field>
+            <field name="name">IV Bolus</field>
+        </record>
+        <record id="route_160" model="route.form">
+            <field name="code">ROA160</field>
+            <field name="name">Dermal</field>
+        </record>
+        <record id="route_161" model="route.form">
+            <field name="code">ROA161</field>
+            <field name="name">Endotracheal</field>
+        </record>
+        <record id="route_165" model="route.form">
+            <field name="code">ROA165</field>
+            <field name="name">Iliolhypogastric (Nerve Block)</field>
+        </record>
+        <record id="route_167" model="route.form">
+            <field name="code">ROA167</field>
+            <field name="name">Intraspinal</field>
+        </record>
+        <record id="route_168" model="route.form">
+            <field name="code">ROA168</field>
+            <field name="name">Intracavity</field>
+        </record>
+        <record id="route_170" model="route.form">
+            <field name="code">ROA170</field>
+            <field name="name">Intralymphatic</field>
+        </record>
+        <record id="route_171" model="route.form">
+            <field name="code">ROA171</field>
+            <field name="name">Intrapulmonary</field>
+        </record>
+        <record id="route_172" model="route.form">
+            <field name="code">ROA172</field>
+            <field name="name">Intra-Pulmonary</field>
+        </record>
+        <record id="route_177" model="route.form">
+            <field name="code">ROA177</field>
+            <field name="name">Orofacial</field>
+        </record>
+        <record id="route_178" model="route.form">
+            <field name="code">ROA178</field>
+            <field name="name">Oropharyngeal</field>
+        </record>
+        <record id="route_179" model="route.form">
+            <field name="code">ROA179</field>
+            <field name="name">Perianal</field>
+        </record>
+        <record id="route_180" model="route.form">
+            <field name="code">ROA180</field>
+            <field name="name">Periarticular</field>
+        </record>
+        <record id="route_181" model="route.form">
+            <field name="code">ROA181</field>
+            <field name="name">Peribulbar</field>
+        </record>
+        <record id="route_182" model="route.form">
+            <field name="code">ROA182</field>
+            <field name="name">Peripheral Nerve Block</field>
+        </record>
+        <record id="route_183" model="route.form">
+            <field name="code">ROA183</field>
+            <field name="name">Subconjunctival</field>
+        </record>
+        <record id="route_184" model="route.form">
+            <field name="code">ROA184</field>
+            <field name="name">Sympathetic Nerve Block</field>
+        </record>
+        <record id="route_185" model="route.form">
+            <field name="code">ROA185</field>
+            <field name="name">Transcervical</field>
+        </record>
+        <record id="route_192" model="route.form">
+            <field name="code">ROA192</field>
+            <field name="name">Cardiac Perfusion</field>
+        </record>
+
+    </data>
+</odoo>

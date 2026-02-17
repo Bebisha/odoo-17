@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define a view for the res.partner form -->
+        <record id="view_res_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <!--                 Add the vendor_sequence field to the partner form view-->
+                <xpath expr="//field[@name='category_id']"
+                       position="after">
+                    <field name="supplier_rank" invisible="1"/>
+                    <field name="customer_rank" invisible="1"/>
+<!--                    <field name="hide_peppol_fields" invisible="1"/>-->
+                    <!--                    <group>-->
+                    <field name="vendor_sequence" invisible="customer_rank > 0"/>
+                    <field name="vendor_type_id" invisible="customer_rank > 0"/>
+                    <field name="customer_sequence" invisible="supplier_rank > 0" />
+                    <!--                    </group>-->
+                </xpath>
+            </field>
+        </record>
+        <record id="res_partner_view_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="vendor_sequence" />
+                    <field name="customer_sequence"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="res_partner_kanban_view" model="ir.ui.view">
+            <field name="name">res.partner.kanban.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_kanban_partner_categories')]" position="inside">
+                    <span class="oe_kanban_list_many2many">
+                        <field name="vendor_sequence" />
+                        <field name="customer_sequence"/>
+                    </span>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

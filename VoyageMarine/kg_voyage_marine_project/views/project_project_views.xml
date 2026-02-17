@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="project_project_form_view_inherit">
+            <field name="name">project.project.form.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="enquiry_id"/>
+                    <field name="estimation_id"/>
+                    <field name="estimated_hours" readonly="1" force_save="1"/>
+                    <field name="project_team_id"/>
+                    <field name="Coordinator_id"/>
+                    <field name="qc_id" string="QC"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_edit_project_inherit_form" model="ir.ui.view">
+            <field name="name">project.task.view.inherits</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='settings']/group/group[@name='group_tasks_managment']"
+                       position="before">
+                    <group>
+                        <field name="team_member_ids" widget="many2many_tags"/>
+                    </group>
+                </xpath>
+
+            </field>
+
+        </record>
+        <record id="project.act_project_project_2_project_task_all"
+                model="ir.actions.act_window">
+            <field name="domain">
+                [('parent_id', '=', False),
+                ('project_id', '=', active_id),
+                ('display_in_project', '=', True)]
+            </field>
+        </record>
+        <record id="project.action_view_task"
+                model="ir.actions.act_window">
+            <field name="domain">[('parent_id','=',False),('project_id','!=',False),('display_in_project','=',True)]</field>
+        </record>
+
+
+    </data>
+</odoo>

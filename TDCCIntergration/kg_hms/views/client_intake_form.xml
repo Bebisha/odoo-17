@@ -1,0 +1,148 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="client_intake_tree_view">
+            <field name="name">Client Intake View</field>
+            <field name="model">client.intake.form</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="first_name" force_save="1"/>
+                    <field name="last_name"/>
+                    <field name="date_of_birth"/>
+                    <field name="gender"/>
+                    <field name="nationality"/>
+                    <field name="company_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="client_intake_form_view">
+            <field name="name">Client Intake Form View</field>
+            <field name="model">client.intake.form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button class="btn btn-primary" name="approve_action" type="object" string="Approve"
+                               invisible="state != 'draft'"/>
+                        <field name="state" widget="statusbar" status_visible="draft,approve"/>
+                    </header>
+                    <sheet>
+
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="ref" invisible="1" force_save="1"/>
+                                <field name="first_name"  force_save="1"/>
+                                <field name="last_name" />
+                                <field name="child_name" />
+                                <field name="date_of_birth" />
+                                <field name="gender" />
+                                <field name="partner_id" />
+                            </group>
+                            <group>
+                                <field name="nationality" />
+                                <field name="primary_language" />
+                                <field name="language_spoken" />
+                                <field name="school_grade" />
+                                <field name="contact_person" />
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string=" Parents / Caregiver Information">
+                                <group>
+                                    <group>
+                                        <field name="mother_name" />
+                                        <field name="phone_number_1" />
+                                        <field name="occupation_1" />
+                                        <field name="mother_mail" />
+                                    </group>
+                                    <group>
+                                        <field name="father_name" />
+                                        <field name="phone_number_2" />
+                                        <field name="occupation_2" />
+                                        <field name="father_mail" />
+                                        <field name="parents_related_relative" />
+                                        <field name="is_submitted" invisible="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Other Details">
+                                <div class="col-md-12" align="justify">
+                                    <group>
+                                        <group>
+                                            <field name="center" />
+                                            
+                                            <field name="describe" />
+                                            
+                                            <field name="child_health" />
+                                            
+                                        </group>
+                                        <group string="Please upload copy of your child Emirates ID ( front and back)">
+                                            <field name="doc_front" force_save="1" />
+                                            
+                                            <field name="doc_back" force_save="1" />
+                                        </group>
+                                        
+                                        <group>
+                                            <field name="confirm" />
+                                            
+                                        </group>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Bill of Rights/ Privacy Information">
+                                <div class="col-md-12" align="justify">
+                                    <group align="justify">
+                                        <field name="edit_and_create" force_save="1" />
+                                    </group>
+                                    <group>
+                                        <group align="justify">
+                                            <field name="terms_condition" />
+                                        </group>
+                                        <group string="Name of Parent">
+                                            <field name="first_name_1" />
+                                            <field name="last_name_1" />
+                                        </group>
+                                        <group string="Name of Child">
+                                            <field name="first_name_2" />
+                                            <field name="last_name_2" />
+                                            
+                                        </group>
+                                        <group>
+                                            <field name="signature" />
+                                        </group>
+                                    </group>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="client_intake_form"
+                model="ir.actions.act_window">
+            <field name="name">Client Intake Form</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">client.intake.form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create First Record
+                </p>
+            </field>
+        </record>
+        <menuitem name="Client Intake Form"
+                  sequence="4"
+                  id="client_intake_form_menu"
+                  parent="kg_hms.root_dev_child"
+                  action="client_intake_form"/>
+    </data>
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="discharge_disposition_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Discharge disposition</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">discharge.disposition</field>
+
+    </record>
+    <record id="discharge_disposition_tree" model="ir.ui.view">
+        <field name="name">discharge.disposition.tree.views</field>
+        <field name="model">discharge.disposition</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="discharge_disposition_form" model="ir.ui.view">
+        <field name="name">discharge.disposition.form.views</field>
+        <field name="model">discharge.disposition</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="discharge_disposition_menu"
+              action="discharge_disposition_action"
+              name="Discharge Disposition"
+              parent="kg_nabidh.pv1_menu"/>
+
+</odoo>

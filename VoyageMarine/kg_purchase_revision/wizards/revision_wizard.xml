@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="action_purchase_order_revision" model="ir.ui.view">
+        <field name="name">Revision</field>
+        <field name="model">purchase.order.revision.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Revision">
+                <group>
+                    <group>
+                        <field name="reason"/>
+                        <field name="order_id" invisible="1"/>
+                        <field name="revision_id" invisible="1"/>
+                        <field name="next_code" invisible="1" />
+                    </group>
+                </group>
+
+                <footer>
+                    <button name="create_revision" string="Apply" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

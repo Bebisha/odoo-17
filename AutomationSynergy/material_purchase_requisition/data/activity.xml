@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+
+        <record id="department_manager_approval_notification" model="mail.activity.type">
+            <field name="name">Department Manager Approval</field>
+            <field name="res_model">material.purchase.requisition</field>
+        </record>
+
+        <record id="material_requisition_approval_notification" model="mail.activity.type">
+            <field name="name">Material Requisition Approval</field>
+            <field name="res_model">material.purchase.requisition</field>
+        </record>
+
+        <record id="reject_material_requisition_notification" model="mail.activity.type">
+            <field name="name">Reject Material Requisition</field>
+            <field name="res_model">material.purchase.requisition</field>
+        </record>
+
+
+    </data>
+</odoo>

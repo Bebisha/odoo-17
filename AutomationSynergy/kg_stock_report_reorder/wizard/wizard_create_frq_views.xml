@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Wizard From view-->
+        <record id="form_wizard_create_rfq" model="ir.ui.view">
+            <field name="name">wizard.create.rfq</field>
+            <field name="model">wizard.create.rfq</field>
+            <field name="arch" type="xml">
+                <form string="Create RFQ">
+                    <group>
+                        <group>
+                            <field name="vendor_id"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products" name="products">
+                            <field name="item_line_ids" mode="tree">
+                                <tree string="Purchase Order Lines" editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button string="Submit RFQ" name="action_submit_rfq" type="object" class="btn-primary"/>
+                        <button string="Cancel" name="cancel" type="object" special="cancel" class="btn-cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+     <!--Wizard action-->
+        <record model="ir.actions.act_window" id="action_open_wizard_create_rfq">
+            <field name="name">Create RFQ</field>
+            <field name="res_model">wizard.create.rfq</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="form_wizard_create_rfq"/>
+        </record>
+
+
+
+    </data>
+</odoo>

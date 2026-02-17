@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="website_join_gshock_menu" model="website.menu">
+        <field name="name">Join G-Shock Club</field>
+        <field name="url">/join_gshock_club</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">90</field>
+    </record>
+
+    <record id="website_scan_join_gshock_menu" model="website.menu">
+        <field name="name">Scan G-Shock Club</field>
+        <field name="url">/scan_gshock_club</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">91</field>
+    </record>
+    <record id="website_join_gmusic_menu" model="website.menu">
+        <field name="name">Join G-Music Club</field>
+        <field name="url">/join_gmusic_club</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">92</field>
+    </record>
+    <record id="website_scan_join_gmusic_menu" model="website.menu">
+        <field name="name">Scan G-Music Club</field>
+        <field name="url">/scan_gmusic_club</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">93</field>
+    </record>
+</odoo>

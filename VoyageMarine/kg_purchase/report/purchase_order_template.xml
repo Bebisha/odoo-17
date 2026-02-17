@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="voyage_report_purchase_order_document">
+        <t t-call="kg_purchase.custom_external_layout_voyage">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+            <div class="page">
+                <t t-if="doc.company_id.vat">
+                    <table width="100%" style="margin-top: 10px;" class="table-borderless">
+                        <tr>
+                            <td style="width: 100%; font-size: 14px;padding-bottom:10px;" align="right">
+                                <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                                <span style="font-size: 14px; font-weight: bold; margin-left: 5px;"
+                                      t-esc="doc.company_id.vat"/>
+                            </td>
+                        </tr>
+                    </table>
+                </t>
+                <h2 t-if="doc.state in ['draft', 'sent', 'to approve']"
+                    style="color:black;text:bold;text-align: right;font-size: 2em;">Request for
+                    Quotation
+                </h2>
+                <h2 t-if="doc.state in ['purchase', 'done']"
+                    style="color:black;text:bold;text-align: right;font-size: 2em;">
+                    Purchase Order
+                </h2>
+                <h2 t-if="doc.state == 'cancel'"
+                    style="color:black;text:bold;text-align: right;font-size: 2em;">Cancelled
+                    Purchase Order
+                </h2>
+                <div class="row">
+                    <div class="col-8" style="padding-left:3%; font-size: 12px;">
+                        <span>To:</span>
+                        <t t-if="doc.partner_id">
+                            <span t-field="doc.partner_id.name"
+                                  style="font-size: 14px; font-weight: bold;"/>
+                            <br/>
+                            <t t-if="doc.partner_id.street">
+                                <span style="padding-left:6%" t-field="doc.partner_id.street"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_id.street2">
+                                <span style="padding-left:6%" t-field="doc.partner_id.street2"/>
+                                <br/>
+                            </t>
+
+                            <t t-if="doc.partner_id.city">
+                                <span style="padding-left:6%" t-field="doc.partner_id.city"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_id.zip">
+                                <span style="padding-left:6%" t-field="doc.partner_id.zip"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_id.state_id">
+                                <span style="padding-left:6%" t-field="doc.partner_id.state_id.name"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_id.country_id">
+                                <span style="padding-left:6%" t-field="doc.partner_id.country_id.name"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_id.phone">
+                                <span style="padding-left:6%" t-field="doc.partner_id.phone"/>
+                            </t>
+                            <br/>
+                        </t>
+                        <t t-else="">
+                            <span t-field="doc.x_new_vendor_remark"
+                                  style="font-size: 12px; font-weight: bold;"/>
+                        </t>
+                    </div>
+                    <!--                    <br/>-->
+                    <t t-if="doc.state in ['draft', 'sent', 'to approve']">
+                        <div class="col-4" style="text-align: right; font-size: 12px;">
+                            <div style="color: black; font-weight: bold;">
+                                Rfq No:
+                                <t t-esc="doc.rfq_ref"/>
+                            </div>
+                            <div style="color: black; padding-top: 10px;">
+                                Date:
+                                <t t-esc="doc.date_order" t-options="{'widget': 'date', 'format': 'dd/MM/YYYY'}"/>
+                            </div>
+                            <br/>
+                        </div>
+                    </t>
+                    <t t-if="doc.state in ['purchase', 'done']">
+                        <div class="col-4 text-right;font-size: 12px;;">
+                            <div style="color:black;text:bold;text-align: right">
+                                PO No. :
+                                <t t-esc="doc.name"/>
+                            </div>
+                            <div style="color:black;text-align: right;padding-top:10px;">
+                                Date :
+                                <t t-esc="doc.date_order" t-options="{'widget': 'date', 'format': 'dd/MM/YYYY'}"/>
+                            </div>
+                            <br/>
+
+                        </div>
+                    </t>
+                </div>
+
+                <br/>
+                <br/>
+                <div class="row" style="padding: 20px 0; min-height: 200px;">
+
+                    <div class="col-6" style="font-size: 14px;">
+                        <span>Ship to:
+                            <span style="font-size: 14px; font-weight: bold;">Voyage Marine Automation LLC</span>
+                        </span>
+                        <br/>
+
+                        <p style="padding-left:12%; margin: 8px 0;">PO Box: 20070, Ajman, UAE</p>
+                        <p style="padding-left:12%; margin: 8px 0;">Person in Contact: Fabin</p>
+                        <p style="padding-left:12%; margin: 8px 0;">Email: stores@voyagemarine.ae</p>
+                        <p style="padding-left:12%; margin: 8px 0;">Phone: +971 55 100000</p>
+                    </div>
+
+                    <div class="col-6" style="padding-left:10%;font-size: 14px;">
+                        <p style="margin: 8px 0;">
+                            Your Ref:
+                            <t t-esc="doc.partner_ref or 'N/A'"/>
+                        </p>
+                        <p style="margin: 8px 0;">
+                            Delivery Date:
+                            <t t-if="doc.date_planned">
+                                <t t-esc="doc.date_planned.strftime('%d/%m/%Y')"/>
+                            </t>
+                        </p>
+                        <p style="margin: 8px 0;">
+                            Delivery Terms:
+                            <t t-esc="doc.delivery_terms_id.name or 'N/A'"/>
+                        </p>
+                        <p style="margin: 8px 0;">
+                            Payment Terms:
+                            <t t-esc="doc.payment_term_id.name or 'N/A'"/>
+                        </p>
+                    </div>
+
+                </div>
+                <table class="table-borderless"
+                       style="width: 100%; font-size: 14px;">
+                    <thead>
+                        <tr>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">Sl
+                                No.
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                Description
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                Expected Date
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                Qty
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                UoM
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">Unit
+                                Price (<t t-esc="doc.currency_id.name"/>)
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">Net
+                                Amt
+                                (<t t-esc="doc.currency_id.name"/>)
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">VAT
+                                %
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">VAT
+                                Amt
+                                (<t t-esc="doc.currency_id.name"/>)
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                Total
+                                Amt (<t t-esc="doc.currency_id.name"/>)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="i" t-value="1"/>
+                        <t t-set="total_discount" t-value="0"/>
+
+                        <t t-foreach="doc.order_line" t-as="line">
+                            <t t-if="'Down Payment' not in (line.name or '')">
+                                <tr>
+                                    <td style="border-bottom: .5px solid black; text-align: center; padding: 10px;">
+                                        <span t-esc="i"/>
+                                        <t t-set="i" t-value="i+1"/>
+                                    </td>
+                                    <td style="border-bottom: .5px solid black; padding: 10px;">
+                                        <t t-esc="line.name"/>
+                                    </td>
+                                    <td style="border-bottom: .5px solid black; padding: 10px;">
+                                        <t t-if="line.date_planned">
+                                            <t t-esc="line.date_planned.strftime('%Y-%m-%d')"/>
+                                        </t>
+                                    </td>
+                                    <td style="border-bottom: .5px solid black; text-align: center; padding: 10px;">
+                                        <t t-esc="line.product_qty"/>
+                                    </td>
+                                    <td style="border-bottom: .5px solid black; text-align: center; padding: 10px;">
+                                        <t t-esc="line.product_uom.name"/>
+                                    </td>
+                                    <td style="border-bottom: .5px solid black; text-align: right; padding: 10px;">
+                                        <t t-esc="'%.2f'%(line.price_unit)"
+                                           t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                                    </td>
+                                    <td style="border-bottom: .5px solid black; text-align: right; padding: 10px;">
+                                        <t t-esc="'%.2f'%(line.price_subtotal)"
+                                           t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                                    </td>
+                                    <td style="border-bottom: .5px solid black; text-align: center; padding: 10px;">
+                                        <t t-if="line.taxes_id"
+                                           t-esc="'%.2f'%(line.taxes_id and line.taxes_id[0].amount) or '0.00'"/>
+                                    </td>
+
+
+                                    <td style="border-bottom: .5px solid black; text-align: right; padding: 10px;">
+                                        <t t-esc="'%.2f'%(line.price_tax)"
+                                           t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                                    </td>
+                                    <td style="border-bottom: .5px solid black; text-align: right; padding: 10px;">
+                                        <t t-esc="'%.2f'%(line.price_total)"
+                                           t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+                <table style="width:100%;font-size:14px;padding-left:10px; border-collapse: collapse;"
+                       class="table-borderless">
+                    <tr>
+                        <td width="60%" colspan="6"></td>
+                        <td width="24%" colspan="2" align="right"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px;">
+                            <span>Unit Total (<t t-esc="doc.currency_id.name"/>) :
+                            </span>
+                        </td>
+                        <td width="16%" colspan="2"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px; text-align:right;">
+                            <t t-esc="'%.2f'%(doc.amount_untaxed)"
+                               t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="60%" colspan="6"></td>
+                        <td width="24%" colspan="2" align="right"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px;">
+                            <span>Total Discount (<t t-esc="doc.currency_id.name"/>) :
+                            </span>
+                        </td>
+                        <td width="16%" colspan="2"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px; text-align:right;">
+                            <!--                            <td style="padding: 5px; text-align: right;">-->
+                            <t t-foreach="doc.order_line" t-as="line">
+                                <t t-set="line_discount"
+                                   t-value="line.price_unit * line.product_qty * (line.discount / 100)"/>
+                                <t t-set="total_discount"
+                                   t-value="total_discount + line_discount"/> <!-- Accumulate the discount -->
+                            </t>
+                            <t t-esc="'%.2f' % total_discount"/>
+                            <!--                            </td>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="60%" colspan="6"></td>
+
+                        <td width="24%" colspan="2" align="right"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px;">
+                            <span>Total Amount (<t t-esc="doc.currency_id.name"/>) :
+                            </span>
+                        </td>
+                        <td width="16%" colspan="2"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px; text-align:right;">
+                            <t t-esc="'%.2f'%(doc.amount_total)"
+                               t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="60%" colspan="6"></td>
+                        <td width="24%" colspan="2" align="right"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px;">
+                            <span>Total Amount (<t t-esc="doc.currency_id.name"/>) :
+                            </span>
+                        </td>
+                        <td width="16%" colspan="2"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px; text-align:right;">
+                            <t t-esc="'%.2f'%(doc.amount_total)"
+                               t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                        </td>
+                    </tr>
+                    <tr t-if="doc.amount_tax">
+                        <td width="60%" colspan="6"></td>
+                        <td width="24%" colspan="2" align="right"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px;">
+                            <span>VAT Amount (<t t-esc="doc.currency_id.name"/>):
+                            </span>
+                        </td>
+                        <td width="16%" colspan="2"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px; text-align:right;">
+                            <t t-esc="'%.2f'%(doc.amount_tax)"
+                               t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="60%" colspan="6"></td>
+                        <td width="24%" colspan="2" align="right"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px;">
+                            <span>Freight(<t t-esc="doc.currency_id.name"/>) :
+                            </span>
+                        </td>
+                        <td width="16%" colspan="2"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px; text-align:right;">
+                            <!--                            <t t-esc="'%.2f'%(doc.freight_custom)"-->
+                            <!--                               t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>-->
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td width="60%" colspan="6"></td>
+                        <td width="24%" colspan="2" align="right"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px;">
+                            <span>Handling Charges (<t t-esc="doc.currency_id.name"/>):
+                            </span>
+                        </td>
+                        <td width="16%" colspan="2"
+                            style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px; text-align:right;">
+                            <!--                            <t t-esc="'%.2f'%(doc.custom_charge)"-->
+                            <!--                               t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--                                    <td width="60%" colspan="6"></td>-->
+                        <td width="18%" colspan="2" style="padding-top:5px;">
+                            <span style="display: block; width: 100%;">
+                                <b>Net Amount In Words :</b>
+                            </span>
+                        </td>
+                        <td width="42%" colspan="4" align="left">
+                            <span style="display: block; width: 100%;padding-top:5px;">
+                                <t style="font-size: 14px;"
+                                   t-esc="doc.currency_id.amount_to_text(doc.amount_total).replace(',', '')"/>
+
+                            </span>
+                        </td>
+                        <td width="24%" colspan="2" align="right"
+                            style="border-bottom: 1pt solid black;padding-top:10px;padding-bottom:10px;">
+                            <strong>
+                                <span>Net Amount (<t t-esc="doc.currency_id.name"/>) :
+                                </span>
+                            </strong>
+                        </td>
+                        <td width="16%" colspan="2"
+                            style="border-bottom: 1pt solid black;padding-top:10px;padding-bottom:10px; text-align:right;">
+                            <strong>
+                                <t t-esc="'%.2f'%(doc.amount_total)"
+                                   t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                            </strong>
+                        </td>
+                    </tr>
+
+                </table>
+                <t t-if="doc.state in ['draft', 'sent', 'to approve']">
+                    <table style="width: 100%; font-size: 14px; border-collapse: collapse; margin-top: 10px;"
+                           class="table table-borderless">
+                        <tr>
+                            <td style="font-weight: bold; width: 15%; vertical-align: top;">
+                                <u>RFQ Note:</u>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td style="font-size: 14px; text-align: justify;">
+                                <t t-if="doc.rfq_note">
+                                    <t t-raw="doc.rfq_note"/>
+                                </t>
+<!--                                <t t-else="">-->
+<!--                                    Please ensure all items are delivered in good condition and meet the specifications-->
+<!--                                    listed.-->
+<!--                                    If there are any issues or delays, contact us immediately at-->
+<!--                                    <a href="mailto:purchase@voyagemarine.ae">-->
+<!--                                        <strong>purchase@voyagemarine.ae</strong>-->
+<!--                                    </a>-->
+<!--                                    .-->
+<!--                                </t>-->
+                            </td>
+                        </tr>
+                    </table>
+                </t>
+                <t t-if="doc.state in ['purchase', 'done']">
+                    <table style="width: 100%; font-size: 14px; border-collapse: collapse; margin-top: 10px;">
+                        <tr>
+                            <td style="font-weight: bold; width: 15%; vertical-align: top;">
+                                <u>PO Note:</u>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td style="font-size: 14px; text-align: justify;">
+                                <t t-if="doc.po_note">
+                                    <t t-raw="doc.po_note"/>
+                                </t>
+<!--                                <t t-else="">-->
+<!--                                    Please ensure all items are delivered in good condition and meet the specifications-->
+<!--                                    listed.-->
+<!--                                    If there are any issues or delays, contact us immediately at-->
+<!--                                    <a href="mailto:purchase@voyagemarine.ae">-->
+<!--                                        <strong>purchase@voyagemarine.ae</strong>-->
+<!--                                    </a>-->
+<!--                                    .-->
+<!--                                </t>-->
+                            </td>
+                        </tr>
+                    </table>
+                </t>
+
+
+                <br/>
+                <div style="width: 100%;font-size: 14px;">
+                    <p style="margin: 0;">Please confirm receipt of this purchase order and provide an estimated
+                        delivery date at your
+                        earliest convenience
+                    </p>
+                    <p style="margin: 1;">Thank you for your prompt attention to this order.</p>
+                </div>
+                <br/>
+
+                <table style="width:100%;font-size:14px;" class="table table-borderless">
+                    <t t-set="style_keep_together" t-value="'page-break-inside: avoid;'"/>
+                    <tbody t-attf-style="#{style_keep_together}">
+                        <tr width="100%">
+                            <td width="30%" align="left">
+                                <span t-field="doc.create_uid.name"/>
+                                <t t-if="doc.create_uid.partner_id.phone">
+                                    <br/>
+                                    <span t-field="doc.create_uid.partner_id.phone"/>
+                                </t>
+                                <t t-if="doc.create_uid.employee_id.job_id">
+                                    <br/>
+                                    <span t-field="doc.create_uid.employee_id.job_id.name"/>
+                                </t>
+                            </td>
+                            <td width="5%"/>
+                            <td width="30%" align="left">
+                                <t t-if="doc.pm_approver_id">
+                                    <t t-foreach="doc.pm_approver_id" t-as="pm">
+                                        <span t-field="pm.name"/>
+                                        <t t-if="pm.phone">
+                                            <br/>
+                                            <span t-field="pm.phone"/>
+                                        </t>
+                                        <t t-if="pm.employee_id.job_id">
+                                            <br/>
+                                            <span t-field="pm.employee_id.job_id.name"/>
+                                        </t>
+                                    </t>
+                                </t>
+                            </td>
+                            <td width="5%"/>
+                            <td width="30%" align="left">
+                                <t t-if="doc.dep_approver_id">
+                                    <t t-foreach="doc.dep_approver_id" t-as="dp">
+                                        <span t-field="dp.name"/>
+                                        <t t-if="dp.phone">
+                                            <br/>
+                                            <span t-field="dp.phone"/>
+                                        </t>
+                                        <t t-if="dp.employee_id.job_id">
+                                            <br/>
+                                            <span t-field="dp.employee_id.job_id.name"/>
+                                        </t>
+                                    </t>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="30%" align="left"
+                                style="border-bottom: 1pt solid black;"/>
+                            <td width="5%"/>
+                            <td width="30%" align="left"
+                                style="border-bottom: 1pt solid black;"/>
+                            <td width="5%"/>
+                            <td width="30%" align="left"
+                                style="border-bottom: 1pt solid black;"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="30%" align="left">
+                                <span>Prepared by : Purchase Dept</span>
+                            </td>
+                            <td width="5%"/>
+                            <td width="30%" align="left">
+                                <span>Approved by : Purchase Manager</span>
+                            </td>
+                            <td width="5%"/>
+                            <td width="30%" align="left">
+                                <span>Notified by Accounts Dept</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <!--                <div class="row mb8" style="display: flex; justify-content: space-between; align-items: center;">-->
+                <!--                    <div class="col-4" style="text-align: left; font-size: 14px;">-->
+                <!--                        <t t-foreach="doc.gm_approver_id" t-as="gm">-->
+                <!--                            <span>-->
+                <!--                                <t t-esc="gm.name"/>-->
+                <!--                                <br/>-->
+                <!--                                <t t-esc="gm.phone" style="text-align: left; padding-left: 10%"/>-->
+                <!--                                <br/>-->
+                <!--                            </span>-->
+                <!--                        </t>-->
+                <!--                        <p align="left" style="font-size: 14px; margin: 0;">______________________________</p>-->
+                <!--                        Prepared by : Purchase Dept.-->
+                <!--                        <br/>-->
+                <!--                    </div>-->
+
+                <!--                    <div class="col-4" style="text-align: left; font-size: 14px;">-->
+                <!--                        <t t-foreach="doc.pm_approver_id" t-as="pm">-->
+                <!--                            <span>-->
+                <!--                                <t t-esc="pm.name"/>-->
+                <!--                                <br/>-->
+                <!--                                <t t-esc="pm.phone" style="text-align: left; padding-left: 10%"/>-->
+                <!--                                <br/>-->
+                <!--                            </span>-->
+                <!--                        </t>-->
+                <!--                        <p align="left" style="font-size: 14px;margin: 0;">___________________________________</p>-->
+                <!--                        Approved by : Purchase Manager.-->
+                <!--                        <br/>-->
+                <!--                    </div>-->
+
+                <!--                    <div class="col-4" style="text-align: left; font-size: 14px;">-->
+                <!--                        <t t-foreach="doc.dep_approver_id" t-as="dp">-->
+                <!--                            <span>-->
+                <!--                                <t t-esc="dp.name"/>-->
+                <!--                                <br/>-->
+                <!--                                <t t-esc="dp.phone" style="text-align: left; padding-right: 10%"/>-->
+                <!--                                <br/>-->
+                <!--                            </span>-->
+                <!--                        </t>-->
+                <!--                        <p align="left" style="font-size: 14px; margin: 0;">______________________________</p>-->
+                <!--                        Approved by : Account Dept.-->
+                <!--                        <br/>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--                <br/>-->
+                <div style="width: 100%; font-weight: bold; font-size: 14px;">
+                    <span style="text-decoration: underline;">Terms &amp; Condition:</span>
+                    <br/>
+                    <t t-if="doc.notes">
+                        <p style="font-size: 14px; margin: 0;">
+                            <t t-esc="doc.notes"/>
+                        </p>
+                    </t>
+                    <t t-else="">
+                        <span style="text-align:justify;">
+                            <i>
+                                A)This purchase order is issued to the above-mentioned address/vendor for the supply of
+                                the specified items/materials and/or the performance of the designated services and/or
+                                work.
+                                <br/>
+                                B)This purchase order can only be amended or modified through a written agreement
+                                executed by Voyage.
+                                <br/>
+                                C) General Terms and condition shall apply for this order agreement.
+                            </i>
+                        </span>
+                    </t>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <!--                <p align="right" style="font-size: 12px;">-->
+                <!--                    <i>**General Terms &amp; Condition shall apply</i>-->
+                <!--                </p>-->
+                <!--                <div style="position: fixed;bottom: 0;right: 0;padding: 10px 15px;font-size: 12px;background-color: white; color: black;">-->
+                <!--                                <p align="right" style="font-size: 12px;"><i>**General Terms &amp; Condition shall apply</i></p>-->
+                <!--                </div>-->
+
+            </div>
+        </t>
+    </template>
+
+    <template id="voyage_report_purchase_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="kg_purchase.voyage_report_purchase_order_document"
+                   t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="custom_external_layout_voyage">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div class="header o_company_#{company.id}_layout">
+            <div class="row mb8" style="margin: 0; padding: 0;">
+                <div class="col-4" style="text-align: left;">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 60px;"
+                         alt="Logo"/>
+                </div>
+                <div class="col-8 text-end" style="text-align: right;">
+                    <t t-if="doc and doc.company_id" style="margin: 0; padding-bottom: 0;">
+                        <t t-if="doc.company_id.name" style="font-size: 14px; font-weight: bold;"
+                           t-esc="doc.company_id.name"/>
+                        <br/>
+                        <t t-if="doc.company_id.phone">
+                            <span style="font-size: 14px;" t-esc="doc.company_id.phone"/>
+                            <i class="fa fa-phone" aria-hidden="true"
+                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                            <br/>
+                        </t>
+                        <t t-if="doc.company_id.mobile">
+                            <span style="font-size: 14px;" t-esc="doc.company_id.mobile"/>
+                            <i class="fa fa-fax" aria-hidden="true"
+                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                            <br/>
+                        </t>
+                        <t t-if="doc.company_id.email">
+                            <span style="font-size: 14px;" t-esc="doc.company_id.email"/>
+                            <i class="fa fa-envelope" aria-hidden="true"
+                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                            <br/>
+                        </t>
+                        <span style="font-size: 14px;">PO box:</span>
+                        <span style="font-size: 14px;" t-if="doc.company_id.zip" t-esc="doc.company_id.zip"/>
+                        <span style="font-size: 14px;" t-if="doc.company_id.city" t-esc="doc.company_id.city"/>
+                        <span style="font-size: 14px;" t-if="doc.company_id.country_id.name"
+                              t-esc="doc.company_id.country_id.name"/>
+                        <t t-if="doc.company_id.zip or doc.company_id.city or doc.company_id.country_id.name">
+                            <i class="fa fa-map-marker " aria-hidden="true"
+                               style="margin-left: 5px;border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                        </t>
+                        <!--                        <br/>-->
+                        <!--                        <span style="font-size: 14px;;font-weight: bold;">TRN:</span>-->
+                        <!--                        <span t-if="doc.company_id.vat" style="font-size: 14px;;font-weight: bold;"-->
+                        <!--                              t-esc="doc.company_id.vat"/>-->
+                    </t>
+                </div>
+            </div>
+            <div style="border-bottom: 1px solid black;margin: 0; padding-bottom: 0;"/>
+        </div>
+
+
+        <div class="article">
+            <t t-raw="0"/>
+        </div>
+        <br/>
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+
+            <div style="font-size:11px" class="last-page">
+                <p align="right">**General Terms &amp; Condition Shall apply**</p>
+            </div>
+            <div style="text-align: center;">
+                <p t-if="doc.company_id.website" style="font-size: 12px;" t-esc="doc.company_id.website"/>
+            </div>
+            <div style="border-top: 1px solid black; ">
+                <table width="100%" class="table table-borderless table-sm">
+                    <tr>
+                        <td width="100%">
+                            <div style="text-align: left;font-size:14px">
+                                A professional Supplier and Service provider for All Electrical &amp; Instrumentation,
+                                Automation
+                                &amp; Control, Fire &amp; Safety,
+                                Navigation and Communication and Calibration requirements for Marine, Oil &amp; Gas and
+                                Energy
+                                Industry.
+                            </div>
+                        </td>
+                        <!--                        <td width="25%">-->
+                        <!--                            <div style="text-align: right; ">-->
+                        <!--                                <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"-->
+                        <!--                                     style="max-height: 40px;" alt="Logo"/>-->
+                        <!--                            </div>-->
+                        <!--                        </td>-->
+                    </tr>
+                </table>
+
+
+            </div>
+
+            <div t-if="report_type == 'pdf'" style="color:black; text-align: center;">
+                Page:
+                <span class="page"/>
+                of
+                <span class="topage"/>
+            </div>
+            <br/>
+        </div>
+
+    </template>
+</odoo>
+

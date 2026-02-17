@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="survey.survey_button_retake" name="Retake Survey Button">
+            <div>
+                <t t-if="not answer.scoring_success">
+                    <t t-if="survey.is_attempts_limited">
+                        <t t-set="attempts_left"
+                           t-value="survey._get_number_of_attempts_lefts(answer.partner_id, answer.email, answer.invite_token)"/>
+                        <t t-if="attempts_left > 0">
+                            <p><span>Number of attemps left</span>:
+                                <span t-esc="attempts_left"></span>
+                            </p>
+
+                        </t>
+                    </t>
+
+                </t>
+            </div>
+        </template>
+
+        <template id="survey.survey_fill_form_start" name="Survey: start form content">
+        <div class="wrap o_survey_start">
+            <div class='mb32'>
+                <div t-field='survey.description' class="oe_no_empty pb-5 text-break"/>
+                <t t-if="answer.is_session_answer">
+                    <div class="fw-bold">
+                        The session will begin automatically when the host starts.
+                    </div>
+                </t>
+                <t t-else="">
+                    <div t-if="survey.is_time_limited">
+                        <p>
+                            <span t-if="not survey.certification">Time limit for this survey: </span>
+                            <span t-else="">Time limit for this certification: </span>
+                            <span class="fw-bold text-danger" t-field="survey.time_limit" t-options="{'widget': 'duration', 'unit': 'minute'}"/>
+                        </p>
+                    </div>
+                    <form role="form"
+                      t-att-action="'/survey/verify/%s/%s' % (survey.access_token, answer.access_token)" type='http'
+                      method="POST" id="form_set">
+                    <div class="form-group" style="width:50%;">
+                        <label style="color:white;" for="InputEmail1">Email address</label>
+                        <input type="email"  name="email" class="form-control"
+                               id="exampleInputEmail1" aria-describedby="emailHelp"
+                               placeholder="Enter email" />
+
+                        <label style="color:white;" for="InputMobile">Mobile Number</label>
+                        <input type="text"  class="form-control" id="InputMobile"
+                               name="mobile_no" aria-describedby="emailHelp"
+                               placeholder="Enter mobile Number"/>
+                        <div class="alert alert-warning warning" style="margin-top:8%;text-align: center;display:none">
+
+                        </div>
+                    </div>
+
+                    <button type="submit"  style="margin-top:2%" id="submit_100" class="btn btn-primary" name="button_verify"
+                           value="verify">
+
+                        <t t-if="survey.certification">
+                            Start Certification
+                        </t>
+                        <t t-else="">
+                            Start Survey
+                        </t>
+                    </button>
+                </form>
+<!--                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--                    <script>-->
+<!--                function check_value() {-->
+<!--                        alert("hhh")-->
+<!--                        return false;-->
+<!--&lt;!&ndash;                    $("#b_type").val("value");&ndash;&gt;-->
+<!--&lt;!&ndash;                    freq = $("input[name='frequency']:checked").val();&ndash;&gt;-->
+<!--&lt;!&ndash;                    if (freq === undefined) {&ndash;&gt;-->
+<!--&lt;!&ndash;                        var freq_msg = $("#freq_msg");&ndash;&gt;-->
+<!--&lt;!&ndash;                        freq_msg.show();&ndash;&gt;-->
+<!--&lt;!&ndash;                        return false;&ndash;&gt;-->
+<!--&lt;!&ndash;                     }&ndash;&gt;-->
+<!--&lt;!&ndash;                    else&ndash;&gt;-->
+<!--&lt;!&ndash;                    {&ndash;&gt;-->
+<!--&lt;!&ndash;                        var freq_msg = $("#freq_msg");&ndash;&gt;-->
+<!--&lt;!&ndash;                        freq_msg.hide();&ndash;&gt;-->
+<!--&lt;!&ndash;                        return true;&ndash;&gt;-->
+<!--&lt;!&ndash;                    }&ndash;&gt;-->
+<!--                }-->
+<!--                    </script>-->
+<!--                    <button type="submit" value="start" class="btn btn-primary btn-lg disabled">-->
+<!--                        <t t-if="survey.certification">-->
+<!--                            Start Certification-->
+<!--                        </t>-->
+<!--                        <t t-else="">-->
+<!--                            Start Survey-->
+<!--                        </t>-->
+<!--                    </button>-->
+                    <span class="o_survey_enter fw-bold text-muted ms-2 d-none d-md-inline" style="margin-top:2%">or press Enter</span>
+                </t>
+            </div>
+        </div>
+    </template>
+
+<!--        <template id="survey.survey_fill_form_start" name="Survey">-->
+<!--    <div class="wrap" style="background-color:#8c6d87;">-->
+<!--        <div class="oe_structure" id="oe_structure_survey_init_1"/>-->
+<!--        <div class="container">-->
+
+<!--            <t t-if="answer.test_entry" t-call="survey.survey_button_form_view"/>-->
+<!--            <div class='jumbotron mt32'>-->
+<!--                <h1 t-field='survey.title' style="color:white;"/>-->
+<!--                <div t-field='survey.description' style="color:white;" class="oe_no_empty"/>-->
+<!--                <div t-if="survey.is_time_limited">-->
+<!--                    <p>-->
+<!--                        <span>Time limit for this survey:</span>-->
+<!--                        <span class="font-weight-bold text-danger" t-field="survey.time_limit"-->
+<!--                              t-options="{'widget': 'duration', 'unit': 'minute'}"></span>-->
+<!--                    </p>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Debug output to verify the generated URL &ndash;&gt;-->
+<!--&lt;!&ndash;                                <p t-esc="'http://localhost:8089/survey/%s' % % (survey.access_token, answer.access_token)" style="color:white;"></p>&ndash;&gt;-->
+<!--                <form role="form"-->
+<!--                      t-att-action="'/survey/verify/%s/%s' % (survey.access_token, answer.access_token)" type='http'-->
+<!--                      method="POST" id="form_set">-->
+<!--                    <div class="form-group" style="width:50%;">-->
+<!--                        <label style="color:white;" for="InputEmail1">Email address</label>-->
+<!--                        <input type="email" required="required" name="email" class="form-control"-->
+<!--                               id="exampleInputEmail1" aria-describedby="emailHelp"-->
+<!--                               placeholder="Enter email"/>-->
+
+<!--                        <label style="color:white;" for="InputMobile">Mobile Number</label>-->
+<!--                        <input type="text" required="required" class="form-control" id="InputMobile"-->
+<!--                               name="mobile_no" aria-describedby="emailHelp"-->
+<!--                               placeholder="Enter mobile Number"/>-->
+
+<!--                    </div>-->
+
+<!--                    <button type="submit" id="submit_100" class="btn btn-primary" name="button_verify"-->
+<!--                           value="verify">-->
+
+<!--                        <t t-if="survey.certification">-->
+<!--                            Start Certification-->
+<!--                        </t>-->
+<!--                        <t t-else="">-->
+<!--                            Start Survey-->
+<!--                        </t>-->
+<!--                    </button>-->
+<!--                    password-->
+
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="oe_structure" id="oe_structure_survey_init_2"/>-->
+<!--    </div>-->
+<!--</template>-->
+
+<!--        <template id="survey.survey_fill_form_start" name="Survey">-->
+<!--&lt;!&ndash;            <t t-call="survey.layout">&ndash;&gt;-->
+<!--                <div class="wrap" style="background-color:#8c6d87;">-->
+<!--                    <div class="oe_structure" id="oe_structure_survey_init_1"/>-->
+<!--                    <div class="container">-->
+
+<!--                        <t t-if="answer.test_entry" t-call="survey.survey_button_form_view"/>-->
+<!--                        <div class='jumbotron mt32'>-->
+<!--                            <h1 t-field='survey.title' style="color:white;"/>-->
+<!--                            <div t-field='survey.description' style="color:white;" class="oe_no_empty"/>-->
+<!--                            <div t-if="survey.is_time_limited">-->
+<!--                                <p>-->
+<!--                                    <span>Time limit for this survey:</span>-->
+<!--                                    <span class="font-weight-bold text-danger" t-field="survey.time_limit"-->
+<!--                                          t-options="{'widget': 'duration', 'unit': 'minute'}"></span>-->
+<!--                                </p>-->
+<!--                            </div>-->
+
+
+<!--                            <form role="form"-->
+<!--                                  t-attf-action="'/survey/verify/%s/%s' % (answer.access_token, answer.access_token)"-->
+<!--                                  method="POST" id="form_set">-->
+<!--                                <div class="form-group" style="width:50%;">-->
+<!--                                    <label style="color:white;" for="InputEmail1">Email address</label>-->
+<!--                                    <input type="email" required="required" name="email" class="form-control"-->
+<!--                                           id="exampleInputEmail1" aria-describedby="emailHelp"-->
+<!--                                           placeholder="Enter email"/>-->
+
+<!--                                    <label style="color:white;" for="InputMobile">Mobile Number</label>-->
+<!--                                    <input type="text" required="required" class="form-control" id="InputMobile"-->
+<!--                                           name="mobile_no" aria-describedby="emailHelp"-->
+<!--                                           placeholder="Enter mobile Number"/>-->
+
+<!--                                </div>-->
+
+
+<!--                                <input type="submit" id="submit_100" class="btn btn-primary" name="button_verify"-->
+<!--                                        value="verify">-->
+
+<!--                                    <t t-if="survey.certification">-->
+<!--                                        Start Certification-->
+<!--                                    </t>-->
+<!--                                    <t t-else="">-->
+<!--                                        Start Survey-->
+<!--                                    </t>-->
+<!--                                </input>-->
+<!--                            </form>-->
+<!--                            &lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="oe_structure" id="oe_structure_survey_init_2"/>-->
+<!--                </div>-->
+<!--&lt;!&ndash;            </t>&ndash;&gt;-->
+<!--        </template>-->
+
+
+    </data>
+</odoo>

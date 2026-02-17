@@ -1,0 +1,118 @@
+<odoo>
+    <data>
+        <!--        <record model="ir.ui.view" id="kg_create_rfq_form_view">-->
+        <!--            <field name="name">Create RFQ</field>-->
+        <!--            <field name="model">kg.create.rfq.wizard</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <form string="Create RFQ Form">-->
+        <!--                    <sheet>-->
+        <!--                        <group>-->
+        <!--                            <group>-->
+        <!--                                <field name="vendor_id" domain="[('supplier_rank','>', 0),('is_company', '=', True) ]"/>-->
+        <!--                                <field name="x_new_vendor_remark"-->
+        <!--                                       placeholder="Please enter the vendor name as it is new."/>-->
+        <!--                                <field name="estimation_id" readonly="1" force_save="1" invisible="not estimation_id"/>-->
+        <!--                                <field name="opportunity_id" readonly="1" force_save="1"-->
+        <!--                                       invisible="not opportunity_id"/>-->
+        <!--                            </group>-->
+        <!--                        </group>-->
+        <!--                        <notebook>-->
+        <!--                            <page string="Order Lines" name="kg_wizard_order_lines">-->
+        <!--                                <field name="order_line_ids">-->
+        <!--                                    <tree editable="bottom">-->
+        <!--                                        <field name="product_id"/>-->
+        <!--                                        <field name="name"/>-->
+        <!--                                        <field name="units" optional="hide"/>-->
+        <!--                                        <field name="qty"/>-->
+        <!--                                        <field name="price_unit"/>-->
+        <!--                                        <field name="total"/>-->
+        <!--                                        <field name="material_cost_id" column_invisible="1"/>-->
+        <!--                                    </tree>-->
+        <!--                                </field>-->
+        <!--                            </page>-->
+        <!--                        </notebook>-->
+        <!--                    </sheet>-->
+        <!--                    <footer>-->
+        <!--&lt;!&ndash;                        <button name="kg_create_rfq_button" type="object" class="btn-primary"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                string="Create RFQ"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <button string="Cancel" special="cancel" class="btn-secondary" data-hotkey="z"/>&ndash;&gt;-->
+        <!--                    </footer>-->
+        <!--                </form>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="action_seq_lot" model="ir.actions.act_window">
+            <field name="name">Sequence Lot</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sequence.lot</field>
+            <field name="view_mode">tree</field>
+            <field name="target">current</field>
+        </record>
+
+        <record id="sequence_lot_tree_view" model="ir.ui.view">
+            <field name="name">kg.sequence.lot.tree.view</field>
+            <field name="model">sequence.lot</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" decoration-success="is_created == True">
+                    <field name="serial_no" string="SL.NO"/>
+                    <field name="pro_id"/>
+                    <field name="lot_number_text" readonly="True" string="Description"/>
+
+                    <field name="product_temp_id" column_invisible="1"/>
+                    <field name="product_category" column_invisible="1"/>
+                    <field name="uom_id" column_invisible="1"/>
+                    <field name="is_created" column_invisible="1"/>
+                    <field name="des" column_invisible="1"/>
+                    <field name="inspection_calibration_id" column_invisible="1"/>
+                    <field name="make_id" required="1"/>
+                    <field name="model_id" required="1"/>
+                    <field name="name" string="Serial No/ID No" required="1"/>
+                    <field name="accesories" string="Accessories"/>
+                    <field name="physical_status_id" string="Status"/>
+                    <field name="remark" string="Remarks"/>
+                    <!--                    <field name="lot_ids" column_invisible="1"/>-->
+                    <!--                    <field name="serial_no" column_invisible="1"/>-->
+                    <field name="qty" readonly="1"/>
+                    <field name="unit_price" optional="hide" column_invisible="1"/>
+                    <button name="action_create_stock_quant" type="object" string="Update qty"
+                            class="btn-primary"/>
+                </tree>
+            </field>
+        </record>
+        <record id="kg_stock_picking_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="backorder_id" position="after">
+                    <field name="vessel_id" readonly="state == 'done'" string="Vessel"/>
+                </field>
+                <xpath expr="//field[@name='location_dest_id']" position="after">
+                    <field name="lead_id" invisible="1"/>
+<!--                    <field name="virtual_location_id" domain="[-->
+<!--                ('location_id.usage', '=', 'view')-->
+<!--               ]" invisible="picking_type_code in 'outgoing' or not lead_id" readonly="state == 'cancel' or (state == 'done' and is_locked)" />-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='location_dest_id'][2]" position="attributes">-->
+<!--                    <attribute name="invisible">lead_id</attribute>-->
+                </xpath>
+
+
+
+            </field>
+        </record>
+
+        <record id="view_picking_internal_search_inherit_o1" model="ir.ui.view">
+            <field name="name">stock.picking.internal.search.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/group" position="inside">
+                    <filter string="Vessel" name="vessel_id" context="{'group_by': 'vessel_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,401 @@
+<odoo>
+    <template id="payslip_external_layout_inherit1">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row">
+
+                <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 60px;"
+                         alt="Logo"/>
+                </div>
+
+                <div class="col-7 mb4">
+                    <span style="font-size:30px;">
+                        <t t-esc="company.name"/>
+                    </span>
+                    <br/>
+                    <br/>
+                    <!--                    <span style="font-size:9px;">-->
+                    <!--                        <strong>[P.O. Box No: 120086 ][ Sharjah Airport International Free Zone ][ Sharjah, UAE]-->
+                    <!--                        </strong>-->
+                    <!--                    </span>-->
+
+                    <!--                    <br/>-->
+                    <!--                    <span style="font-size:9px;">-->
+                    <!--                        <strong>[Phone: +971-65578645 ][ Fax: +971-65578646 ][ www.asynergys.com]</strong>-->
+                    <!--                    </span>-->
+                    <!--                    <br/>-->
+
+                    <!--                    <br/>-->
+                </div>
+                <div class="col-2 mb4">
+                    <span style="font-size:25px;">
+                        Salary Slip
+                    </span>
+                </div>
+
+            </div>
+        </div>
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+             t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <!--            <div class="pt-5">-->
+            <!--                &lt;!&ndash; This div ensures that the address is not cropped by the header. &ndash;&gt;-->
+            <!--                &lt;!&ndash;                <t t-call="web.address_layout"/>&ndash;&gt;-->
+            <!--            </div>-->
+            <t t-out="0"/>
+        </div>
+        <!--        </div>-->
+
+        <!--        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">-->
+        <!--            <div class="text-center" style="border-top: 1px solid black;">-->
+        <!--                <ul class="list-inline mb4">-->
+        <!--                    <div t-field="company.report_footer"/>-->
+        <!--                </ul>-->
+
+        <!--                <div t-if="report_type == 'pdf'" class="text-muted">-->
+        <!--                    Page:-->
+        <!--                    <span class="page"/>-->
+        <!--                    /-->
+        <!--                    <span class="topage"/>-->
+        <!--                </div>-->
+        <!--                <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">-->
+        <!--                    <span t-out="o.name">(document name)</span>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+    </template>
+    <template id="payslip_external_layout_inherit">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <t t-if="company.external_report_layout_id" t-call="{{company.external_report_layout_id.sudo().key}}">
+            <t t-out="0"/>
+        </t>
+        <t t-else="else" t-call="kg_hr.payslip_external_layout_inherit1">
+            <t t-out="0"/>
+        </t>
+
+    </template>
+    <template id="payslip_custom_html_container">
+        <t t-set="body_classname" t-value="'container'"/>
+        <html t-att-lang="lang and lang.replace('_', '-')"
+              t-att-data-report-margin-top="data_report_margin_top"
+              t-att-data-report-header-spacing="data_report_header_spacing"
+              t-att-data-report-dpi="data_report_dpi"
+              t-att-data-report-landscape="data_report_landscape"
+              t-att-web-base-url="web_base_url">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="initial-scale=1"/>
+                <title>
+                    <t t-esc="title or 'Odoo Report'"/>
+                </title>
+                <t t-call-assets="web.report_assets_common" t-js="false"/>
+                <!--The following is kind of a hack-->
+                <!--in an iframe, we don't want the session to perform qweb_templates rpc-->
+                <script type="text/javascript">
+                    window.odoo = {};
+                    window.odoo.__session_info__ = {is_report: true};
+                </script>
+                <t t-call-assets="web.assets_common" t-css="false"/>
+                <t t-call-assets="web.report_assets_common" t-css="false"/>
+            </head>
+            <body t-att-class="'container' if not full_width else 'container-fluid'">
+                <div id="wrapwrap">
+                    <main>
+                        <t t-out="0"/>
+                    </main>
+                </div>
+            </body>
+
+        </html>
+    </template>
+
+
+    <template id="payslip_report_id" name="Payslip Report" inherit_id="hr_payroll.report_payslip_lang">
+        <xpath expr="//t[@t-call='web.html_container']" position="replace">
+            <t t-call="kg_hr.payslip_custom_html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="o" t-value="o.with_context(lang=o.employee_id.lang or o.env.lang)"/>
+                    <t t-call="kg_hr.payslip_report_template" t-lang="o.env.lang"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+    <template id="payslip_report_template">
+        <t t-call="kg_hr.payslip_external_layout_inherit">
+            <div class="page">
+
+                <table class="table table-borderless">
+                    <t t-set="values_lines" t-value="o.get_values_lines()"/>
+                    <t t-set="basic" t-value="0.00"/>
+                    <t t-set="overtime" t-value="0.00"/>
+                    <t t-set="food_allowance" t-value="0.00"/>
+                    <t t-set="accommodation" t-value="0.00"/>
+                    <t t-set="travel_allowance" t-value="0.00"/>
+                    <t t-set="gross" t-value="0.00"/>
+                    <t t-set="dnwd" t-value="0.00"/>
+                    <t t-set="deduction_advance" t-value="0.00"/>
+                    <t t-set="telephone_deduction" t-value="0.00"/>
+                    <t t-set="deduction_security_deposit" t-value="0.00"/>
+                    <t t-set="total_deduction" t-value="0.00"/>
+                    <t t-set="net" t-value="0.00"/>
+                    <t t-foreach="values_lines" t-as="line">
+                        <t t-set="basic" t-value="line['basic']"/>
+                        <t t-set="overtime" t-value="line['overtime']"/>
+                        <t t-set="food_allowance" t-value="line['food_allowance']"/>
+                        <t t-set="accommodation" t-value="line['accommodation']"/>
+                        <t t-set="travel_allowance" t-value="line['travel_allowance']"/>
+                        <t t-set="gross" t-value="line['gross']"/>
+                        <t t-set="dnwd" t-value="line['dnwd']"/>
+                        <t t-set="deduction_advance" t-value="line['deduction_advance']"/>
+                        <t t-set="telephone_deduction" t-value="line['telephone_deduction']"/>
+                        <t t-set="deduction_security_deposit" t-value="line['deduction_security_deposit']"/>
+                        <t t-set="total_deduction" t-value="line['total_deduction']"/>
+                        <t t-set="net" t-value="line['net']"/>
+                    </t>
+
+                    <tr>
+                        <th style="border:1px solid black" class="w-10">Salary for the month</th>
+                        <th style="border:1px solid black" class="w-25">Name of the Employee</th>
+                        <th style="border:1px solid black" class="w-20">Employee ID No.</th>
+                        <th style="border:1px solid black" class="w-20">Voucher Number</th>
+                        <th style="border:1px solid black" class="w-15">Total Paid Amount
+                            <t t-esc="o.env.company.currency_id.name"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" align="center">
+                            <strong>
+                                <t t-esc="o.date_from.strftime('%b')"/>
+                                /
+                                <t t-esc="o.date_from.year"/>
+                            </strong>
+                        </td>
+                        <td style="border:1px solid black">
+                            <strong>
+                                <t t-esc="o.employee_id.name"/>
+                            </strong>
+                        </td>
+                        <td style="border:1px solid black">
+                            <strong>
+                                <t t-esc="o.employee_id.registration_number"/>
+                            </strong>
+                        </td>
+                        <td style="border:1px solid black">
+                            <strong>
+                                <t t-esc="o.name"/>
+                            </strong>
+                        </td>
+                        <td style="border:1px solid black" align="center">
+                            <strong>
+                                <t t-esc="'{:,.2f}'.format(net)"/>
+                            </strong>
+                        </td>
+                    </tr>
+
+                    <tr style="border:none;">
+                        <td colspan="5" style="border:none;"/>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Basic Salary</td>
+                        <td style="border:1px solid black" align="right">
+                            <t t-esc="'{:,.2f}'.format(basic)"/>
+
+                        </td>
+                        <td style="border:1px solid black"/>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Over Time Salary</td>
+                        <td style="border:1px solid black" align="right">
+                            <t t-esc="'{:,.2f}'.format(overtime)"/>
+
+                        </td>
+                        <td style="border:1px solid black"/>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Food Allowance</td>
+                        <td style="border:1px solid black" align="right">
+                            <t t-esc="'{:,.2f}'.format(food_allowance)"/>
+                        </td>
+                        <td style="border:1px solid black"/>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Accomodation Allowance</td>
+                        <td style="border:1px solid black" align="right">
+                            <t t-esc="'{:,.2f}'.format(accommodation)"/>
+                        </td>
+                        <td style="border:1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Transport Allowance</td>
+                        <td style="border:1px solid black" align="right">
+                            <t t-esc="'{:,.2f}'.format(travel_allowance)"/>
+                        </td>
+                        <td style="border:1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Misc-1 : Nil</td>
+                        <td style="border:1px solid black"></td>
+                        <td style="border:1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Misc-2 : Nil</td>
+                        <td style="border:1px solid black"></td>
+                        <td style="border:1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" align="right" colspan="4">
+                            <strong>Total Earned</strong>
+                        </td>
+                        <td style="border:1px solid black" align="right">
+                            <strong>
+                                <t t-esc="'{:,.2f}'.format(gross)"/>
+
+                            </strong>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Deduction Due to Absence</td>
+                        <td style="border:1px solid black" align="right">
+                            <t t-esc="'{:,.2f}'.format(dnwd)"/>
+                        </td>
+                        <td style="border:1px solid black"/>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Deduction Advances</td>
+                        <td style="border:1px solid black" align="right">
+                            <t t-esc="'{:,.2f}'.format(deduction_advance)"/>
+                        </td>
+                        <td style="border:1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Telephone Deductions</td>
+                        <td style="border:1px solid black" align="right">
+                            <t t-esc="'{:,.2f}'.format(telephone_deduction)"/>
+
+                        </td>
+                        <td style="border:1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Security Deposit</td>
+                        <td style="border:1px solid black" align="right">
+                            <t t-esc="'{:,.2f}'.format(deduction_security_deposit)"/>
+                        </td>
+                        <td style="border:1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Misc-1 : Nil</td>
+                        <td style="border:1px solid black"></td>
+                        <td style="border:1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" colspan="3">Misc-2 : Nil</td>
+                        <td style="border:1px solid black"></td>
+                        <td style="border:1px solid black"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" align="right" colspan="4">
+                            <strong>Total Deductions</strong>
+                        </td>
+                        <td style="border:1px solid black" align="right">
+                            <strong>
+                                <t t-esc="'{:,.2f}'.format(total_deduction)"/>
+                            </strong>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" align="right" colspan="4">
+                            <strong>Net Total</strong>
+                        </td>
+                        <td style="border:1px solid black" align="right">
+                            <strong>
+                                <t t-esc="'{:,.2f}'.format(net)"/>
+                            </strong>
+
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" align="right" colspan="4">
+                            <strong>Net Total Paid</strong>
+                        </td>
+                        <td style="border:1px solid black" align="right">
+                            <strong>
+                                <t t-esc="'{:,.2f}'.format(net)"/>
+                            </strong>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black" align="center" colspan="5">
+                            <strong>
+                                <t t-esc="o.company_id.name"/>
+                            </strong>
+                        </td>
+
+                    </tr>
+                    <tr style="border:none;">
+                        <td colspan="5" style="border:none;"/>
+                    </tr>
+                    <tr style="border:none;">
+                        <td style="border:none;"/>
+                        <td style="border:none;" colspan="3">Received the above indicated NET Total PAID Amount of</td>
+                        <td style="border:none;">
+                            <t t-esc="'{:,.2f}'.format(net)"/>
+                        </td>
+                    </tr>
+                    <tr style="border:none;">
+                        <td colspan="5" style="border:none;"/>
+                    </tr>
+                    <tr style="border:none;">
+                        <td style="border:none;" colspan="3"/>
+                        <td style="border:none;border-bottom:1px solid" colspan="2">
+                            Signature
+                        </td>
+
+                    </tr>
+                    <tr style="border:none;">
+                        <td style="border:none;" colspan="3"/>
+                        <td style="border:none;" colspan="2">
+                            <t t-esc="o.employee_id.name"/>
+                        </td>
+
+                    </tr>
+                    <tr style="border:none;">
+                        <td style="border:none;" colspan="3"/>
+                        <td style="border:none;" colspan="2">
+                            Date
+                        </td>
+                    </tr>
+                </table>
+
+                <!--                <h2 id="payslip_name">-->
+                <!--                    <span t-field="o.name">August 2023 Payslip</span>-->
+                <!--                </h2>-->
+                <!--                <t t-set="is_invalid" t-value="o._is_invalid()"/>-->
+                <!--                <div t-if="is_invalid">-->
+                <!--                    <strong id="invalid_warning">-->
+                <!--                        <span t-out="is_invalid">This payslip is not validated. This is not a legal document.</span>-->
+                <!--                    </strong>-->
+                <!--                </div>-->
+            </div>
+        </t>
+    </template>
+
+</odoo>

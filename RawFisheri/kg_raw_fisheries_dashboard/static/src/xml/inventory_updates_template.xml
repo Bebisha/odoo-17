@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Template for inventory updates dashboard -->
+<templates>
+    <t t-name="kg_raw_fisheries_dashboard.InventoryUpdatesTemplate">
+        <div style="height: 100vh; display: flex; flex-direction: column; padding: 20px;">
+            <h1 style="text-align: center; margin-bottom: 20px;">Inventory Updates</h1>
+
+            <div style="width: 100%; max-width: 700px; margin: 20px; padding: 15px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <div style="display: flex; gap: 20px; margin-bottom: 5px;">
+                    <div style="flex: 1;">
+                        <label style="font-weight: bold; color: #333;">Choose Vessel</label>
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="font-weight: bold; color: #333;">Choose Batch</label>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 20px;">
+                    <div style="flex: 1;">
+                        <select t-on-change="onVesselChange"
+                                style="width: 100%; padding: 8px 12px; border: 1px solid #ccc;
+                                       border-radius: 4px; background-color: #fff; font-size: 14px;">
+                            <option value="">All</option>
+                            <t t-foreach="state.vessels" t-as="vessel" t-key="vessel">
+                                <option t-att-value="vessel">
+                                    <t t-esc="vessel"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <select t-on-change="onBatchChange"
+                                style="width: 100%; padding: 8px 12px; border: 1px solid #ccc;
+                                       border-radius: 4px; background-color: #fff; font-size: 14px;">
+                            <option value="">All</option>
+                            <t t-foreach="state.batches" t-as="batch" t-key="batch">
+                                <option t-att-value="batch">
+                                    <t t-esc="batch"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div style="overflow: auto; max-height: 80vh;">
+                <table class="table table-hover" style="width: 100%;">
+                    <thead style="position: sticky; top: 0; background-color: #343a40; color: white;">
+                        <tr style="text-align:center">
+                            <th t-on-click="this.sortBy.bind(this, 'product')" style="cursor: pointer;">
+                                Product
+                                <t t-if="state.sortField === 'product'">
+                                    <t t-esc="state.sortAsc ? ' 🔼' : ' 🔽'"/>
+                                </t>
+                            </th>
+                            <th t-on-click="this.sortBy.bind(this, 'code')" style="cursor: pointer;">
+                                Code
+                                <t t-if="state.sortField === 'code'">
+                                    <t t-esc="state.sortAsc ? ' 🔼' : ' 🔽'"/>
+                                </t>
+                            </th>
+                            <th t-on-click="this.sortBy.bind(this, 'batch_id')" style="cursor: pointer;">
+                                Batch
+                                <t t-if="state.sortField === 'batch_id'">
+                                    <t t-esc="state.sortAsc ? ' 🔼' : ' 🔽'"/>
+                                </t>
+                            </th>
+                            <th t-on-click="this.sortBy.bind(this, 'date')" style="cursor: pointer;">
+                                Date
+                                <t t-if="state.sortField === 'date'">
+                                    <t t-esc="state.sortAsc ? ' 🔼' : ' 🔽'"/>
+                                </t>
+                            </th>
+                            <th t-on-click="this.sortBy.bind(this, 'warehouse')" style="cursor: pointer;">
+                                Warehouse
+                                <t t-if="state.sortField === 'warehouse'">
+                                    <t t-esc="state.sortAsc ? ' 🔼' : ' 🔽'"/>
+                                </t>
+                            </th>
+                            <th t-on-click="this.sortBy.bind(this, 'vessel')" style="cursor: pointer;">
+                                Vessel
+                                <t t-if="state.sortField === 'vessel'">
+                                    <t t-esc="state.sortAsc ? ' 🔼' : ' 🔽'"/>
+                                </t>
+                            </th>
+                            <th t-on-click="this.sortBy.bind(this, 'onhand_qty')" style="cursor: pointer;">
+                                OnHand Qty
+                                <t t-if="state.sortField === 'onhand_qty'">
+                                    <t t-esc="state.sortAsc ? ' 🔼' : ' 🔽'"/>
+                                </t>
+                            </th>
+                            <th t-on-click="this.sortBy.bind(this, 'daily_qty')" style="cursor: pointer;">
+                                Daily Qty
+                                <t t-if="state.sortField === 'daily_qty'">
+                                    <t t-esc="state.sortAsc ? ' 🔼' : ' 🔽'"/>
+                                </t>
+                            </th>
+                            <th t-on-click="this.sortBy.bind(this, 'kilograms')" style="cursor: pointer;">
+                                Kilograms
+                                <t t-if="state.sortField === 'kilograms'">
+                                    <t t-esc="state.sortAsc ? ' 🔼' : ' 🔽'"/>
+                                </t>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <t t-if="state.filteredData.length === 0">
+                            <tr>
+                                <td colspan="9"
+                                    style="text-align: center;padding: 20px;color: #666;font-style: italic;font-weight: bold;
+                                            background-color: #fdfdfd;border-top: 1px solid #ddd;">
+                                    No results found.
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-foreach="state.filteredData" t-as="record" t-index="index" t-key="inv_upd">
+                            <tr style="text-align:center">
+                                <td>
+                                    <t t-esc="record.product"/>
+                                </td>
+                                <td>
+                                    <t t-esc="record.code"/>
+                                </td>
+                                <td>
+                                    <t t-esc="record.batch_id"/>
+                                </td>
+                                <td>
+                                    <t t-esc="record.date"/>
+                                </td>
+                                <td>
+                                    <t t-esc="record.warehouse"/>
+                                </td>
+                                <td>
+                                    <t t-esc="record.vessel"/>
+                                </td>
+                                <td>
+                                    <t t-esc="record.onhand_qty"/>
+                                </td>
+                                <td>
+                                    <t t-esc="record.daily_qty"/>
+                                </td>
+                                <td>
+                                    <t t-esc="record.kilograms"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_payment_tree_tdcc" model="ir.ui.view">
+        <field name="name">account.payment.form.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree" />
+        <field name="arch" type="xml">
+            <field name="currency_id" position="after">
+                <field name="available_balance" force_save="1"/>
+            </field>
+            <field name="currency_id" position="before">
+                <field name="payment_type"/>
+            </field>
+        </field>
+    </record>
+
+	<record id="payment_form_tdcc" model="ir.ui.view">
+		<field name="name">account.payment.form.inherit</field>
+		<field name="model">account.payment</field>
+		<field name="inherit_id" ref="account.view_account_payment_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='payment_transaction_id']"
+				position="after">
+				<field name="service_type_id"
+					options="{'no_create_edit': True}" invisible = "'payment_type' != 'inbound' " readonly = "'state' != 'draft' " required="'physician_type' == 'single' and payment_type == 'inbound' and partner_type == 'customer'  "/>
+				<field name="physician_type"  invisible = "'payment_type' != 'inbound' " readonly = "'state' != 'draft' " required="'physician_type' == 'single' and 'payment_type' == 'inbound' and partner_type == 'customer'  "/>
+
+				<field name="physician_id"  invisible = "'physician_type' == 'multi' or 'payment_type' != 'inbound' " readonly = "'state' != 'draft' " required="'physician_type' == 'single' and 'payment_type' == 'inbound' and 'partner_type' == 'customer'  " options="{'no_create_edit': True}" />
+				<field name="multi_physician_ids"
+					   invisible = "'physician_type' == 'single' or 'payment_type' != 'inbound' " readonly = "'state' != 'draft' " required="'physician_type' == 'multi' and 'payment_type' == 'inbound' and 'partner_type' == 'customer'  "/>
+			</xpath>
+			<xpath expr="//button[@name='action_post']" position="after">
+                <button name="action_send_payment_mail" class="oe_highlight"  invisible="'payment_type' !=  'inbound'" string="Send Mail" type="object" />
+
+            </xpath>
+			<field name="journal_id" position="after">
+				<field name="payment_info"/>
+				<field name="available_balance" force_save="1" invisible = "'payment_type' != 'inbound' " />
+				<field name="tdcc_voucher_id" invisible="1" />
+				<field name="tdcc_voucher_sequence" invisible="1" />
+				<field name="tdcc_cheque_date" invisible="1" />
+				<field name="tdcc_cheque_due_date" invisible="1" />
+				<field name="tdcc_cheque_no" invisible="1" />
+			</field>
+			<xpath
+				expr="//sheet/div[@name='button_box']/button[@name='button_open_invoices']"
+				position="after">
+				<button class="oe_stat_button" name="view_open_invoices"
+					string="Open Invoices" type="object" icon="fa-bars" invisible ="'partner_type' != 'customer' "/>
+			</xpath>
+			<xpath expr="//header/button[@name='action_draft']"
+				position="after">
+				<button
+					name="%(bista_tdcc_operations.payment_cancel_request_action)d"
+					class="oe_highlight" string="Request for Cancel Payment"
+					type="action" invisible ="'state' not in ('posted', 'sent') or 'allow_cancel' != False or 'partner_type' == 'supplier'"/>
+
+				<button name="action_approve_cancel_payment"
+					class="oe_highlight"
+					groups="bista_tdcc_operations.group_tdcc_cofounder"
+					string="Approve" type="object" invisible ="'payment_cancel_req_sent' == False or 'allow_cancel' != False"/>
+
+			</xpath>
+			<xpath expr="//sheet/group" position="after">
+				<notebook>
+					<page string="Cancellation Details" invisible = "payment_cancel_req_sent == False ">
+						<group>
+							<group string="Request Details">
+								<field name="allow_cancel" invisible="1" />
+								<field name="payment_cancel_req_sent" invisible="1" />
+								<field name="payment_cancel_req_user_id" readonly="1"
+									force_Save="1" />
+								<field name="payment_cancel_req_date" readonly="1"
+									force_Save="1" />
+							</group>
+							<group string="Approval Details" invisible = "allow_cancel == False ">
+								<field name="approval_by" readonly="1" force_Save="1" />
+								<field name="approval_date" readonly="1" force_Save="1" />
+							</group>
+							<group string="Cancelled Details" invisible = "cancelled_by == False ">
+								<field name="cancelled_by" readonly="1" force_Save="1" />
+								<field name="cancelled_date" readonly="1" force_Save="1" />
+								<field name="cancel_reason" readonly="1" force_Save="1" />
+							</group>
+						</group>
+					</page>
+				</notebook>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="cancel_payment_form_tdcc" model="ir.ui.view">
+		<field name="name">account.payment.form.inherit</field>
+		<field name="model">account.payment</field>
+		<field name="inherit_id"
+			ref="account.view_account_payment_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//form" position="inside">
+				<field name="allow_cancel" invisible="1" />
+			</xpath>
+			<xpath expr="//button[@name='action_cancel']" position="attributes">
+				<attribute name="invisible">state in ['draft','cancelled'] or allow_cancel == False and partner_type == 'customer' </attribute>
+
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Tree view of Account Payment Physician -->
+	<record id="tree_view_account_payment_physician"
+		model="ir.ui.view">
+		<field name="name">tree.view.account.payment.physician</field>
+		<field name="model">account.payment.physician</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="physician_id"
+					domain="[('is_physician','=',True)]"
+					options="{'no_create_edit': True}" />
+				<field name="amount"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- Search view of account Payment -->
+	<record id="seach_view_account_payment" model="ir.ui.view">
+		<field name="name">search.view.account.payment</field>
+		<field name="model">account.payment</field>
+		<field name="inherit_id"
+			ref="account.view_account_payment_search" />
+		<field name="arch" type="xml">
+			<field name="name"
+				filter_domain="['|', '|', ('name','ilike',self), ('communication','ilike',self), ('tdcc_voucher_sequence', 'ilike', self)]"
+				string="Description" />
+			<xpath expr="//filter[@name='company']" position="after">
+				<filter string="Physician" name="physician" domain="[]"
+					context="{'group_by': 'physician_id'}" />
+				<filter string="Physician Type" name="physiciantype"
+					domain="[]" context="{'group_by': 'physician_type'}" />
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Inherited Register Payment form view -->
+	<record id="inherited_account_register_payment_invoice_form_1"
+		model="ir.ui.view">
+		<field name="name">inherited.account.payment.invoice.wizard.form.1
+		</field>
+		<field name="model">account.payment</field>
+		<field name="inherit_id"
+			ref="account.view_account_payment_form" />
+		<field name="arch" type="xml">
+			<field name="journal_id" position="after">
+				<field name="physician_type" invisible ="payment_type != 'inbound' and partner_type != 'customer' " required ="payment_type == 'inbound' and partner_type == 'customer'"/>
+
+				<field name="service_type_id"
+					options="{'no_create':True,'no_open':True}" invisible=" payment_type != 'inbound'" required=" payment_type == 'inbound' "/>
+
+			</field>
+			<field name="ref" position="after">
+				<field name="physician_id" invisible = "physician_type == 'multi' or payment_type != 'inbound' or partner_type != 'customer'"
+					   required ="payment_type == 'inbound' and partner_type == 'customer' and physician_type == 'single' "	options="{'no_create':True,'no_open':True}" />
+				<field name="multi_physician_ids"  invisible ="physician_type == 'single' or payment_type != 'inbound'  or payment_type != 'customer' "  required ="physician_type == 'multi' and payment_type == 'inbound' and payment_type == 'customer'  "/>
+			</field>
+
+
+		</field>
+	</record>
+
+	<!-- Inherit Multiple register payment -->
+	<record id="inherited_multiple_payment_form_view"
+		model="ir.ui.view">
+		<field name="name">inherited.multiple.payment.form.view
+		</field>
+		<field name="model">account.payment.register</field>
+		<field name="inherit_id"
+			ref="account_payment.view_account_payment_register_form_inherit_payment" />
+		<field name="arch" type="xml">
+			<field name="journal_id" position="after">
+				<field name="physician_type"
+					invisible ="payment_type != 'inbound'" required ="payment_type != 'inbound'" />
+				<field name="user_id" options="{'no_create':True,'no_open':True}" invisible="1"/>
+				<field name="service_type_id"
+					options="{'no_create':True,'no_open':True}"
+					  invisible ="payment_type != 'inbound'" required ="payment_type != 'inbound'" />
+			</field>
+			<field name="group_payment" position="after">
+				<field name="physician_id"
+					invisible ="physician_type == 'multi' or payment_type != 'inbound' "   required ="physician_type == 'single' and payment_type != 'inbound' " options="{'no_create':True,'no_open':True}" />
+
+				<field name="multi_physician_ids" invisible ="physician_type == 'single' or payment_type != 'inbound' "  required ="physician_type == 'multi' and payment_type == 'inbound' "/>
+			</field>
+		</field>
+	</record>
+
+</odoo>

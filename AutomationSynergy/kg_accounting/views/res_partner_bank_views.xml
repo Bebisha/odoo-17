@@ -1,0 +1,13 @@
+<odoo>
+    <record model="ir.ui.view" id="kg_view_inherited_res_partner_bank_form">
+        <field name="name">kg.res.partner.bank.inherit</field>
+        <field name="inherit_id" ref="base.view_partner_bank_form"/>
+        <field name="model">res.partner.bank</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='bank_id']" position="before">
+                <field name="iban_no"/>
+                <field name="swift_code"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

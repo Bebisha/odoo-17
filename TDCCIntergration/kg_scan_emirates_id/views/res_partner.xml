@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="kg_emiratesid_view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.inh.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet" position="before">
+                    <header>
+                        <button confirm="Are you sure? This action will overwrite the data in this record." class="btn btn-primary" name="fetch_eid_details" type="object">Fetch EID</button>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

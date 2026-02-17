@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_hr_payslip_by_employees_inherit" model="ir.ui.view">
+        <field name="name">view.hr.payslip.by.employees.inherit</field>
+        <field name="model">hr.payslip.employees</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_by_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[2]" position="after">
+                <separator string="Vessel" colspan="2"/>
+                <div class="o_row">
+                    <p class="text-muted w-50">Set a specific Vessel if you wish to select all the employees from
+                        this Vessel at once.
+                    </p>
+                    <field name="vessel_id" nolabel="1"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

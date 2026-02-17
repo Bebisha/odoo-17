@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="module_tdcc_operations" model="ir.module.category">
+            <field name="name">Operations</field>
+            <field name="description">Helps you handle your appointments and
+                group appointments.
+            </field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="group_tdcc_show_crm_menu" model="res.groups">
+            <field name="name">Show CRM Menu</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="comment">the user will show the CRM Menu
+            </field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Group for Own Appointments -->
+        <record id="group_tdcc_see_own_appointments" model="res.groups">
+            <field name="name">See Own Appointments</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="comment">the user will have access to his own data in
+                the appointment application.
+            </field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Rule for Own appointments -->
+        <record id="tdcc_appointments_booking_personal_rule" model="ir.rule">
+            <field name="name">Personal Appointments</field>
+            <field name="model_id" ref="model_appointment_appointment"/>
+            <field name="domain_force">[('physician_id.id','=',user.partner_id.id)]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('group_tdcc_see_own_appointments'))]"/>
+        </record>
+
+        <!-- Group for All Appointments -->
+        <record id="group_tdcc_all_appointments" model="res.groups">
+            <field name="name">See all Appointments</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('group_tdcc_see_own_appointments'))]"/>
+            <field name="comment">the user will have access to all records of
+                everyone in the appointment application.
+            </field>
+        </record>
+
+        <!-- Rule for All appointments -->
+        <record id="tdcc_appointments_see_all" model="ir.rule">
+            <field name="name">All Appointments</field>
+            <field ref="model_appointment_appointment" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups"
+                   eval="[(4, ref('group_tdcc_all_appointments'))]"/>
+        </record>
+
+        <!-- Group for Appointment Manager-->
+        <record id="group_appointment_manager" model="res.groups">
+            <field name="name">Head Of Operation</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('group_tdcc_all_appointments'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <!-- Rule for Own Group Appointment -->
+        <record id="tdcc_group_appointments_personal_rule" model="ir.rule">
+            <field name="name">Personal Group Appointments</field>
+            <field ref="model_group_appointment" name="model_id"/>
+            <field name="domain_force">[('physician_id.id','=',user.partner_id.id)]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('group_tdcc_see_own_appointments'))]"/>
+        </record>
+
+        <!-- Rule for All Group Appointment -->
+        <record id="tdcc_group_appointments_see_all" model="ir.rule">
+            <field name="name">All Group Appointments</field>
+            <field ref="model_group_appointment" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups"
+                   eval="[(4, ref('group_tdcc_all_appointments'))]"/>
+        </record>
+
+        <!-- Rule: Own Group Appointments Booking -->
+        <record id="tdcc_group_appointments_booking_own" model="ir.rule">
+            <field name="name">Personal Group Appointments Booking</field>
+            <field ref="model_group_appointment_booking" name="model_id"/>
+            <field name="domain_force">[('physician_id.id','=',user.partner_id.id)]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('group_tdcc_see_own_appointments'))]"/>
+        </record>
+
+        <record id="tdcc_group_appointments_booking_all" model="ir.rule">
+            <field name="name">All Group Appointments Booking</field>
+            <field ref="model_group_appointment_booking" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups"
+                   eval="[(4, ref('group_tdcc_all_appointments'))]"/>
+        </record>
+
+        <!-- Group for EIP User-->
+        <record id="group_eip_user" model="res.groups">
+            <field name="name">EIP User</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Group for EIP/EIIP Manager-->
+        <record id="group_tdcc_eip_eiip_manager" model="res.groups">
+            <field name="name">EIP/Intensive Program Manager</field>
+            <field name="category_id" ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="comment">the user will have access to all data in EIP/EIIP.</field>
+            <field name="implied_ids" eval="[(4, ref('bista_tdcc_operations.group_eip_user'))]"/>
+        </record>
+
+        <!-- Group for Unused Menu -->
+        <record id="group_tdcc_unused_menu" model="res.groups">
+            <field name="name">Unused Menu</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="implied_ids" eval="[(4,ref('base.group_user'))]"/>
+            <field name="menu_access" eval="[(4,ref('utm.menu_link_tracker_root')),
+                                             (4,ref('mail.menu_root_discuss'))]"/>
+        </record>
+
+        <!-- Group for Invoicing -->
+        <!--<record id="group_tdcc_invoicing" model="res.groups">-->
+        <!--<field name="name">TDCC Invoicing</field>-->
+        <!--<field name="category_id"-->
+        <!--ref="bista_tdcc_operations.module_tdcc_operations"/>-->
+        <!--<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>-->
+        <!--</record>-->
+
+        <!-- Group for Account Configuration Menu -->
+        <!--<record id="group_tdcc_account_configuration_menu" model="res.groups">-->
+        <!--<field name="name">Account Configuration Menu</field>-->
+        <!--<field name="category_id"-->
+        <!--ref="bista_tdcc_operations.module_tdcc_operations"/>-->
+        <!--<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>-->
+        <!--</record>-->
+
+        <!-- Group for Account Create & edit -->
+        <!-- <record id="group_tdcc_account_create_edit" model="res.groups">
+            <field name="name">Account(Create edit)</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>-->
+
+        <!-- Group for Account Read -->
+        <record id="group_tdcc_account_read" model="res.groups">
+            <field name="name">Account(Read)</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Group for Communication -->
+        <record id="group_tdcc_communication" model="res.groups">
+            <field name="name">Communication</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Group for TDCC Price list-->
+        <!--<record id="group_tdcc_pricelist" model="res.groups">-->
+        <!--<field name="name">TDCC Pricelist</field>-->
+        <!--<field name="category_id"-->
+        <!--ref="bista_tdcc_operations.module_tdcc_operations"/>-->
+        <!--<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>-->
+        <!--</record>-->
+
+        <!-- Group for TDCC Email Options-->
+        <!--<record id="group_tdcc_email_options" model="res.groups">-->
+        <!--<field name="name">Email Options</field>-->
+        <!--<field name="category_id"-->
+        <!--ref="bista_tdcc_operations.module_tdcc_operations"/>-->
+        <!--<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>-->
+        <!--</record>-->
+
+        <!-- Group for TDCC Senior Manager-->
+        <!--<record id="group_tdcc_senior_manager" model="res.groups">-->
+        <!--<field name="name">Senior Manager</field>-->
+        <!--<field name="category_id"-->
+        <!--ref="bista_tdcc_operations.module_tdcc_operations"/>-->
+        <!--<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>-->
+        <!--</record>-->
+
+        <!-- Group for Director -->
+        <record id="group_tdcc_director" model="res.groups">
+            <field name="name">Director</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Group for Practitioner -->
+        <record id="group_tdcc_practitioner" model="res.groups">
+            <field name="name">Practitioner</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="implied_ids" eval="[(4, ref('bista_tdcc_operations.group_tdcc_see_own_appointments'))]"/>
+        </record>
+
+        <!-- Rule for Practitioner see own Appointments -->
+        <record id="tdcc_practitioner_own_appointment1" model="ir.rule">
+            <field name="name">Own Appointments</field>
+            <field name="model_id" ref="model_appointment_appointment"/>
+            <field name="domain_force">['|',('physician_id.id','=',user.partner_id.id),('physician_id.id','=', False)]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('bista_tdcc_operations.group_tdcc_practitioner'))]"/>
+        </record>
+
+        <!-- Rule for Practitioner see own Group Appointment -->
+        <record id="tdcc_practitioner_own_group_appointment" model="ir.rule">
+            <field name="name">Own Group Appointments</field>
+            <field name="model_id" ref="model_group_appointment"/>
+            <field name="domain_force">['|',('physician_id.id','=',user.partner_id.id),('physician_id.id','=',False)]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('bista_tdcc_operations.group_tdcc_practitioner'))]"/>
+        </record>
+
+        <!-- Rule for Practitioner see own Group Appointment Booking -->
+        <record id="tdcc_practitioner_own_group_appointment_booking" model="ir.rule">
+            <field name="name">Own Group Appointment Booking</field>
+            <field name="model_id" ref="model_group_appointment_booking"/>
+            <field name="domain_force">['|',('physician_id.id','=',user.partner_id.id),('physician_id.id','=',False)]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('bista_tdcc_operations.group_tdcc_practitioner'))]"/>
+        </record>
+
+        <!-- Rule of Practitioner for Daily Notes -->
+        <record id="tdcc_practitioner_daily_note_rule" model="ir.rule">
+            <field name="name">Daily Notes Practitioner</field>
+            <field ref="model_daily_notes" name="model_id"/>
+            <field name="domain_force">[('user_id','=',user.id)]</field>
+            <field name="groups"
+                   eval="[(4, ref('bista_tdcc_operations.group_tdcc_practitioner'))]"/>
+        </record>
+
+        <!-- Group CRE -->
+        <record id="group_tdcc_cre" model="res.groups">
+            <field name="name">CRE</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="implied_ids" eval="[(4, ref('bista_tdcc_operations.group_tdcc_all_appointments'))]"/>
+        </record>
+
+        <!-- Rule for Own team lead -->
+<!--        <record id="tdcc_own_team_lead_rule" model="ir.rule">-->
+<!--            <field name="name">Own team Lead</field>-->
+<!--            <field name="model_id" ref="model_crm_lead"/>-->
+<!--            <field name="domain_force">-->
+<!--                ['|',('team_id.member_ids','child_of',[user.id]),('team_id','=',False)]-->
+<!--            </field>-->
+<!--            <field name="groups" eval="[(4, ref('group_tdcc_show_crm_menu'))]"/>-->
+<!--        </record>-->
+
+        <!-- Group of Co Founder -->
+        <record id="group_tdcc_cofounder" model="res.groups">
+            <field name="name">CO Foundar</field>
+            <field name="category_id"
+                   ref="bista_tdcc_operations.module_tdcc_operations"/>
+            <field name="implied_ids" eval="[(4, ref('bista_tdcc_operations.group_tdcc_cre'))]"/>
+        </record>
+
+        <!-- Group of Accounts -->
+        <!--<record id="group_tdcc_accounts" model="res.groups">-->
+        <!--<field name="name">Accounts</field>-->
+        <!--<field name="category_id"-->
+        <!--ref="bista_tdcc_operations.module_tdcc_operations"/>-->
+        <!--<field name="implied_ids" eval="[(4, ref('account.group_account_manager'))]"/>-->
+        <!--</record>-->
+
+
+    </data>
+</odoo>

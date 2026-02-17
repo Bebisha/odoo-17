@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- documents document share wizard form view-->
+    <record id="documents_document_share_wizard_form_id" model="ir.ui.view">
+        <field name="name">documents.document.share.wizard</field>
+        <field name="model">documents.document.share.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="is_remove" widget="boolean_toggle"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="Document Share Uses" invisible="is_remove">
+                        <field name="document_id" force_save="1" widget="many2many_tags"/>
+                        <field name="document_user_ids" widget="many2many_tags" force_save="1"/>
+                    </group>
+                    <group string="Remove Document Share Uses" invisible="not is_remove">
+                        <field name="remove_document_id" force_save="1"
+                               domain="[('id', 'in', document_id)]"/>
+                        <field name="remove_user_ids" widget="many2many_tags"
+                               invisible="not remove_document_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" type="object"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

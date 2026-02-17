@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--   Form view for payroll report approval model   -->
+        <record id="payroll_report_approval_form" model="ir.ui.view">
+            <field name="name">payroll.report.approval.form</field>
+            <field name="model">payroll.report.approval</field>
+            <field name="arch" type="xml">
+                <form string="Payroll Report Approval">
+                    <header>
+                        <button name="action_request" type="object" class="btn btn-primary" string="Request Approval"
+                                invisible="state != 'draft'" groups="kg_raw_fisheries_payroll_report.payroll_report_requester"/>
+                        <button name="action_approve" type="object" class="btn btn-primary" string="Approve"
+                                invisible="state != 'approval_requested'" groups="kg_raw_fisheries_payroll_report.payroll_report_approver"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                            <separator/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_from"/>
+                                <field name="employee_site"/>
+                                <field name="attachment_id" invisible="1"/>
+                                <label for="datas" class="mt-1"/>
+                                <field name="datas" nolabel="1" class="w-100" filename="name"/>
+                            </group>
+                            <group>
+                                <field name="date_to"/>
+                                <field name="vessel_id" invisible="employee_site != 'crew'"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--   Tree view for payroll report approval model   -->
+        <record id="payroll_report_approval_tree" model="ir.ui.view">
+            <field name="name">payroll.report.approval.tree</field>
+            <field name="model">payroll.report.approval</field>
+            <field name="arch" type="xml">
+                <tree string="Payroll Report Approval">
+                    <field name="name"/>
+                    <field name="employee_site"/>
+                    <field name="create_date" string="Generated On"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="state" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

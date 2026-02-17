@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="new_login_layout" inherit_id="web.login_layout" name="Login Layout Inherit">
+
+            <xpath expr="//div[@class='text-center small mt-4 pt-3 border-top']" position="replace"/>
+
+           </template>
+
+
+          <template id="new_login" inherit_id="web.login" name="Login superuser">
+
+            <xpath expr="//button[@name='redirect']" position="replace"/>
+
+           </template>
+
+    </data>
+</odoo>

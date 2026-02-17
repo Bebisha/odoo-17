@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+
+        <!--    Group Payroll Report Approver    -->
+        <record id="payroll_report_approver" model="res.groups">
+            <field name="name">Payroll Report Approver</field>
+        </record>
+
+        <!--    Group Payroll Report Requester    -->
+        <record id="payroll_report_requester" model="res.groups">
+            <field name="name">Payroll Report Requester</field>
+        </record>
+
+    </data>
+</odoo>

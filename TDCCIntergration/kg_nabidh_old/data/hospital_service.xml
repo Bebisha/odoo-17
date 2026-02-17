@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Hospital Service Master Data -->
+    <data noupdate="1">
+
+        <record id="hospital_service_alg" model="hospital.service">
+            <field name="code">ALG</field>
+            <field name="name">Allergy</field>
+        </record>
+
+        <record id="hospital_service_imm" model="hospital.service">
+            <field name="code">IMM</field>
+            <field name="name">Immunology</field>
+        </record>
+
+        <record id="hospital_service_ane" model="hospital.service">
+            <field name="code">ANE</field>
+            <field name="name">Anesthesiology</field>
+        </record>
+
+        <record id="hospital_service_ant" model="hospital.service">
+            <field name="code">ANT</field>
+            <field name="name">ANTENATAL</field>
+        </record>
+
+        <record id="hospital_service_aud" model="hospital.service">
+            <field name="code">AUD</field>
+            <field name="name">AUDIOLOGY</field>
+        </record>
+
+        <record id="hospital_service_bar" model="hospital.service">
+            <field name="code">BAR</field>
+            <field name="name">BARIATRIC MEDICINE</field>
+        </record>
+
+        <record id="hospital_service_car" model="hospital.service">
+            <field name="code">CAR</field>
+            <field name="name">CARDIOLOGY</field>
+        </record>
+
+        <record id="hospital_service_cvd" model="hospital.service">
+            <field name="code">CVD</field>
+            <field name="name">CARDIOVASCULAR DISEASE</field>
+        </record>
+
+        <record id="hospital_service_der" model="hospital.service">
+            <field name="code">DER</field>
+            <field name="name">DERMATOLOGY</field>
+        </record>
+
+        <record id="hospital_service_end" model="hospital.service">
+            <field name="code">END</field>
+            <field name="name">ENDOCRINOLOGY</field>
+        </record>
+
+        <record id="hospital_service_dia" model="hospital.service">
+            <field name="code">DIA</field>
+            <field name="name">Diabetes</field>
+        </record>
+
+        <record id="hospital_service_met" model="hospital.service">
+            <field name="code">MET</field>
+            <field name="name">Metabolism</field>
+        </record>
+
+        <record id="hospital_service_emm" model="hospital.service">
+            <field name="code">EMM</field>
+            <field name="name">Emergency Medicine</field>
+        </record>
+
+        <record id="hospital_service_fap" model="hospital.service">
+            <field name="code">FAP</field>
+            <field name="name">FAMILY MEDICINE</field>
+        </record>
+
+        <record id="hospital_service_gep" model="hospital.service">
+            <field name="code">GEP</field>
+            <field name="name">GENERAL &amp; LAP SURGERY</field>
+        </record>
+
+        <record id="hospital_service_ger" model="hospital.service">
+            <field name="code">GER</field>
+            <field name="name">Geriatrics</field>
+        </record>
+
+        <record id="hospital_service_imn" model="hospital.service">
+            <field name="code">IMN</field>
+            <field name="name">INTERNAL MEDICINE</field>
+        </record>
+
+        <record id="hospital_service_mgf" model="hospital.service">
+            <field name="code">MGF</field>
+            <field name="name">Medical Genetics</field>
+        </record>
+
+        <record id="hospital_service_neu" model="hospital.service">
+            <field name="code">NEU</field>
+            <field name="name">NEUROLOGY</field>
+        </record>
+
+        <record id="hospital_service_gyn" model="hospital.service">
+            <field name="code">GYN</field>
+            <field name="name">Gynaecology</field>
+        </record>
+
+        <record id="hospital_service_obs" model="hospital.service">
+            <field name="code">OBS</field>
+            <field name="name">Obstetrics</field>
+        </record>
+
+        <record id="hospital_service_onc" model="hospital.service">
+            <field name="code">ONC</field>
+            <field name="name">ONCO SURGERY or ONCO MEDICAL</field>
+        </record>
+
+        <record id="hospital_service_oph" model="hospital.service">
+            <field name="code">OPH</field>
+            <field name="name">OPHTHALMOLOGY</field>
+        </record>
+
+        <record id="hospital_service_ort" model="hospital.service">
+            <field name="code">ORT</field>
+            <field name="name">Orthopedics</field>
+        </record>
+
+        <record id="hospital_service_oto" model="hospital.service">
+            <field name="code">OTO</field>
+            <field name="name">Otolaryngology</field>
+        </record>
+
+        <record id="hospital_service_pat" model="hospital.service">
+            <field name="code">PAT</field>
+            <field name="name">PATHOLOGY</field>
+        </record>
+
+        <record id="hospital_service_ped" model="hospital.service">
+            <field name="code">PED</field>
+            <field name="name">NEONATOLOGY &amp; PEDIATRIC</field>
+        </record>
+
+        <record id="hospital_service_pmr" model="hospital.service">
+            <field name="code">PMR</field>
+            <field name="name">PHYSIOTHERAPY</field>
+        </record>
+
+        <record id="hospital_service_pls" model="hospital.service">
+            <field name="code">PLS</field>
+            <field name="name">SKIN &amp; COSMETIC SURGERY, ORAL &amp; MAXILLOFACIAL SURGERY</field>
+        </record>
+
+        <record id="hospital_service_prm" model="hospital.service">
+            <field name="code">PRM</field>
+            <field name="name">Preventive Medicine</field>
+        </record>
+
+        <record id="hospital_service_psy" model="hospital.service">
+            <field name="code">PSY</field>
+            <field name="name">PSYCHIATRY or PSYCHOLOGY</field>
+        </record>
+
+        <record id="hospital_service_rad" model="hospital.service">
+            <field name="code">RAD</field>
+            <field name="name">RADIOLOGY</field>
+        </record>
+
+        <record id="hospital_service_sur" model="hospital.service">
+            <field name="code">SUR</field>
+            <field name="name">Surgery</field>
+        </record>
+
+        <record id="hospital_service_uro" model="hospital.service">
+            <field name="code">URO</field>
+            <field name="name">UROLOGY</field>
+        </record>
+
+        <record id="hospital_service_den" model="hospital.service">
+            <field name="code">DEN</field>
+            <field name="name">DENTAL</field>
+        </record>
+
+        <record id="hospital_service_oth" model="hospital.service">
+            <field name="code">OTH</field>
+            <field name="name">Other Medical</field>
+        </record>
+
+        <record id="hospital_service_nep" model="hospital.service">
+            <field name="code">NEP</field>
+            <field name="name">NEPHROLOGY</field>
+        </record>
+
+        <record id="hospital_service_pul" model="hospital.service">
+            <field name="code">PUL</field>
+            <field name="name">PULMONOLOGY</field>
+        </record>
+
+        <record id="hospital_service_rhe" model="hospital.service">
+            <field name="code">RHE</field>
+            <field name="name">RHEUMATOLOGY</field>
+        </record>
+
+        <record id="hospital_service_neo" model="hospital.service">
+            <field name="code">NEO</field>
+            <field name="name">NEONATOLOGY</field>
+        </record>
+
+        <record id="hospital_service_die" model="hospital.service">
+            <field name="code">DIE</field>
+            <field name="name">DIETICIAN or DIET</field>
+        </record>
+
+        <record id="hospital_service_the" model="hospital.service">
+            <field name="code">THE</field>
+            <field name="name">Any kind of THERAPY, SPEECH, AUDIOLOGY etc</field>
+        </record>
+
+        <record id="hospital_service_ccm" model="hospital.service">
+            <field name="code">CCM</field>
+            <field name="name">CRITICAL CARE MEDICINE</field>
+        </record>
+
+        <record id="hospital_service_vas" model="hospital.service">
+            <field name="code">VAS</field>
+            <field name="name">VASCULAR SURGERY</field>
+        </record>
+
+        <record id="hospital_service_occ" model="hospital.service">
+            <field name="code">OCC</field>
+            <field name="name">OCCUPATIONAL MEDICINE</field>
+        </record>
+
+        <record id="hospital_service_ctv" model="hospital.service">
+            <field name="code">CTV</field>
+            <field name="name">CARDIO THORACIC VASCULAR SURGERY</field>
+        </record>
+
+        <record id="hospital_service_las" model="hospital.service">
+            <field name="code">LAS</field>
+            <field name="name">LASER HAIR REMOVAL</field>
+        </record>
+
+        <record id="hospital_service_lac" model="hospital.service">
+            <field name="code">LAC</field>
+            <field name="name">LACTATION CONSULTANT</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- action salary pre payment -->
+    <record id="action_salary_pre_payment" model="ir.actions.act_window">
+        <field name="name">Salary Pre Payment</field>
+        <field name="res_model">salary.pre.payment</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- menu salary pre payment -->
+    <menuitem id="menu_salary_pre_payment" name="Salary Pre Payment"
+              parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root" action="action_salary_pre_payment" sequence="69"/>
+
+     <!-- action salary pre payment request -->
+    <record id="action_salary_pre_payment_request" model="ir.actions.act_window">
+        <field name="name">Salary Pre Payment Request</field>
+        <field name="res_model">salary.pre.payment.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menu salary pre payment request -->
+    <menuitem id="menu_salary_pre_payment_request" name="Salary Pre Payment Request"
+              parent="kg_raw_fisheries_hrms.main_menu_hr_employee_entry" action="action_salary_pre_payment_request"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="25"/>
+
+</odoo>

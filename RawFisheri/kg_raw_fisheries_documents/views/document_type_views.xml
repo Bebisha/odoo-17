@@ -1,0 +1,8 @@
+<odoo>
+
+    <menuitem id="documents_type_menu" name="Document Types" action="kg_document_expiry.hr_employee_document_type_action"
+              parent="documents.Config" sequence="5"/>
+    <menuitem id="documents_vessel_menu" name="Vessels" action="kg_raw_fisheries_hrms.sponsor_menu_action"
+              parent="documents.Config" sequence="6"/>
+
+</odoo>

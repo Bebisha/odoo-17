@@ -1,0 +1,41 @@
+<odoo>
+    <record id="kg_stock_batch_action" model="ir.actions.act_window">
+        <field name="name">Batch</field>
+        <field name="res_model">stock.batch</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="kg_stock_batch_menu_id" action="kg_stock_batch_action"
+              parent="sale.menu_sale_config" sequence="13"/>
+
+    <record id="kg_stock_batch_view_tree" model="ir.ui.view">
+        <field name="name">Stock Batch Tree View</field>
+        <field name="model">stock.batch</field>
+        <field name="arch" type="xml">
+            <tree string="Stock Batch">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="kg_stock_batch_view_form" model="ir.ui.view">
+        <field name="name">Stock Batch Form View</field>
+        <field name="model">stock.batch</field>
+        <field name="arch" type="xml">
+            <form string="Stock Batch">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+</odoo>

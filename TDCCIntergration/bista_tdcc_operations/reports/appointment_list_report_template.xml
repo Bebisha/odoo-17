@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="appointment_list_view_header_footer">
+        <div class="header">
+            <t t-if="doc and 'company_id' in doc">
+                <t t-set="company" t-value="doc.company_id.sudo()" />
+            </t>
+            <t t-if="not doc or not 'company_id' in doc">
+                <t t-set="company" t-value="res_company" />
+            </t>
+            <div class="row mb8">
+                <div class="col-6">
+                    <img t-if="company.logo"
+                        t-att-src="image_data_uri(company.logo)" alt="Logo" height="150" />
+                </div>
+                <div class="col-2 offset-3 text-right">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><span class="page"/></li>
+                        <li class="list-inline-item">/</li>
+                        <li class="list-inline-item"><span class="topage"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="article" t-att-data-oe-model="doc and doc._name"
+            t-att-data-oe-id="doc and doc.id"
+            t-att-data-oe-lang="doc and doc.env.context.get('lang')">
+            <t t-raw="0" />
+        </div>
+
+    </template>
+
+    <template id="report_appointment_list_document">
+        <t t-call="bista_tdcc_operations.appointment_list_view_header_footer">
+            <div class="page">
+                <style>
+                    tr,td {
+                        font-size:14px;
+                    }
+                </style>
+                <table class="table table-borderless"
+                    style="margin-top:30px;">
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Start Date</th>
+                            <th>Client</th>
+                            <th>Attendant</th>
+                            <th>Physician</th>
+                            <th>Service Type</th>
+                            <th class="text-right">Duration</th>
+                            <th class="text-right">Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <t t-set="price_subtotal"
+                        t-value="sum(app.price_subtotal for app in docs)" />
+                    <tbody>
+                        <tr t-foreach="docs" t-as="doc">
+                            <t t-set="doc"
+                                t-value="doc.with_context({'lang':doc.client_id.lang})" />
+                            <td width="15%">
+                                <t t-esc="doc.name" />
+                            </td>
+                            <td>
+                                <t t-esc="context_timestamp(doc.start_date).strftime('%Y-%m-%d %H:%M')" />
+                            </td>
+                            <td>
+                                <t t-esc="doc.client_id.name" />
+                            </td>
+                            <td>
+                                <t t-if="doc.attendant_id">
+                                    <t t-esc="doc.attendant_id.name" />
+                                </t>
+                            </td>
+                            <td>
+                                <t t-esc="doc.physician_id.name" />
+                            </td>
+                            <td>
+                                <t t-esc="doc.service_type_id.name" />
+                            </td>
+                            <td class="text-right">
+                                <t t-esc="doc.duration" />
+                            </td>
+                            <td class="text-right">
+                                <t t-esc="doc.price_subtotal" />
+                            </td>
+                            <td>
+                                <t t-esc="doc.state" />
+                            </td>
+                        </tr>
+                        <tr style="border-top:1px solid black;">
+                            <td colspan="8" class="text-right">
+                                <b><span t-esc="price_subtotal" /></b>
+                            </td>
+                            <td />
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <!-- Main Transfer Form Template -->
+    <template id="report_appointment_list">
+        <t t-call="web.html_container">
+            <t t-call="bista_tdcc_operations.report_appointment_list_document" />
+        </t>
+    </template>
+
+</odoo>

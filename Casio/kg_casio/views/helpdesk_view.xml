@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="add_topic_tocket" model="ir.ui.view">
+            <field name="name">kg.topic.inherit</field>
+            <field name="model">kg.topic</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="users_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ticket_topic" model="ir.actions.act_window">
+            <field name="name">Topic</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.topic</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    View Topics Here !
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="casio_ticket_topic" name="Topic" parent="helpdesk.helpdesk_menu_config"
+                  action="action_ticket_topic" sequence="3"/>
+
+        <record id="add_extra_details_helpdesk_stage" model="ir.ui.view">
+            <field name="name">helpdesk.stage.inherit</field>
+            <field name="model">helpdesk.stage</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//sheet" position="inside">
+                        <notebook>
+                            <page string="Templates">
+                                <field name="lang_templates">
+                                    <tree editable="bottom">
+                                        <field name="name" invisible="1"/>
+                                        <field name="kg_pre_lang" required="1"/>
+                                        <field name="template_id" required="1"/>
+                                    </tree>
+
+                                    <form>
+                                        <group>
+                                            <field name="name" invisible="1"/>
+                                            <field name="kg_pre_lang"/>
+                                            <field name="template_id"/>
+                                        </group>
+                                    </form>
+                                </field>
+
+                            </page>
+
+
+                        </notebook>
+
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+
+        <record id="add_extra_details_helpdesk_team" model="ir.ui.view">
+            <field name="name">helpdesk.team.inherit</field>
+            <field name="model">helpdesk.team</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="description" position="after">
+                        <div class="oe_title" id="manager_id">
+                            <label for="manager_id"/>
+                            <h3 id="manager_id">
+                                <field name="manager_id" required="1"/>
+                            </h3>
+                        </div>
+                        <div class="oe_title" id="manager_id">
+                            <label for="marketing_team_ids"/>
+                            <h3 id="marketing_team_ids">
+                                <field name="marketing_team_ids" widget="many2many_tags"/>
+                            </h3>
+                        </div>
+
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="add_extra_details_helpdesk_ticket" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.inherit</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="team_id" position="before">
+                        <field name="form_type"/>
+                        <field name="topic"/>
+                        <field name="category_id"/>
+                        <field name="model_id" invisible="1"/>
+                        <field name="model_no"/>
+                        <field name="subject"/>
+                        <field name="product_opened" options="{'horizontal': true}" widget="radio"
+                               string="Product Opened?"/>
+                    </field>
+                    <field name="description" position="attributes">
+                        <attribute name="widget">html</attribute>
+                        <attribute name="placeholder">Message....</attribute>
+                    </field>
+                    <field name="partner_id" position="after">
+                        <label for="partner_name" name="partner_name">
+                            <b>Full Name</b>
+                        </label>
+                        <div class="o_address_format oe_inline">
+                            <field name="title" placeholder="Title" class="o_address_city"/>
+                            <field name="partner_name" class="o_address_state"/>
+                        </div>
+                    </field>
+                    <field name="email_cc" position="before">
+                        <field name="partner_email" string="Email"/>
+                        <!--                        <attribute name="string">Email</attribute>-->
+                    </field>
+                    <field name="partner_email" position="before">
+                        <field name="occupation" invisible="form_type!='calculator_form'"/>
+                        <field name="country"/>
+                        <field name="city" invisible="1"/>
+                        <field name="city_text"/>
+                        <field name="kg_pre_lang"/>
+                        <field name="mob"/>
+                    </field>
+
+
+                    <field name="ticket_type_id" position="attributes">
+                        <attribute name="string">Ticket Type</attribute>
+                    </field>
+                    <field name="description" position="after">
+                        <field name="description_dummy" widget="html" invisible="description!=False"/>
+                    </field>
+                    <field name="tag_ids" position="after">
+                        <field name="create_date"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+
+        <record id="add_extra_filter" model="ir.ui.view">
+            <field name="name">helpdesk.ticket</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+            <field name="arch" type="xml">
+                <filter name="my_ticket" position="after">
+                    <filter string="To Replay" domain="['|',('reply_status','=','customer'),('stage_id','=',1)]"
+                            name="replied"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="kg_helpdesk_tickets_view_tree_inherit" model="ir.ui.view">
+            <field name="name">kg.helpdesk.ticket.tree.inherit</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ticket_ref']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+                <field name="priority" position="before">
+                    <field name="ticket_ref" string="ID" readonly="1" width="60px"/>
+                    <field name="reply_status" column_invisible="1"/>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="country" optional="show"/>
+                    <field name="category_id" optional="show"/>
+                    <field name="create_date" optional="show"/>
+                </field>
+                <xpath expr="//field[@name='ticket_type_id']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tag_ids']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="default_order">create_date desc</attribute>
+                    <attribute name="decoration-bf">True</attribute>
+                    <attribute name="decoration-success">reply_status == 'customer' or stage_id==1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

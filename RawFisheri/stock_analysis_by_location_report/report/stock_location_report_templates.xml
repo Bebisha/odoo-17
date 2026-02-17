@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Templates for the stock location report-->
+    <template id="report_stock_location">
+        <t t-call="web.html_container">
+            <div class="page">
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'
+                           style='width:100%;margin:5pt; font-size:15px;'>
+                        <tr width="100%">
+                            <td width="100%" align="center" style="color:#006699;">
+                                <strong style="font-size:22px; text-transform:uppercase;">
+                                    <span t-esc="company_name"/>
+                                </strong>
+                                <br/>
+                                <span>As Seeb, AL-Seeb, Muscat Governorate. P.O. Box 485. 115 Sultanate of
+                                    Oman
+                                </span>
+                                <br/>
+
+                                <span>VAT:</span>
+                                <span t-esc="company_vat"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div align="center">
+                    <h2>Stock Location Report</h2>
+                </div>
+                <div>
+                    <strong>Report Date:</strong>
+                    <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+                </div>
+                <br/>
+                <table class="table" width="100%" style="font-size:12px;">
+                    <thead style="width:max-content">
+                        <tr width="100%">
+                            <td align="left" width="25%">Product Name</td>
+                            <td align="left" width="15%">Location</td>
+                            <td align="right" width="15%">OnHand Quantity</td>
+                            <td align="right" width="15%">Incoming Quantity</td>
+                            <td align="right" width="15%">Outgoing Quantity</td>
+                            <td align="right" width="15%">Forecast Quantity</td>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align:center;">
+                        <t t-foreach="grouped_data.items()" t-as="group">
+                            <t t-set="product_id" t-value="group[0]"/>
+                            <t t-set="product_data" t-value="group[1]"/>
+                            <t t-foreach="product_data" t-as="data">
+                                <tr width="100%">
+                                    <td t-esc="product_id" align="left"/>
+                                    <td t-esc="data['location']" align="left"/>
+                                    <td t-esc="data['on_hand_qty']" align="right"/>
+                                    <td t-esc="data['qty_incoming']" align="right"/>
+                                    <td t-esc="data['qty_outgoing']" align="right"/>
+                                    <td t-esc="data['forecast_qty']" align="right"/>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="2" style="text-align: right;">
+                                    <strong>Total:</strong>
+                                </td>
+                                <td align="right">
+                                    <strong>
+                                        <t t-esc="sum([x['on_hand_qty'] or 0  for x in product_data])"/>
+                                    </strong>
+                                </td>
+                                <td align="right">
+                                    <strong>
+                                        <t t-esc="sum([x['qty_incoming'] or 0  for x in product_data])"/>
+                                    </strong>
+                                </td>
+                                <td align="right">
+                                    <strong>
+                                        <t t-esc="sum([x['qty_outgoing'] or 0  for x in product_data])"/>
+                                    </strong>
+                                </td>
+                                <td align="right">
+                                    <strong>
+                                        <t t-esc="sum([x['forecast_qty'] or 0  for x in product_data])"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

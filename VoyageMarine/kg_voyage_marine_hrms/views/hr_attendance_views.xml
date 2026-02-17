@@ -1,0 +1,63 @@
+<odoo>
+    <record id="kg_form_inherited_view_attendance_hr_custom" model="ir.ui.view">
+        <field name="name">hr.attendance.form.inherited</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <field name="worked_hours" position="after">
+                <field name="day_type"/>
+                <field name="is_ot_rate" invisible="1"/>
+                <field name="is_emp_entry_created" invisible="1"/>
+                <field name="state" invisible ="1"/>
+                <field name="is_fixed_allowance" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+     <record id="kg_attendance_views_tree" model="ir.ui.view">
+            <field name="name">kg.hr.attendance.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='overtime_hours']" position="after">
+                    <field name="state"/>
+                    <field name="department_id"/>
+                </xpath>
+<!--                <xpath expr="//field[@name='overtime_hours']" position="attributes">-->
+<!--                    <attribute name="column_invisible">1</attribute>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+
+    <record id="inherit_hr_attendance_view_filter_ot_rate" model="ir.ui.view">
+        <field name="name">hr.attendance.search.inherit.ot_rate</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="is_ot_rate"/>
+                <field name="department_id"/>
+                  <filter
+                    name="department"
+                    string="Department"
+                    context="{'group_by': 'department_id'}"/>
+            </xpath>
+            <xpath expr="//separator[1]" position="before">
+                <filter string="OT Fixed allowance(Approved)" name="ot_rate_positive" domain="[('state', '=', 'validation')]"/>
+                <filter string="OT Fixed allowance(Unapprove)" name="ot_rate_positive" domain="[('state', '!=', 'validation')]"/>
+                <filter string="OT Fixed allowance(Generate Entry)" name="ot_rate_positive" domain="[('is_emp_entry_created', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="action_ot_time" model="ir.actions.server">
+        <field name="name">Validate</field>
+        <field name="model_id" ref="model_hr_attendance"/>
+        <field name="binding_model_id" ref="hr_attendance.model_hr_attendance"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">model.action_overtime_hour()</field>
+    </record>
+
+</odoo>

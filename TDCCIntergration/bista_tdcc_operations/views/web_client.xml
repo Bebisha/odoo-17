@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="web_layout_inherit" name="Web layout Inherit"
+            inherit_id="web.layout">
+            <xpath expr="//title" position="replace">
+                <title>TDCC</title>
+            </xpath>
+
+            <xpath expr="//head//link" position="replace">
+                <link rel="shortcut icon"
+                href="/bista_tdcc_operations/static/src/img/favicon.ico"
+                type="image/x-icon"/>
+            </xpath>
+
+        </template>
+</odoo>

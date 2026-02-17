@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+
+        <record id="supplier_category_action" model="ir.actions.act_window">
+            <field name="name">Supplier Category</field>
+            <field name="res_model">supplier.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="supplier_category_menu_id" action="supplier_category_action"
+                  parent="contacts.res_partner_menu_config" sequence="2"/>
+
+        <record id="supplier_category_view_tree" model="ir.ui.view">
+            <field name="name">Supplier Category Tree View</field>
+            <field name="model">supplier.category</field>
+            <field name="arch" type="xml">
+                <tree string="Supplier Category">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="supplier_category_view_form" model="ir.ui.view">
+            <field name="name">Supplier Category Form View</field>
+            <field name="model">supplier.category</field>
+            <field name="arch" type="xml">
+                <form string="Supplier Category">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+
+        <record id="overseas_element" model="earn.ded.elements">
+            <field name="name">Overseas</field>
+            <field name="short_code">OVS</field>
+            <field name="element_type">earn</field>
+            <field name="salary_struct_id" ref="hr_payroll.structure_002"/>
+            <field name="no_delete">True</field>
+        </record>
+
+        <record id="anchorage_element" model="earn.ded.elements">
+            <field name="name">Anchorage</field>
+            <field name="short_code">ANC</field>
+            <field name="element_type">earn</field>
+            <field name="salary_struct_id" ref="hr_payroll.structure_002"/>
+            <field name="no_delete">True</field>
+        </record>
+
+        <record id="ticket_element" model="earn.ded.elements">
+            <field name="name">Ticket</field>
+            <field name="short_code">TIK</field>
+            <field name="element_type">earn</field>
+            <field name="salary_struct_id" ref="hr_payroll.structure_002"/>
+            <field name="no_delete">True</field>
+        </record>
+
+        <record id="leave_salary_element" model="earn.ded.elements">
+            <field name="name">Leave Salary</field>
+            <field name="short_code">LS</field>
+            <field name="element_type">earn</field>
+            <field name="salary_struct_id" ref="hr_payroll.structure_002"/>
+            <field name="no_delete">True</field>
+        </record>
+
+        <record id="ot_lump_sum_element" model="earn.ded.elements">
+            <field name="name">OT LUMPSUM</field>
+            <field name="short_code">OTLM</field>
+            <field name="element_type">earn</field>
+            <field name="salary_struct_id" ref="hr_payroll.structure_002"/>
+            <field name="no_delete">True</field>
+        </record>
+
+        <record id="cash_advance_element" model="earn.ded.elements">
+            <field name="name">CASH ADVANCE</field>
+            <field name="short_code">CHA</field>
+            <field name="element_type">ded</field>
+            <field name="salary_struct_id" ref="hr_payroll.structure_002"/>
+            <field name="no_delete">True</field>
+        </record>
+
+        <record id="hra_element" model="earn.ded.elements">
+            <field name="name">HRA</field>
+            <field name="short_code">EHA</field>
+            <field name="element_type">ded</field>
+            <field name="salary_struct_id" ref="hr_payroll.structure_002"/>
+            <field name="no_delete">True</field>
+        </record>
+
+        <record id="telephone_element" model="earn.ded.elements">
+            <field name="name">Telephone Deduction</field>
+            <field name="short_code">TD</field>
+            <field name="element_type">ded</field>
+            <field name="salary_struct_id" ref="hr_payroll.structure_002"/>
+            <field name="no_delete">True</field>
+        </record>
+
+        <record id="vehicle_fine_element" model="earn.ded.elements">
+            <field name="name">Vehicle Fine</field>
+            <field name="short_code">VF</field>
+            <field name="element_type">ded</field>
+            <field name="salary_struct_id" ref="hr_payroll.structure_002"/>
+            <field name="no_delete">True</field>
+        </record>
+
+    </data>
+</odoo>

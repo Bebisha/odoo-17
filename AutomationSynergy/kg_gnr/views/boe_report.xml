@@ -1,0 +1,103 @@
+<odoo>
+
+    <record id="view_boe_report" model="ir.ui.view">
+        <field name="name">boe.report.data.tree</field>
+        <field name="model">boe.report</field>
+        <field name="arch" type="xml">
+            <tree string="Boe Report Form" expand="1"  editable="bottom" create="false" delete="false">
+                <field name="date_in" optional="show" readonly="1"/>
+                <field name="doc_no" readonly="1"/>
+                <field name="partner" optional="show" readonly="1"/>
+                <field name="boe_ref" readonly="1"/>
+                <field name="boe_type_in" readonly="1" optional="hide"/>
+                <field name="hs_code" optional="show"/>
+                <field name="group_id" optional="show" invisible="1" readonly="1"/>
+                <field name="product_id" optional="show" readonly="1"/>
+                <field name="coo_code" optional="show" readonly="1"/>
+                <field name="weight" optional="show"/>
+                <field name="package" optional="show"/>
+                <field name="qty_actual" optional="show" readonly="1"/>
+                <field name="date_out" optional="show" readonly="1"/>
+                <field name="doc_no_out" readonly="1"/>
+                <field name="customer" optional="show" readonly="1"/>
+                <field name="boe_ref_out" readonly="1"/>
+                <field name="boe_type_out" readonly="1" optional="hide"/>
+                <field name="hs_code_out" optional="show" />
+                <field name="group_out_id" optional="show" readonly="1"/>
+                <field name="coo_code_out" optional="show" readonly="1"/>
+                <field name="weight_out" optional="show"/>
+                <field name="package_out" optional="show"/>
+                <field name="qty_actual_out" optional="show" readonly="1"/>
+                <field name="remaining_quantity" optional="show" readonly="1"
+                       decoration-success="remaining_quantity &gt; 0"/>
+
+
+
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_boe_report_search" model="ir.ui.view">
+        <field name="name">boe.report.search</field>
+        <field name="model">boe.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="boe_ref"/>
+                <field name="doc_no"/>
+                <field name="hs_code"/>
+                <field name="group_id"/>
+                <field name="boe_ref_out"/>
+                <field name="doc_no_out"/>
+                <field name="hs_code_out"/>
+                <field name="group_out_id"/>
+                <field name="coo_code_out"/>
+                <field name="coo_code"/>
+                <field name="partner"/>
+                <field name="customer"/>
+                <field name="product_id"/>
+
+<!--                <field name="email"/>-->
+<!--                <field name="age"/>-->
+<!--                <field name="age"/>-->
+<!--                <field name="gender"/>-->
+<!--                <field name="active"/>-->
+                <group expand="1" string="Group By">
+                    <filter string="Boe NO IN" name="boe_no_in" context="{'group_by': 'boe_ref'}"/>
+                    <filter string="Doc NO IN" name="doc_no_in" context="{'group_by': 'doc_no'}"/>
+                    <filter string="Hsn Code IN" name="hs_code" context="{'group_by': 'hs_code'}"/>
+                    <filter string="Product" name="hs_code" context="{'group_by': 'product_id'}"/>
+                    <filter string="Group IN" name="group_id" context="{'group_by': 'group_id'}"/>
+                    <filter string="Boe NO OUT" name="boe_no_out" context="{'group_by': 'boe_ref_out'}"/>
+                    <filter string="Doc NO OUT" name="doc_no_out" context="{'group_by': 'doc_no_out'}"/>
+                    <filter string="Hsn Code OUT" name="hs_code" context="{'group_by': 'hs_code_out'}"/>
+                    <filter string="Group OUT" name="group_id" context="{'group_by': 'group_out_id'}"/>
+                    <filter string="coo OUT" name="coo_code_out" context="{'group_by': 'coo_code_out'}"/>
+                    <filter string="Coo IN" name="coo_code" context="{'group_by': 'coo_code'}"/>
+                    <filter string="Partner" name="coo_code" context="{'group_by': 'partner'}"/>
+
+                    <filter string="Boe Type IN Internal" name="internal_in" domain="[('boe_type_in', '=', 'internal')]"/>
+                    <filter string="Boe Type IN Import" name="import_in" domain="[('boe_type_in', '=', 'import')]"/>
+                    <filter string="Boe Type OUT Internal" name="internal_out" domain="[('boe_type_out', '=', 'internal')]"/>
+                    <filter string="Boe Type OUT Import" name="internal_out" domain="[('boe_type_out', '=', 'import')]"/>
+                    <filter string="Remaining Quantity" name="remaining_qty" domain="[('remaining_quantity', '>', 0)]"/>
+                    <filter string="With Out Remaining Quantity" name="remaining_qty_no" domain="[('remaining_quantity', '=', 0)]"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_boe_reports_id" model="ir.actions.server">
+        <field name="name">Boe Report Forms</field>
+        <field name="model_id" ref="kg_gnr.model_boe_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.load_boe_records()
+        </field>
+    </record>
+
+    <menuitem name="Boe Report " id="id_boe_report_menu" action="action_boe_reports_id"
+              sequence="-3"
+              parent="purchase.purchase_report_main" />
+</odoo>

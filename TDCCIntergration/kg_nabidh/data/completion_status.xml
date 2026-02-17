@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ========================================================= -->
+        <!-- Table NAB028: Completion Status -->
+        <!-- ========================================================= -->
+        <record id="completion_cp" model="completion.status"><field name="code">CP</field><field name="name">Complete</field></record>
+        <record id="completion_na" model="completion.status"><field name="code">NA</field><field name="name">Not Administered</field></record>
+        <record id="completion_pa" model="completion.status"><field name="code">PA</field><field name="name">Partially Administered</field></record>
+        <record id="completion_re" model="completion.status"><field name="code">RE</field><field name="name">Refused</field></record>
+
+    </data>
+</odoo>

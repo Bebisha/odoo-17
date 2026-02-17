@@ -1,0 +1,2 @@
+from.import merge_patient
+from.import merge_confirmation_wizard

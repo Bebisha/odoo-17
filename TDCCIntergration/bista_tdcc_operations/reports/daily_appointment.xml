@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    Template for Daily Appointment-->
+
+    <template id="daily_appointment_report_id">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <div>
+                        <center>
+                            <b>
+                                <t t-esc="get_title"/>
+                            </b>
+                        </center>
+                    </div>
+
+                    <table class="table table-border" width="100%" style="margin-top:40px">
+                        <thead>
+                            <th>Ref No.</th>
+                            <th>Client Name</th>
+                            <th>Clinic</th>
+                            <th>Physician</th>
+                            <th>Room</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Duration</th>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="form_data" t-as="data">
+                                <td>
+                                    <span t-esc="data['name']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="data.get('client_id')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="data.get('clinic_id')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="data.get('physician')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="data.get('room')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="data.get('date')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="data.get('time')"/>
+
+                                </td>
+                                <td>
+                                    <span t-esc="data.get('duration')"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!--    <template id="daily_appointment_report_id">-->
+    <!--        <t t-call="web.html_container">-->
+    <!--            <t t-call="web.internal_layout">-->
+    <!--&lt;!&ndash;            <t t-foreach="docs" t-as="o">&ndash;&gt;-->
+
+    <!--                    <div class="page">-->
+    <!--                        <t t-esc="docs"/>-->
+    <!--                    </div>-->
+    <!--&lt;!&ndash;                </t>&ndash;&gt;-->
+    <!--            </t>-->
+    <!--        </t>-->
+    <!--    </template>-->
+</odoo>
+

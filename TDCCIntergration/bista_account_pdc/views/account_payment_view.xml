@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherited Payments form view -->
+    <record id="inherited_account_payments_form" model="ir.ui.view">
+        <field name="name">inherited.account.payment.form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/div[@name='button_box']/button[@name='button_open_journal_entry']"
+                   position="before">
+                <button class="oe_stat_button" name="button_check_journal_entries"
+                        string="Cheque Clearance Entries" type="object" groups="account.group_account_user"
+                        invisible="[('cheque_move_line_ids', '=', [])]" icon="fa-bars"/>
+                <field name="cheque_move_line_ids" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//header/field[@name='state']" position="before">
+                <button name="cheque_bounce"
+                        invisible="['|','|',('state', 'not in', ['draft','cancelled']), ('payment_method_code', '=', 'pdc'), ('cheque_clear','=',False)]"
+                        string="Check Bounce" type="object"/>
+                <button name="action_pdc"
+                        invisible="['|','|','|',('pdc_manual_payment','=', True), ('payment_method_code', '!=', 'pdc'), ('state', 'not in',['draft','cancelled']), ('cheque_clear','=', False)]"
+                        string="Clear Check" type="object"/>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_method_code']" position="after">
+                <field name="pdc_manual_payment" invisible="1"/>
+                <field name="pdc_reconciled" invisible="1"/>
+                <field name="cheque_clear" invisible="1"/>
+            </xpath>
+            <field name="ref" position="after">
+                <field name="cheque_no_char" string="Check Number"
+                       invisible="payment_method_code not in ['pdc', 'check_printing'] or payment_type != 'outbound'"/>
+
+                <!--                <field name="cheque_no_char"-->
+                <!--                       invisible="['|', ('payment_method_code', 'not in', ['pdc', 'check_printing']), ('payment_type', '!=' ,'outbound')]"/>-->
+            </field>
+
+        </field>
+    </record>
+
+    <record id="inherited_account_payment_form" model="ir.ui.view">
+        <field name="name">inherited.account.payment.form</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_date']" position="after">
+                <field name="cheque_date" invisible="[('payment_method_code', '!=', 'pdc')]"
+                       required="[('payment_method_code', '=', 'pdc')]"
+                       readonly="[('state','!=','draft')]"/>
+                <field name="effective_date" invisible="[('payment_method_code', '!=', 'pdc')]"
+                       readonly="1"/>
+                <field name="related_journal" invisible="[('payment_method_code', '!=', 'pdc')]"
+                       readonly="[('cheque_clear','=',True)]"
+                       required="[('payment_method_code', '=', 'pdc'), ('payment_method_code', '=', 'pdc')]"
+                       domain="[('type','=','bank')]"/>
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <!-- Inherited Payments form view -->
+    <record id="inherited_account_payment_form_check" model="ir.ui.view">
+        <field name="name">inherited.account.payment.form.check</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account_check_printing.view_account_payment_form_inherited"/>
+        <field name="arch" type="xml">
+            <field name="check_number" position="attributes">
+                <attribute name="readonly">0</attribute>
+                <attribute name="invisible">0</attribute>
+            </field>
+            <field name="date" position="attributes">
+                <attribute name="force_save">1</attribute>
+
+            </field>
+            <field name="check_amount_in_words" position="attributes">
+                <attribute name="invisible">['|', ('payment_method_code', 'not in', ['pdc', 'check_printing']),
+                    ('payment_type', '!=' ,'outbound')]
+                </attribute>
+                <attribute name="readonly">[('state', '!=', 'draft')]</attribute>
+            </field>
+            <xpath expr="//button[@name='print_checks']" position="attributes">
+                <attribute name="invisible">['|', '|', ('payment_method_code', 'not in', ['pdc', 'check_printing']),
+                    ('payment_type', '!=' ,'outbound'), ('state', '!=', 'posted')]
+                </attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_unmark_sent']" position="attributes">
+                <attribute name="invisible">['|', '|', ('payment_method_code', 'not in', ['pdc', 'check_printing']),
+                    ('payment_type', '!=' ,'outbound'), ('state', '!=', 'sent')]
+                </attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherited Register Payment form view -->
+    <record id="inherited_account_register_payment_invoice_form" model="ir.ui.view">
+        <field name="name">inherited.account.register.payment.invoice.wizard.form</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_date']" position="after">
+                <field name="cheque_date" invisible="['|', ('payment_method_code', '!=', 'pdc')]"
+                       required="[('payment_method_code', '=', 'pdc')]"/>
+                <field name="related_journal" invisible="['|', ('payment_method_code', '!=', 'pdc')]"
+                       domain="[('type','=','bank')]"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherited Register Payment form view -->
+    <record id="inherited_account_register_payment_invoice_form_inh" model="ir.ui.view">
+        <field name="name">inherited.account.register.payment.invoice.wizard.form.inh</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <field name="check_number" position="attributes">
+                <attribute name="readonly">0</attribute>
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <!-- Inherited Register Payment form view -->
+    <!--    <record id="inherited_account_register_payment_invoice_form_2" model="ir.ui.view">-->
+    <!--        <field name="name">inherited.account.payment.invoice.wizard.form.2</field>-->
+    <!--        <field name="model">account.payment</field>-->
+    <!--        <field name="inherit_id" ref="account.view_account_payment_form" />-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <xpath expr="//field[@name='date']" position="after">-->
+    <!--                <field name="cheque_date" options="{'invisible': [('payment_method_code', '!=', 'pdc')],'required': [('payment_method_code', '=', 'pdc')]}"/>-->
+    <!--                <field name="related_journal" options="{'invisible': [('payment_method_code', '!=', 'pdc')], 'required':[('payment_method_code', '=', 'pdc')]}" domain="[('type','=','bank')]"/>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <!-- No check_number field exists -->
+    <!-- Inherited Register Payment form view -->
+    <!--<record id="inherited_account_register_payment_invoice_form_inherit" model="ir.ui.view">-->
+    <!--<field name="name">inherited.account.register.payment.invoice.wizard.form.inherit</field>-->
+    <!--<field name="model">account.payment</field>-->
+    <!--<field name="inherit_id" ref="account_check_printing.view_account_payment_invoice_form_inherited" />-->
+    <!--<field name="arch" type="xml">-->
+    <!--<field name="check_number" position="attributes">-->
+    <!--<attribute name="readonly">0</attribute>-->
+    <!--</field>-->
+    <!--</field>-->
+    <!--</record>-->
+
+    <!--    <act_window name="Clear Cheques"-->
+    <!--            res_model="wiz.pdc.payment"-->
+    <!--            src_model="account.payment"-->
+    <!--            view_mode="form"-->
+    <!--            target="new"-->
+    <!--            key2="client_action_multi"-->
+    <!--            id="action_account_clear_cheques"-->
+    <!--        />-->
+
+    <record model="ir.actions.act_window" id="action_account_clear_cheques">
+        <field name="name">Clear Cheques</field>
+        <field name="res_model">wiz.pdc.payment</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Inherited Vendor Payments tree view -->
+    <record id="inherited_vendor_payment_tree_view_check" model="ir.ui.view">
+        <field name="name">inherited.vendor.payment.tree.view.check</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_supplier_payment_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="cheque_no_char"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Inherited partner payment tree view open from partner -->
+    <record id="from_vendor_payment_tree_view_tdcc" model="ir.ui.view">
+        <field name="name">from.vendor.payment.tree.view</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="cheque_no_char"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Inherited search view of payments -->
+    <!--     <record id="inherited_search_view_account_payment_tdcc" model="ir.ui.view">-->
+    <!--        <field name="name">inherit.search.view.account.payment.tdcc</field>-->
+    <!--        <field name="model">account.payment</field>-->
+    <!--        <field name="inherit_id" ref="account.view_account_payment_search" />-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <field name="name" position="after">-->
+    <!--                 <field name="move_name" filter_domain="[('move_name','ilike',self)]" string="Journal Entry Name"/>-->
+    <!--            </field>-->
+    <!--        </field>-->
+    <!--    </record>-->
+</odoo>

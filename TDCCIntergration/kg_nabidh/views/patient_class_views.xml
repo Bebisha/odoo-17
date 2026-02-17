@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="patient_class_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Patient Class</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">patient.class</field>
+
+    </record>
+    <record id="patient_class_tree" model="ir.ui.view">
+        <field name="name">patient.class.tree.views</field>
+        <field name="model">patient.class</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="patient_class_form" model="ir.ui.view">
+        <field name="name">patient.class.form.views</field>
+        <field name="model">patient.class</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="patient_class_menu"
+              action="patient_class_action"
+              name="Patient Class"
+              parent="kg_nabidh.pv1_menu"/>
+
+</odoo>

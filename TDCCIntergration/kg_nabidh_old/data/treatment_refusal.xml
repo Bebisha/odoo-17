@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ========================================================= -->
+        <!-- Table NAB029: Substance / Treatment Refusal Reason -->
+        <!-- ========================================================= -->
+        <record id="treat_ref_1" model="treatment.refusal"><field name="code">1</field><field name="name">Cost-Related</field></record>
+        <record id="treat_ref_2" model="treatment.refusal"><field name="code">2</field><field name="name">In Progress</field></record>
+        <record id="treat_ref_3" model="treatment.refusal"><field name="code">3</field><field name="name">No Consent</field></record>
+        <record id="treat_ref_4" model="treatment.refusal"><field name="code">4</field><field name="name">Other Vaccine Issues</field></record>
+        <record id="treat_ref_5" model="treatment.refusal"><field name="code">5</field><field name="name">Temporary Medical Condition</field></record>
+        <record id="treat_ref_6" model="treatment.refusal"><field name="code">6</field><field name="name">Vaccine Supply Issues</field></record>
+
+    </data>
+</odoo>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="appointment_appointment_form_inherited">
+        <field name="name">appointment.appointment.form.inherited.views</field>
+        <field name="model">appointment.appointment</field>
+        <field name="inherit_id" ref="bista_tdcc_operations.appointment_appointment_form_views"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_dna']" position="before">
+
+                <field name="is_checkin" invisible="1"/>
+                <button name="action_checkin" string="Checkin/New encounter" type="object" class="oe_highlight"
+                        invisible="is_checkin == True" groups="kg_nabidh.group_nabidh_user"/>
+
+                <field name="is_checkout" invisible="1"/>
+                <button name="action_update" string="Send A08 (Update Message)" type="object"
+                            class="oe_highlight me-2" invisible="is_checkin != True" groups="kg_nabidh.group_nabidh_user"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="after">
+                <widget name="web_ribbon" title="Checkin" bg_color="bg-success"
+                        invisible="is_checkin != True "/>
+                <widget name="web_ribbon" title="Checkout" bg_color="bg-danger" invisible="is_checkout != True "/>
+
+            </xpath>
+
+            <xpath expr="//page[@name='notes']" position="after">
+
+                <page string="Nabidh - DHA" name="dha" invisible="is_checkin != True" style="color:blue;" groups="kg_nabidh.group_nabidh_user">
+
+                    <button name="unsolicited_transmission_observation" string="Send R01(Observation Message)"
+                            type="object"
+
+                            invisible="is_checkin != True" class="oe_highlight me-2"/>
+
+                    <button name="action_t02" string="Send T02 &amp; T08 (Patient Transfer/Discharge Summary)"
+                            type="object"
+                            invisible="is_checkin != True" class="oe_highlight me-2"/>
+
+                    <button name="action_vo4" string="Send V04(Vaccination Message)" type="object"
+                            invisible="is_checkin != True" class="oe_highlight me-2"/>
+
+                    <button name="action_t08" string="Send T08(Patient Discharge)" type="object"
+                            invisible="1"/>
+                    <separator string="Observations" style="color:blue;"/>
+                    <field name="observations_ids" nolabel="1">
+                        <tree create="true" editable="bottom">
+                            <field name="per_org_name" column_invisible="1"/>
+                            <field name="observation_identifier" string="Identifier"/>
+                            <field name="ObservationIdentifier_units_id" string="Identifier Units"/>
+                            <field name="observation_value" placeholder="66" string="Value"/>
+                            <field name="value_type" required="1" string="Value Type"/>
+                            <field name="units"/>
+                            <field name="references_range" string="Range" placeholder="13 - 16"/>
+                            <field name="abnormal_flag_id" string="Abnormal Flag"/>
+                            <field name="set_id_obx" column_invisible="1"/>
+                            <field name="observation_result_status" string="Result Status"/>
+                            <field name="obs_atts" filename="pdf_filename" accept=".pdf" options="{'accepted_file_extensions': '.pdf'}"/>
+                            <field name="pdf_filename" column_invisible="0" string="File Name" optional="hide"/>
+                            <field name="observation_value_heart" placeholder=" 60%" string="Observation Value" column_invisible="1"/>
+                        </tree>
+                    </field>
+                    <button name="problem_record_pc1" string="Send PC1(Problem Record Message)" type="object"
+                            invisible="is_checkin != True" class="oe_highlight me-2"/>
+                    <separator string="Problems" style="color:blue;"/>
+                    <field name="problems_form_ids" nolabel="1">
+                        <tree create="true" editable="bottom">
+                            <field name="problem_id_code" string="ID Code" placeholder="A90"/>
+                            <field name="problem_des_id" string="Problem Description"
+                                   placeholder="A90. Dengue fever (classical dengue)" required="1"/>
+                            <field name="local_code_id" column_invisible="1"/>
+                            <field name="icdcode_id" string="ICD Code"/>
+                            <field name="snomed_code" placeholder="413322009" column_invisible="1"/>
+                            <field name="life_cycle_status_id" string="Life Cycle Status"/>
+                            <field name="status_id" string="Problem Status" placeholder="3"/>
+                            <field name="action_date_time" string="Action Date"/>
+                            <field name="problem_established_date" string="Established Date"/>
+                            <field name="Problem_life_cycle_date" string="Life Cycle Date"/>
+                            <field name="Problem_onset_date" string="Onset Date"/>
+                            <field name="problem_classification" column_invisible="1"/>
+                            <field name="problem_id" column_invisible="1"/>
+
+                        </tree>
+                    </field>
+                    <button name="action_O01" string="Send O01(Order Message)"
+                            type="object"
+                            invisible="is_checkin != True" class="oe_highlight me-2"/>
+                    <separator string="Medicine Order" style="color:blue;"/>
+                    <field name="common_order_ids" nolabel="1">
+                        <tree create="true" editable="bottom">
+                            <field name="full_name" column_invisible="1"/>
+<!--                            <field name="confidentiality_code" string="Operation Code System" required="1"/>-->
+                            <field name="order_type" string="Medication"/>
+<!--                            <field name="order_control"/>-->
+                            <field name="order_status"/>
+                            <field name="ordering_provider" column_invisible="1"/>
+                            <field name="date_transaction"/>
+<!--                            <field name="quantity" column_invisible="1"/>-->
+<!--                            <field name="interval" column_invisible="1"/>-->
+                            <field name="duration" column_invisible="1"/>
+                            <field name="priority" column_invisible="1"/>
+                            <field name="text" column_invisible="1"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="name" column_invisible="1"/>
+
+                        </tree>
+                    </field>
+                    <separator string="Patient Visit" style="color:blue;"/>
+                    <field name="patient_visit_ids" nolabel="1">
+                        <tree create="true" editable="bottom">
+                            <field name="first_name" column_invisible="1" placeholder="First Name..."
+                                   class="o_first_name"/>
+                            <field name="middle_name" column_invisible="1" placeholder="Middle Name......"
+                                   class="o_middle_name"/>
+                            <field name="last_name" column_invisible="1" class="o_last_name"
+                                   placeholder="Last Name......."/>
+                            <field name="full_name" widget="text" readonly="1" force_save="1" column_invisible="1"/>
+<!--                            <field name="mail_id" widget="email"/>-->
+                            <field name="admission_type" options="{'no_create': True}" required="1"/>
+<!--                            <field name="patient_visit"/>-->
+                            <field name="visit_type"/>
+                            <field name="discharge_disposition_id" options="{'no_create': True}"/>
+                        </tree>
+                    </field>
+                    <separator string="Patient Allergy Information" style="color:blue;"/>
+                    <field name="allergy_information_ids" nolabel="1">
+                        <tree create="true" editable="bottom">
+                            <field name="allergy_code_des" options="{'no_create': True}" string=" Type" required="1"/>
+                            <field name="allergy_type_codes" options="{'no_create': True}" string="Type Description"
+                                   column_invisible="1"/>
+                            <field name="allergy_type_codes" options="{'no_create': True}" string="Code Description"/>
+                            <field name="al1_date"/>
+                            <field name="allergy_severty_code" options="{'no_create': True}"/>
+                            <field name="allergy_reaction_code" options="{'no_create': True}"/>
+                        </tree>
+                    </field>
+                    <separator string="Pharmacy/Treatment Order" style="color:blue;"/>
+                    <field name="pharmacy_order_ids" nolabel="1">
+                        <tree create="true" editable="bottom">
+                            <field name="requested_give_code" required="1"/>
+                            <field name="requested_give_name"/>
+                            <field name="requested_amount_minimum" column_invisible="1"/>
+                            <field name="requested_given_unit" placeholder="mg"/>
+                            <field name="providers_administration_instructions" string="Route Of Administration"/>
+                            <field name="dosage" placeholder="0.5"/>
+                            <field name="frequency"/>
+                            <field name="administratio_time"/>
+                            <field name="expiration_date"/>
+                            <field name="status"/>
+                        </tree>
+                    </field>
+                    <separator string="Procedures" style="color:blue;"/>
+                    <field name="procedures_segment_ids" nolabel="1">
+                        <tree create="true" editable="bottom">
+                            <field name="set_id_prl" column_invisible="1"/>
+                            <field name="procedure_code"/>
+                            <field name="procedure_id" required="1"/>
+                            <field name="physician_id" column_invisible="1"/>
+                            <field name="procedure_priority" column_invisible="1"/>
+                        </tree>
+                    </field>
+
+                    <separator string="Transcription Document Header" style="color:blue;"/>
+                    <field name="transcription_document_ids" nolabel="1">
+                        <tree create="true" editable="bottom">
+                            <field name="activity_date_time"/>
+                            <field name="attachment" filename="unique_document_number" column_invisible="1"/>
+                            <field name="unique_file_number" readonly="1"/>
+                            <field name="unique_document_number" column_invisible="1"/>
+                            <field name="document_completion_status_id"/>
+                            <field name="transcription_date_time"/>
+                            <field name="document_availability_status_id"/>
+                        </tree>
+                    </field>
+                    <separator string="Comments" style="color:blue;"/>
+                    <field name="nte_ids" nolabel="1">
+                        <tree create="true" editable="bottom">
+                            <field name="set_id_nte" column_invisible="1"/>
+                            <field name="source_comment" string="Note Type"/>
+                            <field name="note" string="Note Text"/>
+
+                        </tree>
+                    </field>
+                    <!--                    <separator string="Diagnosis Information" style="color:blue;"/>-->
+                    <!--                    <field name="diagnosis_information_ids" nolabel="1">-->
+                    <!--                        <tree create="true">-->
+                    <!--                            <field name="set_id_dg1" column_invisible="1"/>-->
+                    <!--                            <field name="diag_code"/>-->
+                    <!--                            <field name="diag_description"/>-->
+                    <!--                            <field name="diag_type" options="{'no_create': True}"/>-->
+                    <!--                            <field name="diag_priority"/>-->
+                    <!--                            <field name="diag_action_code"/>-->
+                    <!--                            <field name="diagnosis_coding_method"/>-->
+                    <!--                            &lt;!&ndash;                            <field name="diag_related_group"/>&ndash;&gt;-->
+                    <!--                        </tree>-->
+                    <!--                    </field>-->
+                    <!--                    <separator string="Observation Request" style="color:blue;"/>-->
+                    <!--                    <field name="observations_result_ids" nolabel="1">-->
+                    <!--                        <tree create="true">-->
+                    <!--                            <field name="full_name" column_invisible="1"/>-->
+                    <!--                            <field name="result_status_id" options="{'no_create': True}" column_invisible="1"/>-->
+                    <!--                            <field name="diagnostic_service_section_id" options="{'no_create': True}"-->
+                    <!--                                   column_invisible="1"/>-->
+
+                    <!--                            <field name="universal_service_des"/>-->
+                    <!--                            &lt;!&ndash;                            <field name="patient_profession_id"/>&ndash;&gt;-->
+
+                    <!--                            <field name="universal_service_code"/>-->
+                    <!--                            <field name="observation_date_time"/>-->
+                    <!--                            <field name="results_report_date"/>-->
+                    <!--                            <field name="abnormal_flag_id"/>-->
+
+
+                    <!--                        </tree>-->
+                    <!--                    </field>-->
+                </page>
+
+            </xpath>
+            <xpath expr="//field[@name='physician_id']" position="after">
+
+                <field name="sheryan_id" placeholder="12345678"/>
+                <field name="admit_source" options="{'no_create': True}"/>
+                <field name="hospital_service" options="{'no_create': True}"/>
+                <field name="visit_number" placeholder=" OP0001556210......."/>
+            </xpath>
+            <xpath expr="//field[@name='room_id']" position="after">
+                <field name="bed_number_id"/>
+                <field name="bed_type" string="Bed Type"/>
+            </xpath>
+
+        </field>
+    </record>
+    <record model="ir.ui.view" id="appointment_appointment_tree_vew_inherited">
+        <field name="name">appointment.appointment.tree.inherited.views</field>
+        <field name="model">appointment.appointment</field>
+        <field name="inherit_id" ref="bista_tdcc_operations.appointment_appointment_tree_vew"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_send_appointment_mail']" position="after">
+                <field name="is_checkin" column_invisible="1"/>
+                <button name="action_checkin"
+                        type="object" icon="oi-arrow-right"
+                        invisible="is_checkin == True or state != 'confirmed'"
+                        groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_practitioner"/>
+
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

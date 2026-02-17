@@ -1,0 +1,62 @@
+<odoo>
+    <record id="sale_order_form_proforma_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.proforma.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_proforma"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-file-text-o"
+                        invisible="proforma_count == 0">
+                    <field name="proforma_count" widget="statinfo"
+                           string="Proforma"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//header" position="inside">
+                <field name="proforma_id" invisible="1"/>
+
+                <button name="action_create_proforma"
+                        type="object"
+                        invisible="proforma_id != False or state == 'cancel'"
+                        string="Create Pro-Forma Invoice" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="kg_tree_sale_order_inherit_view" model="ir.ui.view">
+            <field name="name">kg.sale.order.inherit.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="invoice_status" position="after">
+                    <field name="proforma_status"
+                           decoration-info="proforma_status == 'draft'"
+                           decoration-warning="proforma_status == 'proforma_created'"
+                           decoration-success="proforma_status == 'proforma_sent'"
+                           widget="badge"/>
+                </field>
+
+
+            </field>
+        </record>
+
+    <record id="kg_tree_quotation_inherit_view" model="ir.ui.view">
+            <field name="name">kg.sale.order.inherit.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="arch" type="xml">
+                <field name="invoice_status" position="after">
+                    <field name="proforma_status"
+                           decoration-info="proforma_status == 'draft'"
+                           decoration-warning="proforma_status == 'proforma_created'"
+                           decoration-success="proforma_status == 'proforma_sent'"
+                           widget="badge"/>
+                </field>
+
+
+            </field>
+        </record>
+</odoo>

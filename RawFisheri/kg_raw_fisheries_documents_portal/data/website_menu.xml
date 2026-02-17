@@ -1,0 +1,17 @@
+<odoo>
+
+    <record id="website_menu_documents" model="website.menu">
+        <field name="name">Customer Documents</field>
+        <field name="url">/add/customer_documents</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">11</field>
+    </record>
+
+     <record id="website_menu_transaction_documents" model="website.menu">
+        <field name="name">Transaction Documents</field>
+        <field name="url">/view/transaction_documents</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">12</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="order_control_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Order Control</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">order.control</field>
+
+    </record>
+    <record id="order_control_tree" model="ir.ui.view">
+        <field name="name">order.control.tree.views</field>
+        <field name="model">order.control</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="order_control_form" model="ir.ui.view">
+        <field name="name">order.control.form.views</field>
+        <field name="model">order.control</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="order_control_menu"
+              action="order_control_action"
+              name="Order Control"
+              parent="kg_nabidh.orc_menu"/>
+
+</odoo>

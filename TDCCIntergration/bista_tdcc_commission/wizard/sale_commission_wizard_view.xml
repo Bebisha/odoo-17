@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="commission_report_print_link_view" model="ir.ui.view">
+            <field name="name">commission.report.print.link</field>
+            <field name="model">commission.report.print.link</field>
+            <field name="arch" type="xml">
+                <form string="Excel Output">
+                    <separator colspan="4" string="Please save file as .xls excel format"/>
+                    <group>
+                        <field name="name" invisible="1"/>
+                        <field name="commission_xls_output" filename='name' readonly='1'/>
+                    </group>
+                    <footer>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_sale_commission_view_form" model="ir.ui.view">
+            <field name="name">wizard.sale.commission.view.form</field>
+            <field name="model">wizard.sale.commission</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+	                        <field name="partner_ids" widget="many2many_tags"
+	                               string="Salespersons"/>
+	                        <field name="to_date" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Print XLS"
+                                name="action_print_report"
+                                type="object" class="btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_sale_commission" model="ir.actions.act_window">
+            <field name="name">Commission Report</field>
+            <field name="res_model">wizard.sale.commission</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_sale_commission_view_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_wizard_sale_commission"
+              parent="bista_tdcc_commission.menu_sales_commissions_management"
+              sequence="3"
+              action="action_wizard_sale_commission" />
+
+        <record id="wizard_show_unposted_comm_line_view_form" model="ir.ui.view">
+            <field name="name">show.uposted.commission.line</field>
+            <field name="model">wizard.sale.commission</field>
+            <field name="arch" type="xml">
+                <form>
+                    <footer>
+                        <button string="Show uposted Commission Lines"
+                                name="action_unposted_lines"
+                                type="object" class="btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_show_unposted_comm_line" model="ir.actions.act_window">
+            <field name="name">Post Commission</field>
+            <field name="res_model">wizard.sale.commission</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_show_unposted_comm_line_view_form"/>
+            <field name="target">new</field>
+        </record>
+<!--    <menuitem id="menu_show_unposted_comm_line"-->
+<!--              parent="bista_tdcc_commission.menu_sales_commissions_management"-->
+<!--              action="action_wizard_show_unposted_comm_line" sequence="2"/>-->
+
+        <!-- <menuitem id="menu_show_unposted_comm_line"
+              parent="bista_tdcc_commission.menu_sales_commissions_management"
+              sequence="2"
+              action="action_wizard_show_unposted_comm_line" /> -->
+</odoo>

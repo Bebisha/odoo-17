@@ -1,0 +1,10 @@
+
+from odoo import models, fields, api, _
+
+
+
+class KgDocumentAvailablestatus(models.Model):
+    _name = 'document.available.status'
+
+    code = fields.Char(string="Value")
+    name = fields.Char(string="Description")

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="True">
+        <record id="processing_doc_po" model="processing.documents">
+            <field name="name">Purchase Order (PO)</field>
+            <field name="is_default">True</field>
+            <field name="description">Official Purchase Order document</field>
+        </record>
+
+        <record id="processing_doc_do" model="processing.documents">
+            <field name="name">Delivery Order (DO)</field>
+            <field name="is_default">True</field>
+            <field name="description">Official Delivery Order document</field>
+        </record>
+
+        <record id="processing_doc_dn" model="processing.documents">
+            <field name="name">Delivery Note (DN)</field>
+            <field name="is_default">True</field>
+            <field name="description">Official Delivery Note document</field>
+        </record>
+
+        <record id="processing_doc_awb" model="processing.documents">
+            <field name="name">Air Waybill (AWB)</field>
+            <field name="is_default">True</field>
+            <field name="description">Air freight transport document</field>
+        </record>
+
+        <record id="processing_doc_coc" model="processing.documents">
+            <field name="name">Certificate of Origin (COO)</field>
+            <field name="is_default">True</field>
+            <field name="description">Certificate of Origin (COO)</field>
+        </record>
+
+        <record id="processing_doc_packing" model="processing.documents">
+            <field name="name">Packing List</field>
+            <field name="is_default">False</field>
+            <field name="description">Packing details for shipment</field>
+        </record>
+
+        <record id="processing_doc_msds" model="processing.documents">
+            <field name="name">MSDS (Material Safety Data Sheet)</field>
+            <field name="is_default">False</field>
+            <field name="description">MSDS (Material Safety Data Sheet)</field>
+        </record>
+
+        <record id="processing_doc_cc" model="processing.documents">
+            <field name="name">Calibration Certificate</field>
+            <field name="is_default">False</field>
+            <field name="description">Calibration Certificate</field>
+        </record>
+
+        <record id="processing_doc_ac" model="processing.documents">
+            <field name="name">Approval Certificate</field>
+            <field name="is_default">False</field>
+            <field name="description">Approval Certificate</field>
+        </record>
+
+        <record id="processing_doc_commercial_invoice" model="processing.documents">
+            <field name="name">Commercial Invoice</field>
+            <field name="is_default">False</field>
+            <field name="description">Commercial invoice for customs clearance</field>
+        </record>
+
+        <record id="processing_doc_sr" model="processing.documents">
+            <field name="name">Service Report</field>
+            <field name="is_default">False</field>
+            <field name="description">Service Report</field>
+        </record>
+
+        <record id="processing_doc_tr" model="processing.documents">
+            <field name="name">Timesheet</field>
+            <field name="is_default">False</field>
+            <field name="description">Timesheet Report</field>
+        </record>
+    </data>
+
+</odoo>

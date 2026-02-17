@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="kg_inv_report_view_move_form_inherit_form" model="ir.ui.view">
+            <field name="name">kg.account.move.view.form.report.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_bank_id" position="after">
+                    <field name="company_partner_id" invisible="1"/>
+                    <field name="bank_id" widget="many2many_tags" domain="[('partner_id','=',company_partner_id)]"/>
+                </field>
+                <field name="to_check" position="after">
+
+                    <field name="inv_attachment_ids" widget="many2many_tags"
+                           invisible=" move_type in ('out_refund','in_refund', 'out_receipt', 'in_receipt','in_invoice')"
+                           domain="[('bill_type', '=', 'customer')]" context="{'default_bill_type': 'customer'}"/>
+                    <field name="inv_attachment_ids" widget="many2many_tags"
+                           invisible=" move_type in ('out_refund','in_refund', 'out_receipt', 'in_receipt','out_invoice')"
+                           domain="[('bill_type', '=', 'vendor')]" context="{'default_bill_type': 'vendor'}"/>
+                </field>
+                <xpath expr="//button[@name='action_reverse']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_reverse']" position="after">
+                    <button name="action_reverse"
+                            type="object"
+                            string="Credit Note"
+                            class="btn-primary" invisible=" move_type not in ('out_invoice')"
+                           />
+                </xpath>
+                <xpath expr="//button[@name='action_reverse']" position="after">
+                    <button name="action_reverse"
+                            type="object"
+                            string="Debit Note"
+                            class="btn-primary" invisible=" move_type not in ('in_invoice')"
+                           />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

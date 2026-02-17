@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="hr_employee_entry_tree" model="ir.ui.view">
+            <field name="name">hr.employee.entry.tree</field>
+            <field name="model">hr.employee.entry</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Entries" editable="bottom">
+                    <header>
+                        <button name="submit_for_approval" type="object" string="Request Approval"
+                                groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager"/>
+                        <button name="action_approve" type="object" string="Approve"
+                                groups="kg_raw_fisheries_hrms.hr_manager"/>
+                        <button name="action_set_to_draft" type="object" string="Set To Draft"
+                                groups="kg_raw_fisheries_hrms.hr_manager"/>
+                    </header>
+                    <field name="employee_id"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="factory_manager_ids" column_invisible="1"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="vessels_id" optional="hide"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="parent_id" optional="hide"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <!--                    <field name="currency_id" readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>-->
+                    <field name="user_has_group_factory_manager" column_invisible="1" readonly="1"/>
+                    <field name="start_date"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="end_date"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="duration"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="name"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="over_time"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="holiday_allowance"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="absent_days"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="bonus"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="discharge_qty"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="total_allowance" optional="hide"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="travelling_days"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="salary_pre_payment"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="penalty"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="shop_deduction" optional="hide"
+                           readonly="state != 'draft' and user_has_group_factory_manager or state == 'approved'"/>
+                    <field name="state" optional="hide" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_employee_entry_search_id" model="ir.ui.view">
+            <field name="name">hr.employee.entry.search</field>
+            <field name="model">hr.employee.entry</field>
+            <field name="arch" type="xml">
+                <search string="Employee Documents">
+                    <field name="employee_id" string="Employee"/>
+                    <field name="vessels_id" string="Vessel"/>
+                    <field name="parent_id" string="Manager"/>
+                    <field name="name" string="Description"/>
+                    <filter string="Draft" name="state_draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Approved" name="state_approved" domain="[('state', '=', 'approved')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Month" name="start_date"
+                                context="{'group_by':'start_date'}"/>
+                        <filter string="Vessel" name="vessels_id"
+                                context="{'group_by':'vessels_id'}"/>
+                        <filter string="State" name="state" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

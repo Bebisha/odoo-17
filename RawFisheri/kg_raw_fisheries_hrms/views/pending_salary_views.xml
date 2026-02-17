@@ -1,0 +1,97 @@
+<odoo>
+
+    <record id="pending_salary_tree" model="ir.ui.view">
+        <field name="name">pending.salary.tree</field>
+        <field name="model">pending.salary</field>
+        <field name="arch" type="xml">
+            <tree string="Pending Salaries">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="settlement_date"/>
+                <field name="amount"/>
+                <field name="state" widget="badge" decoration-muted="state == 'draft'"
+                       decoration-info="state == 'approval_requested'"
+                       decoration-success="state == 'approved'"
+                       decoration-danger="state == 'rejected'"
+                       decoration-primary="state == 'cancel'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pending_salary_form" model="ir.ui.view">
+        <field name="name">pending.salary.form</field>
+        <field name="model">pending.salary</field>
+        <field name="arch" type="xml">
+            <form string="Pending Salaries">
+                <header>
+                    <field name="state" invisible="1"/>
+                    <button name="action_request_for_approval" string="Request For Approval" type="object"
+                            class="btn btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_approve" string="Approve" type="object" class="btn btn-primary"
+                            invisible="state != 'approval_requested'"/>
+                    <button name="action_reject" string="Reject" type="object" class="btn btn-primary"
+                            invisible="state != 'approval_requested'"/>
+                    <button name="action_cancel" string="Cancel" type="object" class="btn btn-primary"
+                            invisible="state in ['approved','rejected','cancel']"/>
+                    <button name="action_draft" string="Reset To Draft" type="object" class="btn btn-primary"
+                            invisible="state != 'cancel'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" invisible="state != 'approved'"/>
+                    <widget name="web_ribbon" title="Rejected" bg_color="bg-danger" invisible="state != 'rejected'"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" required="1" readonly="state in ['approved','rejected']"/>
+                            <field name="settlement_date" required="1" readonly="state in ['approved','rejected']"/>
+                            <field name="company_id" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="amount" readonly="state in ['approved','rejected']"/>
+                            <field name="ps_approve_users_id" readonly="state in ['approved','rejected']"/>
+                            <field name="reason_for_reject" readonly="1" force_save="1"
+                                   invisible="state != 'rejected'"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="pending_salary_search_filter" model="ir.ui.view">
+        <field name="name">pending.salary.search.filter</field>
+        <field name="model">pending.salary</field>
+        <field name="arch" type="xml">
+            <search string="Pending Salaries">
+                <field name="name"/>
+                <field name="employee_id"/>
+
+                <filter name="draft_state" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="requested_state" string="Waiting Approval" domain="[('state','=','approval_requested')]"/>
+                <filter name="approved_state" string="Approved" domain="[('state','=','approved')]"/>
+                <filter name="rejected_state" string="Rejected" domain="[('state','=','rejected')]"/>
+                <filter name="cancel_state" string="Cancelled" domain="[('state','=','cancel')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter name="groupby_employee" string="Employee" context="{'group_by':'employee_id'}"/>
+                    <filter name="groupby_state" string="State" context="{'group_by':'state'}"/>
+                    <filter name="groupby_settlement_date" string="Settlement Date"
+                            context="{'group_by':'settlement_date'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+
+</odoo>

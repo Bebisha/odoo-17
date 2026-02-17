@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="product_template_form_view_price_history_button" model="ir.ui.view">
+        <field name="name">product.template.price.history.button</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sale.product_template_form_view_sale_order_button"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button"
+                        name="action_view_price_history"
+                        type="object" icon="fa-history"
+                        help="Sales price history of the product">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Price History</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

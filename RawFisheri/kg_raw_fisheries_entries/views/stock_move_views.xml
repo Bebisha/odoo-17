@@ -1,0 +1,29 @@
+<odoo>
+
+    <record id="kg_view_stock_move_search_inherit_d" model="ir.ui.view">
+        <field name="name">kg.stock.move.inventory.search.inherit</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='groupby_date']" position="after">
+                <filter string="Inventory Date" name="inventory_date" domain="[]" context="{'group_by': 'stock_date'}"/>
+            </xpath>
+            <xpath expr="//filter[@name='today']" position="before">
+                <filter string="Today" name="filter_today"
+                        domain="[('stock_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_move_tree_inherit_id" model="ir.ui.view">
+        <field name="name">stock.move.tree.inherit.id</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="stock_date" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

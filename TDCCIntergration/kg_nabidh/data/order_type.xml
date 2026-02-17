@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="order_type_lab" model="order.type">
+            <field name="code">LAB</field>
+            <field name="name">Lab orders / results</field>
+        </record>
+        <record id="order_type_med" model="order.type">
+            <field name="code">MED</field>
+            <field name="name">Medication orders</field>
+        </record>
+        <record id="order_type_obs" model="order.type">
+            <field name="code">OBS</field>
+            <field name="name">Observations</field>
+        </record>
+        <record id="order_type_rad" model="order.type">
+            <field name="code">RAD</field>
+            <field name="name">Radiology orders / results</field>
+        </record>
+        <record id="order_type_vxu" model="order.type">
+            <field name="code">VXU</field>
+            <field name="name">Vaccines</field>
+        </record>
+        <record id="order_type_oth" model="order.type">
+            <field name="code">OTH</field>
+            <field name="name">Everything else</field>
+        </record>
+    </data>
+</odoo>

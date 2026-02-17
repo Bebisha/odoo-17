@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_project_form_inherit_tasks_page" model="ir.ui.view">
+        <field name="name">project.project.form.tasks.page</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+
+            <!-- Add new tab -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Scope Status">
+                    <field name="task_ids" readonly="1">
+                        <tree>
+                            <field name="name" string="Task Name"/>
+                            <field name="child_ids" widget="many2many_tags"/>
+                            <field name="stage_id" string="Status"/>
+                            <field name="project_id" column_invisible="1"/>
+                            <field name="progress" widget="progressbar"/>
+                            <field name="remarks"/>
+                        </tree>
+                    </field>
+                </page>
+
+            </xpath>
+
+            <field name="date" position="after">
+                <field name="vessel_id" string="Vessel" readonly="False"/>
+            </field>
+
+
+        </field>
+    </record>
+
+
+    <record id="project_project_tree_add_columns" model="ir.ui.view">
+        <field name="name">project.project.tree.add.columns</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.project_list_view_group_stage"/>
+        <field name="arch" type="xml">
+
+            <!-- Add fields AFTER project name -->
+            <xpath expr="//tree/field[@name='display_name']" position="after">
+                <field name="vessel_id"/>
+                <!--                    <field name="supervisor_id"/>-->
+                <!--                    <field name="coordinator_id"/>-->
+                <!--                    <field name="date_start" string="Start Date"/>-->
+                <!--                    <field name="date" string="End Date"/>-->
+                <!--                    <field name="availed_hours"/>-->
+            </xpath>
+            <xpath expr="//tree/field[@name='user_id']" position="after">
+                <field name="qc_id" string="Supervisor"/>
+                <field name="Coordinator_id"/>
+                <field name="date_start" string="Start Date"/>
+                <field name="date" string="End Date"/>
+                <field name="remaining_hours" string="Availed Hours"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="project.menu_projects" model="ir.ui.menu">
+        <field name="name">Scope</field>
+    </record>
+    <record id="project.menu_projects_group_stage" model="ir.ui.menu">
+        <field name="name">Scope</field>
+    </record>
+    <record id="project.menu_projects_config_group_stage" model="ir.ui.menu">
+        <field name="name">Scope</field>
+    </record>
+    <record id="project.menu_projects_config" model="ir.ui.menu">
+        <field name="name">Scope</field>
+    </record>
+
+
+</odoo>

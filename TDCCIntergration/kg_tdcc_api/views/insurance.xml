@@ -1,0 +1,144 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="kg_insurance_tree_view">
+            <field name="name">Insurance</field>
+            <field name="model">kg.insurance</field>
+            <field name="arch" type="xml">
+                <!--                <tree create="false" edit="false">-->
+                <tree>
+                    <field name="set_id_in1"/>
+
+
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="kg_insurance_form_view">
+            <field name="name">Insurance</field>
+            <field name="model">kg.insurance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <button name="btn_submit" string="Submit" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+                        <button name="btn_cancel" string="Cancel" type="object" data-hotkey="w"
+                                invisible="state not in ('draft','submited')"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submited"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="set_id_in1" required="1"/>
+                                <field name="health_plan_id" required="1"/>
+                                <field name="insurence_compny_id" required="1"/>
+                                <field name="insurence_compny_name" required="1"/>
+                                <field name="insurence_compny_address" required="1"/>
+                                <field name="insurence_contact_person" required="1"/>
+                            </group>
+                            <group>
+                                <field name="insurence_co_phn" required="1"/>
+                                <field name="group_no" required="1"/>
+                                <field name="group_name" required="1"/>
+                                <field name="insured_grp_empid"/>
+                                <field name="insured_grp_emp_name"/>
+                                <field name="plan_effctv_date" required="1"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="plan_expiry_date" required="1"/>
+                                <field name="authorizatn_info"/>
+                                <field name="plan_type" required="1"/>
+                                <field name="insured_name" required="1"/>
+                                <field name="insured_relationship_patent" required="1"/>
+                                <field name="insured_dob"/>
+                            </group>
+                            <group>
+                                <field name="insured_address" required="1"/>
+                                <field name="assign_benft"/>
+                                <field name="cordination_benft"/>
+                                <field name="cord_priorty" required="1"/>
+                                <field name="notice_addmsn_flag"/>
+                                <field name="notice_addmsn_date"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="report_elgblty_flag"/>
+                                <field name="report_elgblty_date"/>
+                                <field name="release_info_code"/>
+                                <field name="pre_admit_cert"/>
+                                <field name="verification_date"/>
+                            </group>
+                            <group>
+                                <field name="verifction_by"/>
+                                <field name="typ_agrmnt_code"/>
+                                <field name="billing_stats"/>
+                                <field name="liftime_resrv_day"/>
+                                <field name="delay_befr_day"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="compny_plan_code"/>
+                                <field name="policy_no" required="1"/>
+                                <field name="plan_deductble"/>
+                                <field name="plan_limit_amnt"/>
+                                <field name="plan_limit_days"/>
+                            </group>
+                            <group>
+                                <field name="room_rate"/>
+                                <field name="room_rate_prvt"/>
+                                <field name="insured_emplmnt_status"/>
+                                <field name="administrative_sex"/>
+                                <field name="insured_employr_addrs"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="verificatn_status"/>
+                                <field name="insurence_plan_id"/>
+                                <field name="coverage_type"/>
+                                <field name="handicap"/>
+                                <field name="insured_id_no"/>
+                            </group>
+                            <group>
+                                <field name="sign_code"/>
+                                <field name="sign_code_date"/>
+                                <field name="insured_birth_place"/>
+                                <field name="vip_indctor"/>
+
+                            </group>
+
+
+                        </group>
+
+
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="kg_insurance_action_form" model="ir.actions.act_window">
+            <field name="name">Insurance</field>
+            <field name="res_model">kg.insurance</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

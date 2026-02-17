@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_account_analytic_line_form_inherit_id" model="ir.ui.view">
+        <field name="name">account.analytic.line.form.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="parent_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="kg_view_account_analytic_line_list_inherit_id" model="ir.ui.view">
+        <field name="name">kg.account.analytic.line.tree.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="parent_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="kg_view_account_analytic_line_filter_inherit_id" model="ir.ui.view">
+        <field name="name">kg.account.analytic.line.filter.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='group_date']" position="before">
+                <separator/>
+                <filter string="Parent Account" name="group_parent_id" context="{'group_by': 'parent_id'}"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

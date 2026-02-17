@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--    E&D Elements Tree view    -->
+        <record id="earn_ded_elements_tree_view" model="ir.ui.view">
+            <field name="name">earn.ded.elements.tree</field>
+            <field name="model">earn.ded.elements</field>
+            <field name="arch" type="xml">
+                <tree string="E&amp;D Elements" decoration-muted="active == False">
+                    <field name="name"/>
+                    <field name="short_code"/>
+                    <field name="element_type"/>
+                    <field name="salary_struct_id"/>
+                    <field name="active" widget="boolean_toggle" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--    E&D Elements Form view    -->
+        <record id="earn_ded_elements_form_view" model="ir.ui.view">
+            <field name="name">earn.ded.elements.form</field>
+            <field name="model">earn.ded.elements</field>
+            <field name="arch" type="xml">
+                <form string="E&amp;D Elements">
+                    <header>
+                        <button name="apply_rule" type="object" string="Apply" invisible="active == True"
+                                class="oe_highlight"/>
+                        <button name="disable_rule" type="object" string="Disable"
+                                invisible="active == False"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="active == True" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="active" widget="boolean_toggle" readonly="1" invisible="1"/>
+                            <field name="short_code" required="1" readonly="active == True"/>
+                            <field name="element_type" required="1" readonly="active == True"/>
+                            <field name="salary_struct_id" required="1" readonly="active == True"
+                                   options="{'no_create': True}"/>
+                            <field name="rule_id" invisible="1" readonly="active == True"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

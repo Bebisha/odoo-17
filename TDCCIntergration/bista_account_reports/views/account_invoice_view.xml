@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="annual_inherit_invoice_form" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='preview_invoice']" position="after">
+                    <field name="program_type" invisible="1"/>
+                    <button name="action_annual_invoice" type="object"
+                        string="Print Annual Invoice"
+                            invisible ="'program_type' != 'eip'"/>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="annual_inherit_invoice_form2" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="bista_tdcc_operations.invoice_form_tdcc"/>
+            <field name="arch" type="xml">
+                <field name="class_id" position="after">
+                    <field name="program_type" invisible="1"/>
+                    <field name="annual_invoice_date"
+                            invisible ="'program_type' != 'eip'"/>
+                </field>
+            </field>
+        </record>
+</odoo>

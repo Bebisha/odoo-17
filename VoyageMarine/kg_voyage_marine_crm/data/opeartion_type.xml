@@ -1,0 +1,7 @@
+<odoo>
+    <record id="virtual_service_receipts" model="stock.picking.type">
+        <field name="name">Virtual Receipt</field>
+        <field name="sequence_code">VR</field>
+        <field name="code">incoming</field>
+    </record>
+</odoo>

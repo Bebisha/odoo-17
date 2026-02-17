@@ -1,0 +1,493 @@
+<odoo>
+        <template id="purchase_external_layout_inherit1">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row">
+
+                <div class="col-5 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 60px;"
+                         alt="Logo"/>
+                </div>
+
+                <div class="col-7 mb4">
+                    <span style="font-size:27px;">
+                        <!--                        Automation SYNERGY's (FZC)-->
+                        <t t-esc="company.name"/>
+                    </span>
+                    <br/>
+                    <br/>
+                    <span style="font-size:9px;">
+                        <strong>[P.O. Box No: 120086 ][ Sharjah Airport International Free Zone ][ Sharjah, UAE]
+                        </strong>
+                    </span>
+
+                    <br/>
+                    <span style="font-size:9px;">
+                        <strong>[Phone: +971-65578645 ][ Fax: +971-65578646 ][ www.asynergys.com]</strong>
+                    </span>
+                    <br/>
+
+                    <br/>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-2 mb4">
+                    <strong>QUOTATION
+                    </strong>
+                </div>
+                <div class="col-10 mb4" style="border-bottom:1px solid"/>
+
+                <!--                <hr/>-->
+            </div>
+        </div>
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+             t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <!--            <div class="pt-5">-->
+            <!--                &lt;!&ndash; This div ensures that the address is not cropped by the header. &ndash;&gt;-->
+            <!--                &lt;!&ndash;                <t t-call="web.address_layout"/>&ndash;&gt;-->
+            <!--            </div>-->
+            <t t-out="0"/>
+        </div>
+        <!--        </div>-->
+
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <div t-field="company.report_footer"/>
+                </ul>
+
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page:
+                    <span class="page"/>
+                    /
+                    <span class="topage"/>
+                </div>
+                <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                    <span t-out="o.name">(document name)</span>
+                </div>
+            </div>
+        </div>
+    </template>
+      <template id="purchase_external_layout_inherit">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <t t-if="company.external_report_layout_id" t-call="{{company.external_report_layout_id.sudo().key}}">
+            <t t-out="0"/>
+        </t>
+        <t t-else="else" t-call="kg_sale_order.sale_external_layout_inherit1">
+            <t t-out="0"/>
+        </t>
+
+    </template>
+        <template id="sale_html_container">
+        <t t-set="body_classname" t-value="'container'"/>
+        <html t-att-lang="lang and lang.replace('_', '-')"
+              t-att-data-report-margin-top="data_report_margin_top"
+              t-att-data-report-header-spacing="data_report_header_spacing"
+              t-att-data-report-dpi="data_report_dpi"
+              t-att-data-report-landscape="data_report_landscape"
+              t-att-web-base-url="web_base_url">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="initial-scale=1"/>
+                <title>
+                    <t t-esc="title or 'Odoo Report'"/>
+                </title>
+                <t t-call-assets="web.report_assets_common" t-js="false"/>
+                <!--The following is kind of a hack-->
+                <!--in an iframe, we don't want the session to perform qweb_templates rpc-->
+                <script type="text/javascript">
+                    window.odoo = {};
+                    window.odoo.__session_info__ = {is_report: true};
+                </script>
+                <t t-call-assets="web.assets_common" t-css="false"/>
+                <t t-call-assets="web.report_assets_common" t-css="false"/>
+            </head>
+            <body t-att-class="'container' if not full_width else 'container-fluid'">
+                <div id="wrapwrap">
+                    <main>
+                        <t t-out="0"/>
+                    </main>
+                </div>
+            </body>
+
+        </html>
+    </template>
+     <template id="sale_report_id" name="Sale Order Report" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[@t-set='address']/div" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='address']/p" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='information_block']/strong" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='information_block']/div" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='information_block']/t/strong" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='information_block']/t/div" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+
+        <!--          <t t-set="information_block">-->
+        <!--                <strong>-->
+        <!--                    <t t-if="doc.partner_shipping_id == doc.partner_invoice_id">-->
+        <!--                        Invoicing and Shipping Address:-->
+        <!--                    </t>-->
+        <!--                    <t t-else="">-->
+        <!--                        Invoicing Address:-->
+        <!--                    </t>-->
+        <!--                </strong>-->
+        <!--                <div t-field="doc.partner_invoice_id"-->
+        <!--                    t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>-->
+        <!--                <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">-->
+        <!--                    <strong>Shipping Address:</strong>-->
+        <!--                    <div t-field="doc.partner_shipping_id"-->
+        <!--                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>-->
+        <!--                </t>-->
+        <!--            </t>-->
+
+        <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+            <!--        <xpath expr="//div[@class='page']" position="replace">-->
+            <t t-call="kg_sale_order.sale_html_container">
+                <t t-call="kg_sale_order.sale_external_layout_inherit">
+                    <div class="page">
+                        <div id="address">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td class="col-6" style="font-size:12px;border:1px solid black;">To:
+                                        <br/>
+                                        <t t-esc="doc.partner_id.name"/>
+                                    </td>
+                                    <td class="col-6" style="font-size:12px;border:1px solid black;">From:
+                                        <br/>
+                                        <t t-esc="request.env.user.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-6" style="font-size:12px;border:1px solid black;">Company:
+                                        <br/>
+                                        <t t-esc="doc.company_id.name"/>
+                                    </td>
+                                    <td class="col-6" style="font-size:12px;border:1px solid black;">Date:
+                                        <br/>
+                                        <t t-esc="doc.date_order"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-6" style="font-size:12px;border:1px solid black;">Fax No.:
+                                        <br/>
+                                    </td>
+                                    <td class="col-6" style="font-size:12px;border:1px solid black;">No of Sheets:
+                                        <br/>
+                                        4
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-6" style="font-size:12px;border:1px solid black;">E-mail:
+                                        <br/>
+                                    </td>
+                                    <td class="col-6" style="font-size:12px;border:1px solid black;">Our Reference No.:
+                                        <br/>
+                                        AE23Q077A-03
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-6" style="font-size:12px;border:1px solid black;">Your Reference No.:
+                                        <br/>
+                                        Email dated 04-July-2023
+                                    </td>
+                                    <td class="col-6" style="font-size:12px;border:1px solid black;">Reply To:
+                                        <br/>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="font-size:12px;border:1px solid black;">Subject:
+                                        <br/>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div>
+                            <p align="center">
+                                <strong style="font-size:12px;">
+                                    <u>Please quote our reference number in all your correspondences to us.</u>
+                                </strong>
+                            </p>
+                            <p style="font-size:12px;">Dear Sir/Madam,</p>
+                            <p style="font-size:12px;">
+                                <!--                        <br/>-->
+                                We thank you very much for giving us an opportunity to serve your esteemed organization.
+                                We are
+                                pleased to quote for Assembly &amp; Accessories for Integration of Cabinets as per your
+                                RFQ
+                                Documents.
+                                <br/>
+                                <br/>
+                                We believe our offer will be in line with your requirements. Please feel free to call us
+                                or
+                                contact undersigned for any queries in the below offer.
+                                <!--                        <br/>-->
+                                <br/>
+                            </p>
+                            <p style="font-size:12px;">
+                                <style>
+                                    ol.custom-counter {
+                                    list-style-type: upper-alpha;
+                                    padding-left: 20px;
+                                    }
+                                    .custom-counter li {
+                                    margin-bottom: 10px;
+                                    }
+                                    ul {
+                                    margin-top: 5px;
+                                    margin-bottom: 5px;
+                                    padding-left: 20px;
+                                    }
+                                    ul li {
+                                    margin-bottom: 5px;line-height: 1.5;
+                                    }
+                                    .page-break {
+                                    page-break-before: always;
+                                    }
+
+
+                                </style>
+
+
+                                <ol class="custom-counter" style="font-size:12px;">
+                                    <li style="font-size:12px;">
+                                        <strong>
+                                            <u>Reference Documents:</u>
+                                        </strong>
+                                    </li>
+                                    <!--                            <br/>-->
+                                    <!--                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                                    Following documents &amp; correspondences were the basis of our proposal.
+                                    <br/>
+                                    <br/>
+                                    <strong>Documents:</strong>
+                                    <ul>
+                                        <li>Mail Dated 06-July-2023, with subject “Neom Village 5k and 10k - Commercial
+                                            Proposal
+                                            Request”.
+                                        </li>
+                                        <li>Mail with comments received on 10-Jul-2023.
+                                            <ul>
+                                                <li>Include Power Supply Units.</li>
+                                                <li>Changing 13 Amps PDU to 16 Amps.</li>
+                                                <li>Increase decrease in MCB.</li>
+                                                <li>Bus Bar qty updated.</li>
+                                                <li>Increase 1U/2U name plates.</li>
+                                                <li>Include Conduct FAT in KSA With clients and the ship the cabinets to
+                                                    KSA.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>Quote revised to be Ex-works JAFZA.</li>
+                                        <li>The perforated door changed to plain door, plus roof mounted fan 2 nos per
+                                            cabinet
+                                            and 4
+                                            Filter mounted in door per cabinet. Corresponding MCB and wiring added.
+                                        </li>
+                                    </ul>
+                                    <li>
+                                        <strong>
+                                            <u>Base Proposal:
+                                                <br/>Refer Attachment-1 for BOM.<br/>Refer Attachment-2 for Pricing.
+
+                                            </u>
+                                        </strong>
+                                        <ul>
+                                            <li>All Prices Quoted are in AED.</li>
+                                            <li>Pricing is strictly based on the attached BOM; any changes to this will
+                                                have
+                                                commercial
+                                                implications.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <strong>
+                                            <u>Scope included in base proposal:</u>
+                                        </strong>
+                                        Scope of work includes as per your mail and drawings which are listed below:
+                                        <ul>
+                                            <li>Rittal make cabinet (COO-India) and cabinet accessories as listed in our
+                                                BOM.
+                                            </li>
+                                            <li>Mounting and wiring of free issue items.</li>
+                                            <li>Schneider make MCB’s are considered.</li>
+                                            <li>Rittal make light &amp; Door Switch considered.</li>
+                                            <li>LM Threm Hygrostat Consider.</li>
+                                            <li>Trinity make Cables ducts is considered.</li>
+                                            <li>Seecab make LSZH wires is considered.</li>
+                                            <li>Weidmuller Make TB’s and TB accessories are considered.</li>
+                                            <li>Avalon Make FOPP/SMFO Patch cords is considered.</li>
+                                            <li>Avalon make Ethernet Communication cables are considered.</li>
+                                            <li>Avalon Make Blanking Plate &amp; Cable Manager.</li>
+                                            <li>Lugs, Cable Ties, all wiring accessories.</li>
+                                            <li>Assembly &amp; Wiring will be done in our facility in Jebel Ali.</li>
+                                            <li>We have considered wooden packing for all cabinets.</li>
+                                            <li>Pre-FAT/FAT / I-FAT Staging is considered in our scope, which will be in
+                                                KSA or
+                                                UAE JAFZA.
+                                            </li>
+                                            <li>All Servers &amp; RTU Will be installed in our Works in JAFZA and will
+                                                be
+                                                shipped as installed inside the cabinet.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <strong>
+                                            <u>Scope Excluded in base proposal:</u>
+                                        </strong>
+                                        <ul>
+                                            <li>All Network Switches, Ethernet Switches, KVM Switches, RTU’s, Gateway,
+                                                ETAP
+                                                Workstation, Server and associated network accessories is not in our
+                                                scope
+                                                of supply.
+                                            </li>
+                                            <li>Cable glands are not considered in our scope of supply.</li>
+                                            <li>Transport to KSA &amp; COO is not in our scope.</li>
+                                            <li>Customs Duty &amp; KSA Entry VAT is not in our scope the same shall be
+                                                re-imbursed to us at actual immediately without any bank charge
+                                                deductions.
+                                            </li>
+                                            <li>Anything apart from our proposed BOM is not considered in our scope of
+                                                supply.
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <strong>
+                                            <u>Deviation:</u>
+                                        </strong>
+                                        <ul>
+                                            <li>We have considered standard 12-way Avalon make PDU with only 1 universal
+                                                switch
+                                                Instead of 10 Way Avalon Make PDU.
+                                            </li>
+                                            <li>We have considered Civaux make Hygrostat &amp; Space heater instead of
+                                                LM
+                                                Therm
+                                                make Space Heater because 100W Space not standard in LM Therm Make.
+                                            </li>
+                                            <li>Gland Plate will be as standard by Cabinet Supplier, Dimension shown in
+                                                drawing may
+                                                vary with respect to actual cabinets gland plates and Thickness of Plate
+                                                will be 2 mm.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <strong>
+                                            <u>Delivery Schedule:</u>
+                                        </strong>
+                                        <ul>
+                                            <li>We have considered standard 12-way Avalon make PDU with only 1 universal
+                                                switch
+                                                Instead of 10 Way Avalon Make PDU.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <strong>
+                                            <u>Terms:</u>
+                                        </strong>
+                                        <ul style="font-size:12px;">
+                                            <li style="font-size:12px;">Delivery: Ex-Works ASF Jebel Ali Freezone.
+                                            </li>
+                                            <li style="font-size:12px;">Warranty: 12 Months from date of Supply.
+                                            </li>
+                                            <li style="font-size:12px;">Validity: Price is valid till 1 week from date
+                                                of this offer.
+                                            </li>
+                                            <li style="font-size:12px;">Payment: 30 % advance, 20% After completion of
+                                                ETAP Engineer Inspection
+                                                and 50%
+                                                After Dispatch including FAT.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                <span style="font-size:12px;">
+                                    Submitted by,
+                                </span>
+                                <br/>
+                                <span style="font-size:12px;">
+
+                                    Anantha Moorthi Pandian
+                                </span>
+                                <br/>
+                                <span style="font-size:12px;">
+
+                                    automation SYNERGY’s (FZC)
+                                </span>
+                            </p>
+                        </div>
+                        <div class="page-break"></div>
+                        <div class="page">
+                            <table class="table table-bordered" style="font-size:12px;">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Unit Price</th>
+                                        <th>Total Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Loop through your order lines and populate the table rows -->
+                                    <t t-foreach="doc.order_line" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="line.product_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.product_uom_qty"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.price_unit"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.price_subtotal"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

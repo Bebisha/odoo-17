@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="transfer_form_paperformat" model="report.paperformat">
+        <field name="name">Transfer Form</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">50</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Transfer Form Report Action -->
+     <record id="transfer_form_report" model="ir.actions.report">
+            <field name="name">Transfer Form</field>
+            <field name="model">transfer.form</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_operations.report_transfer_form</field>
+            <field name="report_file">bista_tdcc_operations.report_transfer_form</field>
+            <field name="paperformat_id" ref="bista_tdcc_operations.transfer_form_paperformat"/>
+            <field name="binding_type">report</field>
+        </record>
+<!--    <report-->
+<!--        id="transfer_form_report"-->
+<!--        model="transfer.form"-->
+<!--        string="Transfer Form"-->
+<!--        name="bista_tdcc_operations.report_transfer_form"-->
+<!--        file="bista_tdcc_operations.report_transfer_form"-->
+<!--        report_type="qweb-pdf"-->
+<!--    />-->
+
+<!--    <record id="transfer_form_report" model="ir.actions.report">-->
+<!--        <field name="paperformat_id" ref="bista_tdcc_operations.transfer_form_paperformat"/>-->
+<!--    </record>-->
+
+    <template id="transfer_form_header_footer">
+        <div class="header" style="margin-left:20px;">
+            <div class="float-left">
+                <img
+                    src="/bista_tdcc_operations/static/src/img/first.jpg"
+                    style="max-height:300px; max-width:300px"
+                />
+            </div>
+            <div class="float-right" style="padding-right:40px;">
+                <img
+                    src="/bista_tdcc_operations/static/src/img/second.jpg"
+                    style="max-height:150px; max-width:300px"
+                 />
+             </div>
+         </div>
+         <div class="footer">
+            <div style="margin-left:20px;">
+                <p style="color:blue; font-family: Arial; font-size: 10pt; font-style: italic;">
+                    “If you judge a fish by its ability to climb a tree,
+                    it will live its whole life believing that it is stupid.” Albert Einstein
+                </p>
+                <p style="font-family: Arial; font-size: 12pt;">
+                    <b>We think different. We teach different.</b>
+                </p>
+                <p style="font-family: Arial; font-size: 10pt;">
+                    At The Developing Child Centre our approach is simple.
+                    We believe every child is brilliant and we nurture and build
+                    children’s confidence and abilities.<br/>
+                    We are dedicated to identifying, building and developing
+                    skills required by all children to feel confident and succeed.
+                </p>
+                <p style="font-family: Arial; font-size: 12pt;">
+                    <b>The Developing Child Centre LLC</b>
+                    PO Box 478527 Dubai, UAE | Call +971 4 3011900 | info@tdcc.ae | <b>www.tdcc.ae</b>
+                </p>
+            </div>
+        </div>
+        <div class="article">
+          <t t-raw="0" />
+        </div>
+    </template>
+
+    <!-- Main Transfer Form Template -->
+    <template id="report_transfer_form">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="bista_tdcc_operations.report_transfer_form_document" t-lang="doc.student_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+
+    <!-- Translatable Transfer Form Template -->
+    <template id="report_transfer_form_document">
+        <t t-set="doc" t-value="doc.with_context({'lang':doc.student_id.lang})"/>
+        <t t-call="bista_tdcc_operations.transfer_form_header_footer">
+            <div class="page">
+                <div style="font-family: Arial; font-size: 12pt;">
+                    <b>For the attention of:</b><span t-esc="doc.school_center" style="margin-left:20px;"/>
+                </div>
+                <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                    <tr style="font-family: Arial; font-size: 12pt;">
+                        <td width="60%" height="80px" style="border: 1px solid black;padding-top:20px;padding-left:7px;">
+                            <b>Child’s Full Name:</b>
+                            <span t-field="doc.student_id.name" style="margin-left:20px;"/>
+                        </td>
+                        <td width="40%" height="80px" style="border: 1px solid black;padding-top:20px;padding-left:7px;">
+                            <b>Date of Birth:</b>
+                            <span t-field="doc.dob" style="margin-left:20px;"/>
+                        </td>
+                    </tr>
+                </table>
+                <div class="clearfix" style="margin-top:50px;">
+                    <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                        <tr style="font-family: Arial; font-size: 12pt;">
+                            <td width="60%" style="border: 1px solid black;padding-top:7px;padding-left:7px;color:#32CD32;background-color:#D3D3D3"><b>Nationality</b></td>
+                            <td width="40%" style="border: 1px solid black;padding-top:7px;padding-left:7px;">
+                            <span t-field="doc.nationality_id.name" style="margin-left:20px;"/>
+                            </td>
+                        </tr>
+                        <tr style="font-family: Arial; font-size: 12pt;">
+                            <td width="60%" style="border: 1px solid black;padding-top:7px;padding-left:7px;color:#32CD32;background-color:#D3D3D3"><b>Date started attendance at TDCC</b></td>
+                            <td width="40%" style="border: 1px solid black;padding-top:7px;padding-left:7px;">
+                            <span t-field="doc.attendance_start_date" style="margin-left:20px;"/>
+                            </td>
+                        </tr>
+                        <tr style="font-family: Arial; font-size: 12pt;">
+                            <td width="60%" style="border: 1px solid black;padding-top:7px;padding-left:7px;color:#32CD32;background-color:#D3D3D3"><b>Date finished attendance at TDCC</b></td>
+                            <td width="40%" style="border: 1px solid black;padding-top:7px;padding-left:7px;">
+                            <span t-field="doc.attendance_end_date" style="margin-left:20px;"/>
+                            </td>
+                        </tr>
+                        <tr style="font-family: Arial; font-size: 12pt;">
+                            <td width="60%" style="border: 1px solid black;padding-top:7px;padding-left:7px;color:#32CD32;background-color:#D3D3D3"><b>Level of attainment when finished attendance at TDCC</b></td>
+                            <td width="40%" style="border: 1px solid black;padding-top:7px;padding-left:7px;">
+                            <span t-field="doc.attainment_level" style="margin-left:20px;"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="clearfix" style="margin-top:30px;">
+                    <div>
+                        <p style="font-family: Arial; font-size: 12pt;">
+                        This Transfer Form should be regarded together
+                        with individual education plans (IEPs) and end of term report cards.</p>
+                    </div>
+                </div>
+                <div class="clearfix" style="margin-top:10px;">
+                    <table style="border: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+                        <tr style="font-family: Arial; font-size: 10pt;">
+                            <td width="50%" height="90px" style="border: 1px solid black;padding-top:80px;padding-left:50px;">
+                            ___________________________________
+                            <p>Director of Education Signature</p>
+                            </td>
+                            <td width="50%" height="90px" style="border: 1px solid black;padding-top:80px;padding-left:50px;">
+                            ___________________________________
+                            <p>Director of Education</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="clearfix" style="margin-top:120px;margin-left:40px;">
+                    <div style="font-family: Arial; font-size: 12pt;">
+                        <b>TDCC, DHA License no.: <span t-esc="user.company_id.dha_license_no"/></b> <br/>
+                        <b>TDCC, CDA License no.: <span t-esc="user.company_id.cda_license_no"/></b>
+
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

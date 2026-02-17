@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ========================================================= -->
+        <!-- Table NAB026: Document Availability Status -->
+        <!-- ========================================================= -->
+        <record id="doc_avail_av" model="document.available.status"><field name="code">AV</field><field name="name">Available for patient care</field></record>
+        <record id="doc_avail_ca" model="document.available.status"><field name="code">CA</field><field name="name">Deleted</field></record>
+        <record id="doc_avail_ob" model="document.available.status"><field name="code">OB</field><field name="name">Obsolete</field></record>
+        <record id="doc_avail_un" model="document.available.status"><field name="code">UN</field><field name="name">Unavailable for patient care</field></record>
+
+    </data>
+</odoo>

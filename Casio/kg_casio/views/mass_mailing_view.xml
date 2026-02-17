@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mass_mailing_edit" model="ir.ui.view">
+        <field name="name">mass.mailing.edit</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
+        <field name="arch" type="xml">
+            <field name="email_from" position="before">
+                <field name="select_from_email" widget="selection"/>
+            </field>
+        </field>
+    </record>
+</odoo>

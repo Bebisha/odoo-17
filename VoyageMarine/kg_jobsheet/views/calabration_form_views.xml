@@ -1,0 +1,269 @@
+<odoo>
+    <record id="view_calibration_form" model="ir.ui.view">
+        <field name="name">calibration.form.view.form</field>
+        <field name="model">calibration.form</field>
+        <field name="arch" type="xml">
+            <form string="Calibration Form">
+                <header>
+                    <button name="create_calibration" string="Create Calibration" type="object"
+                            class="btn-primary"
+
+                    />
+                    <button name="create_certificate" string="Create Certificate" type="object"
+                            class="btn-primary"
+
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="action_calibration"
+                                type="object" icon="fa-bars" string="Calibration" invisible="repair_form_count == 0">
+                            <field name="repair_form_count" widget="statinfo" string="Calibration"/>
+                        </button>
+                        <button class="oe_stat_button" name="action_sale_order"
+                                type="object" icon="fa-bars" string="Sale Order" invisible="sale_form_count == 0">
+                            <field name="sale_form_count" widget="statinfo" string="Sale Order"/>
+
+
+                        </button>
+
+                    </div>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+
+                            <field name="partner_id" widget="res_partner_many2one"
+                                   domain="[('customer_rank','>', 0),('is_company', '=', True)]"
+                                   context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                                   placeholder="Type to find a customer..."/>
+
+
+                            <field name="vessel_id"/>
+                            <field name="lead_id"/>
+                            <field name="job_sheet_number"/>
+                            <field name="equipment_id" invisible="1"/>
+                            <field name="jr_no"/>
+
+                            <field name="product_category_parent_id" domain="[('is_scope', '=', True)]"/>
+                            <field name="product_category_id"/>
+                            <field name="product_id"/>
+                            <field name="qty_calibration" readonly="1"/>
+
+                            <field name="scope_id" invisible="1"/>
+                            <field name="inspection_calibration_id" invisible="1"/>
+                            <field name="equipment_records_ids" widget="many2many_tags" invisible="1"/>
+
+                        </group>
+
+
+                        <group string="Certificate and Date">
+                            <field name="certificate_no"/>
+                            <field name="certificate_ref" readonly="1"/>
+                            <field name="received_date"/>
+                            <field name="calibration_date"/>
+                        </group>
+                    </group>
+
+                    <!-- Additional Information Grouped -->
+                    <notebook>
+                        <page string="Additional Information">
+                            <group>
+                                <group string="Environmental Conditions">
+                                    <field name="recommended_due_date"/>
+                                    <field name="temperature_with_accuracy"/>
+                                    <field name="humidity_with_accuracy"/>
+                                </group>
+                                <group string="Unit Under Calibration">
+<!--                                    <field name="unit_make"/>-->
+<!--                                    <field name="unit_model"/>-->
+<!--                                    <field name="unit_serial_no"/>-->
+                                    <field name="unit_range"/>
+                                    <field name="unit_resolution"/>
+                                    <field name="unit_accuracy"/>
+                                </group>
+                            </group>
+
+
+                            <group string="Other Details">
+                                <field name="test_method_variation"/>
+                                <field name="work_instruction"/>
+                                <field name="standards"/>
+                                <field name="calibration_notes"/>
+                                <field name="calibration_remarks"/>
+                            </group>
+
+
+                        </page>
+                        <page string="Test Result">
+                            <group>
+                                <field name="certificate_content_view" widget="html" string="Result"/>
+                            </group>
+                        </page>
+                        <page string="Equipment Master">
+                            <field name="product_template_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id" string="Description"/>
+                                    <field name="equipment_make" />
+                                    <field name="equipment_serial_no"/>
+                                    <field name="equipment_certificate_no"/>
+                                    <field name="equipment_traceability"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Service instrument">
+                            <field name="seq_lot_line_ids" readonly="0" >
+                                <tree editable="bottom" create="False" decoration-success="is_already_created == True">
+                                    <field name="x_check_done" string="Done?" widget="boolean_button" readonly="False"/>
+                                    <field name="serial_no" string="NO." readonly="True"/>
+                                    <field name="pro_id" readonly="True"/>
+                                    <field name="lot_number_text" readonly="True" string="Description"/>
+
+                                    <field name="product_temp_id" column_invisible="1"/>
+                                    <field name="product_category" column_invisible="1"/>
+                                    <field name="uom_id" column_invisible="1"/>
+                                    <!--                    <field name="is_created" column_invisible="1"/>-->
+                                    <field name="des" column_invisible="1"/>
+                                    <field name="make_id"   readonly="True"/>
+                                    <field name="model_id"   readonly="True"/>
+                                    <field name="name" string="Serial No/ID No"  readonly="True"/>
+                                    <field name="lot_id" string="Serial No/ID No" column_invisible="1"  readonly="True"/>
+                                    <field name="accesories" string="Accessories"  readonly="True"/>
+                                    <field name="physical_status_id" string="Status"  readonly="True"/>
+                                    <field name="remark" string="Remarks"  readonly="True"/>
+                                    <!--                    <field name="lot_ids" column_invisible="1"/>-->
+                                    <!--                    <field name="serial_no" column_invisible="1"/>-->
+                                    <field name="qty" readonly="1"/>
+                                    <field name="unit_price" optional="hide"/>
+                                    <field name="is_already_created" optional="hide"/>
+                                </tree>
+
+                                <!--                                <tree editable="bottom">-->
+                                <!--                                    <field name="product_id" string="Description"/>-->
+                                <!--                                    <field name="equipment_make"/>-->
+                                <!--                                    <field name="equipment_serial_no"/>-->
+                                <!--                                    <field name="equipment_certificate_no"/>-->
+                                <!--                                    <field name="equipment_traceability"/>-->
+                                <!--                                </tree>-->
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_calibration_form_tree" model="ir.ui.view">
+        <field name="name">calibration.form.view.tree</field>
+        <field name="model">calibration.form</field>
+        <field name="arch" type="xml">
+            <tree string="Calibration Forms">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="vessel_id"/>
+                <field name="job_sheet_number"/>
+                <field name="product_group_id"/>
+                <field name="product_category_parent_id" domain="[('is_scope', '=', True)]"/>
+                <field name="product_category_id"/>
+                <field name="product_id"/>
+                <field name="qty_calibration"/>
+                <field name="certificate_no"/>
+                <field name="certificate_ref" readonly="1"/>
+                <field name="received_date"/>
+                <field name="calibration_date"/>
+                <field name="work_instruction"/>
+                <field name="standards"/>
+                <field name="unit_make" optional="hide"/>
+                <field name="unit_model" optional="hide"/>
+                <field name="unit_serial_no" optional="hide"/>
+                <field name="unit_range" optional="hide"/>
+                <field name="unit_resolution" optional="hide"/>
+                <field name="unit_accuracy" optional="hide"/>
+
+                <field name="scope_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_calibration_form_search" model="ir.ui.view">
+        <field name="name">calibration.form.view.search</field>
+        <field name="model">calibration.form</field>
+        <field name="arch" type="xml">
+            <search string="Calibration ">
+                <!-- Filters -->
+                <filter name="filter_partner" string="Partner" domain="[('partner_id', '!=', False)]"/>
+<!--                <filter name="filter_product_group_id" string="Group" domain="[('product_group_id', '!=', False)]"/>-->
+                <filter name="filter_product_category_parent_id" string="Category"
+                        domain="[('product_category_parent_id', '!=', False)]"/>
+                <filter name="filter_received_date" string="Received Date" domain="[('received_date', '!=', False)]"/>
+                <filter name="filter_product_id" string="Product" domain="[('product_id', '!=', False)]"/>
+                <filter name="filter_vessel" string="Vessel" domain="[('vessel_id', '!=', False)]"/>
+                <filter name="filter_certificate_no" string="Certificate no"
+                        domain="[('certificate_no', '!=', False)]"/>
+                <filter name="filter_standards" string="standards" domain="[('standards', '!=', False)]"/>
+                <filter name="filter_work_instruction" string="Work Instruction"
+                        domain="[('work_instruction', '!=', False)]"/>
+                <filter name="filter_calibration_date" string="Calibration Date"
+                        domain="[('calibration_date', '!=', False)]"/>
+
+                <!-- Group By Fields -->
+                <group expand="1" string="Group By">
+                    <field name="partner_id"/>
+<!--                    <field name="product_group_id"/>-->
+                    <field name="product_category_id"/>
+                    <field name="work_instruction"/>
+                    <field name="standards"/>
+                    <field name="vessel_id"/>
+                    <field name="product_id"/>
+                    <field name="certificate_no"/>
+                    <field name="received_date" string="Received Date"/>
+                    <field name="calibration_date" string="Calibration Date"/>
+<!--                    <field name="unit_make"/>-->
+<!--                    <field name="unit_model"/>-->
+<!--                    <field name="unit_serial_no"/>-->
+                    <field name="unit_range"/>
+                    <field name="unit_resolution"/>
+                    <field name="unit_accuracy"/>
+
+
+                    <filter string="Partner" name="partner_id" domain="[]"
+                            context="{'group_by':'partner_id'}"/>
+<!--                    <filter string="Group" name="product_group_id" domain="[]"-->
+<!--                            context="{'group_by':'product_group_id'}"/>-->
+                    <filter string="Product category" name="product_category_id" domain="[]"
+                            context="{'group_by':'product_category_id'}"/>
+                    <filter string="Work Instruction" name="work_instruction" domain="[]"
+                            context="{'group_by':'work_instruction'}"/>
+                    <filter string="Standards" name="standards" domain="[]"
+                            context="{'group_by':'standards'}"/>
+                    <filter string="Standards" name="standards" domain="[]"
+                            context="{'group_by':'standards'}"/>
+                    <filter string="Vessel" name="vessel" domain="[]"
+                            context="{'group_by':'vessel_id'}"/>
+                    <filter string="Product" name="product_id" domain="[]"
+                            context="{'group_by':'product_id'}"/>
+                    <filter string="Certificate number" name="certificate_no" domain="[]"
+                            context="{'group_by':'certificate_no'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_calibration_form" model="ir.actions.act_window">
+        <field name="name">Calibration Form</field>
+        <field name="res_model">calibration.form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_calibration_form" name="Calibration Form" parent="job_sheet_menu_01"
+              action="action_calibration_form"/>
+
+</odoo>

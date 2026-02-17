@@ -1,0 +1,20 @@
+<odoo>
+    <record id="bom_category_tree_view" model="ir.ui.view">
+        <field name="name">bom.category.tree.view</field>
+        <field name="model">bom.category</field>
+        <field name="arch" type="xml">
+            <tree string="Category" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_bom_category" model="ir.actions.act_window">
+        <field name="name">BOM Category</field>
+        <field name="res_model">bom.category</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem id="menu_bom_category" name="BOM Category"
+              parent="project.menu_project_config"
+              action="action_bom_category"/>
+</odoo>

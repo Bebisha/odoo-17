@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--    Action for Earnings and Deductions    -->
+        <record id="action_deduction_management" model="ir.actions.act_window">
+            <field name="name">Earnings And Deductions</field>
+            <field name="res_model">hr.earn.ded</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new deduction request.
+                </p>
+                <p>
+                    Use this menu to create deduction requests.
+                </p>
+            </field>
+        </record>
+
+        <!--    Main Menu - Earnings and Deductions    -->
+        <menuitem id="main_menu_deduction" name="Earnings &amp; Deductions" parent="hr.menu_hr_root" sequence="5"/>
+
+        <!--    Menu item for Earnings and Deductions    -->
+        <menuitem name="Earnings &amp; Deductions"
+                  parent="main_menu_deduction"
+                  id="menu_hr_deduction"
+                  action="action_deduction_management"/>
+
+        <!--    E&D Elements Action    -->
+        <record id="action_earn_ded_elements" model="ir.actions.act_window">
+            <field name="name">E&amp;D Elements</field>
+            <field name="res_model">earn.ded.elements</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|',('active','=',True),('active','=',False)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new E&amp;D Record.
+                </p>
+            </field>
+        </record>
+
+        <!--   E&D Elements Menu item    -->
+        <menuitem name="Elements"
+                  parent="main_menu_deduction"
+                  id="menu_earn_ded_elements"
+                  action="action_earn_ded_elements"
+                  />
+
+    </data>
+</odoo>

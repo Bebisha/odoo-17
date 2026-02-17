@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Employee: Read only Users -->
+        <record id="group_hr_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_human_resources_employees"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">The user will only be able to read employee records.</field>
+        </record>
+
+        <!-- Payroll: Read only Users -->
+        <record id="group_payroll_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_human_resources_payroll"/>
+            <field name="implied_ids" eval="[(4, ref('hr_payroll.group_hr_payroll_manager'))]"/>
+            <field name="comment">The user will only be able to read payroll records.</field>
+        </record>
+
+        <!-- Timeoff: Read only Users -->
+        <record id="group_timeoff_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_human_resources_time_off"/>
+            <field name="implied_ids" eval="[(4, ref('hr_holidays.group_hr_holidays_manager'))]"/>
+            <field name="comment">The user will only be able to read timeoff records.</field>
+        </record>
+
+        <!-- Purchase: Read only Users -->
+        <record id="group_purchase_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_inventory_purchase"/>
+            <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_manager'))]"/>
+            <field name="comment">The user will only be able to read purchase records.</field>
+        </record>
+
+        <!-- Inventory: Read only Users -->
+        <record id="group_inventory_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_inventory_inventory"/>
+            <field name="implied_ids" eval="[(4, ref('stock.group_stock_manager'))]"/>
+            <field name="comment">The user will only be able to read inventory records.</field>
+        </record>
+
+        <!-- Expenses: Read only Users -->
+        <record id="group_expense_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_human_resources_expenses"/>
+            <field name="implied_ids" eval="[(4, ref('hr_expense.group_hr_expense_manager'))]"/>
+            <field name="comment">The user will only be able to read expense records.</field>
+        </record>
+
+        <!-- Fleet: Read only Users -->
+        <record id="group_fleet_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_human_resources_fleet"/>
+            <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_manager'))]"/>
+            <field name="comment">The user will only be able to read fleet records.</field>
+        </record>
+
+        <!-- Manufacturing: Read only Users -->
+        <record id="group_manufacturing_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_manufacturing_manufacturing"/>
+            <field name="implied_ids" eval="[(4, ref('mrp.group_mrp_manager'))]"/>
+            <field name="comment">The user will only be able to read manufacturing records.</field>
+        </record>
+
+        <!-- Appraisals: Read only Users -->
+        <record id="group_appraisal_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+            <field name="implied_ids" eval="[(4, ref('hr_appraisal.group_hr_appraisal_manager'))]"/>
+            <field name="comment">The user will only be able to read appraisals records.</field>
+        </record>
+
+        <!-- Sales: Read only Users -->
+        <record id="group_sales_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_human_resources_appraisals"/>
+            <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+            <field name="comment">The user will only be able to read sales records.</field>
+        </record>
+
+        <!-- CRM: Read only Users -->
+        <record id="group_crm_readonly_user" model="res.groups">
+            <field name="name">CRM Read-Only</field>
+            <field name="comment">The user will only be able to read CRM records.</field>
+        </record>
+
+        <!-- Quality: Read only Users -->
+        <record id="group_quality_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_manufacturing_quality"/>
+            <field name="implied_ids" eval="[(4, ref('quality.group_quality_manager'))]"/>
+            <field name="comment">The user will only be able to read quality records.</field>
+        </record>
+
+        <!-- Maintenance: Read only Users -->
+        <record id="group_maintenance_readonly_user" model="res.groups">
+            <field name="name">Read-Only</field>
+            <field name="category_id" ref="base.module_category_manufacturing_maintenance"/>
+            <field name="implied_ids" eval="[(4, ref('maintenance.group_equipment_manager'))]"/>
+            <field name="comment">The user will only be able to read maintenance records.</field>
+        </record>
+
+        <!-- Access rights for Employee: Read only Users -->
+        <record id="hr_employee_readonly_access" model="ir.model.access">
+            <field name="name">hr.employee.readonly</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_hr_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access rights for Payroll: Read only Users -->
+        <record id="hr_payroll_readonly_access" model="ir.model.access">
+            <field name="name">hr.payroll.readonly</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_payroll_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access rights for Timeoff: Read only Users -->
+        <record id="hr_timeoff_readonly_access" model="ir.model.access">
+            <field name="name">hr.timeoff.readonly</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_timeoff_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access rights for Purchase: Read only Users -->
+        <record id="purchase_readonly_access" model="ir.model.access">
+            <field name="name">purchase.readonly</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_purchase_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access rights for Inventory: Read only Users -->
+        <record id="inventory_readonly_access" model="ir.model.access">
+            <field name="name">stock.readonly</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_inventory_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access rights for Expense: Read only Users -->
+        <record id="expense_readonly_access" model="ir.model.access">
+            <field name="name">expense.readonly</field>
+            <field name="model_id" ref="hr_expense.model_hr_expense"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_expense_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access rights for Fleet: Read only Users -->
+        <record id="fleet_readonly_access" model="ir.model.access">
+            <field name="name">fleet.readonly</field>
+            <field name="model_id" ref="fleet.model_fleet_vehicle"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_fleet_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access rights for Manufacturing: Read only Users -->
+        <record id="manufacturing_readonly_access" model="ir.model.access">
+            <field name="name">manufacturing.readonly</field>
+            <field name="model_id" ref="mrp.model_mrp_production"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_manufacturing_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access rights for Appraisals: Read only Users -->
+        <record id="appraisals_readonly_access" model="ir.model.access">
+            <field name="name">appraisals.readonly</field>
+            <field name="model_id" ref="hr_appraisal.model_hr_appraisal"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_appraisal_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access rights for Sales: Read only Users -->
+        <record id="sales_readonly_access" model="ir.model.access">
+            <field name="name">sale.readonly</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_sales_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access rights for Quality: Read only Users -->
+        <record id="quality_readonly_access" model="ir.model.access">
+            <field name="name">quality.readonly</field>
+            <field name="model_id" ref="quality.model_quality_point"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_quality_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access rights for Maintenance: Read only Users -->
+        <record id="maintenance_readonly_access" model="ir.model.access">
+            <field name="name">maintenance.readonly</field>
+            <field name="model_id" ref="maintenance.model_maintenance_request"/>
+            <field name="group_id" ref="kg_raw_fisheries_access_rights.group_maintenance_readonly_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+    </data>
+</odoo>

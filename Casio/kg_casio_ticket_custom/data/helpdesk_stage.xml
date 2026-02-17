@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- helpdesk.stage creation from backend -->
+        <record id="helpdesk_ticket_data_id" model="helpdesk.stage">
+            <field name="name">Replied</field>
+            <field name="sequence">2</field>
+<!--            <field name="team_ids"-->
+<!--                   eval="[(6, 0, [ref('helpdesk.helpdesk_team1'), ref('helpdesk.helpdesk_team3')])]"/>-->
+            <field name="template_id" ref="helpdesk.new_ticket_request_email_template"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="payment_list_view_header_footer">
+        <div class="header">
+
+            <t t-if="doc and 'company_id' in doc">
+                <t t-set="company" t-value="doc.company_id.sudo()" />
+            </t>
+            <t t-if="not doc or not 'company_id' in doc">
+                <t t-set="company" t-value="res_company" />
+            </t>
+            <div class="row mb8">
+                <div class="col-6">
+                    <img t-if="company.logo"
+                        t-att-src="image_data_uri(company.logo)" alt="Logo" height="150" />
+                </div>
+                <div class="col-2 offset-3 text-right">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><span class="page"/></li>
+                        <li class="list-inline-item">/</li>
+                        <li class="list-inline-item"><span class="topage"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="article" t-att-data-oe-model="doc and doc._name"
+            t-att-data-oe-id="doc and doc.id"
+            t-att-data-oe-lang="doc and doc.env.context.get('lang')">
+            <t t-raw="0" />
+        </div>
+
+    </template>
+
+    <template id="report_payment_list_document">
+        <t t-call="bista_tdcc_reports.payment_list_view_header_footer">
+            <div class="page">
+                <style>
+                    tr,td {
+                        font-size:14px;
+                    }
+                </style>
+                <table class="table table-borderless"
+                    style="margin-top:5px;">
+                    <thead>
+                        <tr style="border-top:1px solid black;border-bottom:1px solid black;">
+                            <th>Payment Date</th>
+                            <th>Name</th>
+                            <th>Payment Journal</th>
+                            <th>Payment Method Type</th>
+                            <th>Customer</th>
+                            <th>Payment Type</th>
+                            <th class="text-right">Payment Amount</th>
+                            <th class="text-right">Available Balance</th>
+                            <th class="text-right">Status</th>
+                        </tr>
+                    </thead>
+                     <t t-set="payment_amount"
+                        t-value="sum(pay.amount for pay in docs)" />
+                    <t t-set="available_balance"
+                        t-value="sum(pay.available_balance for pay in docs)" />
+                    <tbody class="payment_tbody">
+                        <tr t-foreach="docs" t-as="doc">
+                            <t t-set="doc"
+                                t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+                            <td>
+                                <span t-field="doc.date"  t-options='{"format": "dd/MM/yyyy"}'/>
+                            </td>
+                            <td style="width:110px;">
+                                <t t-esc="doc.name" />
+                            </td>
+                            <td>
+                                <t t-if="doc.journal_id">
+                                    <t t-esc="doc.journal_id.name" />
+                                </t>
+                            </td>
+                            <td>
+                                <t t-if="doc.payment_method_id">
+                                    <t t-esc="doc.payment_method_id.name" />
+                                </t>
+                            </td>
+                            <td>
+                                <t t-esc="doc.partner_id.name" />
+                            </td>
+                            <td>
+                                <t t-esc="doc.payment_type" />
+                            </td>
+                            <td class="text-right">
+                                <t t-esc="doc.amount" />
+                            </td>
+                            <td class="text-right">
+                                <t t-esc="doc.available_balance" />
+                            </td>
+                            <td class="text-right">
+                                <t t-esc="doc.state" />
+                            </td>
+                        </tr>
+                        <tr style="border-top:1px solid black;">
+                            <td colspan="7" class="text-right">
+                                <b><span t-esc="payment_amount" /></b>
+                            </td>
+                            <td class="text-right">
+                                <b><span t-esc="available_balance" /></b>
+                            </td>
+                            <td />
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <!-- Main Payment Form Template -->
+    <template id="report_payment_list">
+        <t t-call="web.html_container">
+            <t t-call="bista_tdcc_reports.report_payment_list_document" />
+        </t>
+    </template>
+
+</odoo>

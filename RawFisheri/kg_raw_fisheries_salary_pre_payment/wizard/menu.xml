@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Salary Pre Payment Report Action-->
+        <record id="action_salary_pre_payment_reports" model="ir.actions.act_window">
+            <field name="name">Salary Pre Payment Report</field>
+            <field name="target">new</field>
+            <field name="res_model">salary.pre.payment.report.wizard</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <!--Salary Pre Payment Report Menu-->
+        <menuitem id="menu_action_salary_pre_payment_report"
+                  name="Salary Pre Payment Report"
+                  action="action_salary_pre_payment_reports"
+                  parent="hr_payroll.menu_hr_payroll_report"
+                  sequence="20"/>
+    </data>
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Daily Notes Form -->
+    <record model="ir.ui.view" id="daily_notes_form">
+        <field name="name">daily.notes.form</field>
+        <field name="model">daily.notes</field>
+        <field name="arch" type="xml">
+            <form string="Daily Notes">
+                <header>
+                    <button name="action_done" type="object"
+                            invisible =" state != 'draft'"
+                            class="oe_highlight"
+                            string="SET TO DONE"
+                            groups="bista_tdcc_operations.group_tdcc_cre"/>
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <label for="name" string="Title"/>
+                    <h1>
+                        <field name="name" nolabel="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="create_date" readonly="1"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Daily Notes List -->
+    <record model="ir.ui.view" id="daily_notes_tree">
+        <field name="name">daily.notes.tree</field>
+        <field name="model">daily.notes</field>
+        <field name="arch" type="xml">
+            <tree string="Daily Notes">
+                <field name="create_date" readonly="1"/>
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Daily Notes Search -->
+    <record model="ir.ui.view" id="daily_notes_search">
+        <field name="name">daily.notes.search</field>
+        <field name="model">daily.notes</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state" domain="[]"
+                            context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window"
+            id="daily_notes_action">
+        <field name="name">Daily Notes</field>
+        <field name="res_model">daily.notes</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="daily_notes_tree"/>
+    </record>
+
+<!--    <record id="daily_notes_action_dashboard" model="ir.actions.client">-->
+<!--        <field name="name">Dashboard</field>-->
+<!--        <field name="tag">dn_dashboard</field>-->
+<!--    </record>-->
+
+    <menuitem id="daily_notes_main_menu" name="Daily Notes"
+              parent="bista_tdcc_operations.appointment_menu"
+              sequence="7"
+              groups="bista_tdcc_operations.group_tdcc_practitioner,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_appointment_manager,account.group_account_invoice"/>
+
+    <menuitem id="daily_notes_menu" name="Daily Notes"
+              action="daily_notes_action"
+              parent="bista_tdcc_operations.daily_notes_main_menu"
+              sequence="1"/>
+
+    <menuitem id="menu_daily_notes_dashboard"
+              name="CRE Dashboard"
+              parent="bista_tdcc_operations.operations_menu_root"
+              sequence="1"/>
+
+<!--              groups="bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_appointment_manager,account.group_account_invoice"/>-->
+<!--     action="daily_notes_action_dashboard"-->
+
+
+<!--    <template id="assets_backend" name="Daily Notes Dashboard assets"-->
+<!--              inherit_id="web.assets_backend">-->
+<!--        <xpath expr="." position="inside">-->
+<!--            <script type="text/javascript"-->
+<!--                    src="/bista_tdcc_operations/static/src/js/daily_notes_dashboard.js"/>-->
+<!--            <link rel="stylesheet"-->
+<!--                  href="/bista_tdcc_operations/static/src/css/daily_notes_dashboard.css"/>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="admin_site_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Administration Site</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">admin.site</field>
+
+    </record>
+    <record id="admin_site_tree" model="ir.ui.view">
+        <field name="name">admin.site.tree.views</field>
+        <field name="model">admin.site</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="admin_site_form" model="ir.ui.view">
+        <field name="name">admin.site.form.views</field>
+        <field name="model">admin.site</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="admin_site_menu"
+              action="admin_site_action"
+              name="Administration Site"
+              parent="kg_nabidh.rxr_menu"/>
+
+</odoo>

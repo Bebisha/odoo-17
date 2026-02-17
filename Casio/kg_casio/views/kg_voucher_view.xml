@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_kg_voucher_tree" model="ir.ui.view">
+            <field name="name">kg.voucher.tree</field>
+            <field name="model">kg.voucher</field>
+            <field name="arch" type="xml">
+                <tree string="voucher" import="false">
+                    <field name="name"/>
+                    <field name="kg_customer_id"/>
+                    <field name="kg_sales_person"/>
+                    <field name="kg_valid_date"/>
+                    <field name="kg_create_date"/>
+                    <field name="state"/>
+                    <field name="kg_disc_percent"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kg_voucher_form" model="ir.ui.view">
+            <field name="name">kg.voucher.form</field>
+            <field name="model">kg.voucher</field>
+            <field name="arch" type="xml">
+                <form string="voucher" version="7.0" duplicate="0">
+                    <header>
+                        <field name="state" widget="statusbar" nolabel="1"
+                               statusbar_visible="new,assign,redeem,expire" clickable="1"/>
+                    </header>
+                    <sheet>
+
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+
+                        <group>
+                            <group>
+                                <field name="kg_customer_id" required="1" readonly="state != 'new'"
+                                       />
+                                <field name="kg_sales_person" readonly="state != 'new'"/>
+                                <field name="kg_disc_percent" required="1"
+                                     readonly="state != 'new'"/>
+                            </group>
+                            <group>
+                                <field name="kg_create_date" readonly="1"/>
+                                <field name="kg_valid_date"
+                                     readonly="state != 'new'"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_voucher_graph" model="ir.ui.view">
+            <field name="name">kg.voucher.graph</field>
+            <field name="model">kg.voucher</field>
+            <field name="arch" type="xml">
+                <pivot string="Customer Voucher">
+                    <field name="kg_customer_id" type="col"/>
+                    <field name="kg_disc_percent" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        
+
+        <record id="view_voucher_filter" model="ir.ui.view">
+            <field name="name">kg.voucher.search</field>
+            <field name="model">kg.voucher</field>
+            <field name="arch" type="xml">
+                <search string="Vouchers">
+
+                    <field name="kg_customer_id" string="Customers"/>
+                    <field name="kg_valid_date"/>
+                    <field name="kg_create_date"/>
+
+                    <filter string="New Vouchers" name="new_voucher"
+                            domain="[('state','=','new')]"/>
+                
+                    <filter string="Redeemed Vouchers" name="redeemed_voucher"
+                            domain="[('state','=','redeem')]"/>
+              
+                </search>
+            </field>
+        </record>
+
+        <record id="action_kg_voucher" model="ir.actions.act_window">
+            <field name="name">Vouchers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.voucher</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Vouchers Here !
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="kg_voucher_menu" name="Vouchers"
+        action="action_kg_voucher" parent="crm.crm_menu_sales"
+        sequence="6"/>
+    </data>
+</odoo>

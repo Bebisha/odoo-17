@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_nabidh_log" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">nabidh.log</field>
+
+    </record>
+    <record id="action_nabidh_log_form" model="ir.ui.view">
+        <field name="name">nabidh.log.form</field>
+        <field name="model">nabidh.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+<!--                        <field name="message_type"/>-->
+                        <field name="kg_message_type"/>
+                        <field name="student" invisible="1"/>
+                        <field name="date_message"/>
+                        <field name="name"/>
+                        <field name="message"  widget="text" string="Input Message"/>
+                        <field name="hl7message" widget="text" string="Output Message"/>
+                        <field name="response"/>
+                        <field name="status"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="nabidh_log_tree" model="ir.ui.view">
+        <field name="name">nabidh.log.tree</field>
+        <field name="model">nabidh.log</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="kg_message_type"/>
+                <field name="date_message"/>
+                <field name="name"/>
+                <field name="message"/>
+                <field name="hl7message"/>
+                <field name="response"/>
+                <field name="status"/>
+            </tree>
+
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+
+        <record id="visa_designation_action" model="ir.actions.act_window">
+            <field name="name">Visa Designation</field>
+            <field name="res_model">visa.designation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="visa_designation_menu_id" action="visa_designation_action"
+                  parent="hr.menu_config_recruitment" sequence="3"/>
+
+        <record id="visa_designation_view_tree" model="ir.ui.view">
+            <field name="name">Visa Designation Tree View</field>
+            <field name="model">visa.designation</field>
+            <field name="arch" type="xml">
+                <tree string="Visa Designation">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="visa_designation_view_form" model="ir.ui.view">
+            <field name="name">Visa Designation Form View</field>
+            <field name="model">visa.designation</field>
+            <field name="arch" type="xml">
+                <form string="Visa Designation">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

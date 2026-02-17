@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Abnormal Flag Master Data -->
+    <data noupdate="1">
+
+        <record id="abnormal_flag_a" model="abnormal.flag">
+            <field name="code">A</field>
+            <field name="name">Abnormal (applies to non-numeric results)</field>
+        </record>
+
+        <record id="abnormal_flag_aa" model="abnormal.flag">
+            <field name="code">AA</field>
+            <field name="name">Very abnormal (applies to non-numeric units, analogous to panic limits for numeric units)</field>
+        </record>
+
+        <record id="abnormal_flag_h" model="abnormal.flag">
+            <field name="code">H</field>
+            <field name="name">Above high normal</field>
+        </record>
+
+        <record id="abnormal_flag_hh" model="abnormal.flag">
+            <field name="code">HH</field>
+            <field name="name">Above upper panic limits</field>
+        </record>
+
+        <record id="abnormal_flag_i" model="abnormal.flag">
+            <field name="code">I</field>
+            <field name="name">Intermediate. Indicates for microbiology susceptibilities only.</field>
+        </record>
+
+        <record id="abnormal_flag_l" model="abnormal.flag">
+            <field name="code">L</field>
+            <field name="name">Below low normal</field>
+        </record>
+
+        <record id="abnormal_flag_ll" model="abnormal.flag">
+            <field name="code">LL</field>
+            <field name="name">Below lower panic limits</field>
+        </record>
+
+        <record id="abnormal_flag_ms" model="abnormal.flag">
+            <field name="code">MS</field>
+            <field name="name">Moderately susceptible. Indicates for microbiology susceptibilities only.</field>
+        </record>
+
+        <record id="abnormal_flag_n" model="abnormal.flag">
+            <field name="code">N</field>
+            <field name="name">Normal (applies to non-numeric results)</field>
+        </record>
+
+        <record id="abnormal_flag_r" model="abnormal.flag">
+            <field name="code">R</field>
+            <field name="name">Resistant. Indicates for microbiology susceptibilities only.</field>
+        </record>
+
+        <record id="abnormal_flag_s" model="abnormal.flag">
+            <field name="code">S</field>
+            <field name="name">Susceptible. Indicates for microbiology susceptibilities only.</field>
+        </record>
+
+        <record id="abnormal_flag_vs" model="abnormal.flag">
+            <field name="code">VS</field>
+            <field name="name">Very susceptible. Indicates for microbiology susceptibilities only.</field>
+        </record>
+
+    </data>
+</odoo>

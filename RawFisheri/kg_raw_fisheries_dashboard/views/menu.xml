@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- client action for inventory updates dashboard -->
+    <record id="action_inventory_updates_dashboard_id" model="ir.actions.client">
+        <field name="name">Inventory Updates Dashboard</field>
+        <field name="tag">inventory_updates_dashboard</field>
+    </record>
+
+    <!-- client action for vessel revenue dashboard -->
+    <record id="action_vessel_revenue_dashboard_id" model="ir.actions.client">
+        <field name="name">Vessel Revenue Dashboard</field>
+        <field name="tag">vessel_revenue_dashboard</field>
+    </record>
+
+    <!-- menu item for inventory updates dashboard -->
+    <menuitem name="Inventory Updates Dashboard" id="inventory_update_dashboard_menu_id"
+              sequence="1" action="action_inventory_updates_dashboard_id" parent="stock.menu_stock_root"/>
+
+    <!-- menu item for vessel revenue -->
+    <menuitem name="Vessel Revenue Dashboard" id="vessel_revenue_dashboard_menu_id"
+              sequence="0" action="action_vessel_revenue_dashboard_id" parent="sale.sale_menu_root"/>
+
+     <menuitem name="Vessel Revenue" id="main_menu_vessel_revenue" action="action_vessel_revenue_dashboard_id"
+     web_icon="kg_raw_fisheries_dashboard,static/description/vessel_revenue.png"/>
+
+
+</odoo>

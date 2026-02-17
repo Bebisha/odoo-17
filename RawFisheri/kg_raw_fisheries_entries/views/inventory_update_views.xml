@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--   Tree view for Inventory Update model   -->
+        <record id="inventory_update_tree" model="ir.ui.view">
+            <field name="name">inventory.update.tree</field>
+            <field name="model">inventory.update</field>
+            <field name="arch" type="xml">
+                <tree string="Inventory Update" editable="bottom" js_class="button_in_tree">
+                    <header>
+                        <button name="action_update" type="object" string="Update"/>
+                        <button name="action_stock_return" type="object" string="Return"/>
+                    </header>
+                    <field name="state" column_invisible="1"/>
+                    <field name="warehouse_id" readonly="state == 'updated'"/>
+                    <field name="vessel_id"/>
+                    <field name="location_id" readonly="state == 'updated'"/>
+                    <field name="date" optional="show" readonly="state == 'updated'"/>
+                    <field name="batch_no" column_invisible="1" readonly="state == 'updated'"/>
+                    <field name="batch_id" readonly="state == 'updated'"/>
+                    <field name="code"/>
+                    <field name="product_id" readonly="state == 'updated'"/>
+                    <field name="name" optional="show" readonly="state == 'updated'"/>
+                    <field name="label" optional="show" readonly="state == 'updated'"/>
+                    <field name="uom_id" optional="show" readonly="state == 'updated'"/>
+                    <field name="quantity" optional="show" sum="Total Qty" readonly="state == 'updated'"/>
+                    <field name="kg" optional="show" sum="Total kg" force_save="1" readonly="state == 'updated'"/>
+                    <field name="state" optional="hide" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_inventory_update_search_filter" model="ir.ui.view">
+            <field name="name">inventory.update.search</field>
+            <field name="model">inventory.update</field>
+            <field name="arch" type="xml">
+                <search string="Inventory Update">
+                    <field name="warehouse_id"/>
+                    <field name="location_id"/>
+                    <field name="batch_no" invisible="1"/>
+                    <field name="product_id"/>
+                    <field name="batch_id"/>
+                    <field name="name"/>
+                    <field name="state"/>
+
+                    <filter string="Today" name="filter_today"
+                            domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+
+                    <filter string="Current Month" name="filter_current_month"
+                            domain="[('date','&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]"/>
+
+                    <filter string="Previous Month" name="filter_previous_month"
+                            domain="['&amp;', ('date', '&gt;=', (context_today() - relativedelta(months=1)).strftime('%Y-%m-01')),('date', '&lt;', (context_today() - relativedelta(months=0)).strftime('%Y-%m-01'))]"/>
+
+                    <separator/>
+
+                    <filter string="New" name="filter_state_new" domain="[('state', '=', 'new')]"/>
+                    <filter string="Updated" name="filter_state_updated" domain="[('state', '=', 'updated')]"/>
+
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

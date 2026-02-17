@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="bank_route_view" model="ir.ui.view">
+            <field name="name">bank.rout</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="base.view_res_bank_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bic']" position="after">
+                    <group>
+                        <field name="routing_code"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

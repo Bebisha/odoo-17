@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="sign_on_off_wizard_form" model="ir.ui.view">
+            <field name="name">sign.on.off.wizard.form</field>
+            <field name="model">sign.on.off.wizard</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Sign On Off Creation">
+                    <!--                    <group>-->
+                    <!--                        <group>-->
+                    <!--                            <field name="date" required="1"/>-->
+                    <!--                        </group>-->
+                    <!--                    </group>-->
+                    <group>
+                        <field name="employee_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="sign_on"/>
+                        </group>
+                        <group>
+                            <field name="sign_off"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Create Entries" name="action_create_entries" type="object" class="btn-primary"/>
+                        <button string="Cancel" name="cancel" type="object" special="cancel" class="btn-cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

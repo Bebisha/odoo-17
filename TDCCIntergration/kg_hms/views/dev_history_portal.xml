@@ -1,0 +1,1933 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="menu_dev_history_form_menu" model="website.menu">
+        <field name="name">Developmental History Form</field>
+        <field name="url">/Dev_History</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+
+    <template id="online_dev_history_form_page_1" name="Developmental History Form">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="col-md-12">
+                    <section class="main-title" id='developmental_history_form'>
+                        <form class="contact-form" id="dev_form" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                            <br/>
+                            <div id="cid_1" class="form-input-wide" data-type="control_head">
+                                <div class="form-header-group  header-default">
+                                    <div class="header-text">
+                                        <h1 id="header_1" class="title" data-component="header">
+                                            <center>
+                                                <font size="6">Developmental History Form</font>
+                                            </center>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label for="no_1">
+                                            <h4>I. General Information</h4>
+                                        </label>
+                                        <!--                                        <![CDATA[&nbsp;]]>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px" for="studio1">
+                                            <span class="s_website_form_label_content">
+                                                Today's date
+                                            </span>
+                                            <!--                                            <span class="s_website_form_mark">*</span>-->
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_today_date" type="date"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_today_date"/>
+                                            <small class="input-example">Date</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--New Field -->
+                            <div class="col-md-12 contact-form row ms-auto">
+                                <label class="col-form-label s_website_form_label">
+                                    <span class="website_form">Name of Child</span>
+                                    <span class="color_mark" style="color:#F00">*</span>
+                                </label>
+                                <div class="col-sm-4">
+                                    <div>
+                                        <input type="Text" name="dev_first_name"
+                                               class="form-control s_website_form_input"
+                                               data-otherhint="First Name"
+                                               size="20" id="first_name" placeholder="First Name"
+                                               t-att-value="first_name"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                               required="1"/>
+                                        <small class="input-example">First Name</small>
+
+                                        <input type="hidden" name="sign" id="sign"/>
+                                    </div>
+                                    <br/>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div>
+                                        <input type="Char" name="dev_last_name"
+                                               class="form-control s_website_form_input"
+                                               data-otherhint="Last Name"
+                                               size="20" id="input_213" placeholder="Last Name"
+                                               t-att-value="last_name"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                               required="1"/>
+                                        <small class="input-example">Last Name</small>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12 contact-form row ms-auto">
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px" for="studio1">
+                                            <span class="s_website_form_label_content">
+                                                DOB
+                                            </span>
+                                        </label>
+                                        <input id="dev_dob" type="date"
+                                               class="form-control s_website_form_input"
+                                               name="dev_dob"
+                                               required=""/>
+                                        <small class="input-example">Date of Birth</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Age</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+
+                                        <input type="Number" class="form-control" name="age" id="age"
+                                               t-att-value="age"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                               required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 contact-form row ms-auto">
+
+                                <div class="col-md-4">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Nationality:</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+                                    <div>
+                                        <select name="nationality" class="form-control link-style"
+                                                t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                required="1" id="nationality">
+                                            <option data-otherhint="Country"
+                                                    size="20" id="input_1" placeholder="Country"
+                                                    t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                    required="1"/>
+                                            <t t-foreach="country_rec" t-as="country"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                               required="1">
+                                                <option t-esc="country.name" t-att-value="country.id"
+                                                        t-att-selected="country.id == nationality"
+                                                        t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                        required="1"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Sex</span>
+                                        <span class="color_mark" style="color:#F00">*</span>
+                                    </label>
+
+                                    <br/>
+                                    <li class="list-inline-item mr-1">
+                                        <label class="col-form-label col-sm-auto s_website_form_label" title="">
+                                            <input type="radio" class="js_variant_change always" name="gender"
+                                                   value="male" title="Male" data-value_id="male"
+                                                   data-value_name="Male" data-attribute_name="Gender"
+                                                   t-att-checked="gender == 'male'"
+                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                <![CDATA[&nbsp;]]>Male
+                                            </input>
+                                        </label>
+                                    </li>
+
+
+                                    <li class="list-inline-item mr-1">
+                                        <label class="col-form-label col-sm-auto s_website_form_label" title="">
+                                            <input type="radio" class="js_variant_change always" name="gender"
+                                                   value="female" title="Female" data-value_id="female"
+                                                   data-value_name="Female" data-attribute_name="Gender"
+                                                   t-att-checked="gender == 'female'"
+                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                <![CDATA[&nbsp;]]>Female
+                                            </input>
+                                        </label>
+                                    </li>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 400px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>Language spoken at home:</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_language" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_language"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 400px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>What is your child's dominant language?</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_dominant_language" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_dominant_language"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-8">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>Current School</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_current_school" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_current_school"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>School year/grade:</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_school_year_grade" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_school_year_grade"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>Classroom Teacher</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_classroom_teacher" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_classroom_teacher"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label for="no_1">
+                                            <h4>II. Parents / Caregiver Information:</h4>
+                                        </label>
+                                        <!--                                        <![CDATA[&nbsp;]]>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 contact-form row ms-auto">
+                                <div class="col-sm-4">
+                                    <div>
+                                        <input type="Text" name="dev_mother_first_name"
+                                               class="form-control s_website_form_input"
+                                               data-otherhint="First Name"
+                                               size="20" id="first_name" placeholder="First Name"
+                                               t-att-value="first_name"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                               required="1"/>
+                                        <small class="input-example">Mother's Name</small>
+                                    </div>
+                                    <br/>
+                                </div>
+                                <div class="col-md-4">
+                                    <div>
+                                        <input name="mother_phone"
+                                               class="form-control s_website_form_input"
+                                               data-otherhint="Phone Number"
+                                               size="20" id="mother_phone" placeholder="Phone Number"
+                                               type="text" pattern="[0-9]+" maxlength="12" minlength="5"
+                                               t-att-value="phone_number_1"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                               required="1"/>
+                                        <small class="input-example">Mother's Phone No</small>
+                                    </div>
+                                    <br/>
+                                </div>
+                                <div class="col-md-4">
+                                    <div>
+                                        <select name="mother_nationality" class="form-control link-style"
+                                                t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                required="1" id="mother_nationality">
+                                            <option data-otherhint="Country"
+                                                    size="20" id="input_1" placeholder="Country"
+                                                    t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                    required="1"/>
+                                            <t t-foreach="country_rec" t-as="country"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                               required="1">
+                                                <option t-esc="country.name" t-att-value="country.id"
+                                                        t-att-selected="country.id == nationality"
+                                                        t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                        required="1"/>
+                                            </t>
+                                        </select>
+                                        <small class="input-example">Mother's Nationality</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>Mother's Email</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_mother_email" type="email"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_mother_email"
+                                                   required=""/>
+                                            <!--                                            <small class="input-example"></small>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="col-md-12 contact-form row ms-auto">
+                                <div class="col-sm-4">
+                                    <div>
+                                        <input type="Text" name="dev_father_name"
+                                               class="form-control s_website_form_input"
+                                               data-otherhint="Father Name"
+                                               size="20" id="father_name" placeholder="Father Name"
+                                               t-att-value="father_name"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                               required="1"/>
+                                        <small class="input-example">Father's Name</small>
+                                    </div>
+                                    <br/>
+                                </div>
+                                <div class="col-md-4">
+                                    <div>
+                                        <input name="father_phone"
+                                               class="form-control s_website_form_input"
+                                               data-otherhint="Phone Number"
+                                               size="20" id="father_phone" placeholder="Phone Number"
+                                               type="text" pattern="[0-9]+" maxlength="12" minlength="5"
+                                               t-att-value="phone_number_1"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                               required="1"/>
+                                        <small class="input-example">Father's Phone No</small>
+                                    </div>
+                                    <br/>
+                                </div>
+                                <div class="col-md-4">
+                                    <div>
+                                        <select name="father_nationality" class="form-control link-style"
+                                                t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                required="1" id="father_nationality">
+                                            <option data-otherhint="Country"
+                                                    size="20" id="input_1" placeholder="Country"
+                                                    t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                    required="1"/>
+                                            <t t-foreach="country_rec" t-as="country"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                               required="1">
+                                                <option t-esc="country.name" t-att-value="country.id"
+                                                        t-att-selected="country.id == nationality"
+                                                        t-att-disabled="'disabled' if is_submitted_dev == True else None"
+                                                        required="1"/>
+                                            </t>
+                                        </select>
+                                        <small class="input-example">Father's Nationality</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>Father's Email</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_father_email" type="email"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_father_email"
+                                                   required=""/>
+                                            <!--                                            <small class="input-example"></small>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>Home Address:</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_home_address" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_home_address"
+                                                   required=""/>
+                                            <!--                                            <small class="input-example"></small>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 600px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>Previous places your family has lived? (If applicable)</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_previous_place" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_previous_place"
+                                                   required=""/>
+                                            <!--                                            <small class="input-example"></small>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label for="no_1">
+                                            <h6>
+                                                Who lives at home with your child?
+                                            </h6>
+                                        </label>
+                                        <!--                                        <![CDATA[&nbsp;]]>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>Siblings:</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_siblings" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_siblings"
+                                                   required=""/>
+                                            <!--                                            <small class="input-example"></small>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>Grandparents:</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_grand_parents" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_grand_parents"
+                                                   required=""/>
+                                            <!--                                            <small class="input-example"></small>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px" for="studio1">
+                                            <label class="s_website_form_label_content">
+                                                <span>Others:</span>
+                                                <span class="color_mark" style="color:#F00">*</span>
+                                            </label>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="dev_others" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="dev_others"
+                                                   required=""/>
+                                            <!--                                            <small class="input-example"></small>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="cid_1" class="form-input-wide next ms-auto" data-type="control_head">
+                                <div class="form-footer-group footer-default">
+                                    <div class="footer-text">
+                                        <nav>
+                                            <input class="prev-btn float-left" type="button"
+                                                   value="Prev"
+                                                   id="prev"/>
+                                            <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]>
+                                            <input class="submit-btn float-right show_dev_page_2" type="button"
+                                                   value="Next"
+                                                   id="next"/>
+                                            <!--                                                                                        <button class="nav prev">Prev</button>-->
+                                            <!--                                                                                        <button class="nav next">Next</button>-->
+                                        </nav>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+
+
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="online_dev_history_form_2" name="Developmental History Form">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="col-md-12">
+                    <section class="main-title" id='developmental_history_form_2'>
+                        <form class="contact-form" id="dev_form2" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="list_val" t-att-value="list_val" t-value="list_val"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label for="no_1">
+                                        </label>
+                                        <h4>III. Health Information About Your Child</h4>
+                                        <!--                                        <![CDATA[&nbsp;]]>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">What is your main concern?</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <textarea id="main_concern" name="main_concern"
+                                                      class="form-control s_website_form_input" style="height:3cm;"
+                                                      t-att-value="main_concern"
+                                                      t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                      t-att-hidden="'hidden' if is_submitted_dev == True else None"
+                                                      required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label" align="justify">
+                                            <span class="website_form">When did you first notice difficulties?</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input type="Char" name="first_notice"
+                                                   class="form-control s_website_form_input" t-att-value="first_notice"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Have you ever sought advice from: (please tick)
+                                            </span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input type="checkbox" class="js_variant_change always"
+                                                   name="speech_language_therapist"
+                                                   value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                                   data-value_name="Condition_1" data-attribute_name="Condition"
+                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                <![CDATA[&nbsp;]]>Speech and
+                                                language therapist
+                                            </input>
+                                            <br/>
+                                            <input type="checkbox" class="js_variant_change always"
+                                                   name="occupational_therapist"
+                                                   value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                                   data-value_name="Condition_1" data-attribute_name="Condition"
+                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                <![CDATA[&nbsp;]]>Occupational therapist
+
+
+                                            </input>
+                                            <br/>
+                                            <input type="checkbox" class="js_variant_change always"
+                                                   name="physiotherapist"
+                                                   value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                                   data-value_name="Condition_1" data-attribute_name="Condition"
+                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                <![CDATA[&nbsp;]]>Physiotherapist
+
+                                            </input>
+                                            <br/>
+                                            <input type="checkbox" class="js_variant_change always"
+                                                   name="educational_psychologist"
+                                                   value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                                   data-value_name="Condition_1" data-attribute_name="Condition"
+                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                <![CDATA[&nbsp;]]>Educational
+                                                Psychologist
+                                            </input>
+                                            <br/>
+
+                                            <input type="Char" name="any_other_1"
+                                                   class="form-control s_website_form_input"
+                                                   data-otherhint="Other"
+                                                   size="20" id="any_other_4" placeholder="Other"
+                                                   t-att-value="any_other_1"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Has your child had any other medical assessments,
+                                                hospitalizations or surgeries?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="other_medical"
+                                                   class="form-control s_website_form_input" t-att-value="other_medical"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Can you provide reports or results of previous
+                                                medical
+                                                procedures or therapy assessments/treatment?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+
+                                        <br/>
+                                        <li class="list-inline-item mr-1">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" title="">
+                                                <input type="radio" class="js_variant_change always" name="yes"
+                                                       value="no" title="Yes" data-value_id="yes"
+                                                       data-value_name="Yes" data-attribute_name="yes"
+                                                       t-att-checked="yes == 'yes'"
+                                                       t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                    <![CDATA[&nbsp;]]>Yes
+                                                </input>
+                                            </label>
+                                        </li>
+
+
+                                        <li class="list-inline-item mr-1">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" title="">
+                                                <input type="radio" class="js_variant_change always" name="no"
+                                                       value="no" title="No" data-value_id="female"
+                                                       data-value_name="No" data-attribute_name="no"
+                                                       t-att-checked="no == 'no'"
+                                                       t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                    <![CDATA[&nbsp;]]>No
+                                                </input>
+                                            </label>
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">If yes, kindly upload the report:
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <!--                                                <div id='collapsediv9'>-->
+                                            <input type="file" name="upload_report" id="upload_report"
+                                                   accept=".pdf,.png,.jpeg,.jpg"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-8">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Describe your child's general health</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <textarea id="child_general_health" name="child_general_health"
+                                                      class="form-control s_website_form_input" style="height:3cm;"
+                                                      t-att-value="child_general_health"
+                                                      t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                      t-att-hidden="'hidden' if is_submitted_dev == True else None"
+                                                      required="1"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does your child have any physical difficulties?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="physical_difficulties"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="physical_difficulties"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Has your child had a hearing test? When?</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="hearing_test"
+                                                   class="form-control s_website_form_input" t-att-value="hearing_test"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does your child have a history of ear infections?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="ear_infections"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="ear_infections"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-5">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Has your child’s vision recently been screened or
+                                                tested?
+                                                When? Results?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="screened_tested"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="screened_tested"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does your child wear glasses?</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="wear_glasses"
+                                                   class="form-control s_website_form_input" t-att-value="wear_glasses"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-7">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Please list any past or present medications your
+                                                child
+                                                has taken
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <textarea id="past_present_medications" name="past_present_medications"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="past_present_medications"
+                                                  t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == True else None"
+                                                  required="1"/>
+                                    </div>
+                                    <br/>
+
+                                    <div class="col-md-12">
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does your child have any allergies (food or
+                                                non-food
+                                                related)? Please list.
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <textarea id="allergies" name="allergies"
+                                                  class="form-control s_website_form_input" style="height:3cm;"
+                                                  t-att-value="allergies"
+                                                  t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                  t-att-hidden="'hidden' if is_submitted_dev == True else None"
+                                                  required="1"/>
+                                        <br/>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div id="cid_1" class="form-input-wide next ms-auto" data-type="control_head">
+                                <div class="form-footer-group footer-default">
+                                    <div class="footer-text">
+                                        <nav>
+                                            <input class="prev-btn float-left" type="button"
+                                                   value="Prev"
+                                                   id="prev"/>
+                                            <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]>
+                                            <input class="submit-btn float-right show_dev_page_2" type="button"
+                                                   value="Next"
+                                                   id="next"/>
+                                        </nav>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="online_dev_history_form_3" name="Developmental History Form">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="col-md-12">
+                    <section class="main-title" id='developmental_history_form_3'>
+                        <form class="contact-form" id="dev_form3" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="list_val" t-att-value="list_val" t-value="list_val"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label for="no_1">
+                                        </label>
+                                        <h4>IV. Early Years Development</h4>
+                                        <!--                                        <![CDATA[&nbsp;]]>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-7">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Have you ever sought advice from: (please tick)
+                                            </span>
+                                        </label>
+                                        <div>
+                                            <input type="checkbox" class="js_variant_change always"
+                                                   name="full_term_delivery"
+                                                   value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                                   data-value_name="Condition_1" data-attribute_name="Condition"
+                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                <![CDATA[&nbsp;]]>Full term
+                                                delivery
+                                            </input>
+                                            <br/>
+                                            <input type="checkbox" class="js_variant_change always"
+                                                   name="full_term_cesarean"
+                                                   value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                                   data-value_name="Condition_1" data-attribute_name="Condition"
+                                                   t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                                <![CDATA[&nbsp;]]>Full term
+                                                cesarean section
+                                            </input>
+                                            <br/>
+
+                                            <input type="Char" name="pre_term"
+                                                   class="form-control s_website_form_input"
+                                                   data-otherhint="Pre-Term(how many weeks?)"
+                                                   size="20" id="any_other_4" placeholder="Pre-Term(how many weeks?)"
+                                                   t-att-value="pre_term"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Were there any difficulties during pregnancy or
+                                                birth?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="during_pregnancy"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="during_pregnancy"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Were there any problems with feeding or drinking?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="problems" class="form-control s_website_form_input"
+                                                   t-att-value="problems"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">What age was your child when he/she reached these
+                                                milestones?
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Crawling</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="crawling" class="form-control s_website_form_input"
+                                                   t-att-value="crawling"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Sitting</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="sitting" class="form-control s_website_form_input"
+                                                   t-att-value="sitting"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Walking</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="walking" class="form-control s_website_form_input"
+                                                   t-att-value="walking"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Babbling</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="babbling" class="form-control s_website_form_input"
+                                                   t-att-value="babbling"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">First words</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="first_words"
+                                                   class="form-control s_website_form_input" t-att-value="first_words"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Short sentences (two words together)</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="short_sentences"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="short_sentences"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">What was your child like as a baby?</span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="child_like"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="child_like"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="online_dev_history_form_4" name="Developmental History Form">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="col-md-12">
+                    <section class="main-title" id='developmental_history_form_4'>
+                        <form class="contact-form" id="dev_form4" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="list_val" t-att-value="list_val" t-value="list_val"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label for="no_1">
+                                        </label>
+                                        <h4>V. Social Interaction and Communication Development</h4>
+                                        <!--                                        <![CDATA[&nbsp;]]>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">How does your child communicate with
+                                                you/siblings/peers?
+                                                ( E.g. Words, phrases, sentences, signs, gestures?)
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="child_communicate"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="child_communicate"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Do you think your child’s understanding and use
+                                                of
+                                                language is different from his/her peers?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="child_understanding"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="child_understanding"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does your child understand and follow
+                                                instructions at
+                                                home and at school?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="child_understanding_instruction_school"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="child_understanding_instruction_school"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">How does your child interact with other children
+                                                and
+                                                adults?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="child_interact"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="child_interact"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Do you find it easy to understand your child?
+                                                Does
+                                                your
+                                                child have difficulty making certain sounds?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="child_easy_understand"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="child_easy_understand"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does your child ever appear to have difficulty
+                                                “getting
+                                                their words out” or speaking fluently?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="speaking_fluently"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="speaking_fluently"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Is there a history in your family of speech and
+                                                language
+                                                difficulties?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="family_speech"
+                                                   class="form-control s_website_form_input" t-att-value="family_speech"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </div>
+                            </div>
+
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label for="no_1">
+                                        </label>
+                                        <h4>VI. Motor and Sensory Development</h4>
+                                        <!--                                        <![CDATA[&nbsp;]]>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Compared to other children your child’s age, does
+                                                your
+                                                child have difficulty with carrying out fine motor tasks e.g. cutting,
+                                                drawing?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="carrying_fine_motor"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="carrying_fine_motor"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does your child have difficulty with getting
+                                                dressed,
+                                                using cutlery etc.?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="child_dressing"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="child_dressing"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does he/she bump into objects and other people?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="bump" class="form-control s_website_form_input"
+                                                   t-att-value="bump"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does your child appear to have difficulty with
+                                                figuring
+                                                out activities and how to do them, e.g. planning activities?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="figuring_activities"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="figuring_activities"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                        </form>
+                    </section>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="online_dev_history_form_5" name="Developmental History Form">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="col-md-12">
+                    <section class="main-title" id='developmental_history_form_5'>
+                        <form class="contact-form" id="dev_form5" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="list_val" t-att-value="list_val" t-value="list_val"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label for="no_1">
+                                        </label>
+                                        <h4>VII. Your Child at School</h4>
+                                        <!--                                        <![CDATA[&nbsp;]]>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does or did your child ever experience any
+                                                difficulties
+                                                at school?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="school_experience"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="school_experience"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does your child enjoy school? What
+                                                subjects/activities
+                                                does he or she enjoy most?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="enjoy_school"
+                                                   class="form-control s_website_form_input" t-att-value="enjoy_school"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Are there subjects or activities your child
+                                                dislikes?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="dislike_activities"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="dislike_activities"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">From your perspective how does your child get
+                                                along
+                                                with
+                                                teachers, adults and other children at school?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="perspective"
+                                                   class="form-control s_website_form_input" t-att-value="perspective"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Has school raised any concerns about your child?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="raised_concerns"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="raised_concerns"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">What help, if any has your child received at
+                                                school?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="help" class="form-control s_website_form_input"
+                                                   t-att-value="help"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Do you feel that your child needs any extra help
+                                                or
+                                                support?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="help_support_feel"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="help_support_feel"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Does your child’s behaviour differ between home
+                                                and
+                                                school?
+                                            </span>
+                                            <span class="color_mark" style="color:#F00">*</span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="different_behaviour"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="different_behaviour"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label for="no_1">
+                                        </label>
+                                        <h4>VIII. Previous Diagnosis</h4>
+                                        <!--                                        <![CDATA[&nbsp;]]>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Previous Diagnosis (if applicable) please tick.
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <input type="checkbox" class="js_variant_change always"
+                                               name="speech_language_delay"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>Speech and
+                                            Language
+                                            Delay
+                                        </input>
+                                        <br/>
+                                        <input type="checkbox" class="js_variant_change always" name="motor_delay"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>Motor delay
+                                        </input>
+                                        <br/>
+                                        <input type="checkbox" class="js_variant_change always"
+                                               name="sensory_processing_disorder"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>Sensory
+                                            processing
+                                            disorder
+                                        </input>
+                                        <br/>
+                                        <input type="checkbox" class="js_variant_change always" name="add"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>ADD (attention
+                                            deficit disorder)
+                                        </input>
+                                        <br/>
+                                        <input type="checkbox" class="js_variant_change always"
+                                               name="global_development"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>Global
+                                            development
+                                            delay
+                                        </input>
+                                        <br/>
+                                        <input type="checkbox" class="js_variant_change always" name="asd"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>ASD(autistic
+                                            spectrum disorder)
+
+                                        </input>
+                                        <br/>
+                                        <input type="checkbox" class="js_variant_change always"
+                                               name="drs_stutter_stammer"
+                                               value="condition_1" title="Condition_1" data-value_id="condition_1"
+                                               data-value_name="Condition_1" data-attribute_name="Condition"
+                                               t-att-disabled="'disabled' if is_submitted_dev == True else None">
+                                            <![CDATA[&nbsp;]]>Dysfluency -
+                                            stutter or stammer
+                                        </input>
+                                        <br/>
+
+                                        <input type="Char" name="other_checkbox"
+                                               class="form-control s_website_form_input"
+                                               data-otherhint="Other"
+                                               size="20" id="any_other_4" placeholder="Other"
+                                               t-att-value="other_checkbox"
+                                               t-att-readonly="'readonly' if is_submitted_dev == True else None"/>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">What do you hope will be achieved by this
+                                                assessment/consultation?
+                                            </span>
+                                        </label>
+                                        <div>
+                                            <!--                                        <textarea id="main_concern_1" name="assessment_consultation"-->
+                                            <!--                                                  class="form-control s_website_form_input" style="height:3cm;"-->
+                                            <!--                                                  t-att-readonly="'readonly' if is_submitted_dev == True else None">-->
+                                            <!--                                            <t t-esc="main_concern_1"/>-->
+                                            <!--                                        </textarea>-->
+                                            <textarea id="assessment_consultation" name="assessment_consultation"
+                                                      class="form-control s_website_form_input" style="height:3cm;"
+                                                      t-att-value="assessment_consultation"
+                                                      t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                      t-att-hidden="'hidden' if is_submitted_dev == True else None"
+                                                      required="1"/>
+                                            <textarea id="assessment_consultation_new"
+                                                      name="assessment_consultation_new"
+                                                      class="form-control s_website_form_input" style="height:3cm;"
+                                                      t-att-value="assessment_consultation_new"
+                                                      t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                      t-att-hidden="'hidden' if is_submitted_dev == False else None">
+                                                <t t-esc="assessment_consultation" t-att-disabled="disabled"/>
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-form row">
+                                <br/>
+                                <br/>
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="col-form-label s_website_form_label">
+                                            <span class="website_form">Is there any other information you would like us
+                                                to
+                                                know
+                                                about your child?
+                                            </span>
+                                        </label>
+                                        <div>
+                                            <input type="Char" name="other_like_information"
+                                                   class="form-control s_website_form_input"
+                                                   t-att-value="other_like_information"
+                                                   t-att-readonly="'readonly' if is_submitted_dev == True else None"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                        </form>
+                    </section>
+
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

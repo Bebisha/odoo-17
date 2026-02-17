@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="credit_note">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <div class="header">
+                        <table class='table table-borderless table-condensed table-hover' width="100%">
+                            <tr width="100%">
+                                <td width="25%" align="left">
+                                    <img t-if='o.company_id.logo'
+                                         t-att-src='image_data_uri(o.company_id.logo)'
+                                         alt='Logo' style="max-width: 150px; max-height: 100px;"/>
+                                </td>
+                                <td width="50%" style="font-size:12px">
+                                    <span style="font-size:20px;">
+                                        <strong t-esc="o.company_id.name"/>
+                                    </span>
+                                    <br/>
+                                    <t t-if="o.company_id.partner_id.zip">
+                                        <span>P.O.Box No.</span>
+                                        <span t-esc="o.company_id.partner_id.zip"/>,
+                                    </t>
+                                    <t t-if="o.company_id.partner_id.street">
+                                        <span t-esc="o.company_id.partner_id.street"/>,
+                                    </t>
+                                    <t t-if="o.company_id.partner_id.street2">
+                                        <span t-esc="o.company_id.partner_id.street2"/>,
+                                    </t>
+                                    <t t-if="o.company_id.partner_id.city">
+                                        <span t-esc="o.company_id.partner_id.city"/>,
+                                    </t>
+                                    <t t-if="o.company_id.partner_id.country_id">
+                                        <span t-esc="o.company_id.partner_id.country_id.name"/>,
+                                    </t>
+                                    <br/>
+                                    Phone/Fax:
+                                    <t t-if="o.company_id.phone">
+                                        <span t-field="o.company_id.phone"/>
+                                        <t t-if="o.company_id.mobile">/</t>
+                                    </t>
+                                    <t t-if="o.company_id.mobile">
+                                        <span t-field="o.company_id.mobile"/>
+                                    </t>
+                                </td>
+                                <td width="25%" style="font-size:12px">
+                                    <span style="font-size:14px;">
+                                        <strong>CREDIT NOTE فاتورة ضريبية</strong>
+                                    </span>
+                                    <br/>
+                                    <strong>
+                                        <span>TRN:</span>
+                                        <span t-esc="o.company_id.vat"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table width="100%" class="table table-borderless">
+                        <tr width="100%" align="left" style="font-size:12px;">
+                            <td width="64%" colspan="2">
+                                <strong>
+                                    <span>Invoiced To</span>
+                                </strong>
+                            </td>
+                            <td width="12%">
+                                <strong>
+                                    <span>Credit Note No</span>
+                                </strong>
+                            </td>
+                            <td width="2%">
+                                <strong>
+                                    <span>:</span>
+                                </strong>
+                            </td>
+                            <td width="22%">
+                                <span t-field="o.name"/>
+                            </td>
+                        </tr>
+                        <tr width="100%" align="left" style="font-size:12px;">
+                            <td width="64%" colspan="2">
+                                <strong>
+                                    <span t-field="o.partner_id.name"/>
+                                </strong>
+                            </td>
+                            <td width="12%">
+                                <strong>
+                                    <span>Credit Note Date</span>
+                                </strong>
+                            </td>
+                            <td width="2%">
+                                <strong>
+                                    <span>:</span>
+                                </strong>
+                            </td>
+                            <td width="22%">
+                                <span t-field="o.invoice_date"/>
+                            </td>
+                        </tr>
+                        <tr width="100%" align="left" style="font-size:12px;">
+                            <td width="64%" colspan="2">
+                                <div t-field="o.partner_id"
+                                     t-options='{"widget": "contact", "fields": ["address"]}'/>
+                            </td>
+                            <td width="36%" colspan="3"/>
+                        </tr>
+
+                        <tr width="100%" align="left" style="font-size:12px;">
+                            <td width="64%" colspan="2"/>
+                            <td width="12%">
+                                <strong>
+                                    <span>Delivery Note No</span>
+                                </strong>
+                            </td>
+                            <td width="2%">
+                                <strong>
+                                    <span>:</span>
+                                </strong>
+                            </td>
+                            <td width="22%">
+                                <t t-if="o.sale_order_id.picking_ids">
+                                    <span t-esc="', '.join(picking.name for picking in o.sale_order_id.picking_ids)"/>
+                                </t>
+
+
+                            </td>
+                        </tr>
+                        <tr width="100%" align="left" style="font-size:12px;">
+                            <td width="64%" colspan="2">
+                                <span>ATTN :</span>
+                                <span t-field="o.partner_id.attention"/>
+                            </td>
+                            <td width="12%">
+                                <strong>
+                                    <span>PJT/SO No</span>
+                                </strong>
+                            </td>
+                            <td width="2%">
+                                <strong>
+                                    <span>:</span>
+                                </strong>
+                            </td>
+                            <td width="22%">
+                                <t t-if="o.sale_order_id.project_id">
+                                    <span t-field="o.sale_order_id.project_id.name"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr width="100%" align="left" style="font-size:12px;">
+                            <td width="64%" colspan="2"/>
+                            <td width="12%">
+                                <strong>
+                                    <span>Cust. PO No</span>
+                                </strong>
+                            </td>
+                            <td width="2%">
+                                <strong>
+                                    <span>:</span>
+                                </strong>
+                            </td>
+                            <td width="22%">
+                                <t t-if="o.sale_order_id.client_order_ref">
+                                    <span t-field="o.sale_order_id.client_order_ref"/>
+                                </t>
+                            </td>
+
+                        </tr>
+                        <tr width="100%" align="left" style="font-size:12px;">
+                            <td width="64%" colspan="2">
+                                <span>CONTACT NO :</span>
+                                <span t-field="o.partner_id.phone"/>
+                            </td>
+                            <td width="12%">
+                                <strong>
+                                    <span>Payment Terms</span>
+                                </strong>
+                            </td>
+                            <td width="2%">
+                                <strong>
+                                    <span>:</span>
+                                </strong>
+                            </td>
+                            <td width="22%">
+                                <span t-field="o.invoice_payment_term_id"/>
+                            </td>
+                        </tr>
+                        <tr width="100%" align="left" style="font-size:12px;">
+                            <td width="64%" colspan="2">
+                                <span>TRN :</span>
+                                <span t-field="o.partner_id.vat"/>
+                            </td>
+                            <td width="12%">
+                                <strong>
+                                    <span>Delivery Terms</span>
+                                </strong>
+                            </td>
+                            <td width="2%">
+                                <strong>
+                                    <span>:</span>
+                                </strong>
+                            </td>
+                            <td width="22%">
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table width="100%" style="border-collapse: collapse; width: 100%;font-size:12px;">
+                        <thead>
+                            <tr>
+                                <td width="5%"
+                                    style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <strong>NO.</strong>
+                                </td>
+                                <td width="10%"
+                                    style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <strong>P.O. ITEM NO.</strong>
+                                </td>
+                                <td width="35%"
+                                    style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <strong>DESCRIPTION OF SERVICE / ITEM</strong>
+                                </td>
+                                <td width="10%"
+                                    style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <strong>MAKE</strong>
+                                </td>
+                                <td width="10%"
+                                    style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <strong>MODEL</strong>
+                                </td>
+                                <td width="10%"
+                                    style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <strong>QTY</strong>
+                                </td>
+                                <td width="10%"
+                                    style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <span>
+                                        <strong>UNIT PRICE (<span t-field="o.currency_id.name"/>)
+                                        </strong>
+                                    </span>
+                                </td>
+                                <td width="10%"
+                                    style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <span>
+                                        <strong>TOTAL PRICE (<span t-field="o.currency_id.name"/>)
+                                        </strong>
+                                    </span>
+                                </td>
+                            </tr>
+                        </thead>
+
+                        <t t-foreach="o.invoice_line_ids" t-as="line">
+                            <tr>
+                                <td style="border-top: 1px solid black;border-right: 1px solid black;border-left: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <t t-esc="line_index+1"/>
+                                </td>
+                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <t t-esc="line.ref"/>
+                                </td>
+                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="left">
+                                    <t t-esc="line.name"/>
+                                </td>
+                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <t t-esc="line.product_id.brand_id.name"/>
+                                </td>
+                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <t t-esc="line.product_id.model_id.name"/>
+                                </td>
+                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="center">
+                                    <t t-esc="'%.2f' % line.quantity"/>
+                                </td>
+                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="right">
+                                    <t t-esc="'%.2f' % line.price_unit"/>
+                                </td>
+                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                    align="right">
+                                    <t t-esc="'%.2f' % line.price_total"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td colspan="3"
+                                style="border-top: 1px solid black;border-left: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"/>
+                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="right" colspan="2">
+                                <span>TOTAL AMOUNT</span>
+                            </td>
+                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <span t-field="o.currency_id.name"/>
+                            </td>
+                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="right" colspan="2">
+                                <t t-esc="'%.2f' % o.amount_untaxed"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"
+                                style="border-top: 1px solid black;border-left: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"/>
+                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="right" colspan="2">
+                                <span>VAT</span>
+                            </td>
+                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <span t-field="o.currency_id.name"/>
+                            </td>
+                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="right" colspan="2">
+                                <t t-set="rate" t-value="o.amount_tax_signed/o.amount_tax"/>
+                                <t t-esc="'%.2f' % o.amount_tax_signed"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"
+                                style="border-top: 1px solid black;border-left: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"/>
+                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="right" colspan="2">
+                                <span>PAYABLE TOTAL</span>
+                            </td>
+                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <span t-field="o.currency_id.name"/>
+                            </td>
+                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="right" colspan="2">
+                                <t t-esc="'%.2f' % o.amount_total"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    <table width="100%" style="border-collapse: collapse; width: 100%;font-size:12px;">
+                        <tr>
+                            <td width="80%" colspan="6"
+                                style="border-top: 1px solid white;border-left: 1px solid white;border-right: 1px solid white;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;">
+                                <span>VAT for Foreign Currency:</span>
+                            </td>
+                            <td width="20%"
+                                style="border-top: 1px solid white;border-right: 1px solid white;border-bottom: 1px solid white;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="15%"
+                                style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <strong>VALUE</strong>
+                            </td>
+                            <td width="10%"
+                                style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <strong>CURRENCY</strong>
+                            </td>
+                            <td width="10%"
+                                style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <strong>Ex-RATE</strong>
+                            </td>
+                            <td width="15%"
+                                style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <strong>VALUE-AED</strong>
+                            </td>
+                            <td width="15%"
+                                style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <strong>VAT</strong>
+                            </td>
+                            <td width="15%"
+                                style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <strong>TOTAL (AED)</strong>
+                            </td>
+                            <td width="20%"
+                                style="border-top: 1px solid white;border-right: 1px solid white;border-bottom: 1px solid white;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="15%"
+                                style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <t t-esc="'%.2f' % o.amount_untaxed"/>
+                            </td>
+                            <td width="10%"
+                                style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <span t-field="o.currency_id.name"/>
+                            </td>
+                            <td width="10%"
+                                style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <t t-set="rate" t-value="o.amount_tax_signed/o.amount_tax"/>
+                                <t t-esc="'%.2f' % abs(rate)"/>
+                            </td>
+                            <td width="15%"
+                                style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <t t-esc="'%.2f' % o.amount_untaxed_signed"/>
+                            </td>
+                            <td width="15%"
+                                style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <t t-esc="'%.2f' % o.amount_tax_signed"/>
+                            </td>
+                            <td width="15%"
+                                style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;"
+                                align="center">
+                                <t t-esc="'%.2f' % o.amount_total_signed"/>
+                            </td>
+                            <td width="20%"
+                                style="border-top: 1px solid white;border-right: 1px solid white;border-bottom: 1px solid white;padding-top:5px;padding-bottom:5px;padding-right:2px;padding-left:2px;">
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table width="100%" style="border-collapse: collapse; width: 100%;font-size:12px;">
+                        <tr>
+                            <td width="45%" colspan="2" align="center">
+                                <strong>
+                                    <span>Our Bank Account Details</span>
+                                </strong>
+                            </td>
+                            <td width="20%" rowspan="7">
+                                <t t-if="o.sudo().company_id.seal">
+                                    <img t-att-src="image_data_uri(o.company_id.seal)"
+                                         style="max-height: 3cm; max-width: 4cm;"/>
+                                </t>
+                            </td>
+                            <td width="35%" rowspan="5">
+                                <t t-if="o.sudo().invoice_user_id.sign_signature">
+                                    <img t-att-src="image_data_uri(o.sudo().invoice_user_id.sign_signature)"
+                                         style="max-height: 4cm; max-width: 8cm;"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="20%">
+                                <strong>
+                                    <span>Name</span>
+                                </strong>
+                            </td>
+                            <td width="25%">
+                                <span t-field="o.company_id.name"/>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="20%">
+                                <strong>
+                                    <span>For AED : IBAN No.
+                                    </span>
+                                </strong>
+                            </td>
+                            <td width="25%">
+                                <span t-field="o.company_id.aed_iban"/>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="20%">
+                                <strong>
+                                    <span>For USD : IBAN No.
+                                    </span>
+                                </strong>
+                            </td>
+                            <td width="25%">
+                                <span t-field="o.company_id.usd_iban"/>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="20%">
+                                <strong>
+                                    <span>BANK SWIFT CODE</span>
+                                </strong>
+                            </td>
+                            <td width="25%">
+                                <span>
+                                    <span t-field="o.company_id.bank_swift_code"/>
+                                </span>
+                            </td>
+
+                        </tr>
+                        <tr width="100%">
+                            <td width="20%">
+                                <strong>
+                                    <span>BANK NAME</span>
+                                </strong>
+                            </td>
+                            <td width="25%">
+                                <span>
+                                    <span t-field="o.company_id.bank_name"/>
+                                </span>
+                            </td>
+                            <td width="35%" style="border-top: 1px solid black;padding-top:10px;">
+                                <span>AUTHORISED SIGNATORY :</span>
+                                <span t-field="o.invoice_user_id.name"/>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="20%">
+                                <strong>
+                                    <span>ADDRESS</span>
+                                </strong>
+                            </td>
+                            <td width="25%">
+                                <span>
+                                    <t t-esc="o.company_id.partner_id.contact_address"/>
+                                </span>
+                            </td>
+                            <td width="35%">
+                                <span>POSITION :</span>
+                                <span t-field="o.invoice_user_id.partner_id.function"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--                            <tr width="100%">-->
+                    <!--                                <td width="50%">-->
+                    <!--                                    <span>Our Bank Account Details</span>-->
+                    <!--                                </td>-->
+                    <!--                                <td width="25%">-->
+                    <!--                                                            <t t-if="o.sudo().company_id.seal">-->
+                    <!--                                                                <img t-att-src="image_data_uri(o.company_id.seal)"-->
+                    <!--                                                                     style="max-height: 2cm; max-width: 4cm;"/>-->
+                    <!--                                                            </t>-->
+                    <!--                                </td>-->
+                    <!--                                <td width="25%">-->
+                    <!--                                                            <t t-if="o.sudo().create_uid.sign_signature">-->
+                    <!--                                                                <img t-att-src="image_data_uri(o.sudo().create_uid.sign_signature)"-->
+                    <!--                                                                     style="max-height: 4cm; max-width: 8cm;"/>-->
+                    <!--                                                            </t>-->
+                    <!--                                </td>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <td>-->
+                    <!--                                    <span>NAME:-->
+                    <!--                                        <t t-esc="o.company_id.name"/>-->
+                    <!--                                    </span>-->
+                    <!--                                </td>-->
+                    <!--                                <td/>-->
+                    <!--                                <td>-->
+                    <!--                                    <span>AUTHORISED SIGNATORY :-->
+                    <!--                                        <t t-esc="o.create_uid.name"/>-->
+                    <!--                                    </span>-->
+                    <!--                                </td>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <td>-->
+                    <!--                                    <span>For AED : IBAN No.-->
+                    <!--                                        <t t-esc="o.company_id.aed_iban"/>-->
+                    <!--                                    </span>-->
+                    <!--                                </td>-->
+                    <!--                                <td/>-->
+                    <!--                                <td>-->
+                    <!--                                    <span>POSITION :-->
+                    <!--                                        <t t-esc="o.create_uid.partner_id.function"/>-->
+                    <!--                                    </span>-->
+                    <!--                                </td>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <td>-->
+                    <!--                                    <span>For USD : IBAN No.-->
+                    <!--                                        <t t-esc="o.company_id.usd_iban"/>-->
+                    <!--                                    </span>-->
+                    <!--                                </td>-->
+                    <!--                                <td/>-->
+                    <!--                                <td/>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <td>-->
+                    <!--                                    <span>BANK SWIFT CODE:-->
+                    <!--                                        <t t-esc="o.company_id.bank_swift_code"/>-->
+                    <!--                                    </span>-->
+                    <!--                                </td>-->
+                    <!--                                <td/>-->
+                    <!--                                <td/>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <td>-->
+                    <!--                                    <span>BANK NAME :-->
+                    <!--                                        <t t-esc="o.company_id.bank_name"/>-->
+                    <!--                                    </span>-->
+                    <!--                                </td>-->
+                    <!--                                <td/>-->
+                    <!--                                <td/>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <td>-->
+                    <!--                                    <span>ADDRESS:-->
+                    <!--                                        <t t-esc="o.company_id.bank_complete_address"/>-->
+                    <!--                                    </span>-->
+                    <!--                                </td>-->
+                    <!--                                <td/>-->
+                    <!--                                <td/>-->
+                    <!--                            </tr>-->
+                    <!--                        </table>-->
+                </div>
+            </t>
+            <!--            <t t-foreach="docs" t-as="o">-->
+            <!--                <div class="page">-->
+            <!--                    <div class="header">-->
+            <!--                        <table class='table table-borderless table-condensed table-hover' width="100%">-->
+            <!--                            <tr>-->
+            <!--                                <td width="20%">-->
+            <!--                                    <img t-if='o.company_id.logo'-->
+            <!--                                         t-att-src='image_data_uri(o.company_id.logo)'-->
+            <!--                                         alt='Logo' style="max-width: 150px; max-height: 100px;"/>-->
+            <!--                                </td>-->
+            <!--                                <td width="40%">-->
+            <!--                                    <strong t-esc="o.company_id.name"/>-->
+            <!--                                    <br/>-->
+            <!--                                    <t t-if="o.company_id.partner_id.zip"><span t-esc="o.company_id.partner_id.zip"/>,-->
+            <!--                                    </t>-->
+            <!--                                    <t t-if="o.company_id.partner_id.street"><span-->
+            <!--                                            t-esc="o.company_id.partner_id.street"/>,-->
+            <!--                                    </t>-->
+            <!--                                    <t t-if="o.company_id.partner_id.street2"><span-->
+            <!--                                            t-esc="o.company_id.partner_id.street2"/>,-->
+            <!--                                    </t>-->
+            <!--                                    <t t-if="o.company_id.partner_id.city"><span t-esc="o.company_id.partner_id.city"/>,-->
+            <!--                                    </t>-->
+            <!--                                    <t t-if="o.company_id.partner_id.country_id"><span-->
+            <!--                                            t-esc="o.company_id.partner_id.country_id.name"/>,-->
+            <!--                                    </t>-->
+            <!--                                    <br/>-->
+            <!--                                    Phone/Fax:-->
+            <!--                                    <t t-if="o.company_id.phone"><span t-field="o.company_id.phone"/>/-->
+            <!--                                    </t>-->
+            <!--                                    <t t-if="o.company_id.mobile">-->
+            <!--                                        <span t-field="o.company_id.mobile"/>-->
+            <!--                                    </t>-->
+            <!--                                </td>-->
+            <!--                                <td width="40%">-->
+            <!--                                    <strong>CREDIT NOTE فاتورة ضريبية</strong>-->
+            <!--                                    <br/>-->
+            <!--                                    <strong>TRN:-->
+            <!--                                        <t t-esc="o.company_id.vat"/>-->
+            <!--                                    </strong>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                        </table>-->
+            <!--                    </div>-->
+            <!--                    <div>-->
+            <!--                        <table width="100%" class="table table-borderless">-->
+            <!--                            <tr>-->
+            <!--                                <td width="35%">-->
+            <!--                                    <strong>Invoiced To:</strong>-->
+            <!--                                </td>-->
+            <!--                                <td width="30%"/>-->
+            <!--                                <td width="35%">-->
+            <!--                                    <strong>Credit Note No. :</strong>-->
+            <!--                                    <t t-esc="o.name"/>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span t-esc="o.partner_id.name"/>-->
+
+            <!--                                </td>-->
+            <!--                                <td/>-->
+            <!--                                <td>-->
+            <!--                                    <strong>Credit Note Date:</strong>-->
+            <!--                                    <t t-esc="o.invoice_date"/>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span t-esc="o.partner_id.street"/>-->
+            <!--                                </td>-->
+            <!--                                <td/>-->
+            <!--                                <td>-->
+            <!--                                    <span>PJT/SO No.:-->
+            <!--                                        <t t-if="o.invoice_origin">-->
+            <!--                                            <t t-esc="o.invoice_origin"/>-->
+            <!--                                        </t>-->
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+
+            <!--                                    <t t-if="o.partner_id.state_id.name">-->
+            <!--                                        <span t-esc="o.partner_id.state_id.name"/>-->
+            <!--                                        ,-->
+            <!--                                    </t>-->
+            <!--                                    <t t-if="o.partner_id.country_id.name">-->
+            <!--                                        <span t-esc="o.partner_id.country_id.name"/>-->
+            <!--                                    </t>-->
+            <!--                                </td>-->
+            <!--                                <td colspan="2"/>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span>ATTN:-->
+            <!--                                        <t t-if="o.partner_id.attention">-->
+            <!--                                            <span t-esc="o.partner_id.attention"/>-->
+            <!--                                        </t>-->
+
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                                <td colspan="2"/>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span>Contact No.:-->
+            <!--                                        <t t-if="o.partner_id.phone">-->
+            <!--                                            <span t-esc="o.partner_id.phone"/>-->
+            <!--                                        </t>-->
+
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                                <td/>-->
+            <!--                                <td>-->
+            <!--                                    <span>Cust. PO No. :-->
+            <!--                                        <t t-if="o.purchase_id.name">-->
+            <!--                                            <t t-esc="o.purchase_id.name"/>-->
+            <!--                                        </t>-->
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td colspan="2"/>-->
+            <!--                                <td>-->
+            <!--                                    <t>-->
+            <!--                                        <span>Payment Terms:-->
+            <!--                                            <t t-esc="o.invoice_payment_term_id.name"/>-->
+            <!--                                        </span>-->
+            <!--                                    </t>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td/>-->
+            <!--                                <td/>-->
+            <!--                                <td>-->
+            <!--                                    <t>-->
+            <!--                                        <span>Customer Reference:-->
+            <!--                                            <t t-esc="o.ref"/>-->
+            <!--                                        </span>-->
+            <!--                                    </t>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <t t-if="o.partner_id.vat">-->
+            <!--                                        <span>TRN:-->
+            <!--                                            <t t-esc="o.partner_id.vat"/>-->
+            <!--                                        </span>-->
+            <!--                                    </t>-->
+            <!--                                </td>-->
+            <!--                                <td/>-->
+            <!--                                <td>-->
+            <!--                                    <t t-if="o.invoice_incoterm_id.name">-->
+            <!--                                        <span>Delivery Terms:-->
+            <!--                                            <t t-esc="o.invoice_incoterm_id.name"/>-->
+            <!--                                        </span>-->
+            <!--                                    </t>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                        </table>-->
+            <!--                        <table width="100%" style="border-collapse: collapse; width: 100%;">-->
+            <!--                            <thead>-->
+            <!--                                <tr>-->
+            <!--                                    <td width="2"-->
+            <!--                                        style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <strong>NO.</strong>-->
+            <!--                                    </td>-->
+            <!--                                    <td width="5"-->
+            <!--                                        style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <strong>P.O. ITEM NO.</strong>-->
+            <!--                                    </td>-->
+            <!--                                    <td width="40%"-->
+            <!--                                        style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <strong>DESCRIPTION OF SERVICE / ITEM</strong>-->
+            <!--                                    </td>-->
+            <!--                                    <td width="10"-->
+            <!--                                        style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <strong>MAKE</strong>-->
+            <!--                                    </td>-->
+            <!--                                    <td width="15"-->
+            <!--                                        style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <strong>MODEL</strong>-->
+            <!--                                    </td>-->
+            <!--                                    <td width="5"-->
+            <!--                                        style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <strong>QTY</strong>-->
+            <!--                                    </td>-->
+            <!--                                    <td width="8"-->
+            <!--                                        style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <strong>UNIT PRICE (USD)</strong>-->
+            <!--                                    </td>-->
+            <!--                                    <td width="15"-->
+            <!--                                        style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <strong>TOTAL PRICE (USD)</strong>-->
+            <!--                                    </td>-->
+            <!--                                </tr>-->
+            <!--                            </thead>-->
+
+            <!--                            <t t-foreach="o.invoice_line_ids" t-as="line">-->
+            <!--                                <tr>-->
+            <!--                                    <td style="border-top: 1px solid black;border-right: 1px solid black;border-left: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <t t-esc="line_index+1"/>-->
+            <!--                                    </td>-->
+            <!--                                    <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <t t-esc="line.ref"/>-->
+            <!--                                    </td>-->
+            <!--                                    <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="left">-->
+            <!--                                        <t t-esc="line.name"/>-->
+            <!--                                    </td>-->
+            <!--                                    <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <t t-esc="line.product_id.brand_id.name"/>-->
+            <!--                                    </td>-->
+            <!--                                    <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <t t-esc="line.product_id.model_id.name"/>-->
+            <!--                                    </td>-->
+            <!--                                    <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="center">-->
+            <!--                                        <t t-esc="'%.2f' % line.quantity"/>-->
+            <!--                                    </td>-->
+            <!--                                    <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="right">-->
+            <!--                                        <t t-esc="'%.2f' % line.price_unit"/>-->
+            <!--                                    </td>-->
+            <!--                                    <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                        align="right">-->
+            <!--                                        <t t-esc="'%.2f' % line.price_total"/>-->
+            <!--                                    </td>-->
+            <!--                                </tr>-->
+            <!--                            </t>-->
+            <!--                            <tr>-->
+            <!--                                <td colspan="4"/>-->
+            <!--                                <td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                    align="center">-->
+            <!--                                    TOTAL AMOUNT-->
+            <!--                                </td>-->
+            <!--                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                    align="center">USD-->
+            <!--                                </td>-->
+            <!--                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;" align="right"-->
+            <!--                                    colspan="2">-->
+            <!--                                    <t t-esc="'%.2f' % o.amount_untaxed"/>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td colspan="4"/>-->
+            <!--                                <td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                    align="center">-->
+            <!--                                    VAT @ 5%-->
+            <!--                                </td>-->
+            <!--                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                    align="center">USD-->
+            <!--                                </td>-->
+            <!--                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;" align="right"-->
+            <!--                                    colspan="2">-->
+            <!--                                    <t t-esc="'%.2f' % o.amount_tax"/>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td colspan="4">-->
+            <!--                                    <span>VAT for Foreign Currency:</span>-->
+            <!--                                </td>-->
+            <!--                                <td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                    align="center">-->
+            <!--                                    PAYABLE TOTAL-->
+            <!--                                </td>-->
+            <!--                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                    align="center">USD-->
+            <!--                                </td>-->
+            <!--                                <td style="border-right: 1px solid black;border-bottom: 1px solid black;" align="right"-->
+            <!--                                    colspan="2">-->
+            <!--                                    <t t-esc="'%.2f' % o.amount_total"/>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td colspan="3">-->
+            <!--                                    <table style="border: 1px solid black;">-->
+            <!--                                        <tr>-->
+            <!--                                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                                align="center">-->
+            <!--                                                Value-->
+            <!--                                            </td>-->
+            <!--                                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                                align="center">-->
+            <!--                                                Currency-->
+            <!--                                            </td>-->
+            <!--                                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                                align="center">-->
+            <!--                                                Ex-Rate-->
+            <!--                                            </td>-->
+            <!--                                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                                align="center">-->
+            <!--                                                Value-AED-->
+            <!--                                            </td>-->
+            <!--                                            <td style="border-right: 1px solid black;border-bottom: 1px solid black;"-->
+            <!--                                                align="center">-->
+            <!--                                                VAT-->
+            <!--                                            </td>-->
+            <!--                                            <td style="border-bottom: 1px solid black;" align="center">TOTAL (AED)</td>-->
+            <!--                                        </tr>-->
+            <!--                                        <tr>-->
+            <!--                                            <td style="border-right: 1px solid black;" align="right">-->
+            <!--                                                <t t-esc="'%.2f' % o.amount_untaxed"/>-->
+            <!--                                            </td>-->
+            <!--                                            <td style="border-right: 1px solid black;" align="center">-->
+            <!--                                                <t t-esc="o.currency_id.name"/>-->
+            <!--                                            </td>-->
+            <!--                                            <td style="border-right: 1px solid black;" align="right">-->
+            <!--                                                <t t-esc="o.currency_id.name"/>-->
+            <!--                                            </td>-->
+            <!--                                            <td style="border-right: 1px solid black;" align="center">-->
+            <!--                                                <t t-esc="'%.2f' % o.amount_untaxed"/>-->
+            <!--                                            </td>-->
+            <!--                                            <td style="border-right: 1px solid black;" align="center">-->
+            <!--                                                <t t-esc="'%.2f' % o.amount_tax"/>-->
+            <!--                                            </td>-->
+            <!--                                            <td align="right">-->
+            <!--                                                <t t-esc="'%.2f' % o.amount_total"/>-->
+            <!--                                            </td>-->
+            <!--                                        </tr>-->
+            <!--                                    </table>-->
+            <!--                                </td>-->
+            <!--                                <td colspan="5"/>-->
+            <!--                            </tr>-->
+            <!--                        </table>-->
+            <!--                        <table width="100%" style="margin-top:50px;">-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span>Our Bank Account Details</span>-->
+            <!--                                </td>-->
+            <!--                                <td>-->
+            <!--                                    <t t-if="o.sudo().company_id.seal">-->
+            <!--                                        <img t-att-src="image_data_uri(o.company_id.seal)"-->
+            <!--                                             style="max-height: 2cm; max-width: 4cm;"/>-->
+            <!--                                    </t>-->
+            <!--                                </td>-->
+            <!--                                <td>-->
+            <!--                                    <t t-if="o.sudo().create_uid.sign_signature">-->
+            <!--                                        <img t-att-src="image_data_uri(o.sudo().create_uid.sign_signature)"-->
+            <!--                                             style="max-height: 4cm; max-width: 8cm;"/>-->
+            <!--                                    </t>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span>NAME:-->
+            <!--                                        <t t-esc="o.company_id.name"/>-->
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                                <td/>-->
+            <!--                                <td>-->
+            <!--                                    <span>AUTHORISED SIGNATORY :-->
+            <!--                                        <t t-esc="o.create_uid.name"/>-->
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span>For AED : IBAN No.-->
+            <!--                                        <t t-esc="o.company_id.aed_iban"/>-->
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                                <td/>-->
+            <!--                                <td>-->
+            <!--                                    <span>POSITION :-->
+            <!--                                        <t t-esc="o.create_uid.partner_id.function"/>-->
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span>For USD : IBAN No.-->
+            <!--                                        <t t-esc="o.company_id.usd_iban"/>-->
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                                <td/>-->
+            <!--                                <td/>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span>BANK SWIFT CODE:-->
+            <!--                                        <t t-esc="o.company_id.bank_swift_code"/>-->
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                                <td/>-->
+            <!--                                <td/>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span>BANK NAME :-->
+            <!--                                        <t t-esc="o.company_id.bank_name"/>-->
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                                <td/>-->
+            <!--                                <td/>-->
+            <!--                            </tr>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span>ADDRESS:-->
+            <!--                                        <t t-esc="o.company_id.bank_complete_address"/>-->
+            <!--                                    </span>-->
+            <!--                                </td>-->
+            <!--                                <td/>-->
+            <!--                                <td/>-->
+            <!--                            </tr>-->
+            <!--                        </table>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                    </div>-->
+            <!--            </t>-->
+        </t>
+        <!--            </div>-->
+    </template>
+</odoo>

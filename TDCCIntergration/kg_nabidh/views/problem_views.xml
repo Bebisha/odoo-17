@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="problems_form" model="ir.ui.view">
+        <field name="name">problems.form.views</field>
+        <field name="model">problems.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                    <group>
+
+                        <group>
+
+                            <field name="problem_des_id" string="Problem Description"
+                                   placeholder="A90. Dengue fever (classical dengue)"/>
+                            <field name="problem_id_code" string="Problem Code" placeholder="A90"/>
+                            <field name="local_code_id" invisible="1"/>
+                            <field name="icdcode_id"/>
+                            <field name="snomed_code" placeholder="413322009" invisible="1"/>
+                            <field name="life_cycle_status_id"/>
+                            <field name="status_id" string="Problem Status" placeholder="3"/>
+                        </group>
+                          <group>
+
+                            <field name="action_date_time"/>
+                            <field name="problem_established_date"/>
+                            <field name="Problem_life_cycle_date"/>
+                            <field name="Problem_onset_date"/>
+                            <field name="problem_classification" invisible="1"/>
+                            <field name="problem_id" invisible="1"/>
+                            <!--                            <field name="diag_action_co->-->
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

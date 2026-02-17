@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Daily Appointment List -->
+    <record model="ir.ui.view" id="daily_appointment_tree">
+        <field name="name">appointment.appointment.daily.tree</field>
+        <field name="model">appointment.appointment</field>
+        <field name="arch" type="xml">
+            <tree string="Daily Appointment" delete='false' decoration-danger="state=='new'">
+
+                <button name="action_send_appointment_mail" confirm="Are you sure you want to send the Mail?"
+                        invisible="state not in ('confirmed','arrive','dna','invoiced')"
+                        type="object" icon="fa-send-o fa-lg"
+                        groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_practitioner"/>
+
+                <button name="action_view_appointment" type="object"
+                         icon="fa-eye fa-lg"/>
+                <button name="action_appointment_confirm" invisible=" state != 'new'" type="object"
+                        icon="fa-arrow-right fa-lg" help="Confirm"
+                        groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre"/>
+                <button name="action_create_invoice" type="object" context="{'from_account': True}"
+                        invisible="is_chargeable == 'non_chargeable' or hide_inv_btn == True or state not in ('confirmed', 'arrive','dna') "
+                        groups="account.group_account_invoice" help="Will create a invoice based on the details."
+                        confirm="Are you sure you want to create invoice for this record ?" icon="fa-money fa-lg"
+                        />
+                <button name="action_view_invoice" icon="fa-file-text fa-lg" type="object"
+                        groups="account.group_account_invoice,bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_cofounder"/>
+                <button name="action_student_arrive"  context="{'from_physician': True}"
+                        type="object"
+                        invisible=" state not in ('confirmed', 'invoiced')  or is_student_arrived == True "
+                        icon="fa-sign-in fa-lg"
+
+                        groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_practitioner"/>
+                <button name="action_dna" type="object"
+                        context="{'from_physician': True}" icon="fa-stop-circle fa-lg"
+                        invisible=" state not in ('confirmed', 'invoiced')  or is_student_arrived == True "
+                        confirm="Are you sure you want to make it as DNA ?"
+                        groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_all_appointments,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_practitioner"/>
+
+                <field name="name"/>
+                <field name="is_chargeable" column_invisible="1"/>
+                <field name="hide_inv_btn" column_invisible="1"/>
+                <field name="state"/>
+                <field name="client_id" widget="many2one"/>
+                <field name="appointment_type_id" widget="many2one"/>
+                <field name="attendant_id" widget="many2one"/>
+                <field name="clinic_id" column_invisible="1" widget="many2one"/>
+                <field name="physician_id" widget="many2one"/>
+                <field name="service_type_id" widget="many2one"/>
+                <field name="room_id"/>
+                <field name="price_subtotal" sum="Total Amount"/>
+                <field name="start_date"/>
+                <field name="duration" widget="float_time"/>
+                <field name="credit"/>
+                <field name="clinical_notes"/>
+                <field name="is_student_arrived" column_invisible="1"/>
+                <field name="invoice_state"
+                       groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_cre,account.group_account_invoice"/>
+                <field name="invoice_count" column_invisible="1"/>
+
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Daily Appointment Menu -->
+    <record model="ir.actions.act_window"
+            id="daily_appointment_view_action">
+        <field name="name">Daily Appointments</field>
+        <field name="res_model">appointment.appointment</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,calendar</field>
+        <!--        <field name="view_id"-->
+        <!--            ref="bista_tdcc_operations.daily_appointment_tree" />-->
+    </record>
+
+    <record id="action_daily_appointment_new_tree1"
+            model="ir.actions.act_window.view">
+        <field name="sequence">1</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id"
+               ref="daily_appointment_tree"/>
+        <field name="act_window_id"
+               ref="daily_appointment_view_action"/>
+    </record>
+
+    <record id="action_daily_appointment_new_calendar"
+            model="ir.actions.act_window.view">
+        <field name="sequence">2</field>
+        <field name="view_mode">calendar</field>
+        <field name="view_id"
+               ref="bista_tdcc_operations.view_appointment_appointment_calendar_physician_view"/>
+        <field name="act_window_id"
+               ref="bista_tdcc_operations.daily_appointment_view_action"/>
+    </record>
+
+    <!-- Daily Appointment Menu -->
+    <menuitem id="daily_appointment_menu"
+              action="create_daily_appointment_action"
+              parent="bista_tdcc_operations.appointment_menu" sequence="2"
+              groups="bista_tdcc_operations.group_tdcc_practitioner,bista_tdcc_operations.group_tdcc_director,bista_tdcc_operations.group_tdcc_cofounder,bista_tdcc_operations.group_tdcc_cre,account.group_account_invoice,bista_tdcc_operations.group_appointment_manager"/>
+
+    <record model="ir.actions.act_window" id="send_sms_appointment_action">
+        <field name="name">Send SMS</field>
+        <field name="res_model">message.compose</field>
+        <field name="view_mode">form</field>
+        <field name="binding_model_id" ref="bista_tdcc_operations.model_appointment_appointment"/>
+        <field name="target">new</field>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+    <record id="send_mail_daily_appointment_action1" model="ir.actions.act_window">
+            <field name="name">Send Mail</field>
+            <field name="res_model">mail.compose.message</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context" eval="{
+                'mailing_document_based': True,
+                'mail_post_autofollow': True,
+                'default_composition_mode': 'mass_mail',
+                'default_template_id': ref('bista_tdcc_operations.appointment_reminder_mail_template'),
+                'default_email_layout_xmlid': 'mail.mail_notification_light',
+            }"/>
+            <field name="binding_model_id" ref="bista_tdcc_operations.model_appointment_appointment"/>
+            <field name="binding_view_types">list,form</field>
+        </record>
+
+
+
+
+</odoo>

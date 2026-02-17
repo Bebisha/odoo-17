@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- template for employee gratuity report -->
+    <template id="employee_gratuity_temp_id">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <div class="header">
+                        <!-- Header Table -->
+                        <table class='table table-borderless table-condensed table-hover'
+                               style='width:100%;padding:5px'>
+                            <tr width="100%">
+                                <td width="100%" align="center">
+                                    <img t-if='o.company_id.logo'
+                                         t-att-src='image_data_uri(o.company_id.logo)'
+                                         alt='Logo' style="max-width: 150px; max-height: 100px;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <t t-esc="o.company_id.name"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Content Table -->
+                    <table style='border-collapse:collapse;width:100%;margin:5pt;'>
+                        <tr width="100%"
+                            style="font-size:15px;height:50px;background-color: #C8C7CF;margin-top: -10px;">
+                            <td colspan="2" align="center" style="border:1px solid black;">
+                                <strong>FULL AND FINAL SETTLEMENT</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid black;">
+                                <span>REF :</span>
+                                <t t-esc="o.name"/>
+                            </td>
+                            <td align="right" style="border:1px solid black;">
+                                <span>Date :</span>
+                                <t t-esc="datetime.date.today()"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style='border-collapse:collapse;width:100%;margin:5pt; margin-top:15pt;' width="100%">
+                        <tr width="100%">
+                            <td width="20%" style="border-top: 1px solid black; border-left: 1px solid black;">
+                                <span>Emp. No. :</span>
+                            </td>
+                            <td width="30%" style="border-top: 1px solid black;">
+                                <t t-esc="o.employee_id.employee_no"/>
+                            </td>
+                            <td width="20%" style="border-top: 1px solid black; border-left: 1px solid black;">
+                                <span>Basic Salary :</span>
+                            </td>
+                            <td width="30%" align="right"
+                                style="border-top: 1px solid black; border-right: 1px solid black;">
+                                <t t-esc="o.employee_id.contract_id.wage"/>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="20%" style="border-top: 1px solid black; border-left: 1px solid black;">
+                                <span>Emp. Name :</span>
+                            </td>
+                            <td width="30%" style="border-top: 1px solid black;">
+                                <t t-esc="o.employee_id.name"/>
+                            </td>
+                            <td width="20%" style="border-top: 1px solid black; border-left: 1px solid black;">
+                                <span>Housing Allowance :</span>
+                            </td>
+                            <td width="30%" align="right"
+                                style="border-top: 1px solid black; border-right: 1px solid black;">
+                                <t t-esc="o.employee_id.contract_id.housing_allowance"/>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="20%" style="border-top: 1px solid black; border-left: 1px solid black;">
+                                <span>Designation :</span>
+                            </td>
+                            <td width="30%" style="border-top: 1px solid black;">
+                                <t t-esc="o.job_id.name"/>
+                            </td>
+                            <td width="20%" style="border-top: 1px solid black; border-left: 1px solid black;">
+                                <span>Transportation Allowance :</span>
+                            </td>
+                            <td width="30%" align="right"
+                                style="border-top: 1px solid black; border-right: 1px solid black;">
+                                <t t-esc="o.employee_id.contract_id.travel_allowance"/>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="20%" style="border-top: 1px solid black; border-left: 1px solid black;">
+                                <span>Date of Join :</span>
+                            </td>
+                            <td width="30%" style="border-top: 1px solid black;">
+                                <t t-esc="o.date_join"/>
+                            </td>
+                            <td width="20%" style="border-top: 1px solid black; border-left: 1px solid black;">
+                                <span>Other Allowance :</span>
+                            </td>
+                            <td width="30%" align="right"
+                                style="border-top: 1px solid black; border-right: 1px solid black;">
+                                <t t-esc="o.employee_id.contract_id.other_allowance"/>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="20%" style="border-top: 1px solid black; border-left: 1px solid black;">
+                                <span>Date of Last Working Day :</span>
+                            </td>
+                            <td width="30%" style="border-top: 1px solid black;">
+                                <t t-esc="o.date_last_working"/>
+                            </td>
+                            <td width="20%" style="border-top: 1px solid black; border-left: 1px solid black;">
+                                <span>Extra Income :</span>
+                            </td>
+                            <td width="30%" align="right"
+                                style="border-top: 1px solid black; border-right: 1px solid black;">
+                                <t t-esc="o.employee_id.contract_id.extra_income"/>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="20%"
+                                style="border-top: 1px solid black; border-bottom: 1px solid black; border-left: 1px solid black;">
+                                <strong>Total no of days working :</strong>
+                            </td>
+                            <td width="30%" style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                <t t-esc="o.total_service"/>
+                            </td>
+                            <td width="20%"
+                                style="border-top: 1px solid black; border-bottom: 1px solid black; border-left: 1px solid black;">
+                                <strong>Total Salary :</strong>
+                            </td>
+                            <td width="30%" align="right"
+                                style="border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">
+                                <t t-esc="o.employee_id.contract_id.ctc_month"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style='border-collapse:collapse;width:100%;margin:5pt; margin-top:15pt;' width="100%">
+                        <tr width="100%" style="background-color: #C8C7CF;margin-top: -10px; border:1px solid black;">
+                            <td colspan="4" align="center">
+                                <strong>EARNINGS</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" style="border:1px solid black;">
+                                Salary For
+                                <t t-esc="o.date_last_working.strftime('%b %Y')"/>
+                            </td>
+                            <td width="10%" align="center" style="border:1px solid black;">
+                                <span>Days</span>
+                            </td>
+                            <td width="10%" align="center" style="border:1px solid black;">
+                                <t t-esc="o.working_days"/>
+                            </td>
+                            <td width="40%" align="right" style="border:1px solid black;">
+                                <t t-esc="'%.2f' % o.pending_salary"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" style="border:1px solid black;">
+                                Annual Leave Pay
+                            </td>
+                            <td width="10%" align="center" style="border:1px solid black;">
+                                <span>Days</span>
+                            </td>
+                            <td width="10%" align="center" style="border:1px solid black;">
+                                <t t-esc="o.pending_leave_sal_days"/>
+                            </td>
+                            <td width="40%" align="right" style="border:1px solid black;">
+                                <t t-esc="'%.2f' % o.annual_leave_pay"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40%" style="border:1px solid black;">
+                                Gratuity
+                            </td>
+                            <td width="10%" align="center" style="border:1px solid black;">
+                                <span>Days</span>
+                            </td>
+                            <td width="10%" align="center" style="border:1px solid black;">
+                                <t t-esc="''.join([c for c in o.total_service if c.isdigit()])"/>
+                            </td>
+                            <td width="40%" align="right" style="border:1px solid black;">
+                                <t t-esc="'%.2f' % o.gratuity_amount"/>
+                            </td>
+                        </tr>
+                        <tr style="height:50px;">
+                            <td colspan="3" style="border:1px solid black;">
+                                <strong>Total Earnings</strong>
+                            </td>
+                            <td align="right" style="border:1px solid black;">
+                                <t t-set="total_earnings"
+                                   t-value="'%.2f' % (o.gratuity_amount + o.annual_leave_pay + o.pending_salary)"/>
+                                <strong>
+                                    <t t-esc="total_earnings"/>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td colspan="3" rowspan="2" style="border:1px solid black;">
+                                <strong>Net Payable Amount</strong>
+                            </td>
+                            <td style="border-right:1px solid black;">
+                                <strong>
+                                    <t t-esc="total_earnings"/>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom:1px solid black; border-right:1px solid black;">
+                                <t t-esc="o.get_amount_in_words(total_earnings)"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style='border-collapse:collapse;width:100%;margin:5pt; margin-top:30pt;' width="100%">
+                        <tr style="height:80px;">
+                            <td width="65%" style="border:1px solid black; vertical-align: bottom;">
+                                Prepared By
+                            </td>
+                            <td width="35%" rowspan="2" style="border:1px solid black; vertical-align: bottom;" align="center">
+                                Management Approval
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="border:1px solid black; vertical-align: bottom;">
+                                Finance Manager
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="border:1px solid black; vertical-align: bottom;">
+                                HR
+                            </td>
+                            <td style="border:1px solid black; vertical-align: bottom;" align="center">
+                                Received By
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td colspan="2" style="border:1px solid black; vertical-align: bottom;">
+                                Loan and Salary Advance Confirmed by Accounts Department:
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

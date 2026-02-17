@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="purchase_order_inherited" model="ir.ui.view">
+            <field name="name">purchase.order.inherited</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_ref" position="after">
+                    <field name="rfq_number" invisible="not rfq_number" readonly="1"/>
+                </field>
+                <field name="date_order" position='before'>
+                    <!--                    <field name="product_model_id"/>-->
+                    <field name="product_model_no"/>
+                    <!--                    <field name="account_analytic_id" widget="many2many_tags" />-->
+                </field>
+                <xpath expr="//field[@name='date_planned']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <!--                <xpath expr="//field[@name='date_planned']" position="after">-->
+                <!--                    <field name="product_model_id"/>-->
+                <!--                    <field name="product_model_no"/>-->
+                <!--                </xpath>-->
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='product_id']" position="after">
+                    <field name="brand_id"/>
+                    <field name="account_analytic_ids" widget="many2many_tags" column_invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='notes']"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <!--                    <group>-->
+                    <!--                        <field name="replace"/>-->
+                    <!--                    </group>-->
+                </xpath>
+                <xpath expr="//field[@name='notes']"
+                       position="after">
+                    <!--                    <group>-->
+                    <field name="terms_conditions_id" string="Template"/>
+                    <field name="custom_terms_conditions"/>
+                    <!--                    </group>-->
+                </xpath>
+                <!--                <xpath expr="//field[@name='incoterm_id']" position="attributes">-->
+                <!--                    <attribute name="required">1</attribute>-->
+                <!--                </xpath>-->
+            </field>
+        </record>
+<!--        <record id="purchase_order_stock_inherited" model="ir.ui.view">-->
+<!--            <field name="name">purchase.order.inherited</field>-->
+<!--            <field name="model">purchase.order</field>-->
+<!--            <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>-->
+<!--            <field name="arch" type="xml">-->
+
+<!--                <xpath expr="//field[@name='incoterm_id']" position="attributes">-->
+<!--                    <attribute name="required">1</attribute>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+        <record id="kg_product_supplier_info_inherit" model="ir.ui.view">
+            <field name="name">product.supplier.info.kg</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="active" invisible="1"/>
+                </field>
+                <field name="company_id" position="after">
+                    <field name="brand_id"/>
+
+                </field>
+            </field>
+        </record>
+
+
+        <record id="kg_product_supplierinfo_search_view" model="ir.ui.view">
+            <field name="name">kg.product.supplierinfo.search.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+
+                    <group expand="0" string="Group By">
+                        <filter string="Product Brand" name="groupby_brand_id" context="{'group_by': 'brand_id'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

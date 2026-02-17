@@ -1,0 +1,203 @@
+<odoo>
+
+    <record id="action_purchase_enquiry" model="ir.actions.act_window">
+        <field name="name">Purchase Enquiries</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.enquiry</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="main_menu_purchase_enquiry" name="Purchase Enquiry"
+              web_icon="kg_raw_fisheries_purchase,static/description/po_enq.png"/>
+
+    <menuitem id="purchase_enquiries_main" action="action_purchase_enquiry" name="Purchase Enquiries"
+              parent="main_menu_purchase_enquiry" sequence="1"/>
+
+    <record id="purchase_enquiry_tree_view" model="ir.ui.view">
+        <field name="name">Purchase Enquiry Tree View</field>
+        <field name="model">purchase.enquiry</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Enquiry" default_order="id desc">
+                <field name="name"/>
+                <field name="order_no"/>
+                <field name="order_date"/>
+                <field name="acc_no"/>
+                <field name="prepared_user"/>
+                <field name="page_pic"/>
+                <field name="enquiry_type_id"/>
+                <field name="po_create_user_id"/>
+                <field name="serial_no"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'"
+                       decoration-primary="state == 'send_requested'"
+                       decoration-warning="state == 'partial_po_created'"
+                       decoration-success="state == 'po_entry_created'" decoration-muted="state == 'cancel'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="purchase_enquiry_form_view" model="ir.ui.view">
+        <field name="name">Purchase Enquiry Form View</field>
+        <field name="model">purchase.enquiry</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Enquiry">
+                <field name="state" invisible="1"/>
+                <field name="entry_count" invisible="1"/>
+                <field name="set_readonly" invisible="1"/>
+                <header>
+                    <button name="action_draft" type="object" string="Set To Draft" class="btn btn-secondary"
+                            invisible="state != 'cancel'"/>
+                    <button name="action_send_request" type="object" string="Send Request" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="create_po_entry" type="object" string="Create PO Entry" class="oe_highlight"
+                            invisible="state not in ['send_requested','partial_po_created']"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn btn-secondary"
+                            invisible="state in ['cancel','po_entry_created']"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,po_entry_created"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="PO Created" bg_color="bg-success"
+                            invisible="state not in 'po_entry_created'"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="view_po_entries"
+                                type="object" icon="fa-bars" string="Purchase Orders" invisible="entry_count == 0">
+                            <field name="entry_count" widget="statinfo" string="Purchase Orders"/>
+                        </button>
+
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="order_no"
+                                   readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                            <field name="acc_no"
+                                   readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                            <field name="prepared_user"
+                                   readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                            <field name="page_pic"
+                                   readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                            <field name="enquiry_type_id"
+                                   readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                            <field name="po_create_user_id" readonly="state != 'draft' or state == 'po_entry_created'"/>
+                            <field name="entry_count" invisible="1"/>
+                            <field name="po_entry_ids" widget="many2many_tags" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="order_date"
+                                   readonly="set_readonly and state != 'draft'  or state == 'po_entry_created'"/>
+                            <field name="serial_no"
+                                   readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                            <field name="path"
+                                   readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="enquiry_lines" string="Enquiry Lines">
+                            <group>
+                                <group>
+                                    <field name="vendor_id" invisible="state == 'draft'"
+                                           readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                                    <field name="currency_id" invisible="state == 'draft'"
+                                           readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                                    <field name="discount" invisible="state == 'draft'"
+                                           readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                                </group>
+                                <group>
+                                    <field name="date_of_order" invisible="state == 'draft'"
+                                           readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                                    <field name="tax_ids" invisible="state == 'draft'" widget="many2many_tags"
+                                           readonly="set_readonly and state != 'draft' or state == 'po_entry_created'"/>
+                                </group>
+                                <group/>
+                                <group/>
+                                <group/>
+                                <group/>
+                            </group>
+                            <field name="po_enquiry_line_ids"
+                                   readonly="set_readonly and state != 'draft' or state == 'po_entry_created'">
+                                <tree editable="bottom">
+                                    <field name="po_created" column_invisible="1"/>
+                                    <field name="part_no" readonly="po_created"/>
+                                    <field name="description" readonly="po_created"/>
+                                    <field name="qty" readonly="po_created"/>
+                                    <field name="uom_id" readonly="po_created"/>
+                                    <field name="vessel_id" readonly="po_created"/>
+                                    <field name="currency_id" column_invisible="parent.state == 'draft'"
+                                           readonly="parent.set_readonly or po_created"/>
+                                    <field name="vendor_id" column_invisible="parent.state == 'draft'"
+                                           readonly="parent.set_readonly or po_created"/>
+                                    <field name="price" column_invisible="parent.state == 'draft'" widget="Monetary"
+                                           readonly="parent.set_readonly or po_created"/>
+                                    <field name="date_of_order" column_invisible="parent.state == 'draft'"
+                                           readonly="parent.set_readonly or po_created"/>
+                                    <field name="tax_ids" column_invisible="parent.state == 'draft'"
+                                           widget="many2many_tags"
+                                           readonly="parent.set_readonly or po_created"/>
+                                    <field name="discount" column_invisible="parent.state == 'draft'"
+                                           readonly="parent.set_readonly or po_created"/>
+                                    <field name="tax_amount" column_invisible="1"/>
+                                    <field name="total_tax_excl" column_invisible="parent.state == 'draft'" widget="Monetary"
+                                           readonly="1"/>
+                                    <field name="total" column_invisible="parent.state == 'draft'" widget="Monetary"
+                                           readonly="1"/>
+                                    <field name="is_create_po" column_invisible="parent.state == 'draft'"
+                                           readonly="parent.set_readonly or po_created" widget="boolean_toggle"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="purchase_enquiry_search_filter_view" model="ir.ui.view">
+        <field name="name">Purchase Enquiry Search Filter View</field>
+        <field name="model">purchase.enquiry</field>
+        <field name="arch" type="xml">
+            <search string="Purchase Enquiry">
+                <field name="name"/>
+                <field name="order_no"/>
+                <field name="enquiry_type_id"/>
+                <field name="prepared_user"/>
+                <field name="state"/>
+
+                <separator/>
+                <filter string="Today" name="filter_today"
+                        domain="[('order_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+
+                <filter string="Current Month" name="filter_current_month"
+                        domain="[('order_date','&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]"/>
+
+                <filter string="Previous Month" name="filter_previous_month"
+                        domain="['&amp;', ('order_date', '&gt;=', (context_today() - relativedelta(months=1)).strftime('%Y-%m-01')),('order_date', '&lt;', (context_today() - relativedelta(months=0)).strftime('%Y-%m-01'))]"/>
+
+                <separator/>
+                <filter name="state_draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="state_send_requested" string="Send Requested" domain="[('state','=','send_requested')]"/>
+                <filter name="state_partial_po_created" string="Partial PO Created"
+                        domain="[('state','=','partial_po_created')]"/>
+                <filter name="state_po_entry_created" string="PO Created" domain="[('state','=','po_entry_created')]"/>
+                <filter name="state_cancel" string="Cancelled" domain="[('state','=','cancel')]"/>
+
+                <group expand="1" string="Group By">
+                    <filter string="Type" name="groupby_enquiry_type_id" context="{'group_by':'enquiry_type_id'}"/>
+                    <filter string="Order Date" name="groupby_order_date" context="{'group_by':'order_date'}"/>
+                    <filter string="State" name="groupby_state" context="{'group_by':'state'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+</odoo>

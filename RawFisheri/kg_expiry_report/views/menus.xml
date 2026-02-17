@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--    Override employee action to fix view being replaced    -->
+        <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+            <field name="view_id" ref="hr.view_employee_tree"/>
+        </record>
+
+        <!--    Action for ID expiry report   -->
+        <record id="action_hr_employee_id_expiry" model="ir.actions.act_window">
+            <field name="name">ID Expiry Report</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_hr_employee_id_expiry_tree"/>
+            <field name="search_view_id" ref="view_hr_employee_id_expiry_search"/>
+            <field name="domain">[]
+                <!--                [('employee_id_expiry_date', '&lt;', (context_today() + relativedelta(months=2)))]-->
+            </field>
+        </record>
+
+        <!--    Menu item for ID expiry report   -->
+        <menuitem name="ID Expiry Report" id="employee_id_expiry_report" action="action_hr_employee_id_expiry"
+                  parent="hr.hr_menu_hr_reports"/>
+
+        <!--    Action for Passport expiry report   -->
+        <record id="action_hr_employee_passport_expiry" model="ir.actions.act_window">
+            <field name="name">Passport Expiry Report</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_hr_employee_passport_expiry_tree"/>
+            <field name="search_view_id" ref="view_hr_employee_passport_expiry_search"/>
+            <field name="domain">[('employee_passport_expiry_date', '!=', False)]</field>
+        </record>
+
+        <!--    Menu item for Passport expiry report   -->
+        <menuitem name="Passport Expiry Report" id="employee_passport_expiry_report"
+                  action="action_hr_employee_passport_expiry"
+                  parent="hr.hr_menu_hr_reports"/>
+
+        <!--    Action for Seaman's Book expiry report   -->
+        <record id="action_hr_employee_seamans_book_expiry" model="ir.actions.act_window">
+            <field name="name">Seaman's Book Expiry Report</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_seamans_book_expiry_tree"/>
+            <field name="search_view_id" ref="view_hr_employee_passport_expiry_search"/>
+            <field name="domain">[('seaman_book_expiry_date', '!=', False)]</field>
+        </record>
+
+        <!--    Menu item for Seaman's Book expiry report   -->
+        <menuitem name="Seaman's Book Expiry Report" id="employee_seamans_book_expiry_report"
+                  action="action_hr_employee_seamans_book_expiry"
+                  parent="hr.hr_menu_hr_reports"/>
+
+        <menuitem name="Expiry Dashboard" id="expiry_dashboard"
+                  sequence="2" parent="hr.menu_hr_root"/>
+
+        <record id="passport_dashboard_action_custom" model="ir.actions.client">
+            <field name="name">Passport Dashboard</field>
+            <field name="tag">passport_dashboard</field>
+        </record>
+
+        <menuitem name="Passport Expiry Dashboard" id="passport_dashboard"
+                  sequence="5" action="passport_dashboard_action_custom" parent="expiry_dashboard"/>
+
+        <record id="seamans_dashboard_action_custom" model="ir.actions.client">
+            <field name="name">Seamans Book Dashboard</field>
+            <field name="tag">seamans_dashboard</field>
+        </record>
+
+        <menuitem name="Seaman's Book Expiry Dashboard" id="seamans_dashboard"
+                  sequence="5" action="seamans_dashboard_action_custom" parent="expiry_dashboard"/>
+
+    </data>
+</odoo>

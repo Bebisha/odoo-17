@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="guarantor_relationship_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Guarantor Relationship</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">guarantor.relationship</field>
+
+    </record>
+    <record id="guarantor_relationship_tree" model="ir.ui.view">
+        <field name="name">guarantor.relationship.tree.views</field>
+        <field name="model">guarantor.relationship</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="guarantor_relationship_form" model="ir.ui.view">
+        <field name="name">guarantor.relationship.form.views</field>
+        <field name="model">guarantor.relationship</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="guarantor_relationship_menu"
+              action="guarantor_relationship_action"
+              name="Guarantor Relationship"
+              parent="kg_nabidh.gt1_menu"/>
+
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="religion_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Religion</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">religion.form</field>
+
+    </record>
+    <record id="religion_tree" model="ir.ui.view">
+        <field name="name">religion.form.views</field>
+        <field name="model">religion.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="religion_form" model="ir.ui.view">
+        <field name="name">religion.form.views</field>
+        <field name="model">religion.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="religion_menu"
+              action="religion_action"
+              name="Religion"
+              parent="kg_nabidh.pid_menu"/>
+
+</odoo>

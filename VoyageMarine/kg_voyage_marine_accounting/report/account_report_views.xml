@@ -1,0 +1,49 @@
+<odoo>
+    <!-- Search View -->
+    <record id="view_invoice_report_search_inherit_type" model="ir.ui.view">
+        <field name="name">account.invoice.report.search.inherit.type</field>
+        <field name="model">account.invoice.report</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
+        <field name="arch" type="xml">
+          <xpath expr="//search/group" position="inside">
+                <field name="type_id"/>
+                <field name="division_id"/>
+                <filter string="Local" name="local" domain="[('type_id', '=', 'local')]"/>
+                <filter string="Middle East" name="meast" domain="[('type_id', '=', 'meast')]"/>
+                <filter string="International" name="international" domain="[('type_id', '=', 'international')]"/>
+                <filter string="Sister Concern" name="sisconcern" domain="[('type_id', '=', 'sisconcern')]"/>
+                <filter string="Subcontracting" name="subcontracting"
+                        domain="[('type_id', '=', 'subcontracting')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_type_id" string="Type" context="{'group_by': 'type_id'}"/>
+                    <filter name="group_division_id" string="Division" context="{'group_by': 'division_id'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_invoice_report_tree_inherit_type" model="ir.ui.view">
+        <field name="name">account.invoice.report.tree.inherit.type</field>
+        <field name="model">account.invoice.report</field>
+        <field name="inherit_id" ref="account.account_invoice_report_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="type_id"/>
+                <field name="division_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+<!--    <record id="view_invoice_report_graph_inherit_type" model="ir.ui.view">-->
+<!--        <field name="name">account.invoice.report.graph.inherit.type</field>-->
+<!--        <field name="model">account.invoice.report</field>-->
+<!--        <field name="inherit_id" ref="account.view_invoice_report_graph"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='partner_id']" position="after">-->
+<!--                <field name="type_id"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="air_ticket_form_view" model="ir.ui.view">
+            <field name="name">air_ticket.form.view</field>
+            <field name="model">air.ticket</field>
+            <field name="arch" type="xml">
+                <form string="Overtime">
+                    <header>
+                        <button name="action_confirm" type="object" string="Confirm"
+                                 invisible="state!='draft'"
+                                class="oe_highlight" groups="hr.group_hr_manager"/>
+                        <button name="action_cancel" type="object" string="Cancel"
+                              invisible="state!='confirm'"
+                                class="oe_highlight" groups="hr.group_hr_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" required="1" placeholder="Air Ticket"
+                                     readonly="state!='draft'" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_id" options="{'no_open':True, 'no_create':True}" required="1"
+                                                                           readonly="state!='draft'"/>
+                                <field name="region_id" required="1" readonly="state!='draft'"/>
+                                <field name="is_used" readonly="state!='draft'"/>
+                            </group>
+                            <group>
+                                <field name="departure_date" required="1"
+                                      readonly="state!='draft'"/>
+                                <field name="amount" required="1" readonly="state!='draft'"/>
+<!--                                <field name="leave_id" options="{'no_open':True, 'no_create':True}" required="1"-->
+<!--                                      readonly="state!='draft'"-->
+                            </group>
+                        </group>
+                        <group string="Where?">
+                            <group>
+                                <field name="from_loc" string="From" readonly="state!='draft'"/>
+                            </group>
+                            <group>
+                                <field name="to_location" string="To" readonly="state!='draft'"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="doc_attachment_id1" string="Attachments" widget="many2many_binary"
+                                  readonly="state!='draft'"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="air_ticket_tree_view" model="ir.ui.view">
+            <field name="name">air_ticket.tree.view</field>
+            <field name="model">air.ticket</field>
+            <field name="arch" type="xml">
+                <tree string="Overtime">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="from_loc"/>
+                    <field name="to_location"/>
+                    <field name="departure_date"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="air_ticket_search_view" model="ir.ui.view">
+            <field name="name">air_ticket.search</field>
+            <field name="model">air.ticket</field>
+            <field name="arch" type="xml">
+                <search string="Overtime">
+                    <group expand="1" string="Group By">
+                        <filter string="Employee" name="employee_id" domain="[]"
+                                context="{'group_by':'employee_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="air_ticket_action" model="ir.actions.act_window">
+            <field name="name">Air Ticket</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">air.ticket</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new Ticket.
+                </p>
+            </field>
+        </record>
+        <menuitem name="Air Ticket" id="air_ticket" parent="hr_holidays.menu_hr_holidays_root" sequence="4"
+                  action="air_ticket_action"/>
+
+    </data>
+</odoo>

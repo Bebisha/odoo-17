@@ -1,0 +1,18 @@
+<odoo>
+
+    <record id="module_category_transaction_documents" model="ir.module.category">
+        <field name="name">Transaction Documents</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="group_transaction_documents_administrator" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="module_category_transaction_documents"/>
+    </record>
+
+     <record id="group_transaction_documents_own_docs" model="res.groups">
+        <field name="name">User: Own Documents Only</field>
+        <field name="category_id" ref="module_category_transaction_documents"/>
+    </record>
+
+</odoo>

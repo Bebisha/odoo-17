@@ -1,0 +1,858 @@
+<odoo>
+    <!--     <template id="stock.report_deliveryslip">-->
+    <!--        <t t-foreach="docs" t-as="o">-->
+    <!--            <t t-call="stock.report_delivery_document" t-lang="o._get_report_lang()"/>-->
+    <!--        </t>-->
+    <!--    </template>-->
+
+    <template id="delvery_note_external_layout_inherit1">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row">
+
+                <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 60px;"
+                         alt="Logo"/>
+                </div>
+
+                <div class="col-7 mb4">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr>
+                            <td style="font-size:30px;" colspan="2">
+                                <t t-esc="company.name"/>
+                            </td>
+                        </tr>
+                        <!--                            <tr>-->
+                        <!--                                <td>Partner ID:</td>-->
+                        <!--                                <td>-->
+                        <!--                                    <span t-field="company.partner_id"/>-->
+                        <!--                                </td>-->
+                        <!--                            </tr>-->
+                        <tr>
+                            <!--                            <td>Address:</td>-->
+                            <td colspan="2">
+                                <span t-field="company.partner_id.zip"/>,
+                                <span t-field="company.partner_id.street"/>,
+                                <span t-field="company.partner_id.street2"/>,
+                                <span t-field="company.partner_id.city"/>,
+                                <span t-field="company.partner_id.country_id"/>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Phone/Fax:</td>
+
+                            <td>
+                                <span t-field="company.phone"/>/
+                                <span t-field="company.mobile"/>
+                            </td>
+                        </tr>
+
+
+                        <!--                            <tr>-->
+                        <!--                                <td>VAT:</td>-->
+                        <!--                                <td>-->
+                        <!--                                    <span t-field="company.partner_id.vat"/>-->
+                        <!--                                </td>-->
+                        <!--                            </tr>-->
+                    </table>
+
+                </div>
+                <div class="col-2 mb4">
+                    <span style="font-size:20px;">
+                        Delivery Note
+                    </span>
+                </div>
+
+            </div>
+        </div>
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+             t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <!--            <div class="pt-5">-->
+            <!--                &lt;!&ndash; This div ensures that the address is not cropped by the header. &ndash;&gt;-->
+            <!--                &lt;!&ndash;                <t t-call="web.address_layout"/>&ndash;&gt;-->
+            <!--            </div>-->
+            <t t-out="0"/>
+        </div>
+        <!--        </div>-->
+
+        <!--        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">-->
+        <!--            <div class="text-center" style="border-top: 1px solid black;">-->
+        <!--                <ul class="list-inline mb4">-->
+        <!--                    <div t-field="company.report_footer"/>-->
+        <!--                </ul>-->
+
+        <!--                <div t-if="report_type == 'pdf'" class="text-muted">-->
+        <!--                    Page:-->
+        <!--                    <span class="page"/>-->
+        <!--                    /-->
+        <!--                    <span class="topage"/>-->
+        <!--                </div>-->
+        <!--                <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">-->
+        <!--                    <span t-out="o.name">(document name)</span>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+    </template>
+    <template id="delivery_external_layout_inherit">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <t t-if="company.external_report_layout_id" t-call="{{company.external_report_layout_id.sudo().key}}">
+            <t t-out="0"/>
+        </t>
+        <t t-else="else" t-call="kg_sale_order.delvery_note_external_layout_inherit1">
+            <t t-out="0"/>
+        </t>
+
+    </template>
+    <template id="delivery_note_custom_html_container">
+        <t t-set="body_classname" t-value="'container'"/>
+        <html t-att-lang="lang and lang.replace('_', '-')"
+              t-att-data-report-margin-top="data_report_margin_top"
+              t-att-data-report-header-spacing="data_report_header_spacing"
+              t-att-data-report-dpi="data_report_dpi"
+              t-att-data-report-landscape="data_report_landscape"
+              t-att-web-base-url="web_base_url">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="initial-scale=1"/>
+                <title>
+                    <t t-esc="title or 'Odoo Report'"/>
+                </title>
+                <t t-call-assets="web.report_assets_common" t-js="false"/>
+                <!--The following is kind of a hack-->
+                <!--in an iframe, we don't want the session to perform qweb_templates rpc-->
+                <script type="text/javascript">
+                    window.odoo = {};
+                    window.odoo.__session_info__ = {is_report: true};
+                </script>
+                <t t-call-assets="web.assets_common" t-css="false"/>
+                <t t-call-assets="web.report_assets_common" t-css="false"/>
+            </head>
+            <body t-att-class="'container' if not full_width else 'container-fluid'">
+                <div id="wrapwrap">
+                    <main>
+                        <t t-out="0"/>
+                    </main>
+                </div>
+            </body>
+
+        </html>
+    </template>
+    <template id="report_delivery_document" name="Delivery Order Report" inherit_id="stock.report_delivery_document">
+        <xpath expr="//t[@t-call='web.html_container']" position="replace">
+            <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
+            <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
+            <t t-if="o.picking_type_code!='outgoing'">
+                <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                        <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
+                        <t t-set="partner"
+                           t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
+
+                        <t t-set="address">
+                            <div name="div_outgoing_address">
+                                <div name="outgoing_delivery_address"
+                                     t-if="o.should_print_delivery_address()">
+                                    <span>
+                                        <strong>Delivery Address:</strong>
+                                    </span>
+                                    <div t-field="o.move_ids[0].partner_id"
+                                         t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                </div>
+                                <div name="outgoing_warehouse_address"
+                                     t-elif="o.picking_type_id.code != 'internal' and o.picking_type_id.warehouse_id.partner_id">
+                                    <span>
+                                        <strong>Warehouse Address:</strong>
+                                    </span>
+                                    <div t-field="o.picking_type_id.warehouse_id.partner_id"
+                                         t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-set="information_block">
+                            <div class="row">
+                                <div class="col-7" name="div_incoming_address">
+                                    <t t-set="show_partner" t-value="False"/>
+                                    <div name="vendor_address" t-if="o.picking_type_id.code=='incoming' and partner">
+                                        <span>
+                                            <strong>Vendor Address:</strong>
+                                        </span>
+                                        <t t-set="show_partner" t-value="True"/>
+                                    </div>
+                                    <div name="customer_address"
+                                         t-if="o.picking_type_id.code=='outgoing' and partner and partner != partner.commercial_partner_id">
+                                        <span>
+                                            <strong>Customer Address:</strong>
+                                        </span>
+                                        <t t-set="show_partner" t-value="True"/>
+                                    </div>
+                                    <div t-if="show_partner" name="partner_header">
+                                        <div t-field="partner.commercial_partner_id"
+                                             t-options='{"widget": "contact", "fields": ["address", "name", "phone", "vat"], "no_marker": True, "phone_icons": True}'/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <div class="page">
+                            <h2>
+                                <span t-field="o.name">WH/OUT/0001</span>
+                            </h2>
+                            <div class="oe_structure"></div>
+                            <div class="row mt32 mb32">
+                                <div t-if="o.origin" class="col-auto" name="div_origin">
+                                    <strong>Order:</strong>
+                                    <p t-field="o.origin">S0001</p>
+                                </div>
+                                <div t-if="o.state" class="col-auto" name="div_sched_date">
+                                    <strong>Shipping Date:</strong>
+                                    <p t-if="o.state == 'done'" t-field="o.date_done"/>
+                                    <p t-else="" t-field="o.scheduled_date"/>
+                                </div>
+                            </div>
+                            <div class="oe_structure"></div>
+                            <table class="table table-sm" t-if="o.state!='done'" name="stock_move_table">
+                                <thead>
+                                    <tr>
+                                        <th name="th_sm_product">
+                                            <strong>Product</strong>
+                                        </th>
+                                        <th name="th_sm_ordered">
+                                            <strong>Ordered</strong>
+                                        </th>
+                                        <th name="th_sm_quantity">
+                                            <strong>Delivered</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="lines" t-value="o.move_ids.filtered(lambda x: x.product_uom_qty)"/>
+                                    <tr t-foreach="lines" t-as="move">
+                                        <td>
+                                            <span t-field="move.product_id">Customizable Desk</span>
+                                            <p t-if="move.description_picking and move.description_picking != move.product_id.name and move.description_picking != move.product_id.display_name">
+                                                <span t-field="move.description_picking">Description on transfer</span>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <span t-field="move.product_uom_qty">3.00</span>
+                                            <span t-field="move.product_uom" groups="uom.group_uom">units</span>
+                                            <span t-if="move.product_packaging_id">
+                                                (
+                                                <span t-field="move.product_packaging_qty"
+                                                      t-options='{"widget": "integer"}'/>
+                                                <span t-field="move.product_packaging_id"/>)
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span t-field="move.quantity">3.00</span>
+                                            <span t-field="move.product_uom" groups="uom.group_uom">units</span>
+                                            <span t-if="move.product_packaging_id">
+                                                (
+                                                <span t-field="move.product_packaging_quantity"
+                                                      t-options='{"widget": "integer"}'/>
+                                                <span t-field="move.product_packaging_id"/>)
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-sm mt48" t-elif="o.move_line_ids and o.state=='done'"
+                                   name="stock_move_line_table">
+                                <t t-set="has_serial_number" t-value="False"/>
+                                <t t-set="has_serial_number" t-value="o.move_line_ids.mapped('lot_id')"
+                                   groups="stock.group_lot_on_delivery_slip"/>
+                                <thead>
+                                    <tr>
+                                        <th name="th_sml_product">
+                                            <strong>Product</strong>
+                                        </th>
+                                        <th name="th_sml_qty_ordered" class="text-center" t-if="not has_serial_number">
+                                            <strong>Ordered</strong>
+                                        </th>
+                                        <th name="lot_serial" t-else="">
+                                            Lot/Serial Number
+                                        </th>
+                                        <th name="th_sml_quantity" class="text-center">
+                                            <strong>Delivered</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- This part gets complicated with different use cases (additional use cases in extensions of this report):
+                                            1. If serial numbers are used and set to print on delivery slip => print lines as is, otherwise group them by overlapping
+                                                product + description + uom combinations
+                                            2. If any packages are assigned => split products up by package (or non-package) and then apply use case 1 -->
+                                    <!-- If has destination packages => create sections of corresponding products -->
+                                    <t t-if="o.has_packages" name="has_packages">
+                                        <t t-set="packages" t-value="o.move_line_ids.mapped('result_package_id')"/>
+                                        <t t-foreach="packages" t-as="package">
+                                            <t t-call="stock.stock_report_delivery_package_section_line"/>
+                                            <t t-set="package_move_lines"
+                                               t-value="o.move_line_ids.filtered(lambda l: l.result_package_id == package)"/>
+                                            <!-- If printing lots/serial numbers => keep products in original lines -->
+                                            <t t-if="has_serial_number">
+                                                <tr t-foreach="package_move_lines" t-as="move_line">
+                                                    <t t-call="stock.stock_report_delivery_has_serial_move_line"/>
+                                                </tr>
+                                            </t>
+                                            <!-- If not printing lots/serial numbers => merge lines with same product+description+uom -->
+                                            <t t-else="">
+                                                <t t-set="aggregated_lines"
+                                                   t-value="package_move_lines._get_aggregated_product_quantities(strict=True)"/>
+                                                <t t-call="stock.stock_report_delivery_aggregated_move_lines"/>
+                                            </t>
+                                        </t>
+                                        <!-- Make sure we do another section for package-less products if they exist -->
+                                        <t t-set="move_lines"
+                                           t-value="o.move_line_ids.filtered(lambda l: not l.result_package_id)"/>
+                                        <t t-set="aggregated_lines"
+                                           t-value="o.move_line_ids._get_aggregated_product_quantities(except_package=True)"/>
+                                        <t t-if="move_lines or aggregated_lines" name="no_package_move_lines">
+                                            <t t-call="stock.stock_report_delivery_no_package_section_line"
+                                               name="no_package_section"/>
+                                            <t t-if="has_serial_number">
+                                                <tr t-foreach="move_lines" t-as="move_line">
+                                                    <t t-call="stock.stock_report_delivery_has_serial_move_line"/>
+                                                </tr>
+                                            </t>
+                                            <t t-elif="aggregated_lines">
+                                                <t t-call="stock.stock_report_delivery_aggregated_move_lines"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <!-- No destination packages -->
+                                    <t t-else="">
+                                        <!-- If printing lots/serial numbers => keep products in original lines -->
+                                        <t t-if="has_serial_number">
+                                            <tr t-foreach="o.move_line_ids" t-as="move_line">
+                                                <t t-call="stock.stock_report_delivery_has_serial_move_line"/>
+                                            </tr>
+                                        </t>
+                                        <!-- If not printing lots/serial numbers => merge lines with same product -->
+                                        <t t-else="" name="aggregated_move_lines">
+                                            <t t-set="aggregated_lines"
+                                               t-value="o.move_line_ids._get_aggregated_product_quantities()"/>
+                                            <t t-call="stock.stock_report_delivery_aggregated_move_lines"/>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <div class="oe_structure"></div>
+                            <t t-set="backorders"
+                               t-value="o.backorder_ids.filtered(lambda x: x.state not in ('done', 'cancel'))"/>
+                            <div t-if="not (o.backorder_ids and backorders)" class="oe_structure"></div>
+                            <div t-else="">
+                                <p class="mt-5">
+                                    <span>Remaining quantities not yet delivered:</span>
+                                </p>
+                                <table class="table table-sm" name="stock_backorder_table" style="table-layout: fixed;">
+                                    <thead>
+                                        <tr>
+                                            <th name="th_sb_product">
+                                                <strong>Product</strong>
+                                            </th>
+                                            <th/>
+                                            <th name="th_sb_quantity" class="text-center">
+                                                <strong>Quantity</strong>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="backorders.mapped('move_ids').filtered(lambda x: x.product_uom_qty)"
+                                            t-as="bo_line">
+                                            <td class="w-auto">
+                                                <span t-field="bo_line.product_id">Office Chair</span>
+                                                <p t-if="bo_line.description_picking and bo_line.description_picking != bo_line.product_id.name and bo_line.description_picking != bo_line.product_id.display_name">
+                                                    <span t-field="bo_line.description_picking">Description on
+                                                        transfer
+                                                    </span>
+                                                </p>
+                                            </td>
+                                            <td/>
+                                            <td class="text-center w-auto">
+                                                <span t-field="bo_line.product_uom_qty">3.00</span>
+                                                <span t-field="bo_line.product_uom" groups="uom.group_uom">units</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div t-if="not o.signature" class="oe_structure"></div>
+                            <div t-else="" class="mt32 ml64 mr4" name="signature">
+                                <div class="offset-8">
+                                    <strong>Signature</strong>
+                                </div>
+                                <div class="offset-8">
+                                    <img t-att-src="image_data_uri(o.signature)"
+                                         style="max-height: 4cm; max-width: 8cm;"/>
+                                </div>
+                                <div t-if="o.partner_id" class="offset-8 text-center">
+                                    <p t-field="o.partner_id.name">John Doe</p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+            <t t-if="o.picking_type_code=='outgoing'">
+                <t t-call="kg_sale_order.delivery_note_custom_html_container">
+                    <!--                    <t t-call="kg_sale_order.delivery_external_layout_inherit">-->
+                    <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
+                    <t t-set="partner"
+                       t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
+                    <div class="header">
+                        <table class='table table-borderless table-condensed table-hover' width="100%">
+                            <tr>
+                                <td width="20%">
+                                    <img t-if='o.company_id.logo'
+                                         t-att-src='image_data_uri(o.company_id.logo)'
+                                         alt='Logo' style="max-width: 150px; max-height: 100px;"/>
+                                </td>
+                                <td width="40%">
+                                    <strong t-esc="o.company_id.name"/>
+                                    <br/>
+                                    <t t-if="o.company_id.partner_id.zip"><t
+                                            t-esc="o.company_id.partner_id.zip"/>,
+                                    </t>
+                                    <t t-if="o.company_id.partner_id.street"><t
+                                            t-esc="o.company_id.partner_id.street"/>,
+                                    </t>
+                                    <t t-if="o.company_id.partner_id.street2"><t
+                                            t-esc="o.company_id.partner_id.street2"/>,
+                                    </t>
+                                    <t t-if="o.company_id.partner_id.city"><t
+                                            t-esc="o.company_id.partner_id.city"/>,
+                                    </t>
+                                    <t t-if="o.company_id.partner_id.country_id">
+                                        <t
+                                                t-esc="o.company_id.partner_id.country_id.name"/>
+                                    </t>
+                                    <br/>
+                                    Phone/Fax:
+                                    <t t-if="o.company_id.phone">
+                                        <span t-field="o.company_id.phone"/>
+                                        <t t-if="o.company_id.mobile">/</t>
+                                    </t>
+                                    <t t-if="o.company_id.mobile">
+                                        <span t-field="o.company_id.mobile"/>
+                                    </t>
+                                </td>
+                                <td width="30%">
+                                    <strong>DELIVERY NOTE</strong>
+                                    <!--                                    <br/>-->
+                                    <!--                                    <strong>TRN:-->
+                                    <!--                                        <t t-esc="o.company_id.vat"/>-->
+                                    <!--                                    </strong>-->
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table width="100%" class="table table-borderless" style="border:none;">
+                            <tr style="border:none;">
+                                <td width="35%" style="border:none;">
+                                    <strong>Invoiced To:</strong>
+                                </td>
+                                <!--                                <td width="30%"/>-->
+                                <td width="30%" style="border:none;">
+                                    <strong>Delivered To:</strong>
+                                </td>
+                                <td width="18%" style="border:none;">
+                                    Delivery Note No.:
+                                    <!--                                    <t t-esc="o.name"/>-->
+                                </td>
+                                <td width="17%" style="border:none;">
+                                    <t t-esc="o.name"/>
+                                </td>
+                            </tr>
+                            <tr style="border:none;">
+                                <td style="border:none;">
+                                    <t t-if="o.origin">
+                                        <t t-set="sale_order"
+                                           t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                        <t t-if="sale_order">
+                                            <t t-esc="sale_order.partner_invoice_id.name"/>
+
+                                        </t>
+                                    </t>
+
+                                    <!--                                    <t t-foreach="o.sudo().create_uid.partner_id.child_ids" t-as="child">-->
+                                    <!--                                        <t t-if="child.type == 'invoice'">-->
+                                    <!--                                            <t t-esc="child.name"/>-->
+                                    <!--                                            <br/>-->
+                                    <!--                                        </t>-->
+                                    <!--                                    </t>-->
+                                </td>
+                                <td style="border:none;">
+                                    <t t-if="o.origin">
+                                        <t t-set="sale_order"
+                                           t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                        <t t-if="sale_order">
+                                            <t t-esc="sale_order.partner_shipping_id.name"/>
+
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="border:none;">
+
+                                    Delivery Note Date:
+
+
+                                </td>
+                                <td style="border:none;">
+                                    <t t-if="o.state=='done'">
+                                        <t t-esc="o.date_done.strftime('%d %b %y')"/>
+                                    </t>
+                                    <t t-if="o.state!='done'">
+                                        <t t-esc="o.scheduled_date.strftime('%d %b %y')"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="border:none;">
+                                <td style="border:none;">
+                                    <t t-if="o.origin">
+                                        <t t-set="sale_order"
+                                           t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                        <t t-if="sale_order">
+                                            <t t-esc="sale_order.partner_invoice_id.street"/>
+
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="border:none;">
+                                    <t t-if="o.origin">
+                                        <t t-set="sale_order"
+                                           t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                        <t t-if="sale_order">
+                                            <t t-esc="sale_order.partner_shipping_id.street"/>
+
+                                        </t>
+                                    </t>
+                                </td>
+
+                                <td style="border:none;">
+                                    <span>PJT/SO No.:
+                                        <!--                                        <t t-if="o.origin">-->
+                                        <!--                                            <t t-esc="o.origin"/>-->
+                                        <!--                                        </t>-->
+                                    </span>
+                                </td>
+                                <td style="border:none;">
+                                    <t t-if="o.origin">
+                                        <t t-esc="o.origin"/>
+                                    </t>
+                                </td>
+
+                            </tr>
+                            <tr style="border:none;">
+                                <td style="border:none;">
+                                    <t t-if="o.origin">
+                                        <t t-set="sale_order"
+                                           t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                        <t t-if="sale_order">
+                                            <t t-if="sale_order.partner_invoice_id.state_id.name"><t
+                                                    t-esc="sale_order.partner_invoice_id.state_id.name"/>,
+                                            </t>
+                                            <t t-if="sale_order.partner_invoice_id.country_id.name">
+                                                <t
+                                                        t-esc="sale_order.partner_invoice_id.country_id.name"/>
+                                            </t>
+
+
+                                        </t>
+                                    </t>
+                                    <!--                                    <t t-if="o.partner_id.state_id.name"><span t-esc="o.partner_id.state_id.name"/>,-->
+                                    <!--                                    </t>-->
+                                    <!--                                    <t t-if="o.partner_id.country_id.name">-->
+                                    <!--                                        <span t-esc="o.partner_id.country_id.name"/>-->
+                                    <!--                                    </t>-->
+                                </td>
+                                <td style="border:none;">
+                                    <t t-if="o.origin">
+                                        <t t-set="sale_order"
+                                           t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                        <t t-if="sale_order">
+                                            <t t-if="sale_order.partner_shipping_id.state_id.name"><t
+                                                    t-esc="sale_order.partner_shipping_id.state_id.name"/>,
+                                            </t>
+                                            <t t-if="sale_order.partner_shipping_id.country_id.name">
+                                                <t
+                                                        t-esc="sale_order.partner_shipping_id.country_id.name"/>
+                                            </t>
+
+
+                                        </t>
+                                    </t>
+                                </td>
+                                <td style="border:none;" colspan="2">
+
+
+                                </td>
+                            </tr>
+                            <tr style="border:none;">
+                                <td style="border:none;">
+                                    <span>ATTN:
+                                        <t t-if="o.origin">
+                                            <t t-set="sale_order"
+                                               t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                            <t t-if="sale_order">
+                                                <t t-esc="sale_order.partner_invoice_id.attention"/>
+
+                                            </t>
+                                        </t>
+                                    </span>
+                                </td>
+                                <td style="border:none;">
+                                    <span>ATTN:
+                                        <t t-if="o.origin">
+                                            <t t-set="sale_order"
+                                               t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                            <t t-if="sale_order">
+                                                <t t-esc="sale_order.partner_shipping_id.attention"/>
+
+                                            </t>
+                                        </t>
+                                    </span>
+                                </td>
+                                <td style="border:none;">
+                                    <span>Cust. PO No. :
+
+                                    </span>
+                                </td>
+                                <td style="border:none;">
+                                    <t t-if="o.purchase_id.name">
+                                        <t t-esc="o.purchase_id.name"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="border:none;">
+                                <td style="border:none;">
+                                    <span>Contact No.:
+                                        <t t-if="o.origin">
+                                            <t t-set="sale_order"
+                                               t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                            <t t-if="sale_order">
+                                                <t t-if="sale_order.partner_invoice_id.phone">
+                                                    <t
+                                                            t-esc="sale_order.partner_invoice_id.phone"/>
+                                                </t>
+
+
+                                            </t>
+                                        </t>
+                                    </span>
+                                </td>
+                                <td style="border:none;">
+                                    <span>Contact No.:
+                                        <t t-if="o.origin">
+                                            <t t-set="sale_order"
+                                               t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                            <t t-if="sale_order">
+                                                <t t-if="sale_order.partner_shipping_id.phone">
+                                                    <t
+                                                            t-esc="sale_order.partner_shipping_id.phone"/>
+                                                </t>
+
+
+                                            </t>
+                                        </t>
+                                    </span>
+                                </td>
+                                <td style="border:none;">
+                                    <span>Delivery Terms:</span>
+
+                                </td>
+                                <td style="border:none;">
+                                    <t t-if="o.origin">
+                                        <t t-set="sale_order"
+                                           t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                        <t t-if="sale_order and sale_order.incoterm">
+
+                                            <t t-esc="sale_order.incoterm.name"/>
+                                            <!--                                            </span>-->
+
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="border:none;">
+                                <td colspan="2" style="border:none;"/>
+                                <!--                                <td/>-->
+                                <td style="border:none;">
+                                    <!--                                        <t t-if="o.invoice_payment_term_id.name">-->
+                                    <span>Mode of Shipment:
+
+                                        <!--                                                <t t-esc="o.invoice_payment_term_id.name"/>-->
+                                    </span>
+                                    <!--                                        </t>-->
+                                </td>
+                                <td style="border:none;">
+                                    <t t-if="o.origin">
+                                        <t t-set="sale_order"
+                                           t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>
+                                        <t t-if="sale_order and sale_order.mode_of_shipment">
+                                            <t t-esc="sale_order.mode_of_shipment"/>
+
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="border:none;">
+                                <td colspan="4" style="border:none;">
+
+                                    <span>TRN:
+                                        <t t-if="o.partner_id.vat">
+                                            <t t-esc="o.partner_id.vat"/>
+                                        </t>
+                                    </span>
+                                </td>
+                                <!--                                <td/>-->
+                                <!--                                <td>-->
+                                <!--                                    <t t-if="o.origin">-->
+                                <!--                                        <t t-set="sale_order"-->
+                                <!--                                           t-value="o.env['sale.order'].search([('name', '=', o.origin)])"/>-->
+                                <!--                                        <t t-if="sale_order and sale_order.incoterm">-->
+                                <!--                                            <span>Delivery Terms:-->
+                                <!--                                                <t t-esc="sale_order.incoterm.name"/>-->
+                                <!--                                            </span>-->
+
+                                <!--                                        </t>-->
+                                <!--                                    </t>-->
+                                <!--                                        <t t-if="o.invoice_incoterm_id.name">-->
+                                <!--                                            <span>Delivery Terms:-->
+                                <!--                                                <t t-esc="o.invoice_incoterm_id.name"/>-->
+                                <!--                                            </span>-->
+                                <!--                                        </t>-->
+                                <!--                                </td>-->
+                            </tr>
+                        </table>
+                        <br/>
+                        <t t-set="count" t-value="0"/>
+
+                        <table width='100%' class="table table-bordered" style="font-size:12px;" valign="middle">
+                            <thead>
+                                <tr>
+                                    <th valign="middle" style="font-size:12px;">NO.</th>
+                                    <th valign="middle" style="font-size:12px;">P.O. ITEM NO.</th>
+                                    <th valign="middle" style="font-size:12px;">DESCRIPTION OF SERVICE / ITEM</th>
+                                    <th valign="middle" style="font-size:12px;">MAKE</th>
+                                    <th valign="middle" style="font-size:12px;">MODEL</th>
+                                    <th valign="middle" style="font-size:12px;">QTY</th>
+                                    <th valign="middle" style="font-size:12px;">UOM</th>
+                                </tr>
+                            </thead>
+                            <style>
+                                table,tr,td,th {
+                                border:1px solid;
+                                border-collapse: collapse; }
+                                td,th {
+                                padding:5px
+                                }
+                            </style>
+                            <tbody>
+                                <tr t-foreach="o.move_ids_without_package" t-as="line">
+                                    <td align="center">
+                                        <t t-set="count" t-value="count+1"/>
+                                        <t t-esc="count"/>
+                                    </td>
+                                    <td>
+                                        <!--#po item code-->
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.name"/>
+
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.product_id.brand_id.name"/>
+
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.product_id.model_id.name"/>
+
+                                    </td>
+                                    <td align="center">
+                                        <t t-esc="line.quantity"/>
+
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.sale_line_id.product_uom.name"/>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="18px"/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table width="100%" style="margin-top:50px;font-size:12px;border:none;">
+                            <tr style="border:none;">
+                                <td width="50%" style="border:none;">GOODS RECEIVED IN ACCEPTED:
+                                </td>
+                                <td rowspan="4" align="center" style="border:none;">
+                                    <t t-if="o.env.user.sign_signature">
+                                        <img t-att-src="image_data_uri(o.env.user.sign_signature)"
+                                             style="max-height: 2cm; max-width: 6cm;"/>
+                                    </t>
+                                </td>
+
+                            </tr>
+                            <tr style="border:none;">
+                                <td height="30px" style="border:none;"></td>
+                            </tr>
+                            <tr style="border:none;">
+                                <!--                                <td>-->
+                                <!--                                    SIGNATURE:-->
+
+                                <!--                                </td>-->
+                            </tr>
+                            <tr style="border:none;">
+                                <td style="border:none;">SIGNATURE:</td>
+
+                            </tr>
+                            <tr style="border:none;">
+                                <td style="border:none;">NAME:</td>
+                                <td style="border:none;">AUTHORISED SIGNATORY :</td>
+                            </tr>
+                            <tr style="border:none;">
+                                <td style="border:none;">DATE OF RECEIPT :</td>
+                                <td style="border:none;">POSITION:</td>
+                            </tr>
+                            <!--                            <tr >-->
+                            <!--                                <td >DATE OF RECEIPT :</td>-->
+                            <!--                                <td ></td>-->
+                            <!--                            </tr>-->
+                        </table>
+
+
+                    </div>
+                </t>
+            </t>
+            <!--            </t>-->
+        </xpath>
+    </template>
+
+
+</odoo>

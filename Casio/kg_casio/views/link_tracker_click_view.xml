@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <record id="add_extra_details_link_tracker_click" model="ir.ui.view">
+            <field name="name">link.tracker.click.inherit</field>
+            <field name="model">link.tracker.click</field>
+            <field name="inherit_id" ref="link_tracker.link_tracker_click_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="ip" position="after">
+                        <field name="kg_email"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+          <record id="add_extra_details_link_tracker_click_tree" model="ir.ui.view">
+            <field name="name">link.tracker.click.inherit.tree</field>
+            <field name="model">link.tracker.click</field>
+            <field name="inherit_id" ref="link_tracker.link_tracker_click_view_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="ip" position="after">
+                        <field name="kg_email"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>

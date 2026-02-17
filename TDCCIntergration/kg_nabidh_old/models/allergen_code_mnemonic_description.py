@@ -1,0 +1,9 @@
+from odoo import models, fields, api, _
+
+
+
+class KgAllergenCodeMnemonicDescription(models.Model):
+    _name = 'allergen.code'
+
+    code = fields.Char(string="Value")
+    name = fields.Char(string="Description")

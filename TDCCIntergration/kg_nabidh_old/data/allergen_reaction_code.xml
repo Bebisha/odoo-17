@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="reaction_hives" model="allergy.reaction.code">
+            <field name="code">HIVES</field>
+            <field name="name">Hives</field>
+        </record>
+
+        <record id="reaction_itching" model="allergy.reaction.code">
+            <field name="code">ITCH</field>
+            <field name="name">Itching</field>
+        </record>
+
+        <record id="reaction_nasal_congestion" model="allergy.reaction.code">
+            <field name="code">NASAL_CONGESTION</field>
+            <field name="name">Nasal congestion</field>
+        </record>
+
+        <record id="reaction_rash" model="allergy.reaction.code">
+            <field name="code">RASH</field>
+            <field name="name">Rash</field>
+        </record>
+
+        <record id="reaction_scratchy_throat" model="allergy.reaction.code">
+            <field name="code">SCRATCHY_THROAT</field>
+            <field name="name">Scratchy throat</field>
+        </record>
+
+        <record id="reaction_watery_eyes" model="allergy.reaction.code">
+            <field name="code">WATERY_EYES</field>
+            <field name="name">Watery or itchy eyes</field>
+        </record>
+
+        <record id="reaction_sneezing" model="allergy.reaction.code">
+            <field name="code">SNEEZING</field>
+            <field name="name">Sneezing</field>
+        </record>
+
+        <record id="reaction_wheezing" model="allergy.reaction.code">
+            <field name="code">WHEEZING</field>
+            <field name="name">Wheezing</field>
+        </record>
+
+        <record id="reaction_swollen_lips" model="allergy.reaction.code">
+            <field name="code">SWOLLEN_LIPS</field>
+            <field name="name">Swollen lips</field>
+        </record>
+
+        <record id="reaction_swollen_tongue" model="allergy.reaction.code">
+            <field name="code">SWOLLEN_TONGUE</field>
+            <field name="name">Swollen tongue</field>
+        </record>
+
+        <record id="reaction_swollen_eyes" model="allergy.reaction.code">
+            <field name="code">SWOLLEN_EYES</field>
+            <field name="name">Swollen eyes or face</field>
+        </record>
+
+        <record id="reaction_chest_tightness" model="allergy.reaction.code">
+            <field name="code">CHEST_TIGHTNESS</field>
+            <field name="name">Chest tightness</field>
+        </record>
+
+        <record id="reaction_shortness_breath" model="allergy.reaction.code">
+            <field name="code">SHORTNESS_BREATH</field>
+            <field name="name">Shortness of breath and a cough</field>
+        </record>
+
+        <record id="reaction_unknown" model="allergy.reaction.code">
+            <field name="code">UNKNOWN</field>
+            <field name="name">Unknown</field>
+        </record>
+
+        <record id="reaction_other" model="allergy.reaction.code">
+            <field name="code">OTHER</field>
+            <field name="name">Other</field>
+        </record>
+
+    </data>
+</odoo>

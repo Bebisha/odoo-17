@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="kg_product_template_form_view_inherit003" model="ir.ui.view">
+        <field name="name">kg.product.templates.form.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="domain">['&amp;',('product_group_id', '=', product_group_id),('parent_id','=',False)]</attribute>
+            </xpath>
+
+        </field>
+    </record>
+    <record id="kg_product_template_form_view_inherit004" model="ir.ui.view">
+        <field name="name">kg.product.prodct.form.view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="domain">['&amp;',('product_group_id', '=', product_group_id),('parent_id','=',False)]</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="product_template_group_inherit_view_int" model="ir.ui.view">
+        <field name="name">product.template.inherit.group</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="domain">[('is_scope', '=', True)]</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="placeholder">Please Select the group</attribute>
+            </xpath>
+            <xpath expr="//field[@name='uom_po_id']" position='after'>
+
+                <field name="certificate_id" domain="[('child_category_id', '=', sub_category_id )]"/>
+                <field name="category_ids" invisible="1"/>
+                <field name="sub_category_id" invisible="1"/>
+                <field name="is_equipment"/>
+                <field name="is_master_equipment" invisible="1"/>
+                <field name="standard_used_id" />
+                <field name="work_instruction_id"/>
+                <field name="is_gas_detection" invisible="1"/>
+                <field name="equipment_make" invisible="is_master_equipment != True"/>
+                <field name="equipment_serial_no" invisible="is_master_equipment != True"/>
+                <field name="equipment_certificate_no" invisible="is_master_equipment != True"/>
+                <field name="equipment_traceability" invisible="is_master_equipment != True"/>
+                <!--                <field name="is_gas_detection" invisible="1"/>-->
+                <!--                <field name="is_fire_detection" invisible="1"/>-->
+                <!--                <field name="is_electrical" invisible="1"/>-->
+                <!--                <field name="is_measuring_control" invisible="1"/>-->
+                <!--                <field name="is_communication" invisible="1"/>-->
+                <!--                <field name="is_featured_marine" invisible="1"/>-->
+                <!--                <field name="is_hardwares" invisible="1"/>-->
+                <!--                <field name="is_tools" invisible="1"/>-->
+                <!--                <field name="is_consumables" invisible="1"/>-->
+                <!--                <field name="is_health_safety" invisible="1"/>-->
+                <!--                <field name="is_cables" invisible="1"/>-->
+                <!--                <field name="is_navigation" invisible="1"/>-->
+
+
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="nolable">1</attribute>
+                <!--                <attribute name="domain">[('is_scope', '=', True)]</attribute>-->
+                <label string="Sub Category" for="categ_id" class="o_form_label"
+                       invisible="is_equipment == True"/>
+                <label string="Instrument" for="categ_id" class="o_form_label"
+                       invisible="is_equipment == False"/>
+            </xpath>
+            <!--            <xpath expr="//page[@name='invoicing']" position="after">-->
+            <!--                <page string="Gas Detection Details" name="gas_detection_group" invisible="is_gas_detection != True">-->
+            <!--                    <group string=" Gas Detection Details">-->
+            <!--                        <group>-->
+
+            <!--                            <field name="categ_id" string="Category"/>-->
+            <!--                            <field name="make"/>-->
+            <!--                            <field name="new_code"/>-->
+            <!--                            <field name="existing_code"/>-->
+            <!--                            <field name="description"/>-->
+            <!--                            <field name="full_description"/>-->
+            <!--                            <field name="range"/>-->
+            <!--                            <field name="part_number"/>-->
+            <!--                            <field name="model"/>-->
+            <!--                            <field name="type_of_sensor"/>-->
+            <!--                            <field name="communication_output"/>-->
+            <!--                        </group>-->
+            <!--                        <group>-->
+            <!--                            <field name="number_of_channels"/>-->
+            <!--                            <field name="life_period"/>-->
+            <!--                            <field name="fitting_dimension"/>-->
+            <!--                            <field name="body_type_name"/>-->
+            <!--                            <field name="country_of_origin"/>-->
+            <!--                            <field name="ip_rating"/>-->
+            <!--                            <field name="class_approval"/>-->
+            <!--                            <field name="transport_regulation"/>/>-->
+            <!--                        </group>-->
+
+
+            <!--                    </group>-->
+            <!--                </page>-->
+            <!--                <page string="Fire Detection Systems" name="fire_group" invisible="is_fire_detection != True">-->
+            <!--                    <group>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="make"/>-->
+            <!--                        <field name="item_code"/>-->
+            <!--                        <field name="full_description"/>-->
+            <!--                        <field name="model"/>-->
+            <!--                        <field name="part_number"/>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="type_of_sensor"/>-->
+            <!--                        <field name="operation_voltage"/>-->
+            <!--                    </group>-->
+            <!--                    <group>-->
+            <!--                        <field name="dimensions"/>-->
+            <!--                        <field name="no_of_zones"/>-->
+            <!--                        <field name="no_of_loops"/>-->
+            <!--                        <field name="body_type_name"/>-->
+            <!--                        <field name="certificate_id"/>-->
+            <!--                        <field name="country_of_origin"/>-->
+            <!--                        <field name="ip_rating"/>-->
+            <!--                        <field name="class_approval"/>-->
+            <!--                        <field name="certificate_id"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                    </group>-->
+            <!--                </page>-->
+            <!--                &lt;!&ndash; Electrical System &ndash;&gt;-->
+            <!--                <page string="Electrical System" name="electrical_group" invisible="is_electrical != True">-->
+            <!--                    <group>-->
+            <!--                        <field name="category_code"/>-->
+            <!--                        <field name="category"/>-->
+            <!--                        <field name="sub_category"/>-->
+            <!--                        <field name="make"/>-->
+            <!--                        <field name="item_code"/>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="full_description"/>-->
+            <!--                        <field name="model"/>-->
+            <!--                        <field name="part_number"/>-->
+            <!--                        <field name="range"/>-->
+            <!--                    </group>-->
+            <!--                    <group>-->
+            <!--                        <field name="rated_current"/>-->
+            <!--                        <field name="frequency"/>-->
+            <!--                        <field name="network_type_id"/>-->
+            <!--                        <field name="no_of_voltage"/>-->
+            <!--                        <field name="input_voltage"/>-->
+            <!--                        <field name="output_voltage"/>-->
+            <!--                        <field name="body_type_name"/>-->
+            <!--                        <field name="country_of_origin"/>-->
+            <!--                        <field name="ip_rating"/>-->
+            <!--                        <field name="class_approval"/>-->
+            <!--                        <field name="certification"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                    </group>-->
+            <!--                </page>-->
+
+            <!--                &lt;!&ndash; Measuring Control & Instruments &ndash;&gt;-->
+            <!--                <page string="Measuring Control &amp; Instruments" name="measure_group"-->
+            <!--                      invisible="is_measuring_control != True">-->
+            <!--                    <group>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="make"/>-->
+            <!--                        <field name="item_code"/>-->
+            <!--                        <field name="full_description"/>-->
+            <!--                        <field name="model"/>-->
+            <!--                        <field name="part_number"/>-->
+            <!--                        <field name="technical_specification"/>-->
+            <!--                        <field name="range"/>-->
+            <!--                        <field name="connection_size"/>-->
+            <!--                        <field name="differential_range"/>-->
+            <!--                        <field name="type_of_sensor"/>-->
+            <!--                    </group>-->
+            <!--                    <group>-->
+            <!--                        <field name="medium"/>-->
+            <!--                        <field name="dimensions"/>-->
+            <!--                        <field name="body_type_name"/>-->
+            <!--                        <field name="frequency"/>-->
+            <!--                        <field name="certificate_id"/>-->
+            <!--                        <field name="country_of_origin"/>-->
+            <!--                        <field name="ip_rating"/>-->
+            <!--                        <field name="class_approval"/>-->
+            <!--                        <field name="certificate_id"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                    </group>-->
+            <!--                </page>-->
+
+            <!--                &lt;!&ndash; Navigation System &ndash;&gt;-->
+            <!--                <page string="Navigation System" name="navigation_group" invisible="is_navigation != True">-->
+            <!--                    <group>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="make"/>-->
+            <!--                        <field name="item_code"/>-->
+            <!--                        <field name="full_description"/>-->
+            <!--                        <field name="model"/>-->
+            <!--                        <field name="part_number"/>-->
+            <!--                        <field name="technical_specification"/>-->
+            <!--                        <field name="range"/>-->
+            <!--                        <field name="number_of_channels"/>-->
+            <!--                        <field name="frequency"/>-->
+            <!--                    </group>-->
+            <!--                    <group>-->
+            <!--                        <field name="mounting_type_name"/>-->
+            <!--                        <field name="dimension"/>-->
+            <!--                        <field name="body_type_name"/>-->
+            <!--                        <field name="certificate_id"/>-->
+            <!--                        <field name="country_of_origin"/>-->
+            <!--                        <field name="ip_rating"/>-->
+            <!--                        <field name="class_approval"/>-->
+            <!--                        <field name="certificate_id"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                    </group>-->
+            <!--                </page>-->
+
+
+            <!--                &lt;!&ndash; Communication System &ndash;&gt;-->
+            <!--                <page string="Communication System" name="communication_group" invisible="is_communication != True">-->
+            <!--                    <group>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="make"/>-->
+            <!--                        <field name="item_code"/>-->
+            <!--                        <field name="full_description"/>-->
+            <!--                        <field name="model"/>-->
+            <!--                        <field name="part_number"/>-->
+            <!--                        <field name="technical_specification"/>-->
+            <!--                        <field name="range"/>-->
+            <!--                        <field name="number_of_channels"/>-->
+            <!--                    </group>-->
+            <!--                    <group>-->
+            <!--                        <field name="frequency"/>-->
+            <!--                        <field name="mounting_type_name"/>-->
+            <!--                        <field name="dimension"/>-->
+            <!--                        <field name="body_type_name"/>-->
+            <!--                        <field name="certificate_id"/>-->
+            <!--                        <field name="country_of_origin"/>-->
+            <!--                        <field name="ip_rating"/>-->
+            <!--                        <field name="class_approval"/>-->
+            <!--                        <field name="certificate_id"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                    </group>-->
+            <!--                </page>-->
+
+            <!--                &lt;!&ndash; Featured Marine Products &ndash;&gt;-->
+            <!--                <page string="Featured Marine Products" name="featured_marine_group"-->
+            <!--                      invisible="is_featured_marine != True">-->
+            <!--                    <group>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="make"/>-->
+            <!--                        <field name="item_code"/>-->
+            <!--                        <field name="full_description"/>-->
+            <!--                        <field name="model"/>-->
+            <!--                        <field name="part_number"/>-->
+            <!--                        <field name="technical_specification"/>-->
+            <!--                        <field name="range"/>-->
+            <!--                        <field name="frequency"/>-->
+            <!--                    </group>-->
+            <!--                    <group>-->
+            <!--                        <field name="length_of_type_name"/>-->
+            <!--                        <field name="fitting_dimensions"/>-->
+            <!--                        <field name="color"/>-->
+            <!--                        <field name="certificate_id"/>-->
+            <!--                        <field name="country_of_origin"/>-->
+            <!--                        <field name="ip_rating"/>-->
+            <!--                        <field name="class_approval"/>-->
+            <!--                        <field name="certificate_id"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                    </group>-->
+            <!--                </page>-->
+
+            <!--                &lt;!&ndash; Cables &ndash;&gt;-->
+            <!--                <page string="Cables" name="cables_group" invisible="is_cables != True">-->
+            <!--                    <group>-->
+            <!--                        <field name="category"/>-->
+            <!--                        <field name="make"/>-->
+            <!--                        <field name="item_code"/>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="full_description"/>-->
+            <!--                        <field name="model"/>-->
+            <!--                        <field name="part_number"/>-->
+            <!--                        <field name="technical_specification"/>-->
+            <!--                        <field name="range"/>-->
+            <!--                    </group>-->
+            <!--                    <group>-->
+            <!--                        <field name="rated_current_cable"/>-->
+            <!--                        <field name="copper_thickness"/>-->
+            <!--                        <field name="number_of_cores"/>-->
+            <!--                        <field name="body_type_name"/>-->
+            <!--                        <field name="certification"/>-->
+            <!--                        <field name="country_of_origin"/>-->
+            <!--                        <field name="ip_rating"/>-->
+            <!--                        <field name="class_approval"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                    </group>-->
+            <!--                </page>-->
+
+            <!--                &lt;!&ndash; Hardware &ndash;&gt;-->
+            <!--                <page string="Hardware" name="hardware_group" invisible="is_hardwares != True">-->
+            <!--                    <group>-->
+            <!--                        <field name="main"/>-->
+            <!--                        <field name="make"/>-->
+            <!--                        <field name="item_code"/>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="full_description"/>-->
+            <!--                        <field name="model"/>-->
+            <!--                        <field name="part_number"/>-->
+            <!--                        <field name="complementary"/>-->
+            <!--                    </group>-->
+            <!--                    <group>-->
+            <!--                        <field name="range"/>-->
+            <!--                        <field name="firring_dimension"/>-->
+            <!--                        <field name="dimensions"/>-->
+            <!--                        <field name="body_type_name"/>-->
+            <!--                        <field name="certification"/>-->
+            <!--                        <field name="country_of_origin"/>-->
+            <!--                        <field name="ip_rating"/>-->
+            <!--                        <field name="class_approval"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                    </group>-->
+            <!--                </page>-->
+
+            <!--                &lt;!&ndash; Tools & Equipments &ndash;&gt;-->
+            <!--                <page string="Tools &amp; Equipments" name="tools_equipment_group" invisible="is_tools != True">-->
+            <!--                    <group>-->
+            <!--                        <field name="tool_main"/>-->
+            <!--                        <field name="make"/>-->
+            <!--                        <field name="item_code"/>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="full_description"/>-->
+            <!--                        <field name="model"/>-->
+            <!--                        <field name="part_number"/>-->
+            <!--                        <field name="tool_complementary"/>-->
+            <!--                        <field name="range"/>-->
+            <!--                    </group>-->
+            <!--                    <group>-->
+            <!--                        <field name="dimensions_tool"/>-->
+            <!--                        <field name="body_type_name"/>-->
+            <!--                        <field name="certification"/>-->
+            <!--                        <field name="country_of_origin"/>-->
+            <!--                        <field name="ip_rating"/>-->
+            <!--                        <field name="class_approval"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                    </group>-->
+
+            <!--                </page>-->
+
+            <!--                &lt;!&ndash; Health, Safety & Environment &ndash;&gt;-->
+            <!--                <page string="Health, Safety &amp; Environment" name="health_safety_environment_group"-->
+            <!--                      invisible="is_consumables != True">-->
+            <!--                    <group>-->
+            <!--                        <field name="hse_specification"/>-->
+            <!--                        <field name="make"/>-->
+            <!--                        <field name="item_code"/>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="full_description"/>-->
+            <!--                        <field name="model"/>-->
+            <!--                        <field name="part_number"/>-->
+            <!--                    </group>-->
+            <!--                    <group>-->
+            <!--                        <field name="technical_specification"/>-->
+            <!--                        <field name="range"/>-->
+            <!--                        <field name="certification"/>-->
+            <!--                        <field name="country_of_origin"/>-->
+            <!--                        <field name="ip_rating"/>-->
+            <!--                        <field name="class_approval"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                    </group>-->
+
+
+            <!--                </page>-->
+
+            <!--                &lt;!&ndash; Consumables &ndash;&gt;-->
+            <!--                <page string="Consumables" name="consumables_group" invisible="is_health_safety != True">-->
+            <!--                    <group>-->
+            <!--                        <field name="description"/>-->
+            <!--                        <field name="make"/>-->
+            <!--                        <field name="item_code"/>-->
+            <!--                        <field name="full_description"/>-->
+            <!--                        <field name="model"/>-->
+            <!--                        <field name="part_number"/>-->
+            <!--                        <field name="technical_specification"/>-->
+            <!--                    </group>-->
+            <!--                    <group>-->
+            <!--                        <field name="range"/>-->
+            <!--                        <field name="certification"/>-->
+            <!--                        <field name="country_of_origin"/>-->
+            <!--                        <field name="ip_rating"/>-->
+            <!--                        <field name="class_approval"/>-->
+            <!--                        <field name="certification"/>-->
+            <!--                        <field name="transport_regulation"/>-->
+            <!--                    </group>-->
+
+            <!--                </page>-->
+
+
+            <!--            </xpath>-->
+
+        </field>
+    </record>
+</odoo>

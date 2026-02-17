@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="account_analytic_account_view_form_inherit_id" model="ir.ui.view">
+        <field name="name">account.analytic.account.form.inherit</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field eval="40" name="priority"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="parent_id"/>
+            </xpath>
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="show_in_mc"/>
+                <field name="management_cost"/>
+                <field name="complete_name" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="kg_view_account_analytic_account_list_inherit_id" model="ir.ui.view">
+        <field name="name">kg.account.analytic.account.tree.inherit</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="replace">
+                <field name="complete_name" string="Name"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

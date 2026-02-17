@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="nat_afghan" model="nationality.form">
+            <field name="code">Afghan</field>
+            <field name="name">Afghanistan</field>
+        </record>
+
+        <record id="nat_albanian" model="nationality.form">
+            <field name="code">Albanian</field>
+            <field name="name">Albania</field>
+        </record>
+
+        <record id="nat_algerian" model="nationality.form">
+            <field name="code">Algerian</field>
+            <field name="name">Algeria</field>
+        </record>
+
+        <record id="nat_american" model="nationality.form">
+            <field name="code">American</field>
+            <field name="name">United States of America</field>
+        </record>
+
+        <record id="nat_andorran" model="nationality.form">
+            <field name="code">Andorran</field>
+            <field name="name">Andorra</field>
+        </record>
+
+        <record id="nat_angolan" model="nationality.form">
+            <field name="code">Angolan</field>
+            <field name="name">Angola</field>
+        </record>
+
+        <record id="nat_guinean" model="nationality.form">
+            <field name="code">Guinean</field>
+            <field name="name">Guinea; Guinea-Bissau</field>
+        </record>
+
+        <record id="nat_guyanese" model="nationality.form">
+            <field name="code">Guyanese</field>
+            <field name="name">Guyana</field>
+        </record>
+
+        <record id="nat_haitian" model="nationality.form">
+            <field name="code">Haitian</field>
+            <field name="name">Haiti</field>
+        </record>
+
+        <record id="nat_honduran" model="nationality.form">
+            <field name="code">Honduran</field>
+            <field name="name">Honduras</field>
+        </record>
+
+        <record id="nat_hungarian" model="nationality.form">
+            <field name="code">Hungarian</field>
+            <field name="name">Hungary</field>
+        </record>
+
+        <record id="nat_icelandic" model="nationality.form">
+            <field name="code">Icelandic</field>
+            <field name="name">Iceland</field>
+        </record>
+
+        <record id="nat_polish" model="nationality.form">
+            <field name="code">Polish</field>
+            <field name="name">Poland</field>
+        </record>
+
+        <record id="nat_portuguese" model="nationality.form">
+            <field name="code">Portuguese</field>
+            <field name="name">Portugal</field>
+        </record>
+
+        <record id="nat_qatari" model="nationality.form">
+            <field name="code">Qatari</field>
+            <field name="name">Qatar</field>
+        </record>
+
+        <record id="nat_romanian" model="nationality.form">
+            <field name="code">Romanian</field>
+            <field name="name">Romania</field>
+        </record>
+
+        <record id="nat_russian" model="nationality.form">
+            <field name="code">Russian</field>
+            <field name="name">Russian Federation</field>
+        </record>
+
+        <record id="nat_rwandan" model="nationality.form">
+            <field name="code">Rwandan</field>
+            <field name="name">Rwanda</field>
+        </record>
+
+        <record id="nat_colombia" model="nationality.form">
+            <field name="code">170</field>
+            <field name="name">Colombia</field>
+        </record>
+
+        <record id="nat_comoros" model="nationality.form">
+            <field name="code">174</field>
+            <field name="name">Comoros</field>
+        </record>
+
+        <record id="nat_congo" model="nationality.form">
+            <field name="code">178</field>
+            <field name="name">Congo</field>
+        </record>
+
+        <record id="nat_cook_islands" model="nationality.form">
+            <field name="code">184</field>
+            <field name="name">Cook Islands</field>
+        </record>
+
+        <record id="nat_costa_rica" model="nationality.form">
+            <field name="code">188</field>
+            <field name="name">Costa Rica</field>
+        </record>
+
+        <record id="nat_cote_divoire" model="nationality.form">
+            <field name="code">384</field>
+            <field name="name">Côte d'Ivoire</field>
+        </record>
+
+        <record id="nat_croatia" model="nationality.form">
+            <field name="code">191</field>
+            <field name="name">Croatia</field>
+        </record>
+
+        <record id="nat_cuba" model="nationality.form">
+            <field name="code">192</field>
+            <field name="name">Cuba</field>
+        </record>
+
+        <record id="nat_curacao" model="nationality.form">
+            <field name="code">531</field>
+            <field name="name">Curaçao</field>
+        </record>
+
+        <record id="nat_cyprus" model="nationality.form">
+            <field name="code">196</field>
+            <field name="name">Cyprus</field>
+        </record>
+
+        <record id="nat_czech_republic" model="nationality.form">
+            <field name="code">203</field>
+            <field name="name">Czech Republic</field>
+        </record>
+
+        <record id="nat_martinique" model="nationality.form">
+            <field name="code">474</field>
+            <field name="name">Martinique</field>
+        </record>
+
+        <record id="nat_mauritania" model="nationality.form">
+            <field name="code">478</field>
+            <field name="name">Mauritania</field>
+        </record>
+
+        <record id="nat_mauritius" model="nationality.form">
+            <field name="code">480</field>
+            <field name="name">Mauritius</field>
+        </record>
+
+        <record id="nat_mayotte" model="nationality.form">
+            <field name="code">175</field>
+            <field name="name">Mayotte</field>
+        </record>
+
+        <record id="nat_mexico" model="nationality.form">
+            <field name="code">484</field>
+            <field name="name">Mexico</field>
+        </record>
+
+        <record id="nat_micronesia" model="nationality.form">
+            <field name="code">583</field>
+            <field name="name">Micronesia (Federated States of)</field>
+        </record>
+
+        <record id="nat_monaco" model="nationality.form">
+            <field name="code">492</field>
+            <field name="name">Monaco</field>
+        </record>
+
+        <record id="nat_mongolia" model="nationality.form">
+            <field name="code">496</field>
+            <field name="name">Mongolia</field>
+        </record>
+
+        <record id="nat_montenegro" model="nationality.form">
+            <field name="code">499</field>
+            <field name="name">Montenegro</field>
+        </record>
+
+        <record id="nat_montserrat" model="nationality.form">
+            <field name="code">500</field>
+            <field name="name">Montserrat</field>
+        </record>
+
+        <record id="nat_morocco" model="nationality.form">
+            <field name="code">504</field>
+            <field name="name">Morocco</field>
+        </record>
+
+        <record id="nat_tonga" model="nationality.form">
+            <field name="code">776</field>
+            <field name="name">Tonga</field>
+        </record>
+
+        <record id="nat_trinidad_tobago" model="nationality.form">
+            <field name="code">780</field>
+            <field name="name">Trinidad and Tobago</field>
+        </record>
+
+        <record id="nat_tunisia" model="nationality.form">
+            <field name="code">788</field>
+            <field name="name">Tunisia</field>
+        </record>
+
+        <record id="nat_turkey" model="nationality.form">
+            <field name="code">792</field>
+            <field name="name">Turkey</field>
+        </record>
+
+        <record id="nat_turkmenistan" model="nationality.form">
+            <field name="code">795</field>
+            <field name="name">Turkmenistan</field>
+        </record>
+
+        <record id="nat_turks_caicos" model="nationality.form">
+            <field name="code">796</field>
+            <field name="name">Turks and Caicos Islands</field>
+        </record>
+
+        <record id="nat_tuvalu" model="nationality.form">
+            <field name="code">798</field>
+            <field name="name">Tuvalu</field>
+        </record>
+
+        <record id="nat_uganda" model="nationality.form">
+            <field name="code">800</field>
+            <field name="name">Uganda</field>
+        </record>
+
+        <record id="nat_ukraine" model="nationality.form">
+            <field name="code">804</field>
+            <field name="name">Ukraine</field>
+        </record>
+
+        <record id="nat_uae" model="nationality.form">
+            <field name="code">784</field>
+            <field name="name">United Arab Emirates</field>
+        </record>
+
+        <record id="nat_uk" model="nationality.form">
+            <field name="code">826</field>
+            <field name="name">United Kingdom of Great Britain and Northern Ireland</field>
+        </record>
+
+        <record id="nat_dpr_korea" model="nationality.form">
+            <field name="code">408</field>
+            <field name="name">Democratic People's Republic of Korea</field>
+        </record>
+
+        <record id="nat_congo_dem_rep" model="nationality.form">
+            <field name="code">180</field>
+            <field name="name">Democratic Republic of the Congo</field>
+        </record>
+
+        <record id="nat_denmark" model="nationality.form">
+            <field name="code">208</field>
+            <field name="name">Denmark</field>
+        </record>
+
+        <record id="nat_djibouti" model="nationality.form">
+            <field name="code">262</field>
+            <field name="name">Djibouti</field>
+        </record>
+
+        <record id="nat_dominica" model="nationality.form">
+            <field name="code">212</field>
+            <field name="name">Dominica</field>
+        </record>
+
+        <record id="nat_dominican_republic" model="nationality.form">
+            <field name="code">214</field>
+            <field name="name">Dominican Republic</field>
+        </record>
+
+        <record id="nat_ecuador" model="nationality.form">
+            <field name="code">218</field>
+            <field name="name">Ecuador</field>
+        </record>
+
+        <record id="nat_egypt" model="nationality.form">
+            <field name="code">818</field>
+            <field name="name">Egypt</field>
+        </record>
+
+        <record id="nat_el_salvador" model="nationality.form">
+            <field name="code">222</field>
+            <field name="name">El Salvador</field>
+        </record>
+
+        <record id="nat_equatorial_guinea" model="nationality.form">
+            <field name="code">226</field>
+            <field name="name">Equatorial Guinea</field>
+        </record>
+
+        <record id="nat_eritrea" model="nationality.form">
+            <field name="code">232</field>
+            <field name="name">Eritrea</field>
+        </record>
+
+        <record id="nat_estonia" model="nationality.form">
+            <field name="code">233</field>
+            <field name="name">Estonia</field>
+        </record>
+
+        <record id="nat_ethiopia" model="nationality.form">
+            <field name="code">231</field>
+            <field name="name">Ethiopia</field>
+        </record>
+
+        <record id="nat_mozambique" model="nationality.form">
+            <field name="code">508</field>
+            <field name="name">Mozambique</field>
+        </record>
+
+        <record id="nat_myanmar" model="nationality.form">
+            <field name="code">104</field>
+            <field name="name">Myanmar</field>
+        </record>
+
+        <record id="nat_namibia" model="nationality.form">
+            <field name="code">516</field>
+            <field name="name">Namibia</field>
+        </record>
+
+        <record id="nat_nauru" model="nationality.form">
+            <field name="code">520</field>
+            <field name="name">Nauru</field>
+        </record>
+
+        <record id="nat_nepal" model="nationality.form">
+            <field name="code">524</field>
+            <field name="name">Nepal</field>
+        </record>
+
+        <record id="nat_netherlands" model="nationality.form">
+            <field name="code">528</field>
+            <field name="name">Netherlands</field>
+        </record>
+
+        <record id="nat_new_caledonia" model="nationality.form">
+            <field name="code">540</field>
+            <field name="name">New Caledonia</field>
+        </record>
+
+        <record id="nat_new_zealand" model="nationality.form">
+            <field name="code">554</field>
+            <field name="name">New Zealand</field>
+        </record>
+
+        <record id="nat_nicaragua" model="nationality.form">
+            <field name="code">558</field>
+            <field name="name">Nicaragua</field>
+        </record>
+
+        <record id="nat_niger" model="nationality.form">
+            <field name="code">562</field>
+            <field name="name">Niger</field>
+        </record>
+
+        <record id="nat_nigeria" model="nationality.form">
+            <field name="code">566</field>
+            <field name="name">Nigeria</field>
+        </record>
+
+        <record id="nat_niue" model="nationality.form">
+            <field name="code">570</field>
+            <field name="name">Niue</field>
+        </record>
+
+        <record id="nat_norfolk_island" model="nationality.form">
+            <field name="code">574</field>
+            <field name="name">Norfolk Island</field>
+        </record>
+
+        <record id="nat_tanzania" model="nationality.form">
+            <field name="code">834</field>
+            <field name="name">United Republic of Tanzania</field>
+        </record>
+
+        <record id="nat_usa" model="nationality.form">
+            <field name="code">840</field>
+            <field name="name">United States of America</field>
+        </record>
+
+        <record id="nat_us_virgin_islands" model="nationality.form">
+            <field name="code">850</field>
+            <field name="name">United States Virgin Islands</field>
+        </record>
+
+        <record id="nat_uruguay" model="nationality.form">
+            <field name="code">858</field>
+            <field name="name">Uruguay</field>
+        </record>
+
+        <record id="nat_uzbekistan" model="nationality.form">
+            <field name="code">860</field>
+            <field name="name">Uzbekistan</field>
+        </record>
+
+        <record id="nat_vanuatu" model="nationality.form">
+            <field name="code">548</field>
+            <field name="name">Vanuatu</field>
+        </record>
+
+        <record id="nat_venezuela" model="nationality.form">
+            <field name="code">862</field>
+            <field name="name">Venezuela (Bolivarian Republic of)</field>
+        </record>
+
+        <record id="nat_vietnam" model="nationality.form">
+            <field name="code">704</field>
+            <field name="name">Viet Nam</field>
+        </record>
+
+        <record id="nat_wallis_futuna" model="nationality.form">
+            <field name="code">876</field>
+            <field name="name">Wallis and Futuna Islands</field>
+        </record>
+
+        <record id="nat_western_sahara" model="nationality.form">
+            <field name="code">732</field>
+            <field name="name">Western Sahara</field>
+        </record>
+
+        <record id="nat_yemen" model="nationality.form">
+            <field name="code">887</field>
+            <field name="name">Yemen</field>
+        </record>
+
+        <record id="nat_zambia" model="nationality.form">
+            <field name="code">894</field>
+            <field name="name">Zambia</field>
+        </record>
+
+        <record id="nat_zimbabwe" model="nationality.form">
+            <field name="code">716</field>
+            <field name="name">Zimbabwe</field>
+        </record>
+
+        <record id="nat_faeroe_islands" model="nationality.form">
+            <field name="code">234</field>
+            <field name="name">Faeroe Islands</field>
+        </record>
+
+        <record id="nat_falkland_islands" model="nationality.form">
+            <field name="code">238</field>
+            <field name="name">Falkland Islands (Malvinas)</field>
+        </record>
+
+        <record id="nat_fiji" model="nationality.form">
+            <field name="code">242</field>
+            <field name="name">Fiji</field>
+        </record>
+
+        <record id="nat_finland" model="nationality.form">
+            <field name="code">246</field>
+            <field name="name">Finland</field>
+        </record>
+
+        <record id="nat_france" model="nationality.form">
+            <field name="code">250</field>
+            <field name="name">France</field>
+        </record>
+
+        <record id="nat_french_guiana" model="nationality.form">
+            <field name="code">254</field>
+            <field name="name">French Guiana</field>
+        </record>
+
+        <record id="nat_french_polynesia" model="nationality.form">
+            <field name="code">258</field>
+            <field name="name">French Polynesia</field>
+        </record>
+
+        <record id="nat_gabon" model="nationality.form">
+            <field name="code">266</field>
+            <field name="name">Gabon</field>
+        </record>
+
+        <record id="nat_gambia" model="nationality.form">
+            <field name="code">270</field>
+            <field name="name">Gambia</field>
+        </record>
+
+        <record id="nat_georgia" model="nationality.form">
+            <field name="code">268</field>
+            <field name="name">Georgia</field>
+        </record>
+
+        <record id="nat_germany" model="nationality.form">
+            <field name="code">276</field>
+            <field name="name">Germany</field>
+        </record>
+
+        <record id="nat_ghana" model="nationality.form">
+            <field name="code">288</field>
+            <field name="name">Ghana</field>
+        </record>
+
+        <record id="nat_gibraltar" model="nationality.form">
+            <field name="code">292</field>
+            <field name="name">Gibraltar</field>
+        </record>
+
+        <record id="nat_greece" model="nationality.form">
+            <field name="code">300</field>
+            <field name="name">Greece</field>
+        </record>
+
+        <record id="nat_northern_mariana_islands" model="nationality.form">
+            <field name="code">580</field>
+            <field name="name">Northern Mariana Islands</field>
+        </record>
+
+        <record id="nat_norway" model="nationality.form">
+            <field name="code">578</field>
+            <field name="name">Norway</field>
+        </record>
+
+        <record id="nat_oman" model="nationality.form">
+            <field name="code">512</field>
+            <field name="name">Oman</field>
+        </record>
+
+        <record id="nat_pakistan" model="nationality.form">
+            <field name="code">586</field>
+            <field name="name">Pakistan</field>
+        </record>
+
+        <record id="nat_palau" model="nationality.form">
+            <field name="code">585</field>
+            <field name="name">Palau</field>
+        </record>
+
+        <record id="nat_panama" model="nationality.form">
+            <field name="code">591</field>
+            <field name="name">Panama</field>
+        </record>
+
+        <record id="nat_papua_new_guinea" model="nationality.form">
+            <field name="code">598</field>
+            <field name="name">Papua New Guinea</field>
+        </record>
+
+        <record id="nat_paraguay" model="nationality.form">
+            <field name="code">600</field>
+            <field name="name">Paraguay</field>
+        </record>
+
+        <record id="nat_peru" model="nationality.form">
+            <field name="code">604</field>
+            <field name="name">Peru</field>
+        </record>
+
+        <record id="nat_philippines" model="nationality.form">
+            <field name="code">608</field>
+            <field name="name">Philippines</field>
+        </record>
+
+        <record id="nat_pitcairn" model="nationality.form">
+            <field name="code">612</field>
+            <field name="name">Pitcairn</field>
+        </record>
+
+        <record id="nat_poland" model="nationality.form">
+            <field name="code">616</field>
+            <field name="name">Poland</field>
+        </record>
+
+        <record id="nat_portugal" model="nationality.form">
+            <field name="code">620</field>
+            <field name="name">Portugal</field>
+        </record>
+
+        <record id="nat_puerto_rico" model="nationality.form">
+            <field name="code">630</field>
+            <field name="name">Puerto Rico</field>
+        </record>
+
+        <record id="nat_other" model="nationality.form">
+            <field name="code">001</field>
+            <field name="name">Other</field>
+        </record>
+
+        <record id="nat_taiwan" model="nationality.form">
+            <field name="code">158</field>
+            <field name="name">Taiwan</field>
+        </record>
+
+
+    </data>
+</odoo>

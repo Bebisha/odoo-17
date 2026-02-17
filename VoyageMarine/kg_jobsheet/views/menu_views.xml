@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="job_sheet_mani_menu" name="Job sheet" sequence="0"/>
+    <menuitem id="job_sheet_menu_01" name="Job sheet" parent="job_sheet_mani_menu" sequence="1"/>
+    <menuitem id="job_sheet_menu_reporting" name="Reporting" parent="job_sheet_mani_menu" sequence="2"/>
+    <menuitem id="job_sheet_menu_03" name="Configuration" parent="job_sheet_mani_menu" sequence="3"/>
+</odoo>

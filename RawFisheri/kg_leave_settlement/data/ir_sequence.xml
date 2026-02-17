@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <record id="leave_settlement_sequence" model="ir.sequence">
+            <field name="name">Leave Settlement Sequence</field>
+            <field name="code">leave.settlement.sequence</field>
+            <field name="prefix">LS</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

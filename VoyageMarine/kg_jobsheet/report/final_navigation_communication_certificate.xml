@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="final_certificate_navi_communication">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <!-- Certificate Header -->
+                    <table class="table table-sm table-borderless" style="width: 100%;">
+                        <tr>
+                            <td style="padding: 5px;"><strong>Vessel Name:</strong></td>
+                            <td style="padding: 5px;"><span t-field="o.job_ref_nav_comm.vessel_id.name"/></td>
+                            <td style="padding: 5px;"><strong>Certificate No:</strong></td>
+                            <td style="padding: 5px;"><span t-field="o.job_ref_nav_comm.certificate_no"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px;"><strong>Client:</strong></td>
+                            <td style="padding: 5px;"><span t-field="o.job_ref_nav_comm.partner_id.name"/></td>
+                            <td style="padding: 5px;"><strong>Date of Test:</strong></td>
+                            <td style="padding: 5px;"><span t-field="o.job_ref_nav_comm.date"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px;"><strong>Job No.:</strong></td>
+                            <td style="padding: 5px;"><span t-field="o.job_ref_nav_comm.job_sheet_number"/></td>
+                        </tr>
+                    </table>
+
+
+                    <!-- Unit Under Test Details -->
+                    <table class="table table-bordered" style="width: 100%; margin-top: 10px;">
+                        <tr>
+                            <th colspan="2" style="text-align: center;">UNIT UNDER TEST DETAILS:</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px;"><strong>Description:</strong></td>
+                            <td style="padding: 5px;"><span t-field="o.job_ref_nav_comm.product_id"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px;"><strong>Make:</strong></td>
+                            <td style="padding: 5px;"><span t-field="o.make_id.name"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px;"><strong>Model:</strong></td>
+                            <td style="padding: 5px;"><span t-field="o.model_id.name"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px;"><strong>Sl. No.:</strong></td>
+                            <td style="padding: 5px;"><span t-field="o.lot_id.name"/></td>
+                        </tr>
+                    </table>
+                     <div style="page-break-before: always;"></div>
+
+                    <!-- Test Report -->
+                    <table class="table table-bordered" style="width: 100%; margin-top: 10px;">
+                        <tr>
+                            <th colspan="2" style="text-align: center;">TEST REPORT</th>
+                        </tr>
+
+                    </table>
+                    <table style="text-align: center; font-weight: bold; font-size: 16px; padding: 5px; border: 1px solid black;width: 100%;" >
+                        <tr>
+                            <td >
+                                <t t-raw="o.certificate_content_view"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Compliance Statement -->
+                    <p style="margin-top: 10px; font-style: italic;">
+                       The above system checked physically and carried out operational tests as per the above checklist.Certified that the system is working satisfactorily and found to have compliance with the relevant requirements as per manufaturer standards.
+                    </p>
+
+                    <!-- Footer -->
+                    <table class="table table-sm table-borderless" style="width: 100%; margin-top: 20px;">
+                        <tr>
+                            <td><strong>Tested By:</strong><br/>Name:</td>
+                            <td><strong>Verified By:</strong><br/>Name:</td>
+                        </tr>
+                    </table>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

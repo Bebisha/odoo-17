@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Religion Master Data -->
+    <data noupdate="1">
+
+        <record id="religion_bma" model="religion.form">
+            <field name="code">BMA</field>
+            <field name="name">Buddhist: Mahayana</field>
+        </record>
+
+        <record id="religion_bth" model="religion.form">
+            <field name="code">BTH</field>
+            <field name="name">Buddhist: Theravada</field>
+        </record>
+
+        <record id="religion_bud" model="religion.form">
+            <field name="code">BUD</field>
+            <field name="name">Buddhist</field>
+        </record>
+
+        <record id="religion_cat" model="religion.form">
+            <field name="code">CAT</field>
+            <field name="name">Christian: Roman Catholic</field>
+        </record>
+
+        <record id="religion_chr" model="religion.form">
+            <field name="code">CHR</field>
+            <field name="name">Christian</field>
+        </record>
+
+        <record id="religion_erl" model="religion.form">
+            <field name="code">ERL</field>
+            <field name="name">Ethnic Religionist</field>
+        </record>
+
+        <record id="religion_hin" model="religion.form">
+            <field name="code">HIN</field>
+            <field name="name">Hindu</field>
+        </record>
+
+        <record id="religion_hot" model="religion.form">
+            <field name="code">HOT</field>
+            <field name="name">Hindu: Other</field>
+        </record>
+
+        <record id="religion_mos" model="religion.form">
+            <field name="code">MOS</field>
+            <field name="name">Muslim</field>
+        </record>
+
+        <record id="religion_mot" model="religion.form">
+            <field name="code">MOT</field>
+            <field name="name">Muslim: Other</field>
+        </record>
+
+        <record id="religion_msh" model="religion.form">
+            <field name="code">MSH</field>
+            <field name="name">Muslim: Shiite</field>
+        </record>
+
+        <record id="religion_msu" model="religion.form">
+            <field name="code">MSU</field>
+            <field name="name">Muslim: Sunni</field>
+        </record>
+
+        <record id="religion_oth" model="religion.form">
+            <field name="code">OTH</field>
+            <field name="name">Other</field>
+        </record>
+
+        <record id="religion_sik" model="religion.form">
+            <field name="code">SIK</field>
+            <field name="name">Sikh</field>
+        </record>
+
+        <record id="religion_var" model="religion.form">
+            <field name="code">VAR</field>
+            <field name="name">Unknown</field>
+        </record>
+
+        <record id="religion_pre" model="religion.form">
+            <field name="code">PRE</field>
+            <field name="name">Christian: Presbyterian</field>
+        </record>
+
+        <record id="religion_lut" model="religion.form">
+            <field name="code">LUT</field>
+            <field name="name">Christian: Lutheran</field>
+        </record>
+
+        <record id="religion_bap" model="religion.form">
+            <field name="code">BAP</field>
+            <field name="name">Christian: Baptist</field>
+        </record>
+
+        <record id="religion_jew" model="religion.form">
+            <field name="code">JEW</field>
+            <field name="name">Jewish</field>
+        </record>
+
+        <record id="religion_chs" model="religion.form">
+            <field name="code">CHS</field>
+            <field name="name">Christian: Christian Science</field>
+        </record>
+
+        <record id="religion_epi" model="religion.form">
+            <field name="code">EPI</field>
+            <field name="name">Christian: Episcopalian</field>
+        </record>
+
+        <record id="religion_gre" model="religion.form">
+            <field name="code">GRE</field>
+            <field name="name">Christian: Greek Orthodox</field>
+        </record>
+
+        <record id="religion_jwn" model="religion.form">
+            <field name="code">JWN</field>
+            <field name="name">Christian: Jehovah's Witness</field>
+        </record>
+
+        <record id="religion_men" model="religion.form">
+            <field name="code">MEN</field>
+            <field name="name">Christian: Mennonite</field>
+        </record>
+
+        <record id="religion_met" model="religion.form">
+            <field name="code">MET</field>
+            <field name="name">Christian: Methodist</field>
+        </record>
+
+        <record id="religion_naz" model="religion.form">
+            <field name="code">NAZ</field>
+            <field name="name">Christian: Church of the Nazarene</field>
+        </record>
+
+        <record id="religion_pen" model="religion.form">
+            <field name="code">PEN</field>
+            <field name="name">Christian: Pentecostal</field>
+        </record>
+
+        <record id="religion_pro" model="religion.form">
+            <field name="code">PRO</field>
+            <field name="name">Christian: Protestant</field>
+        </record>
+
+        <record id="religion_sev" model="religion.form">
+            <field name="code">SEV</field>
+            <field name="name">Christian: Seventh Day Adventist</field>
+        </record>
+
+        <record id="religion_unu" model="religion.form">
+            <field name="code">UNU</field>
+            <field name="name">Christian: Unitarian Universalist</field>
+        </record>
+
+        <record id="religion_shn" model="religion.form">
+            <field name="code">SHN</field>
+            <field name="name">Shintoist</field>
+        </record>
+
+        <record id="religion_ang" model="religion.form">
+            <field name="code">ANG</field>
+            <field name="name">Christian: Anglican</field>
+        </record>
+
+        <record id="religion_jai" model="religion.form">
+            <field name="code">JAI</field>
+            <field name="name">Jain</field>
+        </record>
+
+    </data>
+</odoo>

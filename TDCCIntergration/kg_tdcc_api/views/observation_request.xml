@@ -1,0 +1,139 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="kg_observation_request_tree_view">
+            <field name="name">Observation Request</field>
+            <field name="model">kg.observation.request</field>
+            <field name="arch" type="xml">
+                <!--                <tree create="false" edit="false">-->
+                <tree>
+                    <field name="set_id_obr"/>
+
+
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="kg_observation_request_form_view">
+            <field name="name">Observation Request</field>
+            <field name="model">kg.observation.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <button name="btn_submit" string="Submit" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+                        <button name="btn_cancel" string="Cancel" type="object" data-hotkey="w"
+                                invisible="state not in ('draft','submited')"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submited"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="set_id_obr" required="1"/>
+                                <field name="placer_order_no" required="1"/>
+                                <field name="fillr_order_no" required="1"/>
+                                <field name="universl_servc_idntfr" required="1"/>
+                                <field name="priorty_obr" required="1"/>
+                            </group>
+                            <group>
+                                <field name="reqsted_date" required="1"/>
+                                <field name="observation_date" required="1"/>
+                                <field name="observation_end_date"/>
+                                <field name="collction_volum"/>
+                                <field name="collction_identfr"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="specimn_action_code" required="1"/>
+                                <field name="clinicl_info" required="1"/>
+                                <field name="specimn_recvd_date" required="1"/>
+                                <field name="spcimen_name_code" required="1"/>
+                                <field name="orderng_provider" required="1"/>
+                            </group>
+                            <group>
+                                <field name="order_calbck_phnno" required="1"/>
+                                <field name="placer_field1"/>
+                                <field name="placer_field2"/>
+                                <field name="filler_field1"/>
+                                <field name="filler_field2"/>
+                                <field name="danger_code"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="result_status_date" required="1"/>
+                                <field name="charge_parctice"/>
+                                <field name="servc_sction_id" required="1"/>
+                                <field name="result_status" required="1"/>
+                                <field name="parent_result" required="1"/>
+                            </group>
+                            <group>
+                                <field name="quantity_timing" required="1"/>
+                                <field name="result_to" required="1"/>
+                                <field name="parent" required="1"/>
+                                <field name="transport_mode"/>
+                                <field name="reason_study" required="1"/>
+                                <field name="result_interprtr" required="1"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="assist_reslt_intrprtr"/>
+                                <field name="technician"/>
+                                <field name="transcriptionist"/>
+                                <field name="scheduled_date"/>
+                                <field name="sample_container_no"/>
+                            </group>
+                            <group>
+                                <field name="transport_collctd_sample"/>
+                                <field name="collector_comment"/>
+                                <field name="trans_arrngmnt_respo"/>
+                                <field name="trans_arrnged"/>
+                                <field name="escot_reqed"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="planed_patient_transpt"/>
+                                <field name="procedure_code"/>
+                                <field name="procedure_code_modfr"/>
+                                <field name="placer_servc_info"/>
+                            </group>
+                            <group>
+                                <field name="filler_servc_info"/>
+                                <field name="duplicte_procdr_resn"/>
+                                <field name="result_handling"/>
+                                <field name="parnt_univrsl_idntfr"/>
+                            </group>
+
+                        </group>
+
+
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="kg_observation_request_action_form" model="ir.actions.act_window">
+            <field name="name">Observation Request</field>
+            <field name="res_model">kg.observation.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

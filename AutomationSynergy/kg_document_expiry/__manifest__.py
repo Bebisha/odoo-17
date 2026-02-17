@@ -1,0 +1,20 @@
+{
+    "name": "Document Expiry",
+    "summary": "Set Expiry Date for Document",
+    "version": '17.0.1.0.0',
+    'category': 'Generic Modules/Human Resources',
+    'author': 'Klystron Global',
+    'maintainer': 'Klystron Global',
+    "license": "OPL-1",
+    'website': 'https://www.klystronglobal.com',
+    "depends": ['base', 'hr'],
+    "data": [
+        'security/ir.model.access.csv',
+        'views/employee_document_view.xml',
+        'views/document_type_view.xml',
+        'views/hr_document_template.xml',
+    ],
+    'demo': ['data/demo_data.xml'],
+    'images': ['static/description/banner.png'],
+    'installable': True,
+}

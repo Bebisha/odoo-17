@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Payroll Report Action-->
+        <record id="action_payroll_reports" model="ir.actions.act_window">
+            <field name="name">Payroll Report Detailed</field>
+            <field name="target">new</field>
+            <field name="res_model">payroll.report.wizard</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <!--Payroll Report Menu-->
+        <menuitem id="menu_action_payroll_report"
+                  name="Payroll Report Detailed"
+                  action="action_payroll_reports"
+                  parent="hr_payroll.menu_hr_payroll_report"
+                  sequence="19"/>
+
+        <!--Crew Salary Report Action-->
+        <record id="action_crew_salary_reports" model="ir.actions.act_window">
+            <field name="name">Crew Salary Report</field>
+            <field name="target">new</field>
+            <field name="res_model">crew.salary.report.wizard</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <!--Crew Salary Report Menu-->
+        <menuitem id="menu_action_crew_salary_report"
+                  name="Crew Salary Report"
+                  action="action_crew_salary_reports"
+                  parent="kg_raw_fisheries_hrms.menu_hr_employee_entry_reporting"
+                  sequence="19"/>
+    </data>
+</odoo>

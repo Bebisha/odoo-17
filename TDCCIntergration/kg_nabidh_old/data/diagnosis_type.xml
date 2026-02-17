@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Diagnosis Type Master Data -->
+    <data noupdate="1">
+
+        <record id="diagnosis_type_a" model="diagnosis.type">
+            <field name="code">A</field>
+            <field name="name">Admitting</field>
+        </record>
+
+        <record id="diagnosis_type_w" model="diagnosis.type">
+            <field name="code">W</field>
+            <field name="name">Working</field>
+        </record>
+
+        <record id="diagnosis_type_f" model="diagnosis.type">
+            <field name="code">F</field>
+            <field name="name">Final</field>
+        </record>
+
+        <record id="diagnosis_type_o" model="diagnosis.type">
+            <field name="code">O</field>
+            <field name="name">Others</field>
+        </record>
+
+        <record id="diagnosis_type_p" model="diagnosis.type">
+            <field name="code">P</field>
+            <field name="name">Problems</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+
+        <record id="view_sale_revision_wizard_form" model="ir.ui.view">
+            <field name="name">sale.revision.reason.wizard.form</field>
+            <field name="model">revision.reason.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="sale_id" invisible="1" force_save="1"/>
+                            <field name="revision_reason" required="1"/>
+                            <field name="is_reject" invisible="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Create Revision" type="object" name="create_revision" class="btn-primary"
+                                invisible="is_reject"/>
+                        <button string="Submit" type="object" name="confirm_reject_reason" class="btn-primary"
+                                invisible="not is_reject"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sale_revision_wizard" model="ir.actions.act_window">
+            <field name="name">Revision Wizard</field>
+            <field name="res_model">revision.reason.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_sale_revision_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

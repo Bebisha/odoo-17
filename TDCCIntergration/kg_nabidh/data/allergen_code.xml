@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="allergen_15911003" model="allergen.code">
+            <field name="code">15911003</field>
+            <field name="name">cow's milk protein sensitivity</field>
+        </record>
+
+        <record id="allergen_25868003" model="allergen.code">
+            <field name="code">25868003</field>
+            <field name="name">soy protein sensitivity</field>
+        </record>
+
+        <record id="allergen_91930004" model="allergen.code">
+            <field name="code">91930004</field>
+            <field name="name">allergy to eggs</field>
+        </record>
+
+        <record id="allergen_91932007" model="allergen.code">
+            <field name="code">91932007</field>
+            <field name="name">allergy to fruit</field>
+        </record>
+
+        <record id="allergen_91934008" model="allergen.code">
+            <field name="code">91934008</field>
+            <field name="name">allergy to nuts</field>
+        </record>
+
+        <record id="allergen_91935009" model="allergen.code">
+            <field name="code">91935009</field>
+            <field name="name">allergy to peanuts</field>
+        </record>
+
+        <record id="allergen_91937001" model="allergen.code">
+            <field name="code">91937001</field>
+            <field name="name">allergy to seafood</field>
+        </record>
+
+        <record id="allergen_91938006" model="allergen.code">
+            <field name="code">91938006</field>
+            <field name="name">allergy to strawberries</field>
+        </record>
+
+        <record id="allergen_91940001" model="allergen.code">
+            <field name="code">91940001</field>
+            <field name="name">allergy to walnuts</field>
+        </record>
+
+        <record id="allergen_213020009" model="allergen.code">
+            <field name="code">213020009</field>
+            <field name="name">egg protein allergy</field>
+        </record>
+
+        <record id="allergen_293842000" model="allergen.code">
+            <field name="code">293842000</field>
+            <field name="name">tryptophan allergy</field>
+        </record>
+
+        <record id="allergen_232347008" model="allergen.code">
+            <field name="code">232347008</field>
+            <field name="name">dander animal allergy</field>
+        </record>
+
+        <record id="allergen_232348003" model="allergen.code">
+            <field name="code">232348003</field>
+            <field name="name">feather allergy</field>
+        </record>
+
+        <record id="allergen_232349006" model="allergen.code">
+            <field name="code">232349006</field>
+            <field name="name">house dust allergy</field>
+        </record>
+
+        <record id="allergen_232350006" model="allergen.code">
+            <field name="code">232350006</field>
+            <field name="name">house dust mite allergy</field>
+        </record>
+
+        <record id="allergen_293641005" model="allergen.code">
+            <field name="code">293641005</field>
+            <field name="name">diagnostic dye allergy</field>
+        </record>
+
+        <record id="allergen_293785000" model="allergen.code">
+            <field name="code">293785000</field>
+            <field name="name">paclitaxel allergy</field>
+        </record>
+
+        <record id="allergen_293960001" model="allergen.code">
+            <field name="code">293960001</field>
+            <field name="name">Disulfiram allergy</field>
+        </record>
+
+        <record id="allergen_293977001" model="allergen.code">
+            <field name="code">293977001</field>
+            <field name="name">labetalol allergy</field>
+        </record>
+
+        <record id="allergen_293983003" model="allergen.code">
+            <field name="code">293983003</field>
+            <field name="name">sotalol allergy</field>
+        </record>
+
+        <record id="allergen_294037004" model="allergen.code">
+            <field name="code">294037004</field>
+            <field name="name">salbutamol allergy</field>
+        </record>
+
+        <record id="allergen_294118006" model="allergen.code">
+            <field name="code">294118006</field>
+            <field name="name">clemastine allergy</field>
+        </record>
+
+        <record id="allergen_294626002" model="allergen.code">
+            <field name="code">294626002</field>
+            <field name="name">organophosphate pesticide allergy</field>
+        </record>
+
+        <record id="allergen_294627006" model="allergen.code">
+            <field name="code">294627006</field>
+            <field name="name">malathion allergy</field>
+        </record>
+
+        <record id="allergen_294628001" model="allergen.code">
+            <field name="code">294628001</field>
+            <field name="name">pyrethroid pesticides allergy</field>
+        </record>
+
+        <record id="allergen_294629009" model="allergen.code">
+            <field name="code">294629009</field>
+            <field name="name">phenothrin allergy</field>
+        </record>
+
+        <record id="allergen_294630004" model="allergen.code">
+            <field name="code">294630004</field>
+            <field name="name">Permethrin allergy</field>
+        </record>
+
+        <record id="allergen_294667007" model="allergen.code">
+            <field name="code">294667007</field>
+            <field name="name">Clostridium botulinum toxin allergy</field>
+        </record>
+
+        <record id="allergen_294881007" model="allergen.code">
+            <field name="code">294881007</field>
+            <field name="name">warfarin allergy</field>
+        </record>
+
+        <record id="allergen_294917002" model="allergen.code">
+            <field name="code">294917002</field>
+            <field name="name">multiple electrolyte infusion allergy</field>
+        </record>
+
+        <record id="allergen_294918007" model="allergen.code">
+            <field name="code">294918007</field>
+            <field name="name">enteral and supplement feeds allergy</field>
+        </record>
+
+        <record id="allergen_294919004" model="allergen.code">
+            <field name="code">294919004</field>
+            <field name="name">oral rehydration salts allergy</field>
+        </record>
+
+        <record id="allergen_294962003" model="allergen.code">
+            <field name="code">294962003</field>
+            <field name="name">cholestyramine allergy</field>
+        </record>
+
+        <record id="allergen_294298002" model="allergen.code">
+            <field name="code">294298002</field>
+            <field name="name">glycine allergy</field>
+        </record>
+
+        <record id="allergen_294316000" model="allergen.code">
+            <field name="code">294316000</field>
+            <field name="name">olive oil allergy</field>
+        </record>
+
+        <record id="allergen_294317009" model="allergen.code">
+            <field name="code">294317009</field>
+            <field name="name">Arachis oil allergy</field>
+        </record>
+
+        <record id="allergen_294840004" model="allergen.code">
+            <field name="code">294840004</field>
+            <field name="name">salcatonin allergy</field>
+        </record>
+
+        <record id="allergen_294847001" model="allergen.code">
+            <field name="code">294847001</field>
+            <field name="name">gelatin allergy</field>
+        </record>
+
+        <record id="allergen_294968004" model="allergen.code">
+            <field name="code">294968004</field>
+            <field name="name">fish oils allergy</field>
+        </record>
+
+        <record id="allergen_294969007" model="allergen.code">
+            <field name="code">294969007</field>
+            <field name="name">omega 3-marine triglycerides allergy</field>
+        </record>
+
+        <record id="allergen_300912001" model="allergen.code">
+            <field name="code">300912001</field>
+            <field name="name">chocolate allergy</field>
+        </record>
+
+        <record id="allergen_300913006" model="allergen.code">
+            <field name="code">300913006</field>
+            <field name="name">shellfish allergy</field>
+        </record>
+
+        <record id="allergen_300914000" model="allergen.code">
+            <field name="code">300914000</field>
+            <field name="name">cheese allergy</field>
+        </record>
+
+        <record id="allergen_294133003" model="allergen.code">
+            <field name="code">294133003</field>
+            <field name="name">diphenhydramine allergy</field>
+        </record>
+
+        <record id="allergen_294134009" model="allergen.code">
+            <field name="code">294134009</field>
+            <field name="name">diphenylpyraline allergy</field>
+        </record>
+
+        <record id="allergen_294136006" model="allergen.code">
+            <field name="code">294136006</field>
+            <field name="name">mepyramine allergy</field>
+        </record>
+
+        <record id="allergen_294179008" model="allergen.code">
+            <field name="code">294179008</field>
+            <field name="name">sulfur allergy</field>
+        </record>
+
+        <record id="allergen_294189007" model="allergen.code">
+            <field name="code">294189007</field>
+            <field name="name">surgical tissue adhesive allergy</field>
+        </record>
+
+        <record id="allergen_294190003" model="allergen.code">
+            <field name="code">294190003</field>
+            <field name="name">enbucrilate allergy</field>
+        </record>
+
+        <record id="allergen_294207001" model="allergen.code">
+            <field name="code">294207001</field>
+            <field name="name">retinoid allergy</field>
+        </record>
+
+        <record id="allergen_294208006" model="allergen.code">
+            <field name="code">294208006</field>
+            <field name="name">etretinate allergy</field>
+        </record>
+
+        <record id="allergen_294209003" model="allergen.code">
+            <field name="code">294209003</field>
+            <field name="name">acitretin allergy</field>
+        </record>
+
+        <record id="allergen_294210008" model="allergen.code">
+            <field name="code">294210008</field>
+            <field name="name">tretinoin allergy</field>
+        </record>
+
+        <record id="allergen_295106007" model="allergen.code">
+            <field name="code">295106007</field>
+            <field name="name">ethanolamine allergy</field>
+        </record>
+
+        <record id="allergen_300908007" model="allergen.code">
+            <field name="code">300908007</field>
+            <field name="name">perfume allergy</field>
+        </record>
+
+        <record id="allergen_300910009" model="allergen.code">
+            <field name="code">300910009</field>
+            <field name="name">allergy to pollen</field>
+        </record>
+
+        <record id="allergen_300911008" model="allergen.code">
+            <field name="code">300911008</field>
+            <field name="name">allergy to animal hair</field>
+        </record>
+
+        <record id="allergen_300915004" model="allergen.code">
+            <field name="code">300915004</field>
+            <field name="name">metal allergy</field>
+        </record>
+
+        <record id="allergen_300916003" model="allergen.code">
+            <field name="code">300916003</field>
+            <field name="name">latex allergy</field>
+        </record>
+
+        <record id="allergen_390952000" model="allergen.code">
+            <field name="code">390952000</field>
+            <field name="name">dust allergy</field>
+        </record>
+
+        <record id="allergen_402306009" model="allergen.code">
+            <field name="code">402306009</field>
+            <field name="name">allergy to aluminum</field>
+        </record>
+
+        <record id="allergen_402389004" model="allergen.code">
+            <field name="code">402389004</field>
+            <field name="name">allergic angioedema due to bite and/or sting</field>
+        </record>
+
+        <record id="allergen_402591008" model="allergen.code">
+            <field name="code">402591008</field>
+            <field name="name">allergy to biocide</field>
+        </record>
+
+        <record id="allergen_402388007" model="allergen.code">
+            <field name="code">402388007</field>
+            <field name="name">allergic angioedema due to ingested food</field>
+        </record>
+
+        <record id="allergen_409136006" model="allergen.code">
+            <field name="code">409136006</field>
+            <field name="name">allergy to legumes</field>
+        </record>
+
+        <record id="allergen_414314005" model="allergen.code">
+            <field name="code">414314005</field>
+            <field name="name">gastrointestinal food allergy</field>
+        </record>
+
+        <record id="allergen_417532002" model="allergen.code">
+            <field name="code">417532002</field>
+            <field name="name">allergy to fish</field>
+        </record>
+
+        <record id="allergen_417918006" model="allergen.code">
+            <field name="code">417918006</field>
+            <field name="name">allergy to pork</field>
+        </record>
+
+        <record id="allergen_418051002" model="allergen.code">
+            <field name="code">418051002</field>
+            <field name="name">allergy to cherry</field>
+        </record>
+
+        <record id="allergen_418085001" model="allergen.code">
+            <field name="code">418085001</field>
+            <field name="name">allergy to citrus fruit</field>
+        </record>
+
+        <record id="allergen_418184004" model="allergen.code">
+            <field name="code">418184004</field>
+            <field name="name">allergy to rye</field>
+        </record>
+
+        <record id="allergen_294211007" model="allergen.code">
+            <field name="code">294211007</field>
+            <field name="name">isotretinoin allergy</field>
+        </record>
+
+        <record id="allergen_294261003" model="allergen.code">
+            <field name="code">294261003</field>
+            <field name="name">Terpenes allergy</field>
+        </record>
+
+        <record id="allergen_294289000" model="allergen.code">
+            <field name="code">294289000</field>
+            <field name="name">disodium edetate allergy</field>
+        </record>
+
+        <record id="allergen_294307004" model="allergen.code">
+            <field name="code">294307004</field>
+            <field name="name">citrate allergy</field>
+        </record>
+
+        <record id="allergen_294322009" model="allergen.code">
+            <field name="code">294322009</field>
+            <field name="name">base allergy</field>
+        </record>
+
+        <record id="allergen_294324005" model="allergen.code">
+            <field name="code">294324005</field>
+            <field name="name">paraffin allergy</field>
+        </record>
+
+        <record id="allergen_294325006" model="allergen.code">
+            <field name="code">294325006</field>
+            <field name="name">paraffin-yellow soft allergy</field>
+        </record>
+
+        <record id="allergen_294326007" model="allergen.code">
+            <field name="code">294326007</field>
+            <field name="name">paraffin-white soft allergy</field>
+        </record>
+
+        <record id="allergen_402594000" model="allergen.code">
+            <field name="code">402594000</field>
+            <field name="name">allergy to plant</field>
+        </record>
+
+        <record id="allergen_402595004" model="allergen.code">
+            <field name="code">402595004</field>
+            <field name="name">allergy to wood</field>
+        </record>
+
+        <record id="allergen_402596003" model="allergen.code">
+            <field name="code">402596003</field>
+            <field name="name">allergy to lichen</field>
+        </record>
+
+        <record id="allergen_402597007" model="allergen.code">
+            <field name="code">402597007</field>
+            <field name="name">allergy to tree resin</field>
+        </record>
+
+        <record id="allergen_402598002" model="allergen.code">
+            <field name="code">402598002</field>
+            <field name="name">allergy to flavor</field>
+        </record>
+
+        <record id="allergen_417930000" model="allergen.code">
+            <field name="code">417930000</field>
+            <field name="name">allergy to adhesive</field>
+        </record>
+
+        <record id="allergen_417982003" model="allergen.code">
+            <field name="code">417982003</field>
+            <field name="name">allergy to cosmetic</field>
+        </record>
+
+        <record id="allergen_418545001" model="allergen.code">
+            <field name="code">418545001</field>
+            <field name="name">allergy to dye</field>
+        </record>
+
+        <record id="allergen_418314004" model="allergen.code">
+            <field name="code">418314004</field>
+            <field name="name">allergy to apple juice</field>
+        </record>
+
+        <record id="allergen_418397007" model="allergen.code">
+            <field name="code">418397007</field>
+            <field name="name">allergy to cinnamon</field>
+        </record>
+
+        <record id="allergen_418606003" model="allergen.code">
+            <field name="code">418606003</field>
+            <field name="name">allergy to almond oil</field>
+        </record>
+
+        <record id="allergen_418626004" model="allergen.code">
+            <field name="code">418626004</field>
+            <field name="name">allergy to lobster</field>
+        </record>
+
+        <record id="allergen_418779002" model="allergen.code">
+            <field name="code">418779002</field>
+            <field name="name">allergy to tomato</field>
+        </record>
+
+        <record id="allergen_418815008" model="allergen.code">
+            <field name="code">418815008</field>
+            <field name="name">allergy to red meat</field>
+        </record>
+
+        <record id="allergen_419101002" model="allergen.code">
+            <field name="code">419101002</field>
+            <field name="name">allergy to seed</field>
+        </record>
+
+        <record id="allergen_419298007" model="allergen.code">
+            <field name="code">419298007</field>
+            <field name="name">allergy to watermelon</field>
+        </record>
+
+        <record id="allergen_419342009" model="allergen.code">
+            <field name="code">419342009</field>
+            <field name="name">allergy to oats</field>
+        </record>
+
+        <record id="allergen_419573007" model="allergen.code">
+            <field name="code">419573007</field>
+            <field name="name">allergy to corn</field>
+        </record>
+
+        <record id="allergen_419619007" model="allergen.code">
+            <field name="code">419619007</field>
+            <field name="name">allergy to potato</field>
+        </record>
+
+        <record id="allergen_419814004" model="allergen.code">
+            <field name="code">419814004</field>
+            <field name="name">allergy to coconut oil</field>
+        </record>
+
+        <record id="allergen_294327003" model="allergen.code">
+            <field name="code">294327003</field>
+            <field name="name">liquid paraffin allergy</field>
+        </record>
+
+        <record id="allergen_294328008" model="allergen.code">
+            <field name="code">294328008</field>
+            <field name="name">silicone allergy</field>
+        </record>
+
+        <record id="allergen_294329000" model="allergen.code">
+            <field name="code">294329000</field>
+            <field name="name">dimethicone allergy</field>
+        </record>
+
+        <record id="allergen_294330005" model="allergen.code">
+            <field name="code">294330005</field>
+            <field name="name">wool alcohol allergy</field>
+        </record>
+
+        <record id="allergen_294332002" model="allergen.code">
+            <field name="code">294332002</field>
+            <field name="name">polyvinyl alcohol allergy</field>
+        </record>
+
+        <record id="allergen_294413007" model="allergen.code">
+            <field name="code">294413007</field>
+            <field name="name">thymol allergy</field>
+        </record>
+
+        <record id="allergen_294423003" model="allergen.code">
+            <field name="code">294423003</field>
+            <field name="name">glutaraldehyde allergy</field>
+        </record>
+
+        <record id="allergen_294444003" model="allergen.code">
+            <field name="code">294444003</field>
+            <field name="name">disinfectant dye allergy</field>
+        </record>
+
+        <record id="allergen_294445002" model="allergen.code">
+            <field name="code">294445002</field>
+            <field name="name">acridine azo disinfectant dye allergy</field>
+        </record>
+
+        <record id="allergen_294446001" model="allergen.code">
+            <field name="code">294446001</field>
+            <field name="name">triphenylmethane azo disinfectant dye allergy</field>
+        </record>
+
+        <record id="allergen_294447005" model="allergen.code">
+            <field name="code">294447005</field>
+            <field name="name">crystal violet allergy</field>
+        </record>
+
+        <record id="allergen_418561004" model="allergen.code">
+            <field name="code">418561004</field>
+            <field name="name">allergy to ragweed pollen</field>
+        </record>
+
+        <record id="allergen_418689008" model="allergen.code">
+            <field name="code">418689008</field>
+            <field name="name">allergy to grass pollen</field>
+        </record>
+
+        <record id="allergen_418968001" model="allergen.code">
+            <field name="code">418968001</field>
+            <field name="name">allergy to gauze</field>
+        </record>
+
+        <record id="allergen_419063004" model="allergen.code">
+            <field name="code">419063004</field>
+            <field name="name">allergy to horse dander</field>
+        </record>
+
+        <record id="allergen_419199007" model="allergen.code">
+            <field name="code">419199007</field>
+            <field name="name">allergy to substance</field>
+        </record>
+
+        <record id="allergen_419210001" model="allergen.code">
+            <field name="code">419210001</field>
+            <field name="name">allergy to weed pollen</field>
+        </record>
+
+        <record id="allergen_419238009" model="allergen.code">
+            <field name="code">419238009</field>
+            <field name="name">allergy to adhesive bandage</field>
+        </record>
+
+        <record id="allergen_419263009" model="allergen.code">
+            <field name="code">419263009</field>
+            <field name="name">allergy to tree pollen</field>
+        </record>
+
+        <record id="allergen_419271008" model="allergen.code">
+            <field name="code">419271008</field>
+            <field name="name">allergy to dog dander</field>
+        </record>
+
+        <record id="allergen_419412007" model="allergen.code">
+            <field name="code">419412007</field>
+            <field name="name">allergy to rubber</field>
+        </record>
+
+        <record id="allergen_419474003" model="allergen.code">
+            <field name="code">419474003</field>
+            <field name="name">allergy to mold</field>
+        </record>
+
+        <record id="allergen_419788000" model="allergen.code">
+            <field name="code">419788000</field>
+            <field name="name">allergy to nickel</field>
+        </record>
+
+        <record id="allergen_419967000" model="allergen.code">
+            <field name="code">419967000</field>
+            <field name="name">allergy to oyster</field>
+        </record>
+
+        <record id="allergen_419972009" model="allergen.code">
+            <field name="code">419972009</field>
+            <field name="name">allergy to shrimp</field>
+        </record>
+
+        <record id="allergen_420080006" model="allergen.code">
+            <field name="code">420080006</field>
+            <field name="name">allergy to carrot</field>
+        </record>
+
+        <record id="allergen_420174000" model="allergen.code">
+            <field name="code">420174000</field>
+            <field name="name">allergy to wheat</field>
+        </record>
+
+        <record id="allergen_425525006" model="allergen.code">
+            <field name="code">425525006</field>
+            <field name="name">allergy to dairy product</field>
+        </record>
+
+        <record id="allergen_432807008" model="allergen.code">
+            <field name="code">432807008</field>
+            <field name="name">pollen-food allergy</field>
+        </record>
+
+        <record id="allergen_447961002" model="allergen.code">
+            <field name="code">447961002</field>
+            <field name="name">allergy to dietary mushroom</field>
+        </record>
+
+        <record id="allergen_188336009" model="allergen.code">
+            <field name="code">188336009</field>
+            <field name="name">laboratory animal dander allergy</field>
+        </record>
+
+        <record id="allergen_232346004" model="allergen.code">
+            <field name="code">232346004</field>
+            <field name="name">allergy to cat dander</field>
+        </record>
+
+        <record id="allergen_294448000" model="allergen.code">
+            <field name="code">294448000</field>
+            <field name="name">brilliant green allergy</field>
+        </record>
+
+        <record id="allergen_294479001" model="allergen.code">
+            <field name="code">294479001</field>
+            <field name="name">hexamine hippurate allergy</field>
+        </record>
+
+        <record id="allergen_294619002" model="allergen.code">
+            <field name="code">294619002</field>
+            <field name="name">pesticide allergy</field>
+        </record>
+
+        <record id="allergen_294620008" model="allergen.code">
+            <field name="code">294620008</field>
+            <field name="name">benzyl benzoate allergy</field>
+        </record>
+
+        <record id="allergen_294621007" model="allergen.code">
+            <field name="code">294621007</field>
+            <field name="name">monosulfuram allergy</field>
+        </record>
+
+        <record id="allergen_294622000" model="allergen.code">
+            <field name="code">294622000</field>
+            <field name="name">carbamate pesticide allergy</field>
+        </record>
+
+        <record id="allergen_294623005" model="allergen.code">
+            <field name="code">294623005</field>
+            <field name="name">carbaryl allergy</field>
+        </record>
+
+        <record id="allergen_294624004" model="allergen.code">
+            <field name="code">294624004</field>
+            <field name="name">chlorinated pesticide allergy</field>
+        </record>
+
+        <record id="allergen_294625003" model="allergen.code">
+            <field name="code">294625003</field>
+            <field name="name">lindane allergy</field>
+        </record>
+
+        <record id="allergen_422921000" model="allergen.code">
+            <field name="code">422921000</field>
+            <field name="name">allergy to scorpion venom</field>
+        </record>
+
+        <record id="allergen_423058007" model="allergen.code">
+            <field name="code">423058007</field>
+            <field name="name">allergy to wasp venom</field>
+        </record>
+
+        <record id="allergen_424213003" model="allergen.code">
+            <field name="code">424213003</field>
+            <field name="name">allergy to bee venom</field>
+        </record>
+
+        <record id="allergen_425605001" model="allergen.code">
+            <field name="code">425605001</field>
+            <field name="name">allergy to wool</field>
+        </record>
+
+        <record id="allergen_427487000" model="allergen.code">
+            <field name="code">427487000</field>
+            <field name="name">allergy to spider venom</field>
+        </record>
+
+        <record id="allergen_Unknown" model="allergen.code">
+            <field name="code">Unknown</field>
+            <field name="name">EMR to send their description that not found in NABIDH table</field>
+        </record>
+
+        <record id="allergen_419199007" model="allergen.code">
+            <field name="code">419199007</field>
+            <field name="name">Allergy to substance</field>
+        </record>
+
+        <record id="allergen_416098002" model="allergen.code">
+            <field name="code">416098002</field>
+            <field name="name">Drug allergy</field>
+        </record>
+
+        <record id="allergen_59037007" model="allergen.code">
+            <field name="code">59037007</field>
+            <field name="name">Drug intolerance</field>
+        </record>
+
+        <record id="allergen_414285001" model="allergen.code">
+            <field name="code">414285001</field>
+            <field name="name">Food allergy</field>
+        </record>
+
+        <record id="allergen_000000000" model="allergen.code">
+            <field name="code">000000000</field>
+            <field name="name">Others (Facilities to send 000000000 as Code for unmatched allergies, along with actual description) — Example: 000000000^Aerated Drinks^NAB043</field>
+        </record>
+
+    </data>
+</odoo>

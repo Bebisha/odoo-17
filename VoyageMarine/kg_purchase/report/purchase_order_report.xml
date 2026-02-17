@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+
+        <record id="kg_po_report_list_view" model="ir.ui.view">
+            <field name="name">kg.purchase.order.report.tree</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <tree create="0" delete="0" edit="0" default_order="name asc">
+                    <field name="requisition_po_id" string="MR NO"/>
+                    <field name="material_requisition_date" string="MR Date"/>
+                    <field name="so_ids" string="SO NO" widget="many2many_tags"/>
+                    <field name="customer_id" string="Client" optional="hide"/>
+                    <field name="company_currency_id" column_invisible="1"/>
+                    <field name="currency_id" column_invisible="1"/>
+                    <field name="so_value" string="SO Value"/>
+                    <field name="name" string="PO NO"/>
+                    <field name="date_order" string="PO Date"/>
+                    <field name="partner_id" string="Vendor"
+                           domain="[('supplier_rank', '>', 0)]"/>
+                    <field name="amount_total" string="PO Value"/>
+                    <field name="payment_term_id" string="Payment Terms" optional="hide"/>
+                    <field name="payment_status" string="Payment Status" optional="hide"/>
+                    <field name="overdue_days" optional="hide"/>
+                    <field name="state" string="PO Status"/>
+                    <field name="receipt_status" string="GRN Status"/>
+                    <field name="shipping_documents_status" string="Shipping Documents Status" optional="hide"/>
+                    <field name="remarks" string="Remarks" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="kg_action_purchase_order_report" model="ir.actions.act_window">
+            <field name="name">Purchase Order Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="kg_po_report_list_view"/>
+        </record>
+
+        <menuitem id="kg_po_report_menu_id" name="Purchase Order Report" action="kg_action_purchase_order_report"
+                  parent="purchase.purchase_report_main" sequence="101"/>
+
+
+    </data>
+</odoo>

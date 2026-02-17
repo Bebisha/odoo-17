@@ -1,0 +1,32 @@
+<odoo>
+    <record id="view_quality_check_wizard_form" model="ir.ui.view">
+        <field name="name">quality.check.wizard.form</field>
+        <field name="model">quality.check.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Quality Check">
+                <group>
+                    <field name="add_note"/>
+                    <field name="wiz_id" invisible="1"/>
+                    <!--                    <field name="team_id"/>-->
+                </group>
+                <footer>
+                    <button string="Pass" type="object" name="action_pass" class="btn-primary"/>
+                    <button string="Fail" type="object" name="action_fail" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--    <record id="action_open_quality_check_wizard" model="ir.actions.act_window">-->
+    <!--        <field name="name">Quality Check</field>-->
+    <!--        <field name="res_model">quality.check.wizard</field>-->
+    <!--        <field name="view_mode">form</field>-->
+    <!--        <field name="view_id" ref="view_quality_check_wizard_form"/>-->
+    <!--        <field name="target">new</field>-->
+    <!--            <field name="context">{'default_wiz_id': active_id}</field>-->
+    <!--    </record>-->
+
+</odoo>

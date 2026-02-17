@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_day_closing_wizards_new" model="ir.ui.view">
+        <field name="name">Day Close</field>
+        <field name="model">day.closing</field>
+        <field name="arch" type="xml">
+            <form>
+                 <group>
+                    <field name="last_day_close_date"/>
+                    <field name="last_day_closing_user_id"/>
+                    <field name="company_id" invisible="1"/>
+                </group>
+                <p>
+                    Back dated appointment is not allowed after the day closing.
+                </p>
+                <field name="closing_date" widget="date"/>
+                <footer>
+                    <button name="action_day_close" string="Close Day"
+                        type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_day_closing_new" model="ir.actions.act_window">
+        <field name="name">Day Close</field>
+        <field name="res_model">day.closing</field>
+<!--        <field name="view_type">form</field>-->
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+     <menuitem
+        id="accounting_menu_day_closings"
+        name="Day Close"
+        action="action_day_closing_new"
+        parent="account.menu_finance_receivables"
+        sequence="135"/>
+<!--    <menuitem action="action_day_closing_new" id="menu_day_closing"-->
+<!--              parent="account.root_payment_menu" sequence="135"/>-->
+
+</odoo>

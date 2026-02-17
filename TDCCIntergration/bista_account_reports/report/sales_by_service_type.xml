@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Template for Sales By Service Type  -->
+
+	<template id="sales_by_service_type">
+		<t t-call="web.html_container">
+			<t t-call="web.internal_layout">
+				<div class="page">
+					<div>
+						<center>
+							<p>
+								<b>
+									<t t-esc="get_title" />
+								</b>
+							</p>
+						</center>
+					</div>
+					<div class="row" style="margin-top:30px;">
+						<style>
+							th {
+							border-bottom: 1px solid black;
+							}
+						</style>
+						<t t-set="total" t-value="0" />
+						<t t-set="service_name" t-value=""/>
+						<table
+							style="border-bottom: 1px solid black; width: 100%; height:auto;border-collapse: collapse;">
+							<thead>
+								<th>Date</th>
+								<th>ID</th>
+								<th>Client</th>
+								<th>Sales</th>
+							</thead>
+							<tbody>
+							    <t t-foreach="get_data_from_report" t-as="data">
+							    <tr t-foreach="data_value" t-as="val">
+									<td>
+										<span t-esc="val.get('date')" />
+									</td>
+									<td>
+										<span t-esc="val.get('number')" />
+									</td>
+									<td>
+										<span t-esc="val.get('partner_name')" />
+									</td>
+									<td>
+										<span t-esc="val.get('sales')" />
+										<t t-set="total" t-value="total+val.get('sales', 0)" />
+										<t t-set="service_name" t-value="val.get('treatment_name','')"/>
+									</td>
+								</tr>
+								<tr>
+                                    <td>
+                                        <b><span t-esc="service_name"/></b>
+                                    </td>
+                                </tr>
+								<tr>
+									<td colspan="3" align="center"> <b>Total Sales</b></td>
+									<td>
+										<b><span t-esc="'%.2f'% total" /></b>
+									</td>
+								</tr>
+							 </t>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>
+

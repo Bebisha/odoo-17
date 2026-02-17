@@ -1,0 +1,122 @@
+<odoo>
+    <data>
+        <record id="kg_view_order_form_inherit" model="ir.ui.view">
+            <field name="name">approval.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_button_box')]" position="before">
+                    <div class="alert alert-warning text-center"
+                         role="alert" invisible="is_not_product_calibration == False">
+                        Job sheet is created based on Groups, Categories and certificates.
+                    </div>
+                </xpath>
+                <xpath expr="//button[@name='action_confirm']" position="before">
+                    <button string="Create Job Sheet" name="check_product_categories_and_create_forms" type="object"
+                            invisible="state != 'sale'"
+                            class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <field name="is_complete_saleoder" invisible="1"/>
+                    <field name="is_not_product_calibration" invisible="1"/>
+                    <field name="forms_created" invisible="1"/>
+                    <button class="oe_stat_button" name="create_smart_button_calibration"
+                            type="object" icon="fa-bars" string="Calibration" invisible="calibration_form_count == 0">
+                        <field name="calibration_form_count" widget="statinfo" string="Calibration"/>
+                    </button>
+                    <button class="oe_stat_button" name="create_smart_button_lsa"
+                            type="object" icon="fa-bars" string="LSA Forms" invisible="lsa_form_count == 0">
+                        <field name="lsa_form_count" widget="statinfo" string="LSA"/>
+                    </button>
+                    <button class="oe_stat_button" name="create_smart_button_ffa"
+                            type="object" icon="fa-bars" string="FFA Forms" invisible="ffa_form_count == 0">
+                        <field name="ffa_form_count" widget="statinfo" string="FFA"/>
+                    </button>
+                    <button class="oe_stat_button" name="create_smart_button_field_service"
+                            type="object" icon="fa-bars" string="FIELD SERVICE "
+                            invisible="field_service_form_count == 0">
+                        <field name="field_service_form_count" widget="statinfo" string="FIELD_SERVICE"/>
+                    </button>
+                    <button class="oe_stat_button" name="create_smart_button_navigation_communication"
+                            type="object" icon="fa-bars" string="Navigation and Communication Forms"
+                            invisible="navigation_communication_form_count == 0">
+                        <field name="navigation_communication_form_count" widget="statinfo"
+                               string="Navigation and Communication"/>
+                    </button>
+                    <field name="calibrate_repair_ids" invisible="1"/>
+                    <button class="oe_stat_button" name="repair_moves" type="object" icon="fa-wrench"
+                            string="Repairs" invisible="not calibrate_repair_ids">
+                        <span>
+                            <field name="repair_count" widget="statinfo" string="Repairs"></field>
+                        </span>
+                    </button>
+                    <button class="oe_stat_button" name="view_service_delivery" type="object" icon="fa-truck"
+                            string="Service Delivery" invisible="ser_delivery_count == 0">
+                        <span>
+                            <field name="ser_delivery_count" widget="statinfo" string="Service Delivery"></field>
+                        </span>
+                    </button>
+                </xpath>
+                <field name="payment_term_id" position="after">
+                    <field name="job_sheet_no" invisible="forms_created != True " readonly="1"/>
+
+                </field>
+                <xpath expr="//field[@name='order_line']/tree//field[@name='name']"
+                       position="after">
+                    <field name="scope" readonly="1" force_save="1" optional="hide"/>
+                    <field name="product_catgeory_id" readonly="1" force_save="1" optional="hide"/>
+                    <field name="is_jobsheet" string="Create Certificate" force_save="1"/>
+                    <field name="inspection_calibration_id" force_save="1" column_invisible="1" optional="hide"/>
+                    <field name="line_readonly" force_save="1" column_invisible="1"/>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_subtotal']"
+                       position="after">
+                    <field name="is_product_select" widget="boolean_toggle" string="Create DO"
+                           readonly="line_readonly or is_jobsheet" force_save="1" optional="hide"/>
+                    <field name="is_inv_select" widget="boolean_toggle" string="Create Invoice" optional="hide"/>
+                    <field name="copy_delivered_qty" column_invisible="1"/>
+                    <field name="main_line_id" column_invisible="1"/>
+                    <field name="main_line_sl" column_invisible="1"/>
+                    <field name="id" column_invisible="1"/>
+<!--                    <field name="is_subitem" widget="boolean_toggle" string="Sub Item"/>-->
+
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']"
+                       position="before">
+                    <field name="sub_item_price" force_save="1" readonly="is_subitem == False" optional="show"/>
+                    <!--                    <field name="sub_item_cmp" column_invisible="1"/>-->
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']"
+                       position="attributes">
+                    <attribute name="readonly">is_subitem == True or is_order_approved</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_total']"
+                       position="after">
+                    <button name="create_subitem" invisible="is_subitem == True" class="oe_highlight" type="object"
+                            confirm="Are you sure you want to create new sub item line?"
+                            string="ADD SUBITEMS"/>
+                </xpath>
+
+            </field>
+
+        </record>
+
+        <record id="kg_view_repair_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="repair.view_sale_order_form_inherit_repair"/>
+            <field name="arch" type="xml">
+                <!--                <xpath expr="//div[hasclass('oe_button_box')]" position="before">-->
+                <!--                    <div class="alert alert-warning text-center"-->
+                <!--                         role="alert" invisible="is_not_product_calibration == False">-->
+                <!--                        Job sheet is created based on Groups, Categories and certificates.-->
+                <!--                    </div>-->
+                <!--                </xpath>-->
+                <button name="action_show_repair" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>

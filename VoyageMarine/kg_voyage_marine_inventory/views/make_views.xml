@@ -1,0 +1,39 @@
+<odoo>
+    <!-- Make Master -->
+    <record id="view_rec_make_form" model="ir.ui.view">
+        <field name="name">rec.make.form</field>
+        <field name="model">rec.make</field>
+        <field name="arch" type="xml">
+            <form string="Make">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_rec_make_tree" model="ir.ui.view">
+        <field name="name">rec.make.tree</field>
+        <field name="model">rec.make</field>
+        <field name="arch" type="xml">
+            <tree string="Make">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_rec_make" model="ir.actions.act_window">
+        <field name="name">Makes</field>
+        <field name="res_model">rec.make</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_rec_make" name="Make" parent="stock.menu_product_in_config_stock"
+              action="action_rec_make"/>
+</odoo>

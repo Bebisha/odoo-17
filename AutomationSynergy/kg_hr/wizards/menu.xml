@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--    <data>-->
+    <menuitem
+            id="menu_payslip_report"
+            name="Payslip Report"
+            action="action_payslip_wizard"
+            sequence="19"
+            parent="hr_payroll.menu_hr_payroll_report"/>
+    <menuitem id="menu_payslip_sif_report" name="SIF Report" action="action_payslip_sif_wizard" sequence="4"
+              parent="hr_payroll.menu_hr_payroll_report"/>
+
+    <!--    </data>-->
+</odoo>

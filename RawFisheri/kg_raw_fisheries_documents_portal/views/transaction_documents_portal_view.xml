@@ -1,0 +1,162 @@
+<odoo>
+
+    <template id="view_transaction_documents_template" name="View Transaction Documents">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_body">
+                    <div class="container mt32">
+                        <h3 class="mb-4 text-center text-primary">Transaction Documents</h3>
+
+                        <div class="mb-3 text-right">
+                            <form method="get" action="/view/transaction_documents"
+                                  class="form-inline justify-content-end" style="font-size: 15px;">
+                                <label for="status_filter" class="mr-2">Filter by Status:</label>
+                                <select name="status" id="status_filter">
+                                    <option value="" t-att-selected="not selected_status">All</option>
+                                    <option value="no_need_approve"
+                                            t-att-selected="selected_status == 'no_need_approve'">
+                                        No Need to Approve
+                                    </option>
+                                    <option value="waiting_for_approve"
+                                            t-att-selected="selected_status == 'waiting_for_approve'">
+                                        Waiting for Approval
+                                    </option>
+                                    <option value="approved" t-att-selected="selected_status == 'approved'">Approved
+                                    </option>
+                                    <option value="rejected" t-att-selected="selected_status == 'rejected'">Rejected
+                                    </option>
+                                </select>
+
+                                <button type="submit" class="btn btn-sm btn-primary">Apply</button>
+                            </form>
+                        </div>
+
+                        <t t-if="documents">
+                            <table class="table table-bordered table-sm w-100" style="margin: 0;">
+                                <thead class="thead-dark" style="background-color: #343a40; color: white;">
+                                    <tr style="font-size: 13px;">
+                                        <th class="text-center align-middle p-1" style="width: 10%;">Reference</th>
+                                        <th class="text-center align-middle p-1" style="width: 10%;">Date</th>
+                                        <th class="text-center align-middle p-1" style="width: 10%;">Type</th>
+                                        <th class="text-center align-middle p-1" style="width: 13%;">Customer</th>
+                                        <th class="text-center align-middle p-1" style="width: 13%;">Created User</th>
+                                        <th class="text-center align-middle p-1" style="width: 15%;">File Name</th>
+                                        <th class="text-center align-middle p-1" style="width: 17%;">Actions</th>
+                                        <th class="text-center align-middle p-1" style="width: 12%;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="documents" t-as="doc" t-foreach-index="i">
+                                        <tr style="font-size: 13px;">
+                                            <td class="text-center">
+                                                <t t-esc="doc.name"/>
+                                                <t t-if="doc.name and doc.transaction_document_id.name"><br/>(
+                                                </t>
+                                                <t t-esc="doc.transaction_document_id.name"/>
+                                                <t t-if="doc.name and doc.transaction_document_id.name">)</t>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="doc.transaction_document_id.date.strftime('%d-%m-%Y')"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="doc.type_id.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="doc.partner_id.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="doc.transaction_document_id.user_id.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="doc.filename"/>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <a t-att-href="'/web/content/%s/%s/file?download=false&amp;_ts=%s' % (doc._name, doc.id, timestamp)"
+                                                   class="btn btn-sm btn-outline-primary" target="_blank">
+                                                    👁️ View
+                                                </a>
+                                                <a t-att-href="'/web/content/%s/%s/file?download=true&amp;_ts=%s' % (doc._name, doc.id, timestamp)"
+                                                   class="btn btn-sm btn-outline-info ml-2" target="_blank">
+                                                    ⬇️ Download
+                                                </a>
+                                                <t t-if="doc.status == 'waiting_for_approve'">
+                                                    <span style="padding-top: 8px; display: inline-block;">
+                                                        <a t-att-href="'/document/approve/%s' % doc.id"
+                                                           class="btn btn-sm btn-outline-success ml-2">
+                                                            ✅ Approve
+                                                        </a>
+                                                        <a t-att-href="'/document/reject/%s' % doc.id"
+                                                           class="btn btn-sm btn-outline-danger ml-2">
+                                                            ❌ Reject
+                                                        </a>
+                                                    </span>
+                                                </t>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <t t-if="doc.status == 'no_need_approve'">
+                                                    <span style="color: #993333;">
+                                                        <b>No Need to Approve</b>
+                                                    </span>
+                                                </t>
+                                                <t t-if="doc.status == 'waiting_for_approve'">
+                                                    <span style="color: #ff9900;">
+                                                        <b>Waiting for Approval</b>
+                                                    </span>
+                                                </t>
+                                                <t t-if="doc.status == 'approved'">
+                                                    <span style="color: #006600;">
+                                                        <b>Approved</b>
+                                                    </span>
+                                                </t>
+                                                <t t-if="doc.status == 'rejected'">
+                                                    <span style="color: #ff0000;">
+                                                        <b>Rejected</b>
+                                                    </span>
+                                                </t>
+                                            </td>
+
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                        </t>
+
+                        <t t-else="">
+                            <div class="alert alert-warning text-center mt-4 p-3" style="font-size: 16px;">
+                                ⚠️ No submitted documents found.
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="transaction_documents_reject_template" name="Reject Transaction Documents Reason">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_body">
+                    <div class="container mt-5">
+                        <h3 class="mb-4 text-center text-primary">Reject Document:
+                            <t t-esc="doc.name"/>
+                        </h3>
+                        <form t-att-action="'/document/reject/submit/%s' % doc.id" method="POST">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="form-group">
+                                <label for="reason">Reason for Rejection</label>
+                                <textarea name="reason" id="reason" class="form-control" required="required"/>
+                            </div>
+                            <button type="submit" class="btn btn-danger mt-3">Submit Reject</button>
+                        </form>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

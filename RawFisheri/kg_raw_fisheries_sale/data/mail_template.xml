@@ -1,0 +1,190 @@
+<odoo>
+
+    <!--    mail_template_sale_confirmation################################################################################-->
+
+<!--    <function name="write" model="ir.model.data">-->
+<!--        <function name="search" model="ir.model.data">-->
+<!--            <value eval="[('name', '=', 'mail_template_sale_confirmation'), ('module', '=', 'sale')]"/>-->
+<!--        </function>-->
+<!--        <value eval="{'noupdate': False}"/>-->
+<!--    </function>-->
+
+<!--    <record id="sale.mail_template_sale_confirmation" model="mail.template">-->
+<!--        <field name="body_html" type="html">-->
+<!--            <div style="margin: 0px; padding: 0px;">-->
+<!--                <p style="margin: 0px; padding: 0px; font-size: 13px;">-->
+<!--                    <t t-set="doc_name" t-value="'quotation' if object.state in ('draft', 'sent') else 'order'"/>-->
+<!--                    Hello,-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    Your-->
+<!--                    <t t-if="ctx.get('proforma')">-->
+<!--                        Pro forma invoice for-->
+<!--                        <t t-out="doc_name or ''">quotation</t>-->
+<!--                        <span style="font-weight: bold;" t-out="object.name or ''">S00052</span>-->
+<!--                        <t t-if="object.origin">-->
+<!--                            (with reference: <t t-out="object.origin or ''"></t> )-->
+<!--                        </t>-->
+<!--                        amounting in <span style="font-weight: bold;"-->
+<!--                                           t-out="format_amount(object.amount_total, object.currency_id) or ''">$-->
+<!--                        10.00-->
+<!--                    </span> is available.-->
+<!--                    </t>-->
+<!--                    <t t-else="">-->
+<!--                        <t t-out="doc_name or ''">quotation</t>-->
+<!--                        <span style="font-weight: bold;" t-out="object.name or ''"></span>-->
+<!--                        <t t-if="object.origin">-->
+<!--                            (with reference: <t t-out="object.origin or ''">S00052</t> )-->
+<!--                        </t>-->
+<!--                        amounting in <span style="font-weight: bold;"-->
+<!--                                           t-out="format_amount(object.amount_total, object.currency_id) or ''">$-->
+<!--                        10.00-->
+<!--                    </span> is ready for review.-->
+<!--                    </t>-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    Do not hesitate to contact us if you have any questions.-->
+<!--                    <t t-if="not is_html_empty(object.user_id.signature)">-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <t t-out="object.user_id.signature or ''">&#45;&#45;<br/>Mitchell Admin-->
+<!--                        </t>-->
+<!--                    </t>-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div style="margin: 0px; padding: 0px;">-->
+<!--                <a t-att-href="'/sale/order/%s' % (object.id)"-->
+<!--                   style="padding:10px 15px;background:#4287f5;color:#fff;text-decoration:none;border-radius:5px;font-weight:bold;">-->
+<!--                    View-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <function name="write" model="ir.model.data">-->
+<!--        <function name="search" model="ir.model.data">-->
+<!--            <value eval="[('name', '=', 'mail_template_sale_confirmation'), ('module', '=', 'sale')]"/>-->
+<!--        </function>-->
+<!--        <value eval="{'noupdate': True}"/>-->
+<!--    </function>-->
+
+<!--    &lt;!&ndash;   email_template_edi_sale#########################################################################################&ndash;&gt;-->
+
+<!--    <function name="write" model="ir.model.data">-->
+<!--        <function name="search" model="ir.model.data">-->
+<!--            <value eval="[('name', '=', 'email_template_edi_sale'), ('module', '=', 'sale')]"/>-->
+<!--        </function>-->
+<!--        <value eval="{'noupdate': False}"/>-->
+<!--    </function>-->
+
+<!--    <record id="sale.email_template_edi_sale" model="mail.template">-->
+<!--        <field name="body_html" type="html">-->
+<!--            <div style="margin: 0px; padding: 0px;">-->
+<!--                <p style="margin: 0px; padding: 0px; font-size: 13px;">-->
+<!--                    <t t-set="doc_name" t-value="'quotation' if object.state in ('draft', 'sent') else 'order'"/>-->
+<!--                    Hello,-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    Your-->
+<!--                    <t t-if="ctx.get('proforma')">-->
+<!--                        Pro forma invoice for-->
+<!--                        <t t-out="doc_name or ''">quotation</t>-->
+<!--                        <span style="font-weight: bold;" t-out="object.name or ''">S00052</span>-->
+<!--                        <t t-if="object.origin">-->
+<!--                            (with reference: <t t-out="object.origin or ''"></t> )-->
+<!--                        </t>-->
+<!--                        amounting in <span style="font-weight: bold;"-->
+<!--                                           t-out="format_amount(object.amount_total, object.currency_id) or ''">$-->
+<!--                        10.00-->
+<!--                    </span> is available.-->
+<!--                    </t>-->
+<!--                    <t t-else="">-->
+<!--                        <t t-out="doc_name or ''">quotation</t>-->
+<!--                        <span style="font-weight: bold;" t-out="object.name or ''"></span>-->
+<!--                        <t t-if="object.origin">-->
+<!--                            (with reference: <t t-out="object.origin or ''">S00052</t> )-->
+<!--                        </t>-->
+<!--                        amounting in <span style="font-weight: bold;"-->
+<!--                                           t-out="format_amount(object.amount_total, object.currency_id) or ''">$-->
+<!--                        10.00-->
+<!--                    </span> is ready for review.-->
+<!--                    </t>-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    Do not hesitate to contact us if you have any questions.-->
+<!--                    <t t-if="not is_html_empty(object.user_id.signature)">-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <t t-out="object.user_id.signature or ''">&#45;&#45;<br/>Mitchell Admin-->
+<!--                        </t>-->
+<!--                    </t>-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div style="margin: 0px; padding: 0px;">-->
+<!--                <a t-att-href="'/sale/order/%s' % (object.id)"-->
+<!--                   style="padding:10px 15px;background:#4287f5;color:#fff;text-decoration:none;border-radius:5px;font-weight:bold;">-->
+<!--                    View-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <function name="write" model="ir.model.data">-->
+<!--        <function name="search" model="ir.model.data">-->
+<!--            <value eval="[('name', '=', 'email_template_edi_sale'), ('module', '=', 'sale')]"/>-->
+<!--        </function>-->
+<!--        <value eval="{'noupdate': True}"/>-->
+<!--    </function>-->
+
+<!--    &lt;!&ndash;    mail_template_sale_cancellation##################################################################################&ndash;&gt;-->
+
+<!--    <function name="write" model="ir.model.data">-->
+<!--        <function name="search" model="ir.model.data">-->
+<!--            <value eval="[('name', '=', 'mail_template_sale_cancellation'), ('module', '=', 'sale')]"/>-->
+<!--        </function>-->
+<!--        <value eval="{'noupdate': False}"/>-->
+<!--    </function>-->
+
+<!--    <record id="sale.mail_template_sale_cancellation" model="mail.template">-->
+<!--        <field name="body_html" type="html">-->
+<!--            <div style="margin: 0px; padding: 0px;">-->
+<!--                <p style="margin: 0px; padding: 0px; font-size: 13px;">-->
+<!--                    <t t-set="doc_name" t-value="object.type_name"/>-->
+<!--                    Dear <t t-out="object.partner_id.name or ''">user</t>,-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    Please be advised that your-->
+<!--                    <t t-out="doc_name or ''">quotation</t>-->
+<!--                    <strong t-out="object.name or ''">S00052</strong>-->
+<!--                    <t t-if="object.origin">-->
+<!--                        (with reference: <t t-out="object.origin or ''">S00052</t> )-->
+<!--                    </t>-->
+<!--                    has been cancelled. Therefore, you should not be charged further for this order.-->
+<!--                    If any refund is necessary, this will be executed at best convenience.-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    Do not hesitate to contact us if you have any questions.-->
+<!--                    <br/>-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div style="margin: 0px; padding: 10px;">-->
+<!--                <a t-att-href="'/sale/order/%s' % (object.id)"-->
+<!--                   style="padding:10px 15px;background:#4287f5;color:#fff;text-decoration:none;border-radius:5px;font-weight:bold;">-->
+<!--                    View-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <function name="write" model="ir.model.data">-->
+<!--        <function name="search" model="ir.model.data">-->
+<!--            <value eval="[('name', '=', 'mail_template_sale_cancellation'), ('module', '=', 'sale')]"/>-->
+<!--        </function>-->
+<!--        <value eval="{'noupdate': True}"/>-->
+<!--    </function>-->
+
+</odoo>

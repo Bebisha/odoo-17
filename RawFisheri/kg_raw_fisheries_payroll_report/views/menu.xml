@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--Payroll Report Approval Action-->
+        <record id="action_payroll_approval_reports" model="ir.actions.act_window">
+            <field name="name">Payroll Report Approval</field>
+            <field name="res_model">payroll.report.approval</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Payroll Report Approval Menu-->
+        <menuitem id="menu_action_payroll_report_approval"
+                  name="Payroll Report Approval"
+                  action="action_payroll_approval_reports"
+                  parent="hr_payroll.menu_hr_payroll_report"
+                  sequence="25"/>
+
+        <!--Final Crew Report Action-->
+        <record id="action_final_crew_report" model="ir.actions.act_window">
+            <field name="name">Final Crew Report Monthly</field>
+            <field name="res_model">final.crew.salary.monthly</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Final Crew Report Menu-->
+        <menuitem id="menu_final_crew_report"
+                  name="Final Crew Report Monthly"
+                  action="action_final_crew_report"
+                  parent="kg_raw_fisheries_hrms.menu_hr_employee_entry_reporting"
+                  sequence="25"/>
+
+    </data>
+</odoo>

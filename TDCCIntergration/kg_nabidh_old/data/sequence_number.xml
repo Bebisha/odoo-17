@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="patient_identifier" model="ir.sequence">
+            <field name="name">Patient Identifier list</field>
+            <field name="code">patient_identifier</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">16</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_id_obx" model="ir.sequence">
+            <field name="name">Set ID – OBX</field>
+            <field name="code">set_id_obx</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_id_nk1" model="ir.sequence">
+            <field name="name">Set ID – NK1</field>
+            <field name="code">set_id_nk1</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_id_al1" model="ir.sequence">
+            <field name="name">Set ID – AL1</field>
+            <field name="code">set_id_al1</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_id_dg1" model="ir.sequence">
+            <field name="name">Set ID – DG1</field>
+            <field name="code">set_id_dg1</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_id_prl" model="ir.sequence">
+            <field name="name">Set ID – PR1</field>
+            <field name="code">set_id_prl</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_id_gtl" model="ir.sequence">
+            <field name="name">Set ID – GT1</field>
+            <field name="code">set_id_gtl</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_id_inr" model="ir.sequence">
+            <field name="name">Set ID – INR</field>
+            <field name="code">set_id_inr</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_id_ssh" model="ir.sequence">
+            <field name="name">Set ID – ZSH</field>
+            <field name="code">set_id_ssh</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_id_zfh" model="ir.sequence">
+            <field name="name">Set ID – ZSH</field>
+            <field name="code">set_id_zfh</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="message_control_id" model="ir.sequence">
+            <field name="name">Set ID – ZSH</field>
+            <field name="code">message_control_id</field>
+            <field name="prefix">MCI00</field>
+            <!--            <field name="padding">00</field>-->
+            <field name="number_next">1</field>
+        </record>
+        <record id="placer_order_number" model="ir.sequence">
+            <field name="name">Placer Order Number</field>
+            <field name="code">placer_order_number</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_nte" model="ir.sequence">
+            <field name="name">NET</field>
+            <field name="code">set_id_nte</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_id_txa" model="ir.sequence">
+            <field name="name">TXA</field>
+            <field name="code">set_id_txa</field>
+            <!--            <field name="prefix">BR</field>-->
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_txa_doc" model="ir.sequence">
+            <field name="name">documents</field>
+            <field name="code">set_txa_docs</field>
+            <field name="prefix">25</field>
+            <field name="padding">7</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="set_id_obr" model="ir.sequence">
+            <field name="name">OBR</field>
+            <field name="code">set_id_obr</field>
+            <field name="prefix">5125666-</field>
+            <field name="padding">0</field>
+            <field name="number_next">295</field>
+        </record>
+        <record id="set_id_patient_visit" model="ir.sequence">
+            <field name="name">PV1_ID</field>
+            <field name="code">patient_visit</field>
+            <field name="padding">0</field>
+            <field name="number_next">1</field>
+        </record>
+    </data>
+
+</odoo>

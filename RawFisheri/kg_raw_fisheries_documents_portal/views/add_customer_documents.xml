@@ -1,0 +1,88 @@
+<odoo>
+
+    <template id="add_customer_documents_template" name="Add Customer Documents">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_body">
+                    <form action="/submitted/document" method="POST" class="form-horizontal mt32"
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="form-input-wide" data-type="control_head">
+                            <div class="form-header-group  header-default">
+                                <div class="header-text httal htvam">
+                                    <h1 class="form-header" data-component="header">
+                                        <center>
+                                            <font size="6">
+                                                <b>Customer Documents</b>
+                                            </font>
+                                        </center>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="contact-form row">
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Customer</span>
+                                    </label>
+                                    <div>
+                                        <select name="customer" class="form-control link-style">
+                                            <option data-otherhint="customer"
+                                                    size="20" placeholder="Select Customer"/>
+                                            <t t-foreach="customers" t-as="cus">
+                                                <option t-attf-value="#{cus.id}">
+                                                    <t t-esc="cus.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="col-md-12">
+                            <div class="contact-form row">
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Workspace</span>
+                                    </label>
+                                    <div>
+                                        <select name="folder" class="form-control link-style">
+                                            <option data-otherhint="folder"
+                                                    size="20" placeholder="Select Workspace"/>
+                                            <t t-foreach="folders" t-as="fold">
+                                                <option t-attf-value="#{fold.id}">
+                                                    <t t-esc="fold.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-form-label s_website_form_label">
+                                        <span class="website_form">Upload File</span>
+                                    </label>
+                                    <div>
+                                        <input class="form-control o_website_form_input" name="upload_file"
+                                               id="upload_file"
+                                               type="file"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <br/>
+
+                        <div style="width: 200px;">
+                            <button id="submit_button" type="submit" class="btn btn-primary">Submit Document</button>
+                        </div>
+                    </form>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

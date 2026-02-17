@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+
+        <record id="kg_partner_document_action" model="ir.actions.act_window">
+            <field name="name">Partner Documents</field>
+            <field name="res_model">hr.employee.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="employee_documents_tree_view"/>
+            <field name="context">{'default_is_partner': True}</field>
+            <field name="domain">[('is_partner', '=',True)]</field>
+        </record>
+
+        <menuitem id="kg_partner_document_menuitem"
+                  parent="contacts.menu_contacts"
+                  action="oh_employee_documents_expiry.kg_partner_document_action"/>
+
+        <menuitem id="kg_partner_document_menuitem_documents"
+                  parent="documents.menu_root" sequence="2"
+                  groups="documents.group_documents_manager"
+                  action="oh_employee_documents_expiry.kg_partner_document_action"/>
+
+
+        <record model="ir.ui.view" id="partner_document_inherit_form_view">
+            <field name="name">partner.documents.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <div class="oe_button_box" position="inside">
+                    <button class="oe_stat_button" name="document_view" type="object" icon="fa-list-ol">
+                        <field string="Documents" name="document_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

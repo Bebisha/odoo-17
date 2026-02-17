@@ -1,0 +1,90 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="kg_procedures_segment_tree_view">
+            <field name="name">Procedures Segment</field>
+            <field name="model">kg.procedures.segment</field>
+            <field name="arch" type="xml">
+                <!--                <tree create="false" edit="false">-->
+                <tree>
+                    <field name="set_id_pr1"/>
+                    <field name="procedure_coding_method"/>
+
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="kg_procedures_segment_form_view">
+            <field name="name">Procedures Segment</field>
+            <field name="model">kg.procedures.segment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <button name="btn_submit" string="Submit" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+                        <button name="btn_cancel" string="Cancel" type="object" data-hotkey="w"
+                               invisible="state not in ('draft','submited')"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submited"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="set_id_pr1" required="1"/>
+                                <field name="procedure_coding_method" required="1"/>
+                                <field name="procedure_cod" required="1"/>
+                                <field name="procedure_description" required="1"/>
+                                <field name="procedure_date" required="1"/>
+                                <field name="procedr_functional_type"/>
+                            </group>
+                            <group>
+                                <field name="procedr_minutes"/>
+                                <field name="anasthesiologist"/>
+                                <field name="anasthesia_code"/>
+                                <field name="anasthesia_minutes"/>
+                                <field name="surgeon" required="1"/>
+                                <field name="procedr_practitionr"/>
+                                <field name="consent_code"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="procedure_priority" required="1"/>
+                                <field name="associated_code"/>
+                                <field name="procedure_code_modifr"/>
+                            </group>
+                            <group>
+                                <field name="procedure_drug_type"/>
+                                <field name="tissue_type_code"/>
+                                <field name="procedure_identifier" required="1"/>
+                                <field name="procedure_action_code" required="1"/>
+                            </group>
+                        </group>
+
+
+                    </sheet>
+                    <!--                  <div class="o_attachment_preview"/>-->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="kg_procedures_segment_action_form" model="ir.actions.act_window">
+            <field name="name">Procedures Segment</field>
+            <field name="res_model">kg.procedures.segment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

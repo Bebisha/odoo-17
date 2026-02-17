@@ -1,0 +1,36 @@
+<odoo>
+    <record id="terms_condition_custom_form" model="ir.ui.view">
+        <field name="name">custom.terms.condition.form.view</field>
+        <field name="model">custom.terms.conditions</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="terms_condition"/>
+                    </group>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+    <record id="terms_condition_custom_tree" model="ir.ui.view">
+        <field name="name">custom.terms.condition.tree.view</field>
+        <field name="model">custom.terms.conditions</field>
+        <field name="arch" type="xml">
+            <tree string="model">
+                <field name="name"/>
+<!--                <field name="terms_condition"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_terms_condition_custom" model="ir.actions.act_window">
+        <field name="name">Terms and Conditions</field>
+        <field name="res_model">custom.terms.conditions</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_terms_condition_custom" name="Terms and Conditions"
+              parent="purchase.menu_purchase_config"
+              action="action_terms_condition_custom"/>
+</odoo>

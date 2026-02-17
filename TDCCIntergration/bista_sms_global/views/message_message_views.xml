@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="message_message_tree" model="ir.ui.view">
+            <field name="name">message.message.tree</field>
+            <field name="model">message.message</field>
+            <field name="arch" type="xml">
+                <tree string="Messages"
+                    decoration-muted="state in ('sent', 'cancel')"
+                    decoration-info="state=='outgoing'"
+                    decoration-danger="state=='exception'" create="0" edit="0" delete="0">
+                    <field name="date" />
+                    <field name="name" />
+                    <field name="to_number" />
+                    <field name="author_id" string="User" />
+                    <field name="message_id" invisible="1" />
+                    <field name="model" invisible="1" />
+                    <field name="res_id" invisible="1" />
+                    <field name="state" />
+                    <button name="action_send" string="Send Now" type="object"
+                        icon="fa-paper-plane" invisible ="state != 'outgoing'" />
+                    <button name="action_send" string="Retry" type="object"
+                        icon="fa-repeat"  invisible ="state not in ('exception', 'cancel')"
+                        context="{'from_retry': True}"/>
+                    <button name="action_cancel" string="Cancel Email" type="object"
+                        icon="fa-times" invisible ="state != 'outgoing'" />
+                </tree>
+            </field>
+        </record>
+    
+        <record model="ir.ui.view" id="message_message_form">
+            <field name="name">message.message.form</field>
+            <field name="model">message.message</field>
+            <field name="arch" type="xml">
+                <form string="Messages" create="0" edit="0" delete="0">
+                    <header>
+                        <button name="action_send" type="object"
+                           invisible ="state != 'draft'"  string="Send" />
+                        <button name="action_cancel" type="object"
+                        invisible ="state not in ('draft', 'exception')" string="Cancel" />
+                        <button name="action_send" string="Retry" type="object"
+                           invisible ="state != 'exception'"  context="{'from_retry': True}" />
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,sent,exception,cancel" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sms_template_id" string="Message Template"  readonly="state in ('cancel', 'sent')"/>
+                                <field name="name" readonly="state in ('cancel', 'sent')"/>
+                                <field name="date"
+                                    readonly="1" />
+                                <field name="from_number" readonly="state in ('cancel', 'sent')"/>
+                                <field name="author_id" string="User" readonly="1" />
+                                <field name="partner_ids" widget="many2many_tags" readonly="state in ('cancel', 'sent')"/>
+                            </group>
+                            <group>
+                                <field name="model"
+                                    readonly="1" />
+                                <field name="to_number" readonly="state in ('cancel', 'sent')"/>
+                                <field name="reply_to" readonly="state in ('cancel', 'sent')"/>
+                                <field name="res_id" readonly="1" />
+                                <field name="api_count" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Message">
+                                <field name="message" readonly="state in ('cancel', 'sent')"/>
+                            </page>
+                            <page string="Gateway">
+                                <group>
+                                    <group>
+                                        <field name="message_id" readonly="1" />
+                                        <field name="sms_server_id" readonly="state in ('cancel', 'sent')"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Failure Reason" invisible="state in ('cancel', 'sent')">
+<!--                                options="{'invisible': [('state', '!=', 'exception')]}">-->
+                                <field name="failure_reason" readonly="state in ('cancel', 'sent')"/>
+<!--                                    options="{'readonly': [('state','in', ('cancel','sent'))]}" />-->
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    
+        <record id="action_messages" model="ir.actions.act_window">
+            <field name="name">Messages</field>
+            <field name="res_model">message.message</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="message_message_tree" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a Messages.
+                </p>
+            </field>
+        </record>
+    
+        <menuitem action="action_messages"
+            id="menu_action_messages_tree" parent="menu_sms"
+            sequence="3" />
+
+</odoo>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--   Form view for crew transfer model   -->
+        <record id="hr_crew_transfer_form" model="ir.ui.view">
+            <field name="name">crew.transfer.form</field>
+            <field name="model">crew.transfer</field>
+            <field name="arch" type="xml">
+                <form string="Crew Transfer">
+                    <header>
+                        <button name="action_transfer" type="object" class="btn btn-primary" string="Transfer"
+                                invisible="state != 'draft'"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                            <separator/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="old_vessel_id"/>
+                                <field name="date_transfer"/>
+                            </group>
+                            <group>
+                                <field name="new_vessel_id"/>
+                                <field name="company_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Crew">
+                                <field name="crew_transfer_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="vessel_id" column_invisible="1"/>
+                                        <field name="employee_id" domain="[('sponsor_name','=',vessel_id)]"/>
+                                        <field name="factory_manager_ids" widget="many2many_tags"/>
+                                        <field name="date_transfer" optional="hide"/>
+                                        <field name="department_id"/>
+                                        <field name="job_id"/>
+                                        <field name="days_old"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--   Tree view for crew transfer model   -->
+        <record id="hr_crew_transfer_tree" model="ir.ui.view">
+            <field name="name">crew.transfer.tree</field>
+            <field name="model">crew.transfer</field>
+            <field name="arch" type="xml">
+                <tree string="Crew Transfer">
+                    <field name="name"/>
+                    <field name="old_vessel_id"/>
+                    <field name="new_vessel_id"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

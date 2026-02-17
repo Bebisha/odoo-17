@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Observation Result Status Codes Master Data -->
+    <data noupdate="1">
+
+        <record id="result_c" model="result.code">
+            <field name="code">C</field>
+            <field name="name">Record coming over is a correction and thus replaces a final result</field>
+        </record>
+
+        <record id="result_d" model="result.code">
+            <field name="code">D</field>
+            <field name="name">Deletes the OBX record</field>
+        </record>
+
+        <record id="result_f" model="result.code">
+            <field name="code">F</field>
+            <field name="name">Final results; can only be changed with a corrected result</field>
+        </record>
+
+        <record id="result_i" model="result.code">
+            <field name="code">I</field>
+            <field name="name">Specimen in lab; results pending</field>
+        </record>
+
+        <record id="result_n" model="result.code">
+            <field name="code">N</field>
+            <field name="name">Not asked; used affirmatively to indicate observation not sought</field>
+        </record>
+
+        <record id="result_o" model="result.code">
+            <field name="code">O</field>
+            <field name="name">Order detail description only (no result)</field>
+        </record>
+
+        <record id="result_p" model="result.code">
+            <field name="code">P</field>
+            <field name="name">Preliminary results</field>
+        </record>
+
+        <record id="result_r" model="result.code">
+            <field name="code">R</field>
+            <field name="name">Results entered — not verified</field>
+        </record>
+
+        <record id="result_s" model="result.code">
+            <field name="code">S</field>
+            <field name="name">Partial results</field>
+        </record>
+
+        <record id="result_u" model="result.code">
+            <field name="code">U</field>
+            <field name="name">Status change without retransmission of preliminary results</field>
+        </record>
+
+        <record id="result_w" model="result.code">
+            <field name="code">W</field>
+            <field name="name">Post original as wrong (e.g., transmitted for wrong patient)</field>
+        </record>
+
+        <record id="result_x" model="result.code">
+            <field name="code">X</field>
+            <field name="name">Results cannot be obtained for this observation</field>
+        </record>
+
+    </data>
+</odoo>

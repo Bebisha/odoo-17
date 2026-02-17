@@ -1,0 +1,10 @@
+<odoo>
+
+    <record id="kg_project_users_rule" model="ir.rule">
+        <field name="name">Access Project Users</field>
+        <field name="model_id" ref="project.model_project_project"/>
+        <field name="domain_force">[('project_users_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('project.group_project_user'))]"/>
+    </record>
+
+</odoo>

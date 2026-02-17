@@ -1,0 +1,12 @@
+<odoo>
+    <record id="inherit_po_pr_form_inh" model="ir.ui.view">
+        <field name="name">inh.purchase.order.pr.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="material_purchase_requisition.inherit_po_pr_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pr_requisition_ids']" position="attributes">
+                <attribute name="invisible">not pr_requisition_ids</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="inherit_holiday_status_form_view">
+            <field name="name">Hr Leave</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_draft']" position="after">
+                    <field name="is_request" invisible="1"/>
+                    <field name="is_gm_approve" invisible="1"/>
+                    <field name="is_rfq_approve" invisible="1"/>
+                    <field name="is_reject" invisible="1"/>
+
+                    <button name="kg_gm_approve" type="object" string="GM Approval"
+                            invisible="is_request == False or is_gm_approve == True"
+                            class="oe_highlight"/>
+                    <button name="kg_gm_reject" type="object" string="Reject"
+                            invisible="is_request == False or is_gm_approve == True"
+                            class="oe_highlight"/>
+                    <!--                    <button name="kg_reject" type="object" string="Reject"-->
+                    <!--                            invisible="is_rfq_approve == True"-->
+                    <!--                            class="oe_highlight"/>-->
+                </xpath>
+                <button name="action_validate" position="attributes">
+                    <attribute name="invisible">is_gm_approve != True or state == 'validate'</attribute>
+                    <!--                     or  state == 'validate'-->
+                </button>
+            </field>
+        </record>
+        <odoo>
+            <record id="quality_check_view_form_inherit_inspection_by" model="ir.ui.view">
+                <field name="name">quality.check.view.form.inherit.inspection.by</field>
+                <field name="model">quality.check</field>
+                <field name="inherit_id" ref="quality_control.quality_check_view_form"/>
+                <field name="arch" type="xml">
+
+                    <!-- Change label of team_id -->
+                    <xpath expr="//field[@name='team_id']" position="attributes">
+                        <attribute name="string">Inspection By</attribute>
+                    </xpath>
+
+                </field>
+            </record>
+        </odoo>
+
+    </data>
+</odoo>

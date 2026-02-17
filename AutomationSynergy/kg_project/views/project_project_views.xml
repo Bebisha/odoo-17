@@ -1,0 +1,85 @@
+<odoo>
+    <record id="project_project_form_view_inh" model="ir.ui.view">
+        <field name="name">project.project.view.form.inherit1</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <!--             <xpath expr="%(project.project_share_wizard_action)d" position="attributes">-->
+            <xpath expr="//button[@name='%(project.project_share_wizard_action)d']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='%(project.project_share_wizard_action)d'][2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_bom" icon="fa-tasks"
+                        invisible="bom_count==0">
+                    <field string="BOM" name="bom_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_invoices" icon="fa-credit-card"
+                        string="Invoices"
+                        invisible="invoice_count==0">
+                    <field string="Invoices" name="invoice_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_variation_invoices" icon="fa-credit-card"
+                        string="Variation Invoices"
+                        invisible="variation_invoice_count==0">
+                    <field string="Variation Invoices" name="variation_invoice_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" type="object" icon="fa-dollar"
+                        name="action_get_analytic_record" invisible="analytic_count == 0">
+                    <field string="Analytic Account" name="analytic_count" widget="statinfo"/>
+                </button>
+            </div>
+            <xpath expr="//header" position="inside">
+                <button name="create_bom" string="Create BOM" type="object" class="btn-primary"
+                />
+                <!--                <button name="action_approve" string="Approve" type="object" class="btn-primary"-->
+                <!--                        groups="project.group_project_manager"-->
+                <!--                />-->
+                <!--                <button name="create_mr" string="Create MR" type="object" class="btn-primary" invisible="1"-->
+
+                <!--                />-->
+                <button name="create_variation" string="Create Variation" type="object" class="btn-primary"
+                        invisible="bom_count == 0">
+                    <field name="bom_count" widget="statinfo" invisible="1"/>
+                </button>
+
+
+                <button name="create_invoice_from_project" string="Create Invoice" type="object"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="sequence" invisible="1"/>
+            </xpath>
+            <!--            <button name="action_view_sos" position="attributes">-->
+            <!--                <attribute name="invisible">1</attribute>-->
+            <!--            </button>-->
+            <page name="description" position="after">
+                <page name="bom_line" string="BOM Lines" invisible="1">
+                    <field name="is_bom_line_empty"/>
+                    <field name="bom_line_ids" readonly="1">
+                        <tree editable="bottom">
+                            <!--                            <field name="bom_selection_id"/>-->
+                            <field name="product_category_id"/>
+                            <field name="product_id"/>
+                            <field name="qty"/>
+                        </tree>
+                    </field>
+                </page>
+
+            </page>
+
+        </field>
+    </record>
+    <record id="project_project_form_view_inh_1" model="ir.ui.view">
+        <field name="name">project.project.view.form.inherit1</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="sale_project.view_edit_project_inherit_form"/>
+        <field name="arch" type="xml">
+            <button name="action_view_sos" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+        </field>
+    </record>
+
+</odoo>

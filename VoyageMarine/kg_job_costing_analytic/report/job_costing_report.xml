@@ -1,0 +1,14 @@
+<odoo>
+
+    <record id="action_job_costing_report_analytic" model="ir.actions.report">
+        <field name="name">Job Costing Report</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_job_costing_analytic.analytic_job_costing_report_template</field>
+        <field name="report_file">kg_job_costing_analytic.analytic_job_costing_report_template</field>
+        <field name="binding_model_id" ref="model_sale_order"/>
+        <field name="print_report_name">'Job Costing Report - %s' % object.name</field>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

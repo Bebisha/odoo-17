@@ -1,0 +1,59 @@
+<odoo>
+
+    <record id="view_document_file_access_wizard_form" model="ir.ui.view">
+        <field name="name">document.access.wizard.form</field>
+        <field name="model">document.access.wizard</field>
+        <field name="arch" type="xml">
+            <form string="File Access">
+                <group>
+                    <group>
+                        <field name="is_add_users"/>
+                        <field name="is_add_groups"/>
+                        <field name="is_remove_users"/>
+                        <field name="is_remove_groups"/>
+                    </group>
+                    <group>
+                        <field name="document_id" readonly="1" invisible="1"/>
+                        <field name="current_access_users" readonly="1" widget="many2many_tags" force_save="1"
+                               invisible="1"/>
+                        <field name="file_access_users" readonly="1" widget="many2many_tags" force_save="1"
+                               invisible="1"/>
+                        <field name="file_groups_access" readonly="1" widget="many2many_tags" force_save="1"
+                               invisible="1"/>
+                        <field name="user_ids" widget="many2many_tags" required="is_add_users"
+                               domain="[('id','not in',current_access_users)]" invisible="not is_add_users"/>
+                        <field name="group_ids" widget="many2many_tags" invisible="not is_add_groups"
+                               required="is_add_groups" domain="[('is_documents_groups','=',True)]"/>
+                        <field name="remove_user_ids" widget="many2many_tags" invisible="not is_remove_users"
+                               domain="[('id','in',file_access_users)]" required="is_remove_users"/>
+                        <field name="remove_groups_ids" widget="many2many_tags" invisible="not is_remove_groups"
+                               domain="[('id','in',file_groups_access)]" required="is_remove_groups"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Access Users">
+                        <field name="file_access_users" readonly="1" force_save="1">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Access Groups">
+                        <field name="file_groups_access" readonly="1" force_save="1">
+                            <tree>
+                                <field name="full_name"/>
+                                <field name="users" widget="many2many_tags"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="update_access_users" type="object" string="Confirm" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

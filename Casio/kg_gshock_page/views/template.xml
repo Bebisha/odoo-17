@@ -1,0 +1,608 @@
+<odoo>
+    <!-- Join G-Shock Club Form Page -->
+    <template id="join_gshock_club_template" name="Join G-Shock Club Form">
+        <t t-call="website.layout">
+            <style>header{display:none !important;}footer{display:none !important;}</style>
+            <section class="gshock-form-section pb32">
+                <div class="row">
+                    <div class="col-12">
+<!--                        <img src="/kg_gshock_page/static/description/images/text.png" width="55%" style="margin-left:75px;"/>-->
+                        <img src="/kg_gshock_page/static/description/images/background_new.jpg" width="100%"/>
+                    </div>
+                </div>
+                <!--                <div class="row">-->
+                <!--                    <div class="col-6">-->
+                <!--                        <img src="/kg_gshock_page/static/description/images/g-shock-logo.png" width="50%" height="50%"-->
+                <!--                             style="top: 50%;-->
+                <!--          transform: translateX(50%);object-fit: contain; margin-top: 12%;"/>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-6">-->
+                <!--                        <img src="/kg_gshock_page/static/description/images/img-ipad-watches.png" width="95%"-->
+                <!--                             height="100%"/>-->
+                <!--                    </div>-->
+
+                <!--                </div>-->
+                <div class="container" style="width: 80%; border-radius: 20px !important;">
+
+                    <div class="g-shock-form">
+                        <form class="g-shock" action="/submit_form" method="POST">
+                            <h1 id="joinGshockHead">Join the G-SHOCK Club</h1>
+                            <div class="text-center">
+                                <div class="mt-2 lang-selection">
+                                    <span id="gshockLangSelectorSpan">Select Language:</span>
+                                    <select id="gshockLangSelector" class="ms-1 border-0 bg-transparent list-lang">
+                                        <option value="english">English</option>
+                                        <option value="arabic">Arabic</option>
+                                        <option value="french">French</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="full_name" id="full_name" placeholder="Full Name"
+                                       required="required" class="custom-input w-100" style="line-height: 3.5em;"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="agent_id" id="agent_id"
+                                       class="custom-input w-100" t-att-value="agent_id"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="agent_name" id="agent_name"
+                                       class="custom-input" t-att-value="agent_name"/>
+                            </div>
+                            <div class="form-group">
+                                <select name="region_id" id="region_id" class="region_id w-100" required="required"
+                                        t-att-disabled="'disabled' if set_readonly else None">
+                                    <option value="" t-att-selected="'selected' if region_id == 'False' else None">
+                                        Select Region
+                                    </option>
+                                    <option value="middle"
+                                            t-att-selected="'selected' if region_id == 'middle' else None">Middle East
+                                    </option>
+                                    <option value="africa"
+                                            t-att-selected="'selected' if region_id == 'africa' else None">Africa
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="country_id" id="country_id" class="w-100" required="required"
+                                        t-att-disabled="'disabled' if set_readonly else None">
+                                    <option value="">Country of Residence</option>
+                                </select>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <select name="city_id" id="city_id" class="w-100" required="required">
+                                            <option value="">City</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <select name="nationality" id="nationality" class="w-100" required="required">
+                                            <option value="">Nationality</option>
+                                            <t t-foreach="request.env['res.country'].sudo().search([])" t-as="country">
+                                                <option t-att-value="country.id">
+                                                    <t t-esc="country.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Email Address -->
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" required="required" class="w-100"
+                                       placeholder="Email Address"/>
+                            </div>
+
+                            <div class="form-group phone-field-wrapper ">
+                                <div class="phone-group">
+                                    <div class="country-code phone-field-wrapper-eng">+971</div>
+                                    <input type="text" name="phone" id="phone" class="phone-input w-100"
+                                           required="required" placeholder="Phone"
+                                           style="border-left: 2px solid black !important;"/>
+                                    <div class="country-code phone-field-wrapper-arb d-none">971+</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="gender-option col-6 col-sm-4 col-md-4 col-lg-4">
+                                        <input type="radio" name="gender" value="male" class="w-100" checked="checked"/>
+                                        <span id="male">Male</span>
+                                    </label>
+                                    <label class="gender-option col-6 col-sm-4 col-md-4 col-lg-4">
+                                        <input type="radio" name="gender" value="female" class="w-100"/>
+                                        <span id="female">Female</span>
+                                    </label>
+                                    <label class="gender-option col-12 col-sm-4 col-md-4 col-lg-4">
+                                        <input type="radio" name="gender" value="no_pref" class="w-100"/>
+                                        <span id="not_spec">Prefer not to mention</span>
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="dob-container row">
+                                    <span class="dob-label col-12 col-sm-3">Select Date of Birth</span>
+
+                                    <select name="birth_year" class="dob-select col-12 col-sm-3" required="required">
+                                        <option value="">Year</option>
+                                        <t t-set="year_range" t-value="range(1920, 2013)"/>
+                                        <t t-foreach="year_range" t-as="yr">
+                                            <option t-att-value="yr">
+                                                <t t-esc="yr"/>
+                                            </option>
+                                        </t>
+                                    </select>
+
+                                    <select name="birth_month" class="dob-select col-12 col-sm-3" required="required">
+                                        <option value="">Month</option>
+                                        <option value="1">January</option>
+                                        <option value="2">February</option>
+                                        <option value="3">March</option>
+                                        <option value="4">April</option>
+                                        <option value="5">May</option>
+                                        <option value="6">June</option>
+                                        <option value="7">July</option>
+                                        <option value="8">August</option>
+                                        <option value="9">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+
+                                    <select name="birth_day" class="dob-select col-12 col-sm-3" required="required">
+                                        <option value="">Day</option>
+                                        <t t-set="day_range" t-value="range(1, 32)"/>
+                                        <t t-foreach="day_range" t-as="d">
+                                            <option t-att-value="d">
+                                                <t t-esc="d"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center p-5 pref-lang form-group">
+                                <div class="col-12 col-md-12 col-sm-4 mb-2 mb-md-0">
+                                    <label id="preferred_language" for="preferred_language" class="fw-bold">
+                                        Preferred language for communication
+                                    </label>
+                                </div>
+                                <div class="col-12 col-sm-8 col-md-12 mt-5">
+                                    <div class="lang-options d-flex gap-3">
+                                        <!-- English -->
+                                        <label class="lang-option">
+                                            <input type="radio" name="preferred_language" value="english"
+                                                   checked="checked" class="w-100"/>
+                                            <span id="preLangEng">English</span>
+                                        </label>
+                                        <!-- Arabic -->
+                                        <label class="lang-option">
+                                            <input type="radio" name="preferred_language" class="w-100" value="arabic"/>
+                                            <span id="preLangArb">Arabic</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+
+                            <div class="form-group">
+                                <textarea type="text" class="text-area w-100" id="comments" name="comments" cols="60"
+                                          rows="4"
+                                          placeholder="Comments"/>
+                            </div>
+
+                            <div class="form-group privacy-wrapper privacy-wrapper-eng row">
+                                <div class="privacy-check col-12 col-sm-6 col-md-6">
+                                    <input type="checkbox" id="privacy_check" name="privacy_check"/>
+                                    <label id="agreeCheckBox" for="privacy_check">
+                                        By checking this box you agree to our
+                                        <a href="/g-shock/privacy-policy" target="_blank">Privacy Policy</a>
+                                    </label>
+                                </div>
+
+                                <button type="submit" disabled="True" id="submitFormCasio"
+                                        class="btn-black col-12 col-sm-6 col-md-6">Submit
+                                </button>
+                            </div>
+
+                            <div class="form-group privacy-wrapper privacy-wrapper-arb d-none">
+                                <button type="submit" disabled="True" id="submitFormCasioArb" class="btn-black">يُقدِّم
+                                </button>
+                                <div class="privacy-check">
+                                    <label id="agreeCheckBox" for="privacy_check2">
+                                        من خلال تحديد هذا المربع فإنك توافق على
+                                        <a href="/g-shock/privacy-policy" target="_blank">سياسة الخصوصية</a>
+                                    </label>
+                                    <input type="checkbox" id="privacy_check2" name="privacy_check2"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group privacy-wrapper privacy-wrapper-french d-none">
+                                <div class="privacy-check">
+                                    <input type="checkbox" id="privacy_check3" name="privacy_check3"/>
+                                    <label id="agreeCheckBox" for="privacy_check3">
+                                        En cochant cette case, vous acceptez notre
+                                        <a href="/g-shock/privacy-policy" target="_blank">Politique de confidentialité
+                                        </a>
+                                    </label>
+                                </div>
+                                <button type="submit" disabled="True" id="submitFormCasioFrench" class="btn-black">
+                                    Soumettre
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <!-- Thank You Page -->
+    <template id="thank_you_page" name="G-Shock Club Thank You">
+        <t t-call="website.layout">
+            <style>
+
+                header { display: none !important; }
+                footer { display: none !important; }
+
+                .qr-social-row {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                margin-top: 40px;
+                white-space: nowrap;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                }
+
+                .qr-item {
+                text-align: center;
+                flex: 0 0 auto;
+                }
+
+                .qr-item img {
+                width: 120px;
+                height: 120px;
+                }
+
+                .qr-item a {
+                display: block;
+                margin-top: 8px;
+                font-size: 24px;
+                color: #000;
+                text-decoration: none;
+                }
+
+                .qr-item a:hover {
+                color: #007bff;
+                }
+
+                .qr-item a .fa-facebook {
+                color: #1877F2;
+                }
+
+                .qr-item a .fa-instagram {
+                color: #E4405F;
+                }
+
+                .qr-item a .fa-tiktok {
+                color: #010101;
+                }
+
+                .qr-item a:hover .fa-facebook {
+                color: #145dbf;
+                }
+
+                .qr-item a:hover .fa-instagram {
+                color: #cc3366;
+                }
+
+                .qr-item a:hover .fa-tiktok {
+                color: #ff0050;
+                }
+
+            </style>
+
+            <section class="gshock-thank-you-section gshock-form-section">
+                <div class="container">
+                    <h4>Thank you for joining the G-SHOCK Club - let’s do something great together!</h4>
+                    <br/>
+
+                    <p>Stay connected and be the first to know about updates, tips, and exclusive contents.</p>
+                    <br/>
+
+                    <h6>Follow us on our social media pages:</h6>
+                    <div class="qr-social-row">
+                        <div class="qr-item">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://www.facebook.com/CASIOGSHOCKMEA/&amp;size=120x120"
+                                 alt="Facebook QR"/>
+                            <a href="https://www.facebook.com/CASIOGSHOCKMEA/" target="_blank" title="Facebook">
+                                <i class="fa fa-facebook"/>
+                            </a>
+                        </div>
+                        <div class="qr-item">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://www.instagram.com/gshock_mea/?hl=en&amp;size=120x120"
+                                 alt="Instagram QR"/>
+                            <a href="https://www.instagram.com/gshock_mea/?hl=en" target="_blank" title="Instagram">
+                                <i class="fa fa-instagram"/>
+                            </a>
+                        </div>
+                        <div class="qr-item">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://www.tiktok.com/@gshock_mea&amp;size=120x120"
+                                 alt="TikTok QR"/>
+                            <a href="https://www.tiktok.com/@gshock_mea" target="_blank" title="TikTok">
+                                <i class="fa fa-tiktok"/>
+                            </a>
+                        </div>
+                    </div>
+                    <a t-att-href="'/scan_gshock_club/' + str(agent_id)" id="agentFormURL" class="btn btn-primary mt-2"
+                       role="button">Home
+                    </a>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <template id="privacy_policy_page" name="G-Shock Club Thank You">
+        <t t-call="website.layout">
+            <style>header{display:none !important;}</style>
+            <style>footer{display:none !important;}</style>
+            <section class="gshock-form-section">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="/kg_gshock_page/static/description/images/g-shock-logo.png" width="50%" height="50%"
+                             style="top: 50%;
+          transform: translateX(50%);object-fit: contain; margin-top: 12%;"/>
+                    </div>
+                    <div class="col-6">
+                        <img src="/kg_gshock_page/static/description/images/img-ipad-watches.png" width="95%"
+                             height="100%"/>
+                    </div>
+
+                </div>
+                <div class="container"
+                     style="width: 80%; border-radius: 20px !important;background-color: transparent !important;color: white !important;">
+
+                    <h3>Privacy Policy</h3>
+                    <p>This Privacy Notice pertains to questionnaires conducted by us, Casio Middle East and Africa FZE,
+                        and explains how we use and treat your personal information collected through your answers to
+                        our questionnaires. By filling out the questionnaires, you agree that we will process and use
+                        your personal information in line with this notice.
+                    </p>
+                    <p>If you do not want to consent to us using your personal information as described below, you are
+                        not required to answer the questionnaires.
+                    </p>
+                    <p>Please read the following carefully to understand how we will treat your personal information
+                        provided via questionnaires.
+                    </p>
+
+
+                    <p>1. Personal Information</p>
+                    <p>Through your answers to our questionnaires, we will collect your following personal information
+                        (“Personal Information”).
+                    </p>
+
+                    <p>Your name, age, gender, nationality, telephone number, and email address; and</p>
+                    <p>Your preference and impression on any products and services.</p>
+
+
+                    <p>2. Purpose of Usage</p>
+                    <p>We will use your Personal Information for the following purposes(“Purposes”) to:</p>
+
+                    <p>provide you with invitations to events, newsletters, promotional information, updates, and any
+                        other information relating to our products and services;
+                    </p>
+                    <p>conduct marketing analysis;</p>
+                    <p>develop, enhance and/or improve our products and services; and</p>
+                    <p>respond to your inquiries, or contact you for security and fraud prevention purposes.</p>
+
+
+                    <p>3. Cookies</p>
+                    <p>We may use cookies and other technologies (collectively “Cookies”) on our website to collect
+                        information that helps us enhance your experience and our products, services and website.
+                    </p>
+
+                    <p>Cookies are small text files of letters and numbers that our website places on your computer, or
+                        other equipment which you use to access our website. These Cookies allow us to distinguish you
+                        from other users of our website. You can read more about cookies and how to recognize them at
+                        www.aboutcookies.org.
+                    </p>
+
+                    <p>The information collected by using the Cookies may include your IP address used to connect your
+                        computer to the internet, your login information, browser type and version, device identified,
+                        location, and time zone setting, browser plug-in types and versions, operating system and
+                        platform page response time and download errors.
+                    </p>
+
+                    <p>By providing your Personal Information on this website and agreeing on this privacy notice, you
+                        also agree to our collection and use of the information set forth in this Section.
+                    </p>
+
+                    <p>If you would like to delete any Cookies on your computer, please refer to your browser
+                        manufacturer’s instructions.
+                    </p>
+
+
+                    <p>4. Management of Personal Information</p>
+                    <p>We ensure adequate information security, and manage the Personal Information in an appropriate
+                        manner, in order to protect personally identifiable information included in the Personal
+                        Information.
+                    </p>
+
+
+                    <p>5. Storage Location</p>
+                    <p>The Personal Information is transmitted to and stored in a server operated by a third party,
+                        which server may be located outside of your country.
+                    </p>
+
+
+                    <p>6. Providing and Disclosing Personal Information to third parties</p>
+                    <p>The Personal Information may be provided and disclosed to our parent company, subsidiaries,
+                        distributors, service partners and subcontractors for accomplishing the Purposes described
+                        above. Additionally, we may provide and disclose the Personal Information to any judicial or
+                        governmental authorities if so required by them, in accordance with any applicable laws, rules
+                        or regulations.
+                    </p>
+
+
+                    <p>7. Changes to this Privacy Notice</p>
+                    <p>We reserve the right to make any changes to this Privacy Notice. If specifically required to do
+                        so by the applicable laws, we will seek your prior consent before applying such changes to your
+                        Personal Information.
+                    </p>
+
+
+                    <p>8. Retention period</p>
+                    <p>The Personal Information will be retained only for as long as necessary for accomplishment of the
+                        Purposes described above, or as allowed by law.
+                    </p>
+
+
+                    <p>How to contact us</p>
+                    <p>Should you have any questions or concerns (including your request to access, review, obtain a
+                        copy of, update, delete the Personal Information or cease further collection, processing or use
+                        thereof) about this Privacy Notice, please contact us at the following email address:
+                    </p>
+
+
+                    <p>casio@casiomea.com</p>
+
+
+                    <p>Language</p>
+                    <p>This Privacy Notice is made in Arabic and English. Both texts are equally original.</p>
+
+
+                    <p>Terms of Use</p>
+
+                    <p>This website ("the site") is maintained and managed by CASIO COMPUTER CO., LTD (CASIO) and its
+                        Group companies. To use the site, you must first read the terms and conditions of use listed
+                        below and agree to those terms. CASIO reserves the right to change the terms of use for the site
+                        without prior notice. In this event, an updated version of this document will be posted. Be sure
+                        to check for the latest version.
+                    </p>
+                    <p>Copyrights and Trademarks</p>
+                    <p>Copyright and all other rights relating to all the information listed on the site, including
+                        text, images, sounds and software ("the content”) provided on the site, are retained by CASIO
+                        and/or its licensor. Except where the content is printed or saved purely for personal use or
+                        where otherwise permitted under copyright law, actions such as the duplication, public
+                        transmission, distribution, adaptation and removal of the content or the use of the content on
+                        the customer's website (hereinafter referred to collectively as “content use") without the prior
+                        consent of the copyright holder is strictly forbidden under copyright law. Consent should be
+                        obtained in advance from CASIO. Note that consent may be withheld where the use of the content
+                        is deemed inappropriate by CASIO because the content includes portraits or includes trademarks
+                        or works for which copyright is held by a third party. Where consent is granted by CASIO and the
+                        content is used, copyright should be displayed as designated by CASIO. Except where consent is
+                        explicitly granted by CASIO, CASIO does not under any circumstances grant the customer
+                        copyright, patent rights, trademark rights or any other intellectual property rights with
+                        respect to the content.
+                    </p>
+                    <p>CASIO reserves the right to change or remove the URL for the site and any content on the site
+                        without prior notice.
+                    </p>
+                    <p>Disclaimer</p>
+                    <p>CASIO makes no guarantees whatsoever regarding the usefulness, reliability or accuracy of the
+                        content, nor that the content is up to date. CASIO accepts no liability whatsoever for any
+                        damages or loss arising from the customer's use, or inability to use, the content on the site.
+                    </p>
+                    <p>Prohibitions</p>
+                    <p>The site may not be used for any of the following:</p>
+
+                    <p>Operating Environment</p>
+                    <p>Depending on the browser software, operating system version or system settings used, this site
+                        may be inaccessible or may not function or display correctly. We apologize for any
+                        inconvenience. This site uses JavaScript. To view the site, enable JavaScript in your browser
+                        settings.
+                    </p>
+                    <p>Links</p>
+                    <p>Links to third-party websites on the site Links to other websites on the site are provided for
+                        everyone's convenience. Accessing these links will cause you to leave the site and go to the
+                        linked website. CASIO does not fully inspect these external websites nor manage the websites or
+                        their content and accepts no liability with respect to that content. As such, CASIO does not
+                        make any recommendations or offer any express guarantees with respect to these websites or the
+                        information, software or other products or services provided on the websites, nor the results
+                        obtained therefrom. Access to other websites via links on the site is entirely at the customer's
+                        own liability.
+                    </p>
+                    <p>If links on the site are posted on your own website Links to the site can be posted provided that
+                        they comply with the terms of use stipulated by CASIO. When posting links to the site, the
+                        following requirements should be met:
+                    </p>
+                    <p>1. Links from the following websites are blocked:</p>
+
+                    <p>a. Websites with content that maliciously slanders CASIO or any CASIO employees, products or
+                        services
+                    </p>
+
+                    <p>b. Websites that include indecent or obscene content or that otherwise violate public order and
+                        morals
+                    </p>
+
+                    <p>c. Websites with illegal content</p>
+
+
+                    <p>2. CASIO accepts no liability whatsoever for any loss or damages arising from posting links to
+                        the site.
+                    </p>
+                    <p>3. CASIO reserves the right to change or remove the site's URL and information without prior
+                        notice.
+                    </p>
+                    <p>4. The CASIO company name should be written as "CASIO Computer Co.,Ltd", "CASIO Computer" or
+                        "CASIO" or “ Casio Middle East and Africa FZE “.
+                    </p>
+                    <p>5. When linking from a website that uses frames, always specify the TARGET option.</p>
+                    <p>Where CASIO deems that a link may compromise the reliability of the information published on the
+                        site, CASIO may request that the link be removed. We apologize for any inconvenience.
+                    </p>
+
+                    <p>1.Actions that violate or could violate the rights, property or privacy of CASIO or any third
+                        party
+                    </p>
+
+
+                    <p>2.Actions that are or could be disadvantageous or harmful to CASIO or any third party</p>
+
+
+                    <p>3.Actions that violate or could violate public order and morality</p>
+
+
+                    <p>4.Actions that constitute or could constitute a crime or that lead or could lead to a crime</p>
+
+
+                    <p>5.Actions that report or declare falsehoods, including registration under another person's email
+                        address
+                    </p>
+
+
+                    <p>6.Actions carried out in preparation for or with the intention of conducting business or
+                        generating profits
+                    </p>
+
+
+                    <p>7.Actions that damage the reputation or credibility of CASIO or any third party</p>
+
+
+                    <p>8.Actions that constitute or could constitute the use or uploading of computer viruses or any
+                        other malicious or harmful software
+                    </p>
+
+
+                    <p>9.Any other actions that violate or could violate the law, statutes or regulations</p>
+
+
+                    <p>10.Any other actions deemed to be inappropriate by CASIO</p>
+
+                </div>
+            </section>
+        </t>
+    </template>
+</odoo>

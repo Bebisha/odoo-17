@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--  creating reference number for payroll report approval -->
+        <record id="payroll_report_approval_sequence_id" model="ir.sequence">
+            <field name="name">Payroll Report Approval Sequence</field>
+            <field name="code">payroll.report.approval.sequence</field>
+            <field name="prefix">PRA/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!--  creating reference number for final crew salary report -->
+        <record id="final_crew_salary_report_sequence_id" model="ir.sequence">
+            <field name="name">Final Crew Salary Report Sequence</field>
+            <field name="code">final.crew.salary.report.sequence</field>
+            <field name="prefix">CSR/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

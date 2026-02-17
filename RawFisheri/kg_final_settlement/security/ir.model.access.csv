@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_resignation,access_hr_employee_resignation,model_hr_resignation,base.group_user,1,1,1,1
+access_hr_resignation_line,access_hr_employee_resignation_line,model_hr_resignation_line,base.group_user,1,1,1,1
+kg_final_settlement.access_hr_earn_deduct_line,access_hr_earn_deduct_line,kg_final_settlement.model_hr_earn_deduct_line,base.group_user,1,1,1,1

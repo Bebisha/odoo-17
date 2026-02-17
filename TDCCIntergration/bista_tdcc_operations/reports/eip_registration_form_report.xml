@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--        <report-->
+<!--            id="action_eiip_registration_form"-->
+<!--            string="EIIP Registration Form"-->
+<!--            model="crm.lead"-->
+<!--            report_type="qweb-pdf"-->
+<!--            file="bista_tdcc_operations.report_eiip_registration_form"-->
+<!--            name="bista_tdcc_operations.report_eiip_registration_form"-->
+<!--            menu="False"/>-->
+
+        <record id="action_eiip_registration_form" model="ir.actions.report">
+            <field name="name">EIIP Registration Form</field>
+            <field name="model">crm.lead</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_operations.report_eiip_registration_form</field>
+            <field name="report_file">bista_tdcc_operations.report_eiip_registration_form</field>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

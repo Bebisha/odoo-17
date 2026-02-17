@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_payroll?_report_consolidated_tree">
+            <field name="name">payroll.report.consolidated.tree</field>
+            <field name="model">payroll.report.consolidated</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="employee_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_payroll_report_consolidated_pivot" model="ir.ui.view">
+            <field name="name">payroll.report.consolidated.pivot</field>
+            <field name="model">payroll.report.consolidated</field>
+            <field name="arch" type="xml">
+                <pivot string="Payroll Report" sample="1">
+                    <field name="employee_id" type="row"/>
+<!--                    <field name="payslip_id" type="col"/>-->
+                    <field name="date_from" interval="month" type="col" />
+                    <field name="payslip_total" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_payroll_report_consolidated_search" model="ir.ui.view">
+            <field name="name">payroll.report.consolidated.filter</field>
+            <field name="model">payroll.report.consolidated</field>
+            <field name="arch" type="xml">
+                <search string="Payroll Report">
+                    <field name="employee_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Vessel" name="groupby_vessel_id" domain="[]"
+                                context="{'group_by': 'vessel_id'}"/>
+                        <filter string="Department" name="groupby_department_id" domain="[]"
+                                context="{'group_by': 'department_id'}"/>
+                        <filter string="Employee" name="groupby_employee_id" domain="[]"
+                                context="{'group_by': 'employee_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_payroll_report_consolidated" model="ir.actions.server">
+            <field name="name">Payroll Report Consolidated</field>
+            <field name="model_id" ref="kg_raw_fisheries_payroll_report.model_payroll_report_consolidated"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.load_payslip_details()
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_payroll_report_consolidated"
+                action="action_payroll_report_consolidated"
+                name="Payroll Report Consolidated"
+                parent="hr_payroll.menu_hr_payroll_report"
+                sequence="19"/>
+
+    </data>
+</odoo>

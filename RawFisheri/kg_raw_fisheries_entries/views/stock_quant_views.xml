@@ -1,0 +1,28 @@
+<odoo>
+
+    <record id="kg_view_stock_quant_tree_inherit_d" model="ir.ui.view">
+        <field name="name">kg.stock.quant.inventory.tree.inherit</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+        <field name="arch" type="xml">
+            <field name="create_date" position="after">
+                <field name="stock_date"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="kg_view_stock_quant_search_inherit_d" model="ir.ui.view">
+        <field name="name">kg.stock.quant.inventory.search.inherit</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='company']" position="after">
+                <filter string="Inventory Date" name="inventory_date" domain="[]" context="{'group_by': 'stock_date'}"/>
+            </xpath>
+            <xpath expr="//filter[@name='my_count']" position="replace">
+                <filter name="my_count" string="My Counts" domain="[('user_ids', 'in', uid)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

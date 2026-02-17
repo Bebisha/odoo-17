@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit the existing general ledger report -->
+    <record id="account_reports.general_ledger_report" model="account.report">
+        <field name="name">General Ledger</field>
+        <field name="column_ids">
+            <record id="general_ledger_report_custom_code" model="account.report.column">
+                <field name="name">Code</field>
+                <field name="expression_label">code</field>
+                <field name="figure_type">string</field>
+                <field name="sequence">1</field>
+            </record>
+            <record id="general_ledger_report_custom_division" model="account.report.column">
+                <field name="name">Division</field>
+                <field name="expression_label">division</field>
+                <field name="figure_type">string</field>
+                <field name="sequence">1</field>
+            </record>
+        </field>
+    </record>
+</odoo>

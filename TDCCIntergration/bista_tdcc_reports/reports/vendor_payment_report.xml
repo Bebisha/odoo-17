@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+         <template id="vendor_payment_form_header">
+            <div class="header">
+    
+                <t t-if="doc and 'company_id' in doc">
+                     <t t-set="company" t-value="doc.company_id.sudo()" />
+                 </t>
+                 <t t-if="not doc or not 'company_id' in doc">
+                     <t t-set="company" t-value="res_company" />
+                 </t>
+                <div class="row mb8">
+                    <div class="col-6">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"
+                        height="150"/>
+                    </div>
+                    <div class="col-6 text-right mb4">
+                        <div name="company_address" class="mb4">
+                            <ul class="list-unstyled">
+                            <strong><li t-if="company.name"><span t-esc="company.name"/></li></strong>
+                            <li t-if="company.street"><span t-field="company.street"/></li>
+                            <li t-if="company.state_id">
+                                <span t-field="company.state_id.name"/>
+                                <t t-if="company.country_id">
+                                    , <span t-esc="company.country_id.name"/>
+                                </t>
+                            </li>
+                            <li t-if="company.zip">P.O Box <span t-field="company.zip"/></li>
+                            <li t-if="company.phone">Telephone : <span t-field="company.phone"/></li>
+                            <li t-if="company.email">Email : <span t-field="company.email"/></li>
+                            <li t-if="company.vat">TRN : <span t-field="company.vat"/></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            <div class="article" t-att-data-oe-model="doc and doc._name" t-att-data-oe-id="doc and doc.id" t-att-data-oe-lang="doc and doc.env.context.get('lang')">
+              <t t-raw="0"/>
+            </div>
+
+        </template>
+
+        <template id="vendor_payment_form_document">
+            <t t-call="bista_tdcc_reports.vendor_payment_form_header">
+                <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})"/>
+                <div class="page">
+                    <!--<style>-->
+                    <!--    td {-->
+	                   <!--     padding-top: 3px;-->
+	                   <!--     padding-bottom: 3px;-->
+                    <!--    }-->
+                    <!--</style>-->
+                    <center>
+                        <h5><b>Payment Voucher</b></h5>
+                    </center>
+                    <div style="border:1px solid black;">
+                        <table style="padding: 3px;width:100%;" class="table-borderless">
+                            <tr style="">
+                                <td style="width: 20%;padding-left: 3px;padding-top: 3px;padding-bottom: 3px;">
+                                    <b>Party Id:</b>
+                                </td>
+                                <td style="width: 45%;">
+                                    <t t-esc="doc.partner_id.vat"/>
+                                </td>
+                                <td>
+                                    <b>Voucher No:</b>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.name"/>
+                                </td>
+                            </tr>
+                            <tr style="padding-left: 3px;padding-top: 3px;padding-bottom: 3px;">
+                                <td style="width: 20%;padding-left: 3px;padding-top: 3px;padding-bottom: 3px;">
+                                    <b>Account Name:</b>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.partner_id.name"/>
+                                </td>
+                                <td>
+                                    <b>Date:</b>
+                                </td>
+                                <td>
+                                    <span t-field="doc.date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
+                                </td>
+                            </tr>
+                            <tr style="padding-left: 3px;padding-top: 3px;padding-bottom: 3px;">
+                                <td style="width: 20%;padding-left: 3px;padding-top: 3px;padding-bottom: 3px;">
+                                    <b>Cheque No:</b>
+                                </td>
+                                <td style="width: 25%;">
+                                   <t t-if="doc.check_number">
+                                            <t t-esc="doc.cheque_no_char"/>
+                                        </t>
+                                </td>
+                                <td>
+                                    <b>Cheque Date:</b>
+                                </td>
+                                <td>
+                                     <t t-if="doc.cheque_date">
+                                        <span t-field="doc.cheque_date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="padding-left: 3px;padding-top: 3px;padding-bottom: 3px;">
+                                <td style="width: 20%;padding-left: 3px;padding-top: 3px;padding-bottom: 3px;">
+                                     <b>Bank:</b>
+                                 </td>
+                                 <td>
+                                      <t t-if="doc.partner_id.bank_ids">
+                                         <t t-esc="doc.partner_id.bank_ids[0].bank_id.name"/>
+                                     </t>
+                                 </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div t-if="doc.reconciled_bill_ids">
+                       <table class="table table-border" style="border-top:none;border:1px solid black;border-bottom:none;">
+                            <thead>
+                                <tr style="border-bottom:none;">
+                                    <th>Date</th>
+                                    <th>VNo</th>
+                                    <th>RefNo</th>
+                                    <th class="text-right">Amount</th>
+                                    <th class="text-right">Paid</th>
+                                    <th class="text-right">Payment</th>
+                                    <th class="text-right">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                               <tr t-foreach="doc.reconciled_bill_ids" t-as="inv">
+                                    <td><span t-field="inv.invoice_date"/></td>
+                                    <td><span t-field="inv.name"/></td>
+                                    <td><span t-esc="inv.payment_reference"/></td>
+                                    <td class="text-right"><span t-esc="inv.amount_total"/></td>
+                                    <td class="text-right">
+                                        <span t-esc="inv.amount_total - inv.amount_residual"/>
+                                         <!--<span t-esc="doc.with_context({'invoice_id':inv.id}).get_vendor_payment_amount()"/>-->
+                                    </td>
+                                    <td class="text-right"><span t-esc="inv.amount_residual"/>
+                                        <!--<span t-esc="doc.get_vendor_payment_amount()"/>-->
+                                    </td>
+                                    <td class="text-right"><span t-esc="inv.amount_residual"/></td>
+                                </tr>
+                            </tbody>
+                       </table>
+                    </div>
+                    <div style="margin-top:20px;">
+                        <table class="table table-border" style="border:1px solid black;border-left:none;">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th class="text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 <tr>
+                                <td>
+                                    <t t-if="doc.payment_method_id.code == 'pdc'">
+                                        Cheque
+                                    </t>
+                                    <t t-else="">
+                                        <t t-esc="doc.journal_id.name"/>
+                                    </t>
+                                </td>
+                                 <td>
+                                    <t t-esc="doc.payment_info"/>
+                                 </td>
+                                <td class="text-right">
+                                    <t t-esc="doc.amount"/>
+                                </td>
+                                </tr>
+                            <tr>
+                                <td>
+                                    <span><b>Total</b></span>
+                                </td>
+                                <td>
+                                    <b><t t-esc="doc.currency_id.amount_to_text(doc.amount)"/></b>
+                                </td>
+                                <td class="text-right">
+                                   <b> <t t-esc="doc.amount"/></b>
+                                </td>
+                            </tr>
+                            </tbody>
+                       </table>
+                    </div>
+                    <div class="row mb8">
+                        <div class="col-8">
+                            Narration : <t t-esc="doc.payment_info"/> <br/><br/><br/>
+                           <b> Total : </b><t t-esc="doc.currency_id.amount_to_text(doc.amount)"/>
+                        </div>
+                        <div class="col-4 text-right mb4">
+                            <br/><br/><br/>
+                             <b> <t t-esc="doc.amount"/></b>
+                        </div>
+                    </div>
+                    <br/> <br/> <br/> <br/> <br/> <br/>
+                    <div class="row mb8">
+                        <div class="col-6">
+                            Received By :
+                        </div>
+                        <div class="col-6 text-right mb4">
+                            Accounts Department
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+         <!-- Main Transfer Form Template -->
+        <template id="report_vendor_payment_form">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="bista_tdcc_reports.vendor_payment_form_document"/>
+                </t>
+            </t>
+        </template>
+</odoo>

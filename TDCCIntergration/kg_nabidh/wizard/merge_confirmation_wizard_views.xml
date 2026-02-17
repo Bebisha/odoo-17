@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_merge_confirmation_wizard" model="ir.ui.view">
+        <field name="name">merge.confirmation.wizard.form</field>
+        <field name="model">merge.confirmation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Merge Confirmation">
+                <field name="student_id" invisible="1"/>
+                <!--                <group>-->
+                <p>This student has the same email as an existing record. That record should be merged before creating
+                    an appointment. Are you sure you want to proceed?
+                </p>
+                <!--                </group>-->
+                <footer>
+                    <button string="Yes, Continue" type="object" name="action_merge_patient" class="btn-primary"/>
+                    <button string="No, Skip and Create Appointment" type="object" name="create_appointment"
+                            class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

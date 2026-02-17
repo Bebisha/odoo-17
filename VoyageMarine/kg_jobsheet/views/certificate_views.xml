@@ -1,0 +1,89 @@
+<odoo>
+    <!-- Form View for Certificate Master -->
+    <record id="view_certificate_master_form" model="ir.ui.view">
+        <field name="name">certificate.master.form</field>
+        <field name="model">certificate.master</field>
+        <field name="arch" type="xml">
+            <form string="Certificate Master">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="product_category_id" domain="[('is_scope', '=', True)]" string="SCOPE"/>
+                        <field name="child_category_id" string="CATEGORY"/>
+                        <field name="product_id" string="INSTRUMENTS" invisible="1"/>
+
+                        <field name="equipment_category_id" invisible="1"/>
+                        <field name="equipment_id" invisible="1"/>
+                        <field name="equipment_records_ids" invisible="1"/>
+                        <field name="standard_used_id"/>
+                        <field name="work_instruction"/>
+                        <field name="display_name" invisible="1"/>
+
+
+                    </group>
+                    <group>
+                        <field name="certificate" string="Test result"/>
+                    </group>
+                    <notebook>
+                        <page string="note">
+                            <field name="description" string="Description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View for Certificate Master -->
+    <record id="view_certificate_master_tree" model="ir.ui.view">
+        <field name="name">certificate.master.tree</field>
+        <field name="model">certificate.master</field>
+        <field name="arch" type="xml">
+            <tree string="Certificate Master">
+                <field name="name"/>
+                <field name="product_category_id" domain="[('is_scope', '=', True)]" string="SCOPE"/>
+                <field name="child_category_id" string="CATEGORY"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="view_certificate_master_search" model="ir.ui.view">
+        <field name="name">certificate.master.search</field>
+        <field name="model">certificate.master</field>
+        <field name="arch" type="xml">
+            <search string="Certificate Master">
+                <field name="name"/>
+                <field name="product_category_id" domain="[('is_scope', '=', True)]" string="SCOPE"/>
+                <field name="child_category_id" string="CATEGORY"/>
+                  <group expand="1" string="Group By">
+                    <filter string="CERTIFICATE" name="name" context="{'group_by': 'name'}"/>
+                    <filter string="CATEGORY" name="child_category_id" context="{'group_by': 'child_category_id'}"/>
+                    <filter string="SCOPE" name="product_category_id" context="{'group_by': 'product_category_id'}"/>
+
+                    <filter string="Certificate" name="name_filter" domain="[('name', '=', name)]"/>
+                    <filter string="CATEGORY" name="child_category_id" domain="[]"/>
+                    <filter string="SCOPE" name="product_category_id" domain="[]"/>
+
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <!-- Action for Certificate Master -->
+    <record id="action_certificate_master" model="ir.actions.act_window">
+        <field name="name">Certificate Master</field>
+        <field name="res_model">certificate.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_certificate_master_04"
+              action="action_certificate_master"
+              name="Certificate"
+              parent="job_sheet_menu_03"
+              sequence="3"
+    />
+
+
+</odoo>

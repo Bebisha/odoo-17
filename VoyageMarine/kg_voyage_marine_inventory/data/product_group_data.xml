@@ -1,0 +1,100 @@
+<odoo>
+    <data>
+        
+        <record id="group_gas_detection_system" model="product.group">
+            <field name="name">GAS DETECTION SYSTEM</field>
+            <field name="code">GDS</field>
+              <field name="no_delete">True</field>
+        </record>
+        <record id="group_service_instrument" model="product.group">
+            <field name="name">Service Instrument</field>
+            <field name="code">SI</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_fire_detection_system" model="product.group">
+            <field name="name">FIRE DETECTION SYSTEM</field>
+            <field name="code">FDS</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_electrical_system" model="product.group">
+            <field name="name">ELECTRICAL SYSTEM</field>
+            <field name="code">ELS</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_measuring_control_instruments" model="product.group">
+            <field name="name">MEASURING CONTROL INSTRUMENTS</field>
+            <field name="code">MCI</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_navigation_system" model="product.group">
+            <field name="name">NAVIGATION SYSTEM</field>
+            <field name="code">NAV</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_communication_system" model="product.group">
+            <field name="name">COMMUNICATION SYSTEM</field>
+            <field name="code">COM</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_featured_marine_products" model="product.group">
+            <field name="name">FEATURED MARINE PRODUCTS</field>
+            <field name="code">FMP</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_life_saving_appliances" model="product.group">
+            <field name="name">LIFE SAFETY APPLIANCES</field>
+            <field name="code">LSA</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_fire_fighting_appliances" model="product.group">
+            <field name="name">FIRE FIGHTING APPLIANCES</field>
+            <field name="code">FFA</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_cables" model="product.group">
+            <field name="name">CABLES</field>
+            <field name="code">CAB</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_hardware" model="product.group">
+            <field name="name">HARDWARES</field>
+            <field name="code">HRW</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_tools_and_equipments" model="product.group">
+            <field name="name">TOOLS &amp; MACHINERY</field>
+            <field name="code">TEM</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_consumables" model="product.group">
+            <field name="name">CONSUMABLES</field>
+            <field name="code">CMS</field>
+              <field name="no_delete">True</field>
+        </record>
+        
+        <record id="group_health_safety_environment" model="product.group">
+            <field name="name">HEALTH , SAFETY &amp; ENVIRONMENT</field>
+            <field name="code">HSE</field>
+              <field name="no_delete">True</field>
+        </record>
+
+         <record id="group_cal_categ_system" model="product.group">
+            <field name="name">Calibration</field>
+            <field name="code">CAL</field>
+              <field name="no_delete">True</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="order_status_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Order Status</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">order.status</field>
+
+    </record>
+    <record id="order_status_tree" model="ir.ui.view">
+        <field name="name">order.status.tree.views</field>
+        <field name="model">order.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="order_status_form" model="ir.ui.view">
+        <field name="name">order.status.form.views</field>
+        <field name="model">order.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="order_status_menu"
+              action="order_status_action"
+              name="Order Status"
+              parent="kg_nabidh.orc_menu"/>
+
+</odoo>

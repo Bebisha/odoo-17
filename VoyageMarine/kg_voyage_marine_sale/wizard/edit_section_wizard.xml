@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="view_edit_section_wizard_form" model="ir.ui.view">
+            <field name="name">edit.section.wizard.form</field>
+            <field name="model">edit.section.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="sale_id" invisible="1" force_save="1"/>
+                            <field name="sol_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="sol_id" required="1"/>
+                            <field name="description" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Save" type="object" name="edit_section" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

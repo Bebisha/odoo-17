@@ -1,0 +1,9 @@
+<odoo>
+    <record id="action_report_custom_proforma" model="ir.actions.report">
+        <field name="name">Proforma Invoice</field>
+        <field name="model">custom.proforma.invoice</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_proforma_invoice.proforma_template</field>
+        <field name="report_file">custom_proforma_invoice.proforma_template</field>
+    </record>
+</odoo>

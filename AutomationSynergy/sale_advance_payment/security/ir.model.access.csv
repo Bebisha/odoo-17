@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_payment_salesman,account.payment salesman,account.model_account_payment,sales_team.group_sale_salesman,1,1,1,0
+access_account_payment_method_salesman,account.payment.method salesman,account.model_account_payment_method,sales_team.group_sale_salesman,1,0,0,0
+sale_advance_payment.access_account_voucher_wizard,access_account_voucher_wizard,sale_advance_payment.model_account_voucher_wizard,base.group_user,1,1,1,1
+sale_advance_payment.access_po_account_voucher_wizard,access_po_account_voucher_wizard,sale_advance_payment.model_po_account_voucher_wizard,base.group_user,1,1,1,1

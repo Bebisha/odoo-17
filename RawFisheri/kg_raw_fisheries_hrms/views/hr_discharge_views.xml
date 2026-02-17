@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="hr_discharge_tree" model="ir.ui.view">
+            <field name="name">hr.discharge.tree</field>
+            <field name="model">hr.discharge</field>
+            <field name="arch" type="xml">
+                <tree string="Discharge Entries" editable="bottom">
+                    <header>
+                        <button name="action_approve" type="object" string="Approve"/>
+                    </header>
+                    <field name="employee_id"/>
+                    <field name="factory_manager_ids" column_invisible="1"/>
+                    <field name="vessel_id"/>
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="date"/>
+                    <field name="amount"/>
+                    <field name="state" optional="hide" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_employee_discharge_search_id" model="ir.ui.view">
+            <field name="name">hr.discharge.search</field>
+            <field name="model">hr.discharge</field>
+            <field name="arch" type="xml">
+                <search string="Employee Discharge">
+                    <field name="employee_id" string="Employee"/>
+                    <field name="vessel_id" string="Vessel"/>
+                    <field name="name" string="Description"/>
+
+                    <filter string="Draft" name="state_draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Approved" name="state_approved" domain="[('state', '=', 'approved')]"/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="Employee" name="employee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Vessel" name="vessel_id" context="{'group_by':'vessel_id'}"/>
+                        <filter string="State" name="state" context="{'group_by':'state'}"/>
+                        <filter string="Date" name="date" context="{'group_by':'date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_template_tree_view_id" model="ir.ui.view">
+        <field name="name">product.template.product.tree</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <tree string="Product" multi_edit="1" sample="1" default_order="default_code">
+                <field name="product_variant_count" column_invisible="True"/>
+                <field name="sale_ok" column_invisible="True"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="cost_currency_id" column_invisible="True"/>
+                <field name="priority" widget="priority" optional="show" nolabel="1"/>
+                <field name="name" string="Product Name"/>
+                <field name="default_code" optional="show"/>
+                <field name="product_tag_ids" widget="many2many_tags" optional="show"/>
+                <field name="barcode" optional="hide" readonly="product_variant_count != 1"/>
+                <field name="company_id" options="{'no_create': True}"
+                    groups="base.group_multi_company" optional="hide"/>
+                <field name="list_price" string="Sales Price" widget='monetary' options="{'currency_field': 'currency_id'}" optional="show" decoration-muted="not sale_ok"/>
+                <field name="standard_price" widget='monetary' options="{'currency_field': 'cost_currency_id'}" optional="show" readonly="1"/>
+                <field name="categ_id" optional="hide"/>
+                <field name="detailed_type" optional="hide" readonly="1"/>
+                <field name="type" column_invisible="True"/>
+                <field name="uom_id" string="Unit" readonly="1" optional="show" groups="uom.group_uom"/>
+                <field name="active" column_invisible="True"/>
+                <field name="activity_exception_decoration" widget="activity_exception"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_template_form_kg_inherit_id" model="ir.ui.view">
+        <field name="name">product.template..inherit.kg</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="is_fish"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

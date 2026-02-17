@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- action employee resignation -->
+    <record id="action_hr_resignation" model="ir.actions.act_window">
+        <field name="name">Gratuity</field>
+        <field name="res_model">hr.resignation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menu employee resignation -->
+    <menuitem id="menu_hr_resignation" name="Gratuity"
+              parent="hr.menu_hr_root" action="action_hr_resignation"/>
+</odoo>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--        <report-->
+<!--                id="action_print_appointment_report"-->
+<!--                string="Appointment"-->
+<!--                model="appointment.appointment"-->
+<!--                report_type="qweb-pdf"-->
+<!--                file="bista_tdcc_operations.report_appointment"-->
+<!--                name="bista_tdcc_operations.report_appointment"-->
+<!--        />-->
+
+        <record id="action_print_appointment_report" model="ir.actions.report">
+            <field name="name">Appointment</field>
+            <field name="model">appointment.appointment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_operations.report_appointment</field>
+            <field name="report_file">bista_tdcc_operations.report_appointment</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Report action for daily appointment report -->
+        <!--        <report-->
+        <!--                id="action_daily_appointment_reports_id"-->
+        <!--                string="Daily Appointment"-->
+        <!--                model="daily.appointment.wizard"-->
+        <!--                report_type="qweb-pdf"-->
+        <!--                file="bista_tdcc_operations.daily_appointment_report_id"-->
+        <!--                name="bista_tdcc_operations.daily_appointment_report_id"-->
+        <!--                menu="False"-->
+        <!--        />-->
+        <record id="action_report_leave_settlement" model="ir.actions.report">
+            <field name="name">Daily Appointment</field>
+            <field name="model">daily.appointment.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_operations.daily_appointment_report_id</field>
+            <field name="report_file">bista_tdcc_operations.daily_appointment_report_id</field>
+            <field name="binding_model_id" ref="model_daily_appointment_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Payment Form Report Action -->
+        <!--        <report-->
+        <!--                id="tdcc_custom_payment_report"-->
+        <!--                model="account.payment"-->
+        <!--                string="TDCC Customer Payment Receipt"-->
+        <!--                name="bista_tdcc_operations.report_payment_form"-->
+        <!--                file="bista_tdcc_operations.report_payment_form"-->
+        <!--                report_type="qweb-pdf"-->
+        <!--        />-->
+
+        <!--        <record id="tdcc_custom_payment_report" model="ir.actions.report">-->
+        <!--            <field name="name">TDCC Customer Payment Receipt</field>-->
+        <!--            <field name="model">account.payment</field>-->
+        <!--            <field name="report_type">qweb-pdf</field>-->
+        <!--            <field name="report_name">bista_tdcc_operations.report_payment_form</field>-->
+        <!--            <field name="report_file">bista_tdcc_operations.report_payment_form</field>-->
+        <!--&lt;!&ndash;            <field name="binding_model_id" ref="model_account_payment"/>&ndash;&gt;-->
+        <!--            <field name="paperformat_id" ref="bista_tdcc_operations.paperformat_payment_receipt_tdcc"/>-->
+        <!--            <field name="binding_type">report</field>-->
+        <!--        </record>-->
+
+        <!--        <report-->
+        <!--                id="action_appointmnt_list_report"-->
+        <!--                model="appointment.appointment"-->
+        <!--                string="Appointment List"-->
+        <!--                name="bista_tdcc_operations.report_appointment_list"-->
+        <!--                file="bista_tdcc_operations.report_appointment_list"-->
+        <!--                report_type="qweb-pdf"-->
+        <!--        />-->
+        <record id="action_appointmnt_list_report" model="ir.actions.report">
+            <field name="name">Appointment List</field>
+            <field name="model">appointment.appointment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_operations.report_appointment_list</field>
+            <field name="report_file">bista_tdcc_operations.report_appointment_list</field>
+            <field name="binding_model_id" ref="model_appointment_appointment"/>
+            <field name="paperformat_id" ref="bista_tdcc_operations.custom_appointment_list_view_paperformat"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- TDCC payment Receipt Paperformat -->
+        <!--        <record id="paperformat_payment_receipt_tdcc" model="report.paperformat">-->
+        <!--            <field name="name">TDCC Payment Receipt</field>-->
+        <!--            <field name="default" eval="True"/>-->
+        <!--            <field name="format">A4</field>-->
+        <!--            <field name="page_height">0</field>-->
+        <!--            <field name="page_width">0</field>-->
+        <!--            <field name="orientation">Portrait</field>-->
+        <!--            <field name="margin_top">50</field>-->
+        <!--            <field name="margin_bottom">28</field>-->
+        <!--            <field name="margin_left">7</field>-->
+        <!--            <field name="margin_right">7</field>-->
+        <!--            <field name="header_line" eval="False"/>-->
+        <!--            <field name="header_spacing">45</field>-->
+        <!--            <field name="dpi">90</field>-->
+        <!--            <field name="report_ids"-->
+        <!--                  ></field>-->
+        <!--        </record>-->
+        <record id="tdcc_custom_payment_report" model="ir.actions.report">
+            <field name="name">TDCC Customer Payment Receipt</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_operations.report_payment_form</field>
+            <field name="report_file">bista_tdcc_operations.report_payment_form</field>
+            <!--             <field name="paperformat_id" ref="bista_tdcc_operations.paperformat_payment_receipt_tdcc"/> -->
+            <field name="binding_model_id" ref="account.model_account_payment"/>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="tdcc_custom_payment_report_mail" model="ir.actions.report">
+            <field name="name">TDCC Customer Payment Receipt mail</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="model">account.payment</field>
+            <field name="report_name">bista_tdcc_operations.mail_report_payment_form</field>
+            <field name="report_file">bista_tdcc_operations.mail_report_payment_form</field>
+            <!--             <field name="paperformat_id" ref="bista_tdcc_operations.paperformat_payment_receipt_tdcc"/> -->
+<!--            <field name="binding_model_id" ref="account.model_account_payment"/>-->
+            <field name="binding_type">report</field>
+        </record>
+                <!-- TDCC payment Receipt Paperformat -->
+        <record id="paperformat_payment_receipt_tdcc" model="report.paperformat">
+            <field name="name">TDCC Payment Receipt</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+            <!--            <field name="report_ids"-->
+            <!--                    eval="[(4,ref('bista_tdcc_operations.tdcc_custom_payment_report'))]"></field>-->
+        </record>
+
+        <!-- Invoice List View paper format -->
+        <record id="custom_appointment_list_view_paperformat" model="report.paperformat">
+            <field name="name">Appointment List View Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+            <!--            <field name="report_ids" eval="[(4, ref('bista_tdcc_operations.action_appointmnt_list_report'))]"></field>-->
+        </record>
+
+
+        <!-- Invoice List View paper format -->
+        <!--        <record id="custom_appointment_list_view_paperformat" model="report.paperformat">-->
+        <!--            <field name="name">Appointment List View Report</field>-->
+        <!--            <field name="default" eval="True"/>-->
+        <!--            <field name="format">A4</field>-->
+        <!--            <field name="page_height">0</field>-->
+        <!--            <field name="page_width">0</field>-->
+        <!--            <field name="orientation">Landscape</field>-->
+        <!--            <field name="margin_top">50</field>-->
+        <!--            <field name="margin_bottom">20</field>-->
+        <!--            <field name="margin_left">5</field>-->
+        <!--            <field name="margin_right">5</field>-->
+        <!--            <field name="header_line" eval="False"/>-->
+        <!--            <field name="header_spacing">40</field>-->
+        <!--            <field name="dpi">90</field>-->
+        <!--            <field name="report_ids"-->
+        <!--                   eval="[(4, ref('action_appointmnt_list_report'))]"></field>-->
+        <!--        </record>-->
+    </data>
+</odoo>

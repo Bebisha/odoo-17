@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <record model="ir.cron" id="ir_cron_send_sms_scheduler">
+            <field name="name">SMS Queue Manager</field>
+            <field name="model_id" ref="bista_sms_global.model_message_message"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_process_sms_queue()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record model="ir.cron" id="ir_cron_unlink_sent_message">
+            <field name="name">SMS Deletion</field>
+            <field name="model_id" ref="bista_sms_global.model_message_message"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_unlink_sent()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active">False</field>
+        </record>
+
+    </data>
+</odoo>

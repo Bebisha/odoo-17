@@ -1,0 +1,51 @@
+<odoo>
+    <!-- Vendor Types Data -->
+    <record id="vendor_type_trader" model="res.vendor.type">
+        <field name="name">Trader</field>
+    </record>
+
+    <record id="vendor_type_manufacturer" model="res.vendor.type">
+        <field name="name">Manufacturer</field>
+    </record>
+
+    <record id="vendor_type_manpower_supplier" model="res.vendor.type">
+        <field name="name">Manpower Supplier</field>
+    </record>
+
+    <record id="vendor_type_packing" model="res.vendor.type">
+        <field name="name">Packing</field>
+    </record>
+
+    <record id="vendor_type_it_service_provider" model="res.vendor.type">
+        <field name="name">IT Service Provider</field>
+    </record>
+
+    <record id="vendor_type_telecom_service" model="res.vendor.type">
+        <field name="name">Telecom Service</field>
+    </record>
+
+    <record id="vendor_type_service_provider" model="res.vendor.type">
+        <field name="name">Service Provider</field>
+    </record>
+
+    <record id="vendor_type_utility_service" model="res.vendor.type">
+        <field name="name">Utility Service</field>
+    </record>
+
+    <record id="vendor_type_logistics_service" model="res.vendor.type">
+        <field name="name">Logistics Service</field>
+    </record>
+
+    <record id="vendor_type_stationery_supplier" model="res.vendor.type">
+        <field name="name">Stationery Supplier</field>
+    </record>
+
+    <record id="vendor_type_facility_provider" model="res.vendor.type">
+        <field name="name">Facility Provider</field>
+    </record>
+
+    <record id="vendor_type_fork_lift_service" model="res.vendor.type">
+        <field name="name">Fork Lift Service</field>
+    </record>
+
+</odoo>

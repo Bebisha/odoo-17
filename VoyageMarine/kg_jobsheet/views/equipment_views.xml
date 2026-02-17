@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- School Form -->
+    <record model="ir.ui.view" id="equipment_master_form">
+        <field name="name">equipment.tool.master</field>
+        <field name="model">equipment.master</field>
+        <field name="arch" type="xml">
+            <form string="Equipment">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="equipment_category"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- School List -->
+    <record model="ir.ui.view" id="equipment_master_list">
+        <field name="name">equipment.tool.master.list</field>
+        <field name="model">equipment.master</field>
+        <field name="arch" type="xml">
+            <tree string="Equipment List">
+                 <field name="name"/>
+                <field name="equipment_category"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <!-- School Search -->
+    <record model="ir.ui.view" id="equipment_master_search">
+        <field name="name">equipment.master.search</field>
+        <field name="model">equipment.master</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- School Action -->
+    <record model="ir.actions.act_window" id="equipment_master_action">
+        <field name="name">Equipment</field>
+        <field name="res_model">equipment.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+<!--    <record id="product_product_form_inherit" model="ir.ui.view">-->
+<!--        <field name="name">product.product.view.form.inherit1</field>-->
+<!--        <field name="model">product.product</field>-->
+<!--        <field name="inherit_id" ref="product.product_normal_form_view"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <field name="uom_po_id" position="after">-->
+<!--                <field name="is_equipment"/>-->
+<!--            </field>-->
+
+<!--        </field>-->
+<!--    </record>-->
+     <record id="product_template_group_inherit_view_int" model="ir.ui.view">
+        <field name="name">product.template.inherit.group</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='uom_po_id']" position='after'>
+                <field name="is_equipment"/>
+            </xpath>
+        </field>
+     </record>
+     <record id="action_product_template_custom_scope" model="ir.actions.act_window">
+        <field name="name">Equipment</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form</field>
+         <field name="domain">[('is_equipment','=',True)]</field>
+        <field name="context">{'search_default_is_equipment': 1,'default_is_equipment': True,'default_detailed_type': 'product','default_product_group_id':'Calibration'}
+        </field>
+        <field name="view_id" ref="product.product_template_kanban_view"/>
+    </record>
+
+<!--    <menuitem id="equipment_menu_02"-->
+<!--              action="action_product_template_custom_scope"-->
+<!--              name="Equipment"-->
+<!--              parent="job_sheet_menu_03"-->
+<!--              sequence="2"-->
+<!--    />-->
+
+
+</odoo>

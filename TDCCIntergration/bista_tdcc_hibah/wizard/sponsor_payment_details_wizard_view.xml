@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sponsor_payment_details_form_view" model="ir.ui.view">
+        <field name="name">sponsor.payment.details.form.view</field>
+        <field name="model">sponsor.payment.details</field>
+        <field name="arch" type="xml">
+            <form string="Sponsor Payments Report">
+                <group>
+                    <group>
+                        <field name="from_date"/>
+                        <field name="partner_id" required="1"
+                            domain="[('is_sponsor','=',True)]"
+                            options="{'no_create_edit': True}"/>
+                    </group>
+                    <group>
+                        <field name="to_date"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Print" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+        <record id="action_sponsor_payment_details" model="ir.actions.act_window">
+            <field name="name">Sponsor Payments Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sponsor.payment.details</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sponsor_payment_details_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_sponsor_payment_details"
+              action="action_sponsor_payment_details"
+              name="Sponsor Payments Report"
+              parent="bista_tdcc_operations.menu_account_tdcc_reports"
+    />
+</odoo>

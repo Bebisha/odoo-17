@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_management_cost_wizard_form">
+        <field name="name">management.cost.wizard.form</field>
+        <field name="model">management.cost.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="analytic_account_ids" widget="many2many_tags"/>
+                </group>
+                <footer>
+                    <button string="View" name="load_analytic_account_details" type="object" class="btn-primary"/>
+                    <button string="Cancel" name="cancel" type="object" special="cancel" class="btn-cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_management_cost_wizard" model="ir.actions.act_window">
+        <field name="name">Management Cost Wizard</field>
+        <field name="target">new</field>
+        <field name="res_model">management.cost.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem
+            id="menu_management_cost_wizard"
+            action="action_management_cost_wizard"
+            name="Management Cost"
+            parent="account.account_reports_management_menu"
+    />
+
+</odoo>

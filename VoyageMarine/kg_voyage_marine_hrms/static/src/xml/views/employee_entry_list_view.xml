@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="kg_voyage_marine_hrms.ListButtons" t-inherit="web.ListView.Buttons" t-inherit-mode="primary">
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="after">
+            <button type="button" class="btn btn-primary" style="margin-left: 10px;" t-on-click="GenerateEmpEntries">
+                Generate Entries
+            </button>
+        </xpath>
+    </t>
+</templates>

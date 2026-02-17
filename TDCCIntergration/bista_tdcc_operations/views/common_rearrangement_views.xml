@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="common_rearrangement_form">
+        <field name="name">common.rearrangement.form</field>
+        <field name="model">common.rearrangement</field>
+        <field name="arch" type="xml">
+            <form string="Common Rearrangement Form" create="false"
+                  edit="false">
+                <group>
+                    <field name="rearrange_id" widget="selection"/>
+                </group>
+                <group>
+                    <group>
+                        <field name="appointment_id"/>
+                        <field name="appointment_type_id"/>
+                        <field name="room_id"/>
+                        <field name="client_id"/>
+                        <field name="write_by_id"/>
+                        <field name="physician_id"/>
+                        <field name="product_id"/>
+                    </group>
+                    <group>
+                        <field name="day_ids" widget="many2many_tags"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="duration"/>
+                        <field name="start_time" widget="float_time"/>
+                        <field name="end_time" widget="float_time"/>
+                        <field name="price_subtotal"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Common Appointment Rearrangement List -->
+    <record model="ir.ui.view"
+            id="appointment_common_rearrangement_tree">
+        <field name="name">appointment.common.rearrangement.tree</field>
+        <field name="model">common.rearrangement</field>
+        <field name="arch" type="xml">
+            <tree string="Appoinment Common Cancellation" create="false">
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="day_ids" widget="many2many_tags"/>
+                <field name="start_time" widget="float_time"/>
+                <field name="end_time" widget="float_time"/>
+                <field name="rearrange_id"/>
+                <field name="write_by_id"/>
+                <field name="physician_id"/>
+                <field name="product_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Common rearrangement Search -->
+    <record model="ir.ui.view" id="common_rearrangement_search">
+        <field name="name">common.rearrangement.search</field>
+        <field name="model">common.rearrangement</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="physician_id"/>
+                <field name="name"/>
+                <group expand="0" string="Group By">
+                    <filter string="Appointment Date" name="filter_start_date"
+                            date="start_date"/>
+                    <filter string="Physician" name="physician" domain="[]"
+                            context="{'group_by':'physician_id'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Common Appointment Rearrangement Action -->
+    <record model="ir.actions.act_window" id="appointment_common_rearrangement_action">
+        <field name="name">Common Rearrangement</field>
+        <field name="res_model">common.rearrangement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Common Appointment Rearrangement Menu -->
+    <menuitem id="common_rearrangements_menus"
+              name="Common Rearrangement"
+              action="appointment_common_rearrangement_action"
+              parent="bista_tdcc_operations.appointment_menu"
+              sequence="9"
+    />
+    <!--        groups="bista_tdcc_operations.group_appointment_manager" -->
+
+
+</odoo>

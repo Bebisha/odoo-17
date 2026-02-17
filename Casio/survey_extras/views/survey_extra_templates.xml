@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Hide the conditional questions by default -->
+        <template id="survey_conditional" inherit_id="survey.question_container">
+            <xpath expr="//div" position="before">
+                <script t-if="question.conditional" type="text/javascript">
+                    setTimeout(function() {
+                    $("input[name='<t t-esc="question.survey_id.id"/>_
+                    <t t-esc="question.conditional_question_id.id"/>
+                    ']").click(function() {
+                    if (this.value ==<t t-esc="question.conditional_option_id.id"/>) {
+
+                    //Show the conditional question
+                    $("div[id='<t t-esc="question.survey_id.id"/>_<t t-esc="question.id"/>']").css('display',
+                    'inline-block');
+                    } else {
+                    //Hide the question if they go back and change their choice
+                    $("div[id='<t t-esc="question.survey_id.id"/>_<t t-esc="question.id"/>']").css('display', 'none');
+                    }
+                    });
+                    }, 2000);
+                </script>
+            </xpath>
+            <xpath expr="//div" position="attributes">
+                <attribute name="t-attf-style">#{question.conditional and 'display:none;' ''}</attribute>
+            </xpath>
+            <xpath expr="//div/div[2]" position="before">
+                <t t-if="question.question_type == 'binary'">
+                    <t t-call="survey_extras.binary"/>
+                </t>
+            </xpath>
+            <!--            <xpath expr="//div[@class='o_survey_question_error']" position="before">-->
+            <!--                            <t t-if="question.question_type == 'binary'">-->
+            <!--                                <t t-call="survey_extras.binary"/>-->
+            <!--                            </t>-->
+            <!--                        </xpath>-->
+
+            <xpath expr="//div/div[2]" position="replace">
+                <br/>
+            </xpath>
+        </template>
+
+        <template id="binary">
+            <input type="file" t-att-name="prefix"/>
+        </template>
+
+        <template id="survey_lead" inherit_id="survey.survey_fill_form_done">
+            <xpath expr="//div" position="inside">
+                <section class="html_form" data-form-model="crm.lead" data-form-id="0" t-if="survey.lead_survey">
+                    <h2>Enter Info</h2>
+                    <form role="form" method="GET" t-attf-action="/survey/lead/#{survey.id}">
+                        <div id="html_fields" class="oe_structure" style="margin-left:-15px;">
+                            <section data-form-type="textbox" data-field-id="1"
+                                     class="oe_snippet_body html_form_field col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name" style="font-weight: normal">Name</label>
+                                    <input type="text" class="form-control" name="name" maxlength="100"/>
+                                </div>
+                            </section>
+                            <section data-form-type="textbox" data-field-id="2"
+                                     class="oe_snippet_body html_form_field col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="email" style="font-weight: normal">Email</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100"/>
+                                </div>
+                            </section>
+                        </div>
+                        <input type="hidden" name="token" t-att-value="token"/>
+                        <input type="submit" class="btn btn-primary btn-lg" value="Submit"/>
+                    </form>
+                </section>
+
+                <section class="html_form" data-form-model="crm.lead" data-form-id="0" t-if="survey.partner_survey">
+                    <h2>Enter Info</h2>
+                    <form role="form" method="GET" t-attf-action="/survey/partner/#{survey.id}">
+                        <div id="html_fields" class="oe_structure" style="margin-left:-15px;">
+                            <section data-form-type="textbox" data-field-id="2"
+                                     class="oe_snippet_body html_form_field col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="email" style="font-weight: normal">Email</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100"/>
+                                </div>
+                            </section>
+                        </div>
+                        <input type="hidden" name="token" t-att-value="token"/>
+                        <input type="submit" class="btn btn-primary btn-lg" value="Submit"/>
+                    </form>
+                </section>
+
+            </xpath>
+        </template>
+
+<!--        For Add pattern attribute in odoo standard textbox-->
+        <template id="tmpl_sh_textbox_for_pattern" inherit_id="survey.question_char_box" name="Text box">
+            <xpath expr="//input" position="replace">
+                <t t-if="question.validation_is_sh_textbox_pattern">
+                    <input type="text" t-attf-pattern="#{question.validation_sh_textbox_pattern}"
+                           t-attf-placeholder="#{question.validation_sh_textbox_placeholder}"
+                           class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
+                           t-att-name="prefix"/>
+                </t>
+                <t t-if="question.validation_is_sh_textbox_pattern == False">
+                    <input t-att-type="'email' if question.validation_email else 'text'"
+                           class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
+                           t-att-name="question.id" t-att-placeholder="question.question_placeholder"
+                           t-att-value="answer_lines[0].value_char_box if answer_lines else None"
+                           t-att-data-question-type="question.question_type"
+                           t-att-data-validation-length-min="question.validation_length_min if question.validation_required else False"
+                           t-att-data-validation-length-max="question.validation_length_max if question.validation_required else False"/>
+                </t>
+            </xpath>
+        </template>
+        <template id="survey.survey_fill_form_done" name="Survey Finished">
+<!--            <t t-call="survey.layout">-->
+                <div class="wrap">
+                    <div class="container">
+                        <t t-call="survey.survey_button_form_view"/>
+                        <div class="jumbotron mt32">
+                            <h1>Thank you!</h1>
+                            <div t-field="survey.description_done" class="oe_no_empty"/>
+                        </div>
+                    </div>
+                </div>
+<!--            </t>-->
+        </template>
+
+        <template id="survey.layout" name="Survey Layout" inherit_id="web.frontend_layout" primary="True">
+            <xpath expr="//head/t[@t-call-assets][last()]" position="after">
+                <t t-call-assets="web.assets_common"/>
+                <t t-call-assets="survey.survey_assets" lazy_load="True"/>
+            </xpath>
+            <xpath expr="//header" position="replace">
+                <body>
+                    <header>
+                        <div>
+                            <title>Odoo</title>
+                        </div>
+                        <!--                        <div class="text-center">-->
+                        <!--                            <br/>-->
+                        <!--                            <img t-attf-src="/survey_extras/static/description/casio-logo.jpg" style="width:50px;heigth:50px"/>-->
+                        <!--                            <br/>-->
+                        <!--                        </div>-->
+                    </header>
+                </body>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

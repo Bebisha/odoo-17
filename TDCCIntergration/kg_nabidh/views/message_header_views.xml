@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    <record id="guarantor_form_action" model="ir.actions.act_window">-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="name">Guarantor</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        <field name="res_model">guarantor.form</field>-->
+
+<!--    </record>-->
+<!--    <record id="guarantor_form_tree" model="ir.ui.view">-->
+<!--        <field name="name">guarantor.form.views</field>-->
+<!--        <field name="model">guarantor.form</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                   <field name="name"/>-->
+
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+    <record id="message_header_form" model="ir.ui.view">
+        <field name="name">message.headers.views</field>
+        <field name="model">message.headers</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+
+                             <field name="message_type"/>
+                             <field name="date_message"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+<!--    <menuitem id="guarantor_menu"-->
+<!--              action="guarantor_form_action"-->
+<!--              name="Guarantor"-->
+<!--              parent="kg_nabidh.patient_information_menu"/>-->
+
+</odoo>

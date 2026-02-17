@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_product_template_manufactured_product" model="ir.actions.act_window">
+        <field name="name">Manufactured products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="view_id" ref="product.product_template_kanban_view"/>
+        <field name="domain">[('is_manufactured_product','=',True)]</field>
+        <field name="context">{'search_default_is_manufactured_product': 1,'default_is_manufactured_product':
+            True,'default_detailed_type': 'product'}
+        </field>
+
+    </record>
+
+    <menuitem id="menu_manufacture_product_action"
+              action="action_product_template_manufactured_product"
+              name="Manufactured products"
+              parent="sale.product_menu_catalog"
+
+    />
+
+
+</odoo>

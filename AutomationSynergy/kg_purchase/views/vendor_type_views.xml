@@ -1,0 +1,44 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_vendor_type_tree" model="ir.ui.view">
+        <field name="name">res.vendor.type.tree</field>
+        <field name="model">res.vendor.type</field>
+        <field name="arch" type="xml">
+            <tree string="Vendor Types">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_vendor_type_form" model="ir.ui.view">
+        <field name="name">res.vendor.type.form</field>
+        <field name="model">res.vendor.type</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_vendor_type" model="ir.actions.act_window">
+        <field name="name">Vendor Types</field>
+        <field name="res_model">res.vendor.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new Vendor Type.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_vendor_type_root" name="Vendor Types" parent="purchase.menu_purchase_config" action="action_vendor_type"/>
+</odoo>

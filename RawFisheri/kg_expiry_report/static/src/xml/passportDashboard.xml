@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="passport_dashboard.PassportDashboard" owl="1">
+        <div style="margin-top:40pt;font-style: bold; font-size: 20px;" align="center">
+            PASSPORT EXPIRY DASHBOARD
+        </div>
+        <t t-if="state.data.vessels_by_department">
+            <div class="container"
+                 style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; max-height: 600px; overflow-y: auto;">
+
+                <t t-foreach="state.data.vessels_by_department" t-as="vessel" t-key="vessel.vessel">
+                    <div class="card"
+                         style="width: 47%; margin-top: 40px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 10px;">
+                        <div class="card-header" align="center"
+                             style="background-color: #f8f9fa; padding: 10px; border-bottom: 1px solid #dee2e6;">
+                            <span t-esc="vessel.vessel" style="text-transform: uppercase; font-size: 20px;"/>
+                        </div>
+                        <div class="card-body" style="padding: 10px; max-height: 400px; overflow-y: auto;">
+                            <t t-foreach="vessel.departments" t-as="department" t-key="department.department">
+                                <div style="margin-bottom: 20px;">
+                                    <table width="100%" style="margin-top:10pt;">
+                                        <tr>
+                                            <th width="40%">EMPLOYEE</th>
+                                            <th width="30%">JOB</th>
+                                            <th width="30%">PASSPORT EXPIRY DATE</th>
+                                        </tr>
+                                        <tr t-foreach="department.employees" t-as="employee" t-key="employee.id" t-att-class="isExpired(employee.employee_passport_expiry_date) ? 'text-danger' : ''">
+                                            <td>
+                                                <span t-on-click="openEmployee(employee.id)" style="cursor: pointer;">
+                                                    <span t-esc="employee.name" style="text-transform: uppercase;"/>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="employee.job_title" style="text-transform: uppercase;"/>
+                                            </td>
+                                            <td>
+                                                <t t-if="employee.employee_passport_expiry_date">
+                                                    <span>
+                                                        <t t-esc="employee.employee_passport_expiry_date.split('-').reverse().join('/')"/>
+                                                    </span>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </t>
+                        </div>
+
+                    </div>
+                </t>
+            </div>
+        </t>
+        <t t-else="">
+            <div align="center" style="margin-top: 20px;">
+                <p>No data available to display.</p>
+            </div>
+        </t>
+    </t>
+</templates>

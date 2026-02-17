@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ir_sms_server,access_ir_sms_server,model_ir_sms_server,base.group_user,1,1,1,0
+
+access_message_compose,access_message_compose,model_message_compose,base.group_user,1,1,1,0
+access_message_message,message_message,model_message_message,base.group_user,1,1,1,0
+access_message_message_user,access_message_message_user,model_message_message,base.group_user,1,1,1,0

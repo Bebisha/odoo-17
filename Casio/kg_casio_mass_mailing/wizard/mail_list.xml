@@ -1,0 +1,64 @@
+<odoo>
+  <data>
+
+      <record id="mail_listing_form" model="ir.ui.view">
+            <field name="name">email.list.form</field>
+            <field name="model">email.list</field>
+            <field name="arch" type="xml">
+                <form string="voucher" version="7.0" duplicate="0">
+                    <sheet>
+                        <group>
+
+                        </group>
+                        <field name="line_ids" >
+                            <tree create="false" delete="false" editable="bottom" decoration-danger="is_removed == True">
+                                <field name="partner_id" readonly="1" force_save="1"/>
+                                <field name="email" readonly="1" force_save="1"/>
+                                <field name="preference" readonly="1" force_save="1"/>
+                                <field name="fully_unsubscribed" readonly="1" force_save="1"/>
+                                <field name="total_email_sent" readonly="1" force_save="1"/>
+                                <field name="is_removed" string="Remove"/>
+                                <field name="object_id" invisible="1" readonly="1" force_save="1"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <footer>
+                    <button name="remove_from_mail_list" string="Remove from Email" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+<!--      <record id="email_list_tree" model="ir.ui.view">-->
+<!--            <field name="name">email.list.tree</field>-->
+<!--            <field name="model">email.list</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="voucher" import="false" create="false">-->
+<!--                    <field name="partner_id"/>-->
+<!--                    <field name="email"/>-->
+<!--                    <field name="preference"/>-->
+<!--                    <field name="fully_unsubscribed" string="Unsubscribed"/>-->
+<!--                    <field name="total_email_sent"/>-->
+<!--                    <field name="is_removed" />-->
+<!--                    <button name="remove_from_mail_list" attrs="{'invisible':[('is_removed','=',True)]}" type="object" class="oe_highlight" string="Remove From Email"/>-->
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+      <record id="email_list_action" model="ir.actions.act_window">
+            <field name="name">Email List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">email.list</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Email List
+                </p>
+            </field>
+        </record>
+
+  </data>
+</odoo>

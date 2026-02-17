@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_lsa_form">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                  <t t-foreach="o.seq_lot_line_ids" t-as="line">
+                <t t-call="web.external_layout">
+                    <!-- Header Table -->
+                   <table class="table table-sm table-borderless" style="width: 100%;">
+                        <tr>
+                            <td style="padding: 5px;">
+                                <strong>Vsl Name:</strong>
+                            </td>
+                            <td style="padding: 5px;">
+                                <span t-field="o.vessel_id.name"/>
+                            </td>
+                            <td style="padding: 5px;">
+                                <strong>Job Sheet:</strong>
+                            </td>
+                            <td style="padding: 5px;">
+                                <span t-field="o.job_sheet_number"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px;">
+                                <strong>Client:</strong>
+                            </td>
+                            <td style="padding: 5px;">
+                                <span t-field="o.partner_id.name"/>
+                            </td>
+                            <td style="padding: 5px;">
+                                <strong>Date of Test:</strong>
+                            </td>
+                            <td style="padding: 5px;">
+                                <span t-field="o.inspection_date"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px;">
+                                <strong>Location:</strong>
+                            </td>
+                            <td style="padding: 5px;">
+                                <!--                            <span t-field="o.location"/>-->
+                            </td>
+                            <td style="padding: 5px;">
+                                <strong>Certificate No:</strong>
+                            </td>
+                            <td style="padding: 5px;">
+                                <span t-field="o.certificate_no"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Section Title -->
+                    <table style="width: 100%; margin-top: 10px; border: 1px solid black; border-collapse: collapse;">
+                        <tr>
+                            <td style="text-align: center; font-weight: bold; font-size: 16px; padding: 5px; border: 1px solid black;">
+                                UNIT UNDER TEST DETAILS: <span t-field="o.product_id"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Working Codes Description Table -->
+                    <table class="table"
+                           style="width: 100%; margin-top: 10px; border: 1px solid black; border-collapse: collapse;">
+                         <tr colspan="5">
+                            <td style="text-align: center; font-weight: bold; font-size: 16px; padding: 5px; border: 1px solid black;">
+                                Description of Working Codes
+                            </td>
+                             <td>
+
+                             </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black; padding: 5px;">01 - Content checked by level</td>
+                            <td style="border: 1px solid black; padding: 5px;">06 - Hydro static test</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black; padding: 5px;">02 - Content checked by weight</td>
+                            <td style="border: 1px solid black; padding: 5px;">07 - Valve renewal</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black; padding: 5px;">03 - Content checked by pressure</td>
+                            <td style="border: 1px solid black; padding: 5px;">08 - Valve repair</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black; padding: 5px;">04 - Internal/external inspection</td>
+                            <td style="border: 1px solid black; padding: 5px;">09 - External maintenance</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black; padding: 5px;">05 - Recharging</td>
+                            <td style="border: 1px solid black; padding: 5px;">10 - New cylinder</td>
+                        </tr>
+                    </table>
+
+                    <!-- Main Data Table -->
+                    <!--                <table class="table"-->
+                    <!--                       style="width: 100%; margin-top: 10px; border: 1px solid black; border-collapse: collapse;">-->
+                    <!--                    <thead>-->
+                    <!--                        <tr>-->
+                    <!--                            <th style="border: 1px solid black; padding: 5px;">No.</th>-->
+                    <!--                            <th style="border: 1px solid black; padding: 5px;">Make</th>-->
+                    <!--                            <th style="border: 1px solid black; padding: 5px;">Serial No.</th>-->
+                    <!--                            <th style="border: 1px solid black; padding: 5px;">Capacity</th>-->
+                    <!--                            <th style="border: 1px solid black; padding: 5px;">Working Pressure</th>-->
+                    <!--                            <th style="border: 1px solid black; padding: 5px;">Test Pressure</th>-->
+                    <!--                            <th style="border: 1px solid black; padding: 5px;">Last Hydro Tested Date</th>-->
+                    <!--                            <th style="border: 1px solid black; padding: 5px;">Working Code</th>-->
+                    <!--                        </tr>-->
+                    <!--                    </thead>-->
+                    <!--                    <tbody>-->
+                    <!--                        <tr t-foreach="o.equipment_records_ids" t-as="line" t-key="line.id">-->
+                    <!--                            <td style="border: 1px solid black; padding: 5px;">-->
+                    <!--                                <span t-esc="line.id"/>-->
+                    <!--                            </td>-->
+                    <!--                            <td style="border: 1px solid black; padding: 5px;">-->
+                    <!--                                <span t-field="line.make"/>-->
+                    <!--                            </td>-->
+                    <!--                            <td style="border: 1px solid black; padding: 5px;">-->
+                    <!--                                <span t-field="line.serial_no"/>-->
+                    <!--                            </td>-->
+                    <!--                            <td style="border: 1px solid black; padding: 5px;">-->
+                    <!--                                <span t-field="line.capacity"/>-->
+                    <!--                            </td>-->
+                    <!--                            <td style="border: 1px solid black; padding: 5px;">-->
+                    <!--                                <span t-field="line.working_pressure"/>-->
+                    <!--                            </td>-->
+                    <!--                            <td style="border: 1px solid black; padding: 5px;">-->
+                    <!--                                <span t-field="line.test_pressure"/>-->
+                    <!--                            </td>-->
+                    <!--                            <td style="border: 1px solid black; padding: 5px;">-->
+                    <!--                                <span t-field="line.last_hydro_tested_date"/>-->
+                    <!--                            </td>-->
+                    <!--                            <td style="border: 1px solid black; padding: 5px;">-->
+                    <!--                                <span t-field="line.working_code"/>-->
+                    <!--                            </td>-->
+                    <!--                        </tr>-->
+                    <!--                    </tbody>-->
+                    <!--                </table>-->
+                     <div style="page-break-before: always;"></div>
+                    <table style="width: 100%; margin-top: 10px; border: 1px solid black; border-collapse: collapse;">
+                        <tr style="text-align: center; font-weight: bold; font-size: 16px; padding: 5px; border: 1px solid black;">
+                            <th>LSA RESULTS</th>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="text-align: center; font-weight: bold; font-size: 16px; padding: 5px; border: 1px solid black;width: 100%;" >
+                        <tr>
+                            <td >
+                                <t t-raw="o.certificate_content_view"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Footer Section -->
+                    <table  class="table table-sm table-borderless"  style="width: 100%; margin-top: 10px; border-collapse: collapse;">
+                        <tr>
+                            <td colspan="8" style="padding: 5px; text-align: center;">
+                                Found the above <t t-esc="o.product_id.name"/> are ready to use.
+                            </td>
+                        </tr>
+                        <tr style="width: 100%;">
+                            <td colspan="4" style="padding: 5px;">
+                                <strong>Tested by:</strong>
+                                <br/>Name:
+                                <br/>
+                                <br/>
+                            </td>
+                            <td colspan="10" style="padding-left: 100pt;">
+                                <strong>Approved by:</strong>
+                                <br/>Name:
+                                <br/>
+                                <br/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <table class="table table-sm table-borderless"  style="width: 100%; margin-top: 10px; border-collapse: collapse;">
+                        <tr>
+                            <td colspan="4" style="padding: 5px;">
+                                <div>
+                                    <span style="font-style: italic;">Job Sheet No:</span>
+                                    <span t-field="o.job_sheet_number"/>
+                                    <br/>
+                                    <!-- <span style="font-style: italic;">Ref No:</span> QP 20-15 -->
+                                </div>
+                            </td>
+                            <td colspan="2" style="padding: 5px; text-align: center;">
+                                <span style="font-style: italic;">Date:</span>
+                                <span t-field="o.inspection_date"/>
+                            </td>
+                            <td colspan="2" style="padding: 5px; text-align: right;">
+                                <div style="text-align: center;">
+                                    <strong>Voyage Marine Automation</strong>
+                                    <br/>
+                                    <span style="font-size: smaller;">Company Stamp</span>
+                                </div>
+                                <!-- <div style="text-align: right;"> <span style="font-style: italic;">Rev: 00</span> </div> -->
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </t>
+                  </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

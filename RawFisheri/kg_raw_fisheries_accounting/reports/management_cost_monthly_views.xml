@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_management_cost_monthly_tree">
+            <field name="name">management.cost.mpnthly.tree</field>
+            <field name="model">management.cost.monthly</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="analytic_account_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_management_cost_monthly_pivot" model="ir.ui.view">
+            <field name="name">management.cost.monthly.pivot</field>
+            <field name="model">management.cost.monthly</field>
+            <field name="arch" type="xml">
+                <pivot string="Management Cost Monthly" sample="1">
+                    <field name="date" interval="month" type="row"/>
+                    <field name="analytic_account_id" type="col"/>
+                    <field name="amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_management_cost_mpnthly_search" model="ir.ui.view">
+            <field name="name">management.cost.monthly.filter</field>
+            <field name="model">management.cost.monthly</field>
+            <field name="arch" type="xml">
+                <search string="Management Cost Monthly">
+                    <field name="analytic_account_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Analytic Account" name="groupby_analytic_account_id" domain="[]"
+                                context="{'group_by': 'analytic_account_id'}"/>
+                        <filter string="Account Type" name="groupby_type" domain="[]"
+                                context="{'group_by': 'type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_management_monthly_cost" model="ir.actions.server">
+            <field name="name">Management Cost Monthly</field>
+            <field name="model_id" ref="kg_raw_fisheries_accounting.model_management_cost_monthly"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.load_analytic_account_details()
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_management_cost_monthly"
+                action="action_management_monthly_cost"
+                name="Management Cost Monthly"
+                parent="account.account_reports_management_menu"
+        />
+
+    </data>
+</odoo>

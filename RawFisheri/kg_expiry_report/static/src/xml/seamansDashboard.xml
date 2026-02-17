@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="seamans_dashboard.SeamansDashboard" owl="1">
+        <div style="margin-top:40pt;font-style: bold; font-size: 20px;" align="center">
+            SEAMAN'S BOOK EXPIRY DASHBOARD
+        </div>
+        <t t-if="state.data.vessels_by_department">
+            <div class="container"
+                 style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; max-height: 600px; overflow-y: auto;">
+                <t t-foreach="state.data.vessels_by_department" t-as="vessel" t-key="vessel.vessel">
+                    <div class="card"
+                         style="width: 47%; margin-top: 40px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 10px; max-height: 500px; overflow-y: auto;">
+                        <div class="card-header" align="center"
+                             style="background-color: #f8f9fa; padding: 10px; border-bottom: 1px solid #dee2e6;">
+                            <span t-esc="vessel.vessel" style="text-transform: uppercase; font-size: 20px;"/>
+                        </div>
+                        <div class="card-body" style="padding: 10px; max-height: 400px; overflow-y: auto;">
+                            <table width="100%" style="margin-top:10pt;">
+                                <tr>
+                                    <th width="40%">EMPLOYEE</th>
+                                    <th width="30%">JOB</th>
+                                    <th width="30%">SEAMAN'S BOOK EXPIRY DATE</th>
+                                </tr>
+                                <tr t-foreach="vessel.employees" t-as="employee" t-key="employee.id" t-att-class="isExpired(employee.seaman_book_expiry_date) ? 'text-danger' : ''">
+                                    <td>
+                                        <span t-on-click="openEmployee(employee.id)" style="cursor: pointer;">
+                                            <span t-esc="employee.name" style="text-transform: uppercase;"/>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span t-esc="employee.job_title" style="text-transform: uppercase;"/>
+                                    </td>
+                                    <td>
+                                        <span t-if="employee.seaman_book_expiry_date">
+                                            <t t-esc="employee.seaman_book_expiry_date.split('-').reverse().join('/')"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+        <t t-else="">
+            <div align="center" style="margin-top: 20px;">
+                <p>No data available to display.</p>
+            </div>
+        </t>
+    </t>
+</templates>

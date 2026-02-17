@@ -1,0 +1,325 @@
+<odoo>
+    <template id="condition_report_tmpl_id">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header">
+                            <table class='table table-borderless table-condensed table-hover'>
+                                <tr width="100%">
+                                    <td style="width: 30%;" align="left">
+                                        <t t-if="doc.company_id.logo">
+                                            <img t-attf-src="data:image/*;base64,{{doc.company_id.logo}}"
+                                                 height="100px" width="75%"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 50%;font-size:12px;" align="right"/>
+                                </tr>
+                            </table>
+                        </div>
+                        <table class='table table-borderless table-condensed table-hover'>
+                            <tr width="100%">
+                                <td width="100%" colspan="2" align="center">
+                                    <strong>
+                                        <span>CONDITION REPORT</span>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td align="left" width="15%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>CLIENT NAME</strong>
+                                </td>
+                                <td align="left" width="40%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <span t-field="doc.partner_id.name"/>
+                                </td>
+                                <td align="left" width="20%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>INSPECTION NO</strong>
+                                </td>
+                                <td align="left" width="25%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <span t-field="doc.inspect_no"/>
+                                </td>
+                            </tr>
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td align="left" width="15%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>VESSEL NAME</strong>
+                                </td>
+                                <td align="left" width="50%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <span t-field="doc.vessel_id.name"/>
+                                </td>
+                                <td align="left" width="10%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>DATE</strong>
+                                </td>
+                                <td align="left" width="25%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <span t-field="doc.date"/>
+                                </td>
+                            </tr>
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td align="left" width="15%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>LOCATION</strong>
+                                </td>
+                                <td align="left" width="50%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <span t-field="doc.location"/>
+                                </td>
+                                <td align="left" width="10%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>ENQ NO</strong>
+                                </td>
+                                <td align="left" width="25%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <span t-field="doc.enq_no"/>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                        <br/>
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;padding-top:5px;padding-bottom:5px;">
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px;">
+                                <td align="left" width="15%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:15px;padding-bottom:15px;">
+                                    <strong>TYPE OF SERVICE</strong>
+                                </td>
+                                <td width="10%" style="padding-left:5px;border-right:1pt solid white;">
+                                    <input type="checkbox" t-att-checked="'checked' if doc.is_supply else None"/>
+                                    Supply
+                                </td>
+                                <td width="15%" style="border-right:1pt solid white;">
+                                    <input type="checkbox" t-att-checked="'checked' if doc.is_maintenance else None"/>
+                                    Maintenance
+                                </td>
+                                <td width="15%" style="border-right:1pt solid white;">
+                                    <input type="checkbox"
+                                           t-att-checked="'checked' if doc.is_new_installation else None"/>
+                                    New Installation
+                                </td>
+                                <td width="45%">
+                                    <input type="checkbox"
+                                           t-att-checked="'checked' if doc.testing_certificate else None"/>
+                                    Testing &amp; Certification
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>SL.NO</strong>
+                                </td>
+                                <td align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>System Description</strong>
+                                </td>
+                                <td align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Status Image</strong>
+                                </td>
+                                <td align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Findings</strong>
+                                </td>
+                                <td align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Recommendation</strong>
+                                </td>
+                                <td align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Spares</strong>
+                                </td>
+                                <td align="center"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Remark</strong>
+                                </td>
+                            </tr>
+                            <t t-if="doc.condition_report_line_ids">
+                                <t t-foreach="doc.condition_report_line_ids" t-as="line">
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.sl_no"/>
+                                        </td>
+                                        <td align="left"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.description"/>
+                                        </td>
+                                        <td align="center"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <t t-if="line.image">
+                                                <img t-att-src="image_data_uri(line.image)"
+                                                     style="max-width:300px; max-height:200px;"/>
+                                            </t>
+                                        </td>
+                                        <td align="left"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.findings"/>
+                                        </td>
+                                        <td align="left"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.recommendation"/>
+                                        </td>
+                                        <td align="left"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.spares"/>
+                                        </td>
+                                        <td align="left"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.remarks"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </table>
+                        <br/>
+                        <table style="width:100%; font-size:13px;">
+                            <tr>
+                                <td style="width:15%; font-weight:bold;">
+
+                                    <u>Note:</u>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td style="font-weight:bold; padding-top:10px;">
+                                    General Requirement :
+                                </td>
+                                <td style="border:1px solid #000;padding-left:5px;">
+                                    <span t-field="doc.general_requirement"/>
+                                </td>
+                            </tr>
+                            <tr style="height:15px;">
+                                <td colspan="2"/>
+                            </tr>
+
+                            <tr>
+                                <td style="font-weight:bold; padding-top:10px;">
+                                    Documents Available :
+                                </td>
+                                <td style="border:1px solid #000;padding-left:5px;">
+                                    <span t-field="doc.documents_available"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table style="width:100%;">
+                            <tr>
+                                <!-- Empty left space -->
+                                <td style="width:50%;"></td>
+
+                                <!-- Right aligned content -->
+                                <td style="width:50%; vertical-align:top;">
+                                    <table style="width:100%; font-size:13px;">
+                                        <tr>
+                                            <td style="border-bottom:1px solid #000; height:30px; text-align:center;">
+                                                <t t-if="doc.inspected_signature">
+                                                    <img t-att-src="image_data_uri(doc.inspected_signature)"
+                                                         style="max-height:4cm; max-width:8cm;"/>
+                                                </t>
+                                            </td>
+
+                                            <td style="width:10%;"></td>
+
+                                            <td style="border-bottom:1px solid #000; height:30px; text-align:center;">
+                                                <t t-if="doc.verified_signature">
+                                                    <img t-att-src="image_data_uri(doc.verified_signature)"
+                                                         style="max-height:4cm; max-width:8cm;"/>
+                                                </t>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align:center; font-weight:bold;">
+                                                Inspected By:
+                                                <span t-esc="doc.inspected_by.name"/>
+                                            </td>
+
+                                            <td></td>
+
+                                            <td style="text-align:center; font-weight:bold;">
+                                                Verified By:
+                                                <span t-esc="doc.verified_by.name"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <div class="footer">
+                            <div style="margin-top:30px; text-align:center; font-size:11px;">
+                                <i>
+                                    A professional Supplier and Service provider for All Electrical &amp;
+                                    Instrumentation,
+                                    Automation &amp; Control, Fire &amp; Safety, Navigation and Communication and
+                                    Calibration
+                                    requirements for Marine, Oil &amp; Gas and Energy Industry.
+                                </i>
+                            </div>
+                            <table class='table-borderless' width="100%" style="font-size:12px;">
+                                <tr width="100%" align="left" style="font-size:12px;">
+                                    <td width="100%" colspan="2" style="border-top:1pt solid black;"/>
+                                </tr>
+                                <tr width="100%" style="font-size:12px;">
+                                    <td width="50%" align="left" style="padding-top:5px;">
+                                        <span>Form No.</span>
+                                        <span t-esc="doc.get_file_name_from_folder()"/>
+                                    </td>
+                                    <td width="50%" align="right" style="padding-top:5px;">
+                                        <span>ISO 9001:2015,ISO 45001:2018,ISO 17025:2017</span>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="font-size:12px;">
+                                    <td width="50%" align="left" style="padding-top:5px;">
+                                        <span>Issue 3 Rev.02</span>
+                                    </td>
+                                    <td width="50%" align="right" style="padding-top:5px;">
+                                        <span>Condition Report</span>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="font-size:12px;">
+                                    <td width="50%" align="left" style="padding-top:5px;">
+                                        <span>Date</span>
+                                        <span t-esc="datetime.datetime.today().strftime('%d/%m/%Y')"/>
+                                    </td>
+                                    <td width="50%" align="right" style="padding-top:5px;">
+                                        <span>Page:
+                                            <span class="page"/>
+                                            of
+                                            <span class="topage"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="font-size:12px;">
+                                    <td width="100%" align="center" colspan="2" style="padding-top:5px;">
+                                        <strong>
+                                            <span t-esc="doc.company_id.website"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

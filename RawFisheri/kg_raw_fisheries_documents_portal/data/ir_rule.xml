@@ -1,0 +1,27 @@
+<odoo>
+
+    <record id="transaction_documents_personal_rule" model="ir.rule">
+        <field name="name">TD: Personal Orders</field>
+        <field name="model_id" ref="model_transaction_documents"/>
+        <field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
+        <field name="groups"
+               eval="[(4, ref('kg_raw_fisheries_documents_portal.group_transaction_documents_own_docs'))]"/>
+    </record>
+
+    <record id="transaction_documents_assignees_rule" model="ir.rule">
+        <field name="name">TD: Assignees</field>
+        <field name="model_id" ref="model_transaction_documents"/>
+        <field name="domain_force">[('assignees_ids', 'in', [user.id])]</field>
+        <field name="groups"
+               eval="[(4, ref('kg_raw_fisheries_documents_portal.group_transaction_documents_own_docs'))]"/>
+    </record>
+
+    <record id="transaction_documents_admin_rule" model="ir.rule">
+        <field name="name">TD: Admin Full Access</field>
+        <field name="model_id" ref="model_transaction_documents"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups"
+               eval="[(4, ref('kg_raw_fisheries_documents_portal.group_transaction_documents_administrator'))]"/>
+    </record>
+
+</odoo>

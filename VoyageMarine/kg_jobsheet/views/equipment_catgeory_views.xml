@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- School Form -->
+    <record model="ir.ui.view" id="equipment_category_form">
+        <field name="name">equipment.category.master</field>
+        <field name="model">equipment.category</field>
+        <field name="arch" type="xml">
+            <form string="Equipment Category">
+                <sheet>
+                    <group>
+                        <group>
+
+                            <field name="name" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- School List -->
+    <record model="ir.ui.view" id="equipment_category_list">
+        <field name="name">equipment.list</field>
+        <field name="model">equipment.category</field>
+        <field name="arch" type="xml">
+            <tree string="Equipment Category List">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- School Search -->
+    <record model="ir.ui.view" id="equipment_category_search">
+        <field name="name">equipment.category.master.search</field>
+        <field name="model">equipment.category</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+
+            </search>
+        </field>
+    </record>
+
+    <!-- School Action -->
+    <record model="ir.actions.act_window" id="equipment_category_action">
+        <field name="name">Equipment Category</field>
+        <field name="res_model">equipment.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_product_category_custom_scope" model="ir.actions.act_window">
+        <field name="name">Equipment Category</field>
+        <field name="res_model">product.category</field>
+        <field name="view_mode">tree,form</field>
+         <field name="domain">[('is_scope','=',True)]</field>
+        <field name="context">{'search_default_is_scope': 1}
+        </field>
+        <field name="view_id" ref="product.product_category_action_form"/>
+    </record>
+
+
+
+    <menuitem id="equipment_category_03"
+              action="action_product_category_custom_scope"
+              name="Equipment Category"
+              parent="job_sheet_menu_03"
+              sequence="1"
+    />
+
+
+</odoo>

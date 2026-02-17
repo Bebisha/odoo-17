@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Gender Master Data -->
+    <data noupdate="1">
+        <record id="gender_female" model="gender.form">
+            <field name="code">F</field>
+            <field name="name">Female</field>
+        </record>
+
+        <record id="gender_male" model="gender.form">
+            <field name="code">M</field>
+            <field name="name">Male</field>
+        </record>
+
+        <record id="gender_unknown" model="gender.form">
+            <field name="code">U</field>
+            <field name="name">Unknown</field>
+        </record>
+    </data>
+</odoo>

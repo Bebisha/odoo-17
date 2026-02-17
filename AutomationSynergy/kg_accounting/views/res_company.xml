@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="res_company_inherit_kg_oki_purchase">
+        <field name="name">res.company.form.inherit.kg.oki.partner.name</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="seal"
+                       string="Company Seal"
+                       options="{'size': ['',50]}" widget="image"/>
+                <field name="aed_iban"/>
+                <field name="usd_iban"/>
+                <field name="bank_swift_code"/>
+                <field name="bank_name"/>
+                <!--                <field name="bank_address"/>-->
+            </field>
+            <field name="color" position="after">
+                <!--                <group>-->
+                <label for="bank_complete_address" string=" Bank Address"/>
+                <div>
+                    <div class="o_address_format" name="div_address">
+                        <field name="bank_street" placeholder="Street..." class="o_address_street"/>
+                        <!--                                 <field name="street2" placeholder="Street 2..." class="o_address_street"/> -->
+                        <field name="bank_city" placeholder="City" class="o_address_city"/>
+                        <field name="bank_states" class="o_address_state" placeholder="State"/>
+                        <field name="bank_zip" placeholder="ZIP" class="o_address_zip"/>
+                        <field name="bank_country" placeholder="Country" class="o_address_country"
+                               options="{'no_create': True}"/>
+                        <field name="bank_complete_address" widget="text" readonly="1" invisible="1"/>
+                        <field name="bank_phone_number"/>
+                    </div>
+                </div>
+                <!--                </group>-->
+            </field>
+        </field>
+    </record>
+    <!--    <record model="ir.ui.view" id="res_partner_inherit_kg_oki_purchase">-->
+    <!--        <field name="name">res.partner.form.inherit.kg.oki.partner.name</field>-->
+    <!--        <field name="model">res.partner</field>-->
+    <!--        <field name="inherit_id" ref="base.view_partner_form"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <xpath expr="//field[@name='title']" position="after">-->
+    <!--                <field name="company_wise" force_save="1"/>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
+</odoo>

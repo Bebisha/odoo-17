@@ -1,0 +1,11 @@
+<odoo>
+
+    <record id="pending_approvals_dashboard_action" model="ir.actions.client">
+        <field name="name">Pending Approvals</field>
+        <field name="tag">pending_apv_dashboard_tag</field>
+    </record>
+
+    <menuitem name="Pending Approvals Dashboard" id="pending_approvals_menu" sequence="1"
+              action="pending_approvals_dashboard_action" parent="account_accountant.menu_accounting"/>
+
+</odoo>

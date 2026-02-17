@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Appointment Cancel Reason Form -->
+        <record model="ir.ui.view" id="appointment_cancel_reason_form">
+            <field name="name">appointment.cancel.reason.form</field>
+            <field name="model">appointment.cancel.reason</field>
+            <field name="arch" type="xml">
+                <form string="Appointment Cancel Reason Form">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options="{&quot;terminology&quot;: &quot;archive&quot;}" />
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" required="1" />
+                                <field name="code" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Appointment Cancel Reason List -->
+        <record model="ir.ui.view" id="appointment_cancel_reason_tree">
+            <field name="name">appointment.cancel.reason.tree</field>
+            <field name="model">appointment.cancel.reason</field>
+            <field name="arch" type="xml">
+                <tree string="Appoinment Cancel Reason List">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="active" widget="boolean_toggle" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Appointment Cancel Reason Search -->
+        <record model="ir.ui.view" id="appointment_cancel_reason_search">
+            <field name="name">appointment.cancel.reason.search</field>
+            <field name="model">appointment.cancel.reason</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="code" />
+                    <filter string="Archived" name="inactive"
+                        domain="[('active','=',False)]" />
+                </search>
+            </field>
+        </record>
+
+        <!-- Appointment Cancel Reason Action -->
+        <record model="ir.actions.act_window"
+            id="appointment_cancel_reason_action">
+            <field name="name">Appointment Cancel Reasons</field>
+            <field name="res_model">appointment.cancel.reason</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Appointment Cancel Reason Menu -->
+        <menuitem id="appointment_cancel_reason_menu"
+            action="appointment_cancel_reason_action"
+            groups="bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_cofounder,bista_tdcc_operations.group_appointment_manager"
+            parent="bista_tdcc_operations.360_configuration_menu" sequence="5" />
+
+</odoo>

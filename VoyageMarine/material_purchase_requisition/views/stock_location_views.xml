@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_location_form-inherit" model="ir.ui.view">
+        <field name="name">stock.location.form</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='return_location']" position='after'>
+                <field name="is_service_location"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_location_search_inherit_empty" model="ir.ui.view">
+        <field name="name">stock.location.search.empty</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/group" position="inside">
+                <filter
+                        name="is_empty"
+                        string="Free / Empty"
+                        domain="[('is_empty', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

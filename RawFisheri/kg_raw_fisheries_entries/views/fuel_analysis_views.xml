@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--   Tree view for fuel analysis model   -->
+        <record id="fuel_analysis_tree" model="ir.ui.view">
+            <field name="name">fuel.analysis.tree</field>
+            <field name="model">fuel.analysis</field>
+            <field name="arch" type="xml">
+                <tree string="Fuel Analysis" editable="bottom">
+                    <field name="name" width="25%"/>
+                    <field name="date" width="5%"/>
+                    <field name="vessel_id" width="10%"/>
+                    <field name="tons_mgo" width="10%"/>
+                    <field name="tons_hfo" width="10%"/>
+                    <field name="usd_mgo" width="10%"/>
+                    <field name="usd_hfo" width="10%"/>
+                    <field name="price_avg_mgo" width="10%"/>
+                    <field name="price_avg_hfo" width="10%"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

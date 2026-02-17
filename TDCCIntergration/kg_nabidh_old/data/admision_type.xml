@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Admission Type Master Data -->
+    <data noupdate="1">
+
+        <record id="admision_type_a" model="admision.type">
+            <field name="code">A</field>
+            <field name="name">Accident</field>
+        </record>
+
+        <record id="admision_type_c" model="admision.type">
+            <field name="code">C</field>
+            <field name="name">Elective</field>
+        </record>
+
+        <record id="admision_type_e" model="admision.type">
+            <field name="code">E</field>
+            <field name="name">Emergency</field>
+        </record>
+
+        <record id="admision_type_l" model="admision.type">
+            <field name="code">L</field>
+            <field name="name">Labor and Delivery</field>
+        </record>
+
+        <record id="admision_type_n" model="admision.type">
+            <field name="code">N</field>
+            <field name="name">Newborn (Birth in healthcare facility)</field>
+        </record>
+
+        <record id="admision_type_r" model="admision.type">
+            <field name="code">R</field>
+            <field name="name">Routine</field>
+        </record>
+
+        <record id="admision_type_u" model="admision.type">
+            <field name="code">U</field>
+            <field name="name">Urgent</field>
+        </record>
+
+        <record id="admision_type_o" model="admision.type">
+            <field name="code">O</field>
+            <field name="name">Other</field>
+        </record>
+
+    </data>
+</odoo>

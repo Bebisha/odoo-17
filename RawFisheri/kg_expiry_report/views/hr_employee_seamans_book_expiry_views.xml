@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="view_seamans_book_expiry_tree" model="ir.ui.view">
+            <field name="name">hr.employee.seamans.book.expiry.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <tree string="Seaman's Book Expiry Report" create="False"
+                      decoration-danger="seaman_book_expiry_date and seaman_book_expiry_date &lt; current_date"
+                      decoration-warning="seaman_book_expiry_date &gt; current_date and seaman_book_expiry_date &lt;= (context_today() + relativedelta(months=1)).strftime('%Y-%m-%d')"
+                      decoration-info="seaman_book_expiry_date &gt; current_date and seaman_book_expiry_date &lt;= (context_today() + relativedelta(months=2)).strftime('%Y-%m-%d')">
+                    <field name="name" string="Employee"/>
+                    <field name="seamans_book_expiry_notification" column_invisible="1"/>
+                    <field name="seaman_book_expiry_date"/>
+                    <!--                    <button name="send_passport_expiry_notification" string="Send Notification" type="object"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_seamans_book_passport_expiry_search" model="ir.ui.view">
+            <field name="name">hr.employee.seamans.book.expiry.search</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <search string="Seaman's Book ID Expiry">
+                    <field name="name"/>
+                    <field name="seaman_book_expiry_date"/>
+                    <filter name="expired" string="Expired"
+                            domain="[('seaman_book_expiry_date', '&lt;', context_today())]"/>
+                    <separator/>
+                    <filter name="to_expire" string="To Expire in 2 Months"
+                            domain="[('seaman_book_expiry_date', '&gt;=', context_today()), ('seaman_book_expiry_date', '&lt;=', (context_today() + relativedelta(months=2)))]"/>
+                    <filter name="to_expire" string="To Expire in 1 Month"
+                            domain="[('seaman_book_expiry_date', '&gt;=', context_today()), ('seaman_book_expiry_date', '&lt;=', (context_today() + relativedelta(months=1)))]"/>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

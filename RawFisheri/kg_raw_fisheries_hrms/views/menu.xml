@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- action hr employee entry -->
+    <record id="action_hr_employee_entry" model="ir.actions.act_window">
+        <field name="name">Employee Entries</field>
+        <field name="res_model">hr.employee.entry</field>
+        <field name="view_mode">tree</field>
+        <!--        <field name="context">{'search_default_group_by_start_date_month': 3}</field>-->
+    </record>
+
+    <!-- main menu hr employee entry -->
+    <menuitem id="main_menu_hr_employee_entry" name="Employee Entries"
+              web_icon="kg_raw_fisheries_hrms,static/description/emp_entry_icon.png"/>
+
+    <!-- menu hr employee entry -->
+    <menuitem id="menu_hr_employee_entry" name="Employee Entries"
+              parent="kg_raw_fisheries_hrms.main_menu_hr_employee_entry"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="5"/>
+
+    <!-- menu hr employee entries -->
+    <menuitem id="menu_hr_employee_entries" name="Employee Entries"
+              parent="kg_raw_fisheries_hrms.menu_hr_employee_entry" action="action_hr_employee_entry"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager"/>
+
+    <!-- action hr employee sign on off -->
+    <record id="action_hr_sign_on_off" model="ir.actions.act_window">
+        <field name="name">Employee Sign On/Off</field>
+        <field name="res_model">sign.on.off</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- menu hr employee sign on off -->
+    <menuitem id="menu_hr_sign_on_off" name="Employee Sign On/Off"
+              parent="kg_raw_fisheries_hrms.main_menu_hr_employee_entry"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="10"/>
+
+    <!-- menu hr employee sign on off -->
+    <menuitem id="menu_hr_sign_on_off_entry" name="Employee Sign On/Off"
+              parent="kg_raw_fisheries_hrms.menu_hr_sign_on_off" action="action_hr_sign_on_off"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="10"/>
+
+    <!-- action hr shop entry -->
+    <record id="action_hr_shop_entries" model="ir.actions.act_window">
+        <field name="name">Shop Entry</field>
+        <field name="res_model">shop.entry</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- main menu hr shop entry -->
+    <menuitem id="menu_hr_shop_entries" name="Shop Entry"
+              parent="kg_raw_fisheries_hrms.main_menu_hr_employee_entry"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="15"/>
+
+    <!-- menu hr shop entry -->
+    <menuitem id="menu_hr_shop_entry" name="Shop Entry"
+              parent="kg_raw_fisheries_hrms.menu_hr_shop_entries" action="action_hr_shop_entries"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="5"/>
+
+    <!-- action hr discharge -->
+    <record id="action_hr_discharge" model="ir.actions.act_window">
+        <field name="name">Discharge Entries</field>
+        <field name="res_model">hr.discharge</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- menu hr discharge -->
+    <menuitem id="menu_hr_discharge" name="Discharge Entries"
+              parent="kg_raw_fisheries_hrms.main_menu_hr_employee_entry"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="20"/>
+
+    <!-- menu hr discharge -->
+    <menuitem id="menu_hr_discharge_entry" name="Discharge Entries"
+              parent="kg_raw_fisheries_hrms.menu_hr_discharge" action="action_hr_discharge"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="5"/>
+
+    <menuitem id="employee_entries_employee_menu" action="hr.open_view_employee_list_my"
+              parent="kg_raw_fisheries_hrms.menu_hr_employee_entry"
+              sequence="18"/>
+
+     <menuitem id="employee_entries_contracts_menu" action="hr_contract.action_hr_contract"
+              parent="kg_raw_fisheries_hrms.menu_hr_employee_entry"
+              sequence="19"/>
+
+    <!-- action discharge eligibility -->
+    <record id="action_discharge_eligibility" model="ir.actions.act_window">
+        <field name="name">Discharge Eligibility</field>
+        <field name="res_model">discharge.eligibility</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menu discharge eligibility -->
+    <menuitem id="menu_discharge_eligibility" name="Discharge Eligibility"
+              parent="hr.menu_human_resources_configuration" action="action_discharge_eligibility"/>
+
+    <!-- action pending salary -->
+    <record id="action_pending_salary" model="ir.actions.act_window">
+        <field name="name">Pending Salaries</field>
+        <field name="res_model">pending.salary</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menu pending salary -->
+    <menuitem id="menu_pending_salary" name="Pending Salaries"
+              parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root" action="action_pending_salary"
+              sequence="69"/>
+
+    <!-- action employee entry wizard -->
+    <record id="action_hr_employee_entry_wizard" model="ir.actions.act_window">
+        <field name="name">Employee Entries Wizard</field>
+        <field name="target">new</field>
+        <field name="res_model">employee.entry.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu hr employee entry wizard -->
+    <menuitem id="menu_hr_employee_entry_wizard" name="Employee Entries Creation"
+              parent="kg_raw_fisheries_hrms.menu_hr_employee_entry" action="action_hr_employee_entry_wizard"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="15"/>
+
+    <menuitem id="kg_entries_bank_accounts_menu" name="Bank Accounts"
+              parent="kg_raw_fisheries_hrms.main_menu_hr_employee_entry"
+              action="account.action_account_supplier_accounts"/>
+
+    <!-- action shop entry wizard -->
+    <record id="action_shop_entry_wizard" model="ir.actions.act_window">
+        <field name="name">Shop Entries Wizard</field>
+        <field name="target">new</field>
+        <field name="res_model">shop.entry.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu shop entry wizard -->
+    <menuitem id="menu_shop_entry_wizard" name="Shop Entries Creation"
+              parent="kg_raw_fisheries_hrms.menu_hr_shop_entries" action="action_shop_entry_wizard"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="15"/>
+
+    <!-- action discharge entry wizard -->
+    <record id="action_discharge_entry_wizard" model="ir.actions.act_window">
+        <field name="name">Discharge Entries Wizard</field>
+        <field name="target">new</field>
+        <field name="res_model">discharge.entry.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu discharge entry wizard -->
+    <menuitem id="menu_discharge_entry_wizard" name="Discharge Entries Creation"
+              parent="kg_raw_fisheries_hrms.menu_hr_discharge" action="action_discharge_entry_wizard"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="15"/>
+
+    <!-- action sign on off wizard -->
+    <record id="action_sign_on_off_wizard" model="ir.actions.act_window">
+        <field name="name">Employee Sign On/Off Wizard</field>
+        <field name="target">new</field>
+        <field name="res_model">sign.on.off.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu sign on off wizard -->
+    <menuitem id="menu_sign_on_off_wizard" name="Sign On Off Creation"
+              parent="kg_raw_fisheries_hrms.menu_hr_sign_on_off" action="action_sign_on_off_wizard"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="15"/>
+
+    <!-- action employee entry report wizard -->
+    <record id="action_hr_employee_entry_report_wizard" model="ir.actions.act_window">
+        <field name="name">Employee Entries Report</field>
+        <field name="target">new</field>
+        <field name="res_model">entry.report.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu hr employee entry reports -->
+    <menuitem id="menu_hr_employee_entry_reporting" name="Reporting"
+              parent="kg_raw_fisheries_hrms.main_menu_hr_employee_entry"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="30"/>
+
+    <!-- menu hr employee entry report wizard -->
+    <menuitem id="menu_hr_employee_entry_report_wizard" name="Employee Entries Report"
+              parent="kg_raw_fisheries_hrms.menu_hr_employee_entry_reporting"
+              action="action_hr_employee_entry_report_wizard"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="15"/>
+
+    <!-- action shop entry report wizard -->
+    <record id="action_hr_shop_entry_report_wizard" model="ir.actions.act_window">
+        <field name="name">Shop Entries Report</field>
+        <field name="target">new</field>
+        <field name="res_model">shop.entry.report.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu hr shop entry report wizard -->
+    <menuitem id="menu_hr_shop_entry_report_wizard" name="Shop Entries Report"
+              parent="kg_raw_fisheries_hrms.menu_hr_employee_entry_reporting"
+              action="action_hr_shop_entry_report_wizard"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="20"/>
+
+    <!-- action discharge entry report wizard -->
+    <record id="action_hr_discharge_entry_report_wizard" model="ir.actions.act_window">
+        <field name="name">Discharge Entries Report</field>
+        <field name="target">new</field>
+        <field name="res_model">discharge.entry.report.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu hr discharge entry report wizard -->
+    <menuitem id="menu_hr_discharge_entry_report_wizard" name="Discharge Entries Report"
+              parent="kg_raw_fisheries_hrms.menu_hr_employee_entry_reporting"
+              action="action_hr_discharge_entry_report_wizard"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="30"/>
+
+</odoo>

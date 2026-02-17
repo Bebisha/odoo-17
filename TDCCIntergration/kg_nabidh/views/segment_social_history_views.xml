@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="segment_social_history_form">
+        <field name="name">segment.social.history.form</field>
+        <field name="model">segment.social.history</field>
+        <field name="arch" type="xml">
+            <form string="Z Segment Social History">
+                <sheet>
+
+                    <group>
+
+                        <field name="social_habits" options="{'no_create': True}"/>
+                        <field name="social_habit_categorys"/>
+                        <field name="social_habit_qty_id"/>
+<!--                        <field name="from_date"/>-->
+<!--                        <field name="to_date"/>-->
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Class List -->
+    <!--    <record model="ir.ui.view" id="segment_social_history_tree">-->
+    <!--        <field name="name">segment.social.history.tree</field>-->
+    <!--        <field name="model">segment.social.history</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <tree string="Z Segment Social History">-->
+    <!--                <field name="name"/>-->
+    <!--            </tree>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <!--    &lt;!&ndash; Class Action &ndash;&gt;-->
+    <!--    <record model="ir.actions.act_window" id="segment_social_history_action">-->
+    <!--        <field name="name">Z Segment SocialHistory</field>-->
+    <!--        <field name="res_model">segment.social.history</field>-->
+    <!--        <field name="view_mode">tree,form</field>-->
+    <!--    </record>-->
+
+
+    <!--    &lt;!&ndash; Class Menu &ndash;&gt;-->
+
+    <!--    <menuitem id="segment_social_history_menu"-->
+    <!--              action="segment_social_history_action"-->
+    <!--              name="Z Segment Social History"-->
+    <!--              parent="kg_nabidh.patient_information_menu"/>-->
+    <!--    &lt;!&ndash;    </menuitem>&ndash;&gt;-->
+
+
+</odoo>

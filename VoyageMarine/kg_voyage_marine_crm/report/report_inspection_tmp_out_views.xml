@@ -1,0 +1,289 @@
+<odoo>
+    <template id="report_inspection_tmp_out_id">
+        <t t-call="web.html_container">
+            <!--            <t t-call="web.basic_layout">-->
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <div class="header" style="margin-bottom:20px;">
+                        <table class='table table-borderless table-condensed table-hover'>
+                            <tr width="100%">
+                                <td style="width: 50%;" align="left">
+                                    <t t-if="doc.company_id.logo">
+                                        <img t-attf-src="data:image/*;base64,{{doc.company_id.logo}}"
+                                             height="100px" width="75%"/>
+                                    </t>
+                                </td>
+                                <td style="width: 50%;font-size:14px;" align="right">
+                                    <t t-if="doc.company_id.name">
+                                        <strong>
+                                            <span t-field="doc.company_id.name"/>
+                                        </strong>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.phone">
+                                        <span t-field="doc.company_id.phone"/>
+                                        <i class="fa fa-phone" aria-hidden="true"
+                                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.mobile">
+                                        <span t-field="doc.company_id.mobile"/>
+                                        <i class="fa fa-fax" aria-hidden="true"
+                                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.email">
+                                        <span t-field="doc.company_id.email"/>
+                                        <i class="fa fa-envelope" aria-hidden="true"
+                                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.zip">
+                                        <span>P.O. Box:
+                                            <span t-field="doc.company_id.zip"/>,
+                                        </span>
+                                    </t>
+                                    <t t-if="doc.company_id.city">
+                                        <span t-field="doc.company_id.city"/>,
+                                    </t>
+                                    <t t-if="doc.company_id.state_id">
+                                        <span t-field="doc.company_id.state_id.name"/>
+                                    </t>
+                                    <t t-if="doc.company_id.country_id">
+                                        <span t-field="doc.company_id.country_id.code"/>
+                                    </t>
+                                    <i class="fa fa-map-marker" aria-hidden="true"
+                                       style="margin-left: 5px;border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <!--                                <tr width="100%">-->
+                            <!--                                    <td style="width: 100%;font-size:14px;" align="right" colspan="2">-->
+                            <!--                                        <t t-if="doc.company_id.vat">-->
+                            <!--                                            <span style="font-size: 14px;font-weight: bold;">TRN:</span>-->
+                            <!--                                            <span t-if="doc.company_id.vat"-->
+                            <!--                                                  style="font-size: 14px;font-weight: bold; display: inline; margin-left: 5px;"-->
+                            <!--                                                  t-esc="doc.company_id.vat"/>-->
+                            <!--                                        </t>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+                            <!--                                <tr width="100%" style="margin:0">-->
+                            <!--                                    <td style="width: 100%;border-top: 1pt solid black;" colspan="2"/>-->
+                            <!--                                </tr>-->
+                        </table>
+                    </div>
+                    <t t-if="doc.company_id.vat">
+                        <table width="100%" style="margin-top: 10px;" class="table-borderless">
+                            <tr>
+                                <td style="width: 100%; font-size: 14px;padding-bottom:10px;" align="right">
+                                    <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                                    <span style="font-size: 14px; font-weight: bold; margin-left: 5px;"
+                                          t-esc="doc.company_id.vat"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </t>
+                    <h2 style="color:black;text:bold;text-align: center;font-size: 2em;"> Material Out Inspection Form</h2>
+                    <!--                        <table border="1" cellspacing="0" cellpadding="5" width="100%">-->
+                    <table width="100%" class="table-borderless">
+
+                        <tr style="height: 50px;width: 100%; padding-bottom:20px;">
+                            <td colspan="2">
+                                <strong>Packed Date: ____________</strong>
+                            </td>
+                            <td colspan="2">
+                                <strong>Delivered Date: ____________</strong>
+                            </td>
+                        </tr>
+                        <br/>
+                        <tr style="height: 50px;width: 100%; padding-bottom:20px;">
+                            <td colspan="2">
+                                <strong>DO Number: ____________</strong>
+                            </td>
+                            <td colspan="2">
+                                <strong>Job No: ____________</strong>
+                            </td>
+                        </tr>
+                        <br/>
+                        <tr style="height: 50px;width: 100%; padding-bottom:20px;">
+                            <td style="padding-top:20px;" colspan="2">
+                                <strong>Customer Name: ____________</strong>
+                            </td>
+                            <td style="padding-top:20px;" colspan="2">
+                                <strong>Payment Terms: ____________</strong>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <br/>
+                    <table width="100%" style="border-collapse: collapse; border: 1px solid black;">
+                        <tr style="height: 50px;">
+                            <th style="border: 1px solid black;">Parameter</th>
+                            <th style="border: 1px solid black;">Accept</th>
+                            <th style="border: 1px solid black;">Reject</th>
+                            <th style="border: 1px solid black;">Remarks</th>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td style="border: 1px solid black;">Packaging</td>
+                            <td style="border: 1px solid black;"></td>
+                            <td style="border: 1px solid black;"></td>
+                            <td style="border: 1px solid black;"></td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td style="border: 1px solid black;">Physical Condition</td>
+                            <td style="border: 1px solid black;"></td>
+                            <td style="border: 1px solid black;"></td>
+                            <td style="border: 1px solid black;"></td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td style="border: 1px solid black;">Quantity</td>
+                            <td style="border: 1px solid black;"></td>
+                            <td style="border: 1px solid black;"></td>
+                            <td style="border: 1px solid black;"></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    <table width="100%" style="border-collapse: collapse; border: 1px solid black;">
+                        <tr style="height: 50px;">
+                            <th style="border: 1px solid black;">Documents</th>
+                            <th style="border: 1px solid black;">Yes/No</th>
+                            <!--                            <th style="border: 1px solid black;">No</th>-->
+                            <th style="border: 1px solid black;">Remarks</th>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td style="border: 1px solid black;">Commercial Invoice</td>
+                            <td style="border: 1px solid black;">
+                                <input style="margin-left: 5%;" type="checkbox" id="checkbox_coc_coo"/>
+                            </td>
+                            <!--                            <td style="border: 1px solid black;"></td>-->
+                            <td style="border: 1px solid black;"></td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td style="border: 1px solid black;">Packing list</td>
+                            <td style="border: 1px solid black;">
+                                <input style="margin-left: 5%;" type="checkbox" id="checkbox_coc_coo"/>
+                            </td>
+                            <!--                            <td style="border: 1px solid black;"></td>-->
+                            <td style="border: 1px solid black;"></td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td style="border: 1px solid black;">COC</td>
+                            <td style="border: 1px solid black;">
+                                <input style="margin-left: 5%;" type="checkbox" id="checkbox_coc_coo"/>
+                            </td>
+                            <!--                            <td style="border: 1px solid black;"></td>-->
+                            <td style="border: 1px solid black;"></td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td style="border: 1px solid black;">COO</td>
+                            <td style="border: 1px solid black;">
+                                <input style="margin-left: 5%;" type="checkbox" id="checkbox_coc_coo"/>
+                            </td>
+                            <!--                            <td style="border: 1px solid black;"></td>-->
+                            <td style="border: 1px solid black;"></td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td style="border: 1px solid black;">Delivery Order</td>
+                            <td style="border: 1px solid black;">
+                                <input style="margin-left: 5%;" type="checkbox" id="checkbox_coc_coo"/>
+                            </td>
+                            <!--                            <td style="border: 1px solid black;"></td>-->
+                            <td style="border: 1px solid black;"></td>
+                        </tr>
+                        <!--                        <tr style="height: 50px;">-->
+                        <!--                            <td style="border: 1px solid black;">Invoice</td>-->
+                        <!--                            <td style="border: 1px solid black;"><input style="margin-left: 5%;" type="checkbox" id="checkbox_coc_coo"/></td>-->
+                        <!--&lt;!&ndash;                            <td style="border: 1px solid black;"></td>&ndash;&gt;-->
+                        <!--                            <td style="border: 1px solid black;"></td>-->
+                        <!--                        </tr>-->
+                        <!--                        <tr style="height: 50px;">-->
+                        <!--                            <td style="border: 1px solid black;">Payment Received</td>-->
+                        <!--                            <td style="border: 1px solid black;"><input style="margin-left: 5%;" type="checkbox" id="checkbox_coc_coo"/></td>-->
+                        <!--&lt;!&ndash;                            <td style="border: 1px solid black;"></td>&ndash;&gt;-->
+                        <!--                            <td style="border: 1px solid black;"></td>-->
+                        <!--                        </tr>-->
+                    </table>
+                    <br/>
+                    <br/>
+                    <table width="100%" style="border-collapse: collapse; border: 1px solid black; margin-top: 15%;" >
+                        <tr style="height: 50px;">
+                            <td style="border-collapse: collapse; border: 1px solid black;" colspan="4">
+                                <strong>Delivery Details</strong>
+                            </td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <th style="border: 1px solid black;">Item Code</th>
+                            <th style="border: 1px solid black;">Part No</th>
+                            <th style="border: 1px solid black;">Quantity</th>
+                            <th style="border: 1px solid black;">Remarks</th>
+                        </tr>
+                        <tr style="height: 100px;">
+                            <td style="border: 1px solid black;"></td>
+                            <td style="border: 1px solid black;"></td>
+                            <td style="border: 1px solid black;"></td>
+                            <td style="border: 1px solid black;"></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table width="100%" style="border-collapse: collapse;">
+                        <tr>
+                            <td colspan="3">
+                                <strong>Packaging:</strong>
+                            </td>
+                        </tr>
+                        <tr style="height: 50px;" width="100%">
+                            <td width="33.3%">
+                                <input type="checkbox" id="checkbox_boxes"/>
+                                <label for="checkbox_boxes">Boxes</label>
+                            </td>
+                            <td width="33.3%">
+                                <input type="checkbox" id="checkbox_pallets"/>
+                                <label for="checkbox_pallets">Pallets</label>
+                            </td>
+                            <td width="33.3%">
+                                <input type="checkbox" id="checkbox_bags"/>
+                                <label for="checkbox_bags">Bags</label>
+                            </td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td colspan="3">Number of Packages:</td>
+                        </tr>
+                        <tr style="height: 100px;">
+                            <td colspan="3">Remarks:</td>
+                        </tr>
+                    </table>
+
+                    <table width="100%" class="table-borderless">
+                        <tr style="height: 50px;">
+                            <td colspan="2">Received By: _________________</td>
+                            <td colspan="2">Inspected By: _________________</td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td colspan="2">Signature: _________________</td>
+                            <td colspan="2">Signature: _________________</td>
+                        </tr>
+
+                    </table>
+                    <br/>
+                    <table width="100%" class="table-borderless">
+                        <tr style="height: 50px;">
+                            <td>Form No.:</td><span t-esc="doc.get_file_name_from_folder()"/>
+
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td>Date:</td>
+                        </tr>
+
+                    </table>
+
+
+                    <!--                        </table>-->
+
+
+                </div>
+            </t>
+        </t>
+        <!--        </t>-->
+    </template>
+</odoo>

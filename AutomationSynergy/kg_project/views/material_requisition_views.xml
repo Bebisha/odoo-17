@@ -1,0 +1,122 @@
+<odoo>
+    <record id="material_request_form_view_inh" model="ir.ui.view">
+        <field name="name">material.request.view.form.inherit1</field>
+        <field name="model">material.purchase.requisition</field>
+        <field name="inherit_id" ref="material_purchase_requisition.material_purchase_requisition_form_view"/>
+        <field name="arch" type="xml">
+            <button name="create_material_issue" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="create_material_issue" position="after">
+                <field name="is_fully_available" invisible="1"/>
+                <field name="is_rfq_needed" invisible="1"/>
+                <button name="%(material_purchase_requisition.action_vendor_po)d" type="action"
+                        string="Create RFQ" class="btn-primary"
+                        context="{'default_mr_requistion_id': active_id}"
+                        invisible="is_dm_approve == False or not is_rfq_needed"/>
+                <!--                <button name="%(material_purchase_requisition.action_vendor_po)d" type="action"-->
+                <!--                        string="Create RFQ 2" class="btn-primary"-->
+                <!--                        context="{'default_mr_requistion_id': active_id}"-->
+                <!--                        invisible="state == 'cancel'  or is_fully_available or not is_check_availablity "/>-->
+                <!--                <button name="%(material_purchase_requisition.action_vendor_po)d" type="action"-->
+                <!--                        string="Create RFQ 3" class="btn-primary"-->
+                <!--                        context="{'default_mr_requistion_id': active_id}"-->
+                <!--                        invisible="state == 'cancel' or not is_rfq_needed or purchase_order_count != 0 "/>-->
+                <!--                        invisible="is_dm_approve == False or  state == 'cancel' or state == 'done' or state not in ['new','in_progress'] or not is_rfq_needed"/>-->
+                <button name="check_availability" type="object"
+                        string="Check Availability" class="btn-primary"
+                        invisible="is_dm_approve == False or is_fully_available"/>
+                <button name="done_visible_button" type="object"
+                        string="Done" class="btn-primary" invisible="state=='done' or not is_fully_transfer"/>
+<!--                invisible="state=='done' or not is_fully_transfer"-->
+
+                <!--                <button name="action_done" position="attributes">-->
+                <!--                    <attribute name=""-->
+                <!--                </button>-->
+                <button name="action_done" string="Transfer" type="object" class="btn-primary"
+                        invisible="is_dm_approve == False or state in ['cancel','transfer','done']  or not is_fully_available "
+                        groups="base.group_user" state="in_progress"/>
+                <!--                <button name="check_availability_2" type="object"-->
+                <!--                        string="Check Availability2" class="btn-primary"-->
+                <!--                        invisible="is_dm_approve == False or not is_rfq_needed or purchase_order_count == 0"/>-->
+                <!--                        invisible="is_dm_approve == False or  state == 'cancel' or state == 'done' or is_fully_available"/>-->
+            </button>
+
+            <button name="action_create_pr" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <xpath expr="//field[@name='department_res_id']" position="after">
+                <field name="project_id" force_save="1" readonly="is_dm_approve"/>
+                <field name="bom_id" invisible="1"/>
+                <field name="is_check_availablity" invisible="1"/>
+                <field name="is_check_availablity_2" invisible="1"/>
+                <field name="anyone_fully_avilable" invisible="1"/>
+                <field name="all_rfq" invisible="1"/>
+                <field name="is_transfer" invisible="1"/>
+                <field name="purchase_user_id" invisible="1"/>
+                <field name="purchase_order_ids" widget="many2many_tags" invisible="1"/>
+                <field name="is_fully_available" force_save="1" invisible="1"/>
+                <field name="is_rfq_needed" force_save="1" invisible="1"/>
+                <field name="is_picking_needed" force_save="1" invisible="1"/>
+                <field name="is_fully_transfer" force_save="1" invisible="1"/>
+
+            </xpath>
+            <field name="vehicle_no" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//tree/field[@name='balance_qty']"
+                   position="after">
+                <field name="analytic_id" optional="hide" force_save="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_view_pr']" position="after">
+                <button class="oe_stat_button" type="object" icon="fa-dollar"
+                        name="action_get_analytic_record" invisible="state not in ('done')">
+                    <field string="Analytic Account" name="analytic_count" widget="statinfo"/>
+                </button>
+                 <button class="oe_stat_button" type="object" icon="fa-exchange"
+                        name="action_final_move_record" invisible="state not in ('done')">
+                        <span>Moves</span>
+                </button>
+                <!--                <button class="oe_stat_button" type="object" icon="fa-dollar" invisible="picking_count==0"-->
+                <!--                        name="action_get_picking_record">-->
+                <!--                    <field string="Transfers" name="picking_count" widget="statinfo"/>-->
+                <!--                </button>-->
+                <button type="object" name="purchase_order_button" class="oe_stat_button" icon="fa-book"
+                        invisible="purchase_order_count == 0">
+                    <field name="purchase_order_count" widget="statinfo" string="Order"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='requisition_line_ids']/tree/field[@name='issued_qty']" position="after">
+                <field name="show_decorations" column_invisible="1"/>
+                <!--                <field name="show_decorations" column_invisible="1"/>-->
+                <field name="stock_qty" string="Stock Qty" readonly="1" force_save="1"  column_invisible="1"/>
+
+                <field name="qty_needed_for_mr" string="Stock Needed" readonly="1" force_save="1" column_invisible="1"/>
+                <field name="project_id" force_save="1" column_invisible="1"/>
+                <field name="is_reserve" force_save="1" column_invisible="1"/>
+                <field name="is_tranfer" force_save="1" column_invisible="1"/>
+                <!--                <field name="ordered_qty" force_save="1"/>-->
+                <field name="reserve_qty" force_save="1" column_invisible="1"/>
+                <field name="is_fully_available" force_save="1" column_invisible="1"/>
+                <field name="is_rfq_needed" force_save="1" column_invisible="1"/>
+                <field name="transfer_created" force_save="1" column_invisible="1"/>
+                <field name="update_picking_qty" force_save="1" column_invisible="1"/>
+
+            </xpath>
+            <!--            <xpath expr="//field[@name='requisition_line_ids']/tree/button[@name='action_view_stock']"-->
+            <!--                   position="before">-->
+            <!--                <button name="action_reserve" type="object" class="btn-primary" string="Reserve"-->
+            <!--                        invisible="not show_decorations or not is_reserve"/>-->
+            <!--                <button name="action_unreserve" type="object" class="btn-primary" string="Unreserve"-->
+            <!--                        invisible="not show_decorations or is_reserve"/>-->
+            <!--            </xpath>-->
+
+
+            <xpath expr="//field[@name='requisition_line_ids']/tree" position="attributes">
+                <attribute name="decoration-success">show_decorations and stock_qty &gt;= qty</attribute>
+                <attribute name="decoration-danger">show_decorations and stock_qty &lt; qty
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

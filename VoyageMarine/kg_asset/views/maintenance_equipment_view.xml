@@ -1,0 +1,45 @@
+<odoo>
+    <record id="view_maintenance_equipment_form_inherit_custom" model="ir.ui.view">
+        <field name="name">maintenance.equipment.form.inherit.custom</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='product_information']/group" position="after">
+                <group string="Additional Information">
+                    <group>
+                        <field name="asset_model_code"/>
+                        <field name="asset_code" invisible="1"/>
+                        <field name="vehicle_no"/>
+                        <field name="engine_no"/>
+                        <field name="make"/>
+                    </group>
+                    <group>
+                        <field name="inspection_date"/>
+                        <field name="certificate_no"/>
+                        <field name="cal_date"/>
+                        <field name="due_date"/>
+                    </group>
+                </group>
+
+
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="maintenance_equipment_view_kanban_inherit_asset" model="ir.ui.view">
+        <field name="name">maintenance.equipment.view.kanban.inherit.asset</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="asset_model_code"/>
+            </xpath>
+            <div t-if="record.serial_no.raw_value" position='after'>
+                <div t-if="record.asset_model_code.value">
+                    <field name="asset_model_code"/>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

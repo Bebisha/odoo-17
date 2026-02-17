@@ -1,0 +1,42 @@
+<odoo>
+
+    <record id="kg_folder_view_tree_inherit" model="ir.ui.view">
+        <field name="name">KG Workspace tree inherit</field>
+        <field name="model">documents.folder</field>
+        <field name="inherit_id" ref="documents.folder_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="name"/>
+            </field>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="js_class">kg_folder_list</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="kg_folder_view_form_inherit" model="ir.ui.view">
+        <field name="name">KG Workspace form inherit</field>
+        <field name="model">documents.folder</field>
+        <field name="inherit_id" ref="documents.folder_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='access_rights']/group" position="inside">
+                <group string="Folder Access">
+                    <field name="folder_group_ids" domain="[('is_documents_groups','=',True)]"/>
+                </group>
+            </xpath>
+            <field name="parent_folder_id" position="after">
+                <field name="is_notification"/>
+            </field>
+            <xpath expr="//form" position="attributes">
+                <attribute name="js_class">kg_folder_form</attribute>
+            </xpath>
+            <xpath expr="//field[@name='group_ids']" position="replace">
+                <field name="group_ids" widget="many2many_tags" domain="[('is_documents_groups','=',True)]"/>
+            </xpath>
+            <xpath expr="//field[@name='read_group_ids']" position="replace">
+                <field name="read_group_ids" widget="many2many_tags" domain="[('is_documents_groups','=',True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

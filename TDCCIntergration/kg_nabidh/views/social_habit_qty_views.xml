@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="social_habit_qty_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Social Habit Quantity</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">social.habit.qty</field>
+
+    </record>
+    <record id="social_habit_qty_tree" model="ir.ui.view">
+        <field name="name">social.habit.qty.tree.views</field>
+        <field name="model">social.habit.qty</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="social_habit_qty_form" model="ir.ui.view">
+        <field name="name">social.habit.qty.form.views</field>
+        <field name="model">social.habit.qty</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="social_habit_qty_menu"
+              action="social_habit_qty_action"
+              name="Social Habit Quantity"
+              parent="kg_nabidh.zsh_menu"/>
+
+</odoo>

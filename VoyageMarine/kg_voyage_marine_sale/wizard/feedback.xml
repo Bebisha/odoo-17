@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="kg_view_order_cancel_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.cancel.form</field>
+            <field name="model">sale.order.cancel</field>
+            <field name="inherit_id" ref="sale.sale_order_cancel_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='subject']" position="after">
+                    <field name="feedback"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

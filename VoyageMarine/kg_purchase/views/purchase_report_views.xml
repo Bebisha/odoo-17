@@ -1,0 +1,52 @@
+<odoo>
+    <record id="view_purchase_report_search_inherit_type" model="ir.ui.view">
+        <field name="name">purchase.report.search.inherit.type</field>
+        <field name="model">purchase.report</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_report_search"/>
+        <field name="arch" type="xml">
+            <!-- Add filter for your Type field -->
+            <filter name="group_by_type"
+                    string="Type"
+                    context="{'group_by':'type_id'}"
+                    position="after">
+
+            </filter>
+            <filter name="group_by_type"
+                    string="Type"
+                    context="{'group_by':'type_id'}"
+                    position="after">
+
+            </filter>
+
+
+        </field>
+    </record>
+
+    <record id="view_purchase_report_tree_inherit_type" model="ir.ui.view">
+        <field name="name">purchase.report.tree.inherit.type</field>
+        <field name="model">purchase.report</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_report_tree"/>
+        <field name="arch" type="xml">
+            <!-- Add column for Type after Partner -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="type_id"/>
+                <field name="code"/>
+                <field name="product_code"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_purchase_report_graph_inherit_type" model="ir.ui.view">
+        <field name="name">purchase.report.graph.inherit.type</field>
+        <field name="model">purchase.report</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_report_graph"/>
+        <field name="arch" type="xml">
+            <!-- Add Type as a measure or group -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="type_id"/>
+                <field name="code"/>
+                <field name="product_code"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

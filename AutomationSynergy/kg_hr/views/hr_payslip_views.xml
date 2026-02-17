@@ -1,0 +1,15 @@
+<odoo>
+    <record model="ir.ui.view" id="hr_payslip_overtime_view1">
+        <field name="name">hr.payslip.overtime.form.inherit.view1</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <field name="struct_id" position="after">
+                <field name="current_month_days" invisible="1"/>
+                <field name="overtime_hours" invisible="1"/>
+                <field name="overtime_amount" invisible="1"/>
+            </field>
+        </field>
+
+    </record>
+</odoo>

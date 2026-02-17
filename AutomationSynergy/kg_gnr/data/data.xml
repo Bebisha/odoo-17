@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="goods_in_transit_sequence" model="ir.sequence">
+            <field name="name">Goods In Transit</field>
+            <field name="code">goodsin.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">GT</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+        </record>
+<!--        <record id="seq_git" model="ir.sequence">-->
+<!--            <field name="name">Shipment Advice</field>-->
+<!--            <field name="code">shipment.advice</field>-->
+<!--            <field name="prefix">GIT</field>-->
+<!--            <field name="padding">5</field>-->
+<!--            <field name="company_id" eval="False"/>-->
+<!--        </record>-->
+
+<!--        <record id="seq_sub_shipment_advice" model="ir.sequence">-->
+<!--            <field name="name">Sub Shipment Advice</field>-->
+<!--            <field name="code">sub.shipment.advice</field>-->
+<!--            <field name="prefix">SUB</field>-->
+<!--            <field name="padding">5</field>-->
+<!--            <field name="company_id" eval="False"/>-->
+<!--        </record>-->
+
+<!--        <record id="ship_to_address_data_data" model="ship.address">-->
+<!--            <field name="name">OKI Bearing Middle East FZE</field>-->
+<!--        </record>-->
+<!--        <record id="ship_to_address_data_data_1" model="ship.address">-->
+<!--            <field name="name">OKI LLC</field>-->
+<!--        </record>-->
+    </data>
+</odoo>

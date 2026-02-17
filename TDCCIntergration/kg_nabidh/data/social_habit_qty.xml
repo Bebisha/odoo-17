@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="0">
+
+    <record id="qty_high" model="social.habit.qty">
+      <field name="code">High</field>
+      <field name="name">High</field>
+    </record>
+
+    <record id="qty_low" model="social.habit.qty">
+      <field name="code">Low</field>
+      <field name="name">Low</field>
+    </record>
+
+    <record id="qty_medium" model="social.habit.qty">
+      <field name="code">Medium</field>
+      <field name="name">Medium</field>
+    </record>
+
+    <record id="qty_never" model="social.habit.qty">
+      <field name="code">Never</field>
+      <field name="name">Never</field>
+    </record>
+
+    <record id="qty_occasional" model="social.habit.qty">
+      <field name="code">Occasional</field>
+      <field name="name">Occasional</field>
+    </record>
+
+    <record id="qty_other" model="social.habit.qty">
+      <field name="code">Other</field>
+      <field name="name">Other</field>
+    </record>
+
+    <record id="qty_rare" model="social.habit.qty">
+      <field name="code">Rare</field>
+      <field name="name">Rare</field>
+    </record>
+
+    <record id="qty_unknown" model="social.habit.qty">
+      <field name="code">Unknown</field>
+      <field name="name">Unknown</field>
+    </record>
+
+  </data>
+</odoo>

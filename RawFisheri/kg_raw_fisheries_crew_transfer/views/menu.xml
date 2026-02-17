@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_crew_transfer" model="ir.actions.act_window">
+        <field name="name">Crew Transfer</field>
+        <field name="res_model">crew.transfer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_crew_transfer" name="Crew Transfer"
+              parent="hr.menu_hr_employee_payroll" action="action_crew_transfer"/>
+</odoo>

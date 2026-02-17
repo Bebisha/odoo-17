@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <!-- Email template for Kind Reminder -->
+    <record id="accounts_kind_reminder_mail_template" model="mail.template">
+        <field name="name">Accounts/Kind Reminder</field>
+        <field name="model_id" ref="bista_tdcc_operations.model_res_partner"/>
+        <field name="subject">Kind reminder</field>
+        <field name="email_from">${user.partner_id.email or ''}</field>
+        <field name="email_to"></field>
+        <field name="partner_to">${object.id}</field>
+        <field name="body_html" type="html">
+            <div>
+            <p>
+                Dear Parents,<br/><br/>
+                We are in the process of closing the accounts for the month. The system shows us an outstanding amount of  XXXX.
+                We would appreciate it if you can settle it as soon as possible.
+                
+            </p>
+            <p>
+                If you have trouble with payments please come to us.
+            </p>
+            <p>
+                We are happy to work with you and coordinate a payment plan for your outstanding debt. 
+            </p>
+
+            <br/>
+            Thank you<br/><br/>
+        </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record>
+    
+    <!-- Email Template for Confirmation/Observation and Meeting by Dr. Ruba  -->
+    <!-- <record id="confirmation_observation_mail_template" model="mail.template">
+        <field name="name">Confirmation/Observation and Meeting by Dr. Ruba</field>
+        <field name="model_id" ref="bista_tdcc_operations.model_res_partner"/>
+        <field name="subject">Confirmation/Observation and Meeting by Dr. Ruba</field>
+        <field name="email_from">${user.partner_id.email or ''}</field>
+        <field name="email_to">${object.email}</field>
+        <field name="body_html" type="html">
+            <div>
+            <p>
+                Dear Parents,<br/><br/>
+                We are in the process of closing the accounts for the month. The system shows us an outstanding amount of  XXXX.
+                We would appreciate it if you can settle it as soon as possible.
+                
+            </p>
+            <p>
+                It was a pleasure speaking with you today, Further to our conversation, 
+                School has confirmed the following timings for XXX 's Observation  by Dr. Ruba as follows:
+            </p>
+            <p>
+                We are happy to work with you and coordinate a payment plan for your outstanding debt. 
+            </p>
+
+            <br/>
+            Thank you<br/><br/>
+        </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record> -->
+    
+    <!-- Email Template for Back to School Booster. -->
+    <!-- <record id="back_to_school_booster_mail_template" model="mail.template">
+        <field name="name">Back to School Boosters - Reg</field>
+        <field name="model_id" ref="bista_tdcc_operations.model_res_partner"/>
+        <field name="subject">Back to School Boosters - Reg</field>
+        <field name="email_from">${user.partner_id.email or ''}</field>
+        <field name="email_to">${object.email}</field>
+        <field name="body_html" type="html">
+            <div>
+            <p>
+               Dear ${object.fathers_name or object.mothers_name or 'parents'}, <br/><br/>
+                
+            </p>
+            <p>
+               Hope you had a wonderful holiday !
+            </p>
+            <p>
+               We would like to inform you that TDCC’s Learning Support Enrichment team is offering Back to School Boosters group sessions to help prepare your child for the new academic school year. 
+            </p>
+            <p>
+                The Back to School Booster weekly program focuses on boosting academic skills for children between ages 6-14, in the following areas:
+            </p>
+
+            <br/>
+            Thank you<br/><br/>
+        </div>
+        </field>
+        <field name="auto_delete" eval="False"/>
+    </record> -->
+
+</odoo>

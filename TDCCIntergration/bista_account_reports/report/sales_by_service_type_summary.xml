@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Template for Sales By practitioner with detail/summary -->
+
+	<template id="sales_by_service_type_summary">
+		<t t-call="web.html_container">
+			<t t-call="web.internal_layout">
+				<div class="page">
+					<div>
+						<center>
+							<p>
+								<b>
+									<t t-esc="get_title" />
+								</b>
+							</p>
+						</center>
+					</div>
+					<div class="row" style="margin-top:30px;">
+						<style>
+							th {
+							border-bottom: 1px solid black;
+							}
+						</style>
+						<t t-set="total" t-value="0" />
+						<table
+							style="border-bottom: 1px solid black; width: 70%; height:auto;border-collapse: collapse;">
+							<thead>
+								<th>Service Type</th>
+								<th>Sales</th>
+							</thead>
+							<tbody>
+								<tr t-foreach="get_data_from_report" t-as="data">
+									<td>
+										<span t-esc="data.get('service_name')" />
+									</td>
+									<td>
+									   <span t-esc="data.get('sales')" />
+										<t t-set="total" t-value="total+data.get('sales', 0)" />
+									</td>
+								</tr>
+								<tr>
+									<th>Total Sales</th>
+									<th>
+										<span t-esc="'%.2f'% total" />
+									</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>
+

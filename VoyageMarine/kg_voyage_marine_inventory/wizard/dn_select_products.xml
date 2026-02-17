@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record id="select_dn_products_action" model="ir.actions.act_window">
+            <field name="name">Select DN Products</field>
+            <field name="res_model">dn.select.products</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="select_dn_products_wizard_form" model="ir.ui.view">
+            <field name="name">Select DN Products</field>
+            <field name="model">dn.select.products</field>
+            <field name="arch" type="xml">
+                <form string="Select DN Products">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="company_id" invisible="1"/>
+                                <field name="so_id" invisible="1"/>
+                                <field name="dn_product_ids" widget="many2many_tags" invisible="1"/>
+                                <field name="product_ids" widget="many2many_tags"
+                                       domain="[('id','in',dn_product_ids)]" required="1"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="print_dn_report" string="Print Report" type="object"
+                                    class="oe_highlight"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="act_res_partner_2_customer_payment" model="ir.actions.act_window">
+        <field name="name">Customer Payments</field>
+        <field name="res_model">account.payment</field>
+        <!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="context">{'search_default_partner_id': active_id,'default_payment_type': 'inbound',
+            'default_partner_type': 'customer'}}
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register a payment
+            </p>
+            <p>
+                Payments are used to register liquidity movements. You can process those payments by your own means or
+                by using installed facilities.
+            </p>
+
+        </field>
+    </record>
+
+    <!-- Action for Vendor bill -->
+
+    <record id="act_res_partner_2_vendor_payment" model="ir.actions.act_window">
+        <field name="name">Vendor Payment</field>
+        <field name="res_model">account.payment</field>
+        <!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="context">{'search_default_partner_id': active_id,'default_payment_type': 'outbound',
+            'default_partner_type': 'supplier'}}
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register a payment
+            </p>
+            <p>
+                Payments are used to register liquidity movements. You can process those payments by your own means or
+                by using installed facilities.
+            </p>
+
+        </field>
+    </record>
+
+    <!-- Journal Item Action -->
+    <record id="journal_item_action" model="ir.actions.act_window">
+        <field name="name">Sponsor Journal Items</field>
+        <field name="res_model">account.move.line</field>
+        <!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="res_partner_field_view_form" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <button name="open_partner_ledger" position="before">
+                <button name="open_observation_form" type="object"
+                        class="oe_stat_button"
+                        icon="fa-list"
+                        invisible="is_student !=  True">
+                    <field string="Observation" name="observation_form_count"
+                           widget="statinfo"/>
+                </button>
+                <!-- Smart Button for Open Attendance -->
+                <button name="open_attendance" type="object"
+                        class="oe_stat_button"
+                        icon="fa-calendar">
+                    <field string="Attendance" name="partner_count_attendance"
+                           widget="statinfo"/>
+                </button>
+                <button name="%(appointment_view_calender_action)d"
+                        type="action"
+                        class="oe_stat_button" icon="fa-calendar"
+                        context="{'search_default_physician_id': active_id}"
+                        invisible="is_physician ==  False">
+                    <field string="Physician Appointments"
+                           name="physician_appointment_count"
+                           widget="statinfo"/>
+                </button>
+                <button name="%(appointment_view_calender_client_actions)d"
+                        type="action" class="oe_stat_button" icon="fa-calendar"
+                        context="{'search_default_client_id': active_id}"
+                        invisible="is_student ==  False">
+                    <field string="Private Appointments"
+                           name="client_appointment_count"
+                           widget="statinfo"/>
+                </button>
+
+                <!-- Smart Button for group appointment -->
+                <button name="%(appointment_view_group_app_clients)d"
+                        type="action" class="oe_stat_button" icon="fa-calendar"
+                        context="{'search_default_client_id': active_id}"
+                        invisible="is_student ==  False">
+                    <field string="Group Appointments"
+                           name="client_group_app_count"
+                           widget="statinfo"/>
+                </button>
+
+                <button name="show_cancel_appointments" type="object"
+                        class="oe_stat_button"
+                        icon="fa-calendar"
+                        invisible="is_student ==  False">
+                    <field string="Cancelled Appointments"
+                           name="cancel_appointment_count"
+                           widget="statinfo"/>
+                </button>
+                <button name="show_rearrange_appointments" type="object"
+                        class="oe_stat_button" icon="fa-calendar"
+                        invisible="is_student ==  False">
+                    <field string="Rearrange Appointments"
+                           name="rearrange_appointment_count"
+                           widget="statinfo"/>
+                </button>
+                <button type="action"
+                        name="%(bista_tdcc_operations.act_res_partner_2_customer_payment)d"
+                        class="oe_stat_button"
+                        icon="fa-money"
+                        groups="bista_tdcc_operations.group_tdcc_cofounder,bista_tdcc_operations.group_appointment_manager,account.group_account_invoice"
+                        invisible="is_student ==  False or is_sponsor == False">
+                    <field string="Payments" name="client_payment_count"
+                           widget="statinfo"/>
+                </button>
+                <!-- Smart button for vendor to display payments -->
+                <button type="action"
+                        name="%(bista_tdcc_operations.act_res_partner_2_vendor_payment)d"
+                        class="oe_stat_button"
+                        icon="fa-money"
+                        groups="bista_tdcc_operations.group_tdcc_cofounder,bista_tdcc_operations.group_appointment_manager,account.group_account_invoice"
+                >
+                    <field string="Payments" name="vendor_payment_count"
+                           widget="statinfo"/>
+                </button>
+
+                <!-- Smart button for Sponsor to display balance -->
+                <button type="object"
+                        name="show_sponsor_payment"
+                        class="oe_stat_button"
+                        icon="fa-money"
+                        invisible="is_sponsor ==  False">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="sponsor_rem_amt" widget='monetary'
+                                   options="{'currency_field': 'currency_id'}"/>
+                        </span>
+                        <span class="o_stat_text">Sponsor Balance</span>
+                    </div>
+                </button>
+
+                <button name="action_show_call_history" type="object"
+                        class="oe_stat_button"
+                        icon="fa-phone fa-lg">
+                    <field string="Calls" name="partner_count_calls"
+                           widget="statinfo"/>
+                </button>
+                <button name="action_show_email_history" type="object"
+                        class="oe_stat_button"
+                        icon="fa-envelope fa-lg">
+                    <field string="Email" name="partner_count_emails"
+                           widget="statinfo"/>
+                </button>
+                <button name="action_show_sms_history" type="object"
+                        class="oe_stat_button"
+                        icon="fa-envelope fa-lg">
+                    <field string="SMS" name="partner_count_sms"
+                           widget="statinfo"/>
+                </button>
+                <button name="action_send_mail_partner" type="object" string="Send By mail"
+                        class="oe_stat_button"
+                        icon="fa-envelope fa-lg">
+                </button>
+
+
+            </button>
+
+            <xpath expr="//h1" position="after">
+                <field name="first_name" placeholder="First Name" invisible="company_type == 'company'"/>
+                <field name="middle_name" placeholder="Middle Name" invisible="company_type == 'company'"/>
+                <field name="last_name" placeholder="Last Name" invisible="company_type == 'company'"/>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='vat']" position="attributes">
+                <attribute name="string">TRN</attribute>
+            </xpath>
+            <xpath expr="//form/sheet/group/group/field[@name='vat']"
+                   position="after">
+                <field name="dhf_received"
+                       invisible="is_student ==  'company'"/>
+                <field name="is_hf"
+                       invisible="is_student ==  False"/>
+                <field name="is_invoiceable"
+                       invisible="company_type ==  False"/>
+                <field name="mode"/>
+                <field name="tdcc_partner_id"/>
+                <field name="fax"/>
+
+                <field name="physician_ids" options="{'no_create':True}"
+                       domain="[ ('is_physician', '=', True)]"
+                       widget="many2many_tags"
+                       invisible="is_student !=  True"
+                       string="Seen By"/>
+                <field name="payment_info"/>
+            </xpath>
+
+            <xpath expr="//form/sheet/group/group/field[@name='function']"
+                   position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='internal_notes']" position="after">
+                <page name='additiona_details' string="Additional Details">
+                    <group name="is_partner">
+                        <group>
+                            <field name="is_physician"/>
+                            <field name="is_teacher"/>
+                            <field name="is_student"/>
+                        </group>
+                        <group>
+
+                            <!-- <field name="is_parent"/> -->
+                            <field name="is_employee"/>
+                            <field name="is_sponsor"/>
+
+                        </group>
+
+                    </group>
+
+
+                    <group invisible="is_student ==  False">
+                        <group>
+                            <field name="dob"/>
+                            <label for="age" string="Age"/>
+                            <div>
+                                <div>
+                                    <field name="age" class="oe_inline"/>
+                                    years
+                                </div>
+                            </div>
+                            <field name="medium_id"/>
+                        </group>
+                        <group>
+                            <field name="gender"/>
+                            <field name="nationality_name"/>
+                            <field name="emirates_id"/>
+                            <field name="emiratesid_expiry"/>
+                            <field name="emiratesid_expired" invisible="1"/>
+                            <div class="col-12"/>
+                            <div class="row">
+                                <div class="alert alert-danger col-12" role="alert" invisible="not emiratesid_expired or not emiratesid_expiry">
+                                    Emirates ID has been expired!
+                                </div>
+                            </div>
+                            <field name="school_id"/>
+                            <field name="joining_date"/>
+                        </group>
+                        <group>
+                            <field name="father_name"/>
+                            <field name="father_contact_no"/>
+                            <field name="mother_name"/>
+                            <field name="mother_contact_no"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="physician_code_id"
+                                   invisible="is_physician !=  True"
+                                   options="{'no_create_edit': True}"/>
+                            <field name="position"
+                                   invisible="is_physician !=  True"/>
+                            <field name="company_id" string="Clinic"
+                                   options="{'no_create': True}"
+                                   invisible="is_physician !=  True"/>
+                            <field name="room_id" options="{'no_create': True}"
+                                   invisible="is_physician !=  True"/>
+                            <field name="classroom_id"
+                                   options="{'no_create': True}"
+                                   invisible="is_student !=  True"/>
+                            <field name="hibah_percentage"
+                                   invisible="is_hf ==  False"
+                                   groups="bista_tdcc_operations.group_appointment_manager"/>
+                            <field name="service_type_ids" widget="many2many_tags"
+                                   invisible="is_student == False or is_hf ==  False"
+                                   groups="bista_tdcc_operations.group_appointment_manager"/>
+
+                            <field name="discount_service_type_ids" invisible="is_student !=  True"
+                                   widget="many2many_tags"
+                                   groups="bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_cre"/>
+                            <field name="physician_service_type_ids" options="{'no_create': True}"
+                                   invisible="is_physician !=  True" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Inherit partner search view -->
+    <record model="ir.ui.view" id="view_res_partner_filter_tdcc">
+        <field name="name">view.res.partner.filter.tdcc</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/field[@name='user_id']" position="after">
+                <field name="physician_code_id"/>
+                <field name="physician_ids"/>
+                <field name="physician_service_type_ids"/>
+                <field name="mobile" filter_domain="[('mobile','ilike',self)]"/>
+                <field name="email" filter_domain="[('email','ilike',self)]"/>
+                <filter name="physician" string="Physician"
+                        domain="[('is_physician', '=', True)]"/>
+                <filter name="teacher" string="Teacher"
+                        domain="[('is_teacher', '=', True)]"/>
+                <filter name="student" string="Student"
+                        domain="[('is_student', '=', True)]"/>
+                <!-- <filter name="parent" string="Parent" domain="[('is_parent', '=',
+                    True)]" /> -->
+                <filter name="employee" string="Employee"
+                        domain="[('is_employee', '=', True)]"/>
+                <filter name="sponsor" string="Sponsor"
+                        domain="[('is_sponsor', '=', True)]"/>
+
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter name="physician_code" string="Physician Code"
+                        context="{'group_by': 'physician_code_id'}"/>
+                <filter name="position" string="Position"
+                        context="{'group_by': 'position'}"/>
+                <filter name="clinic" string="Clinic"
+                        context="{'group_by': 'company_id'}"/>
+                <filter name="room" string="Room"
+                        context="{'group_by': 'room_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Physician List -->
+    <record model="ir.ui.view" id="physician_tree">
+        <field name="name">physician.tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree string="Physician List">
+                <field name="name" string="Physician"/>
+                <field name="physician_code_id" string="Code"/>
+                <field name="position"/>
+                <field name="company_id" invisible="1"/>
+                <field name="room_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--    &lt;!&ndash; Physician Action &ndash;&gt;-->
+    <record model="ir.actions.act_window" id="physician_action">
+        <field name="name">Physicians</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="bista_tdcc_operations.physician_tree"/>
+        <field name="domain">[('is_physician', '=', True)]</field>
+        <field name="context">{'default_is_physician': True}</field>
+    </record>
+
+    <!-- Physician Menu -->
+    <menuitem id="physician_menu" action="physician_action"
+              parent="bista_tdcc_operations.miscellaneous_configuration_menu"
+              sequence="3"/>
+
+    <!-- Teacher Action -->
+    <record model="ir.actions.act_window" id="teacher_action">
+        <field name="name">Teachers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_teacher', '=', True)]</field>
+        <field name="context">{'default_is_teacher': True}</field>
+    </record>
+
+    <!-- Teacher Menu -->
+    <menuitem id="teacher_menu" action="teacher_action"
+              parent="bista_tdcc_operations.eip_eiip_configuration_menu"
+              sequence="4"/>
+
+    <!-- Student Action -->
+    <record model="ir.actions.act_window" id="student_action">
+        <field name="name">Students</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_student', '=', True)]</field>
+        <field name="context">{'default_is_student': True}</field>
+    </record>
+
+    <!-- Student Menu -->
+    <menuitem id="student_menu" action="student_action"
+              parent="bista_tdcc_operations.miscellaneous_configuration_menu"
+              sequence="5"/>
+
+    <!-- Parent Action -->
+    <!-- <record model="ir.actions.act_window" id="parent_action"> <field name="name">Parents</field>
+        <field name="res_model">res.partner</field> <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_parent', '=', True)]</field> <field name="context">{'default_is_parent':
+        True}</field> </record> -->
+
+    <!-- Parent Menu -->
+    <!-- <menuitem id="parent_menu" action="parent_action" parent="bista_tdcc_operations.miscellaneous_configuration_menu"
+        sequence="6" /> -->
+
+    <!-- Employee Action -->
+    <record model="ir.actions.act_window" id="employee_action">
+        <field name="name">Employee</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('is_employee', '=', True)]</field>
+        <field name="context">{'default_is_employee': True,
+            'default_customer': True,
+            }
+        </field>
+    </record>
+
+    <!-- Employee Menu -->
+    <menuitem id="employee_menu" action="employee_action"
+              parent="bista_tdcc_operations.miscellaneous_configuration_menu"
+              sequence="8" active="false"/>
+
+    <menuitem id="student_menu_practitioner" action="student_action"
+              parent="bista_tdcc_operations.appointment_menu"
+              groups="bista_tdcc_operations.group_tdcc_practitioner"
+              sequence="-1"/>
+
+    <!--    <act_window id="send_sms_action_tdcc"-->
+    <!--        name="Send SMS"-->
+    <!--        src_model="res.partner"-->
+    <!--        res_model="message.compose"-->
+    <!--        view_mode="form"-->
+    <!--        key2="client_action_multi"-->
+    <!--        target="new"/>-->
+    <record model="ir.actions.act_window" id="send_sms_action_tdcc">
+        <field name="name">Send SMS</field>
+        <field name="res_model">message.compose</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>

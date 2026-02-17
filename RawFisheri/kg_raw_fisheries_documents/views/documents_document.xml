@@ -1,0 +1,80 @@
+<odoo>
+
+    <record id="kg_documents_view_list" model="ir.ui.view">
+        <field name="name">documents list</field>
+        <field name="model">documents.document</field>
+        <field name="arch" type="xml">
+            <tree create="false" decoration-info="type == 'empty'" sample="1">
+                <field name="id" optional="hide"/>
+                <field name="name" string="Document" required="True"/>
+                <field name="url" optional="hide"/>
+                <field name="tag_ids" widget="documents_many2many_tags" optional="show"/>
+                <field name="partner_id" optional="show"/>
+                <field name="owner_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="lock_uid" optional="hide"/>
+                <field name="type" optional="show"/>
+                <field name="create_date" widget="date" optional="show"/>
+                <field name="activity_exception_decoration" widget="activity_exception" nolabel="True"/>
+                <field name="file_extension" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="kg_document_view_form_inherit" model="ir.ui.view">
+        <field name="name">KG Documents form inherit</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents.document_view_form"/>
+        <field name="arch" type="xml">
+            <field name="lock_uid" position="after">
+                <field name="view_user_ids" widget="many2many_tags"/>
+                <field name="file_user_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="kg_document_view_search_inherit" model="ir.ui.view">
+        <field name="name">KG Documents search inherit</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents.document_view_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="original_file_name"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="kg_document_action" model="ir.actions.act_window">
+        <field name="name">All Documents</field>
+        <field name="res_model">documents.document</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'create':False,'edit':False}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('kg_documents_view_list')}),
+        ]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Upload <span class="fw-normal">a file or</span> drag
+                <span class="fw-normal">it here.</span>
+            </p>
+        </field>
+    </record>
+
+    <record id="kg_document_view_kanban_inherit" model="ir.ui.view">
+        <field name="name">KG Documents form inherit</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents.document_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="after">
+                <button icon="fa-picture-o" type="object" name="action_preview" string="Preview" class="btn-link"/>
+            </xpath>
+            <xpath expr="//div[hasclass('o_kanban_record_bottom')]/div[hasclass('oe_kanban_bottom_right')]/field[@name='owner_id']"
+                   position="after">
+                <button icon="fa-gear" type="object" name="action_file_access"/>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem id="menu_all_documents" action="kg_document_action" parent="documents.menu_root"
+              name="All Documents" sequence="0"/>
+
+</odoo>

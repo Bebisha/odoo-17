@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="unsubscribe_reason_template">
+        <div class="container o_unsubscribe_reason_form">
+            <form method="post" action="/mass_mail/unsubscribe/submit" style="background-color: white; height: 130%;">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                <input type="hidden" name="email" t-att-value="email" />
+                <input type="hidden" name="mailing_id" t-att-value="mailing_id" />
+                <input type="hidden" name="res_id" t-att-value="res_id" />
+                <input type="hidden" name="unsubscribed_list" t-att-value="unsubscribed_list" />
+                <input type="hidden" name="b_type" id="b_type" />
+
+
+                                <div align="center" style="position: relative; top: 70px;">
+                    <div style="background: white; border-radius: 2px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); width: 45%">
+                        <table class="bordered" style="font-size: 18px;padding:20px">
+                            <tr>
+                                <td>
+                                    <h2 align="left" style="border-bottom: 1px solid #e4e4e4;">
+                                        You Will be Missed
+                                    </h2>
+                                    <br/>
+                                    <h4 align="left" style="margin-top:-12px">
+                                        Would it be helpful if we changed your emails frequency?
+                                    </h4>
+                                </td>
+                            </tr>
+
+                            <tr align="left">
+                                <td>
+                                    <div style="padding-left:14px">
+                                        <label style="display: block; margin: 0px;" for="frequency">
+                                                <t t-foreach="frequency" t-as="frequency">
+                                                    <p style="line-height:1px"><input type="radio" name="frequency"  t-att-value="frequency.id"><t t-esc="frequency.name" /></input></p>
+                                                </t>
+                                        </label>
+                                    </div>
+<!--                                    <div style="position: relative; left: 5px; right: 5px; top: 30px;bottom:20px">-->
+                                        <input
+                                            type="submit"
+                                            onclick="return set_type_value()"
+                                            value="Update My Profile"
+                                            style="width: 95%; background: #e27575; border: none; padding: 10px 25px 10px 25px; color: #fff; box-shadow: 1px 1px 5px #b6b6b6; border-radius: 3px; text-shadow: 1px 1px 1px #9e3f3f; cursor: pointer;"
+                                        />
+                                    <p id="freq_msg" class="blink" style="color:red;font-size:16px;animation: blinker 1.5s linear infinite;align:center">Please select emails frequency..</p>
+
+<!--                                    </div>-->
+                                </td>
+                            </tr>
+                        </table>
+<!--                        <div style="position: relative; left: 5px; right: 5px; top: 30px;bottom:20px">-->
+<!--                            <input-->
+<!--                                type="submit"-->
+<!--                                onclick="set_type_value()"-->
+<!--                                value="Update My Profile"-->
+<!--                                style="width: 95%; background: #e27575; border: none; padding: 10px 25px 10px 25px; color: #fff; box-shadow: 1px 1px 5px #b6b6b6; border-radius: 3px; text-shadow: 1px 1px 1px #9e3f3f; cursor: pointer;"-->
+<!--                            />-->
+<!--                        </div>-->
+                    </div>
+                </div>
+
+                <div align="center" style="position: relative; top: 70px;">
+                    <div style="background: white; border-radius: 2px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); width: 45%;">
+                        <table class="bordered" style="font-size: 18px;padding:20px">
+                            <tr>
+                                <td>
+                                   <h4 align="left" >
+                                        No Thanks,I Would like to unsubscribe from all emails
+                                    </h4>
+                                    <div>
+                                        <label style="display: block; margin: 0px;">
+<!--                                            <select-->
+<!--                                                class="dropdown"-->
+<!--                                                id="selection"-->
+<!--                                                name="reason"-->
+<!--                                                style="background-color:#96EFFF;background: #FFF url('down-arrow.png') no-repeat right;-->
+<!--                                                                        background: #FFF url('down-arrow.png') no-repeat right);appearance:none;-->
+<!--                                                                        -webkit-appearance:none;-moz-appearance: none;text-indent: 0.01px;padding-left:12px; text-overflow: '';-->
+<!--                                                                        width: 70%;height: 35px;line-height: 25px;-->
+<!--  display: inline-block;-->
+<!--  background-color: #FFFBF5;-->
+<!--  border-radius: 2px;-->
+<!--  box-shadow: 0 0 2px rgb(204, 204, 204);-->
+<!--  transition: all .5s ease;-->
+<!--  position: relative;-->
+<!--  font-size: 14px;-->
+<!--  color: #474747;-->
+<!--  height: 100%;-->
+<!--  text-align:left;border: 1px solid #e2eded;-->
+<!--  border-color: #eaf1f1 #e4eded #dbe7e7"-->
+<!--                                            >-->
+                                                <t t-foreach="reasons" t-as="reason">
+                                                    <p style="line-height:1px"><input type="radio" onclick="get_value()" name="reason"  t-att-value="reason.id"><t t-esc="reason.name" /></input></p>
+                                                </t>
+<!--                                            </select>-->
+                                        </label>
+                                        <br />
+                                        <br />
+
+                                        <textarea id="textarea" name="unsubscribe_other_reason" style="background-color: #fffbf5; position: relative; bottom: 32px; width: 100%; height: 60px;" />
+
+                                    </div>
+                                     <input
+                                            type="submit"
+                                            onclick="return  remove_type_value()"
+                                            value="Un-subscribe"
+                                            style="width: 95%; background: #e27575; border: none; padding: 10px 25px 10px 25px; color: #fff; box-shadow: 1px 1px 5px #b6b6b6; border-radius: 3px; text-shadow: 1px 1px 1px #9e3f3f; cursor: pointer;"
+                                        />
+                                    <p id="reason_msg" class="blink" style="color:red;font-size:16px;animation: blinker 1.5s linear infinite;align:center">Please select a reason..</p>
+                                    <p id="reason_data" class="blink" style="color:red;font-size:16px;animation: blinker 1.5s linear infinite;align:center">Please enter the reason..</p>
+<!--                                    <div style="position: relative; right: -4px; top: 35px;">-->
+<!--&lt;!&ndash;                                        <input&ndash;&gt;-->
+<!--&lt;!&ndash;                                            type="submit"&ndash;&gt;-->
+<!--&lt;!&ndash;                                            onclick="remove_type_value()"&ndash;&gt;-->
+<!--&lt;!&ndash;                                            value="Un-subscribe"&ndash;&gt;-->
+<!--&lt;!&ndash;                                            style="width: 95%; background: #e27575; border: none; padding: 10px 25px 10px 25px; color: #fff; box-shadow: 1px 1px 5px #b6b6b6; border-radius: 3px; text-shadow: 1px 1px 1px #9e3f3f; cursor: pointer;"&ndash;&gt;-->
+<!--&lt;!&ndash;                                        />&ndash;&gt;-->
+<!--                                    </div>-->
+                                </td>
+                            </tr>
+
+                        </table>
+
+<!--                        <div style="position: relative; right: -4px; top: 35px;">-->
+<!--                            <input-->
+<!--                                type="submit"-->
+<!--                                onclick="remove_type_value()"-->
+<!--                                value="Un-subscribe"-->
+<!--                                style="width: 95%; background: #e27575; border: none; padding: 10px 25px 10px 25px; color: #fff; box-shadow: 1px 1px 5px #b6b6b6; border-radius: 3px; text-shadow: 1px 1px 1px #9e3f3f; cursor: pointer;"-->
+<!--                            />-->
+<!--                        </div>-->
+                    </div>
+                </div>
+
+
+                <br />
+                <br />
+            </form>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <style>
+                    @keyframes blinker {
+                        50% {
+                            opacity: 0;
+                        }
+                    }
+            </style>
+            <script>
+                function set_type_value() {
+                    $("#b_type").val("value");
+                    freq = $("input[name='frequency']:checked").val();
+                    if (freq === undefined) {
+                        var freq_msg = $("#freq_msg");
+                        freq_msg.show();
+                        return false;
+                     }
+                    else
+                    {
+                        var freq_msg = $("#freq_msg");
+                        freq_msg.hide();
+                        return true;
+                    }
+                }
+                function remove_type_value() {
+                    $("#b_type").val("");
+                    reason = $("input[name='reason']:checked").val();
+                    if (reason === undefined) {
+                        var reason_para = $("#reason_msg");
+                        reason_para.show();
+                        return false;
+                     }
+                    else
+                    {
+                        if (reason === '4')
+                        {
+                            var textarea = $("#textarea");
+                            if(textarea.val() == '')
+                            {
+                                var reason_para = $("#reason_data");
+                                reason_para.show();
+                                var reason_para = $("#reason_msg");
+                                reason_para.hide();
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+
+                        var reason_para = $("#reason_msg");
+                        reason_para.hide();
+                        return true;
+                    }
+
+                }
+                function get_value()
+                {
+                    var textarea = $("#textarea");
+                    if ($("input[name='reason']:checked").val() === '4')
+                    {
+                        textarea.show();
+
+                    }
+                    else
+                    {
+                        textarea.hide();
+                    }
+
+                }
+                $(document).ready(function () {
+                    var textarea = $("#textarea");
+                    textarea.hide();
+                    var reason_para = $("#reason_msg");
+                    reason_para.hide();
+                    var freq_msg = $("#freq_msg");
+                    freq_msg.hide();
+                    var reason = $("#reason_data")
+                    reason.hide();
+
+                });
+            </script>
+        </div>
+    </template>
+
+
+<!--     <template id="unsubscribed">-->
+<!--        <div class="container o_unsubscribe_form">-->
+<!--            <div class="row mt-32">-->
+<!--                <input type="hidden" name="email" t-att-value="email"/>-->
+<!--                <input type="hidden" name="mailing_id" t-att-value="mailing_id"/>-->
+<!--                <input type="hidden" name="res_id" t-att-value="res_id"/>-->
+<!--                <div id="div_blacklist" class="col-lg-6 offset-lg-3">-->
+<!--                    <h1 class="o_page_header">Mailing Subscriptions</h1>-->
+
+<!--                    <div id="subscription_info" class="alert alert-success text-center" role="status">-->
+<!--                        <p>You have been successfully <strong>unsubscribed</strong>!</p>-->
+<!--                    </div>-->
+
+<!--&lt;!&ndash;                    <div t-if="list_ids" class="alert alert-warning">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <p class="text-center">You were still subscribed to those newsletters. You will not receive any news from them anymore:</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <ul class="list-group mb-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <t t-foreach="list_ids" t-as="list_id">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <t t-if="list_id.is_public == True">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <li class="list-group-item bg-transparent">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <strong><t t-esc="list_id.name"/></strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </t>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </t>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+
+<!--                    <div t-if="show_blacklist_button" class="mb64">-->
+<!--                        <div class="btn btn-secondary pull-right" id="button_add_blacklist" style="display:none">Blacklist Me</div>-->
+<!--                        <div class="btn btn-secondary pull-right" id="button_remove_blacklist" style="display:none">Come Back</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </template>-->
+
+    <template id="page_unsubscribed" name="Unsubscribed">
+        <t t-call="mass_mailing.layout">
+<!--            <t t-call="kg_casio_mass_mailing.unsubscribed"/>-->
+                        <div class="container">
+
+              <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+                <div class="alert alert-success" style="margin-top:10%;text-align: center;">
+                    <p>You have been successfully <strong>unsubscribed</strong>!</p>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

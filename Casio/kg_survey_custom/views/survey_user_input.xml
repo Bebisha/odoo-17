@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+<!--    <record id="survey_survey_user_input_view_form_inherited" model="ir.ui.view">-->
+<!--        <field name="name">survey.survey.user.input.view.form.inherited</field>-->
+<!--        <field name="model">survey.user_input</field>-->
+<!--        <field name="inherit_id" ref="survey.survey_user_input_view_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='email']" position="after">-->
+<!--                <field name="mobile_no" />-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+<!--    <record id="survey_user_input_view_tree_inherited" model="ir.ui.view">-->
+<!--        <field name="name">survey.user.input.view.tree.inherited</field>-->
+<!--        <field name="model">survey.user_input</field>-->
+<!--        <field name="inherit_id" ref="survey.survey_user_input_view_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='email']" position="after">-->
+<!--                <field name="mobile_no" />-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+   <record id="survey_response_line_tree_inherited" model="ir.ui.view">
+        <field name="name">survey.response.line.tree.inherited</field>
+        <field name="model">survey.user_input.line</field>
+        <field name="inherit_id" ref="survey.survey_response_line_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_input_id']" position="after">
+                <field name="email" />
+                <field name="mobile_no" />
+            </xpath>
+        </field>
+    </record>
+<!--        <menuitem name="Detailed Answers"-->
+<!--        id="survey.menu_survey_response_line_form"-->
+<!--        action="survey.action_survey_user_input_line"-->
+<!--        parent="survey.survey_menu_user_inputs"-->
+<!--        sequence="4"-->
+<!--        groups="base.group_user"/>-->
+    </data>
+</odoo>

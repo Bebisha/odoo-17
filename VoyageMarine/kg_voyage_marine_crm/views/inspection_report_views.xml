@@ -1,0 +1,225 @@
+<odoo>
+
+    <record id="inspection_report_action" model="ir.actions.act_window">
+        <field name="name">Inspection Report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">inspection.report</field>
+    </record>
+
+    <menuitem id="inspection_report_menu"
+              action="inspection_report_action"
+              name="Inspection Report"
+              parent="crm.crm_menu_root"
+              sequence="6"/>
+
+    <record id="inspection_report_tree_view" model="ir.ui.view">
+        <field name="name">inspection.report.tree.views</field>
+        <field name="model">inspection.report</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false">
+                <field name="inspect_no"/>
+                <field name="date"/>
+                <field name="enq_no" readonly="1" force_save="1"/>
+                <field name="partner_id"/>
+                <field name="vessel_id"/>
+                <field name="location"/>
+                <field name="equipment_id"/>
+                <field name="model_no"/>
+                <field name="serial_no"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="inspection_report_form_view" model="ir.ui.view">
+        <field name="name">inspection.report.form.views</field>
+        <field name="model">inspection.report</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="inspect_no" readonly="1" force_save="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Enquiry">
+                            <field name="lead_id" required="1"/>
+                            <field name="partner_id" required="1"/>
+                            <field name="vessel_id"/>
+                            <field name="location"/>
+                        </group>
+
+                        <group string="Enquiry">
+                            <field name="date"/>
+                            <field name="enq_no" readonly="1" force_save="1"/>
+                            <field name="company_id" readonly="1" force_save="1"/>
+                        </group>
+
+                        <group string="Equipment" invisible="1">
+
+                            <field name="service_equipment_ids" invisible="1"/>
+<!--                            <field name="equipment_id" context="{'default_is_equipment':True}"-->
+<!--                                   options="{'no_create': True}"/>-->
+                        </group>
+
+                        <group string="Type of Service">
+                            <div style="display: flex; gap: 20px; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_supply"/>
+                                    <label for="is_supply"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_maintenance"/>
+                                    <label for="is_maintenance"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_new_installation"/>
+                                    <label for="is_new_installation"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="testing_certificate"/>
+                                    <label for="testing_certificate"/>
+                                </div>
+                            </div>
+                        </group>
+
+                        <group string="Description">
+                            <field name="work_description"/>
+                            <field name="findings"/>
+                        </group>
+
+                        <group string="Remedial Action">
+                            <field name="re_medical_action"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Inspection">
+                            <field name="seq_lot_line_ids">
+                                <tree create="False" editable="bottom">
+                                    <field name="sl_no" readonly="1"/>
+                                    <field name="code" readonly="1" cloumn_invisible="1"/>
+                                    <field name="pro_id" readonly="1"/>
+                                    <field name="serial_no" readonly="1"/>
+                                    <field name="make_id" readonly="1"/>
+                                    <field name="model_id" readonly="1"/>
+                                    <field name="physical_status_id" readonly="1"/>
+                                    <field name="qty" readonly="1"/>
+                                    <field name="remark" readonly="1"/>
+                                    <field name="report_remark" string="Inspection Note" force_save="1"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page name="spares_required" string="Spares Required">
+                            <field name="inspection_report_line_ids">
+                                <tree editable="bottom">
+                                    <field name="sl_no"/>
+                                    <field name="description"/>
+                                    <field name="part_no"/>
+                                    <field name="qty"/>
+                                    <field name="uom_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="condition_report" string="Conditions">
+                            <field name="condition_report_line_ids">
+                                <tree editable="bottom">
+                                    <field name="sl_no"/>
+                                    <field name="description"/>
+                                    <field name="image"/>
+                                    <field name="findings"/>
+                                    <field name="recommendation"/>
+                                    <field name="spares"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                            <group>
+                                <field name="general_requirement"/>
+                                <field name="documents_available"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    <group>
+                        <group string="General Requirements">
+                            <div style="display: flex; gap: 20px; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_hotwork_permit"/>
+                                    <label for="is_hotwork_permit"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_scafolding"/>
+                                    <label for="is_scafolding"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_craneage"/>
+                                    <label for="is_craneage"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_ventilation"/>
+                                    <label for="is_ventilation"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_outfit_removal"/>
+                                    <label for="is_outfit_removal"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_lifting"/>
+                                    <label for="is_lifting"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_transportation"/>
+                                    <label for="is_transportation"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_requirement_other"/>
+                                    <label for="is_requirement_other"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group/>
+                        <group string="Document Available">
+                            <div style="display: flex; gap: 20px; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_drawings"/>
+                                    <label for="is_drawings"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_sample"/>
+                                    <label for="is_sample"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_photograph"/>
+                                    <label for="is_photograph"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <field name="is_document_other"/>
+                                    <label for="is_document_other"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group/>
+                    </group>
+                    <group string="Signature">
+                        <group>
+                            <field name="inspected_by" force_save="1"/>
+                            <field name="inspected_signature" widget="signature" string=""/>
+                        </group>
+                        <group>
+                            <field name="verified_by" force_save="1"/>
+                            <field name="verified_signature" widget="signature" string=""/>
+                        </group>
+                    </group>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

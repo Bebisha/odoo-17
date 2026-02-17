@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Admission Source Master Data -->
+    <data noupdate="1">
+
+        <record id="admit_source_1" model="admit.source">
+            <field name="code">1</field>
+            <field name="name">Physician referral</field>
+        </record>
+
+        <record id="admit_source_2" model="admit.source">
+            <field name="code">2</field>
+            <field name="name">Clinic referral</field>
+        </record>
+
+        <record id="admit_source_3" model="admit.source">
+            <field name="code">3</field>
+            <field name="name">HMO referral</field>
+        </record>
+
+        <record id="admit_source_4" model="admit.source">
+            <field name="code">4</field>
+            <field name="name">Transfer from a hospital</field>
+        </record>
+
+        <record id="admit_source_5" model="admit.source">
+            <field name="code">5</field>
+            <field name="name">Transfer from a skilled nursing facility</field>
+        </record>
+
+        <record id="admit_source_6" model="admit.source">
+            <field name="code">6</field>
+            <field name="name">Transfer from another health care facility</field>
+        </record>
+
+        <record id="admit_source_7" model="admit.source">
+            <field name="code">7</field>
+            <field name="name">Emergency room</field>
+        </record>
+
+        <record id="admit_source_8" model="admit.source">
+            <field name="code">8</field>
+            <field name="name">Court/law enforcement</field>
+        </record>
+
+        <record id="admit_source_9" model="admit.source">
+            <field name="code">9</field>
+            <field name="name">Information not available</field>
+        </record>
+
+        <record id="admit_source_p" model="admit.source">
+            <field name="code">P</field>
+            <field name="name">Patient/Self Referral</field>
+        </record>
+
+    </data>
+</odoo>

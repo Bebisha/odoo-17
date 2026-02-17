@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Form view : Sibling Credit Transfer -->
+        <record model="ir.ui.view" id="sibling_credit_transfer_view_form">
+            <field name="name">sibling.credit.transfer.form.view</field>
+            <field name="model">student.credit.transfer</field>
+            <field name="arch" type="xml">
+                <form string="Credit Tranfer">
+                    <header>
+                        <button name="action_submit" type="object" string="To submit"
+                                invisible="state != 'draft'"/>
+                        <button name="action_approve" type="object" string="Approve"
+                             invisible="state == 'submit'"     groups="bista_tdcc_operations.group_tdcc_cofounder"/>
+                        <button name="action_create_journal_entry" type="object"
+                                string="Create Journal Entry"
+                                 invisible="state != 'approve'"/>
+                        <button name="action_reject" type="object" string="Reject"
+                                invisible="state != 'submit'"/>
+                        <button name="action_cancel" type="object" string="Cancel"
+                                invisible="state != ['draft','submit','approve']"/>
+                        <field name="state" widget="statusbar"
+                        statusbar_visible="draft,submit,approve,done" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="button_journal_entries"
+                                string="Journal Items" type="object"
+                                invisible="state != 'done'"
+                                icon="fa-bars"/>
+                        </div>
+                        <div>
+                            <h1 class="mt0">
+                                <field name="name" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="from_partner_id"
+                                     domain="[('is_student', '=', True)]"
+                                      readonly="state not in ['draft','submit']"
+                                     options="{'no_create':True,'no_open':True}"/>
+
+                                <field name="advance_amount" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="to_partner_id"
+                                       domain="[('is_student', '=', True)]"
+                                       readonly="state not in ['draft','submit']"
+                                       options="{'no_create':True,'no_open':True}"/>
+                                <field name="transfer_amount"
+                                       readonly="state not in ['draft','submit']"/>
+                            </group>
+                            <group string="Other Information">
+                                <field name="clinic_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="approval_date" readonly="1"/>
+                                <field name="transaction_date"
+                                       readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree view : Sibling Credit Transfer -->
+        <record model="ir.ui.view" id="sibling_credit_transfer_view_tree">
+            <field name="name">Sibling Credit Transfer</field>
+            <field name="model">student.credit.transfer</field>
+            <field name="arch" type="xml">
+                <tree string="Credit Tranfer">
+                    <field name="name" />
+                    <field name="from_partner_id"/>
+                    <field name="to_partner_id"/>
+                    <field name="transfer_amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Credit Transfer Search -->
+        <record model="ir.ui.view" id="sibling_credit_transfer_search">
+            <field name="name">credit.transfer.search</field>
+            <field name="model">student.credit.transfer</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="from_partner_id"/>
+                    <field name="to_partner_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Name" name="name" domain="[]"
+                            context="{'group_by':'name'}" />
+                        <filter string="Status" name="state" domain="[]"
+                            context="{'group_by':'state'}" />
+                        <filter string="Done" name="done" domain="[('state','=','done')]"/>
+                        <filter string="Approved" name="approved" domain="[('state','=','approve')]"/>
+                        <filter string="From student" name="from_partner_id" domain="[]"
+                            context="{'group_by':'from_partner_id'}" />
+                        <filter string="To student" name="to_partner_id" domain="[]"
+                            context="{'group_by':'to_partner_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action : Sibling Credit Transfer -->
+        <record model="ir.actions.act_window" id="action_sibling_credit_transfer">
+            <field name="name">Credit Transfer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">student.credit.transfer</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu : Sibling Credit Transfer -->
+        <menuitem id="menu_sibling_credit_transfer"
+                  parent="account.menu_finance_receivables"
+                  action="action_sibling_credit_transfer"
+                  groups="bista_tdcc_partner_transfer.group_credit_transfer_sibling"
+                  sequence="16"/>
+
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="order_status_a" model="order.status">
+            <field name="code">A</field>
+            <field name="name">Some, but not all, results available</field>
+        </record>
+        <record id="order_status_ca" model="order.status">
+            <field name="code">CA</field>
+            <field name="name">Order was canceled</field>
+        </record>
+        <record id="order_status_cm" model="order.status">
+            <field name="code">CM</field>
+            <field name="name">Order is completed</field>
+        </record>
+        <record id="order_status_dc" model="order.status">
+            <field name="code">DC</field>
+            <field name="name">Order was discontinued</field>
+        </record>
+        <record id="order_status_er" model="order.status">
+            <field name="code">ER</field>
+            <field name="name">Error, order not found</field>
+        </record>
+        <record id="order_status_hd" model="order.status">
+            <field name="code">HD</field>
+            <field name="name">Order is on hold</field>
+        </record>
+        <record id="order_status_ip" model="order.status">
+            <field name="code">IP</field>
+            <field name="name">In process, unspecified</field>
+        </record>
+        <record id="order_status_rp" model="order.status">
+            <field name="code">RP</field>
+            <field name="name">Order has been replaced</field>
+        </record>
+        <record id="order_status_sc" model="order.status">
+            <field name="code">SC</field>
+            <field name="name">In process, scheduled</field>
+        </record>
+    </data>
+</odoo>

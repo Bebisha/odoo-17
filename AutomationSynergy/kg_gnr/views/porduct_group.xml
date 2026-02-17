@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_group_form" model="ir.ui.view">
+        <field name="name">product.group.form</field>
+        <field name="model">product.group</field>
+        <field name="arch" type="xml">
+            <form string="Group Form">
+                <sheet>
+                    <group>
+                        <field name="name"  required="1"/>
+
+                    </group>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+    <record id="product_sub_group_form" model="ir.ui.view">
+        <field name="name">product.sub.group.form</field>
+        <field name="model">product.sub.group</field>
+        <field name="arch" type="xml">
+            <form string="SubGroup Form">
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="group_id" required="1" options="{'no_create': True}"/>
+
+                    </group>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+        <record id="product_template_group_inherit_view_int" model="ir.ui.view">
+        <field name="name">product.template.inherit.group</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position='after'>
+                <field name="group_id" string="Group"/>
+                <field name="sub_group_id" string="Sub Group"/>
+                <!-- <field name="product_code" string="Code" readonly="1" force_save="1"/> -->
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="group_menu_action" model="ir.actions.act_window">
+        <field name="name">Group Form</field>
+        <field name="res_model">product.group</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="sub_group_menu_action" model="ir.actions.act_window">
+        <field name="name">Sub Group Form</field>
+        <field name="res_model">product.sub.group</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem name="Product Group" id="product_group_menu" action="group_menu_action" sequence="60"
+              parent="stock.menu_product_in_config_stock"/>
+    <menuitem name="Product Sub Group" id="product_sub_group_menu" action="sub_group_menu_action" sequence="70"
+              parent="stock.menu_product_in_config_stock"/>
+</odoo>

@@ -1,0 +1,76 @@
+<odoo>
+    <data>
+
+        <record id="product_group_action" model="ir.actions.act_window">
+            <field name="name">Product Group</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.group</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="menu_product_group" name="Product Group" parent="stock.menu_product_in_config_stock"
+                  action="product_group_action"/>
+
+        <record model="ir.ui.view" id="product_group_tree">
+            <field name="name">product.group.tree</field>
+            <field name="model">product.group</field>
+            <field name="arch" type="xml">
+                <tree string="Product Group">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_group_form">
+            <field name="name">product.group.form</field>
+            <field name="model">product.group</field>
+            <field name="arch" type="xml">
+                <form string="Product Group">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="code" />
+                            </group>
+                            <group>
+                                <field name="company_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+           <record id="action_return_delv" model="ir.actions.act_window">
+            <field name="name">Deliveries</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_mode">tree,kanban,form,calendar,activity</field>
+            <field name="domain">[('return_id','!=',False)]</field>
+            <field name="context">{'contact_display': 'partner_address', 'default_company_id': allowed_company_ids[0], 'restricted_picking_type_code': 'outgoing', 'search_default_delivery': 1,}</field>
+        </record>
+
+         <record id="action_return_recipt" model="ir.actions.act_window">
+            <field name="name">Receipts</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_mode">tree,kanban,form,calendar,activity</field>
+            <field name="domain">[('return_id','!=',False)]</field>
+            <field name="context">{'contact_display': 'partner_address', 'default_company_id': allowed_company_ids[0], 'restricted_picking_type_code': 'incoming', 'search_default_reception': 1}</field>
+        </record>
+
+
+        <menuitem id="main_menu_return" name="Returns" parent="stock.menu_stock_root"
+                 />
+        <menuitem id="menu_return_delvy" name="Delivery Return" parent="main_menu_return"
+                  action="action_return_delv"/>
+        <menuitem id="menu_return_delv" name="Receipt Return" parent="main_menu_return"
+                  action="action_return_recipt"/>
+
+    </data>
+</odoo>

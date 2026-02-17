@@ -1,0 +1,594 @@
+<odoo>
+    <template id="soa_report_template_id">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <div class="header">
+                        <table class='table table-borderless table-condensed table-hover'>
+                            <tr width="100%">
+                                <td style="width: 50%;" align="left">
+                                    <t t-if="company_logo">
+                                        <img t-att-src="company_logo" height="100px" width="75%"/>
+                                    </t>
+                                </td>
+                                <td style="width: 50%;font-size:14px;" align="right">
+                                    <t t-if="company_name">
+                                        <strong>
+                                            <span t-esc="company_name"/>
+                                        </strong>
+                                        <br/>
+                                    </t>
+                                    <t t-if="company_phone">
+                                        <span t-esc="company_phone"/>
+                                        <i class="fa fa-phone" aria-hidden="true"
+                                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="company_mobile">
+                                        <span t-esc="company_mobile"/>
+                                        <i class="fa fa-fax" aria-hidden="true"
+                                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="company_email">
+                                        <span t-esc="company_email"/>
+                                        <i class="fa fa-envelope" aria-hidden="true"
+                                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="company_zip">
+                                        <span>
+                                            P.O. Box:
+                                            <span t-esc="company_zip"/>
+                                            ,
+                                        </span>
+                                    </t>
+                                    <t t-if="company_city">
+                                        <span t-esc="company_city"/>
+                                        ,
+                                    </t>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                    <i class="fa fa-map-marker mx-2" aria-hidden="true"
+                                       style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td style="width: 100%;border-bottom: 1pt solid black;" colspan="2"/>
+                            </tr>
+                        </table>
+                        <table width="100%" style="margin-top: 10px;margin-bottom: 5px;" class="table-borderless">
+                            <tr>
+                                <td style=" width: 100%; font-size: 14px;" align="right">
+                                    <t t-if="company_vat">
+                                        <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                                        <span style="font-size: 14px; font-weight: bold; margin-left: 5px;"
+                                              t-esc="company_vat"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- <t t-foreach="values" t-as="vals" t-foreach-index="p_idx"> -->
+                    <!--     <div style="page-break-before: always;"> -->
+                    <!--         <h3 align="center"> -->
+                    <!--             Statement of Account — <t t-esc="vals['partner_name']"/> -->
+                    <!--             <span style="float:right;font-size:12px;"> -->
+                    <!--                 Page <t t-esc="(p_idx or 0) + 1"/>.1 -->
+                    <!--             </span> -->
+                    <!--         </h3> -->
+                    <!--         <t t-foreach="vals.get('inv_vals', [])" t-as="line" t-foreach-index="line_idx"> -->
+                    <!--             <div style="margin-bottom:5px;"> -->
+                    <!--                 <span><t t-esc="line['inv_name']"/></span> -->
+                    <!--                 <span style="float:right;"> -->
+                    <!--                     Page <t t-esc="(p_idx or 0) + 1"/>.<t t-esc="(line_idx or 0) + 1"/> -->
+                    <!--                 </span> -->
+                    <!--             </div> -->
+                    <!--         </t> -->
+                    <!--     </div> -->
+                    <!-- </t> -->
+                    <t t-foreach="values" t-as="vals" t-foreach-index="p_idx">
+                        <table style="width:100%;font-size:14px;padding-left:10px;" class="table-borderless">
+                            <tr width="100%">
+                                <div style="page-break-before: always;"/>
+                                <td width="100%" colspan="4" align="center"
+                                    style="font-size:25px;padding-right:50px;padding-bottom:15px;padding-top:15px;">
+                                    <strong>Statement of Account</strong>
+<!--                                    <span style="float:right;font-size:12px;">-->
+<!--                                        Page-->
+<!--                                        <t t-esc="(p_idx or 0) + 1"/>-->
+<!--                                        .1-->
+<!--                                    </span>-->
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="5%" style="align:left;padding-left:5px;">To:</td>
+                                <td width="45%" style="align:left;padding-left:5px;">
+                                    <strong>
+                                        <span t-esc="vals['partner_name']"/>
+                                    </strong>
+                                </td>
+                                <td width="50%" colspan="2" align="right" style="padding-right:50px;">
+                                    <span>SOA as</span>
+                                    <span t-esc="date_to" t-options="{'widget': 'date','format': 'dd/MM/yyyy'}"/>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="5%" style="align:left;padding-left:5px;"/>
+                                <td width="45%" style="align:left;padding-left:5px;">
+                                    <t t-if="vals['partner_zip']">
+                                        <span>PO Box:</span>
+                                        <span t-esc="vals['partner_zip']"/>
+                                        ,
+                                    </t>
+                                    <t t-if="vals['partner_state']">
+                                        <span t-esc="vals['partner_state']"/>
+                                        ,
+                                    </t>
+                                    <t t-if="vals['partner_country']">
+                                        <span t-esc="vals['partner_country']"/>
+                                    </t>
+                                    <t t-if="vals['partner_phone']">
+                                        <br/>
+                                        <span>Tel:</span>
+                                        <span t-esc="vals['partner_phone']"/>
+                                    </t>
+                                </td>
+                                <td width="50%" colspan="2" align="right" style="padding-right:50px;"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="5%" style="align:left;padding-left:5px;padding-top:10px;">Attn:</td>
+                                <td width="45%" style="align:left;padding-left:5px;padding-top:10px;">
+                                    <span>Account Department,</span>
+                                </td>
+                                <td width="50%" colspan="2" align="right" style="padding-right:50px;padding-top:10px;"/>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;"
+                               class="table-borderless">
+                            <tr width="100%"
+                                style="font-size:12px;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td align="center" width="12%"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Invoice Date</strong>
+                                </td>
+                                <td align="center" width="16%"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Invoice No</strong>
+                                </td>
+                                <td align="center" width="12%"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Ref/PO No</strong>
+                                </td>
+                                <td align="center" width="12%"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Vessel/Project</strong>
+                                </td>
+                                <td align="center" width="12%"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Invoice Amount</strong>
+                                </td>
+                                <td align="center" width="12%"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <t t-if="account_type == 'asset_receivable'">
+                                        <strong>Received Amount</strong>
+                                    </t>
+                                    <t t-else="">
+                                        <strong>Paid Amount</strong>
+                                    </t>
+                                </td>
+                                <td align="center" width="12%"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Balance Amount</strong>
+                                </td>
+                                <td align="center" width="12%"
+                                    style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Outstanding Amt (AED)</strong>
+                                </td>
+                            </tr>
+                            <t t-foreach="vals['inv_vals']" t-as="inv">
+                                <tr width="100%"
+                                    style="font-size:12px;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                    <td align="center" width="12%"
+                                        style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="inv['inv_date']" t-options="{'widget': 'date','format': 'dd/MM/yyyy'}"/>
+                                    </td>
+                                    <td align="center" width="16%"
+                                        style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="inv['inv_name']"/>
+                                    </td>
+                                    <td align="center" width="12%"
+                                        style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="inv['inv_ref']"/>
+                                    </td>
+                                    <td align="center" width="12%"
+                                        style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="inv['vessel_name']"/>
+                                    </td>
+                                    <td align="right" width="12%"
+                                        style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="inv['inv_amount']"/>
+                                    </td>
+                                    <td align="right" width="12%"
+                                        style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="inv['received_amount']"/>
+                                    </td>
+                                    <td align="right" width="12%"
+                                        style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="inv['balance_amount']"/>
+                                    </td>
+                                    <td align="right" width="12%"
+                                        style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="inv['outstanding_amount_aed']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                        <table style="width:100%; border: 1pt solid white; border-collapse:separate; border-radius:25pt;padding-top:10px;font-size:12px;">
+                            <td style="width:49%;">
+                                <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;margin-left:2px;">
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="100%" colspan="2"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <strong>Aging Analysis</strong>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <strong>Due</strong>
+                                        </td>
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <strong>Amount</strong>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span>At Date</span>
+                                        </td>
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <t t-esc="'%.2f' % vals['partner_aging_values']['at_date'] or 0.00"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span>0-30 days</span>
+                                        </td>
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <t t-esc="'%.2f' % vals['partner_aging_values']['0-30'] or 0.00"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span>31-60 days</span>
+                                        </td>
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <t t-esc="'%.2f' % vals['partner_aging_values']['31-60'] or 0.00"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span>61-90 days</span>
+                                        </td>
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <t t-esc="'%.2f' % vals['partner_aging_values']['61-90'] or 0.00"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span>91-Above days</span>
+                                        </td>
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <t t-esc="'%.2f' % vals['partner_aging_values']['91-above'] or 0.00"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width:2%;"/>
+                            <td style="width:49%;">
+                                <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;margin-left:2px;">
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span>Total Outstanding Amt (AED)</span>
+                                        </td>
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <t t-esc="'%.2f' % vals['outstanding_amt'] or 0.00"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <t t-if="account_type == 'asset_receivable'">
+                                                <span>Unadjusted Credit (AED)</span>
+                                            </t>
+                                            <t t-else="">
+                                                <span>Unadjusted Debit (AED)</span>
+                                            </t>
+                                        </td>
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <t t-esc="'%.2f' % vals['unadjusted_credit'] or 0.00"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span>Gross Outstanding (AED)</span>
+                                        </td>
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <t t-esc="'%.2f' % vals['gross_outstanding_amt'] or 0.00"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span>PDCs Unmatured (AED)</span>
+                                        </td>
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <t t-esc="'%.2f' % vals['pdc_unmatured_amt'] or 0.00"/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:17px;padding-bottom:17px;">
+                                            <span>
+                                                <strong>Amount to be Settled(AED)</strong>
+                                            </span>
+                                        </td>
+                                        <td align="center" width="50%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:17px;padding-bottom:17px;">
+                                            <t t-esc="'%.2f' % vals['settled_amt'] or 0.00"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </table>
+                        <table style="width:100%;font-size:14px;" class="table-borderless">
+                            <tr width="100%" align="left">
+                                <td width="100%" style="padding-left:15px;padding-top:10px;" colspan="2">
+                                    <span>We Thank you for your business !</span>
+                                </td>
+                            </tr>
+                            <t t-if="account_type == 'asset_receivable'">
+                                <tr width="100%" align="left">
+                                    <td width="100%" style="padding-left:15px;padding-top:10px;" colspan="2">
+                                        <span>
+                                            If you have any questions or clarification regarding this SOA, please
+                                            contact us at
+                                            <a href="mailto:receivables@voyagemarine.ae">
+                                                <strong>receivables@voyagemarine.ae</strong>
+                                                .
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="100%" style="padding-left:15px;padding-top:20px;" colspan="2">
+                                        <span>We appreciate your prompt payment. we look forward to serving you again in
+                                            the future.
+                                        </span>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="account_type == 'liability_payable'">
+                                <tr width="100%" align="left">
+                                    <td width="100%" style="padding-left:15px;padding-top:10px;" colspan="2">
+                                        <span>
+                                            If you have any questions or clarification regarding this SOA, please
+                                            contact us at
+                                            <a href="mailto:payables@voyagemarine.ae">
+                                                <strong>payables@voyagemarine.ae</strong>
+                                                .
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr width="100%" align="left">
+                                    <td width="100%" style="padding-left:15px;padding-top:20px;" colspan="2">
+                                        <span>
+                                            Please send your Invoices to
+                                            <a href="mailto:payables@voyagemarine.ae">
+                                                <strong>payables@voyagemarine.ae</strong>
+                                                .
+                                            </a>
+                                            within five (5) working days of delivery of the goods.
+                                        </span>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr width="100%" align="left">
+                                <td width="100%" style="padding-left:15px;padding-top:10px;" colspan="2">
+                                    <span>For Voyage Marine Automation</span>
+                                </td>
+                            </tr>
+                            <tr width="100%" align="left">
+                                <td width="25%" style="padding-left:15px;padding-top:35px;">
+                                    <span>Authorized Sign &amp; Stamp</span>
+                                </td>
+                                <td width="75%" style="padding-left:15px;padding-top:35px;"/>
+                            </tr>
+                            <tr width="100%">
+                                <td style="width:25%;border-bottom: 1pt solid black;padding-left:15px;"/>
+                                <td width="75%" style="padding-left:15px;"/>
+                            </tr>
+                            <tr width="100%" align="left">
+                                <td width="25%" style="padding-left:15px;">
+                                    <span>Account Dept</span>
+                                </td>
+                                <td width="75%" style="padding-left:15px;"/>
+                            </tr>
+                            <t t-if="account_type == 'asset_receivable'">
+                                <tr width="100%" align="left">
+                                    <td width="100%" style="padding-left:15px;padding-top:35px;" colspan="2">
+                                        <span>
+                                            <strong>Note:</strong>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr width="100%" align="justify">
+                                    <td width="100%" style="padding-left:15px;padding-top:10px;" colspan="2">
+                                        <span>
+                                            Please ensure the payment is made as per invoice currency to the bank
+                                            account noted on invoices. Upon payment, please send a copy of the
+                                            remittance advice to
+                                            <a href="mailto:receivables@voyagemarine.ae" style="white-space: nowrap;">
+                                                <strong>receivables@voyagemarine.ae</strong>
+                                            </a>
+                                            .
+                                            <br/>
+                                            Please retain the SOA for your records.
+                                        </span>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                        <t t-if="account_type != 'liability_payable'">
+                            <t t-if="company_bank">
+                                <table class="table-borderless"
+                                       style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                                    <tr width="100%" style="font-size:12px;">
+                                        <td width="100%" colspan="6" style="padding-top:10px;padding-bottom:10px;">
+                                            <span>
+                                                <strong>
+                                                    <u>Bank Details</u>
+                                                </strong>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%" style="font-size:12px;border-bottom: 1pt solid black;">
+                                        <td align="center" width="18%"
+                                            style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border-right: 1pt solid black;">
+                                            <strong>Account Name</strong>
+                                        </td>
+                                        <td align="center" width="10%"
+                                            style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border-right: 1pt solid black;">
+                                            <strong>Currency</strong>
+                                        </td>
+                                        <td align="center" width="18%"
+                                            style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border-right: 1pt solid black;">
+                                            <strong>Bank Name</strong>
+                                        </td>
+                                        <td align="center" width="18%"
+                                            style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border-right: 1pt solid black;">
+                                            <strong>Account No</strong>
+                                        </td>
+                                        <td align="center" width="18%"
+                                            style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border-right: 1pt solid black;">
+                                            <strong>IBAN No</strong>
+                                        </td>
+                                        <td align="center" width="18%"
+                                            style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <strong>Swift Code</strong>
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="company_bank" t-as="bank">
+                                        <tr width="100%" style="font-size:12px;border-bottom: 1pt solid black;">
+                                            <td align="center" width="18%"
+                                                style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border-right: 1pt solid black;">
+                                                <span t-esc="bank['acc_name']"/>
+                                            </td>
+                                            <td align="center" width="10%"
+                                                style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border-right: 1pt solid black;">
+                                                <span t-esc="bank['currency_id']"/>
+                                            </td>
+                                            <td align="center" width="18%"
+                                                style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border-right: 1pt solid black;">
+                                                <span t-esc="bank['bank_name']"/>
+                                            </td>
+                                            <td align="center" width="18%"
+                                                style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border-right: 1pt solid black;">
+                                                <span t-esc="bank['acc_number']"/>
+                                            </td>
+                                            <td align="center" width="18%"
+                                                style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border-right: 1pt solid black;">
+                                                <span t-esc="bank['iban_number']"/>
+                                            </td>
+                                            <td align="center" width="18%"
+                                                style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                                <span t-esc="bank['swift_code']"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </t>
+                        </t>
+                    </t>
+                    <div class="footer o_standard_footer">
+                        <div style="font-size:11px" class="last-page">
+                            <p align="right">**General Terms &amp; Condition Shall apply**</p>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-top: 15px;">
+                            <table width="100%" class="table table-borderless table-sm">
+                                <tr width="100%" style="font-size:12px;">
+                                    <td width="100%" align="center">
+                                        <t t-if="company_website">
+                                            <strong>
+                                                <span t-esc="company_website"/>
+                                            </strong>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr width="100%">
+                                    <td style="width: 110%;border-bottom: 1pt solid black;"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td width="100%">
+                                        <div style="text-align: left;font-size:14px">A professional Supplier and Service
+                                            provider for All Electrical &amp; Instrumentation, Automation&amp; Control, Fire &amp;
+                                            Safety, Navigation and Communication and Calibration requirements for
+                                            Marine, Oil &amp; Gas and Energy Industry.
+                                        </div>
+                                    </td>
+                                    <!--                                     <td width="22%"> -->
+                                    <!--                                         <div style="text-align: right; "> -->
+                                    <!--                                             <img t-if="company_logo" t-att-src="company_logo" -->
+                                    <!--                                                  style="max-height: 40px;max-width: 70px;" alt="Logo"/> -->
+                                    <!--                                         </div> -->
+                                    <!--                                     </td> -->
+                                </tr>
+                            </table>
+                        </div>
+                        <!--                         <div style="color:black; text-align: center;"> -->
+                        <!--                             <span>Page<t t-esc="p_idx"/>. -->
+                        <!--                                 <span class="page"/> -->
+                        <!--                             </span> -->
+                        <!--                         </div> -->
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

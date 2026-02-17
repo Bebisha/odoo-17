@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="doc_oe" model="documents.type">
+            <field name="code">OE</field>
+            <field name="name">Outpatient Encounter - Summary</field>
+        </record>
+
+        <record id="doc_ed" model="documents.type">
+            <field name="code">ED</field>
+            <field name="name">Emergency Encounter - Summary</field>
+        </record>
+
+        <record id="doc_ds" model="documents.type">
+            <field name="code">DS</field>
+            <field name="name">Discharge Summary</field>
+        </record>
+
+        <record id="doc_dm" model="documents.type">
+            <field name="code">DM</field>
+            <field name="name">Discharge Summary – Maternal</field>
+        </record>
+
+        <record id="doc_dn" model="documents.type">
+            <field name="code">DN</field>
+            <field name="name">Discharge Summary – NewBorn</field>
+        </record>
+
+        <record id="doc_cd" model="documents.type">
+            <field name="code">CD</field>
+            <field name="name">Cardio Diagnostics</field>
+        </record>
+
+        <record id="doc_hp" model="documents.type">
+            <field name="code">HP</field>
+            <field name="name">History and Physical Examination</field>
+        </record>
+
+        <record id="doc_op" model="documents.type">
+            <field name="code">OP</field>
+            <field name="name">Operative Report</field>
+        </record>
+
+        <record id="doc_pn" model="documents.type">
+            <field name="code">PN</field>
+            <field name="name">Procedure Note</field>
+        </record>
+
+        <record id="doc_cp" model="documents.type">
+            <field name="code">CP</field>
+            <field name="name">Care Plan Summary</field>
+        </record>
+
+        <record id="doc_ts" model="documents.type">
+            <field name="code">TS</field>
+            <field name="name">Transfer Summary</field>
+        </record>
+
+        <record id="doc_de" model="documents.type">
+            <field name="code">DE</field>
+            <field name="name">Death Summary</field>
+        </record>
+
+    </data>
+</odoo>

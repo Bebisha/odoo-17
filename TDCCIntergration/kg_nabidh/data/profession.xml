@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="profession_agriculture" model="patient.profession">
+            <field name="name">Agriculture</field>
+        </record>
+
+        <record id="profession_airlines" model="patient.profession">
+            <field name="name">Airlines</field>
+        </record>
+
+        <record id="profession_healthcare" model="patient.profession">
+            <field name="name">Healthcare and medicine</field>
+        </record>
+
+        <record id="profession_arts_entertainment" model="patient.profession">
+            <field name="name">Arts and entertainment</field>
+        </record>
+
+        <record id="profession_banking_finance" model="patient.profession">
+            <field name="name">Banking and Finance</field>
+        </record>
+
+        <record id="profession_blue_collar" model="patient.profession">
+            <field name="name">Blue Collar</field>
+        </record>
+
+        <record id="profession_business" model="patient.profession">
+            <field name="name">Business</field>
+        </record>
+
+        <record id="profession_consultant" model="patient.profession">
+            <field name="name">Consultant</field>
+        </record>
+
+        <record id="profession_industrial_manufacturing" model="patient.profession">
+            <field name="name">Industrial and manufacturing</field>
+        </record>
+
+        <record id="profession_home_maker" model="patient.profession">
+            <field name="name">Home Maker</field>
+        </record>
+
+        <record id="profession_hospitality" model="patient.profession">
+            <field name="name">Hospitality</field>
+        </record>
+
+        <record id="profession_it_professional" model="patient.profession">
+            <field name="name">IT Professional</field>
+        </record>
+
+        <record id="profession_law_enforcement" model="patient.profession">
+            <field name="name">Law enforcement and armed forces</field>
+        </record>
+
+        <record id="profession_lawyer" model="patient.profession">
+            <field name="name">Lawyer</field>
+        </record>
+
+        <record id="profession_media" model="patient.profession">
+            <field name="name">Media</field>
+        </record>
+
+        <record id="profession_mining" model="patient.profession">
+            <field name="name">Mining</field>
+        </record>
+
+        <record id="profession_other" model="patient.profession">
+            <field name="name">Other</field>
+        </record>
+
+        <record id="profession_research" model="patient.profession">
+            <field name="name">Research</field>
+        </record>
+
+        <record id="profession_retired" model="patient.profession">
+            <field name="name">Retired</field>
+        </record>
+
+        <record id="profession_road_transport" model="patient.profession">
+            <field name="name">Road Transport</field>
+        </record>
+
+        <record id="profession_science_technology" model="patient.profession">
+            <field name="name">Science and technology</field>
+        </record>
+
+        <record id="profession_shipping" model="patient.profession">
+            <field name="name">Shipping</field>
+        </record>
+
+        <record id="profession_skilled_labor" model="patient.profession">
+            <field name="name">Skilled Labor</field>
+        </record>
+
+        <record id="profession_sports" model="patient.profession">
+            <field name="name">Sports</field>
+        </record>
+
+        <record id="profession_student" model="patient.profession">
+            <field name="name">Student</field>
+        </record>
+
+        <record id="profession_teacher" model="patient.profession">
+            <field name="name">Teacher</field>
+        </record>
+
+        <record id="profession_unknown" model="patient.profession">
+            <field name="name">Unknown</field>
+        </record>
+
+    </data>
+</odoo>

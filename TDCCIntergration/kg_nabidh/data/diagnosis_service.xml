@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Diagnostic Service Section ID Master Data -->
+    <data noupdate="1">
+
+        <record id="diagnosis_service_au" model="diagnosis.service">
+            <field name="code">AU</field>
+            <field name="name">Audiology</field>
+        </record>
+
+        <record id="diagnosis_service_bg" model="diagnosis.service">
+            <field name="code">BG</field>
+            <field name="name">Blood Gases</field>
+        </record>
+
+        <record id="diagnosis_service_blb" model="diagnosis.service">
+            <field name="code">BLB</field>
+            <field name="name">Blood Bank</field>
+        </record>
+
+        <record id="diagnosis_service_ch" model="diagnosis.service">
+            <field name="code">CH</field>
+            <field name="name">Chemistry</field>
+        </record>
+
+        <record id="diagnosis_service_cp" model="diagnosis.service">
+            <field name="code">CP</field>
+            <field name="name">Cytopathology</field>
+        </record>
+
+        <record id="diagnosis_service_ct" model="diagnosis.service">
+            <field name="code">CT</field>
+            <field name="name">CAT Scan</field>
+        </record>
+
+        <record id="diagnosis_service_cth" model="diagnosis.service">
+            <field name="code">CTH</field>
+            <field name="name">Cardiac Catheterization</field>
+        </record>
+
+        <record id="diagnosis_service_cus" model="diagnosis.service">
+            <field name="code">CUS</field>
+            <field name="name">Cardiac Ultrasound</field>
+        </record>
+
+        <record id="diagnosis_service_ec" model="diagnosis.service">
+            <field name="code">EC</field>
+            <field name="name">Electrocardiac (e.g., EKG, ECC, Holter)</field>
+        </record>
+
+        <record id="diagnosis_service_en" model="diagnosis.service">
+            <field name="code">EN</field>
+            <field name="name">Electroneuro (EEG, EMG, EP, PSG)</field>
+        </record>
+
+        <record id="diagnosis_service_hm" model="diagnosis.service">
+            <field name="code">HM</field>
+            <field name="name">Hematology</field>
+        </record>
+
+        <record id="diagnosis_service_icu" model="diagnosis.service">
+            <field name="code">ICU</field>
+            <field name="name">Bedside ICU Monitoring</field>
+        </record>
+
+        <record id="diagnosis_service_imm" model="diagnosis.service">
+            <field name="code">IMM</field>
+            <field name="name">Immunology</field>
+        </record>
+
+        <record id="diagnosis_service_lab" model="diagnosis.service">
+            <field name="code">LAB</field>
+            <field name="name">Laboratory</field>
+        </record>
+
+        <record id="diagnosis_service_mb" model="diagnosis.service">
+            <field name="code">MB</field>
+            <field name="name">Microbiology</field>
+        </record>
+
+        <record id="diagnosis_service_mcb" model="diagnosis.service">
+            <field name="code">MCB</field>
+            <field name="name">Mycobacteriology</field>
+        </record>
+
+        <record id="diagnosis_service_myc" model="diagnosis.service">
+            <field name="code">MYC</field>
+            <field name="name">Mycology</field>
+        </record>
+
+        <record id="diagnosis_service_nmr" model="diagnosis.service">
+            <field name="code">NMR</field>
+            <field name="name">Nuclear Magnetic Resonance</field>
+        </record>
+
+        <record id="diagnosis_service_nms" model="diagnosis.service">
+            <field name="code">NMS</field>
+            <field name="name">Nuclear Medicine Scan</field>
+        </record>
+
+        <record id="diagnosis_service_nrs" model="diagnosis.service">
+            <field name="code">NRS</field>
+            <field name="name">Nursing Service Measures</field>
+        </record>
+
+        <record id="diagnosis_service_osl" model="diagnosis.service">
+            <field name="code">OSL</field>
+            <field name="name">Outside Lab</field>
+        </record>
+
+        <record id="diagnosis_service_ot" model="diagnosis.service">
+            <field name="code">OT</field>
+            <field name="name">Occupational Therapy</field>
+        </record>
+
+        <record id="diagnosis_service_oth" model="diagnosis.service">
+            <field name="code">OTH</field>
+            <field name="name">Other</field>
+        </record>
+
+        <record id="diagnosis_service_ous" model="diagnosis.service">
+            <field name="code">OUS</field>
+            <field name="name">OB Ultrasound</field>
+        </record>
+
+        <record id="diagnosis_service_pf" model="diagnosis.service">
+            <field name="code">PF</field>
+            <field name="name">Pulmonary Function</field>
+        </record>
+
+        <record id="diagnosis_service_phr" model="diagnosis.service">
+            <field name="code">PHR</field>
+            <field name="name">Pharmacy</field>
+        </record>
+
+        <record id="diagnosis_service_phy" model="diagnosis.service">
+            <field name="code">PHY</field>
+            <field name="name">Physician (Hx, Dx, admission note, etc.)</field>
+        </record>
+
+        <record id="diagnosis_service_pt" model="diagnosis.service">
+            <field name="code">PT</field>
+            <field name="name">Physical Therapy</field>
+        </record>
+
+        <record id="diagnosis_service_rad" model="diagnosis.service">
+            <field name="code">RAD</field>
+            <field name="name">Radiology</field>
+        </record>
+
+        <record id="diagnosis_service_rc" model="diagnosis.service">
+            <field name="code">RC</field>
+            <field name="name">Respiratory Care (therapy)</field>
+        </record>
+
+        <record id="diagnosis_service_rt" model="diagnosis.service">
+            <field name="code">RT</field>
+            <field name="name">Radiation Therapy</field>
+        </record>
+
+        <record id="diagnosis_service_rus" model="diagnosis.service">
+            <field name="code">RUS</field>
+            <field name="name">Radiology Ultrasound</field>
+        </record>
+
+        <record id="diagnosis_service_rx" model="diagnosis.service">
+            <field name="code">RX</field>
+            <field name="name">Radiograph</field>
+        </record>
+
+        <record id="diagnosis_service_sp" model="diagnosis.service">
+            <field name="code">SP</field>
+            <field name="name">Surgical Pathology</field>
+        </record>
+
+        <record id="diagnosis_service_sr" model="diagnosis.service">
+            <field name="code">SR</field>
+            <field name="name">Serology</field>
+        </record>
+
+        <record id="diagnosis_service_tx" model="diagnosis.service">
+            <field name="code">TX</field>
+            <field name="name">Toxicology</field>
+        </record>
+
+        <record id="diagnosis_service_vr" model="diagnosis.service">
+            <field name="code">VR</field>
+            <field name="name">Virology</field>
+        </record>
+
+        <record id="diagnosis_service_vus" model="diagnosis.service">
+            <field name="code">VUS</field>
+            <field name="name">Vascular Ultrasound</field>
+        </record>
+
+        <record id="diagnosis_service_xrc" model="diagnosis.service">
+            <field name="code">XRC</field>
+            <field name="name">Cineradiograph</field>
+        </record>
+
+    </data>
+</odoo>

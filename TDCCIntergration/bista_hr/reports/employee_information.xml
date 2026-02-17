@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="employee_info_header_footer">
+        <t t-set="company" t-value="res_company"/>
+        <div class="header">
+            <div class="row mb8">
+                <div class="col-7">
+                    <img t-if="company.logo"
+                         t-att-src="image_data_uri(company.logo)" alt="Logo" height="150"/>
+                </div>
+                <div class="col-5 text-right">
+                    Form No.HR/EIF/
+                    <t t-esc="doc.emp_id"/>
+                    <br/>
+                    Revision No.: 1
+                    <br/>
+                    <span
+                            t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')"/>
+                </div>
+            </div>
+        </div>
+        <div class="article" t-att-data-oe-model="doc and doc._name"
+             t-att-data-oe-id="doc and doc.id"
+             t-att-data-oe-lang="doc and doc.env.context.get('lang')">
+            <t t-raw="0"/>
+        </div>
+        <div class="footer">
+            <div style="border-top: 1px solid black;">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <b>
+                            <span t-esc="company.name" style="font-size: 10pt;"/>
+                        </b>
+                        &amp;nbsp;|
+                    </li>
+                    <li class="list-inline-item">
+                        <span style="font-size: 10pt;">PO Box</span>
+                        <span t-esc="company.zip" style="font-size: 10pt;"/>
+                        <span t-esc="company.state_id.name" style="font-size: 12pt;"/>,UAE&amp;nbsp;|
+                    </li>
+                    <li class="list-inline-item">
+                        <span style="font-size: 10pt;">Call &amp;nbsp;</span>
+                        <span t-esc="company.phone" style="font-size: 12pt;"/>
+                        &amp;nbsp;|
+                    </li>
+                    <li class="list-inline-item">
+                        <span t-esc="company.email" style="font-size: 12pt;"/>
+                        &amp;nbsp;|
+                    </li>
+                    <li class="list-inline-item">
+                        <b>
+                            <span t-esc="company.website" style="font-size: 10pt;"/>
+                        </b>
+                    </li>
+                </ul>
+                <div class="text-muted">
+                    Page:
+                    <span class="page"/>
+                    of
+                    <span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_employee_info_form_document">
+        <t t-call="bista_hr.employee_info_header_footer">
+            <div class="page">
+                <style>
+                    td,tr {
+                    border: 1px solid black;
+                    font-size: 12pt;
+                    padding:3px;
+                    }
+
+                </style>
+                <div>
+                    <strong>
+                        <h2 align="center">Employee Information Form</h2>
+                    </strong>
+                </div>
+                <div class="row mt32 mb32 text-center">
+                    <div class="col-3">
+                        <strong>TICK AS APPROPRIATE</strong>
+                        <p/>
+                    </div>
+                    <div class="col-3">
+                        <span class="m-0">
+                            <b>New Employee:</b>
+                        </span>
+                        <t t-if="doc.is_new">
+                            <input type="checkbox" id="checkbox_emp" checked="checked"/>
+                        </t>
+                        <t t-if="not doc.is_new">
+                            <input type="checkbox" id="checkbox_emp"/>
+                        </t>
+                    </div>
+                    <div class="col-3">
+                        <span class="m-0">
+                            <b>Current Employee:</b>
+                        </span>
+                        <t t-if="not doc.is_new">
+                            <input type="checkbox" id="checkbox104_anything_you_give"
+                                   checked="checked"/>
+                        </t>
+                        <t t-if="doc.is_new">
+                            <input type="checkbox" id="checkbox104_anything_you_give"/>
+                        </t>
+                    </div>
+                </div>
+                <div>
+                    <b>1. EMPLOYEE DETAILS</b>
+                    <table
+                            style="border: 1px solid black; width: 100%;font-family: Arial; font-size: 12pt;">
+                        <tr>
+                            <td style="width: 30%;">
+                                <span>Name:&amp;nbsp;</span>
+                            </td>
+                            <td colspan="4" style="width: 50%;">
+                                <t t-esc="doc.first_name"/>
+                                &amp;nbsp;
+                                <t t-esc="doc.last_name"/>
+                            </td>
+                            <td>
+                                <t t-esc="doc.emp_id"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Maiden Name (if applicable):&amp;nbsp;</span>
+                            </td>
+                            <td colspan="5">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Title: Mr./Mrs./Miss
+                            </td>
+                            <td colspan="3">
+                                Marital Status:
+                                <t t-esc="doc.marital"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Current Address:</b>
+                            </td>
+                            <td colspan="5">
+<!--                                <t t-esc="doc.km_home_work"/>-->
+                                <t
+                                        t-if="doc.km_home_work and doc.private_street2">
+                                    ,
+                                    <t t-esc="doc.private_street2"/>
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="doc.private_street2"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">City:
+                                &amp;nbsp;
+                                <t t-esc="doc.private_city"/>
+                            </td>
+                            <td colspan="3">Country:&amp;nbsp;
+                                <t t-esc="doc.private_country_id.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Postal Code/Zip Code:
+                            </td>
+                            <td colspan="3">
+                                <t t-esc="doc.private_zip"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Home
+                                Tel. No.:&amp;nbsp;
+                                <t t-esc="doc.private_phone"/>
+                            </td>
+                            <td colspan="2" style="width: 30%;">Mob
+                                No.:&amp;nbsp;
+                                <t t-esc="doc.mobile_phone"/>
+                            </td>
+                            <td colspan="2">Email:&amp;nbsp;
+                                <t t-esc="doc.private_email"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div name="emp_passport_detail" style="margin-top:10px;">
+                    <b>2. EMPLOYEE PASSPORT DETAILS</b>
+                    <table
+                            style="border: 1px solid black; width: 100%;
+                                     font-family: Arial; font-size: 12pt;">
+                        <tr>
+                            <td style="width: 50%;">Country
+                                of Birth: &amp;nbsp;
+                                <t t-esc="doc.country_of_birth.name"/>
+                            </td>
+
+                            <td style="width: 50%;">Place
+                                of Birth: &amp;nbsp;
+                                <t t-esc="doc.place_of_birth"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nationality:
+                                &amp;nbsp;
+                                <t t-if="doc.country_id">
+                                    <t t-esc="doc.country_id.name"/>
+                                </t>
+                            </td>
+
+                            <td>Date
+                                of Birth: &amp;nbsp;
+                                <t t-esc="doc.birthday"/>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>Passport
+                                No:&amp;nbsp;
+                                <t t-esc="doc.passport_id"/>
+                            </td>
+
+                            <td>Place
+                                of Issue: &amp;nbsp;
+                                <t t-if="doc.passport_issue_country">
+                                    <t t-esc="doc.passport_issue_country.name"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date
+                                of Issue: &amp;nbsp;
+                                <t t-esc="doc.passport_issue_date"/>
+                            </td>
+                            <td>Date
+                                of Expiry: &amp;nbsp;
+                                <t t-esc="doc.passport_expiry_date"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Religion:
+                            </td>
+                            <td>
+                                <t t-esc="doc.religion_id.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Name of Employee’s Father: &amp;nbsp;
+                                <t t-esc="doc.father_name"/>
+                            </td>
+                            <td>Name
+                                of Employee’s Mother: &amp;nbsp;
+                                <t t-esc="doc.mother_name"/>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div name="emergency_contacts" style="margin-top:10px;">
+                    <b>3. EMERGENCY CONTACTS</b>
+                    <table
+                            style="border: 1px solid black; width: 100%;
+                                     font-family: Arial; font-size: 12pt;">
+                        <tr>
+                            <td colspan="4" style="width: 50%;">
+                                Name:
+                                <t t-esc="doc.emergency_contact1"/>
+                            </td>
+                            <td colspan="4">
+                                Name:
+                                <t t-esc="doc.emergency_contact2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                Address:
+                                <t t-esc="doc.emergency_street1"/>
+                            </td>
+                            <td colspan="4">
+                                Address:
+                                <t t-esc="doc.emergency_street2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                City:
+                                <t t-esc="doc.emergency_city1"/>
+                            </td>
+                            <td colspan="2">
+                                Country:
+                                <t t-esc="doc.emergency_country1.name"/>
+                            </td>
+                            <td colspan="2">
+                                City:
+                                <t t-esc="doc.emergency_city2"/>
+                            </td>
+                            <td colspan="2">
+                                Country:
+                                <t t-esc="doc.emergency_country2.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                Zip Code:
+                                <t t-esc="doc.emergency_zip1"/>
+                            </td>
+                            <td colspan="2">
+                                Tel. (Work):
+                                <t t-esc="doc.emergency_phone1"/>
+                            </td>
+                            <td colspan="2">
+                                Zip Code:
+                                <t t-esc="doc.emergency_zip2"/>
+                            </td>
+                            <td colspan="2">
+                                Tel. (Work):
+                                <t t-esc="doc.emergency_phone2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                Mobile:
+                                <t t-esc="doc.emergency_mobile1"/>
+                            </td>
+                            <td colspan="2">
+                                Email:
+                                <t t-esc="doc.emergency_email1"/>
+                            </td>
+                            <td colspan="2">
+                                Mobile:
+                                <t t-esc="doc.emergency_mobile2"/>
+                            </td>
+                            <td colspan="2">
+                                Email:
+                                <t t-esc="doc.emergency_email2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                Relationship:
+                                <t t-esc="doc.emergency_relation1"/>
+                            </td>
+                            <td colspan="4">
+                                Relationship:
+                                <t t-esc="doc.emergency_relation2"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-6">
+                        <span style="font-family: Arial; font-size: 14pt;">Signature of Employee:</span>
+                        <span style="border-bottom:1px solid black;" width="20%"></span>
+                    </div>
+                    <div class="col-4">
+                        <span
+                                style="font-family: Arial; font-size: 14pt; margin-left:100px;">Date:
+                        </span>
+                    </div>
+                </div>
+                <p class="text-center"
+                   style="font-family: Arial; font-size: 10pt;margin-top:15px;font-weight: bold;">
+                    PLEASE UPDATE YOUR HR RECORD SHOULD THERE BE CHANGES ON THE ABOVE
+                    DETAILS
+                </p>
+                <p class="text-center"
+                   style="color:#368BC1; font-family: Arial;margin-top:15px;
+                        font-size: 10pt; font-style: italic;">“If you judge a fish by its ability
+                    to climb a tree, it will
+                    live its whole life believing that it is
+                    stupid.”
+                    Albert Einstein
+                </p>
+                <p style="font-family: Arial; font-size: 10pt;">
+                    <b>We think different. We teach different.</b>
+                </p>
+                <p
+                        style="font-family: Arial; 
+                        font-size: 10pt;">
+                    At The Developing Child Centre our approach is simple.
+                    We believe
+                    every child is brilliant and we nurture and build
+                    children’s
+                    confidence
+                    and abilities.
+                    <br/>
+                    We are dedicated to identifying, building and developing
+                    skills
+                    required by all children to feel confident and succeed.
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <!-- Main Employee Form Template -->
+    <template id="report_imployee_info">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="bista_hr.report_employee_info_form_document"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

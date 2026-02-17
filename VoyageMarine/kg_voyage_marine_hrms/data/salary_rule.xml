@@ -1,0 +1,246 @@
+<odoo>
+    <data noupdate="1">
+
+        <record id="hra_allowance_salary_rule" model="hr.salary.rule">
+            <field name="name">HRA Allowance</field>
+            <field name="code">HRA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.l10n_ae_housing_allowance</field>
+        </record>
+
+        <record id="food_allowance_salary_rule" model="hr.salary.rule">
+            <field name="name">FOOD Allowance</field>
+            <field name="code">FOOD</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.food_allowance</field>
+        </record>
+
+        <record id="da_allowance_salary_rule" model="hr.salary.rule">
+            <field name="name">DA Allowance</field>
+            <field name="code">DA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.da_allowance</field>
+        </record>
+
+        <record id="telephone_allowance_salary_rule" model="hr.salary.rule">
+            <field name="name">Telephone Allowance</field>
+            <field name="code">TEL</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.telephone_allowance</field>
+        </record>
+
+        <record id="special_allowance_salary_rule" model="hr.salary.rule">
+            <field name="name">Special Allowance</field>
+            <field name="code">SPL</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.special_allowance</field>
+        </record>
+
+        <record id="performance_allowance_salary_rule" model="hr.salary.rule">
+            <field name="name">Performance Allowance</field>
+            <field name="code">PERF</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.performance_allowance</field>
+        </record>
+
+        <record id="transport_allowance_salary_rule" model="hr.salary.rule">
+            <field name="name">Transport Allowance</field>
+            <field name="code">TRS</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.l10n_ae_transportation_allowance</field>
+        </record>
+
+        <record id="fixed_ot_allowance_salary_rule" model="hr.salary.rule">
+            <field name="name">Fixed OT Allowance</field>
+            <field name="code">FOT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = payslip.fixed_ot_allowance</field>
+        </record>
+
+        <record id="hra_deductions_salary_rule" model="hr.salary.rule">
+            <field name="name">HRA Deductions</field>
+            <field name="code">HRA-DED</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -contract.hra_deduction</field>
+        </record>
+
+        <record id="telephone_deduction_salary_rule" model="hr.salary.rule">
+            <field name="name">Telephone Deductions</field>
+            <field name="code">TEL-DED</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -contract.telephone_deduction</field>
+        </record>
+
+        <record id="default_ticket_salary_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Ticket</field>
+            <field name="sequence">50</field>
+            <field name="code">TICKET</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'TICKET' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs['TICKET'].amount</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+
+        <record id="default_leave_salary_salary_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Leave Salary</field>
+            <field name="sequence">51</field>
+            <field name="code">LEAVE_SALARY</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'LEAVE_SALARY' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs['LEAVE_SALARY'].amount</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+
+        <record id="default_sale_service_incentives_salary_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Sales Service Incentives</field>
+            <field name="sequence">52</field>
+            <field name="code">SALES_SERVICE_INCENTIVES</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'SALES_SERVICE_INCENTIVES' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs['SALES_SERVICE_INCENTIVES'].amount</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+
+        <record id="default_perf_alw_monthly_salary_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Performance Allowance Monthly</field>
+            <field name="sequence">53</field>
+            <field name="code">PERFORMANCE_ALW_MONTHLY</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'PERFORMANCE_ALW_MONTHLY' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs['PERFORMANCE_ALW_MONTHLY'].amount</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+
+        <record id="default_ot_lumpsum_salary_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">OT LUMPSUM</field>
+            <field name="sequence">54</field>
+            <field name="code">OT_LUMPSUM</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'OT_LUMPSUM' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs['OT_LUMPSUM'].amount</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+
+        <record id="default_cash_advance_salary_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">Cash Advance</field>
+            <field name="sequence">54</field>
+            <field name="code">CASH_ADVANCE</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'CASH_ADVANCE' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -inputs['CASH_ADVANCE'].amount</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+
+        <record id="default_vehicle_fine_salary_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">Vehicle Fine</field>
+            <field name="sequence">54</field>
+            <field name="code">VEHICLE_FINE</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'VEHICLE_FINE' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -inputs['VEHICLE_FINE'].amount</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+
+        <record id="default_overseas_salary_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Overseas</field>
+            <field name="sequence">54</field>
+            <field name="code">OVERSEAS</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'OVERSEAS' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs['OVERSEAS'].amount</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+
+        <record id="default_anchorage_salary_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Anchorage</field>
+            <field name="sequence">54</field>
+            <field name="code">ANCHORAGE</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'ANCHORAGE' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs['ANCHORAGE'].amount</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+
+        <record id="default_overtime_salary_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Overtime</field>
+            <field name="sequence">54</field>
+            <field name="code">OVERTIME</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'OVERTIME' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs['OVERTIME'].amount</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+
+        <record id="default_fixed_overtime_salary_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Fixed Overtime</field>
+            <field name="sequence">54</field>
+            <field name="code">FIXED_ALLOWANCE</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'FIXED_ALLOWANCE' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs['FIXED_ALLOWANCE'].amount</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+
+        <record id="seq_employee_req" model="ir.sequence">
+            <field name="name">Employee Sequence</field>
+            <field name="code">employee.seq</field>
+            <field name="prefix"></field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    &lt;!&ndash; Action to open the model &ndash;&gt;-->
+<!--    <record id="action_inspection_calibration" model="ir.actions.act_window">-->
+<!--        <field name="name">Inspection Calibrations</field>-->
+<!--        <field name="res_model">inspection.calibration</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        <field name="help" type="html">-->
+<!--            <p class="o_view_nocontent_smiling_face">-->
+<!--                Create the first inspection calibration-->
+<!--            </p>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    &lt;!&ndash; Menu Item &ndash;&gt;-->
+<!--    <menuitem id="menu_inspection_calibration_root" name="Inspection"/>-->
+<!--    <menuitem id="menu_inspection_calibration" name="Calibrations"-->
+<!--              parent="menu_inspection_calibration_root"/>-->
+<!--    <menuitem id="menu_inspection_calibration_items"-->
+<!--              name="Inspection Calibrations"-->
+<!--              parent="menu_inspection_calibration"-->
+<!--              action="action_inspection_calibration"/>-->
+
+    <!-- Tree View -->
+    <record id="view_tree_inspection_calibration" model="ir.ui.view">
+        <field name="name">inspection.calibration.tree</field>
+        <field name="model">inspection.calibration</field>
+        <field name="arch" type="xml">
+            <tree string="Inspection Calibrations">
+                <field name="product_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_form_inspection_calibration" model="ir.ui.view">
+        <field name="name">inspection.calibration.form</field>
+        <field name="model">inspection.calibration</field>
+        <field name="arch" type="xml">
+            <form string="Inspection Calibration">
+                <sheet>
+                    <group>
+                        <field name="product_ids">
+                            <tree editable="bottom">
+                                <field name="name"/>
+<!--                                <field name="type"/>-->
+<!--                                <field name="sale_ok"/>-->
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

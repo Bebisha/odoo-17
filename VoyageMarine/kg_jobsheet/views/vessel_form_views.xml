@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="vessel_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Vessel</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">vessel.form</field>
+
+    </record>
+    <record id="vessel_tree" model="ir.ui.view">
+        <field name="name">vessel.form.tree.views</field>
+        <field name="model">vessel.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Vessel name"/>
+                <field name="code"/>
+                <field name="imo_number"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="vessel_form" model="ir.ui.view">
+        <field name="name">vessel.form.views</field>
+        <field name="model">vessel.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" string="Vessel name"/>
+                            <field name="code"/>
+                            <field name="imo_number"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="vessel_menu"
+              action="vessel_action"
+              name="Vessel"
+               parent="job_sheet_menu_03"/>
+<!--              parent="crm.crm_menu_config"/>-->
+
+
+</odoo>

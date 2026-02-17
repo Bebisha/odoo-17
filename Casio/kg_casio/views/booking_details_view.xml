@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+
+        <record id="action_models" model="ir.actions.act_window">
+            <field name="name">Models</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">watch.models</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Models.
+                </p>
+            </field>
+        </record>
+
+
+        <record id="action_category" model="ir.actions.act_window">
+            <field name="name">Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">watch.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Category.
+                </p>
+            </field>
+        </record>
+
+
+         <record id="action_stores" model="ir.actions.act_window">
+            <field name="name">Stores</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">watch.stores</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Stores.
+                </p>
+            </field>
+        </record>
+
+
+
+         <record id="action_brand" model="ir.actions.act_window">
+            <field name="name">Brand</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.casio.brand</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                 Create Brand
+                </p>
+            </field>
+        </record>
+
+
+
+        <record id="view_booking_details_tree" model="ir.ui.view">
+            <field name="name">booking.details.tree</field>
+            <field name="model">booking.details</field>
+            <field name="arch" type="xml">
+                <tree string="Booking Details" import="false">
+                    <field name="name"/>
+                    <field name="customer"/>
+                    <field name="mobile_no"/>
+                    <field name="email"/>
+                    <field name="brand_id"/>
+                    <field name="model_id"/>
+                    <field name="store_id"/>
+                    <field name="book_date"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="view_booking_details_form" model="ir.ui.view">
+            <field name="name">booking.details.form</field>
+            <field name="model">booking.details</field>
+            <field name="arch" type="xml">
+
+                <form string="Booking Details" version="7.0" duplicate="0">
+
+                    <sheet>
+
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+
+                        <group>
+                            <group>
+                                <field name="customer" required="1"/>
+                                <field name="mobile_no" required="1"/>
+                                <field name="email" required="1"/>
+                            </group>
+                            <group>
+                                <field name="brand_id" required="1"/>
+                                <field name="model_id" required="1"/>
+                                <field name="store_id" required="1"/>
+
+                                <field name="book_date" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="action_booking_details" model="ir.actions.act_window">
+            <field name="name">Booking Details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">booking.details</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    View Booking Details Here !
+                </p>
+            </field>
+        </record>
+
+        
+
+        <menuitem id="casio_watch_config" name="Watch Info" parent="crm.crm_menu_root" sequence="3"/>
+
+        <menuitem id="watch_stores" name="Stores" parent="casio_watch_config" action="action_stores"
+                  sequence="4"/>
+
+        <menuitem id="watch_category" name="Category" parent="casio_watch_config" action="action_category"
+                  sequence="3"/>
+
+        <menuitem id="watch_models" name="Models" parent="casio_watch_config" action="action_models"
+                  sequence="2"/>
+
+        <menuitem id="watch_brand" name="Brand" parent="casio_watch_config" action="action_brand"
+                  sequence="1"/>
+
+        <menuitem id="menu_booking_details" name="Booking Details"
+                  action="action_booking_details" parent="casio_watch_config"
+                  sequence="4"/>
+        
+
+        <!-- Customer Invoice Information Menu -->
+
+    </data>
+</odoo>

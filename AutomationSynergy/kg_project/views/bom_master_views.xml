@@ -1,0 +1,72 @@
+<odoo>
+    <record id="bom_master_form_view" model="ir.ui.view">
+        <field name="name">BOM Master</field>
+        <field name="model">bom.master</field>
+        <field name="arch" type="xml">
+            <form string="BOM master">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="show_bom_in" widget="radio" string="Select BOM by"/>
+                            <field name="bom_category_id" invisible="show_bom_in=='product'"
+                                   required="show_bom_in=='bom'"/>
+                            <field name="product_id"/>
+                            <field name="category_ids" widget="many2many_tags"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Components" name="bom_component">
+                            <field name="bom_line_ids" widget="section_and_note_one2many">
+                                <tree editable="bottom" limit="200" count_limit="200">
+                                    <control>
+                                        <create name="add_product_control" string="Add a product"/>
+                                        <create name="add_section_control" string="Add a section"
+                                                context="{'default_display_type': 'line_section'}"/>
+                                    </control>
+                                    <field name="display_type" column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="product_id" required="not display_type"/>
+                                    <field name="qty" invisible="display_type"/>
+                                    <field name="uom_id" invisible="display_type"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="bom_master_tree_view" model="ir.ui.view">
+        <field name="name">BOM Master</field>
+        <field name="model">bom.master</field>
+        <field name="arch" type="xml">
+            <tree string="BM Master">
+                <field name="bom_category_id"/>
+                <field name="product_id"/>
+                <field name="category_ids" widget="many2many_tags"/>
+                <!--                <field name="date_to"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="bom_master_action" model="ir.actions.act_window">
+        <field name="name">Bill of material</field>
+        <field name="res_model">bom.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- MenuItems -->
+    <menuitem id="bom_submenu" name="Bill of Material"
+              parent="project.menu_project_config"
+              action="bom_master_action"/>
+
+
+</odoo>

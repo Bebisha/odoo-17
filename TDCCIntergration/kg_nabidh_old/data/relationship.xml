@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="rel_asc" model="relationship.form">
+            <field name="code">ASC</field>
+            <field name="name">Associate</field>
+        </record>
+
+        <record id="rel_bro" model="relationship.form">
+            <field name="code">BRO</field>
+            <field name="name">Brother</field>
+        </record>
+
+        <record id="rel_cgv" model="relationship.form">
+            <field name="code">CGV</field>
+            <field name="name">Care giver</field>
+        </record>
+
+        <record id="rel_chd" model="relationship.form">
+            <field name="code">CHD</field>
+            <field name="name">Child</field>
+        </record>
+
+        <record id="rel_dep" model="relationship.form">
+            <field name="code">DEP</field>
+            <field name="name">Handicapped dependent</field>
+        </record>
+
+        <record id="rel_dom" model="relationship.form">
+            <field name="code">DOM</field>
+            <field name="name">Life partner</field>
+        </record>
+
+        <record id="rel_emc" model="relationship.form">
+            <field name="code">EMC</field>
+            <field name="name">Emergency contact</field>
+        </record>
+
+        <record id="rel_eme" model="relationship.form">
+            <field name="code">EME</field>
+            <field name="name">Employee</field>
+        </record>
+
+        <record id="rel_emr" model="relationship.form">
+            <field name="code">EMR</field>
+            <field name="name">Employer</field>
+        </record>
+
+        <record id="rel_exf" model="relationship.form">
+            <field name="code">EXF</field>
+            <field name="name">Extended family</field>
+        </record>
+
+        <record id="rel_fch" model="relationship.form">
+            <field name="code">FCH</field>
+            <field name="name">Foster child</field>
+        </record>
+
+        <record id="rel_fnd" model="relationship.form">
+            <field name="code">FND</field>
+            <field name="name">Friend</field>
+        </record>
+
+        <record id="rel_fth" model="relationship.form">
+            <field name="code">FTH</field>
+            <field name="name">Father</field>
+        </record>
+
+        <record id="rel_gch" model="relationship.form">
+            <field name="code">GCH</field>
+            <field name="name">Grandchild</field>
+        </record>
+
+        <record id="rel_grd" model="relationship.form">
+            <field name="code">GRD</field>
+            <field name="name">Guardian</field>
+        </record>
+
+        <record id="rel_grp" model="relationship.form">
+            <field name="code">GRP</field>
+            <field name="name">Grandparent</field>
+        </record>
+
+        <record id="rel_mgr" model="relationship.form">
+            <field name="code">MGR</field>
+            <field name="name">Manager</field>
+        </record>
+
+        <record id="rel_mth" model="relationship.form">
+            <field name="code">MTH</field>
+            <field name="name">Mother</field>
+        </record>
+
+        <record id="rel_nch" model="relationship.form">
+            <field name="code">NCH</field>
+            <field name="name">Natural child</field>
+        </record>
+
+        <record id="rel_non" model="relationship.form">
+            <field name="code">NON</field>
+            <field name="name">None</field>
+        </record>
+
+        <record id="rel_oad" model="relationship.form">
+            <field name="code">OAD</field>
+            <field name="name">Other adult</field>
+        </record>
+
+        <record id="rel_oth" model="relationship.form">
+            <field name="code">OTH</field>
+            <field name="name">Other</field>
+        </record>
+
+        <record id="rel_own" model="relationship.form">
+            <field name="code">OWN</field>
+            <field name="name">Owner</field>
+        </record>
+
+        <record id="rel_par" model="relationship.form">
+            <field name="code">PAR</field>
+            <field name="name">Parent</field>
+        </record>
+
+        <record id="rel_sch" model="relationship.form">
+            <field name="code">SCH</field>
+            <field name="name">Stepchild</field>
+        </record>
+
+        <record id="rel_sel" model="relationship.form">
+            <field name="code">SEL</field>
+            <field name="name">Self</field>
+        </record>
+
+        <record id="rel_sib" model="relationship.form">
+            <field name="code">SIB</field>
+            <field name="name">Sibling</field>
+        </record>
+
+        <record id="rel_sis" model="relationship.form">
+            <field name="code">SIS</field>
+            <field name="name">Sister</field>
+        </record>
+
+        <record id="rel_spo" model="relationship.form">
+            <field name="code">SPO</field>
+            <field name="name">Spouse</field>
+        </record>
+
+        <record id="rel_tra" model="relationship.form">
+            <field name="code">TRA</field>
+            <field name="name">Trainer</field>
+        </record>
+
+        <record id="rel_unk" model="relationship.form">
+            <field name="code">UNK</field>
+            <field name="name">Unknown</field>
+        </record>
+
+        <record id="rel_wrd" model="relationship.form">
+            <field name="code">WRD</field>
+            <field name="name">Ward of court</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,1268 @@
+<odoo>
+    <data>
+
+        <!--        Gas Detection System-->
+
+        <record id="category_fixed_systems" model="product.category">
+            <field name="name">FIXED SYSTEMS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_portable_systems" model="product.category">
+            <field name="name">PORTABLE SYSTEMS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_gas_analysers" model="product.category">
+            <field name="name">GAS ANALYSERS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_span_gases" model="product.category">
+            <field name="name">SPAN GASES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_gas_accessories" model="product.category">
+            <field name="name">GAS ACCESSORIES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        FIRE DETECTION SYSTEM-->
+
+        <record id="category_conventional_system" model="product.category">
+            <field name="name">CONVENTIONAL SYSTEM</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_addressable_system" model="product.category">
+            <field name="name">ADDRESSABLE SYSTEM</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fire_accessories" model="product.category">
+            <field name="name">FIRE ACCESSORIES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        ELECTRICAL SYSTEM-->
+
+        <record id="category_gen_set_controllers" model="product.category">
+            <field name="name">GEN SET CONTROLLERS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_protection_relay" model="product.category">
+            <field name="name">PROTECTION RELAY</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_circuit_breakers_contactors" model="product.category">
+            <field name="name">CIRCUIT BREAKERS &amp; CONTACTORS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_electrical_drives" model="product.category">
+            <field name="name">ELECTRICAL DRIVES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_light_fixtures" model="product.category">
+            <field name="name">LIGHT FIXTURES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_beacon_horns" model="product.category">
+            <field name="name">BEACON &amp; HORNS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_electrical_accessories" model="product.category">
+            <field name="name">ELECTRICAL ACCESSORIES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        MEASURING CONTROL INSTRUMENTS-->
+
+        <record id="category_sensors" model="product.category">
+            <field name="name">SENSORS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_switches" model="product.category">
+            <field name="name">SWITCHES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_transmitters" model="product.category">
+            <field name="name">TRANSMITTERS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_actuators" model="product.category">
+            <field name="name">ACTUATORS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_controllers" model="product.category">
+            <field name="name">CONTROLLERS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_gauges_indicators_recorders" model="product.category">
+            <field name="name">GAUGES, INDICATORS &amp; RECORDERS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_calibrators" model="product.category">
+            <field name="name">CALIBRATORS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        NAVIGATION SYSTEM-->
+
+        <record id="category_navigation" model="product.category">
+            <field name="name">NAVIGATION</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        COMMUNICATION SYSTEM-->
+
+        <record id="category_communications" model="product.category">
+            <field name="name">COMMUNICATIONS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_communication_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        FEATURED MARINE PRODUCTS-->
+
+        <record id="category_ows" model="product.category">
+            <field name="name">OWS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_bilge_alarms" model="product.category">
+            <field name="name">BILGE ALARMS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_omd" model="product.category">
+            <field name="name">OMD</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_odme" model="product.category">
+            <field name="name">ODME</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_uti" model="product.category">
+            <field name="name">UTI</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_search_light" model="product.category">
+            <field name="name">SEARCH LIGHT</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_navigation_light" model="product.category">
+            <field name="name">NAVIGATION LIGHT</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_marine_light_fixtures" model="product.category">
+            <field name="name">MARINE LIGHT FIXTURES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_battery_charges" model="product.category">
+            <field name="name">BATTERY CHARGERS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_engine_maneuvering_control_head" model="product.category">
+            <field name="name">ENGINE MANEUVERING CONTROL HEAD</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_engine_telegram" model="product.category">
+            <field name="name">ENGINE TELEGRAPH</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_steering_control_system" model="product.category">
+            <field name="name">STEERING CONTROL SYSTEM</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_featured_marine_products"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        LIFE SAVING APPLIANCES-->
+
+        <record id="category_life_saving_appliances" model="product.category">
+            <field name="name">LIFE SAVING APPLIANCES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        FIRE FIGHTING APPLIANCES-->
+
+        <record id="category_fire_fighting_appliances" model="product.category">
+            <field name="name">FIRE FIGHTING APPLIANCES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_fighting_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        CABLES-->
+
+        <record id="category_marine_cables" model="product.category">
+            <field name="name">MARINE CABLES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_cables"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fire_cables" model="product.category">
+            <field name="name">FIRE CABLES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_cables"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_communication_cables" model="product.category">
+            <field name="name">COMMUNICATION CABLES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_cables"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_wires" model="product.category">
+            <field name="name">WIRES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_cables"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        HARDWARE-->
+
+        <record id="category_fasteners" model="product.category">
+            <field name="name">FASTENERS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_hardware"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_pipe_fitting" model="product.category">
+            <field name="name">PIPE &amp; FITTING</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_hardware"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        TOOL & EQUIPMENTS-->
+
+        <record id="category_precision_tools" model="product.category">
+            <field name="name">PRECISION TOOLS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_tools_and_equipments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_heavy_tools" model="product.category">
+            <field name="name">HEAVY TOOLS</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_tools_and_equipments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        CONSUMABLES-->
+
+        <record id="category_office_stationery" model="product.category">
+            <field name="name">OFFICE STATIONERY</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_consumables"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_electrical_consumables" model="product.category">
+            <field name="name">ELECTRICAL CONSUMABLES</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_consumables"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        HEALTH, SAFETY & ENVIRONMENT-->
+
+        <record id="category_personal_protective_equipment" model="product.category">
+            <field name="name">PERSONAL PROTECTIVE EQUIPMENT</field>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_health_safety_environment"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        FIXED SYSTEMS-->
+
+        <record id="category_fixed_detectors" model="product.category">
+            <field name="name">FIXED DETECTORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fixed_systems"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fixed_panels" model="product.category">
+            <field name="name">FIXED PANELS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fixed_systems"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fixed_sensors" model="product.category">
+            <field name="name">FIXED SENSORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fixed_systems"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fixed_spares" model="product.category">
+            <field name="name">FIXED SPARES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fixed_systems"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        PORTABLE SYSTEMS-->
+
+        <record id="category_portable_detectors" model="product.category">
+            <field name="name">PORTABLE DETECTORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_portable_systems"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_portable_sensors" model="product.category">
+            <field name="name">PORTABLE SENSORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_portable_systems"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_portable_spares" model="product.category">
+            <field name="name">PORTABLE SPARES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_portable_systems"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_gas_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        CONVENTIONAL SYSTEM-->
+
+        <record id="category_conventional_detectors" model="product.category">
+            <field name="name">Conventional Detectors</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_conventional_system"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_conventional_panels" model="product.category">
+            <field name="name">Conventional Panels</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_conventional_system"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_conventional_spares" model="product.category">
+            <field name="name">Conventional Spares</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_conventional_system"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        ADDRESSABLE SYSTEM-->
+
+        <record id="category_addressable_detectors" model="product.category">
+            <field name="name">ADDRESSABLE DETECTORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_addressable_system"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_addressable_panels" model="product.category">
+            <field name="name">ADDRESSABLE PANELS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_addressable_system"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_addressable_spares" model="product.category">
+            <field name="name">ADDRESSABLE SPARES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_addressable_system"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_detection_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        GEN SET CONTROLLERS-->
+
+        <record id="category_govt_controllers" model="product.category">
+            <field name="name">GOVT CONTROLLERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_gen_set_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_avr" model="product.category">
+            <field name="name">AVR</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_gen_set_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_synchroscopes" model="product.category">
+            <field name="name">SYNCHROSCOPE</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_gen_set_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_synchronising_unit" model="product.category">
+            <field name="name">SYNCHRONISING UNIT</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_gen_set_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_load_sharing_unit" model="product.category">
+            <field name="name">LOAD SHARING UNIT</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_gen_set_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        PROTECTION RELAY-->
+
+        <record id="category_over_current" model="product.category">
+            <field name="name">OVER CURRENT</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_protection_relay"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_reserve_power" model="product.category">
+            <field name="name">REVERSE POWER</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_protection_relay"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_short_circuit" model="product.category">
+            <field name="name">SHORT CIRCUIT</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_protection_relay"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_under_voltage" model="product.category">
+            <field name="name">UNDER VOLTAGE</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_protection_relay"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        CIRCUIT BREAKERS & CONTACTORS-->
+
+        <record id="category_acb" model="product.category">
+            <field name="name">ACB</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_circuit_breakers_contactors"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_mccb" model="product.category">
+            <field name="name">MCCB</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_circuit_breakers_contactors"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_mcb" model="product.category">
+            <field name="name">MCB</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_circuit_breakers_contactors"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_magnetic_contractors" model="product.category">
+            <field name="name">MAGNETIC CONTRACTORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_circuit_breakers_contactors"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        ELECTRICAL DRIVES-->
+
+        <record id="category_vfd" model="product.category">
+            <field name="name">VFD</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_electrical_drives"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_soft_starters" model="product.category">
+            <field name="name">SOFT STARTERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_electrical_drives"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        LIGHT FIXTURES-->
+
+        <record id="category_engine_room_light" model="product.category">
+            <field name="name">ENGINE ROOM LIGHT</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_light_fixtures"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_accommodation_light" model="product.category">
+            <field name="name">ACCOMMODATION LIGHT</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_light_fixtures"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_weather_deck_light" model="product.category">
+            <field name="name">WEATHER DECK LIGHT</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_light_fixtures"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_ex_proof_light" model="product.category">
+            <field name="name">EX PROOF LIGHT</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_light_fixtures"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--         BEACON & HORNS-->
+
+        <record id="category_hooters" model="product.category">
+            <field name="name">HOOTERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_beacon_horns"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_beacons" model="product.category">
+            <field name="name">BEACONS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_beacon_horns"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_siren" model="product.category">
+            <field name="name">SIREN</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_beacon_horns"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_buzzer" model="product.category">
+            <field name="name">BUZZER</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_beacon_horns"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        ELECTRICAL ACCESSORIES-->
+
+        <record id="category_panel_meters" model="product.category">
+            <field name="name">PANEL METERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_electrical_accessories"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_panel_indicators" model="product.category">
+            <field name="name">PANEL INDICATORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_electrical_accessories"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_push_buttons" model="product.category">
+            <field name="name">PUSH BUTTONS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_electrical_accessories"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_selector_switches" model="product.category">
+            <field name="name">SELECTOR SWITCHES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_electrical_accessories"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_electrical_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        SENSORS-->
+
+        <record id="category_temperature_sensors" model="product.category">
+            <field name="name">TEMPERATURES SENSORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_sensors"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_pressure_sensors" model="product.category">
+            <field name="name">PRESSURE SENSORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_sensors"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_level_sensors" model="product.category">
+            <field name="name">LEVEL SENSORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_sensors"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_flow_sensors" model="product.category">
+            <field name="name">FLOW SENSORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_sensors"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_position_sensors" model="product.category">
+            <field name="name">POSITION SENSORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_sensors"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        SWITCHES-->
+
+        <record id="category_temperature_switches" model="product.category">
+            <field name="name">TEMPERATURES SWITCHES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_switches"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_pressure_switches" model="product.category">
+            <field name="name">PRESSURE SWITCHES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_switches"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_level_switches" model="product.category">
+            <field name="name">LEVEL SWITCHES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_switches"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_flow_switches" model="product.category">
+            <field name="name">FLOW SWITCHES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_switches"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_limit_switches" model="product.category">
+            <field name="name">LIMIT SWITCHES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_switches"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--TRANSMITTERS-->
+
+        <record id="category_pressure_transmitters" model="product.category">
+            <field name="name">PRESSURE TRANSMITTERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_transmitters"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_temp_transmitters" model="product.category">
+            <field name="name">TEMP TRANSMITTERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_transmitters"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_level_transmitters" model="product.category">
+            <field name="name">LEVEL TRANSMITTERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_transmitters"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_flow_transmitters" model="product.category">
+            <field name="name">FLOW TRANSMITTERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_transmitters"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        ACTUATORS-->
+
+        <record id="category_valves" model="product.category">
+            <field name="name">VALVES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_actuators"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_motors" model="product.category">
+            <field name="name">MOTORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_actuators"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_solenoids" model="product.category">
+            <field name="name">SOLENOIDS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_actuators"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_hydraulic_actuators" model="product.category">
+            <field name="name">HYDRAULIC ACTUATORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_actuators"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_pneumatic_actuators" model="product.category">
+            <field name="name">PNEUMATIC ACTUATORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_actuators"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        CONTROLLERS-->
+
+        <record id="category_plc" model="product.category">
+            <field name="name">PROGRAMMABLE LOGIC CONTROLLER (PLC)</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_hmi" model="product.category">
+            <field name="name">HUMAN MACHINE INTERFACE (HMI)</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_dcs" model="product.category">
+            <field name="name">DISTRIBUTED CONTROL SYSTEM (DCS)</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_on_off_controllers" model="product.category">
+            <field name="name">ON/OFF CONTROLLERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_proportional_controllers" model="product.category">
+            <field name="name">PROPORTIONAL CONTROLLERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_pid" model="product.category">
+            <field name="name">PROPORTIONAL INTEGRAL DERIVATIVE (PID)</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_alarm_annumciators" model="product.category">
+            <field name="name">ALARM ANNUMCIATORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_relays" model="product.category">
+            <field name="name">RELAYS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_positioners_and_regulators" model="product.category">
+            <field name="name">POSITIONERS &amp; REGULATORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_convertors" model="product.category">
+            <field name="name">CONVERTORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_controllers"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        GAUGES, INDICATORS & RECORDERS-->
+
+        <record id="category_pressure_gauges" model="product.category">
+            <field name="name">PRESSURE GAUGES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_gauges_indicators_recorders"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_temp_gauges" model="product.category">
+            <field name="name">TEMP GAUGES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_gauges_indicators_recorders"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_pressure_indicators" model="product.category">
+            <field name="name">PRESSURE INDICATORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_gauges_indicators_recorders"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_temp_indicators" model="product.category">
+            <field name="name">TEMP INDICATORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_gauges_indicators_recorders"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_pressure_recorders" model="product.category">
+            <field name="name">PRESSURE RECORDERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_gauges_indicators_recorders"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_temp_recorders" model="product.category">
+            <field name="name">TEMP RECORDERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_gauges_indicators_recorders"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        CALIBRATORS-->
+
+        <record id="category_pressure_calibrators" model="product.category">
+            <field name="name">PRESSURE CALIBRATORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_calibrators"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_temp_calibrators" model="product.category">
+            <field name="name">TEMP CALIBRATORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_calibrators"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_measuring_control_instruments"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        NAVIGATION -->
+
+        <record id="category_dp_system" model="product.category">
+            <field name="name">DP System</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_svdr" model="product.category">
+            <field name="name">SVDR</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_radar" model="product.category">
+            <field name="name">RADAR</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_navtex" model="product.category">
+            <field name="name">NAVTEX</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_dgps_and_gps" model="product.category">
+            <field name="name">DGPS &amp; GPS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_icdis" model="product.category">
+            <field name="name">ICDIS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_sart" model="product.category">
+            <field name="name">SART</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_epirb" model="product.category">
+            <field name="name">EPIRB</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_lirt" model="product.category">
+            <field name="name">LIRT</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_autopilot" model="product.category">
+            <field name="name">AUTOPILOT</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_speed_log" model="product.category">
+            <field name="name">SPEED LOG</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_echo_sounder" model="product.category">
+            <field name="name">ECHO SOUNDER</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_ruddle_angle_indicators" model="product.category">
+            <field name="name">RUDDLE ANGLE INDICATOR</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_wind_indicators" model="product.category">
+            <field name="name">WIND INDICATOR</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_nav_accessories" model="product.category">
+            <field name="name">NAV ACCESSORIES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_navigation"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_navigation_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--         COMMUNICATIONS-->
+
+        <record id="category_vsat" model="product.category">
+            <field name="name">VSAT</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_communications"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_communication_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_sound_powered_telephone" model="product.category">
+            <field name="name">SOUND POWERED TELEPHONE</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_communications"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_communication_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_marine_telephone" model="product.category">
+            <field name="name">MARINE TELEPHONE</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_communications"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_communication_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_intercom_telephone" model="product.category">
+            <field name="name">INTERCOM TELEPHONE</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_communications"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_communication_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_pa_and_ga" model="product.category">
+            <field name="name">PA &amp; GA</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_communications"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_communication_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_loud_hailer" model="product.category">
+            <field name="name">LOUD HAILER</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_communications"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_communication_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_vhf_uhf" model="product.category">
+            <field name="name">VHF &amp; UHF</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_communications"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_communication_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_mf_hf" model="product.category">
+            <field name="name">MF &amp; HF</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_communications"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_communication_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_cctv" model="product.category">
+            <field name="name">CCTV</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_communications"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_communication_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_communication_accessories" model="product.category">
+            <field name="name">COMMUNICATION ACCESSORIES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_communications"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_communication_system"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--        LIFE SAVING APPLIANCES-->
+
+        <record id="category_life_rafts" model="product.category">
+            <field name="name">LIFE RAFTS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_life_boats" model="product.category">
+            <field name="name">LIFE BOATS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_rescue_boats" model="product.category">
+            <field name="name">RESCUE BOATS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_lifebouys" model="product.category">
+            <field name="name">LIFEBOUYS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_life_jackets" model="product.category">
+            <field name="name">LIFE JACKETS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_personal_locators_beacons" model="product.category">
+            <field name="name">PERSONAL LOCATORS BEACONS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_line_throwing_apparatus" model="product.category">
+            <field name="name">LINE THROWING APPARATUS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_pyrotechnics" model="product.category">
+            <field name="name">PYROTECHNICS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_las_accessories" model="product.category">
+            <field name="name">LSA ACCESSORIES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_scba" model="product.category">
+            <field name="name">SCBA</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_eebd" model="product.category">
+            <field name="name">EEBD</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_ba_compressor" model="product.category">
+            <field name="name">BA COMPRESSOR</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_air_purity_tester" model="product.category">
+            <field name="name">AIR PURITY TESTER</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_o2_resuscitator" model="product.category">
+            <field name="name">O2 RESUSCITATOR</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_ppe" model="product.category">
+            <field name="name">PPE</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_ba_accessories" model="product.category">
+            <field name="name">BA ACCESSORIES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_life_saving_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_life_saving_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <!--FIRE FIGHTING APPLIANCES-->
+
+        <record id="category_fixed_co2_system" model="product.category">
+            <field name="name">FIXED CO2 SYSTEM</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fire_fighting_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_fighting_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_sprinkler_system" model="product.category">
+            <field name="name">SPRINKLER SYSTEM</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fire_fighting_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_fighting_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_kitchen_suppressions" model="product.category">
+            <field name="name">KITCHEN SUPPRESSIONS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fire_fighting_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_fighting_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fire_extinguishers" model="product.category">
+            <field name="name">FIRE EXTINGUISHERS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fire_fighting_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_fighting_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fire_hozes_nozzles" model="product.category">
+            <field name="name">FIRE HOZES &amp; NOZZLES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fire_fighting_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_fighting_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fire_blankets" model="product.category">
+            <field name="name">FIRE BLANKETS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fire_fighting_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_fighting_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fire_pumps" model="product.category">
+            <field name="name">FIRE PUMPS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fire_fighting_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_fighting_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fire_monitors" model="product.category">
+            <field name="name">FIRE MONITORS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fire_fighting_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_fighting_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fire_cabins" model="product.category">
+            <field name="name">FIRE CABINS</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fire_fighting_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_fighting_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+        <record id="category_fire_accessories" model="product.category">
+            <field name="name">FIRE ACCESSORIES</field>
+            <field name="parent_id" ref="kg_voyage_marine_inventory.category_fire_fighting_appliances"/>
+            <field name="product_group_id" ref="kg_voyage_marine_inventory.group_fire_fighting_appliances"/>
+            <field name="no_delete">False</field>
+        </record>
+
+
+    </data>
+</odoo>

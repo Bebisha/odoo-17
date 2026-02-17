@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- hr resignation form view-->
+    <record id="hr_resignation_form_view_id" model="ir.ui.view">
+        <field name="name">hr.resignation.form.view</field>
+        <field name="model">hr.resignation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_print_pdf" type="object" class="btn btn-primary" string="Print PDF"/>
+                </header>
+                <sheet>
+                    <h2>
+                        <field name="name" placeholder="Reference"/>
+                    </h2>
+                    <separator/>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="contract_id"/>
+                            <field name="total_service"/>
+                            <field name="is_pending_sal" invisible="True"/>
+                            <field name="total_payable_ot_hours" invisible="0"/>
+                            <field name="pending_salary" invisible="0"/>
+                            <field name="gratuity_amount" invisible="0"/>
+                        </group>
+                        <group>
+                            <field name="date_join"/>
+                            <field name="date_last_working"/>
+                            <label for="working_days" string="Working Days"/>
+                            <div class="o_row mw-50" name="total_sal">
+                                <field name="working_days" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                                <div class="mb-3" name="working_days_label">Days</div>
+                            </div>
+                            <field name="pending_leave_sal_days" invisible="0"/>
+                            <field name="annual_leave_pay" invisible="0"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Earnings and Deductions">
+                            <field name="e_and_d_line_ids">
+                                <tree create="False">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="input_type_id"/>
+                                    <field name="salary_rule_id"/>
+                                    <field name="balance" sum="Total"/>
+                                    <field name="amount" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <button name="action_compute" type="object" class="btn btn-primary" string="Compute"
+                            invisible="not is_pending_sal"/>
+                </sheet>
+
+                <!-- Adding Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- hr resignation tree view-->
+    <record id="hr_resignation_tree_view_id" model="ir.ui.view">
+        <field name="model">hr.resignation</field>
+        <field name="name">hr.resignation.tree.view</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="date_join"/>
+                <field name="date_last_working"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

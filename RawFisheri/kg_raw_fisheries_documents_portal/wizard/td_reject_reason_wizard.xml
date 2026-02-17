@@ -1,0 +1,29 @@
+<odoo>
+    
+     <record id="view_td_reject_reason_wizard_form" model="ir.ui.view">
+        <field name="name">td.reject.reason.wizard.form</field>
+        <field name="model">td.reject.reason.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Reject Reason">
+                <group>
+                    <field name="td_id" readonly="1"/>
+                    <field name="td_line_id" readonly="1"/>
+                    <field name="reason" placeholder="Enter Reject reason here..."/>
+                </group>
+                <footer>
+                    <button name="action_submit_reject" type="object" string="Submit" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_td_reject_reason_wizard" model="ir.actions.act_window">
+        <field name="name">Reject Reason</field>
+        <field name="res_model">td.reject.reason.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'active_id': active_id}</field>
+    </record>
+
+</odoo>

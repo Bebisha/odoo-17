@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="vessel_code_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Vessel</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">vessel.code</field>
+
+    </record>
+    <record id="vessel_code_tree" model="ir.ui.view">
+        <field name="name">vessel.code.tree.views</field>
+        <field name="model">vessel.code</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Vessel name"/>
+                <field name="code"/>
+                <field name="imo_number"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="vessel_code_form" model="ir.ui.view">
+        <field name="name">vessel.code.views</field>
+        <field name="model">vessel.code</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" string="Vessel name"/>
+                            <field name="code"/>
+                            <field name="imo_number"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="vessel_code_search" model="ir.ui.view">
+        <field name="name">vessel.code.search</field>
+        <field name="model">vessel.code</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Vessel Name"/>
+                <field name="code" string="Code"/>
+                <field name="imo_number" string="IMO Number"/>
+                <filter string="Has IMO Number" name="imo_number" domain="[('imo_number', '!=', False)]"/>
+                <filter string="No IMO Number" name="imo_number" domain="[('imo_number', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="IMO Number" name="imo_number" context="{'group_by': 'imo_number'}"/>
+                    <filter string="Code" name="code" context="{'group_by': 'code'}"/>
+                    <filter string="Vessel Name" name="name" context="{'group_by': 'name'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+    <menuitem id="vessel_code_menu"
+              action="vessel_code_action"
+              name="Vessel"
+              parent="sale.menu_sales_config"
+              sequence="12"/>
+    <!--              parent="crm.crm_menu_config"/>-->
+
+
+</odoo>

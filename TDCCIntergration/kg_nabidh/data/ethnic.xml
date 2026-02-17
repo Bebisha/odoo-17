@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ethnic Group Master Data -->
+    <data noupdate="1">
+
+        <record id="ethinic_whi" model="ethinic.form">
+            <field name="code">WHI</field>
+            <field name="name">White people</field>
+        </record>
+
+        <record id="ethinic_afr" model="ethinic.form">
+            <field name="code">AFR</field>
+            <field name="name">African Americans</field>
+        </record>
+
+        <record id="ethinic_jew" model="ethinic.form">
+            <field name="code">JEW</field>
+            <field name="name">Jewish people</field>
+        </record>
+
+        <record id="ethinic_ame" model="ethinic.form">
+            <field name="code">AME</field>
+            <field name="name">Americans</field>
+        </record>
+
+        <record id="ethinic_ala" model="ethinic.form">
+            <field name="code">ALA</field>
+            <field name="name">Alaska Natives</field>
+        </record>
+
+        <record id="ethinic_rmp" model="ethinic.form">
+            <field name="code">RMP</field>
+            <field name="name">Romani people</field>
+        </record>
+
+        <record id="ethinic_ami" model="ethinic.form">
+            <field name="code">AMI</field>
+            <field name="name">American Indian group</field>
+        </record>
+
+        <record id="ethinic_irp" model="ethinic.form">
+            <field name="code">IRP</field>
+            <field name="name">Irish people</field>
+        </record>
+
+        <record id="ethinic_nat" model="ethinic.form">
+            <field name="code">NAT</field>
+            <field name="name">Native Hawaiians</field>
+        </record>
+
+        <record id="ethinic_iri" model="ethinic.form">
+            <field name="code">IRI</field>
+            <field name="name">Irish Travellers</field>
+        </record>
+
+        <record id="ethinic_bri" model="ethinic.form">
+            <field name="code">BRI</field>
+            <field name="name">British Bangladeshi</field>
+        </record>
+
+        <record id="ethinic_han" model="ethinic.form">
+            <field name="code">HAN</field>
+            <field name="name">Han Chinese</field>
+        </record>
+
+        <record id="ethinic_tur" model="ethinic.form">
+            <field name="code">TUR</field>
+            <field name="name">Turkic peoples</field>
+        </record>
+
+        <record id="ethinic_mex" model="ethinic.form">
+            <field name="code">MEX</field>
+            <field name="name">Mexicans</field>
+        </record>
+
+        <record id="ethinic_asi" model="ethinic.form">
+            <field name="code">ASI</field>
+            <field name="name">Asian people</field>
+        </record>
+
+        <record id="ethinic_uyg" model="ethinic.form">
+            <field name="code">UYG</field>
+            <field name="name">Uyghurs</field>
+        </record>
+
+        <record id="ethinic_pue" model="ethinic.form">
+            <field name="code">PUE</field>
+            <field name="name">Puerto Ricans</field>
+        </record>
+
+        <record id="ethinic_kur" model="ethinic.form">
+            <field name="code">KUR</field>
+            <field name="name">Kurds</field>
+        </record>
+
+        <record id="ethinic_ipa" model="ethinic.form">
+            <field name="code">IPA</field>
+            <field name="name">Indigenous peoples of the Americas</field>
+        </record>
+
+        <record id="ethinic_ban" model="ethinic.form">
+            <field name="code">BAN</field>
+            <field name="name">Bangladeshi</field>
+        </record>
+
+        <record id="ethinic_kor" model="ethinic.form">
+            <field name="code">KOR</field>
+            <field name="name">Koreans</field>
+        </record>
+
+        <record id="ethinic_ber" model="ethinic.form">
+            <field name="code">BER</field>
+            <field name="name">Berbers</field>
+        </record>
+
+        <record id="ethinic_pas" model="ethinic.form">
+            <field name="code">PAS</field>
+            <field name="name">Pashtun</field>
+        </record>
+
+        <record id="ethinic_cir" model="ethinic.form">
+            <field name="code">CIR</field>
+            <field name="name">Circassians</field>
+        </record>
+
+        <record id="ethinic_pam" model="ethinic.form">
+            <field name="code">PAM</field>
+            <field name="name">Pamiris</field>
+        </record>
+
+        <record id="ethinic_ass" model="ethinic.form">
+            <field name="code">ASS</field>
+            <field name="name">Assyrian people</field>
+        </record>
+
+        <record id="ethinic_arm" model="ethinic.form">
+            <field name="code">ARM</field>
+            <field name="name">Armenians</field>
+        </record>
+
+        <record id="ethinic_bal" model="ethinic.form">
+            <field name="code">BAL</field>
+            <field name="name">Baloch people</field>
+        </record>
+
+        <record id="ethinic_pal" model="ethinic.form">
+            <field name="code">PAL</field>
+            <field name="name">Palestinians</field>
+        </record>
+
+        <record id="ethinic_mon" model="ethinic.form">
+            <field name="code">MON</field>
+            <field name="name">Mongols</field>
+        </record>
+
+        <record id="ethinic_ind" model="ethinic.form">
+            <field name="code">IND</field>
+            <field name="name">Indo-Aryan peoples</field>
+        </record>
+
+        <record id="ethinic_haz" model="ethinic.form">
+            <field name="code">HAZ</field>
+            <field name="name">Hazaras</field>
+        </record>
+
+        <record id="ethinic_uzb" model="ethinic.form">
+            <field name="code">UZB</field>
+            <field name="name">Uzbeks</field>
+        </record>
+
+        <record id="ethinic_alb" model="ethinic.form">
+            <field name="code">ALB</field>
+            <field name="name">Albanians</field>
+        </record>
+
+        <record id="ethinic_ara" model="ethinic.form">
+            <field name="code">ARA</field>
+            <field name="name">Arabs</field>
+        </record>
+
+        <record id="ethinic_sin" model="ethinic.form">
+            <field name="code">SIN</field>
+            <field name="name">Sindhis</field>
+        </record>
+
+        <record id="ethinic_hmo" model="ethinic.form">
+            <field name="code">HMO</field>
+            <field name="name">Hmong people</field>
+        </record>
+
+        <record id="ethinic_kaz" model="ethinic.form">
+            <field name="code">KAZ</field>
+            <field name="name">Kazakhs</field>
+        </record>
+
+        <record id="ethinic_dra" model="ethinic.form">
+            <field name="code">DRA</field>
+            <field name="name">Dravidian peoples</field>
+        </record>
+
+        <record id="ethinic_tib" model="ethinic.form">
+            <field name="code">TIB</field>
+            <field name="name">Tibetan people</field>
+        </record>
+
+        <record id="ethinic_ams" model="ethinic.form">
+            <field name="code">AMS</field>
+            <field name="name">Amis people</field>
+        </record>
+
+        <record id="ethinic_lez" model="ethinic.form">
+            <field name="code">LEZ</field>
+            <field name="name">Lezgins</field>
+        </record>
+
+        <record id="ethinic_fij" model="ethinic.form">
+            <field name="code">FIJ</field>
+            <field name="name">Fijians</field>
+        </record>
+
+        <record id="ethinic_tat" model="ethinic.form">
+            <field name="code">TAT</field>
+            <field name="name">Tatars</field>
+        </record>
+
+        <record id="ethinic_bur" model="ethinic.form">
+            <field name="code">BUR</field>
+            <field name="name">Buryats</field>
+        </record>
+
+        <record id="ethinic_yaz" model="ethinic.form">
+            <field name="code">YAZ</field>
+            <field name="name">Yazidis</field>
+        </record>
+
+        <record id="ethinic_mes" model="ethinic.form">
+            <field name="code">MES</field>
+            <field name="name">Mestizo</field>
+        </record>
+
+        <record id="ethinic_leb" model="ethinic.form">
+            <field name="code">LEB</field>
+            <field name="name">Lebanese people</field>
+        </record>
+
+        <record id="ethinic_taj" model="ethinic.form">
+            <field name="code">TAJ</field>
+            <field name="name">Tajiks</field>
+        </record>
+
+        <record id="ethinic_yao" model="ethinic.form">
+            <field name="code">YAO</field>
+            <field name="name">Yao people</field>
+        </record>
+
+        <record id="ethinic_rom" model="ethinic.form">
+            <field name="code">ROM</field>
+            <field name="name">Romanians</field>
+        </record>
+
+        <record id="ethinic_unk" model="ethinic.form">
+            <field name="code">UNK</field>
+            <field name="name">Unknown</field>
+        </record>
+
+    </data>
+</odoo>

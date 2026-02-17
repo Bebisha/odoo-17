@@ -1,0 +1,16 @@
+<odoo>
+    <record model="ir.ui.view" id="kg_view_inherited_view_partner_property_form">
+        <field name="name">kg.res.partner.account.form.inherit</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='bank_ids']/tree/field[@name='bank_id']" position="after">
+                <field name="currency_id"/>
+                <field name="is_correspondent_bank"/>
+            </xpath>
+            <xpath expr="//field[@name='bank_ids']/tree/field[@name='allow_out_payment']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

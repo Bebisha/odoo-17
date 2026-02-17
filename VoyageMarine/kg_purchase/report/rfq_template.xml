@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="voyage_report_purchase_quotation_document">
+        <t t-call="kg_purchase.custom_external_layout_voyage">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+            <div class="page">
+                <t t-if="doc.company_id.vat">
+                    <table width="100%" style="margin-top: 10px;" class="table-borderless">
+                        <tr>
+                            <td style="width: 100%; font-size: 14px;padding-bottom:10px;" align="right">
+                                <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                                <span style="font-size: 14px; font-weight: bold; margin-left: 5px;"
+                                      t-esc="doc.company_id.vat"/>
+                            </td>
+                        </tr>
+                    </table>
+                </t>
+                <div class="oe_structure" style="margin:0"/>
+                <h2 t-if="doc.state in ['draft', 'sent', 'to approve']"
+                    style="color:black;text:bold;text-align: right;font-size: 2em;">Request for
+                    Quotation
+                </h2>
+                <h2 t-if="doc.state in ['purchase', 'done']"
+                    style="color:black;text:bold;text-align: right;font-size: 2em;">
+                    Request for Quotation
+                </h2>
+                <h2 t-if="doc.state == 'cancel'"
+                    style="color:black;text:bold;text-align: right;font-size: 2em;">Cancelled
+                    Purchase Order
+                </h2>
+                <div class="row">
+                    <div class="col-8" style="padding-left:3%; font-size: 12px;">
+                        <span>To:</span>
+                        <t t-if="doc.partner_id">
+                            <span t-field="doc.partner_id.name"
+                                  style="font-size: 14px; font-weight: bold;"/>
+                            <br/>
+                            <t t-if="doc.partner_id.street">
+                                <span style="padding-left:6%" t-field="doc.partner_id.street"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_id.street2">
+                                <span style="padding-left:6%" t-field="doc.partner_id.street2"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_id.city">
+                                <span style="padding-left:6%" t-field="doc.partner_id.city"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_id.country_id">
+                                <span style="padding-left:6%" t-field="doc.partner_id.country_id.name"/>
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <span t-field="doc.x_new_vendor_remark"
+                                  style="font-size: 12px; font-weight: bold;"/>
+                        </t>
+                    </div>
+                    <br/>
+                    <t t-if="doc.state in ['draft', 'sent', 'to approve']">
+                        <div class="col-4" style="text-align: right; font-size: 12px;">
+                            <div style="color: black; font-weight: bold;">
+                                RFQ No:
+                                <t t-esc="doc.rfq_ref"/>
+                            </div>
+                            <div style="color: black; padding-top: 10px;">
+                                Date:
+                                <t t-esc="doc.date_order" t-options="{'widget': 'date', 'format': 'dd/MM/YYYY'}"/>
+                            </div>
+                            <br/>
+                        </div>
+                    </t>
+                    <t t-if="doc.state in ['purchase','done']">
+                        <div class="col-4 text-right;font-size: 12px;;">
+
+                            <div style="color:black;text:bold;text-align: right">
+                                PO No. :
+                                <t t-esc="doc.name"/>
+                            </div>
+                            <div style="color:black;text:bold;text-align: right;padding-top:10px;">
+                                RFQ No. :
+                                <t t-esc="doc.rfq_ref"/>
+                            </div>
+                            <div style="color:black;text-align: right;padding-top:10px;">
+                                Date :
+                                <t t-esc="doc.date_order" t-options="{'widget': 'date', 'format': 'dd/MM/YYYY'}"/>
+                            </div>
+                            <br/>
+
+                        </div>
+                    </t>
+                </div>
+                <br/>
+                <br/>
+
+                <div class="row" style="padding: 20px 0; min-height: 200px;">
+
+                    <div class="col-6" style="font-size: 14px;">
+                        <span>Ship to:
+                            <span style="font-size: 14px; font-weight: bold;">Voyage Marine Automation LLC</span>
+                        </span>
+                        <br/>
+
+                        <p style="padding-left:12%; margin: 8px 0;">PO Box: 20070, Ajman, UAE</p>
+                        <p style="padding-left:12%; margin: 8px 0;">Person in Contact: Fabin</p>
+                        <p style="padding-left:12%; margin: 8px 0;">Email: stores@voyagemarine.ae</p>
+                        <p style="padding-left:12%; margin: 8px 0;">Phone: +971 55 100000</p>
+                    </div>
+
+                    <div class="col-6" style="padding-left:10%;font-size: 14px;">
+                        <p style="margin: 8px 0;">
+                            Your Ref:
+                            <t t-esc="doc.partner_ref or 'N/A'"/>
+                        </p>
+                        <p style="margin: 8px 0;">
+                            Delivery Date:
+                            <t t-if="doc.date_planned">
+                                <t t-esc="doc.date_planned.strftime('%d/%m/%Y')"/>
+
+                            </t>
+                        </p>
+                        <p style="margin: 8px 0;">
+                            Delivery Terms:
+                            <t t-esc="doc.delivery_terms_id.name or 'N/A'"/>
+                        </p>
+                        <p style="margin: 8px 0;">
+                            Payment Terms:
+                            <t t-esc="doc.payment_term_id.name or 'N/A'"/>
+                        </p>
+                    </div>
+
+                </div>
+                <br/>
+                <br/>
+                <table class="table-borderless"
+                       style="width: 100%;font-size: 14px;">
+                    <thead>
+                        <tr>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">Sl
+                                No.
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;text-align: left;">
+                                Description
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                Expected Date
+                            </th>
+                            <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                Qty
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="counter" t-value="1"/>
+                        <t t-foreach="doc.order_line" t-as="line">
+                            <t t-if="'Down Payment' not in (line.name or '')">
+                                <tr>
+                                    <td style="border-bottom: .5px solid black; text-align: center; padding: 10px;">
+                                        <t t-esc="counter"/>
+                                        <t t-set="counter" t-value="counter + 1"/>
+                                    </td>
+                                    <td style="border-bottom: .5px solid black;text-align: left; padding: 10px;">
+                                        <t t-esc="line.name"/>
+                                    </td>
+                                    <td style="border-bottom: .5px solid black;text-align: center; padding: 10px;">
+                                        <t t-if="line.date_planned">
+                                            <t t-esc="line.date_planned.strftime('%Y-%m-%d')"/>
+                                        </t>
+                                    </td>
+                                    <td style="border-bottom: .5px solid black; text-align: center; padding: 10px;">
+                                        <t t-esc="line.product_qty"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+                <br/>
+                <br/>
+                <table style="width: 100%; font-size: 14px; border-collapse: collapse; margin-top: 10px;"
+                       class="table table-borderless">
+                    <tr>
+                        <td style="font-weight: bold; width: 15%; vertical-align: top;">
+                            <u>RFQ Note:</u>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="font-size: 14px; text-align: justify;">
+                            <t t-if="doc.rfq_note">
+                                <t t-raw="doc.rfq_note"/>
+                            </t>
+<!--                            <t t-else="">-->
+<!--                                Please ensure all items are delivered in good condition-->
+<!--                                and meet the specifications listed. If there are any issues or delays,-->
+<!--                                contact us immediately at-->
+<!--                                <a href="mailto:purchase@voyagemarine.ae">-->
+<!--                                    <strong>purchase@voyagemarine.ae</strong>-->
+<!--                                </a>-->
+<!--                                .-->
+<!--                            </t>-->
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <div style="width: 100%;font-size: 14px;">
+                    <p>Please confirm receipt of this purchase order and provide an estimated delivery date at your
+                        earliest convenience
+                    </p>
+                    <p>Thank you for your prompt attention to this order.</p>
+                </div>
+
+                <table style="width:100%;font-size:14px;" class="table table-borderless">
+                    <t t-set="style_keep_together" t-value="'page-break-inside: avoid;'"/>
+                    <tbody t-attf-style="#{style_keep_together}">
+                        <tr width="100%">
+                            <td width="30%" align="left">
+                                <span t-field="doc.create_uid.name"/>
+                                <t t-if="doc.create_uid.partner_id.phone">
+                                    <br/>
+                                    <span t-field="doc.create_uid.partner_id.phone"/>
+                                </t>
+                                <t t-if="doc.create_uid.employee_id.job_id">
+                                    <br/>
+                                    <span t-field="doc.create_uid.employee_id.job_id.name"/>
+                                </t>
+                            </td>
+                            <td width="5%"/>
+                            <td width="30%" align="left">
+                                <t t-if="doc.pm_approver_id">
+                                    <t t-foreach="doc.pm_approver_id" t-as="pm">
+                                        <span t-field="pm.name"/>
+                                        <t t-if="pm.phone">
+                                            <br/>
+                                            <span t-field="pm.phone"/>
+                                        </t>
+                                        <t t-if="pm.employee_id.job_id">
+                                            <br/>
+                                            <span t-field="pm.employee_id.job_id.name"/>
+                                        </t>
+                                    </t>
+                                </t>
+                            </td>
+                            <td width="5%"/>
+                            <td width="30%" align="left">
+                                <t t-if="doc.dep_approver_id">
+                                    <t t-foreach="doc.dep_approver_id" t-as="dp">
+                                        <span t-field="dp.name"/>
+                                        <t t-if="dp.phone">
+                                            <br/>
+                                            <span t-field="dp.phone"/>
+                                        </t>
+                                        <t t-if="dp.employee_id.job_id">
+                                            <br/>
+                                            <span t-field="dp.employee_id.job_id.name"/>
+                                        </t>
+                                    </t>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="33.3%" align="left"
+                                style="border-bottom: 1pt solid black;"/>
+                            <td width="33.3%"/>
+                            <td width="33.3%" align="left"
+                                style="border-bottom: 1pt solid black;"/>
+                            <!--                            <td width="5%"/>-->
+                            <!--                            <td width="30%" align="left"-->
+                            <!--                                style="border-bottom: 1pt solid black;"/>-->
+                        </tr>
+                        <tr width="100%">
+                            <td width="33.3%" align="left">
+                                <span>Prepared by : Purchase Dept</span>
+                            </td>
+                            <td width="33.3%"/>
+                            <td width="33.3%" align="left">
+                                <span>Approved by : Purchase Manager</span>
+                            </td>
+                            <!--                            <td width="5%"/>-->
+                            <!--                            <td width="30%" align="left">-->
+                            <!--                                <span>Notified by Accounts Dept</span>-->
+                            <!--                            </td>-->
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+                <br/>
+                <div style="width: 100%;font-weight: bold;font-size: 14px;">
+                    <u>Terms &amp; Condition:</u>
+                    <br/>
+                    <t t-if="doc.notes">
+                        <p style="font-size: 14px; margin: 0;">
+                            <t t-esc="doc.notes"/>
+                        </p>
+                    </t>
+                    <t t-else="">
+                        <span style="text-align:justify;">
+                            <i>
+                                A)This purchase order is issued to the above-mentioned address/vendor for the supply of
+                                the specified items/materials and/or the performance of the designated services and/or
+                                work.
+                                <br/>
+                                B) This purchase order can only be amended or modified through a written agreement
+                                executed by Voyage.
+                                <br/>
+                                C) General Terms and condition shall apply for this order agreement.
+                            </i>
+                        </span>
+                    </t>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <!--            <p align="right" style="font-size: 12px;">-->
+            <!--                <i>**General Terms &amp; Condition shall apply</i>-->
+            <!--            </p>-->
+            <!--            <div style="position: fixed;bottom: 0;right: 0;padding: 10px 15px;font-size: 12px;background-color: white; color: black;">-->
+            <!--                                <p align="right" style="font-size: 12px;"><i>**General Terms &amp; Condition shall apply</i></p>-->
+            <!--                            </div>-->
+            <!--            <br/>-->
+        </t>
+    </template>
+
+    <template id="voyage_report_purchase_quotation">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="kg_purchase.voyage_report_purchase_quotation_document"
+                   t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="custom_external_layout_voyage_rfq">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div class="header o_company_#{company.id}_layout" style="font-size: 14px;">
+            <div class="row mb8"
+                 style="font-size: 14px;display: flex; justify-content: space-between; align-items: right;">
+                <div class="col-4" style="text-align: left;">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height:200px;"
+                         alt="Logo"/>
+                </div>
+                <div class="col-2" style="text-align: center;">
+                </div>
+
+                <div class="col-6 text-end">
+                    <p t-if="doc and doc.company_id" style="margin: 0; padding: 0;">
+                        <t style="font-size: 14px; font-weight: bold;" t-if="doc.company_id.name"
+                           t-esc="doc.company_id.name"/>
+                        <br/>
+                        <t t-if="doc.company_id.phone" t-esc="doc.company_id.phone"/>
+                        <i class="fa fa-phone" aria-hidden="true"
+                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                        <br/>
+                        <t t-if="doc.company_id.mobile" t-esc="doc.company_id.mobile"/>
+                        <i class="fa fa-fax" aria-hidden="true"
+                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                        <br/>
+                        <t t-if="doc.company_id.email" t-esc="doc.company_id.email"/>
+                        <i class="fa fa-envelope" aria-hidden="true"
+                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                        <br/>
+                        PO box:
+                        <t t-if="doc.company_id.zip" t-esc="doc.company_id.zip"/>
+                        <t t-if="doc.company_id.city" t-esc="doc.company_id.city"/>
+                        <t style="padding-right:15px" t-if="doc.company_id.country_id.name"
+                           t-esc="doc.company_id.country_id.name"/>
+                        <i class="fa fa-map-marker" aria-hidden="true"
+                           style="margin-left: 5px;border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+
+                        <br/>
+                        <!--                        TRN:-->
+                        <!--                        <t style="font-size: 12px;" t-if="doc.company_id.vat" t-esc="doc.company_id.vat"/>-->
+                    </p>
+                </div>
+            </div>
+            <div style="border-bottom: 1px solid black; margin: 0; padding: -2px;"/>
+        </div>
+        <table width="100%" style="margin-top: 10px;">
+            <tr>
+                <td style="width: 100%; font-size: 14px;" align="right">
+                    <t t-if="doc.company_id.vat">
+                        <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                        <span style="font-size: 14px; font-weight: bold; margin-left: 5px;" t-esc="doc.company_id.vat"/>
+                    </t>
+                </td>
+            </tr>
+        </table>
+
+
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+             t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="pt-5">
+                <t t-call="web.address_layout"/>
+            </div>
+            <t t-out="0"/>
+        </div>
+
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div style="font-size:11px" class="last-page">
+                <p align="right">**General Terms &amp; Condition Shall apply**</p>
+            </div>
+            <div style="text-align: center;margin:0">
+                <p t-if="doc.company_id.website" style="font-size: 12px;" t-esc="doc.company_id.website"/>
+            </div>
+            <div style="border-top: 1px solid black;margin:0 ">
+                <table width="100%" class="table table-borderless table-sm">
+                    <tr>
+                        <td width="100%">
+                            <div style="text-align: left;font-size:14px">
+                                A professional Supplier and Service provider for All Electrical &amp; Instrumentation,
+                                Automation
+                                &amp; Control, Fire &amp; Safety,
+                                Navigation and Communication and Calibration requirements for Marine, Oil &amp; Gas and
+                                Energy
+                                Industry.
+                            </div>
+                        </td>
+                        <!--                        <td width="25%">-->
+                        <!--                            <div style="text-align: right; ">-->
+                        <!--                                <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"-->
+                        <!--                                     style="max-height: 40px;" alt="Logo"/>-->
+                        <!--                            </div>-->
+                        <!--                        </td>-->
+                    </tr>
+                </table>
+
+
+            </div>
+
+            <div t-if="report_type == 'pdf'" style="color:black; text-align: center;">
+                Page:
+                <span class="page"/>
+                of
+                <span class="topage"/>
+            </div>
+            <br/>
+        </div>
+
+
+    </template>
+</odoo>
+
+

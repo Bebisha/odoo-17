@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="ir_seq_hr_loan" model="ir.sequence">
+            <field name="name">Earnings And Deductions</field>
+            <field name="code">hr.deduction.seq</field>
+            <field name="prefix">DR/</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+        </record>
+
+    </data>
+</odoo>

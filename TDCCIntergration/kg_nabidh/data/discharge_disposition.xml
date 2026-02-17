@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Discharge Disposition Master Data -->
+    <data noupdate="1">
+
+        <record id="discharge_disposition_abd" model="discharge.disposition">
+            <field name="code">ABD</field>
+            <field name="name">Absconded</field>
+        </record>
+
+        <record id="discharge_disposition_did" model="discharge.disposition">
+            <field name="code">DID</field>
+            <field name="name">Death In Department</field>
+        </record>
+
+        <record id="discharge_disposition_dec" model="discharge.disposition">
+            <field name="code">DEC</field>
+            <field name="name">Deceased</field>
+        </record>
+
+        <record id="discharge_disposition_dwo" model="discharge.disposition">
+            <field name="code">DWO</field>
+            <field name="name">Discharged Absent w/o Leave</field>
+        </record>
+
+        <record id="discharge_disposition_dam" model="discharge.disposition">
+            <field name="code">DAM</field>
+            <field name="name">Discharged Against Medical Advice</field>
+        </record>
+
+        <record id="discharge_disposition_dta" model="discharge.disposition">
+            <field name="code">DTA</field>
+            <field name="name">Discharged Transfer to Acute Care</field>
+        </record>
+
+        <record id="discharge_disposition_dtn" model="discharge.disposition">
+            <field name="code">DTN</field>
+            <field name="name">Discharged Transfer to Non-Acute Care</field>
+        </record>
+
+        <record id="discharge_disposition_dwi" model="discharge.disposition">
+            <field name="code">DWI</field>
+            <field name="name">Discharged w/ Approval</field>
+        </record>
+
+        <record id="discharge_disposition_doa" model="discharge.disposition">
+            <field name="code">DOA</field>
+            <field name="name">Dead on Arrival</field>
+        </record>
+
+        <record id="discharge_disposition_edd" model="discharge.disposition">
+            <field name="code">EDD</field>
+            <field name="name">ED Dismiss</field>
+        </record>
+
+        <record id="discharge_disposition_hom" model="discharge.disposition">
+            <field name="code">HOM</field>
+            <field name="name">Home</field>
+        </record>
+
+        <record id="discharge_disposition_lbr" model="discharge.disposition">
+            <field name="code">LBR</field>
+            <field name="name">Left before Registration/Payment</field>
+        </record>
+
+        <record id="discharge_disposition_dnr" model="discharge.disposition">
+            <field name="code">DNR</field>
+            <field name="name">Normal Discharge</field>
+        </record>
+
+        <record id="discharge_disposition_ndd" model="discharge.disposition">
+            <field name="code">NDD</field>
+            <field name="name">Not Discharged</field>
+        </record>
+
+        <record id="discharge_disposition_toh" model="discharge.disposition">
+            <field name="code">TOH</field>
+            <field name="name">Transfer to other Hospital</field>
+        </record>
+
+    </data>
+</odoo>

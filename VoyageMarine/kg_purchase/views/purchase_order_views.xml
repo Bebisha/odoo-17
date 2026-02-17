@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.view.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_button_box']" position="after">
+                <widget name="web_ribbon" title="Pending Approval" bg_color="text-bg-info"
+                        invisible="is_pm_approve != True or is_gm_approve == True"/>
+                <widget name="web_ribbon" title="Approved" bg_color="bg-success"
+                        invisible="is_gm_approve != True "/>
+                <widget name="web_ribbon" title="Approved" bg_color="bg-success"
+                        invisible="is_rfq_approve != True "/>
+            </xpath>
+
+
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="vessel_id"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                <field name="purchase_acknowledgment"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position='before'>
+                <field name="code" />
+                <field name="sale_id" optional="hide"
+                     />
+            </xpath>
+            <xpath expr="//notebook/page[@name='purchase_delivery_invoice']" position="inside">
+                <group>
+                    <field name="po_note"
+                           readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                    <field name="rfq_note"
+                           readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                <field name="project_ids" widget="many2many_tags"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                <field name="estimation_id"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                <field name="opportunity_id"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                <field name="shipping_documents_status"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                <field name="remarks" readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="get_sale" icon="fa-arrow-right"
+                        string="Sale Order" invisible="not so_ids"
+                        widget="statinfo">
+                </button>
+            </xpath>
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_id']"
+                   position="after">
+                <field name="image_1920" widget="image"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='name']"
+                   position="before">
+                <field name="product_code"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+            </xpath>
+            <field name="partner_id" position="after">
+                <field name="x_new_vendor_remark" placeholder="Please enter the vendor name as it is new."
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                <field name="po_type" readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                <field name="subcategory_id" invisible="1"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                <field name="vendor_group_id"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                <field name="rfq_ref" readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                <field name="rfq_id" invisible="1"/>
+
+                <field name="is_editable" invisible="1"/>
+                <field name="is_picking_created" invisible="1"/>
+                <field name="is_confirming" invisible="1"/>
+                <field name="scheduled_date" invisible="1"/>
+                <field name="freight_bill_ids" invisible="1" widget="many2many_tags"/>
+            </field>
+
+            <field name="origin" position="after">
+                <field name="so_ids" widget="many2many_tags"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+
+
+            </field>
+            <field name="picking_type_id" position="after">
+                <field name="purchase_type_id" readonly="state in ('purchase')" options="{'no_create': True}"/>
+                <field name="purchase_division_id" readonly="state in ('purchase')" options="{'no_create': True}"/>
+                <field name="code" invisible="1"/>
+            </field>
+            <xpath expr="//button[@name='button_confirm']" position="attributes">
+                <attribute name="invisible">state not in ['requested','pm_approved','gm_approved']</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='button_confirm']" position="before">
+
+                <field name="is_request" invisible="1"/>
+                <field name="is_pm_approve" invisible="1"/>
+                <field name="is_gm_approve" invisible="1"/>
+                <field name="is_rfq_approve" invisible="1"/>
+                <field name="is_reject" invisible="1"/>
+                <field name="need_tm_approve" invisible="1"/>
+
+                <button name="kg_request" type="object" string="Request for Approval"
+                        invisible="is_pm_approve == True or state not in ['draft','sent']"
+                        class="oe_highlight"/>
+
+                <button name="kg_pm_approve" type="object" string="Purchase Manager Approval"
+                        invisible="is_pm_approve == False or is_gm_approve == True"
+                        class="oe_highlight"/>
+                <button name="kg_gm_approve" type="object" string="Top Management Approval"
+                        invisible="is_gm_approve == False or is_rfq_approve == True"
+                        class="oe_highlight"/>
+                <button name="kg_reject" type="object" string="Reject"
+                        invisible="is_pm_approve == False or is_rfq_approve == True"
+                        class="oe_highlight"/>
+                <button name="action_preview_purchase_order" string="Preview" type="object" class="btn-secondary"/>
+
+            </xpath>
+            <xpath expr="//notebook/page[@name='purchase_delivery_invoice']/group/group[@name='invoice_info']"
+                   position="after">
+                <group name="kg_users" string="Approval Users">
+                    <field name="requested_by" readonly="1" force_save="1"/>
+                    <field name="verified_by" readonly="1" force_save="1"/>
+                    <field name="approved_by" readonly="1" force_save="1"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='notes']" position="before">
+                <field name="terms_conditions_id" options="{'no_create': True}"
+                       placeholder="Select Terms &amp; Conditions"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+            </xpath>
+
+
+            <xpath expr="//field[@name='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_id']"
+                   position="attributes">
+                <attribute name="required">0</attribute>
+                <attribute name="readonly">state in ['pm_approved','gm_approved','to approve','purchase','done']
+                </attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_qty']"
+                   position="attributes">
+                <attribute name="readonly">state in ['pm_approved','gm_approved','to approve','purchase','done']
+                </attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='price_unit']"
+                   position="attributes">
+                <attribute name="readonly">state in ['pm_approved','gm_approved','to approve','purchase','done']
+                </attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='taxes_id']"
+                   position="attributes">
+                <attribute name="readonly">state in ['pm_approved','gm_approved','to approve','purchase','done']
+                </attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_uom'][2]"
+                   position="attributes">
+                <attribute name="required">0</attribute>
+                <attribute name="readonly">state in ['pm_approved','gm_approved','to approve','purchase','done']
+                </attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='date_planned']"
+                   position="replace">
+                <field name="date_planned" optional="hide" force_save="1"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+            </xpath>
+
+            <xpath expr="//div[@name='reminder']" position="after">
+                <field name="pm_approver_id" widget="many2many_tags"
+                       readonly="state in ['requested', 'pm_approved','purchase']"/>
+                <field name="gm_approver_id" widget="many2many_tags"
+                       readonly="state in ['requested', 'pm_approved','purchase']"
+                       invisible="not need_tm_approve"/>
+            </xpath>
+
+
+            <xpath expr="//button[@name='action_rfq_send']" position="attributes">
+                <attribute name="invisible">state not in ['draft','requested','pm_approved','gm_approved']</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='date_planned']" position="attributes">
+                <attribute name="readonly">state not in ['draft','requested','pm_approved','gm_approved']</attribute>
+            </xpath>
+            <xpath expr="//field[@name='incoterm_id']" position="attributes">
+                <attribute name="readonly">state not in ['draft','requested','pm_approved','gm_approved']</attribute>
+            </xpath>
+            <xpath expr="//field[@name='incoterm_location']" position="attributes">
+                <attribute name="readonly">state not in ['draft','requested','pm_approved','gm_approved']</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="readonly">state not in ['draft','requested','pm_approved','gm_approved']</attribute>
+            </xpath>
+            <xpath expr="//button[@name='print_quotation']" position="attributes">
+                <attribute name="invisible">state not in ['draft','requested','pm_approved','gm_approved']</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='button_cancel']" position="attributes">
+                <attribute name="invisible">state not in ['draft', 'to approve', 'sent',
+                    'purchase','requested','pm_approved','gm_approved']
+                </attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_create_invoice']" position="after">
+                <button name="create_freight_bill" string="Create Freight Bill" type="object" class="oe_highlight"
+                        invisible="state not in ('purchase', 'done') or freight_bill_ids"
+                        data-hotkey="w"/>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="open_freight_bills" icon="fa-arrow-right"
+                        string="Freight Bills" invisible="not freight_bill_ids"
+                        widget="statinfo">
+                </button>
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <record id="kg_purchase_requisition" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase_requisition.purchase_order_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='requisition_id']" position="attributes">
+                <attribute name="readonly">state not in ['draft','requested','pm_approved','gm_approved']</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="kg_purchase_product_matrix_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.product.matrix.view.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase_product_matrix.purchase_order_form_matrix"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_template_id']"
+                   position="attributes">
+                <attribute name="required">0</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="menu_action_purchase_listing" model="ir.actions.act_window">
+        <field name="name">Purchase Listing</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order.line</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'create': False}</field>
+        <field name="view_id" ref="purchase.purchase_order_line_tree"/>
+    </record>
+
+    <menuitem id="kg_menu_purchase_listing" parent="purchase.purchase_report_main" action="menu_action_purchase_listing"
+              sequence="100"/>
+
+    <record id="kg_purchase_order_kpis_tree_inherit" model="ir.ui.view">
+        <field name="name">kg.purchase.order.kpis.tree.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+            <field name="date_planned" position="after">
+                <field name="scheduled_date"/>
+                <field name="so_ids" widget="many2many_tags"/>
+                 <field name="purchase_acknowledgment"/>
+                <field name="payment_term_id"
+                       readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="kg_purchase_order_tree_inherit" model="ir.ui.view">
+        <field name="name">kg.purchase.order.tree.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="date_planned" position="after">
+                <field name="scheduled_date"/>
+                <field name="purchase_acknowledgment"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="purchase_order_search_inherits" model="ir.ui.view">
+        <field name="name">purchase.order.list.select.inherits</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/group" position="inside">
+                <field name="po_type"/>
+                <filter string="Vessel" name="vessel_id" context="{'group_by': 'vessel_id'}"/>
+                <filter string="Purchase Type" name="purchase_type_id" context="{'group_by': 'purchase_type_id'}"/>
+                <filter string="Purchase Division" name="purchase_division"
+                        context="{'group_by': 'purchase_division'}"/>
+                <filter string="Code" name="code" context="{'group_by': 'code'}"/>
+                <filter string="Purchase Acknowledgment" name="purchase_acknowledgment"
+                        context="{'group_by': 'purchase_acknowledgment'}"/>
+                <filter name="local" string="Local" domain="[('po_type', '=', 'local')]"/>
+                <filter name="meast" string="Middle East" domain="[('po_type', '=', 'meast')]"/>
+                <filter name="international" string="International" domain="[('po_type', '=', 'international')]"/>
+                <filter name="sisconcern" string="Sister Concern" domain="[('po_type', '=', 'sisconcern')]"/>
+                <filter name="subcontracting" string="Subcontracting" domain="[('po_type', '=', 'subcontracting')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_po_type" string="Purchase Order Type" context="{'group_by': 'po_type'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem action="purchase.purchase_form_action" id="menu_purchase_form_action_accounting"
+              parent="account_accountant.menu_accounting" sequence="3"/>
+
+
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="hr_salary_pre_payment_tree" model="ir.ui.view">
+            <field name="name">salary.pre.payment.tree</field>
+            <field name="model">salary.pre.payment</field>
+            <field name="arch" type="xml">
+                <tree string="Salary Pre Payment" create="False">
+                    <header>
+                        <button name="action_approve" type="object" string="Approve"/>
+                    </header>
+                    <field name="employee_id"/>
+                    <field name="considered_in_payslip" column_invisible="1"/>
+                    <field name="salary_pre_payment_request_id" optional="hide" readonly="1"/>
+                    <field name="name"/>
+                    <field name="paid_date"/>
+                    <field name="amount"/>
+                    <field name="currency_id"/>
+                    <field name="amount_in_currency"/>
+                    <field name="state" optional="hide" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

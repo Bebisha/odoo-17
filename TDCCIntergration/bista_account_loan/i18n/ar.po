@@ -1,0 +1,972 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* bista_account_loan
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-15 06:42+0000\n"
+"PO-Revision-Date: 2019-03-15 06:42+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bista_account_loan
+#: model:ir.model,name:bista_account_loan.model_account_loan
+msgid "Account Loan"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model,name:bista_account_loan.model_account_loan_history
+msgid "Account Loan History"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__accounting_date
+msgid "Accounting Date"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Accounting Entries"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Accounting Information"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_needaction
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__amount
+msgid "Amount to reduce from Principal"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Approve"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__loan_approve_date
+msgid "Approved Date"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_installments_search_view
+msgid "Ask for Reschedule"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_line_form_view
+msgid "Asked for Rescheduling"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_attachment_count
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Calculate Installment by Number"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_history_form
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_pay_amount_form
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_pay_full_amount_form_erec
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_reject_form_view
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_report_print_form_view
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_reschedule_installment
+msgid "Cancel"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Cancel Request"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan,state:0
+#: selection:account.loan.line,state:0
+msgid "Cancelled"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan,repayment_method:0
+msgid "Cash/Bank"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Change Rate"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Clear All Lines"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.actions.act_window,help:bista_account_loan.loan_installments_action
+msgid "Click here to add Finance Lease Installments."
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.actions.act_window,help:bista_account_loan.open_loan_request_for_finance_lease
+msgid "Click here to create loan request!"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__comments
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Comments"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__company_id
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__company_id
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_report_print__company_id
+msgid "Company"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan,state:0
+msgid "Confirm"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_history_form
+msgid "Create History"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__create_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_history__create_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__create_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__create_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__create_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_reject_reason__create_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_report_print__create_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_reschedule_installment_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__create_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_history__create_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__create_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__create_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__create_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_reject_reason__create_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_report_print__create_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_reschedule_installment_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__currency_id
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__currency_id
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan__rate
+msgid "Currently applied rate"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__partner_id
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__partner_id
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_installments_search_view
+msgid "Customer"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__date
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__date
+#: model:ir.model.fields,field_description:bista_account_loan.field_reschedule_installment_wizard__date_to_schedule
+msgid "Date"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:loan.report.print,report_type:0
+msgid "Detailed"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__display_name
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_history__display_name
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__display_name
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__display_name
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__display_name
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_reject_reason__display_name
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_report_print__display_name
+#: model:ir.model.fields,field_description:bista_account_loan.field_report_bista_account_loan_report_loan__display_name
+#: model:ir.model.fields,field_description:bista_account_loan.field_report_bista_account_loan_report_loan_summary__display_name
+#: model:ir.model.fields,field_description:bista_account_loan.field_reschedule_installment_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan,state:0
+msgid "Done"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan.line,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__due_date
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_installments_search_view
+msgid "Due Date"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_history__end_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_report_print__date_to
+msgid "End Date"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.ui.menu,name:bista_account_loan.loan_management_view_id
+msgid "Finance Lease"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.actions.act_window,name:bista_account_loan.loan_installments_action
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Finance Lease Installments"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.ui.menu,name:bista_account_loan.loan_management_main_menu
+msgid "Finance Lease Management"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.actions.act_window,name:bista_account_loan.action_loan_print_report_menu
+msgid "Finance Lease Report"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.actions.act_window,name:bista_account_loan.open_loan_request_for_finance_lease
+#: model:ir.ui.menu,name:bista_account_loan.loan_request_sub_main_menu
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Finance Lease Request"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan,state:0
+msgid "Finance Processing"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_follower_ids
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_channel_ids
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_partner_ids
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_installments_search_view
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_request_search_view
+msgid "Group By..."
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__id
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_history__id
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__id
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__id
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__id
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_reject_reason__id
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_report_print__id
+#: model:ir.model.fields,field_description:bista_account_loan.field_report_bista_account_loan_report_loan__id
+#: model:ir.model.fields,field_description:bista_account_loan.field_report_bista_account_loan_report_loan_summary__id
+#: model:ir.model.fields,field_description:bista_account_loan.field_reschedule_installment_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan__message_unread
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan_line__message_unread
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan__message_needaction
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan_line__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan__message_has_error
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan_line__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__total_amount
+msgid "Installment"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Installment Calculator"
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/account_loan.py:34
+#, python-format
+msgid "Installment Number should be greater then 0"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__start_date
+msgid "Installment Start Date"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.ui.menu,name:bista_account_loan.loan_installment_sub_main_menu
+msgid "Installments"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__installment_number
+msgid "Installments Count"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__interest_amount
+msgid "Interest"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__fees
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__fees
+msgid "Interests"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_is_follower
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__loan_journal_id
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__journal_id
+msgid "Journal"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model,name:bista_account_loan.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Kindly, Click on the Calculate button\n"
+"                                        to\n"
+"                                        get more details about the installments\n"
+"                                        schedule."
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/account_loan.py:221
+#, python-format
+msgid "Kindly, click on calculate button to have a full picture on your amortization schedule."
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/account_loan.py:283
+#, python-format
+msgid "Kindly, enter an installment count for calculating installments."
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan____last_update
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_history____last_update
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line____last_update
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount____last_update
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount____last_update
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_reject_reason____last_update
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_report_print____last_update
+#: model:ir.model.fields,field_description:bista_account_loan.field_report_bista_account_loan_report_loan____last_update
+#: model:ir.model.fields,field_description:bista_account_loan.field_report_bista_account_loan_report_loan_summary____last_update
+#: model:ir.model.fields,field_description:bista_account_loan.field_reschedule_installment_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__write_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_history__write_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__write_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__write_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__write_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_reject_reason__write_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_report_print__write_uid
+#: model:ir.model.fields,field_description:bista_account_loan.field_reschedule_installment_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__write_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_history__write_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__write_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__write_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__write_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_reject_reason__write_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_report_print__write_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_reschedule_installment_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.actions.act_window,name:bista_account_loan.account_loan_history_action
+msgid "Lease History"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__line_ids
+msgid "Line"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_history__loan_id
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__loan_id
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_move__loan_id
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__loan_id
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_history_form
+msgid "Loan"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__loan_amount
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_tree_view
+msgid "Loan Amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__loan_history_ids
+msgid "Loan History"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model,name:bista_account_loan.model_account_loan_line
+msgid "Loan Installment"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_installments_tree
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_installments_search_view
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_line_form_view
+msgid "Loan Installments"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__credit_account_id
+msgid "Loan Intrest Account"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__loan_issuing_date
+msgid "Loan Issuing Date"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__loan_line_id
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_move__loan_line_id
+msgid "Loan Line"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.module.category,name:bista_account_loan.loan_management
+msgid "Loan Management"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model,name:bista_account_loan.model_account_loan_pay_amount
+msgid "Loan Pay Amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__debit_account_id
+msgid "Loan Principal Account"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model,name:bista_account_loan.model_loan_reject_reason
+msgid "Loan Reject Reason"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model,name:bista_account_loan.model_loan_report_print
+msgid "Loan Report"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__loan_id
+#: model:ir.ui.menu,name:bista_account_loan.loan_request_menu
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_tree_view
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_installments_search_view
+msgid "Loan Request"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_request_search_view
+msgid "Loan Requests"
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/account_loan.py:31
+#, python-format
+msgid "Loan amount should be greater then 0"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_main_attachment_id
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__rate
+msgid "Main Rate"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_has_error
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_ids
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__move_ids
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__move_ids
+msgid "Move"
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/account_loan.py:180
+#, python-format
+msgid "New"
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/wizard/loan_report.py:39
+#, python-format
+msgid "No matching record found!"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_needaction_counter
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_has_error_counter
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_has_error_counter
+msgid "Number of error"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan__message_needaction_counter
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan_line__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan__message_has_error_counter
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan_line__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan__message_unread_counter
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan_line__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__paid_date
+msgid "Paid Date"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.actions.act_window,name:bista_account_loan.finance_lease_pay_full_amount_action
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_pay_full_amount_form_erec
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Pay Full Amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.actions.act_window,name:bista_account_loan.finance_lease_pay_amount_action
+#: model:ir.actions.act_window,name:bista_account_loan.finance_lease_pay_amount_line_action
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_pay_amount_form
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Pay amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan,repayment_method:0
+msgid "Payroll"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_request_search_view
+msgid "Pending Finance Approvals"
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/account_loan.py:38
+#, python-format
+msgid "Please Enter Rate greater than 0"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__prev_due_date
+msgid "Previous Date"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__amount
+msgid "Principal"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_report_print_form_view
+msgid "Print Detail"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_report_print_form_view
+msgid "Print Summary"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__rate
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_history__rate
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__rate_month
+msgid "Rate"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Rate History"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__rate_period
+msgid "Rate Period"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__repayment_method
+msgid "RePayment Method"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan__rate_period
+msgid "Real rate that will be applied on each period"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_line_form_view
+msgid "Reference"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan.line,state:0
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_reject_form_view
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_line_form_view
+msgid "Reject"
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/account_loan.py:258
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__reject_reason
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_reject_reason__name
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_reject_form_view
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+#, python-format
+msgid "Reject Reason"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Reject Request"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Reject reason"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan,state:0
+msgid "Rejected"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__remaining_amount
+msgid "Remaining Amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__remaining_installments_total_amount
+msgid "Remaining Installments Total Amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__amount
+msgid "Remaning Principal"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__remarks
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_line_form_view
+msgid "Remarks"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_report_print_form_view
+msgid "Report Options"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_report_print__report_type
+msgid "Report Type"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__name
+msgid "Request Number"
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/loan_line.py:95
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_line_form_view
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_reschedule_installment
+#, python-format
+msgid "Reschedule"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan.line,state:0
+msgid "Rescheduled"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__residual_amount
+msgid "Residual Amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_pay_amount_form
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_pay_full_amount_form_erec
+msgid "Run"
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/account_loan.py:372
+#, python-format
+msgid "Selected journal have must be Default Credit and Debit account."
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__sr_number
+msgid "Sequence"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Set to Draft"
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/loan_line.py:171
+#, python-format
+msgid "Some moves must be created first"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_history__start_date
+#: model:ir.model.fields,field_description:bista_account_loan.field_loan_report_print__date_from
+msgid "Start Date"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_request_search_view
+msgid "State"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__state
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__state
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_installments_search_view
+msgid "Status"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "Submit for Finance Approval"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:loan.report.print,report_type:0
+msgid "Summary"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan,state:0
+msgid "To Submit"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_pay_amount__total_amount
+msgid "Total Amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__paid_amount
+msgid "Total Paid Amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__total_paid_installment_amount
+msgid "Total Paid Installment Amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_lease_pay_full_amount__total_amount
+msgid "Total Payable Amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_unread
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__message_unread_counter
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.ui.menu,name:bista_account_loan.loan_installments_menu
+msgid "View All Installments"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan__website_message_ids
+#: model:ir.model.fields,field_description:bista_account_loan.field_account_loan_line__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan__website_message_ids
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan_line__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model.fields,help:bista_account_loan.field_account_loan__state
+msgid "When the Finance Lease is created the status is 'Draft'.\n"
+" Then the request will be forwarded to approval."
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/account_loan.py:189
+#, python-format
+msgid "You cannot delete Finance Lease."
+msgstr ""
+
+#. module: bista_account_loan
+#: code:addons/bista_account_loan/models/loan_line.py:104
+#, python-format
+msgid "You cannot reschedule untill loan approved."
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_request_search_view
+msgid "customer"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.loan_reschedule_installment
+msgid "eschedule Installment"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model,name:bista_account_loan.model_lease_pay_full_amount
+msgid "lease.pay.full.amount"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.finance_lease_loan_form_view
+msgid "loan Installments"
+msgstr ""
+
+#. module: bista_account_loan
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_history_form
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_pay_amount_form
+#: model_terms:ir.ui.view,arch_db:bista_account_loan.account_loan_pay_full_amount_form_erec
+msgid "or"
+msgstr ""
+
+#. module: bista_account_loan
+#: selection:account.loan.line,state:0
+msgid "paid"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model,name:bista_account_loan.model_report_bista_account_loan_report_loan
+msgid "report.bista_account_loan.report_loan"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model,name:bista_account_loan.model_report_bista_account_loan_report_loan_summary
+msgid "report.bista_account_loan.report_loan_summary"
+msgstr ""
+
+#. module: bista_account_loan
+#: model:ir.model,name:bista_account_loan.model_reschedule_installment_wizard
+msgid "reschedule.installment.wizard"
+msgstr ""
+

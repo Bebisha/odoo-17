@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="account_loan_pay_full_amount_form_erec" model="ir.ui.view">
+        <field name="name">Pay Full Amount</field>
+        <field name="model">lease.pay.full.amount</field>
+        <field name="arch" type="xml">
+            <form string="Pay Full Amount">
+                <group>
+                    <field name="loan_id" invisible="1"/>
+                    <field name="journal_id"/>
+                    <field name="date"/>
+                    <!--<field name="cancel_loan"/>-->
+                    <field name="currency_id"/>
+                </group>
+                <group colspan="3" col="6">
+                    <field name="amount" readonly="1"/>
+                    <field name="fees" string="Interest(In Amount)"/>
+                    <field name="total_amount" readonly="1"/>
+                </group>
+
+                <footer>
+                    <button name="pay_full_amount" string="Pay"
+                            type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="finance_lease_pay_full_amount_action" model="ir.actions.act_window">
+        <field name="name">Pay Full Amount</field>
+        <field name="res_model">lease.pay.full.amount</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_loan_id': active_id}</field>
+    </record>
+
+    <!--<record id="account_loan_pay_amount_line_action" model="ir.actions.act_window">-->
+        <!--<field name="name">Pay amount</field>-->
+        <!--<field name="res_model">account.loan.pay.amount</field>-->
+        <!--<field name="view_mode">form</field>-->
+        <!--<field name="target">new</field>-->
+        <!--<field name="context">{'default_loan_line_id': active_id}</field>-->
+    <!--</record>-->
+
+</odoo>

@@ -1,0 +1,47 @@
+<odoo>
+
+    <record id="action_purchase_enquiry_type" model="ir.actions.act_window">
+        <field name="name">Types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.enquiry.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="purchase_enquiry_configuration" name="Configuration" parent="main_menu_purchase_enquiry"
+              sequence="100">
+        <menuitem id="menu_purchase_enquiry_type" action="action_purchase_enquiry_type" sequence="1"/>
+    </menuitem>
+
+    <record id="purchase_enquiry_type_tree_view" model="ir.ui.view">
+        <field name="name">Enquiry Type Tree View</field>
+        <field name="model">purchase.enquiry.type</field>
+        <field name="arch" type="xml">
+            <tree string="Types">
+                <field name="name" string="Type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="purchase_enquiry_type_form_view" model="ir.ui.view">
+        <field name="name">Enquiry Type Form View</field>
+        <field name="model">purchase.enquiry.type</field>
+        <field name="arch" type="xml">
+            <form string="Types">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Enquiry Type"/>
+                        </h1>
+                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="form_view_gsm_wizard" model="ir.ui.view">
+        <field name="name">gsm.wizard.form</field>
+        <field name="model">gsm.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="file"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="import_gsm_details" type="object"
+                            string="Import GSM"
+                            class="btn-primary"/>
+                    <button special="cancel" string="Discard" class="btn btn-secondary" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_import_file" model="ir.actions.act_window">
+        <field name="name">Import File</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gsm.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

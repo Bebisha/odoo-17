@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="enquiry_reference_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Enquiry Reference</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">enquiry.reference</field>
+
+    </record>
+    <record id="enquiry_reference_tree" model="ir.ui.view">
+        <field name="name">enquiry.reference.tree.views</field>
+        <field name="model">enquiry.reference</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Enquiry Reference"/>
+                <field name="code"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="enquiry_reference_form" model="ir.ui.view">
+        <field name="name">enquiry.reference.views</field>
+        <field name="model">enquiry.reference</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" string="Enquiry Reference"/>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="enquiry_reference_search" model="ir.ui.view">
+        <field name="name">enquiry.reference.search</field>
+        <field name="model">enquiry.reference</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Vessel Name"/>
+                <field name="code" string="Code"/>
+                <group expand="0" string="Group By">
+                    <filter string="Code" name="code" context="{'group_by': 'code'}"/>
+                    <filter string="Enquiry Reference" name="name" context="{'group_by': 'name'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+    <menuitem id="enquiry_reference_menu"
+              action="enquiry_reference_action"
+              name="Enquiry Reference"
+              parent="crm.crm_menu_config"
+              sequence="12"/>
+    <menuitem id="menu_product_variant" name="Products"
+              parent="crm.crm_menu_root" sequence="1">
+    </menuitem>
+    <menuitem id="stock_product_template_action_product_menu"
+              action="stock.product_template_action_product"
+              name="Product"
+              parent="menu_product_variant"
+              sequence="1"/>
+
+    <record id="stock_service_instrument_action" model="ir.actions.act_window">
+        <field name="name">Service Instrument</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('is_equipment','=',True)]</field>
+        <!--        <field name="search_view_id" ref="kg_voyage_marine_inventory.group_service_instrument"/>-->
+        <field name="context">{'default_is_equipment': True}</field>
+    </record>
+
+      <record id="labour_product_action" model="ir.actions.act_window">
+        <field name="name">Labour</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('is_labour_product','=',True)]</field>
+        <!--        <field name="search_view_id" ref="kg_voyage_marine_inventory.group_service_instrument"/>-->
+        <field name="context">{'default_is_labour_product': True}</field>
+    </record>
+
+
+    <menuitem id="stock_product_product_menu" name="Product Variants" action="stock.stock_product_normal_action"
+              parent="menu_product_variant" sequence="2"
+              groups="product.group_product_variant"/>
+    <menuitem id="service_instrument_menu" name="Service Instrument"
+              action="kg_voyage_marine_crm.stock_service_instrument_action"
+              parent="menu_product_variant" sequence="3"
+              groups="product.group_product_variant"/>
+
+    <menuitem id="labour_menu" name="Labour Product"
+              action="kg_voyage_marine_crm.labour_product_action"
+              parent="menu_product_variant" sequence="3"
+              groups="product.group_product_variant"/>
+
+    <!--              parent="crm.crm_menu_config"/>-->
+
+
+</odoo>

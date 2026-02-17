@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="rfq_form_view">
+            <field name="name">Create RFQ</field>
+            <field name="model">rfq.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Create RFQ Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="vendor_id" domain="['|',('partner_type','=', 'vendor'), ('partner_type', '=', False)]"/>
+                                <field name="x_new_vendor_remark" placeholder="Please enter the vendor name as it is new."/>
+                                <field name="sale_id" readonly="1" force_save="1" />
+<!--                                <field name="opportunity_id" readonly="1" force_save="1"-->
+<!--                                       invisible="not opportunity_id"/>-->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Order Lines" name="wizard_order_lines">
+                                <field name="order_line_ids" >
+                                    <tree editable="bottom">
+                                        <field name="code"/>
+                                        <field name="product_id"/>
+                                        <field name="name"/>
+                                        <field name="units" optional="hide"/>
+                                        <field name="qty"/>
+                                        <field name="price_unit"/>
+                                        <field name="total"/>
+                                        <field name="sale_order_line_id" column_invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button name="kg_create_rfq_button" type="object" class="btn-primary"
+                                string="Create RFQ"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="rfq_form_view_action" model="ir.actions.act_window">
+            <field name="name">Create RFQ</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rfq.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="rfq_form_view"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

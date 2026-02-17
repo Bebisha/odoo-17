@@ -1,0 +1,107 @@
+<odoo>
+    <record id="stock_picking_inherit_form_inv_transfer" model="ir.ui.view">
+        <field name="name">stock.picking.inherit.form.inv.transfer</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_validate']" position="before">
+                <field name="is_approved" invisible="1"/>
+                <button name="action_approve"
+                        invisible="state not in ['assigned'] or is_approved ==True"
+                        string="Approve" type="object" class="oe_highlight"/>
+            </xpath>
+            <button name="button_validate" position="attributes">
+                <attribute name="invisible">is_approved == False or state in ['done','cancel','confirmed']
+                </attribute>
+            </button>
+            <field name="partner_id" position="after">
+                <field name="is_approved" invisible="1"/>
+            </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+            <xpath expr="//field[@name='location_id'][2]" position="attributes">
+                <attribute name="readonly">state == 'done' or is_approved</attribute>
+            </xpath>
+            <xpath expr="//field[@name='location_dest_id'][2]" position="attributes">
+                <attribute name="readonly">state == 'done' or is_approved</attribute>
+            </xpath>
+            <field name="scheduled_date" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+            <field name="origin" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+            <field name="move_type" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+            <field name="note" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+            <field name="move_ids_without_package" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_picking_inherit_form_inv_transfer_gnr" model="ir.ui.view">
+        <field name="name">stock.picking.inherit.form.inv.transfer.gnr</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="kg_gnr.kg_stock_picking_kg_boe"/>
+        <field name="arch" type="xml">
+            <field name="so_boe_type" position="after">
+                <field name="is_approved" invisible="1"/>
+            </field>
+            <field name="so_boe_type" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+            <field name="so_boe_no" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+            <field name="so_ship_no" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+            <field name="po_boe_type" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+            <field name="po_boe_no" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+            <field name="po_ship_no" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_picking_inherit_form_inv_transfer_id" model="ir.ui.view">
+        <field name="name">stock.picking.inherit.form.inv.transfer.id</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="kg_gnr.view_purchase_stock_form_inherit"/>
+        <field name="arch" type="xml">
+            <field name="shipment_id" position="after">
+                <field name="is_approved" invisible="1"/>
+            </field>
+            <field name="shipment_id" position="attributes">
+                <attribute name="readonly">is_approved</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
+
+
+        <!--<odoo>-->
+        <!--    <record id="view_stock_picking_form_inherit" model="ir.ui.view">-->
+        <!--        <field name="name">stock.picking.form.inherit</field>-->
+        <!--        <field name="model">stock.picking</field>-->
+        <!--<field name="inherit_id" ref="stock.view_picking_form"/>-->
+        <!--        <field name="arch" type="xml">-->
+        <!--            <button name="button_validate" position="before">-->
+        <!--                <button name="action_approve" string="Approve" type="object" class="btn-primary"-->
+        <!--                        groups="stock.group_stock_manager"/>-->
+        <!--            </button>-->
+        <!--        </field>-->
+        <!--    </record>-->
+        <!--</odoo>-->

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view"
+            id="partner_transfer_view_partner_form">
+        <field name="name">view.partner.transfer.form.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id"
+               ref="bista_tdcc_operations.res_partner_field_view_form"/>
+        <field name="arch" type="xml">
+            <xpath
+                    expr="//page[@name='additiona_details']/group[2]"
+                    position="inside">
+                <group>
+                    <field name="sibling_ids" widget="many2many_tags"
+                           domain="[('is_student','!=',False),('id','!=',context.get('active_id'))]"
+                           options="{'no_create_edit':True}"
+                           invisible="is_student == False"
+                           groups=" bista_tdcc_operations.group_appointment_manager"/>
+
+
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

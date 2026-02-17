@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="mail_template_payslip_employee" model="mail.template">
+            <field name="name">Payslip: Sending to Employee</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+
+            <!-- Sender -->
+            <field name="email_from">
+                {{ (user.email_formatted or user.company_id.email_formatted) }}
+            </field>
+
+            <!-- Recipient -->
+            <field name="email_to">
+                {{ object.employee_id.work_email }}
+            </field>
+
+            <!-- Email Subject -->
+            <field name="subject">
+                {{ object.company_id.name }} Payslip ({{ object.date_from }} - {{ object.date_to }})
+            </field>
+
+            <!-- Body -->
+            <field name="body_html" type="html">
+                <div style="margin:0; padding:0;">
+                    <p style="font-size:13px; margin:0; padding:0;">
+                        <t t-set="doc_name" t-value="'Payslip'"/>
+                        Dear <t t-out="object.employee_id.name or ''"/>,<br/><br/>
+                        Please find attached your
+                        <t t-out="doc_name"/> for the period
+                        <strong><t t-out="object.date_from"/> to <t t-out="object.date_to"/></strong>.<br/><br/>
+                        If you have any questions regarding your payslip, please contact HR.<br/><br/>
+                        Regards,<br/>
+                        <t t-out="object.company_id.name"/>
+                    </p>
+                </div>
+            </field>
+
+            <!-- Attach Payslip PDF -->
+            <field name="report_template_ids"
+                   eval="[(4, ref('hr_payroll.action_report_payslip'))]"/>
+
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

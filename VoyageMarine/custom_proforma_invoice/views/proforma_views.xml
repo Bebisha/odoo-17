@@ -1,0 +1,57 @@
+<odoo>
+    <record id="view_custom_proforma_tree" model="ir.ui.view">
+        <field name="name">custom.proforma.invoice.tree</field>
+        <field name="model">custom.proforma.invoice</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="sale_order_id"/>
+                <field name="partner_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_custom_proforma_form" model="ir.ui.view">
+        <field name="name">custom.proforma.invoice.form</field>
+        <field name="model">custom.proforma.invoice</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send_proforma" class="btn-primary" id="send_proforma" type="object" string="Send PRO-FORMA Invoice" invisible="state != 'draft'" context="{'proforma': True, 'validate_analytic': True}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="sale_order_id"/>
+                        <field name="partner_id"/>
+                        <field name="date"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"
+                           widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_custom_proforma" model="ir.actions.act_window">
+        <field name="name">Proforma Invoices</field>
+        <field name="res_model">custom.proforma.invoice</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_custom_proforma_root" name="Proforma Invoices" parent="sale.sale_menu_root"/>
+    <menuitem id="menu_custom_proforma"
+              name="Proforma Invoices"
+              parent="menu_custom_proforma_root"
+              action="action_custom_proforma"/>
+
+
+</odoo>

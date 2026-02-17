@@ -1,0 +1,79 @@
+<odoo>
+    <record id="view_purchase_report_search_inherit_type" model="ir.ui.view">
+        <field name="name">purchase.report.search.inherit.type</field>
+        <field name="model">purchase.report</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/group" position="inside">
+                <field name="type_id"/>
+                <field name="code"/>
+                <field name="purchase_division_id" string="Purchase Division"/>
+
+                <filter string="Analytic Account" name="analytic_distribution" domain="[]"/>
+                <filter string="Purchase division" name="purchase_division_id" domain="[]"/>
+                <filter string="Local" name="local" domain="[('type_id', '=', 'local')]"/>
+                <filter string="Middle East" name="meast" domain="[('type_id', '=', 'meast')]"/>
+                <filter string="International" name="international" domain="[('type_id', '=', 'international')]"/>
+                <filter string="Sister Concern" name="sisconcern" domain="[('type_id', '=', 'sisconcern')]"/>
+                <filter string="Subcontracting" name="subcontracting"
+                        domain="[('type_id', '=', 'subcontracting')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter name="group_purchase_division_id" string="Purchase Division"
+                            context="{'group_by': 'purchase_division_id'}"/>
+                    <filter name="group_type_id" string="Type" context="{'group_by': 'type_id'}"/>
+                    <filter string="Product Code"
+                            name="group_by_product_code"
+                            context="{'group_by': 'product_code'}"
+                    />
+
+
+                    <filter string="Code"
+                            name="group_by_code"
+                            context="{'group_by': 'code'}"/>
+                    <filter string="Analytic Account" name="group_analytic_account"
+        context="{'group_by': 'analytic_account_name'}"/>
+
+                    <!--                   <filter string="Analytic Account"-->
+                    <!--                            name="groupby_analytic_account"-->
+                    <!--                            context="{'group_by': 'analytic_account_id'}"/>-->
+                    <!--                    <filter string="Analytic Account"-->
+                    <!--                            name="group_analytic_distribution"-->
+                    <!--                            context="{'group_by': 'analytic_distribution'}"/>-->
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_purchase_report_tree_inherit_type" model="ir.ui.view">
+        <field name="name">purchase.report.tree.inherit.type</field>
+        <field name="model">purchase.report</field>
+        <field name="inherit_id" ref="purchase.purchase_report_view_tree"/>
+        <field name="arch" type="xml">
+            <!-- Add column for Type after Partner -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="type_id"/>
+                <field name="product_code"/>
+                <field name="code"/>
+                <field name="purchase_division_id" string="Purchase Division"/>
+                <field name="analytic_distribution" string="Analytic Account"/>
+                <field name="analytic_account_name" string="Analytic Account"/>
+
+
+
+            </xpath>
+        </field>
+    </record>
+
+    <!--    <record id="view_purchase_report_graph_inherit_type" model="ir.ui.view">-->
+    <!--        <field name="name">purchase.report.graph.inherit.type</field>-->
+    <!--        <field name="model">purchase.report</field>-->
+    <!--        <field name="inherit_id" ref="purchase.view_purchase_order_graph"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            &lt;!&ndash; Add Type as a measure or group &ndash;&gt;-->
+    <!--            <xpath expr="//field[@name='date_approve']" position="after">-->
+    <!--                <field name="type_id"/>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
+</odoo>

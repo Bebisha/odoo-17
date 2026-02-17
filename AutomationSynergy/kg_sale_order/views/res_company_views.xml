@@ -1,0 +1,12 @@
+<odoo>
+    <record model="ir.ui.view" id="res_company_inherit_kg">
+        <field name="name">res.company.form.inherit.kg.partner.name</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="fax"/>
+            </field>
+        </field>
+    </record>
+</odoo>

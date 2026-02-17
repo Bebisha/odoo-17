@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--  creating reference number for partial salary -->
+        <record id="pending_salary_sequence_id" model="ir.sequence">
+            <field name="name">Pending Salary Sequence</field>
+            <field name="code">pending.salary.sequence</field>
+            <field name="prefix">PS/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!--  creating sequence number for employees -->
+        <record id="employee_sequence_id" model="ir.sequence">
+            <field name="name">Employee Sequence</field>
+            <field name="code">employee.no.sequence</field>
+            <field name="prefix">RNQ/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

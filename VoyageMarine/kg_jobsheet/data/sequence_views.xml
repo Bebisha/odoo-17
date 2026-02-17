@@ -1,0 +1,47 @@
+<odoo>
+    <data noupdate="1">
+        <record id="seq_calibration_req" model="ir.sequence">
+            <field name="name">Calibration Sequence</field>
+            <field name="code">calibration.seq</field>
+            <field name="prefix">CAL241</field>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">3</field>
+        </record>
+        <record id="seq_lsa_req" model="ir.sequence">
+            <field name="name">LSA Sequence</field>
+            <field name="code">lsa.seq</field>
+            <field name="prefix">LSA241</field>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">3</field>
+        </record>
+        <record id="seq_ffa_req" model="ir.sequence">
+            <field name="name">FFA Sequence</field>
+            <field name="code">ffa.seq</field>
+            <field name="prefix">FFA241</field>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">3</field>
+        </record>
+        <record id="seq_job_sheet" model="ir.sequence">
+            <field name="name">Job sheet</field>
+            <field name="code">sale.order.job.sheet</field>
+            <field name="prefix">VG_LMS_</field>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">0</field>
+        </record>
+        <record id="return_dn_seq" model="ir.sequence">
+            <field name="name">Return DN Sequence</field>
+            <field name="code">dn.seq</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="return_job_note_seq" model="ir.sequence">
+            <field name="name">Return DN Sequence</field>
+            <field name="code">job.note</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+
+</odoo>

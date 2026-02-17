@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="account_move_view_form_inherit_id" model="ir.ui.view">
+        <field name="name">account.move.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='price_unit']" position="after">
+                <field name="weight" force_save="1" sum="Total Weight" digits="[16,3]"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="attributes">
+                <attribute name="sum">Total Quantity</attribute>
+                <attribute name="digits">[16,3]</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_date']" position="after">
+                <field name="vessel_id"/>
+            </xpath>
+            <field name="invoice_vendor_bill_id" position="after">
+                <field name="batch_info" invisible="move_type != 'out_invoice'"/>
+            </field>
+            <xpath expr="//group[@name='accounting_info_group']" position="after">
+                <group string="Inventory" name="inventory_info_group"
+                       invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')">
+                    <field name="delivery_terms_id"/>
+                    <field name="country_origin"/>
+                    <field name="country_supply"/>
+                    <field name="place_of_loading"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

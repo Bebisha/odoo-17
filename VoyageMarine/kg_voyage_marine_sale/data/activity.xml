@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+
+        <record id="quotation_approval_notification" model="mail.activity.type">
+            <field name="name">Request Quotation Approval</field>
+            <field name="res_model">sale.order</field>
+        </record>
+
+        <record id="quotation_approved_notification" model="mail.activity.type">
+            <field name="name">Quotation Approved</field>
+            <field name="res_model">sale.order</field>
+        </record>
+
+        <record id="request_hod_notification" model="mail.activity.type">
+            <field name="name">Request For Head of Department Approval</field>
+            <field name="res_model">sale.order</field>
+        </record>
+
+        <record id="request_supervisor_notification" model="mail.activity.type">
+            <field name="name">Request For Management Approval</field>
+            <field name="res_model">sale.order</field>
+        </record>
+
+        <record id="supervisor_approved_notification" model="mail.activity.type">
+            <field name="name">Management Approved</field>
+            <field name="res_model">sale.order</field>
+        </record>
+
+        <record id="reject_quotation_notification" model="mail.activity.type">
+            <field name="name">Reject Quotation</field>
+            <field name="res_model">sale.order</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,118 @@
+<odoo>
+    <template id="kg_custom_sale_order_template" name="Sale Order Web View">
+        <t t-call="website.layout">
+            <div class="container mt-5 mb-5">
+                <h2>Sales Order:
+                    <t t-esc="order.name"/>
+                    <t t-if="order.state == 'approved'">
+                        <span class="badge bg-success ms-2">Approved</span>
+                    </t>
+                    <t t-if="order.state == 'rejected'">
+                        <span class="badge bg-danger ms-2">Rejected</span>
+                        <br/>
+                        <label style="color:#b22222; font-weight:bold;">
+                            Reason:
+                            <t t-esc="order.reject_reason or 'No reason provided'"/>
+                        </label>
+                    </t>
+                </h2>
+
+                <table style="width:100%; margin-top:15px;">
+                    <tr>
+                        <td style="width:50%; vertical-align:top; text-align:left;">
+                            <p>
+                                <strong>Customer:</strong>
+                                <t t-esc="order.partner_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Vessel:</strong>
+                                <t t-esc="order.vessel_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Batch:</strong>
+                                <t t-esc="order.batch_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Salesperson:</strong>
+                                <t t-esc="order.user_id.name"/>
+                            </p>
+                        </td>
+                        <td style="width:50%; vertical-align:top; text-align:left;">
+                            <p>
+                                <strong>Date:</strong>
+                                <t t-esc="order.date_order"/>
+                            </p>
+                            <p>
+                                <strong>Payment Terms:</strong>
+                                <t t-esc="order.payment_term_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Customer Reference:</strong>
+                                <t t-esc="order.client_order_ref"/>
+                            </p>
+                            <p>
+                                <strong>Delivery Date:</strong>
+                                <t t-esc="order.commitment_date"/>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="table table-bordered mt-4" style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="width:55%; text-align:left;">Part No &amp; Description</th>
+                            <th style="width:10%; text-align:center;">Quantity</th>
+                            <th style="width:10%; text-align:center;">UOM</th>
+                            <th style="width:10%; text-align:right;">Unit Price</th>
+                            <th style="width:10%; text-align:right;">Tons</th>
+                            <th style="width:15%; text-align:right;">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="grand_total" t-value="0"/>
+                        <t t-foreach="order.order_line" t-as="line">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <strong>
+                                            <t t-esc="line.default_code"/>
+                                        </strong>
+                                    </div>
+                                    <div>
+                                        <t t-esc="line.name"/>
+                                    </div>
+                                </td>
+                                <td style="text-align:center;">
+                                    <t t-esc="'%.3f' % line.product_uom_qty"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    <t t-esc="line.product_uom.name"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <t t-esc="'%.3f' % line.price_unit"/>
+                                    <t t-esc="order.currency_id.symbol"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <t t-esc="'%.3f' % line.weight"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <t t-esc="'%.3f' % line.price_subtotal"/>
+                                    <t t-esc="order.currency_id.symbol"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td colspan="5" style="text-align:right; font-weight:bold;">Total</td>
+                            <td style="text-align:right; font-weight:bold;">
+                                <t t-esc="'%.3f' % order.amount_total"/>
+                                <t t-esc="order.currency_id.symbol"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </t>
+    </template>
+</odoo>

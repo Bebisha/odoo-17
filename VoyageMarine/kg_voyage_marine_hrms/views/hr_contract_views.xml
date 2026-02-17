@@ -1,0 +1,160 @@
+<odoo>
+    <data>
+        <record id="kg_hr_contract_form_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <field name="wage_type" position="after">
+                    <field name="is_ot_rate" string="IS Allow OT Rate" invisible="1"/>
+                    <field name="is_fixed_allowance" string="IS Allow Fixed Allowance" invisible="1"/>
+                </field>
+                <xpath expr="//field[@name='wage']" position="attributes">
+                    <attribute name="string">Basic</attribute>
+                </xpath>
+
+
+                <group name="salary" position="before">
+                    <group>
+                        <label for="hour_salary"/>
+                        <div class="o_row" name="hour_salary">
+                            <field name="hour_salary" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3">/ Hour</div>
+                        </div>
+                    </group>
+                    <group>
+                        <label for="per_day_salary"/>
+                        <div class="o_row" name="per_day_salary">
+                            <field name="per_day_salary" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3">/ Day</div>
+                        </div>
+
+                    </group>
+
+                </group>
+
+
+                <group name="salary" position="inside">
+                    <label for="food_allowance" invisible="wage_type == 'hourly'"/>
+                    <div class="o_row" name="food_allowance" invisible="wage_type == 'hourly'">
+                        <field name="food_allowance" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+                    <label for="da_allowance" invisible="wage_type == 'hourly'"/>
+                    <div class="o_row" name="da_allowance" invisible="wage_type == 'hourly'">
+                        <field name="da_allowance" nolabel="1" invisible="wage_type == 'hourly'"/>
+                        <span>/ month</span>
+                    </div>
+                    <label for="telephone_allowance" invisible="wage_type == 'hourly'"/>
+                    <div class="o_row" name="telephone_allowance" invisible="wage_type == 'hourly'">
+                        <field name="telephone_allowance" nolabel="1" invisible="wage_type == 'hourly'"/>
+                        <span>/ month</span>
+                    </div>
+                    <label for="special_allowance" invisible="wage_type == 'hourly'"/>
+                    <div class="o_row" name="special_allowance" invisible="wage_type == 'hourly'">
+                        <field name="special_allowance" nolabel="1" invisible="wage_type == 'hourly'"/>
+                        <span>/ month</span>
+                    </div>
+                    <label for="performance_allowance" invisible="wage_type == 'hourly'"/>
+                    <div class="o_row" name="performance_allowance" invisible="wage_type == 'hourly'">
+                        <field name="performance_allowance" nolabel="1" invisible="wage_type == 'hourly'"/>
+                        <span>/ month</span>
+                    </div>
+
+                    <label for="hra_deduction" invisible="wage_type == 'hourly'"/>
+                    <div class="o_row" name="hra_deduction" invisible="wage_type == 'hourly'">
+                        <field name="hra_deduction" nolabel="1" invisible="wage_type == 'hourly'"/>
+                        <span>/ month</span>
+                    </div>
+                    <label for="telephone_deduction" invisible="wage_type == 'hourly'"/>
+                    <div class="o_row" name="telephone_deduction" invisible="wage_type == 'hourly'">
+                        <field name="telephone_deduction" nolabel="1" invisible="wage_type == 'hourly'"/>
+                        <span>/ month</span>
+                    </div>
+                    <label for="total_salary" invisible="wage_type == 'hourly'"/>
+                    <div class="o_row" name="total_salary" invisible="wage_type == 'hourly'">
+                        <field name="total_salary" nolabel="1" invisible="wage_type == 'hourly'"/>
+                        <span>/ month</span>
+                    </div>
+                </group>
+
+                <group name="salary" position="after">
+
+                    <group name="Rate" string="Rate">
+                        <label for="overseas_allowance"/>
+                        <div class="o_row" name="overseas_allowance">
+                            <field name="overseas_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3">/ Day</div>
+                        </div>
+                        <label for="anchorage_allowance"/>
+                        <div class="o_row" name="anchorage_allowance">
+                            <field name="anchorage_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3">/ Day</div>
+                        </div>
+                        <!--                        <label for="over_time"/>-->
+                        <!--                        <div class="o_row" name="over_time">-->
+                        <!--                            <field name="over_time" class="oe_inline o_hr_narrow_field" nolabel="1"/>-->
+                        <!--                            <div class="mb-3">/ hour</div>-->
+                        <!--                        </div>-->
+                        <!--                        <label for="fixed_allowance"/>-->
+                        <!--                        <div class="o_row" name="fixed_allowance">-->
+                        <!--                            <field name="fixed_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>-->
+                        <!--                            <div class="mb-3">/ hour</div>-->
+                        <!--                        </div>-->
+
+                    </group>
+
+                    <group name="ot_Wage" string="Overtime">
+
+                        <field name="ot_wage"/>
+
+                        <label for="hourly_ot_allowance" invisible="ot_wage != 'hourly_fixed'"/>
+                        <div class="o_row" name="hourly_ot_allowance" invisible="ot_wage != 'hourly_fixed'">
+                            <field name="hourly_ot_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3">/ Hourly</div>
+                        </div>
+
+                        <label for="fixed_ot_allowance" invisible="ot_wage != 'monthly_fixed'"/>
+                        <div class="o_row" name="fixed_ot_allowance" invisible="ot_wage != 'monthly_fixed'">
+                            <field name="fixed_ot_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3">/ Monthly</div>
+                        </div>
+
+                        <label for="over_time" invisible="ot_wage != 'daily_fixed'"/>
+                        <div class="o_row" name="over_time" invisible="ot_wage != 'daily_fixed'">
+                            <field name="over_time" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3">/ Daily</div>
+                        </div>
+
+                    </group>
+
+                </group>
+            </field>
+        </record>
+        <record id="hr_l10n_ae_hr_payroll_contract_view_form" model="ir.ui.view">
+            <field name="name">View Contract Form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="l10n_ae_hr_payroll.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='l10n_ae_housing_allowance']" position="attributes">
+                    <attribute name="invisible">wage_type == 'hourly'</attribute>
+                </xpath>
+                <xpath expr="//div[@name='l10n_ae_housing_allowance']" position="attributes">
+                    <attribute name="invisible">wage_type == 'hourly'</attribute>
+                </xpath>
+                <xpath expr="//div[@name='l10n_ae_transportation_allowance']" position="attributes">
+                    <attribute name="invisible">wage_type == 'hourly'</attribute>
+                </xpath>
+                <xpath expr="//div[@name='l10n_ae_other_allowances']" position="attributes">
+                    <attribute name="invisible">wage_type == 'hourly'</attribute>
+                </xpath>
+                <xpath expr="//label[@for='l10n_ae_transportation_allowance']" position="attributes">
+                    <attribute name="invisible">wage_type == 'hourly'</attribute>
+                </xpath>
+                <xpath expr="//label[@for='l10n_ae_other_allowances']" position="attributes">
+                    <attribute name="invisible">wage_type == 'hourly'</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,157 @@
+   <odoo>
+  <data>
+
+        <record id="view_res_partner_preference_inh" model="ir.ui.view">
+                    <field name="name">res.partner.select</field>
+                    <field name="model">res.partner</field>
+                    <field name="inherit_id" ref="kg_casio.kg_casio_customers_form"/>
+                    <field name="arch" type="xml">
+                        <xpath expr="//div[@name='button_box']" position="inside">
+                            <button name="show_customer_preference"
+                                type="object" class="oe_stat_button order-9" icon="fa-envelope-o">
+                                <span>Preferences</span>
+                            </button>
+                             <button name="show_unsub_reason"
+                                type="object" class="oe_stat_button order-9" icon="fa-envelope-o">
+                                <span>Unsubscription</span>
+                            </button>
+                            <field name="masg_count" invisible ="1"/>
+                            <button name="show_survay_details" invisible="masg_count==0"
+                                 type="object" class="oe_stat_button order-9" icon="fa-pencil-square-o">
+                                <span>Answer</span>
+                            </button>
+                        </xpath>
+                    </field>
+        </record>
+
+
+
+              <record id="mail_preference_tree" model="ir.ui.view">
+            <field name="name">email.preference.tree</field>
+            <field name="model">email.preference</field>
+            <field name="arch" type="xml">
+                <tree string="voucher" import="false">
+<!--                    <field name="name"/>-->
+                    <field name="email"/>
+<!--                    <field name="reason"/>-->
+                    <field name="frequency"/>
+<!--                    <field name="other_reason"/>-->
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="mail_preference_form" model="ir.ui.view">
+            <field name="name">email.preference.form</field>
+            <field name="model">email.preference</field>
+            <field name="arch" type="xml">
+                <form string="voucher" version="7.0" duplicate="0">
+                    <sheet>
+                        <group>
+                            <group>
+<!--                              <field name="name"/>-->
+                                <field name="email"/>
+                                <field name="frequency"/>
+                            </group>
+                            <group>
+<!--                                <field name="reason"/>-->
+
+<!--                                <field name="other_reason"/>-->
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+      <record id="mail_preference_action" model="ir.actions.act_window">
+            <field name="name">Preference</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">email.preference</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Preference !
+                </p>
+            </field>
+        </record>
+
+          <menuitem id="mail_preference_menu" name="Email Preference"
+        action="mail_preference_action"
+        parent="mass_mailing.mass_mailing_configuration"/>
+
+                    <record id="unsubscribe_reason_tree" model="ir.ui.view">
+            <field name="name">unsubscribe.reason.tree</field>
+            <field name="model">unsubscribe.reasons</field>
+            <field name="arch" type="xml">
+                <tree string="voucher" import="false">
+
+                    <field name="email"/>
+                    <field name="reason"/>
+                    <field name="other_reason"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="unsubscribe_reason_form" model="ir.ui.view">
+            <field name="name">unsubscribe.reason.form</field>
+            <field name="model">unsubscribe.reasons</field>
+            <field name="arch" type="xml">
+                <form string="voucher" version="7.0" duplicate="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="email"/>
+                            </group>
+                            <group>
+                                <field name="reason"/>
+                                <field name="other_reason"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+      <record id="unsubscribe_reason_action" model="ir.actions.act_window">
+            <field name="name">Unsubscription Reason</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">unsubscribe.reasons</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Preference !
+                </p>
+            </field>
+        </record>
+
+<!--          <menuitem id="unsubscribe_reason_menu" name="Unsubscription Reason"-->
+<!--        action="unsubscribe_reason_action"-->
+<!--        parent="mass_mailing.mass_mailing_configuration"/>-->
+
+              <record id="view_res_blacklist_inh" model="ir.ui.view">
+                    <field name="name">mail.blacklist.select</field>
+                    <field name="model">mail.blacklist</field>
+                    <field name="inherit_id" ref="mail.mail_blacklist_view_tree"/>
+                    <field name="arch" type="xml">
+                        <field name="email" position="after">
+                            <field name="reason"/>
+                             <field name="other_reason"/>
+                        </field>
+                    </field>
+        </record>
+
+                    <record id="view_res_blacklist_form_inh" model="ir.ui.view">
+                    <field name="name">mail.blacklist.select</field>
+                    <field name="model">mail.blacklist</field>
+                    <field name="inherit_id" ref="mail.mail_blacklist_view_form"/>
+                    <field name="arch" type="xml">
+                        <field name="active" position="after">
+                            <field name="reason"/>
+                             <field name="other_reason"/>
+                        </field>
+                    </field>
+        </record>
+  </data>
+   </odoo>

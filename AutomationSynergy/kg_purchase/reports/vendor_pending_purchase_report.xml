@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+        <template id="pending_orders_report_template">
+            <t t-call="web.html_container">
+                <!--                <t t-call="web.internal_layout">-->
+                <t t-call="web.external_layout">
+                    <!--                    <t t-foreach="docs" t-as="o">-->
+                    <div class="page">
+                        <h2>Pending Orders Report</h2>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Vendor</th>
+                                    <th>Product</th>
+                                    <th>Model No.</th>
+                                    <th>PO Number</th>
+                                    <th>Vendor Date</th>
+                                    <th>ASF Date</th>
+                                    <th>Qty Pending</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td>
+                                    <span t-esc="data"/>
+                                </td>
+                                <!--                                                            <tr t-foreach="o.pending_orders" t-as="order">-->
+                                <!--                                                                <td>-->
+                                <!--                                                                    <span t-esc="order['vendor']"/>-->
+                                <!--                                                                </td>-->
+                                <!--                                                                <td>-->
+                                <!--                                                                    <span t-esc="order['product']"/>-->
+                                <!--                                                                </td>-->
+                                <!--                                                                <td>-->
+                                <!--                                                                    <span t-esc="order['model_no']"/>-->
+                                <!--                                                                </td>-->
+                                <!--                                                                <td>-->
+                                <!--                                                                    <span t-esc="order['po_number']"/>-->
+                                <!--                                                                </td>-->
+                                <!--                                                                <td>-->
+                                <!--                                                                    <span t-esc="order['vendor_date']"/>-->
+                                <!--                                                                </td>-->
+                                <!--                                                                <td>-->
+                                <!--                                                                    <span t-esc="order['asf_date']"/>-->
+                                <!--                                                                </td>-->
+                                <!--                                                                <td>-->
+                                <!--                                                                    <span t-esc="order['qty_pending']"/>-->
+                                <!--                                                                </td>-->
+                                <!--                                                            </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+                <!--                </t>-->
+            </t>
+        </template>
+    </data>
+</odoo>

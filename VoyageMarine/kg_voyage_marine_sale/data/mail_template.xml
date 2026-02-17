@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+
+        <record id="kg_feedback_survey_mail" model="mail.template">
+            <field name="name">Feedback: Send by email</field>
+            <field name="model_id" ref="kg_voyage_marine_sale.model_sale_order"/>
+            <field name="subject">Feedback Request</field>
+            <field name="email_to">{{object.partner_id.email}}</field>
+            <field name="body_html" type="html">
+                <p>Dear<![CDATA[&nbsp;]]><t t-esc="object.partner_id.name"/>,
+                </p>
+                <p>We value your feedback! Please take a moment to complete this quick survey:</p>
+                <p>
+                    <a class="btn btn-primary" role="button"
+                       t-att-href="object.survey_start_url" style="align:center;">Take the Survey
+                    </a>
+                </p>
+                <p>Your input helps us improve. Thanks for your time!</p>
+            </field>
+        </record>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'email_template_edi_sale'), ('module', '=', 'sale')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <record id="sale.email_template_edi_sale" model="mail.template">
+            <field name="report_template_ids" eval="False"/>
+        </record>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'email_template_edi_sale'), ('module', '=', 'sale')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+    </data>
+</odoo>

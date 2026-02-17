@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="allergy_severity_c" model="allergy.severty.code">
+            <field name="code">C</field>
+            <field name="name">Critical</field>
+        </record>
+
+        <record id="allergy_severity_m" model="allergy.severty.code">
+            <field name="code">M</field>
+            <field name="name">Major</field>
+        </record>
+
+        <record id="allergy_severity_mn" model="allergy.severty.code">
+            <field name="code">MN</field>
+            <field name="name">Minor</field>
+        </record>
+
+        <record id="allergy_severity_mo" model="allergy.severty.code">
+            <field name="code">MO</field>
+            <field name="name">Moderate</field>
+        </record>
+
+        <record id="allergy_severity_mi" model="allergy.severty.code">
+            <field name="code">MI</field>
+            <field name="name">Mild</field>
+        </record>
+
+        <record id="allergy_severity_co" model="allergy.severty.code">
+            <field name="code">CO</field>
+            <field name="name">Cosmetic</field>
+        </record>
+
+        <record id="allergy_severity_u" model="allergy.severty.code">
+            <field name="code">U</field>
+            <field name="name">Unknown</field>
+        </record>
+
+        <record id="allergy_severity_o" model="allergy.severty.code">
+            <field name="code">O</field>
+            <field name="name">Other</field>
+        </record>
+
+        <record id="allergy_severity_sv" model="allergy.severty.code">
+            <field name="code">SV</field>
+            <field name="name">Severe</field>
+        </record>
+
+    </data>
+</odoo>

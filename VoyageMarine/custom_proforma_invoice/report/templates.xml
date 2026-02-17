@@ -1,0 +1,11 @@
+<odoo>
+    <template id="proforma_template">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2>Proforma Invoice</h2>
+                <p><strong>Proforma:</strong> <t t-esc="doc.name"/></p>
+                <p><strong>Customer:</strong> <t t-esc="doc.partner_id.name"/></p>
+            </div>
+        </t>
+    </template>
+</odoo>

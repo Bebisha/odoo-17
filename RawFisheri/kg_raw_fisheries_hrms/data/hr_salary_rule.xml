@@ -1,0 +1,116 @@
+<odoo>
+    <data>
+
+        <!--    Salary rule for housing allowance    -->
+        <record id="hr_salary_rule_housing_allowance" model="hr.salary.rule">
+            <field name="name">Housing Allowance</field>
+            <field name="code">HA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.housing_allowance</field>
+        </record>
+
+        <!--    Salary rule for travel allowance    -->
+        <record id="hr_salary_rule_travel_allowance" model="hr.salary.rule">
+            <field name="name">Transportation Allowance</field>
+            <field name="code">TRV</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.travel_allowance</field>
+        </record>
+
+        <!--    Salary rule for other allowance    -->
+        <record id="hr_salary_rule_other_allowance" model="hr.salary.rule">
+            <field name="name">Other Allowance</field>
+            <field name="code">OTA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.other_allowance</field>
+        </record>
+
+        <!--    Salary rule for extra income    -->
+        <record id="hr_salary_rule_offshore_allowance" model="hr.salary.rule">
+            <field name="name">Other Income</field>
+            <field name="code">OIN</field>
+            <field name="category_id" ref="kg_raw_fisheries_hrms.EXIN"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.extra_income</field>
+        </record>
+
+        <!--    Salary rule for pasi deduction    -->
+        <record id="hr_salary_rule_pasi_deduction" model="hr.salary.rule">
+            <field name="name">Pasi</field>
+            <field name="code">PASI</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -contract.pasi_deduction</field>
+        </record>
+
+        <!--    Salary rule for fixed sea allowance    -->
+        <record id="hr_salary_rule_fixed_sea_allowance" model="hr.salary.rule">
+            <field name="name">Fixed Sea Allowance</field>
+            <field name="code">FSA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.fixed_sea_allowance</field>
+        </record>
+
+<!--            Salary rule for bonus    -->
+        <record id="hr_salary_rule_bonus" model="hr.salary.rule">
+            <field name="name">Extra Income</field>
+            <field name="code">EXTRAINCOME</field>
+            <field name="category_id" ref="kg_raw_fisheries_hrms.EXTRAINCOME"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'EXTRAINCOME' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs['EXTRAINCOME'].amount
+result_name = inputs['EXTRAINCOME'].name
+            </field>
+        </record>
+
+        <!--    Salary rule for overtime    -->
+        <record id="hr_salary_rule_overtime" model="hr.salary.rule">
+            <field name="name">Overtime</field>
+            <field name="code">OVERTIME</field>
+            <field name="category_id" ref="kg_raw_fisheries_hrms.OVERTIME"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'OVERTIME' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs['OVERTIME'].amount
+result_name = inputs['OVERTIME'].name
+            </field>
+        </record>
+
+        <!--    Salary rule for discharge    -->
+        <record id="hr_salary_rule_discharge" model="hr.salary.rule">
+            <field name="name">Discharge</field>
+            <field name="code">DISCHARGE</field>
+            <field name="category_id" ref="kg_raw_fisheries_hrms.DISCHARGE"/>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'DISCHARGE' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs['DISCHARGE'].amount
+result_name = inputs['DISCHARGE'].name
+            </field>
+        </record>
+
+    </data>
+</odoo>

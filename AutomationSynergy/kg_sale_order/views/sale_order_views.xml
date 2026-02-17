@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Add button to create purchase order -->
+        <record id="view_sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <div class="oe_title">
+                    <field name="project_type" options="{'horizontal': true}" widget="radio"/>
+                </div>
+                <xpath expr="//notebook/page[@name='other_information']/group/group/field[@name='client_order_ref']"
+                       position="attributes">
+                    <attribute name="string">Customer PO</attribute>
+                </xpath>
+
+
+                <field name="client_order_ref"/>
+                <field name="partner_id" position='before'>
+                    <field name="project_id" invisible="project_type != 'existing'"
+                           required="project_type == 'existing'"/>
+                   <field name="project_name" readonly="1" invisible="project_type == 'existing'"/>
+                </field>
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" type="object" name="action_view_projectss" string="Project"
+                            icon="fa-puzzle-piece"
+                            invisible="state not in ['sale','done']">
+                        <!--                        <field string="Project" name="project_count_new" widget="statinfo"/>-->
+                        <field name="button_invisible" invisible="1"/>
+                    </button>
+                    <button class="oe_stat_button" type="object" name="action_view_variation" icon="fa-star"
+                            string="Variation"
+                            invisible="state in ['draft','sent']">
+                        <!--                            <field string="Project" name="project_count" widget="statinfo"/>-->
+                    </button>
+                </div>
+                <field name="sale_order_template_id" position="after">
+                    <field name="your_reference"/>
+
+                    <!--                    <field name="subject"/>-->
+                </field>
+                 <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <group name="sale_header" position="after">
+                    <group>
+                        <field name="subject" nolabel="0"/>
+                    </group>
+                </group>
+                <field name="partner_id" position="after">
+                    <field name="partner_id" widget="res_partner_many2one"
+                           context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                           placeholder="Type to find a customer..."
+                           domain="[('customer_rank','>', 0)]"/>
+                </field>
+                <!--                <div name="button_box" position="inside">-->
+                <!--                    <button name="action_view_project"-->
+                <!--                            type="object"-->
+                <!--                            string="Project"-->
+                <!--                            icon="fa-tasks"-->
+                <!--                            class="oe_stat_button">-->
+                <!--                            -->
+                <!--                    -->
+                <!--                            -->
+                <!--                    <field name="project_count" widget="statinfo" string="Projects"-->
+                <!--                           icon="fa-tasks"-->
+                <!--                    />-->
+
+                <!--                </div>-->
+                <field name="incoterm_location" position="after">
+                    <field name="mode_of_shipment"/>
+                </field>
+                <notebook position="inside">
+                    <page id="terms_and_conditions" string="Terms And Conditions">
+                        <group>
+                            <field name="terms_conditions_id" string="Template"/>
+                            <field name="terms_conditions"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="view_sale_order_form_inherit2" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit2</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_project.view_order_form_inherit_sale_project"/>
+            <field name="arch" type="xml">
+                <button name="action_view_project_ids" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button id="create_invoice" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button id="create_invoice_percentage" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+            </field>
+        </record>
+
+        <!--        <record id="view_sale_order_form_inherit_adv_payment" model="ir.ui.view">-->
+        <!--            <field name="name">sale.order.form.adv.payment</field>-->
+        <!--            <field name="model">sale.order</field>-->
+        <!--            <field name="inherit_id" ref="sale_advance_payment.view_order_form_change_button"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <page position="after">-->
+        <!--                    <page id="terms_and_conditions" string="Terns And Conditions">-->
+
+        <!--                    </page>-->
+        <!--                </page>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <!--    To hide create invoice button in tree view    -->
+        <record id="view_sale_order_tree_inherit" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_tree"/>
+            <field name="arch" type="xml">
+                <button name="%(sale.action_view_sale_advance_payment_inv)d" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>

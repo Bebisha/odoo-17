@@ -1,0 +1,138 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="kg_pv_additional_info_tree_view">
+            <field name="name">Patient Visit Additional Information</field>
+            <field name="model">kg.pv.additional.info</field>
+            <field name="arch" type="xml">
+                <!--                <tree create="false" edit="false">-->
+                <tree>
+                    <field name="prior_pending_loc"/>
+                    <field name="admit_reason"/>
+                    <field name="visit_description"/>
+
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="kg_pv_additional_info_form_view">
+            <field name="name">Patient Visit Additional Information</field>
+            <field name="model">kg.pv.additional.info</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <button name="btn_submit" string="Submit" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+                        <button name="btn_cancel" string="Cancel" type="object" data-hotkey="w"
+                                invisible="state not in ('draft','submited')" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submited"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="prior_pending_loc"/>
+                                <field name="accomodation_code"/>
+                                <field name="admit_reason" required="1"/>
+                                <field name="transfer_reason"/>
+                                <field name="patient_valuables"/>
+                                <field name="patient_valuables_loc"/>
+                                <field name="visit_user_code"/>
+                            </group>
+                            <group>
+                                <field name="expected_admit_date"/>
+                                <field name="expected_discharg_date"/>
+                                <field name="estimated_inpatient_stay"/>
+                                <field name="actual_inpatient_stay"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="visit_description" required="1"/>
+                                <field name="reff_source_code"/>
+                                <field name="prev_servc_date"/>
+                                <field name="employmnt_illness_indicator"/>
+                                <field name="purge_status_code"/>
+                                <field name="purge_status_date"/>
+                            </group>
+                            <group>
+                                <field name="special_program_code"/>
+                                <field name="retention_indicator"/>
+                                <field name="expected_no_insurence_plans"/>
+                                <field name="visit_publicity_code"/>
+                                <field name="visit_protection_indicator"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="clinic_org_name"/>
+                                <field name="patient_status_code"/>
+                                <field name="visit_priority_code"/>
+                                <field name="prev_treatment_date"/>
+                                <field name="expected_dischrg_dispostn"/>
+                                <field name="sign_file_date"/>
+                            </group>
+                            <group>
+                                <field name="first_similer_illness_date"/>
+                                <field name="patient_charg_adjustmnt_code"/>
+                                <field name="recurrng_servic_code"/>
+                                <field name="billing_media_code"/>
+                                <field name="expected_surgry_date"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="miltary_partnership_code"/>
+                                <field name="miltary_non_avail_code"/>
+                                <field name="newborn_baby_indicator"/>
+                                <field name="baby_detained_indicator"/>
+                                <field name="mode_arrival_code"/>
+                            </group>
+                            <group>
+                                <field name="recreational_drug_code"/>
+                                <field name="admission_level_care_code"/>
+                                <field name="precaution_code"/>
+                                <field name="patient_condition_code"/>
+                                <field name="living_will_code"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="organ_donar_code"/>
+                                <field name="advance_dirctive_code"/>
+                                <field name="patient_status_effective_code"/>
+                                <field name="expected_loa_retrn_date"/>
+                                <field name="expected_pre_admisn_testng_date"/>
+                                <field name="notify_clergy_code"/>
+                            </group>
+
+                        </group>
+
+
+                    </sheet>
+                    <!--                  <div class="o_attachment_preview"/>-->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="pv_additional_info_action_form" model="ir.actions.act_window">
+            <field name="name">Patient Visit Additional Information</field>
+            <field name="res_model">kg.pv.additional.info</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

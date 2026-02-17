@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_management_cost_tree">
+            <field name="name">management.cost.tree</field>
+            <field name="model">management.cost</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="analytic_account_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_management_cost_pivot" model="ir.ui.view">
+            <field name="name">management.cost.pivot</field>
+            <field name="model">management.cost</field>
+            <field name="arch" type="xml">
+                <pivot string="Management Cost" sample="1">
+                    <field name="type" type="row" string="Type"/>
+                    <field name="analytic_account_id" type="col" string="Analytic Account"/>
+<!--                    <field name="date" interval="day" type="col" string="Date"/>-->
+                    <field name="amount" type="measure" string="Amount"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_management_cost_search" model="ir.ui.view">
+            <field name="name">management.cost.filter</field>
+            <field name="model">management.cost</field>
+            <field name="arch" type="xml">
+                <search string="Management Cost">
+                    <field name="analytic_account_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Analytic Account" name="groupby_analytic_account_id" domain="[]"
+                                context="{'group_by': 'analytic_account_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+<!--        <record id="action_management_cost" model="ir.actions.server">-->
+<!--            <field name="name">Management Cost</field>-->
+<!--            <field name="model_id" ref="kg_raw_fisheries_accounting.model_management_cost"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">-->
+<!--                action = model.load_analytic_account_details()-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <menuitem-->
+<!--                id="menu_management_cost"-->
+<!--                action="action_management_cost"-->
+<!--                name="Management Cost"-->
+<!--                parent="account.account_reports_management_menu"-->
+<!--        />-->
+
+    </data>
+</odoo>

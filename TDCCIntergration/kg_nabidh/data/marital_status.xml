@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Marital Status Master Data -->
+    <data noupdate="1">
+
+        <record id="marital_status_separated" model="marital.status">
+            <field name="code">A</field>
+            <field name="name">Separated</field>
+        </record>
+
+        <record id="marital_status_unmarried" model="marital.status">
+            <field name="code">B</field>
+            <field name="name">Unmarried</field>
+        </record>
+
+        <record id="marital_status_divorced" model="marital.status">
+            <field name="code">D</field>
+            <field name="name">Divorced</field>
+        </record>
+
+        <record id="marital_status_legally_separated" model="marital.status">
+            <field name="code">E</field>
+            <field name="name">Legally Separated</field>
+        </record>
+
+        <record id="marital_status_married" model="marital.status">
+            <field name="code">M</field>
+            <field name="name">Married</field>
+        </record>
+
+        <record id="marital_status_annulled" model="marital.status">
+            <field name="code">N</field>
+            <field name="name">Annulled</field>
+        </record>
+
+        <record id="marital_status_other" model="marital.status">
+            <field name="code">O</field>
+            <field name="name">Other</field>
+        </record>
+
+        <record id="marital_status_single" model="marital.status">
+            <field name="code">S</field>
+            <field name="name">Single</field>
+        </record>
+
+        <record id="marital_status_unknown" model="marital.status">
+            <field name="code">U</field>
+            <field name="name">Unknown</field>
+        </record>
+
+        <record id="marital_status_widowed" model="marital.status">
+            <field name="code">W</field>
+            <field name="name">Widowed</field>
+        </record>
+
+    </data>
+</odoo>

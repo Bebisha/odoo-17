@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+        <template id="student_plan_assets" name="Student plan assets">
+	        <script src="/web/static/lib/nvd3/d3.v3.js"></script>
+	        <script src="/web/static/lib/nvd3/nv.d3.js"></script>
+	        <script type="text/javascript" src="/web/static/src/js/services/session.js"></script>
+	        <script type="text/javascript" src="/web/static/src/js/fields/field_utils.js"></script>
+
+	        <t t-call="web._assets_frontend_helpers"/>
+	        <link href="/web/static/lib/nvd3/nv.d3.css" rel="stylesheet" type="text/css"></link>
+	        <t t-call="web._assets_bootstrap"/>
+	        <link rel="stylesheet" type="text/less" href="/web/static/src/scss/fonts.scss" />
+        </template>
+
+<!--	    <template id="student_plan_assets_backend" name="Student plan assets"-->
+<!--	        inherit_id="web.assets_backend">-->
+<!--	        <xpath expr="." position="inside">-->
+<!--	            <link rel="stylesheet" type="text/css" href="/bista_tdcc_student_plan/static/src/css/student_plan.css">-->
+<!--	            </link>-->
+<!--	        </xpath>-->
+<!--	    </template>-->
+
+ </data>
+</odoo>

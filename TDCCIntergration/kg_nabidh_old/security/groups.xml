@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="module_nabidh_dha">
+            <field name="name">Nabidh - DHA</field>
+            <field name="description">User access level for this module</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="group_nabidh_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="kg_nabidh.module_nabidh_dha"/>
+        </record>
+
+        <record id="group_nabidh_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="kg_nabidh.module_nabidh_dha"/>
+            <field name="implied_ids" eval="[(4, ref('kg_nabidh.group_nabidh_user'))]"/>
+        </record>
+    </data>
+</odoo>

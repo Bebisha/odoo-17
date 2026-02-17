@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- action daily catch entry -->
+    <record id="action_daily_catch" model="ir.actions.act_window">
+        <field name="name">Daily Catch</field>
+        <field name="res_model">daily.catch</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- main menu daily catch entry -->
+    <menuitem id="main_menu_entries" name="Entries"
+              web_icon="kg_raw_fisheries_entries,static/description/entries_icon.png"/>
+
+    <!--    &lt;!&ndash; menu daily catch entry &ndash;&gt;-->
+    <!--    <menuitem id="menu_daily_catch" name="Daily Catch"-->
+    <!--              parent="kg_raw_fisheries_entries.main_menu_entries" action="action_daily_catch"/>-->
+
+    <!--    &lt;!&ndash; menu daily catch entries &ndash;&gt;-->
+    <!--    <menuitem id="menu_daily_catch_entries" name="Daily Catch"-->
+    <!--              parent="kg_raw_fisheries_entries.menu_daily_catch" action="action_daily_catch"/>-->
+
+    <!-- action budget activity -->
+    <record id="action_budget_activity" model="ir.actions.act_window">
+        <field name="name">Budget Activity</field>
+        <field name="res_model">budget.activity</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--    &lt;!&ndash; menu configuration &ndash;&gt;-->
+    <!--    <menuitem id="menu_configuration" name="Configuration"-->
+    <!--              parent="kg_raw_fisheries_entries.main_menu_entries" sequence="20"/>-->
+
+    <!--    &lt;!&ndash; menu budget activity &ndash;&gt;-->
+    <!--    <menuitem id="menu_budget_activity" name="Budget Activity"-->
+    <!--              parent="kg_raw_fisheries_entries.menu_configuration" action="action_budget_activity"/>-->
+
+    <!-- action budget activity -->
+    <record id="action_budget_usage_entry" model="ir.actions.act_window">
+        <field name="name">Budget Usage Entry</field>
+        <field name="res_model">budget.usage.entry</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--    &lt;!&ndash; menu budget usage entry &ndash;&gt;-->
+    <!--    <menuitem id="menu_budget_usage_entry" name="Budget Usage Entry"-->
+    <!--              parent="kg_raw_fisheries_entries.main_menu_entries" action="action_budget_usage_entry"/>-->
+
+    <!-- action fuel analysis -->
+    <record id="action_fuel_analysis_entry" model="ir.actions.act_window">
+        <field name="name">Fuel Analysis</field>
+        <field name="res_model">fuel.analysis</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+        <!-- menu fuel analysis -->
+        <menuitem id="menu_fuel_analysis_entry" name="Fuel Analysis"
+                  parent="kg_raw_fisheries_entries.main_menu_entries"/>
+
+        <!-- menu fuel analysis -->
+        <menuitem id="menu_fuel_analysis_entries" name="Fuel Analysis"
+                  parent="kg_raw_fisheries_entries.menu_fuel_analysis_entry" action="action_fuel_analysis_entry"/>
+
+    <!-- action fuel usage analysis -->
+    <record id="action_fuel_usage_analysis_entry" model="ir.actions.act_window">
+        <field name="name">Fuel Usage Analysis</field>
+        <field name="res_model">fuel.usage.analysis</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+        <!-- menu fuel usage analysis -->
+        <menuitem id="menu_fuel_usage_analysis_entries" name="Fuel Usage Analysis"
+                  parent="kg_raw_fisheries_entries.menu_fuel_analysis_entry" action="action_fuel_usage_analysis_entry"/>
+
+        <!-- menu catch reports -->
+        <menuitem id="menu_catch_reporting" name="Reporting"
+                  parent="kg_raw_fisheries_entries.main_menu_entries" sequence="15"/>
+
+    <!-- action daily catch report wizard -->
+    <record id="action_daily_catch_report_wizard" model="ir.actions.act_window">
+        <field name="name">Daily Catch Report</field>
+        <field name="target">new</field>
+        <field name="res_model">daily.catch.report.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu daily catch report wizard -->
+    <!--    <menuitem id="menu_daily_catch_report_wizard" name="Daily Catch Report"-->
+    <!--              parent="kg_raw_fisheries_entries.menu_catch_reporting"-->
+    <!--              action="action_daily_catch_report_wizard"/>-->
+
+    <!-- action fuel analysis report wizard -->
+    <record id="action_fuel_analysis_report_wizard" model="ir.actions.act_window">
+        <field name="name">Fuel Analysis Report</field>
+        <field name="target">new</field>
+        <field name="res_model">fuel.analysis.report.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+        <!-- menu fuel analysis report wizard -->
+        <menuitem id="menu_fuel_analysis_report_wizard" name="Fuel Analysis Report"
+                  parent="kg_raw_fisheries_entries.menu_catch_reporting"
+                  action="action_fuel_analysis_report_wizard"/>
+
+    <!-- action fuel usage analysis report wizard -->
+    <record id="action_fuel_usage_analysis_report_wizard" model="ir.actions.act_window">
+        <field name="name">Fuel Usage Analysis Report</field>
+        <field name="target">new</field>
+        <field name="res_model">fuel.usage.analysis.report.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+        <!-- menu fuel usage analysis report wizard -->
+        <menuitem id="menu_fuel_usage_analysis_report_wizard" name="Fuel Usage Analysis Report"
+                  parent="kg_raw_fisheries_entries.menu_catch_reporting"
+                  action="action_fuel_usage_analysis_report_wizard"/>
+
+    <!-- action inventory update -->
+    <record id="action_inventory_update" model="ir.actions.act_window">
+        <field name="name">Inventory Update</field>
+        <field name="res_model">inventory.update</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- menu inventory update -->
+    <menuitem id="menu_inventory_update" name="Inventory Update"
+              parent="kg_raw_fisheries_entries.main_menu_entries"
+              action="action_inventory_update" sequence="7"/>
+
+    <!-- action daily stock -->
+    <record id="action_daily_stock" model="ir.actions.act_window">
+        <field name="name">Daily Stock</field>
+        <field name="res_model">daily.stock</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--    &lt;!&ndash; menu daily stock &ndash;&gt;-->
+    <!--    <menuitem id="menu_daily_stock" name="Daily Stock"-->
+    <!--              parent="kg_raw_fisheries_entries.main_menu_entries"-->
+    <!--              action="action_daily_stock" sequence="9"/>-->
+
+    <!-- action products -->
+    <record id="product_template_action_product_id" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>
+        <field name="view_id" ref="product_template_tree_view_id"/>
+        <field name="context">{"search_default_consumable": 1, 'default_detailed_type': 'product'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No product found. Let's create one!
+            </p>
+            <p>
+                Track your stock quantities by creating storable products.
+            </p>
+        </field>
+    </record>
+
+    <!-- menu products -->
+    <menuitem id="menu_product_template" name="Products" action="product_template_action_product_id"
+              parent="kg_raw_fisheries_entries.main_menu_entries" sequence="9"/>
+
+    <!-- action production report -->
+    <record id="action_production_report_id" model="ir.actions.act_window">
+        <field name="name">Production Report</field>
+        <field name="target">new</field>
+        <field name="res_model">production.report.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu production report -->
+    <menuitem id="menu_production_report" name="Production Report" action="action_production_report_id"
+              parent="stock.menu_warehouse_report" sequence="251"/>
+
+</odoo>

@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+
+        <record id="kg_inherit_hr_timesheet_line_tree" model="ir.ui.view">
+            <field name="name">kg.account.analytic.line.tree.hr_timesheet.inherit</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="arch" type="xml">
+                <!--            <xpath expr="//field[@name='so_line']" position="attributes">-->
+                <!--                <attribute namer="column_invisible">1</attribute>-->
+                <!--            </xpath>-->
+                <field name="unit_amount" position="before">
+                    <field name="order_id" string="Job No" optional="hide"/>
+                    <field name="vessel_id" optional="hide"/>
+                    <field name="time_in"/>
+                    <field name="time_out"/>
+                    <field name="anchorage"/>
+                    <field name="overseas"/>
+                    <field name="travel" column_invisible="1"/>
+                    <field name="idle" widget="float_time"/>
+                    <field name="normal_hours" widget="float_time"/>
+                    <field name="ot_hours" widget="float_time"/>
+
+                </field>
+                <field name="unit_amount" position="after">
+                    <field name="progress" widget="integer" string="Task Progress (%)"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="timesheet_project_view_tree_inherit" model="ir.ui.view">
+            <field name="name">project.task.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='unit_amount']" position="before">
+                    <field name="anchorage"/>
+                    <field name="overseas"/>
+                    <field name="idle" widget="float_time"/>
+                    <field name="normal_hours" widget="float_time"/>
+                    <field name="ot_hours" widget="float_time"/>
+                    <field name="is_emp_entry_created" colum_invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="kg_inherit_hr_timesheet_line_search" model="ir.ui.view">
+            <field name="name">kg.account.analytic.line.search.hr_timesheet.inherit</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="sale_timesheet.timesheet_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_id']" position="replace">
+                    <field name="order_id" string="Job No"
+                           filter_domain="['|', ('so_line', 'ilike', self), ('order_id', 'ilike', self)]"/>
+                </xpath>
+                <field name="order_id" position="after">
+                    <field name="vessel_id"/>
+                </field>
+                <xpath expr="//filter[@name='groupby_sale_order_item']" position="before">
+                    <filter string="Job No" name="groupby_job_no" domain="[]"
+                            context="{'group_by': 'order_id'}"/>
+                    <filter string="Vessel" name="groupby_vessel" domain="[]"
+                            context="{'group_by': 'vessel_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="filter_timesheet_vessel_job" model="ir.filters">
+            <field name="name">Vessel &amp; Job Wise</field>
+            <field name="model_id">account.analytic.line</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['vessel_id','order_id','date']}</field>
+            <field name="is_default" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

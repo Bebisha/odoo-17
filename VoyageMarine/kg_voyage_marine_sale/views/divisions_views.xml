@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <record id="kg_divisions_action" model="ir.actions.act_window">
+            <field name="name">Divisions</field>
+            <field name="res_model">kg.divisions</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="kg_divisions_menu_id" action="kg_divisions_action"
+                  parent="sale.menu_sale_config" sequence="11"/>
+
+        <record id="kg_divisions_view_tree" model="ir.ui.view">
+            <field name="name">Divisions Tree View</field>
+            <field name="model">kg.divisions</field>
+            <field name="arch" type="xml">
+                <tree string="Divisions">
+                    <field name="code"/>
+                    <field name="division"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="kg_divisions_view_form" model="ir.ui.view">
+            <field name="name">Divisions Form View</field>
+            <field name="model">kg.divisions</field>
+            <field name="arch" type="xml">
+                <form string="Divisions">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="division"/>
+                            </group>
+                            <group>
+                                <field name="code"/>
+                                <field name="qtn_sequence_id" readonly="1" force_save="1"/>
+                                <field name="so_sequence_id" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

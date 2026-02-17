@@ -1,0 +1,41 @@
+<odoo>
+
+    <record id="approval_category_data_invoice" model="approval.category">
+        <field name="name">Invoices</field>
+        <field name="image" type="base64" file="kg_raw_fisheries_approvals/static/src/img/invoice.jpeg"/>
+        <field name="sequence">1</field>
+        <field name="has_date">no</field>
+        <field name="has_period">no</field>
+        <field name="has_product">no</field>
+        <field name="has_quantity">no</field>
+        <field name="has_amount">no</field>
+        <field name="has_reference">no</field>
+        <field name="has_partner">no</field>
+        <field name="has_payment_method">no</field>
+        <field name="has_location">no</field>
+        <field name="requirer_document">optional</field>
+        <field name="approval_minimum">1</field>
+        <field name="manager_approval" eval="False"/>
+        <field name="description">The invoice approval process ensures that all customer invoices are verified and authorized before payment is made.</field>
+    </record>
+
+    <record id="approval_category_data_bills" model="approval.category">
+        <field name="name">Vendor Bills</field>
+        <field name="image" type="base64" file="kg_raw_fisheries_approvals/static/src/img/bill.png"/>
+        <field name="sequence">1</field>
+        <field name="has_date">no</field>
+        <field name="has_period">no</field>
+        <field name="has_product">no</field>
+        <field name="has_quantity">no</field>
+        <field name="has_amount">no</field>
+        <field name="has_reference">no</field>
+        <field name="has_partner">no</field>
+        <field name="has_payment_method">no</field>
+        <field name="has_location">no</field>
+        <field name="requirer_document">optional</field>
+        <field name="approval_minimum">1</field>
+        <field name="manager_approval" eval="False"/>
+        <field name="description">The vendor bill approval process ensures that all supplier invoices are verified and authorized before payment is made.</field>
+    </record>
+
+</odoo>

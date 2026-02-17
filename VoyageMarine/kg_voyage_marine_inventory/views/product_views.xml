@@ -1,0 +1,338 @@
+<odoo>
+    <data>
+
+        <record id="stock.stock_product_normal_action" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product'}</field>
+        </record>
+
+        <record id="product.product_template_action_all" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product'}</field>
+        </record>
+
+        <record id="product.product_template_action" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product','search_default_filter_to_sell':1}</field>
+        </record>
+
+        <record id="account.product_product_action_sellable" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product','search_default_filter_to_sell': 1}</field>
+        </record>
+
+        <record id="account.product_product_action_purchasable" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product','search_default_filter_to_purchase': 1}</field>
+        </record>
+
+        <record id="industry_fsm_sale.product_action_fsm" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product', 'fsm_mode': True,'search_default_filter_to_sell':
+                True}
+            </field>
+        </record>
+
+        <record id="sale.product_template_action" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type':
+                'product','search_default_filter_to_sell':1,'sale_multi_pricelist_product_template': 1}
+            </field>
+        </record>
+
+        <record id="product.product_normal_action_sell" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product','search_default_filter_to_sell':1}</field>
+        </record>
+
+        <record id="purchase.product_normal_action_puchased" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product','search_default_filter_to_purchase':1,
+                'purchase_product_template': 1}
+            </field>
+        </record>
+
+        <record id="stock_barcode.product_action_barcodes" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product'}</field>
+        </record>
+
+        <record id="mrp.mrp_product_variant_action" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product'}</field>
+        </record>
+
+        <record id="purchase.product_product_action" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product','search_default_filter_to_purchase': 1}</field>
+        </record>
+
+        <record id="product.product_normal_action" model="ir.actions.act_window">
+            <field name="context">{'default_detailed_type': 'product'}</field>
+        </record>
+
+        <record id="kg_product_template_form_view_inherit001" model="ir.ui.view">
+            <field name="name">kg.product.template.form.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//field[@name='categ_id']" position="replace">
+                    <field name="is_equipment" invisible="1"/>
+
+                    <label string="Product Category" for="categ_id" class="o_form_label"
+                           invisible="is_equipment == True" domain="[('is_scope', '=', True)"/>
+                    <label string="Scope Category " for="categ_id" class="o_form_label"
+                           invisible="is_equipment == False"/>
+                    <!--                    <attribute name="nolabel">1</attribute>-->
+                    <field name="categ_id" nolabel="1"/>
+                </xpath>
+                <xpath expr="//field[@name='categ_id']" position="after">
+
+                    <field name="is_equipment" invisible="1"/>
+                    <label string="Sub Category" for="sub_category_id" class="o_form_label"
+                           invisible="is_equipment == True"/>
+                    <label string="Instruments" for="sub_category_id" class="o_form_label"
+                           invisible="is_equipment == False"/>
+                    <field name="sub_category_id" nolabel="1"/>
+                    <field name="sub_cate_id" invisible="1"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='default_code']" position="attributes">
+                    <attribute name="string">NEW ITEM CODE</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sub_category_id']" position="attributes">
+                    <attribute name="readonly">False</attribute>
+                </xpath>
+                <xpath expr="//field[@name='categ_id']" position="attributes">
+                    <attribute name="domain">[('is_scope', '=', True)]</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_view_search_inherit_id" model="ir.ui.view">
+            <field name="name">product.template.view.search.catalog.inherit.kg</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//field[@name='list_price']" position="attributes">-->
+<!--                    <attribute name="string">Minimum Sales Price</attribute>-->
+<!--                </xpath>-->
+                <field name="categ_id" position="after">
+
+                    <field name="existing_code" string="Existing code"/>
+                    <field name="default_code" string="NEW ITEM CODE"/>
+                </field>
+                <xpath expr="//filter[@name='filter_to_purchase']" position="after">
+                    <separator/>
+                    <filter name="existing_code" string="Existing code"/>
+                    <filter name="default_code" string="NEW ITEM CODE"/>
+                </xpath>
+                <group expand="1" string="Group By">
+                    <separator/>
+                    <filter string="Existing code" name="existing_code" context="{'group_by':'existing_code'}"/>
+                    <filter string="NEW ITEM CODE" name="default_code" context="{'group_by':'default_code'}"/>
+                </group>
+            </field>
+        </record>
+
+        <record id="product_view_search_inherit" model="ir.ui.view">
+            <field name="name">product.search.catalog.inherit</field>
+            <field name="inherit_id" ref="product.product_view_search_catalog"/>
+            <field name="model">product.product</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='product_tmpl_id']" position="after">
+                    <field name="existing_code" string="Existing code"/>
+                    <field name="default_code" string="NEW ITEM CODE"/>
+                </xpath>
+
+                <xpath expr="//filter[@name='products']" position="after">
+                    <separator/>
+                    <filter name="existing_code" string="Existing code"/>
+                    <filter name="default_code" string="NEW ITEM CODE"/>
+                </xpath>
+                <group expand="1" string="Group By">
+                    <separator/>
+                    <filter string="Existing code" name="existing_code" context="{'group_by':'existing_code'}"/>
+                    <filter string="NEW ITEM CODE" name="default_code" context="{'group_by':'default_code'}"/>
+                </group>
+            </field>
+        </record>
+
+
+        <record id="kg_product_product_form_view_inherit001" model="ir.ui.view">
+            <field name="name">kg.product.product.form.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="attributes">
+                    <attribute name="string">NEW ITEM CODE</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="lst_price" position="attributes">
+                   <attribute name="string">Minimum Sales Price</attribute>
+
+                </field>
+
+                <xpath expr="//field[@name='categ_id']" position="replace">
+                    <field name="is_equipment" invisible="1"/>
+
+                    <label string="Product Category" for="categ_id" class="o_form_label"
+                           invisible="is_equipment == True" domain="[('is_scope', '=', True)"/>
+                    <label string="Scope Category " for="categ_id" class="o_form_label"
+                           invisible="is_equipment == False"/>
+                    <!--                    <attribute name="nolabel">1</attribute>-->
+                    <field name="categ_id" nolabel="1"/>
+                </xpath>
+                <xpath expr="//field[@name='categ_id']" position="after">
+
+                    <field name="is_equipment" invisible="1"/>
+                    <label string="Sub Category" for="sub_category_id" class="o_form_label"
+                           invisible="is_equipment == True" domain="[('is_scope', '=', True)]"/>
+                    <label string="Instruments" for="sub_category_id" class="o_form_label"
+                           invisible="is_equipment == False"/>
+                    <field name="sub_category_id" nolabel="1" domain="[('parent_id','=',categ_id)]"/>
+
+
+
+                </xpath>
+                <!--                <xpath expr="//field[@name='uom_po_id']" position='after'>-->
+                <!--                    <field name="is_labour_product"/>-->
+                <!--                </xpath>-->
+            </field>
+        </record>
+        <record id="kg_product_template_form_view_inherit" model="ir.ui.view">
+            <field name="name">kg.product.template.form.view.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='list_price']" position="attributes">
+                    <attribute name="string">Minimum Sales Price</attribute>
+                </xpath>
+
+                <field name="categ_id" position="before">
+                    <field name="auto_default_code"/>
+                    <field name="brand_id"/>
+                    <field name="is_equipment" invisible="1"/>
+
+                    <label string="Group" for="product_group_id" class="o_form_label" invisible="is_equipment == True"/>
+                    <label string="Scope" for="product_group_id" class="o_form_label"
+                           invisible="is_equipment == False"/>
+                    <field name="product_group_id" nolabel="1"/>
+                </field>
+
+                <field name="uom_po_id" position="after">
+                    <field name="is_labour_product"/>
+                    <field name="is_gas_detection" invisible="1"/>
+                    <field name="is_fire_detection" invisible="1"/>
+                    <field name="is_electrical_system" invisible="1"/>
+                    <field name="is_measuring_control_instruments" invisible="1"/>
+                    <field name="is_navigation_system" invisible="1"/>
+                    <field name="is_communication_system" invisible="1"/>
+                    <field name="is_featured_marine_products" invisible="1"/>
+                    <field name="is_life_saving_appliances" invisible="1"/>
+                    <field name="is_fire_fighting_appliances" invisible="1"/>
+                    <field name="is_cables" invisible="1"/>
+                    <field name="is_hardware" invisible="1"/>
+                    <field name="is_tools_equipments" invisible="1"/>
+                    <field name="is_health_safety_env" invisible="1"/>
+                    <field name="is_consumables" invisible="1"/>
+                </field>
+                <xpath expr="//notebook/page[@name='general_information']/group/group[@name='group_standard_price']"
+                       position="after">
+                    <group string="Item Code">
+                        <field name="default_code" string="NEW ITEM CODE"/>
+                        <field name="existing_code"/>
+                    </group>
+                    <group string="Product Description">
+                        <field name="description"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="full_description"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="make"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False "/>
+                        <field name="model"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False "/>
+                        <!--                        <field name="serial_no"/>-->
+                        <!--                        <field name="physical_status_id"/>-->
+                        <!--                        <field name="accesories"/>-->
+                        <field name="part_no"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                    </group>
+                    <group string="Technical Specification">
+                        <field name="range"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="type_of_sensors"
+                               invisible="is_fire_detection == False and is_measuring_control_instruments == False"/>
+                        <field name="no_of_zones" invisible="is_fire_detection == False"/>
+                        <field name="no_of_loops" invisible="is_fire_detection == False"/>
+                        <field name="type_of_gas" placeholder="Enter Type of Gas"
+                               invisible="is_gas_detection == False"/>
+                        <field name="input_voltage"
+                               invisible="is_gas_detection == False and is_measuring_control_instruments == False and is_navigation_system == False and is_featured_marine_products == False"/>
+                        <field name="output_voltage"
+                               invisible="is_gas_detection == False and is_measuring_control_instruments == False and is_navigation_system == False and is_featured_marine_products == False"/>
+                        <field name="no_of_channels"
+                               invisible="is_gas_detection == False and is_navigation_system == False and is_communication_system == False"/>
+                        <field name="communication_output" invisible="is_gas_detection == False"
+                               string="Communication Protocol"/>
+                        <field name="rated_power" placeholder="Enter Rated Power"
+                               invisible="is_electrical_system == False and is_measuring_control_instruments == False"/>
+                        <field name="rated_current" placeholder="Enter Rated Current"
+                               invisible="is_electrical_system == False and is_measuring_control_instruments == False and is_cables == False"/>
+                        <field name="rated_voltage" placeholder="Enter Rated Voltage"
+                               invisible="is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_featured_marine_products == False and is_cables == False"/>
+                        <field name="rated_wattage" placeholder="Enter Rated Wattage"
+                               invisible="is_electrical_system == False and is_measuring_control_instruments == False and is_featured_marine_products == False"/>
+                        <field name="frequency" placeholder="Enter Rated Frequency"
+                               invisible="is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_featured_marine_products == False"/>
+                        <field name="number_of_poles" placeholder="Enter Number of Poles"
+                               invisible="is_electrical_system == False"/>
+                        <field name="colour" invisible="is_electrical_system == False"/>
+                        <field name="capacity" invisible="is_life_saving_appliances == False"/>
+                        <field name="buyoncy" invisible="is_life_saving_appliances == False"/>
+                        <field name="combustion_property" invisible="is_cables == False"/>
+                    </group>
+                    <group string="Dimensions" invisible="is_navigation_system == False">
+                        <field name="length" invisible="is_navigation_system == False"/>
+                        <field name="diameter" invisible="is_navigation_system == False"/>
+                        <field name="connection_size" invisible="is_navigation_system == False"/>
+                    </group>
+                    <group string="CERTIFICATIONS &amp; STANDARDS">
+                        <field name="country_of_origin"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="ip_rating"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="class_approval"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="certification"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="hs_code"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                    </group>
+
+                    <group string="STORAGE &amp; INVENTORY">
+                        <field name="room"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="rack"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="bin"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="minimum_stock"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="stock_main_store"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="stock_ajman"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="stock_fujairah"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                        <field name="stock_abudhabi"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                    </group>
+
+                    <group string="TRANSPORT REGULATION">
+                        <field name="dg_non_dg"
+                               invisible="is_gas_detection == False and is_fire_detection == False and is_electrical_system == False and is_measuring_control_instruments == False and is_navigation_system == False and is_communication_system == False and is_life_saving_appliances == False and is_fire_fighting_appliances == False and is_featured_marine_products == False and is_cables == False and is_hardware == False and is_tools_equipments == False and is_consumables == False and is_health_safety_env == False"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

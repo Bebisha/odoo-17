@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Patient Class Master Data -->
+    <data noupdate="1">
+
+        <record id="patient_class_e" model="patient.class">
+            <field name="code">E</field>
+            <field name="name">Emergency</field>
+        </record>
+
+        <record id="patient_class_i" model="patient.class">
+            <field name="code">I</field>
+            <field name="name">Inpatient</field>
+        </record>
+
+        <record id="patient_class_n" model="patient.class">
+            <field name="code">N</field>
+            <field name="name">Not Applicable</field>
+        </record>
+
+        <record id="patient_class_o" model="patient.class">
+            <field name="code">O</field>
+            <field name="name">Outpatient</field>
+        </record>
+
+        <record id="patient_class_p" model="patient.class">
+            <field name="code">P</field>
+            <field name="name">Preadmit</field>
+        </record>
+
+        <record id="patient_class_o_no_bed_no_er" model="patient.class">
+            <field name="code">O</field>
+            <field name="name">No Bed + No emergency room</field>
+        </record>
+
+        <record id="patient_class_e_no_bed_er" model="patient.class">
+            <field name="code">E</field>
+            <field name="name">No Bed + Emergency room</field>
+        </record>
+
+        <record id="patient_class_i_in_bed_no_er" model="patient.class">
+            <field name="code">I</field>
+            <field name="name">Inpatient Bed + No emergency room</field>
+        </record>
+
+        <record id="patient_class_e_in_bed_er" model="patient.class">
+            <field name="code">E</field>
+            <field name="name">Inpatient Bed + Emergency room</field>
+        </record>
+
+        <record id="patient_class_i_daycase_no_er" model="patient.class">
+            <field name="code">I</field>
+            <field name="name">Daycase Bed + No emergency room</field>
+        </record>
+
+        <record id="patient_class_e_daycase_er" model="patient.class">
+            <field name="code">E</field>
+            <field name="name">Daycase Bed + Emergency room</field>
+        </record>
+
+        <record id="patient_class_o_nationals" model="patient.class">
+            <field name="code">O</field>
+            <field name="name">Nationals Screening</field>
+        </record>
+
+        <record id="patient_class_o_new_visa" model="patient.class">
+            <field name="code">O</field>
+            <field name="name">New Visa Screening</field>
+        </record>
+
+        <record id="patient_class_o_renewal_visa" model="patient.class">
+            <field name="code">O</field>
+            <field name="name">Renewal Visa Screening</field>
+        </record>
+
+        <record id="patient_class_o_home" model="patient.class">
+            <field name="code">O</field>
+            <field name="name">Home</field>
+        </record>
+
+        <record id="patient_class_o_assisted_living" model="patient.class">
+            <field name="code">O</field>
+            <field name="name">Assisted Living Facility</field>
+        </record>
+
+        <record id="patient_class_o_mobile" model="patient.class">
+            <field name="code">O</field>
+            <field name="name">Mobile Unit</field>
+        </record>
+
+        <record id="patient_class_e_ambulance_land" model="patient.class">
+            <field name="code">E</field>
+            <field name="name">Ambulance - Land</field>
+        </record>
+
+        <record id="patient_class_e_ambulance_air" model="patient.class">
+            <field name="code">E</field>
+            <field name="name">Ambulance - Air or Water</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Race Master Data -->
+    <data noupdate="1">
+        <record id="race_american" model="race.form">
+            <field name="code">1002-5</field>
+            <field name="name">American</field>
+        </record>
+
+        <record id="race_asian" model="race.form">
+            <field name="code">2028-9</field>
+            <field name="name">Asian</field>
+        </record>
+
+        <record id="race_african" model="race.form">
+            <field name="code">2054-5</field>
+            <field name="name">African</field>
+        </record>
+
+        <record id="race_european" model="race.form">
+            <field name="code">2106-3</field>
+            <field name="name">European</field>
+        </record>
+
+        <record id="race_other" model="race.form">
+            <field name="code">2131-1</field>
+            <field name="name">Other Race</field>
+        </record>
+    </data>
+</odoo>

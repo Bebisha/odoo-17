@@ -1,0 +1,12 @@
+<odoo>
+     <record id="kg_view_picking_type_form_inherit" model="ir.ui.view">
+        <field name="name">kg.stock.picking.type.form.inherit</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sequence_code']" position="attributes">
+                <attribute name="string">Code</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

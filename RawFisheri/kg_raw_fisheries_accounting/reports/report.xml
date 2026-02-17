@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_tax_invoice" model="ir.actions.report">
+            <field name="name">Tax Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_raw_fisheries_accounting.report_tax_invoice</field>
+            <field name="report_file">kg_raw_fisheries_accounting.report_tax_invoice</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="kg_raw_fisheries_accounting.paperformat_custom_tax_invoice_report"/>
+        </record>
+    </data>
+</odoo>

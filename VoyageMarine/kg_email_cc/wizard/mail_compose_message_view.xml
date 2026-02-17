@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+        <record model="ir.ui.view" id="email_compose_message_wizard_form_ims1">
+            <field name="name">mail.compose.message.form</field>
+            <field name="model">mail.compose.message</field>
+            <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/group/div" position="after">
+                    <field name="email_cc_ids"
+                          placeholder="Comma-separated carbon copy recipients addresses" widget="many2many_tags_email" context="{'force_email':True, 'show_email':True}"/>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>
+

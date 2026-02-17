@@ -1,0 +1,19 @@
+# Copyright 2015 Agile Business Group
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+{
+    'name': 'Report Qweb Element Page Visibility',
+    'version': '17.1.1',
+    'author': 'Agile Business Group, Odoo Community Association (OCA)',
+    'category': 'Tools',
+    "website": "https://odoo-community.org/",
+    "license": "AGPL-3",
+    'application': True,
+    'installable': True,
+    'data': [
+        'views/layouts.xml',
+    ],
+    'depends': [
+        'base'
+    ],
+}

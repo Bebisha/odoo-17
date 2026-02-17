@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="habit_aerated_drinks" model="social.habit">
+            <field name="name">Aerated Drinks</field>
+        </record>
+
+        <record id="habit_alcohol" model="social.habit">
+            <field name="name">Alcohol</field>
+        </record>
+
+        <record id="habit_coffee" model="social.habit">
+            <field name="name">Coffee</field>
+        </record>
+
+        <record id="habit_drugs" model="social.habit">
+            <field name="name">Drugs</field>
+        </record>
+
+        <record id="habit_no_habits" model="social.habit">
+            <field name="name">No habits</field>
+        </record>
+
+        <record id="habit_other" model="social.habit">
+            <field name="name">Other</field>
+        </record>
+
+        <record id="habit_shisha" model="social.habit">
+            <field name="name">Shisha</field>
+        </record>
+
+        <record id="habit_smoking" model="social.habit">
+            <field name="name">Smoking</field>
+        </record>
+
+        <record id="habit_tea" model="social.habit">
+            <field name="name">Tea</field>
+        </record>
+
+        <record id="habit_unknown" model="social.habit">
+            <field name="name">Unknown</field>
+        </record>
+
+    </data>
+</odoo>

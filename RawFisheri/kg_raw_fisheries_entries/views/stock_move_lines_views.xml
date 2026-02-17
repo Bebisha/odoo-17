@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_stock_move_line_tree_inherit_id" model="ir.ui.view">
+        <field name="name">stock.move.line.tree.inherit.id</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="stock_date" optional="show"/>
+                <field name="batch_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="kg_view_stock_move_line_search_inherit_d" model="ir.ui.view">
+        <field name="name">kg.stock.move.line.inventory.search.inherit</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.stock_move_line_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='groupby']" position="inside">
+                <filter string="Inventory Date" name="inventory_date" domain="[]" context="{'group_by': 'stock_date'}"/>
+            </xpath>
+            <xpath expr="//filter[@name='date']" position="before">
+                <filter string="Today" name="filter_today"
+                        domain="[('stock_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+            </xpath>
+            <xpath expr="//filter[@name='inventory']" position="after">
+                <filter name="excluding_sale_location" string="Excluding Warehouse"
+                        domain="[('is_non_sale_location','=',False)]"/>
+                <filter name="including_sale_location" string="Including Warehouse"
+                        domain="[]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

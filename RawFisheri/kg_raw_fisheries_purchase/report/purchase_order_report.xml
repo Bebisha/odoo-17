@@ -1,0 +1,250 @@
+<odoo>
+    <template id="report_purchase_entry">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header">
+                            <h3 style="text-align:center;padding-top:30px;">Purchase Order -
+                                <span t-field="doc.name"/>
+                            </h3>
+                            <table style="width:100%; height:25pt; border: 1pt solid white; border-collapse:separate; border-radius:25pt;padding-top:10px;font-size:13px;">
+                                <tr width="100%">
+                                    <td style="width:50%; height:25pt; border: 1pt solid white; border-collapse:separate; border-radius:25pt !important;padding-top:10px;">
+                                        <table style="width:100%;" class="table-borderless">
+                                            <tr width="100%">
+                                                <td with="100%" style="padding-left:10px;padding-right:10px;">
+                                                    <strong>
+                                                        <span t-field="doc.vendor_id.name"/>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            <tr width="100%">
+                                                <td with="100%"
+                                                    style="padding-left:10px;padding-right:10px;padding-top:20px;">
+                                                    <div t-field="doc.vendor_id"
+                                                         t-options='{"widget": "contact", "fields": ["address", "phone", "email", "vat"], "no_marker": True, "phone_icons": True}'/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="width:50%; height:25pt; border: 1pt solid black; border-collapse:separate; border-radius:25pt !important;padding-top:10px;">
+                                        <table style="width:100%;" class="table-borderless">
+                                            <tr width="100%">
+                                                <td with="100%" style="padding-left:20px;padding-right:10px;">
+                                                    <strong>
+                                                        <span t-field="doc.company_id.name"/>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            <tr width="100%">
+                                                <td with="100%"
+                                                    style="padding-left:20px;padding-right:10px;padding-top:20px;padding-bottom:30px;">
+                                                    <span>As Seeb, Al-Seeb, Muscar Governorate. P.O. Box 485</span>
+                                                    <br/>
+                                                    <span>115 Muscat Governorate</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table style="width:100%; border: 1pt solid black; padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;font-size:12px;">
+                                <tr width="100%">
+                                    <td style="width:10%;padding-top:10px;padding-bottom:10px;border-right: 1pt solid black;background-color: #d3d3d3;"
+                                        align="center">
+                                        <strong>
+                                            <span>Date</span>
+                                        </strong>
+                                    </td>
+                                    <td style="width:10%;padding-top:10px;padding-bottom:10px;border-right: 1pt solid black;background-color: #d3d3d3;"
+                                        align="center">
+                                        <strong>
+                                            <span>Order No</span>
+                                        </strong>
+                                    </td>
+                                    <td style="width:10%;padding-top:10px;padding-bottom:10px;border-right: 1pt solid black;background-color: #d3d3d3;"
+                                        align="center">
+                                        <strong>
+                                            <span>Vessel</span>
+                                        </strong>
+                                    </td>
+                                    <td style="width:25%;padding-top:10px;padding-bottom:10px;border-right: 1pt solid black;background-color: #d3d3d3;"
+                                        align="center">
+                                        <strong>
+                                            <span>Serial No</span>
+                                        </strong>
+                                    </td>
+                                    <td style="width:25%;padding-top:10px;padding-bottom:10px;border-right: 1pt solid black;background-color: #d3d3d3;"
+                                        align="center">
+                                        <strong>
+                                            <span>Type</span>
+                                        </strong>
+                                    </td>
+                                    <td style="width:10%;padding-top:10px;padding-bottom:10px;border-right: 1pt solid black;background-color: #d3d3d3;"
+                                        align="center">
+                                        <strong>
+                                            <span>Currency</span>
+                                        </strong>
+                                    </td>
+                                    <td style="width:10%;padding-top:10px;padding-bottom:10px;border: 1pt solid black;background-color: #d3d3d3;"
+                                        align="center">
+                                        <strong>
+                                            <span>Page</span>
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%">
+                                    <td style="width:10%;padding-top:10px;border-right: 1pt solid black;"
+                                        align="center">
+                                        <span t-field="doc.date_of_order"/>
+                                    </td>
+                                    <td style="width:10%;padding-top:10px;border-right: 1pt solid black;"
+                                        align="center">
+                                        <span t-field="doc.order_no"/>
+                                    </td>
+                                    <td style="width:10%;padding-top:10px;border-right: 1pt solid black;"
+                                        align="center">
+                                        <span t-field="doc.vessel_id.name"/>
+                                    </td>
+                                    <td style="width:25%;padding-top:10px;border-right: 1pt solid black;"
+                                        align="center">
+                                        <span t-field="doc.serial_no"/>
+                                    </td>
+                                    <td style="width:25%;padding-top:10px;border-right: 1pt solid black;"
+                                        align="center">
+                                        <span t-field="doc.enquiry_type_id.name"/>
+                                    </td>
+                                    <td style="width:10%;padding-top:10px;border-right: 1pt solid black;"
+                                        align="center">
+                                        <span t-field="doc.currency_id.name"/>
+                                    </td>
+                                    <td style="width:10%;padding-top:10px;border: 1pt solid black;" align="center">
+                                        <span class="page"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                        <br/>
+                        <table style="width:100%; border: 1pt solid black; padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;font-size:12px;">
+                            <tr width="100%">
+                                <td width="10%" align="left"
+                                    style="background-color: #d3d3d3;border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <b>Part No</b>
+                                </td>
+                                <td width="20%" align="left"
+                                    style="background-color: #d3d3d3;border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <b>Description</b>
+                                </td>
+                                <td width="10%" align="center"
+                                    style="background-color: #d3d3d3;border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <b>Quantity</b>
+                                </td>
+                                <td width="10%" align="center"
+                                    style="background-color: #d3d3d3;border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <b>Unit</b>
+                                </td>
+                                <td width="15%" align="right"
+                                    style="background-color: #d3d3d3;border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <b>Price</b>
+                                </td>
+                                <td width="10%" align="right"
+                                    style="background-color: #d3d3d3;border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <b>Discount</b>
+                                </td>
+                                <td width="10%" align="center"
+                                    style="background-color: #d3d3d3;border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <b>VAT</b>
+                                </td>
+                                <td width="15%" align="right"
+                                    style="background-color: #d3d3d3;border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <b>Total</b>
+                                </td>
+                            </tr>
+                            <t t-foreach="doc.po_entry_ids" t-as="line">
+                                <tr width="100%">
+                                    <td width="10%" align="left"
+                                        style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                        <span t-field="line.part_no"/>
+                                    </td>
+                                    <td width="20%" align="left"
+                                        style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                        <span t-field="line.description"/>
+                                    </td>
+                                    <td width="10%" align="center"
+                                        style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                        <span t-esc="'{:,.0f}'.format(line.qty)"/>
+                                    </td>
+                                    <td width="10%" align="center"
+                                        style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                        <span t-field="line.uom_id.name"/>
+                                    </td>
+                                    <td width="15%" align="right"
+                                        style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                        <span t-field="line.price"/>
+                                    </td>
+                                    <td width="10%" align="center"
+                                        style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                        <span t-esc="'%.2f' % line.discount"/>
+                                    </td>
+                                    <td width="10%" align="center"
+                                        style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                        <span t-field="line.tax_ids"/>
+                                    </td>
+                                    <td width="15%" align="right"
+                                        style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                        <span t-field="line.total"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr width="100%">
+                                <td width="85%" align="right" colspan="7"
+                                    style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <strong>
+                                        <span>Untaxed Amount</span>
+                                    </strong>
+                                </td>
+                                <td width="15%" align="right"
+                                    style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <strong>
+                                        <span t-field="doc.untaxed_amount"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="85%" align="right" colspan="7"
+                                    style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <strong>
+                                        <span>Taxed Amount</span>
+                                    </strong>
+                                </td>
+                                <td width="15%" align="right"
+                                    style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <strong>
+                                        <span t-field="doc.taxed_amount"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="85%" align="right" colspan="7"
+                                    style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <strong>
+                                        <span>Net Amount</span>
+                                    </strong>
+                                </td>
+                                <td width="15%" align="right"
+                                    style="border-right: 1px solid black;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <strong>
+                                        <span t-field="doc.purchase_amount"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

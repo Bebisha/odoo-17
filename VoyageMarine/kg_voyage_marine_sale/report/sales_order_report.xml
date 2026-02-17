@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+
+        <record id="kg_so_report_list_view" model="ir.ui.view">
+            <field name="name">kg.sale.order.report.tree</field>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <tree create="0" delete="0" edit="0" default_order="name asc">
+                    <field name="mr_ids" widget="many2many_tags" string="MR NO"/>
+                    <field name="material_request_date" string="MR Date"/>
+                    <field name="name" string="SO NO"/>
+                    <field name="user_id" string="SO Representative" optional="hide"/>
+                    <field name="partner_id" string="Client"/>
+                    <field name="vessel_name" string="Vessel" column_invisible="1"/>
+                    <field name="vessel_id" string="Vessel"/>
+                    <field name="po_ids" widget="many2many_tags" string="PO NO"/>
+                    <field name="purchase_order_status" widget="badge" string="PO Status"/>
+                    <field name="picking_ids" widget="many2many_tags" string="DO NO"/>
+                    <field name="payment_term_id"  string="Payment Terms"/>
+<!--                    <field name="status"  string="Order Status"/>-->
+                    <field name="delivery_status" widget="badge" string="DO Status"/>
+                    <field name="invoice_state" widget="badge" string="Invoice Status"/>
+                    <field name="origin" string="Remarks" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="kg_action_sales_order_report" model="ir.actions.act_window">
+            <field name="name">Sales Order Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="kg_so_report_list_view"/>
+        </record>
+
+        <menuitem id="kg_so_report_menu_id" name="Sales Order Report" action="kg_action_sales_order_report"
+                  parent="sale.menu_sale_report" sequence="41"/>
+
+
+    </data>
+</odoo>

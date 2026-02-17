@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="result_code_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Observation Result Status Codes Interpretation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">result.code</field>
+
+    </record>
+    <record id="result_code_tree" model="ir.ui.view">
+        <field name="name">result.code.tree.views</field>
+        <field name="model">result.code</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="result_code_form" model="ir.ui.view">
+        <field name="name">result.code.form.views</field>
+        <field name="model">result.code</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="result_code_menu"
+              action="result_code_action"
+              name="Observation Result Status Codes Interpretation"
+              parent="kg_nabidh.obr_menu"/>
+
+</odoo>

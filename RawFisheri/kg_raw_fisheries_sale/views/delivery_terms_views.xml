@@ -1,0 +1,41 @@
+<odoo>
+    <record id="kg_delivery_terms_action" model="ir.actions.act_window">
+        <field name="name">Delivery Terms</field>
+        <field name="res_model">delivery.terms</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="kg_delivery_terms_menu_id" action="kg_delivery_terms_action"
+              parent="sale.menu_sale_config" sequence="12"/>
+
+    <record id="kg_delivery_terms_view_tree" model="ir.ui.view">
+        <field name="name">Delivery Terms Tree View</field>
+        <field name="model">delivery.terms</field>
+        <field name="arch" type="xml">
+            <tree string="Delivery Terms">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="kg_delivery_terms_view_form" model="ir.ui.view">
+        <field name="name">Delivery Terms Form View</field>
+        <field name="model">delivery.terms</field>
+        <field name="arch" type="xml">
+            <form string="Delivery Terms">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+</odoo>

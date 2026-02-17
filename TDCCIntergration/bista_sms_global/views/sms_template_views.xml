@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+            <record id="action_sms_template" model="ir.actions.act_window">
+                <field name="name">SMS Templates</field>
+                <field name="res_model">sms.template</field>
+                <field name="view_mode">tree</field>
+                <field name="help" type="html">
+                  <p class="oe_view_nocontent_create">
+                    Click to add a Short Message Service templates.
+                  </p>
+                </field>
+            </record>
+    <record id="sms_sms_view_form_inherit" model="ir.ui.view">
+        <field name="name">sms.template.view.form.inherit</field>
+        <field name="model">sms.template</field>
+        <field name="inherit_id" ref="sms.sms_template_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group>
+                    <group>
+                        <field name="model_id" required="1" options="{'no_create': True}"/>
+                        <field name="model" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Content">
+                            <label for="message"/>
+                            <field name="message"/>
+                        </page>
+                        <page string="SMS Configuration">
+                            <group>
+                                <field name="from_number"/>
+                                <field name="to_number"/>
+                            </group>
+                            <!--                                <group>-->
+                            <!--                                    <field name="sms_servers_id"/>-->
+                            <!--                                </group>-->
+                        </page>
+                    </notebook>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+    <menuitem action="action_sms_template" id="menu_action_sms_template_tree"
+              parent="menu_sms" sequence="2"/>
+
+</odoo>

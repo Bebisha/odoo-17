@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="statement_of_account_details_form_view" model="ir.ui.view">
+        <field name="name">statement.of.account.details.form.view</field>
+        <field name="model">statement.account</field>
+        <field name="arch" type="xml">
+            <form string="Statement Of Account">
+                <group>
+                    <group>
+                        <field name="date" required="1"/>
+                        <field name="partner_id" required="1"
+                            options="{'no_create':True,'no_open':True}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Print" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+        <record id="action_account_statement_details" model="ir.actions.act_window">
+            <field name="name">Statement Of Account Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">statement.account</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="statement_of_account_details_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="account_statement"
+              action="action_account_statement_details"
+              name="Statement Of Account"
+              parent="bista_tdcc_operations.menu_account_tdcc_reports"
+    />
+</odoo>

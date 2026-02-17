@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_order_form_inherit_pos_sale" model="ir.ui.view">
+        <field name="name">sale.order.form.pos.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <button id="create_invoice" position="attributes">
+                <attribute name="name">%(kg_voyage_marine_accounting.action_attachment_validation_wizard_for)d
+                </attribute>
+            </button>
+            <button id="create_invoice_percentage" position="attributes">
+                <attribute name="name">%(kg_voyage_marine_accounting.action_attachment_validation_wizard_for)d
+                </attribute>
+            </button>
+        </field>
+    </record>
+</odoo>

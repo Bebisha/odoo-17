@@ -1,0 +1,54 @@
+<odoo>
+  <data>
+
+       <record id="product_pack_wizard" model="ir.actions.act_window">
+            <field name="name">Product Pack</field>
+            <field name="res_model">invoice.product.pack.wizard</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="product_pack_wizard_view" />
+            <field name="target">new</field>
+       </record>
+
+       <record id="product_pack_wizard_invoice_view" model="ir.ui.view">
+            <field name="name">invoice.product.pack.wizard.view</field>
+            <field name="model">invoice.product.pack.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Product Pack" >
+                    <group col="4">
+                        <field name="product_id" context="{'default_is_pack': True}" domain="[('is_pack', '=', True)]"/>
+                    </group>
+                     <group>
+                        <field name="pack_ids" invisible="product_id == False">
+<!--                               options="{'invisible':[ ('product_id', '=' ,False)]}">-->
+                            <form string="Pack Product">
+                                <group colspan="4" col="4">
+                                    <group>
+                                        <field name="product_id" />
+                                    </group>
+                                </group>
+                            </form>
+                            <tree>
+                                <field name="product_id" />
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="add_product_pack_invoice" string="Add Pack Products"
+                            type="object" class="oe_highlight" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_pack_wizard_invoice" model="ir.actions.act_window">
+            <field name="name">Product Pack</field>
+            <field name="res_model">invoice.product.pack.wizard</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="product_pack_wizard_invoice_view" />
+            <field name="target">new</field>
+       </record>
+  </data>
+</odoo>

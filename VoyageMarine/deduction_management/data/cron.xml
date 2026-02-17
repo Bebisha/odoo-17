@@ -1,0 +1,15 @@
+<odoo>
+    <data noupdate="1">
+        <!--   Scheduled action to update earnings and dedction status   -->
+        <record id="ir_cron_update_e_and_d_state" model="ir.cron">
+            <field name="name">Update E and D State</field>
+            <field name="model_id" ref="model_hr_deduction"/>
+            <field name="state">code</field>
+            <field name="code">model._check_state()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+    </data>
+</odoo>

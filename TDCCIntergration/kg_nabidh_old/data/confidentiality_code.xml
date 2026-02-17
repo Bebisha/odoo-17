@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Confidentiality Code Master Data -->
+    <data noupdate="1">
+
+        <record id="confidentiality_v" model="confidentiality.code">
+            <field name="code">V</field>
+            <field name="name">Very restricted</field>
+        </record>
+
+        <record id="confidentiality_r" model="confidentiality.code">
+            <field name="code">R</field>
+            <field name="name">Restricted</field>
+        </record>
+
+        <record id="confidentiality_u" model="confidentiality.code">
+            <field name="code">U</field>
+            <field name="name">Usual control</field>
+        </record>
+
+        <record id="confidentiality_emp" model="confidentiality.code">
+            <field name="code">EMP</field>
+            <field name="name">Employee</field>
+        </record>
+
+        <record id="confidentiality_vip" model="confidentiality.code">
+            <field name="code">VIP</field>
+            <field name="name">Very important person or celebrity</field>
+        </record>
+
+        <record id="confidentiality_psy" model="confidentiality.code">
+            <field name="code">PSY</field>
+            <field name="name">Psychiatric patient</field>
+        </record>
+
+        <record id="confidentiality_aid" model="confidentiality.code">
+            <field name="code">AID</field>
+            <field name="name">AIDS patient</field>
+        </record>
+
+        <record id="confidentiality_hiv" model="confidentiality.code">
+            <field name="code">HIV</field>
+            <field name="name">HIV(+) patient</field>
+        </record>
+
+        <record id="confidentiality_eth" model="confidentiality.code">
+            <field name="code">ETH</field>
+            <field name="name">Alcohol/drug treatment patient</field>
+        </record>
+
+    </data>
+</odoo>

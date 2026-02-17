@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="priority_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Priority</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">priority.form</field>
+
+    </record>
+    <record id="priority_tree" model="ir.ui.view">
+        <field name="name">priority.tree.views</field>
+        <field name="model">priority.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="priority_form" model="ir.ui.view">
+        <field name="name">priority.form.views</field>
+        <field name="model">priority.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="priority_menu"
+              action="priority_action"
+              name="Priority"
+              parent="kg_nabidh.obr_menu"/>
+
+</odoo>

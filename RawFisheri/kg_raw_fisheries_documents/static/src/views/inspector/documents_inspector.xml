@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="documents.DocumentsInspector.documentsInfo" t-inherit-mode="extension">
+        <xpath expr="//tr[@class='o_inspector_custom_field']//i[contains(@class, 'fa-tag')]/ancestor::tr"
+               position="replace"/>
+
+        <xpath expr="//tr[@class='o_inspector_divider']" position="after">
+            <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">tag_id</t>
+                <t t-set="additionalProps" t-value="{canOpen: false}"/>
+            </t>
+            <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">original_file_name</t>
+            </t>
+             <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">upload_date</t>
+            </t>
+            <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">document_type_id</t>
+                <t t-set="additionalProps"
+                   t-value="{canOpen: false, canCreate: false, canCreateEdit: false, canQuickCreate: false}"/>
+            </t>
+            <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">document_date</t>
+            </t>
+            <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">validity_start_date</t>
+            </t>
+            <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">validity_end_date</t>
+            </t>
+
+            <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">document_department_id</t>
+                <t t-set="additionalProps"
+                   t-value="{canOpen: false, canCreate: false, canCreateEdit: false, canQuickCreate: false}"/>
+            </t>
+             <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">country_id</t>
+                <t t-set="additionalProps"
+                   t-value="{canOpen: false, canCreate: false, canCreateEdit: false, canQuickCreate: false}"/>
+            </t>
+            <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">document_company_id</t>
+                <t t-set="additionalProps"
+                   t-value="{canOpen: false, canCreate: false, canCreateEdit: false, canQuickCreate: false}"/>
+            </t>
+            <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">counter_party_id</t>
+                <t t-set="additionalProps"
+                   t-value="{canOpen: false, canCreate: false, canCreateEdit: false, canQuickCreate: false}"/>
+            </t>
+            <t t-call="documents.DocumentsInspector.field">
+                <t t-set="fieldName" t-translation="off">vessel_id</t>
+                <t t-set="additionalProps"
+                   t-value="{canOpen: false, canCreate: false, canCreateEdit: false, canQuickCreate: false}"/>
+            </t>
+            <t t-call="documents.DocumentsInspector.field">
+               <t t-set="fieldName" t-translation="off">summary</t>
+            </t>
+        </xpath>
+
+    </t>
+
+</templates>

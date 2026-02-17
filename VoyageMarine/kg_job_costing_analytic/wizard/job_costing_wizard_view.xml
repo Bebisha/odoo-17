@@ -1,0 +1,37 @@
+<odoo>
+    <record id="view_job_costing_report_wizard_form" model="ir.ui.view">
+        <field name="name">job.costing.report.wizard.form</field>
+        <field name="model">job.costing.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Job Costing Report">
+                <group>
+                    <field name="sale_order_ids" widget="many2many_tags"/>
+                </group>
+
+                <footer>
+                    <button name="action_print_job_costing"
+                            type="object"
+                            string="Print Job Costing"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            special="cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_analytic_job_costing_report_wizard" model="ir.actions.act_window">
+        <field name="name">Job Costing Report</field>
+        <field name="res_model">job.costing.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="analytic_job_costing_report" name="Job Costing Report" parent="account.menu_finance_reports" sequence="1"
+              action="action_analytic_job_costing_report_wizard"/>
+
+    <menuitem id="analytic_job_costing_report_sales" name="Job Costing Report" parent="sale.menu_sale_report" sequence="10"
+              action="action_analytic_job_costing_report_wizard"/>
+
+</odoo>

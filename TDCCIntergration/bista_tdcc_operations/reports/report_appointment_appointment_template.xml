@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="appointment_header_footer">
+        <div class="header">
+            <t t-if="doc and 'company_id' in doc">
+                 <t t-set="company" t-value="doc.company_id.sudo()" />
+             </t>
+             <t t-if="not doc or not 'company_id' in doc">
+                 <t t-set="company" t-value="res_company" />
+             </t>
+            <div class="row mb8">
+                <div class="col-6">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"
+                    height="150"/>
+                </div>
+                <div class="col-6 text-right mb4">
+                    <div name="company_address" class="mb4">
+                        <ul class="list-unstyled">
+                        <strong><li t-if="company.name"><span t-esc="company.name"/></li></strong>
+                        <li t-if="company.street"><span t-field="company.street"/></li>
+                        <li t-if="company.state_id">
+                            <span t-field="company.state_id.name"/>
+                            <t t-if="company.country_id">
+                                , <span t-esc="company.country_id.name"/>
+                            </t>
+                        </li>
+                        <li t-if="company.zip">P.O Box <span t-field="company.zip"/></li>
+                        <li t-if="company.phone">Telephone : <span t-field="company.phone"/></li>
+                        <li t-if="company.email">Email : <span t-field="company.email"/></li>
+                        <li t-if="company.vat">TRN : <span t-field="company.vat"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        <div class="article" t-att-data-oe-model="doc and doc._name" t-att-data-oe-id="doc and doc.id" t-att-data-oe-lang="doc and doc.env.context.get('lang')">
+          <t t-raw="0"/>
+        </div>
+
+         <div class="footer">
+                <div style="border-top: 1px solid black;">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <b>
+                                <span t-esc="company.name" style="font-size: 10pt;" />
+                            </b>
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item">
+                            <t t-if="company.zip">
+                                <span style="font-size: 10pt;">PO Box</span>
+                                <span t-esc="company.zip" style="font-size: 10pt;" />
+                            </t>
+                            <t t-if="company.zip">
+                                <span t-esc="company.state_id.name" style="font-size: 12pt;" />,UAE&amp;nbsp;|
+                            </t>
+                        </li>
+                        <li class="list-inline-item" t-if="company.zip">
+                            <span style="font-size: 10pt;">Call &amp;nbsp;</span>
+                            <span t-esc="company.phone" style="font-size: 12pt;" />
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item" t-if="company.email">
+                            <span t-esc="company.email" style="font-size: 12pt;" />
+                            &amp;nbsp;|
+                        </li>
+                        <li class="list-inline-item" t-if="company.website">
+                            <strong>
+                                <span t-esc="company.website" style="font-size: 10pt;" />
+                            </strong>
+                        </li>
+                    </ul>
+                    <div class="text-muted">
+                        Page:
+                        <span class="page" />
+                        of
+                        <span class="topage" />
+                    </div>
+                </div>
+            </div>
+    </template>
+
+    <template id="report_appointment_document">
+        <t t-call="bista_tdcc_operations.appointment_header_footer">
+            <t t-set="doc"
+                t-value="doc.with_context({'lang':doc.client_id.lang})" />
+            <div class="page">
+                <div class="oe_structure" />
+                <br/><br/>
+                <div class="margin-top:20px;">
+                    Appointment For
+                    <b> <span t-field="doc.client_id.name" /></b>
+                </div>
+                <br/><br/>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <t t-set="colspan" t-value="5" />
+                            <th class="text-left">Date</th>
+                            <th class="text-left">Time</th>
+                            <th class="text-left">Practitioner</th>
+                            <th class="text-left">Service Type</th>
+                            <th class="text-left">Appointment Type</th>
+                            <th class="text-right">Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+                        <tr>
+                            <t t-set="time" t-value="doc.get_time(doc.start_date)" />
+                            <td style="width: 15%;">
+                                <span t-field="doc.start_date"
+                                    t-options="{&quot;format&quot;: &quot;MM-dd-yyyy&quot;}" />
+                            </td>
+                            <td>
+                                <span t-esc="time" />
+                            </td>
+                            <td>
+                                <span t-field="doc.physician_id.name" />
+                            </td>
+                            <td>
+                                <span t-field="doc.service_type_id.name" />
+                            </td>
+                            <td>
+                                <span t-field="doc.appointment_type_id.name" />
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="doc.price_subtotal"
+                                      t-options="{'widget': 'monetary',
+                                                  'display_currency': res_company.currency_id}"/>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="clearfix">
+                    <div class="row" name="total">
+                        <div
+                            t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                            <table class="table table-sm">
+                                <tr>
+                                    <hr style="border-bottom:1px solid black;" />
+                                    <td>
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="doc.price_subtotal"
+                                      t-options="{'widget': 'monetary',
+                                                  'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="oe_structure" />
+            </div>
+        </t>
+    </template>
+
+    <template id="report_appointment">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="bista_tdcc_operations.report_appointment_document"
+                    t-lang="doc.client_id.lang" />
+            </t>
+        </t>
+    </template>
+
+</odoo>

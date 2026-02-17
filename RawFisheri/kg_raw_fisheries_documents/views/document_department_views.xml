@@ -1,0 +1,23 @@
+<odoo>
+
+    <record model='ir.ui.view' id='document_department_tree_view'>
+        <field name="name">document.department.tree</field>
+        <field name="model">document.department</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="document_department_action" model="ir.actions.act_window">
+        <field name="name">Document Departments</field>
+        <field name="res_model">document.department</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="document_department_menuitem" name="Document Departments" parent="documents.Config" sequence="6"
+              action="document_department_action"/>
+
+
+</odoo>

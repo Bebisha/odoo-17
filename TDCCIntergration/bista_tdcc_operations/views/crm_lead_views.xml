@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="crm_case_form_view_leads_tdcc" model="ir.ui.view">
+		<field name="name">crm.lead.form.lead.inherit</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="crm.crm_lead_view_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='team_id']" position="after">
+				<field name="program_type" invisible="1" />
+				<field name="service_group_id" options="{'no_create_edit': True}" invisible ="program_type != 'eiip'"/>
+				<field name="service_type_id" options="{'no_create_edit': True}" invisible ="program_type != 'eiip'"/>
+			</xpath>
+
+			<!--Add new button for print EIP Registration From -->
+			<xpath expr="//header/button[@name='toggle_active']"
+				position="after">
+				<button name="print_eiip_registration_form" string="Print EIIP Registration Form"
+						invisible ="program_type != 'eiip'" type="object" class="o_sale_print" />
+
+			</xpath>
+			<field name="partner_name" position="attributes">
+			     <attribute name="invisible">1</attribute>
+			</field>
+			<field name="partner_id" position="after">
+			     <field name="parent_name"/>
+			     <field name="mother_name"/>
+			</field>
+			<field name="contact_name" position="after">
+                <field name="client_last_name" placeholder="Last Name"/>
+            </field>
+            <field name="contact_name" position="attributes">
+                <attribute name="placeholder">First Name</attribute>
+            </field>
+            <field name="function" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="mobile" position="after">
+                <field name="dob"/>
+                <field name="gender"/>
+                <field name="school_id" options="{'no_create_edit':True}"/>
+                <field name="app_medium_id" options="{'no_create_edit':True}"/>
+            </field>
+		</field>
+	</record>
+
+	<record id="crm_case_form_view_oppor_tdcc" model="ir.ui.view">
+		<field name="name">crm.case.form.view.oppor.inherit</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='team_id']" position="after">
+				<field name="service_group_id" options="{'no_create_edit': True}" />
+				<field name="service_type_id" options="{'no_create_edit': True}" />
+				<field name="program_type" invisible="1" />
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_crm_case_leads_filter_tdcc" model="ir.ui.view">
+		<field name="name">crm.lead.search.lead.inherit</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="crm.view_crm_case_leads_filter" />
+		<field name="arch" type="xml">
+			<xpath expr="//search/field[@name='user_id']" position="after">
+				<field name="service_group_id" />
+				<field name="service_type_id" />
+			</xpath>
+			<xpath expr="//group" position="inside">
+				<filter string="Service Group" name="serviceGroup"
+					context="{'group_by':'service_group_id'}" />
+				<filter string="Service Type" name="serviceType"
+					context="{'group_by':'service_type_id'}" />
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_crm_case_opportunities_filter_tdcc" model="ir.ui.view">
+		<field name="name">crm.lead.search.opportunity.inherit</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="crm.view_crm_case_opportunities_filter" />
+		<field name="arch" type="xml">
+			<xpath expr="//search/field[@name='user_id']" position="after">
+				<field name="service_group_id" />
+				<field name="service_type_id" />
+			</xpath>
+			<xpath expr="//group" position="inside">
+				<filter string="Service Group" name="serviceGroup"
+					context="{'group_by':'service_group_id'}" />
+				<filter string="Service Type" name="serviceType"
+					context="{'group_by':'service_type_id'}" />
+			</xpath>
+		</field>
+	</record>
+
+	<record id="crm_case_form_view_oppor_quot_change" model="ir.ui.view">
+		<field name="name">crm.lead.oppor.inherited.crm.tdcc</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor" />
+		<field name="arch" type="xml">
+			<xpath expr="//button" position="attributes">
+				<attribute name='context'>{'search_default_partner_id': partner_id,
+					'default_partner_id': partner_id,
+					'default_team_id': team_id,
+					'default_campaign_id': campaign_id,
+					'default_medium_id': medium_id,
+					'default_origin': name,
+					'default_source_id': source_id,
+					'default_program_type':program_type
+					}
+				</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Add new field program type in sales team -->
+	<record id="inherit_crm_team_view_form_tdcc" model="ir.ui.view">
+		<field name="name">crm.team.form</field>
+		<field name="model">crm.team</field>
+		<field name="inherit_id" ref="sales_team.crm_team_view_form" />
+		<field name="arch" type="xml">
+			<field name="user_id" position="after">
+				<field name="program_type" invisible="1" />
+			</field>
+		</field>
+	</record>
+
+
+	<!-- Add CRE, Head of Operation, Practitioner group to CRM menu -->
+    <menuitem
+        id="crm.crm_menu_root"
+        name="CRM"
+        groups="sales_team.group_sale_salesman,sales_team.group_sale_manager,bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_appointment_manager,bista_tdcc_operations.group_tdcc_practitioner,bista_tdcc_operations.group_tdcc_eip_eiip_manager"/>
+
+</odoo>

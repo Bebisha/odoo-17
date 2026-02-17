@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_download_cs_hq_xlsx" model="ir.actions.act_window">
+        <field name="name">CS HQ Report</field>
+        <field name="res_model">cs.hq.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <record id="monthly_report_wizard_view" model="ir.ui.view">
+        <field name="name">CS HQ Report</field>
+        <field name="model">cs.hq.wizard</field>
+        <field name="arch" type="xml">
+            <form name="Report Options">
+                <group>
+                    <group>
+                        <field name="date_start"/>
+                    </group>
+                    <group name="dates">
+                        <field name="date_end"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button
+                            name="xlsx_print"
+                            string="Export XLSX"
+                            class="oe_highlight"
+                            type="object"
+                    />
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+   <menuitem
+            id="cs_hq_menu"
+            name="CS HQ Report"
+            parent="helpdesk.helpdesk_ticket_report_menu_main"
+            sequence="26"
+            action="action_download_cs_hq_xlsx"/>
+
+</odoo>

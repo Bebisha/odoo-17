@@ -1,0 +1,37 @@
+<odoo>
+    <record id="airticket_master_form" model="ir.ui.view">
+        <field name="name">airticket.master.form.view</field>
+        <field name="model">airticket.master</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="ticket_count"/>
+                        <field name="year"/>
+                    </group>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+    <record id="airticket_master_tree" model="ir.ui.view">
+        <field name="name">airticket.master.tree.view</field>
+        <field name="model">airticket.master</field>
+        <field name="arch" type="xml">
+            <tree string="model">
+                <field name="name"/>
+                <!--                <field name="terms_condition"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_airticket_master" model="ir.actions.act_window">
+        <field name="name">Airticket Master</field>
+        <field name="res_model">airticket.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_airticket_master" name="Air Ticket master"
+              parent="hr.menu_config_employee"
+              action="action_airticket_master"/>
+</odoo>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_calibration_dimension_report" model="report.paperformat">
+        <field name="name">Calibration Dimension Report</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">25</field>
+        <field name="margin_bottom">36</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">25</field>
+        <field name="disable_shrinking" eval="False"/>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_calibration_dimension_report" model="ir.actions.report">
+        <field name="name">Calibration Dimension Report</field>
+        <field name="model">calibration.form</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_jobsheet.report_calibration_dimension_product</field>
+        <field name="report_file">kg_jobsheet.report_calibration_dimension_product</field>
+        <field name="print_report_name">'Calibration Dimension - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="kg_jobsheet.model_calibration_form"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_calibration_dimension_report"/>
+    </record>
+
+
+
+    <record id="action_final_calibration_dimension_report" model="ir.actions.report">
+        <field name="name">Final Calibration Dimension Report</field>
+        <field name="model">repair.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_jobsheet.report_final_calibration_dimension_product</field>
+        <field name="report_file">kg_jobsheet.report_final_calibration_dimension_product</field>
+        <field name="print_report_name">'Calibration Dimension - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="kg_jobsheet.model_repair_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_calibration_dimension_report"/>
+    </record>
+    <record id="action_final_lsa_certificate" model="ir.actions.report">
+        <field name="name">Final LSA Certificate Report</field>
+        <field name="model">repair.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_jobsheet.final_report_lsa_form</field>
+        <field name="report_file">kg_jobsheet.final_report_lsa_form</field>
+        <field name="print_report_name">'LSA Dimension - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="kg_jobsheet.model_repair_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_calibration_dimension_report"/>
+    </record>
+    <record id="action_lsa_report" model="ir.actions.report">
+        <field name="name">LSA Report</field>
+        <field name="model">lsa.form</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_jobsheet.report_lsa_form</field>
+        <field name="report_file">kg_jobsheet.report_lsa_form</field>
+        <field name="print_report_name">'LSA Dimension - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="kg_jobsheet.model_lsa_form"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_calibration_dimension_report"/>
+    </record>
+    <record id="action_ffa_certificate" model="ir.actions.report">
+        <field name="name">FFA Report</field>
+        <field name="model">ffa.form</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_jobsheet.certificate_ffa_form</field>
+        <field name="report_file">kg_jobsheet.certificate_ffa_form</field>
+        <field name="print_report_name">'FFA Dimension - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="kg_jobsheet.model_ffa_form"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_calibration_dimension_report"/>
+    </record>
+     <record id="action_final_ffa_certificate" model="ir.actions.report">
+        <field name="name">Final FFA Certificate Report</field>
+        <field name="model">repair.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_jobsheet.final_certificate_ffa_form</field>
+        <field name="report_file">kg_jobsheet.final_certificate_ffa_form</field>
+        <field name="print_report_name">'FFA Dimension - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="kg_jobsheet.model_repair_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_calibration_dimension_report"/>
+    </record>
+    <record id="action_field_service_certificate" model="ir.actions.report">
+        <field name="name">FIELD SERVICE</field>
+        <field name="model">field.service</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_jobsheet.certificate_field_service</field>
+        <field name="report_file">kg_jobsheet.certificate_field_service</field>
+        <field name="print_report_name">'Field Service Dimension - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="kg_jobsheet.model_field_service"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_calibration_dimension_report"/>
+    </record>
+     <record id="action_final_certificate_field_service" model="ir.actions.report">
+        <field name="name">Final Field Service Certificate </field>
+        <field name="model">repair.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_jobsheet.final_certificate_field_service</field>
+        <field name="report_file">kg_jobsheet.final_certificate_field_service</field>
+        <field name="print_report_name">'Field Service Dimension - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="kg_jobsheet.model_repair_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_calibration_dimension_report"/>
+    </record>
+    <record id="action_field_navi_communication" model="ir.actions.report">
+        <field name="name">NAVIGATION AND COMMUNICATION Certificate</field>
+        <field name="model">navigation.communication</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_jobsheet.certificate_navi_communication</field>
+        <field name="report_file">kg_jobsheet.certificate_navi_communication</field>
+        <field name="print_report_name">'NAVIGATION AND COMMUNICATION Dimension - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="kg_jobsheet.model_navigation_communication"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_calibration_dimension_report"/>
+    </record>
+     <record id="action_final_certificate_navi_communication" model="ir.actions.report">
+        <field name="name">Final NAVIGATION AND COMMUNICATION Certificate </field>
+        <field name="model">repair.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_jobsheet.final_certificate_navi_communication</field>
+        <field name="report_file">kg_jobsheet.final_certificate_navi_communication</field>
+        <field name="print_report_name">'NAVIGATION AND COMMUNICATION Dimension - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="kg_jobsheet.model_repair_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_calibration_dimension_report"/>
+    </record>
+</odoo>

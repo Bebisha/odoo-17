@@ -1,0 +1,53 @@
+<odoo>
+    <!-- Search View (add Group By filter for Type) -->
+    <record id="view_sale_report_search_inherit_type" model="ir.ui.view">
+        <field name="name">sale.report.search.inherit.type</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.view_order_product_search"/>
+        <field name="arch" type="xml">
+             <xpath expr="//search/group" position="inside">
+                <field name="type_id"/>
+                <filter string="Local" name="local" domain="[('type_id', '=', 'local')]"/>
+                <filter string="Middle East" name="meast" domain="[('type_id', '=', 'meast')]"/>
+                <filter string="International" name="international" domain="[('type_id', '=', 'international')]"/>
+                <filter string="Sister Concern" name="sisconcern" domain="[('type_id', '=', 'sisconcern')]"/>
+                <filter string="Subcontracting" name="subcontracting"
+                        domain="[('type_id', '=', 'subcontracting')]"/>
+                 <field name="code"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_type_id" string="Type" context="{'group_by': 'type_id'}"/>
+                    <filter name="code" string="Code" context="{'group_by': 'code'}"/>
+                    <filter name="division_id" string="Division" context="{'group_by': 'division_id'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Tree/List View (add Type column) -->
+    <record id="view_sale_report_tree_inherit_type" model="ir.ui.view">
+        <field name="name">sale.report.tree.inherit.type</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.sale_report_view_tree"/>
+        <field name="arch" type="xml">
+            <!-- Add Type field after Partner -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="type_id"/>
+                <field name="code"/>
+                <field name="division_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Graph View (allow grouping by Type) -->
+<!--    <record id="view_sale_report_graph_inherit_type" model="ir.ui.view">-->
+<!--        <field name="name">sale.report.graph.inherit.type</field>-->
+<!--        <field name="model">sale.report</field>-->
+<!--        <field name="inherit_id" ref="sale.view_order_product_graph"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            &lt;!&ndash; Add Type as groupable field &ndash;&gt;-->
+<!--            <xpath expr="//field[@name='partner_id']" position="after">-->
+<!--                <field name="type_id"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>

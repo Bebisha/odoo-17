@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="frequency_1" model="email.preferences">
+            <field name="name">I would like to receive 4 emails a month</field>
+        </record>
+        <record id="frequency_2" model="email.preferences">
+            <field name="name">I would like to receive 3 emails a month</field>
+        </record>
+        <record id="frequency_3" model="email.preferences">
+            <field name="name">I would like to receive 2 emails a month</field>
+        </record>
+        <record id="frequency_4" model="email.preferences">
+            <field name="name">I would like to receive 1 emails a month</field>
+        </record>
+        <record id="frequency_5" model="email.preferences">
+            <field name="name">I would like to receive only promotions emails</field>
+        </record>
+
+        <record id="reason_1" model="unsubscribe.reason">
+            <field name="name">Content are not relevant to me</field>
+        </record>
+        <record id="reason_2" model="unsubscribe.reason">
+            <field name="name">Number of Emails are too frequent</field>
+        </record>
+        <record id="reason_3" model="unsubscribe.reason">
+            <field name="name">I don’t remember signing up</field>
+        </record>
+        <record id="reason_4" model="unsubscribe.reason">
+            <field name="name">Others</field>
+            <field name="is_other">True</field>
+        </record>
+    </data>
+</odoo>

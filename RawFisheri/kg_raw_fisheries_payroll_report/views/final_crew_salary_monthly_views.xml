@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--   Form view for final crew salary report model   -->
+        <record id="final_crew_report_form" model="ir.ui.view">
+            <field name="name">final.crew.salary.monthly.form</field>
+            <field name="model">final.crew.salary.monthly</field>
+            <field name="arch" type="xml">
+                <form string="final crew salary report">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                            <separator/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="vessel_id"/>
+                            </group>
+                            <group>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="final_crew_lines" string="Lines">
+                                <field name="final_crew_monthly_line_ids" readonly="1">
+                                    <tree string="Lines" editable="false" create="false" delete="false">
+                                        <field name="employee_id"/>
+                                        <field name="vessel_id" optional="hide"/>
+                                        <field name="department_id" optional="hide"/>
+                                        <field name="basic_wage" optional="show" sum="Basic Wage"/>
+                                        <field name="house_allowance" optional="show" sum="House Allowance"/>
+                                        <field name="transport_allowance" optional="show" sum="Transport Allowance"/>
+                                        <field name="other_allowance" optional="show" sum="Other Allowance"/>
+                                        <field name="extra_income" optional="show" sum="Extra Income"/>
+                                        <field name="discharge" optional="show" sum="Discharge"/>
+                                        <field name="fixed_sea_allowance" optional="show" sum="Fixed Sea Allowance"/>
+                                        <field name="shop_deduction" optional="show" sum="Shop Deduction"/>
+                                        <field name="overtime" optional="show" sum="Overtime"/>
+                                        <field name="holiday_allowance" optional="show" sum="Holiday Allowance"/>
+                                        <field name="bonus" optional="show" sum="Bonus"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--   Tree view for final crew salary report model   -->
+        <record id="final_crew_report_tree" model="ir.ui.view">
+            <field name="name">final.crew.salary.monthly.tree</field>
+            <field name="model">final.crew.salary.monthly</field>
+            <field name="arch" type="xml">
+                <tree string="final crew salary report">
+                    <field name="name"/>
+                    <field name="vessel_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="final_crew_salary_monthly_report_search" model="ir.ui.view">
+            <field name="name">final.crew.salary.monthly.search</field>
+            <field name="model">final.crew.salary.monthly</field>
+            <field name="arch" type="xml">
+                <search string="Final crew salary Monthly">
+                    <field name="name"/>
+                    <field name="vessel_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Vessel" name="groupby_vessel_id" context="{'group_by': 'vessel_id'}"/>
+                        <filter string="Start Date" name="start_date" context="{'group_by':'start_date:month'}"/>
+                        <filter string="End Date" name="end_date" context="{'group_by':'end_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

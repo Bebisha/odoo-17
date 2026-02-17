@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="mail_activity_data_sms" model="mail.activity.type">
+            <field name="name">SMS</field>
+            <field name="icon">fa-envelope</field>
+            <field name="delay_count">2</field>
+            <field name="sequence">10</field>
+        </record>
+    </data>
+</odoo>

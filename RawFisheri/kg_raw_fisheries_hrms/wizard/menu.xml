@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- action employee entry wizard -->
+    <record id="action_hr_employee_entry_wizard" model="ir.actions.act_window">
+        <field name="name">Employee Entries Wizard</field>
+        <field name="target">new</field>
+        <field name="res_model">employee.entry.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu hr employee entry wizard -->
+    <menuitem id="menu_hr_employee_entry_wizard" name="Employee Entries Creation"
+              parent="kg_raw_fisheries_hrms.menu_hr_employee_entry" action="action_hr_employee_entry_wizard"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="15"/>
+
+    <!-- action employee entry report wizard -->
+    <record id="action_hr_employee_entry_report_wizard" model="ir.actions.act_window">
+        <field name="name">Employee Entries Report</field>
+        <field name="target">new</field>
+        <field name="res_model">entry.report.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu hr employee entry reports -->
+    <menuitem id="menu_hr_employee_entry_reporting" name="Reporting"
+              parent="kg_raw_fisheries_hrms.main_menu_hr_employee_entry"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager"/>
+
+    <!-- menu hr employee entry report wizard -->
+    <menuitem id="menu_hr_employee_entry_report_wizard" name="Employee Entries Report"
+              parent="kg_raw_fisheries_hrms.menu_hr_employee_entry_reporting"
+              action="action_hr_employee_entry_report_wizard"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="15"/>
+
+    <!-- action shop entry report wizard -->
+    <record id="action_hr_shop_entry_report_wizard" model="ir.actions.act_window">
+        <field name="name">Shop Entries Report</field>
+        <field name="target">new</field>
+        <field name="res_model">shop.entry.report.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!-- menu hr shop entry report wizard -->
+    <menuitem id="menu_hr_shop_entry_report_wizard" name="Shop Entries Report"
+              parent="kg_raw_fisheries_hrms.menu_hr_employee_entry_reporting"
+              action="action_hr_shop_entry_report_wizard"
+              groups="kg_raw_fisheries_hrms.factory_manager,kg_raw_fisheries_hrms.hr_manager" sequence="20"/>
+
+</odoo>

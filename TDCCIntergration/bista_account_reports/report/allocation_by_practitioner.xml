@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Template for Appointment By practitioner -->
+
+	<template id="allocation_by_practitioner">
+		<t t-call="web.html_container">
+			<t t-call="web.internal_layout">
+				<div class="page">
+					<div>
+						<center>
+							<b>
+								<t t-esc="get_title" />
+							</b>
+						</center>
+					</div>
+					<table class="table table-border" width="100%">
+						<thead>
+							<th>Date</th>
+							<th>Id</th>
+							<th>Patient</th>
+							<th>Payment Method</th>
+							<th>
+								Practitioner
+							</th>
+							<th>Receipts</th>
+						</thead>
+						<tbody>
+							<t t-set="total" t-value="0" />
+							<tr t-foreach="get_data_from_report" t-as="data">
+								<td>
+									<span t-esc="data.get('date')" />
+								</td>
+								<td>
+									<span t-esc="data.get('id')" />
+								</td>
+								<td>
+									<span t-esc="data.get('name')" />
+								</td>
+								<td>
+									<span t-esc="data.get('journal_name')" />
+								</td>
+
+								<td>
+									<span t-esc="data.get('physician')" />
+								</td>
+								<td>
+									<span t-esc="data.get('total')" />
+									<t t-set="total" t-value="total+data.get('total', 0)" />
+								</td>
+							</tr>
+						</tbody>
+						<tr>
+							<td colspan="5" align="right"> <b>Total:</b></td>
+							<td>
+								<b><span t-esc="'%.2f'% total" /></b>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>
+

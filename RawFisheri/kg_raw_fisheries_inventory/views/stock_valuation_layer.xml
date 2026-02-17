@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_stock_valuation_layer_inherit_d" model="ir.ui.view">
+        <field name="name">stock.valuation.layer.tree.inherit.id</field>
+        <field name="model">stock.valuation.layer</field>
+        <field name="inherit_id" ref="stock_account.stock_valuation_layer_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='value']" position="after">
+                <field name="vessel_id" optional="hide"/>
+            </xpath>
+            <field name="uom_id" position="after">
+                <field name="kilograms" optional="show" sum="Total Kg"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="kg_view_inventory_valuation_search_inherit" model="ir.ui.view">
+        <field name="name">kg.stock.valuation.search.inherit.id</field>
+        <field name="model">stock.valuation.layer</field>
+        <field name="inherit_id" ref="stock_account.view_inventory_valuation_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='outgoing']" position="after">
+                <filter name="excluding_sale_location" string="Excluding Warehouse"
+                        domain="[('is_non_sale_location','=',False)]"/>
+                <filter name="including_sale_location" string="Including Warehouse"
+                        domain="[]"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

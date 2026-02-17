@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--Birthday template -->
+        <record id="birthday_template" model="mail.template">
+            <field name="name">Birthday Template</field>
+
+            <field name="email_from">G-SHOCK Club &lt;gclub@casiomea.com&gt;</field>
+
+            <field name="subject">Happy Birthday to you! </field>
+            <field name="email_to">${object.email}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+<!--
+            <field name="lang">${object.partner_id.lang}</field>
+-->
+            <field name="body_html"><![CDATA[
+
+                               <img  class="img-fluid o_we_selected_image" src="${object.env['ir.config_parameter'].sudo().get_param('web.base.url')+'/kg_casio/static/src/img/birthday/birthday.gif'}"><br>
+ <div class="o_mail_block_footer_social o_mail_footer_social_left" data-name="Footer Left">
+            <div class="o_mail_snippet_general">
+<br/>
+<br/>
+                <table align="left" cellspacing="0" cellpadding="0"
+                       class="o_mail_table_styles o_mail_full_width_padding">
+                    <tbody>
+                        <tr>
+                            <td class="o_mail_footer_description">
+                                <p  class="o_mail_no_margin">
+                                    <strong class="o_default_snippet_text" style="color:black"><a role="button" class="btn btn-link" href="https://www.casio-intl.com/mea/en" style="color:black;font-size: 14px;line-height:0.5;padding-top: 0.375rem;padding-right: 0.75rem;padding-bottom: 0.375rem;padding-left: 0.1rem;">CASIO Middle East FZE</a></strong></p>
+                              <div class="o_mail_footer_links" style="padding-left:1px;padding-top:1px">
+                                   <a role="button" href="mailto:casio@casiomea.com"  style="color:black;font-size:13px;padding-top: 0.375rem;padding-right: 0rem;padding-bottom: 0.375rem;padding-left: 0rem;"
+                                       class="btn btn-link o_default_snippet_text">Contact
+                                    </a>
+                                </div>
+                                <div>
+                                    <p class="o_mail_footer_copy" style="padding-left:2px">
+                                        <font style="font-size: 10.5px;"><span class="fa fa-copyright" role="img" aria-label="Copyright" title="Copyright"/>2020 All Rights Reserved</font>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+]]>
+
+            </field>
+        </record>
+
+            <record id="birthday_arabic_template" model="mail.template">
+            <field name="name">Birthday Arabic Template</field>
+
+            <field name="email_from">G-SHOCK Club &lt;gclub@casiomea.com&gt;</field>
+
+            <field name="subject">عيد ميلاد سعيد!</field>
+            <field name="email_to">${object.email}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+<!--
+            <field name="lang">${object.partner_id.lang}</field>
+-->
+            <field name="body_html"><![CDATA[
+
+                               <img  class="img-fluid o_we_selected_image" src="${object.env['ir.config_parameter'].sudo().get_param('web.base.url')+'/kg_casio/static/src/img/birthday/birthday.gif'}"><br>
+<div class="o_mail_block_footer_social o_mail_footer_social_right" data-name="Footer Right">
+            <div class="o_mail_snippet_general">
+<br/>
+<br/>
+                <!-- <table align="right" cellspacing="0" cellpadding="0"
+                       class="o_mail_table_styles o_mail_full_width_padding">
+                    <tbody>
+                        <tr>
+                            <td class="o_mail_footer_description">
+                                <p class="o_mail_no_margin">
+                                    <strong class="o_default_snippet_text" style="color:black">
+                                            <a role="button" class="btn btn-link" href="https://www.casio-intl.com/mea/ar" style="color:black;font-size: 14px;line-height:0.5;border-left-width:16px">كاسيو الشرق الأوسط</a>
+                                    </strong>
+                                </p>
+                              <div class="o_mail_footer_links" style="padding-left:84px;padding-top:1px">
+                                   <a role="button" href="mailto:casio@casiomea.com" style="color:black;font-size:12px;padding-left:0.9rem"
+                                       class="btn btn-link o_default_snippet_text">تواصل معنا
+                                    </a>
+                                </div>
+                                <div>
+                                    <p class="o_mail_footer_copy" style="padding-left:32px">
+                                        <font style="font-size: 10.5px;">جميع الحقوق محفوظة 2020</font>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                <div class="col-xs-12" style="text-align:right">
+                    <p class="o_mail_no_margin">
+                        <strong class="o_default_snippet_text" style="color:black">
+                                <a role="button" class="btn btn-link" href="https://www.casio-intl.com/mea/ar" style="color:black;font-size: 14px;line-height:0.5;padding:0.375rem 0rem 0.375rem 0.38rem;">كاسيو الشرق الأوسط</a>
+                        </strong>
+                    </p>
+                    <p class="o_mail_no_margin">
+                       <a role="button" href="mailto:casio@casiomea.com" style="color:black;font-size:12px;padding:0.375rem 0rem 0.375rem 0.38rem;" class="btn btn-link o_default_snippet_text">تواصل معنا
+                        </a>
+                    </p>
+                    <p class="o_mail_no_margin">
+                        <font style="font-size:10.5px;padding:0.375rem 0rem 0.375rem 0.38rem;">جميع الحقوق محفوظة 2020<span class="fa fa-copyright" role="img" aria-label="Copyright" title="Copyright"/></font>
+                    </p>
+                </div>
+            </div>
+        </div>
+]]>
+
+            </field>
+        </record>
+    </data>
+</odoo>

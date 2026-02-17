@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="pending_orders_report_actions" model="ir.actions.report">
+        <field name="name">Pending Purchase Order</field>
+        <field name="model">report.vendor.purchase</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_purchase.pending_orders_report_template</field>
+        <field name="report_file">kg_purchase.pending_orders_report_template</field>
+        <field name="binding_model_id" ref="model_report_vendor_purchase"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

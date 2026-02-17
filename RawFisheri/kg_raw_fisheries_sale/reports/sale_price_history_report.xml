@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_sale_order_line_tree">
+        <field name="name">sale.order.line.tree</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="order_id" optional="hide"/>
+                <field name="date_order" optional="hide"/>
+                <field name="vessel_id" optional="show"/>
+                <field name="product_id" optional="show"/>
+                <field name="default_code" optional="show"/>
+                <field name="price_unit" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sale_order_line_pivot" model="ir.ui.view">
+        <field name="name">sale.order.line.pivot</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Sale Price History Report" sample="1">
+                <field name="vessel_id" type="row"/>
+                <field name="product_id" type="row"/>
+                <field name="date_order" interval="month" type="col"/>
+                <field name="order_id" type="col"/>
+                <field name="price_unit" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_sale_order_line_search" model="ir.ui.view">
+        <field name="name">sale.order.line.filter</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <search string="Sale Price History Report">
+                <field name="product_id"/>
+                <field name="default_code"/>
+                <group expand="1" string="Group By...">
+                    <filter string="Vessel" name="groupby_vessel_id" domain="[]"
+                            context="{'group_by': 'vessel_id'}"/>
+                    <filter string="Product" name="groupby_product_id" domain="[]"
+                            context="{'group_by': 'product_id'}"/>
+                    <filter string="Code" name="groupby_default_code" domain="[]"
+                            context="{'group_by': 'default_code'}"/>
+                    <filter string="Sale Order" name="groupby_order_id" domain="[]"
+                            context="{'group_by': 'order_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sale_order_line_id" model="ir.actions.server">
+        <field name="name">Sale Price History</field>
+        <field name="model_id" ref="sale.model_sale_order_line"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.load_price_history_details()
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_sale_order_line_id"
+            action="action_sale_order_line_id"
+            name="Sale Price History"
+            parent="sale.menu_sale_report"
+            />
+
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="inherit_holiday_approval_form_view">
+            <field name="name">Hr Leave</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='configuration']" position="before">
+                    <h2>Approvals</h2>
+                    <div class="row mt16 o_settings_container" name="booking_setting_container">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <label for="general_manager_ids" string="General Manager"
+                                           class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="general_manager_ids" widget="many2many_tags" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

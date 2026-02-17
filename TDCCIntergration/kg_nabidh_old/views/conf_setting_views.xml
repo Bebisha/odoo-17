@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--        <record id="view_patient_res_config" model="ir.ui.view">-->
+        <!--            <field name="name">patient.res.config</field>-->
+        <!--            <field name="model">res.config.settings</field>-->
+        <!--&lt;!&ndash;            <field name="inherit_id" ref="account.res_config_settings_view_form"/>&ndash;&gt;-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                 <xpath expr="//div[hasclass('settings')]" position="inside">-->
+        <!--                    <div class="row mt16 o_settings_container" groups="base.group_no_one">-->
+        <!--                      <h2>Operations</h2>-->
+
+        <!--                    <div class="col-xs-12 col-md-6 o_setting_box">-->
+        <!--                        <div class="o_setting_right_pane">-->
+        <!--&lt;!&ndash;                            <label for="commission_journal_id" string="Commission Journal"/>&ndash;&gt;-->
+        <!--                            <div class="content-group">-->
+        <!--                                  <label for="patient_register"/>&ndash;&gt;-->
+        <!--                            <div>-->
+        <!--                                <field name="patient_register" />-->
+        <!--                            </div>-->
+        <!--                            <label for="update_patient"/>-->
+        <!--                             <div>-->
+        <!--                                <field name="update_patient" />-->
+        <!--                            </div>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--&lt;!&ndash;                    <h2>PDC</h2>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <group>&ndash;&gt;-->
+        <!--&lt;!&ndash;                            <label for="patient_register"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                            <div>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                <field name="patient_register" />&ndash;&gt;-->
+        <!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+        <!--&lt;!&ndash;                            <label for="update_patient"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                             <div>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                <field name="update_patient" />&ndash;&gt;-->
+        <!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    </group>&ndash;&gt;-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
+        <!--          <record id="action_kg_operations_inherit_configuration" model="ir.actions.act_window">-->
+        <!--            <field name="name">Settings</field>-->
+        <!--            <field name="type">ir.actions.act_window</field>-->
+        <!--            <field name="res_model">res.config.settings</field>-->
+        <!--            <field name="view_mode">form</field>-->
+        <!--            <field name="target">inline</field>-->
+        <!--            <field name="context">{'module' : 'kg_operations_inherit'}</field>-->
+        <!--        </record>-->
+        <!--&lt;!&ndash;        <menuitem id="menu_operations_inherit_configuration" name="Configuration" parent="mass_mailing_menu_root"&ndash;&gt;-->
+        <!--&lt;!&ndash;            sequence="100"/>&ndash;&gt;-->
+        <!--         <menuitem id="menu_settings" name="Settings"-->
+        <!--            parent="menu_operations_inherit_configuration" sequence="0" action="action_kg_operations_inherit_configuration" groups="base.group_system"/>-->
+
+
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.operation</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="15"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+<!--                <xpath expr="//div[hasclass('settings')]" position="inside">-->
+                    <div class="app_settings_block" data-string="Operation" string="Operations"
+                         data-key="operation_inherits">
+                        <h2>Operation</h2>
+                        <div class="row mt16 o_settings_container" id="operation_settings">
+                            <div class="col-12 col-lg-6 o_setting_box" id="domain_setting_operation">
+                                <div class="o_setting_right_pane">
+                                    <label for="nabidh_login_url" string="NABIDH URL"/>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label class="col-lg-3 o_light_label"  for="nabidh_login_url"/>
+                                            <field name="nabidh_login_url"/>
+                                        </div>
+                                        <div class="row">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box" id="msh_settings">
+                                <div class="o_setting_right_pane">
+                                    <label string="MSH" for="sending_facility"/>
+                                     <div class="content-group">
+                                        <div class="row mt16">
+                                            <label class="col-lg-3 o_light_label"  for="sending_facility"/>
+                                            <field name="sending_facility"/>
+
+                                        </div>
+                                        <div class="row">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+<!--                            <div class="row mt16 o_settings_container" id="operation_settings">-->
+                            <div class="col-12 col-lg-6 o_setting_box" id="domain_setting_operation">
+                                <div class="o_setting_right_pane">
+                                    <label for="icd_code" string="Diagnosis Code –DG1"/>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label class="col-lg-3 o_light_label"  for="icd_code"/>
+                                            <field name="icd_code"/>
+                                        </div>
+                                        <div class="row">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </xpath>
+            </field>
+        </record>
+        <record id="action_operation_general_config" model="ir.actions.act_window">
+            <field name="name">Operation Config</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'kg_operations_inherit'}</field>
+        </record>
+
+    </data>
+</odoo>

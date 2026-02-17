@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="example_xlsx_report_view" model="ir.ui.view">
+        <field name="name">Survey xlsx Report</field>
+        <field name="model">survey.xlsx.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Report Options">
+                <separator string="Survey Report"/>
+                <group col="4">
+                    <field name="name" required="1" options="{'no_create': True, 'no_create_edit':True}"/>
+                </group>
+                <footer>
+                    <button name="print_xlsx" string="Export" type="object" default_focus="1" class="oe_highlight"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_xlsx_report" model="ir.actions.act_window">
+        <field name="name">Survey Report</field>
+        <field name="res_model">survey.xlsx.report.wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+
+<!--    <menuitem name="Survey Report"-->
+<!--                  parent="survey.survey_menu_user_inputs"-->
+<!--                  id="survey_excel_report"-->
+<!--                  action="action_xlsx_report"-->
+<!--                  sequence="2"/>-->
+</odoo>

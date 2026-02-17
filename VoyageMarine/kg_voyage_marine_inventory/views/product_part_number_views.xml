@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+
+        <record id="view_product_part_number_sequence_tree" model="ir.ui.view">
+            <field name="name">product.part.number.sequence.tree</field>
+            <field name="model">product.part.number.sequence</field>
+            <field name="arch" type="xml">
+                <tree string="Product Part Number Sequences" create="false" edit="false">
+                    <field name="category_id"/>
+                    <field name="subcategory_id"/>
+                    <field name="brand_id"/>
+                    <field name="company_id"/>
+                    <field name="current_sequence"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_product_part_number_sequence_form" model="ir.ui.view">
+            <field name="name">product.part.number.sequence.form</field>
+            <field name="model">product.part.number.sequence</field>
+            <field name="arch" type="xml">
+                <form string="Product Part Number Sequence" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="category_id" required="1" force_save="1"/>
+                                <field name="subcategory_id" required="1" force_save="1"/>
+                                <field name="brand_id" required="1" force_save="1"/>
+                                <field name="company_id" required="1" force_save="1"/>
+                                <field name="current_sequence" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_part_number_sequence" model="ir.actions.act_window">
+            <field name="name">Product Code Sequences</field>
+            <field name="res_model">product.part.number.sequence</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_product_part_number_sequence" name="Product Code Sequences" sequence="3"
+                  parent="stock.menu_product_in_config_stock" action="action_product_part_number_sequence"/>
+
+    </data>
+</odoo>

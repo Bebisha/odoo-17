@@ -1,0 +1,16 @@
+<odoo>
+    <record id="purchase_request_form_view_inh" model="ir.ui.view">
+        <field name="name">purchase.request.view.form.inherit1</field>
+        <field name="model">purchase.requisitions</field>
+        <field name="inherit_id" ref="material_purchase_requisition.purchase_requisition_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='requisition_line_ids']/tree/field[@name='description']" position="after">
+                <field name="analytic_id"/>
+                <field name="project_id"/>
+                <field name="delivery_date"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

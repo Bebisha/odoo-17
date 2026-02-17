@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="leave_settlement_form_view" model="ir.ui.view">
+            <field name="name">leave.settlement.form.view</field>
+            <field name="model">leave.settlement</field>
+            <field name="arch" type="xml">
+                <form string="Leave Settlement">
+                    <header>
+                        <button name="action_pay" type="object" class="btn btn-primary" string="Pay"
+                                invisible="state != 'draft'"/>
+                        <button name="action_set_draft" type="object" class="btn btn-primary" string="Reset To Draft"
+                                invisible="state == 'draft'"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                            <separator/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="emp_registration_number"/>
+                            </group>
+                            <group>
+                                <field name="department_id"/>
+                                <field name="emp_job_title"/>
+                            </group>
+                        </group>
+                        <group name="leave_no" string="Leaves">
+                            <group>
+                                <field name="holiday_status_id" options="{'no_create': True}"/>
+                                <field name="leave_ids" widget="many2many_tags"/>
+                                <field name="days" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="leave_total"/>
+                                <field name="balance_leave"/>
+                                <field name="leaves_taken"/>
+                            </group>
+                        </group>
+                        <group name="amounts" string="Amount">
+                            <group>
+                                <field name="leave_pay"/>
+                            </group>
+                            <group>
+                                <field name="amount_to_pay"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Other Allowances">
+                                <field name="leave_allowances_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"  width="50"/>
+                                        <field name="days"  width="15"/>
+<!--                                        <field name="old_contract"  width="5"/>-->
+                                        <field name="amount" sum="Total"  width="30"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="leave_settlement_tree_view" model="ir.ui.view">
+            <field name="model">leave.settlement</field>
+            <field name="name">leave.settlement.tree.view</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="amount_to_pay"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

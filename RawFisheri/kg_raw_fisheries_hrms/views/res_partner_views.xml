@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="res_partner_view_search_inherit_id" model="ir.ui.view">
+            <field name="name">res.partner.search.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.res_partner_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='supplier']" position="after">
+                   <filter string="Employee" name="employee" domain="[('employee_ids', '!=', False)]"/>
+                   <separator/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

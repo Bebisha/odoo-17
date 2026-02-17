@@ -1,0 +1,15 @@
+<odoo>
+    <record id="action_hr_gratuity_pdfs" model="ir.actions.report">
+        <field name="name">Full and Final Settlement Slip</field>
+        <field name="model">hr.gratuity</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_voyage_marine_hrms.hr_gratuity_pdf</field>
+        <field name="report_file">kg_voyage_marine_hrms.hr_gratuity_pdf</field>
+         <field name="binding_model_id" ref="ent_hr_gratuity_settlement.model_hr_gratuity"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">
+            'Full &amp; Final - %s' % (object.employee_id.name)
+        </field>
+    </record>
+
+</odoo>

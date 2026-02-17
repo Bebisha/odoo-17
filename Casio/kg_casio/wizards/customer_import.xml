@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="customer_import_form" model="ir.ui.view">
+         <field name="name">customer.import.wizard</field>
+         <field name="model">kg.customer.import</field>
+         <field name="arch" type="xml">
+            <form string="Customer Template">
+                <sheet>
+                    <group>
+                        <field name="fname" invisible="1"/>
+                        <field name="is_ok" invisible="1"/>
+                        <field name="kg_binary_field" filename="fname"
+                                string="Attachment"
+                                readonly="1"  invisible="is_ok==False"/>
+
+                        <button name="export_file" string="Load File" type="object"
+                                class="oe_highlight"/>
+<!--                        <button name="load_api" string="Load Apk" type="object"-->
+<!--                                class="oe_highlight"/>-->
+                    </group>
+                    <footer>
+                        <button string="Close" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+         </field>
+     </record>
+
+    <record id="customer_import_wizard" model="ir.actions.act_window">
+        <field name="name">Customer Importation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kg.customer.import</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="customer_import_form"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="customer_template" name="Import Template" parent="crm.crm_menu_config"
+              action="customer_import_wizard" sequence="40"/>
+
+</odoo>

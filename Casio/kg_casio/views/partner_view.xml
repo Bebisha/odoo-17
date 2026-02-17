@@ -1,0 +1,463 @@
+<odoo>
+    <data>
+
+
+        <record id="action_open_vouchers" model="ir.actions.act_window">
+            <field name="context">{'search_default_kg_customer_id': [active_id],
+                'default_kg_customer_id': active_id}
+            </field>
+            <field name="domain">[('kg_customer_id', '=', active_id)]</field>
+            <field name="name">Vouchers</field>
+            <field name="res_model">kg.voucher</field>
+        </record>
+
+        <record id="action_open_invoices" model="ir.actions.act_window">
+            <field name="context">{'search_default_kg_cas_customer_id': [active_id],
+                'default_kg_cas_customer_id': active_id}
+            </field>
+            <field name="domain">[('kg_cas_customer_id', '=', active_id)]</field>
+            <field name="name">Customers</field>
+            <field name="res_model">kg.cust.inv</field>
+        </record>
+
+        <record id="action_open_tickets" model="ir.actions.act_window">
+            <field name="context">{'search_default_partner_id': [active_id],
+                'default_partner_id': active_id}
+            </field>
+            <field name="domain">[('partner_id', '=', active_id)]</field>
+            <field name="name">Tickets</field>
+            <field name="res_model">helpdesk.ticket</field>
+        </record>
+
+
+        <record id="res_partner_view_map" model="ir.ui.view">
+            <field name="name">res.partner.view.map</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <map res_partner="id">
+                    <!--                <marker-popup>-->
+                    <field name="name" string="Name "/>
+                    <field name="country_id" string="Country"/>
+                    <!--                </marker-popup>-->
+                </map>
+            </field>
+        </record>
+
+
+        <!-- explicit kanban view definition -->
+        <record id="kg_casio_customers_kanban" model="ir.ui.view">
+            <field name="name">view.casio.kanban</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/kanban" position="replace">
+
+                    <kanban class="o_res_partner_kanban" import="false">
+                        <field name="color"/>
+                        <field name="display_name"/>
+                        <field name="title"/>
+                        <field name="email"/>
+                        <field name="parent_id"/>
+                        <field name="is_company"/>
+                        <field name="function"/>
+                        <field name="phone"/>
+                        <field name="street"/>
+                        <field name="street2"/>
+                        <field name="zip"/>
+                        <field name="city"/>
+                        <field name="country_id"/>
+                        <field name="mobile"/>
+                        <field name="state_id"/>
+                        <field name="category_id"/>
+                        <!-- <field name="image_small"/> -->
+                        <field name="type"/>
+                        <templates>
+                            <t t-name="kanban-box">
+                                <div class="oe_kanban_global_click o_res_partner_kanban">
+                                    <div
+                                            class="o_kanban_tags_section oe_kanban_partner_categories"/>
+
+                                    <div class="oe_kanban_details">
+                                        <strong class="oe_partner_heading">
+                                            <field name="display_name"/>
+                                        </strong>
+                                        <ul>
+                                            <li
+                                                    t-if="record.parent_id.raw_value and !record.function.raw_value">
+                                                <field name="parent_id"/>
+                                            </li>
+                                            <li
+                                                    t-if="!record.parent_id.raw_value and record.function.raw_value">
+                                                <field name="function"/>
+                                            </li>
+                                            <li
+                                                    t-if="record.parent_id.raw_value and record.function.raw_value">
+                                                <field name="function"/>
+                                                at
+                                                <field name="parent_id"/>
+                                            </li>
+                                            <li
+                                                    t-if="record.city.raw_value and !record.country_id.raw_value">
+                                                <field name="city"/>
+                                            </li>
+                                            <li
+                                                    t-if="!record.city.raw_value and record.country_id.raw_value">
+                                                <field name="country_id"/>
+                                            </li>
+                                            <li
+                                                    t-if="record.city.raw_value and record.country_id.raw_value">
+                                                <field name="city"/>
+                                                ,
+                                                <field name="country_id"/>
+                                            </li>
+                                            <li t-if="record.email.raw_value" class="o_text_overflow">
+                                                <field name="email"/>
+                                            </li>
+
+                                        </ul>
+                                        <div class="oe_kanban_partner_links"/>
+
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left" style="display:none"/>
+                                        <div class="oe_kanban_bottom_right" style="display:none"/>
+                                    </div>
+                                </div>
+
+                            </t>
+                        </templates>
+                    </kanban>
+
+                </xpath>
+
+            </field>
+        </record>
+        <!-- explicit list view definition -->
+
+        <record model="ir.ui.view" id="kg_casio_customers_list">
+            <field name="name">kg_casio_customers customers list</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="new_create_date"/>
+                    <field name="mobile"/>
+                    <field name="kg_age_id"/>
+                    <field name="kg_gender"/>
+                    <field name="kg_agent" optional="show"/>
+                    <field name="agent_order" widget="many2many_tags" readonly="1"/>
+                    <field name="email"/>
+                    <field name="kg_area_res"/>
+                    <field name="kg_country_res"/>
+                    <field name="kg_pre_lang"/>
+                    <field name="country_id" optional="show"/>
+                    <field name="kg_no_vouchers" optional="hide"/>
+                    <field name="kg_no_purchases" optional="hide"/>
+                    <field name="kg_no_tickets" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- explicit form view definition -->
+
+
+        <record model="ir.ui.view" id="kg_casio_customers_form">
+            <field name="name">kg_casio_customers customers form</field>
+            <field name="model">res.partner</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div name="button_box" position="inside" invisible="context.get('hide_stuff', False)">
+                            <!--                        <div class="oe_button_box" name="new_button_box" invisible="context.get('hide_stuff', False)">-->
+                            <button class="oe_stat_button" type="action" name="%(action_open_vouchers)d" icon="fa-book">
+                                <field string="Vouchers" name="kg_no_vouchers" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="action" name="%(action_open_invoices)d" icon="fa-book">
+                                <field string="Purchases" name="kg_no_purchases" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="action" name="%(action_open_tickets)d" icon="fa-book">
+                                <field string="Tickets" name="kg_no_tickets" widget="statinfo"/>
+                            </button>
+
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="email"/>
+                                <field name="mobile"/>
+                                <field name="agent_order" domain="[('partner_id','=',active_id)]"
+                                       widget="many2many_tags" readonly="0" context="{'default_partner_id':active_id}"/>
+                            </group>
+                            <group>
+                                <field name="new_create_date"/>
+                                <field name="kg_age_id"/>
+                                <field name="kg_gender"/>
+                                <field name="kg_pre_lang"/>
+                                <field name="kg_join_club" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="kg_agent"/>
+                                <field name="kg_area_res"/>
+                                <field name="kg_country_res"/>
+                                <field name="country_id"/>
+                            </group>
+                            <group>
+                                <field name="kg_cmnt"/>
+
+                                <field name="skill_level"/>
+                            </group>
+                            <group string="EDU-T">
+                                <field name="kg_school_name"/>
+                                <field name="kg_teaching_level"/>
+                                <field name="kg_teaching_subject"/>
+                                <field name="kg_using_calculator" string="Using Calculator"/>
+                                <field name="kg_list_calculator"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search view -->
+
+        <record id="view_res_partner_filter_inh" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <search string="Search Partner">
+                    <field name="mobile" string="Mobile No."/>
+                    <!-- <field name="kg_fav_brand_ids" string="Brand"/>
+                    <field name="kg_hob_id" string="Hobbies"/> -->
+                    <field name="country_id" string="Country of Residence"/>
+                    <field name="kg_country_res" string="Nationality"/>
+                    <field name="kg_area_res" string="City"/>
+                    <field name="kg_gender" string="Gender"/>
+                    <field name="agent_order" string="Agent Tag" filter_domain="[('agent_order','ilike', self)]"/>
+                    <field name="kg_pre_lang" string="Language"/>
+                    <field name="kg_age_id" string="Date of Birth"/>
+                    <field name="kg_age_id" string="Birthday"/>
+                    <field name="email" string="Email"/>
+                    <field name="kg_agent" string="Agent"/>
+                    <field name="new_create_date" string="Create Date"/>
+                </search>
+
+
+            </field>
+        </record>
+
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="kg_casio_customers_action_window">
+            <field name="name">Customers</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form,map</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new customer
+                </p>
+                <p>
+                    You must add a customer for all operations.
+                </p>
+            </field>
+            <field name="domain">[]</field>
+
+        </record>
+
+        <record id="action_partner_kanban_view1" model="ir.actions.act_window.view">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="kg_casio_customers_kanban"/>
+            <field name="act_window_id" ref="kg_casio_customers_action_window"/>
+        </record>
+        <record id="action_partner_form_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="kg_casio_customers_form"/>
+            <field name="act_window_id" ref="kg_casio_customers_action_window"/>
+        </record>
+        <record id="action_partner_tree_view1" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="kg_casio_customers_list"/>
+            <field name="act_window_id" ref="kg_casio_customers_action_window"/>
+        </record>
+
+
+        <record id="action_show_hd_customers" model="ir.actions.act_window">
+
+            <field name="domain">[('from_helpdesk', '=', True)]</field>
+            <field name="name">Customers</field>
+            <field name="res_model">res.partner</field>
+        </record>
+
+        <!-- Kg Calculator -->
+
+        <record id="kg_calculator_tree" model="ir.ui.view">
+            <field name="name">kg.calculator</field>
+            <field name="model">kg.calculator</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Calculator">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="kg_calculator_form" model="ir.ui.view">
+            <field name="name">kg.calculator.form</field>
+            <field name="model">kg.calculator</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Calculator">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Calculator" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Calculator"/>
+                            </h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_kg_calculator">
+            <field name="name">Calculator</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.calculator</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Record Found
+                </p>
+                <p>
+                    Click to add a Calculator.
+                </p>
+            </field>
+        </record>
+
+        <!-- Agent Order Tree View -->
+
+
+        <record id="kg_agent_order_tree" model="ir.ui.view">
+            <field name="name">agent.order,tree</field>
+            <field name="model">agent.order</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Agent Order" create="false">
+                    <field name="name"/>
+                    <field name="agent_name"/>
+                    <field name="partner_id"/>
+                    <field name="order_no"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="kg_agent_order_filter" model="ir.ui.view">
+            <field name="name">agent.order.search</field>
+            <field name="model">agent.order</field>
+            <field name="arch" type="xml">
+                <search string="Agent">
+
+                    <field name="agent_name" string="Agent"/>
+                    <field name="partner_id" string="Customer"/>
+                    <filter name="group_partner_id" string="Customer" icon="terp-partner"
+                            context="{'group_by':'partner_id'}"/>
+
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_kg_agent_order">
+            <field name="name">Agent</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">agent.order</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_group_partner_id': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Record Found
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Helpdesk Customers" id="kg_casio_helpdesk_customers" parent="crm.crm_menu_sales"
+                  action="action_show_hd_customers" sequence="6"/>
+
+        <menuitem name="Customers" id="kg_casio_customers" parent="crm.crm_menu_sales"
+                  action="kg_casio_customers_action_window" sequence="5"/>
+
+        <menuitem name="Location" id="kg_casio_location" parent="crm.crm_menu_config" sequence="10"/>
+
+        <menuitem name="Country" id="kg_casio_country" parent="kg_casio_location" action="base.action_country"
+                  sequence="1"/>
+
+        <menuitem name="City" id="kg_casio_country_state" parent="kg_casio_location" action="base.action_country_state"
+                  sequence="2"/>
+
+        <menuitem name="Calculator" id="kg_casio_calculator" parent="crm.crm_menu_config" action="action_kg_calculator"
+                  sequence="26"/>
+
+        <menuitem name="Agent Order" id="kg_agent_order" parent="crm.crm_menu_config" action="action_kg_agent_order"
+                  sequence="27"/>
+        <!-- <delete model="ir.ui.menu" id="crm.res_partner_menu_customer" /> -->
+
+
+        <!-- Data Correction -->
+
+
+        <record model="ir.ui.view" id="kg_casio_customers_list_data_correction">
+            <field name="name">kg_casio_customers customers list</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name"/>
+                    <field name="new_create_date"/>
+                    <field name="mobile"/>
+                    <field name="kg_age_id"/>
+                    <field name="kg_gender"/>
+                    <field name="kg_agent"/>
+                    <field name="agent_order" widget="many2many_tags" readonly="0"/>
+                    <field name="email"/>
+                    <field name="kg_area_res"/>
+                    <field name="kg_country_res"/>
+                    <field name="kg_pre_lang"/>
+                    <field name="country_id"/>
+                    <field name="kg_no_vouchers"/>
+                    <field name="kg_no_purchases"/>
+                    <field name="kg_no_tickets"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="kg_casio_customers_data_correction_action_window">
+            <field name="name">Customers Data Correction</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="kg_casio.kg_casio_customers_list_data_correction"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new customer
+                </p>
+                <p>
+                    You must add a customer for all operations.
+                </p>
+            </field>
+            <field name="domain">[]</field>
+
+        </record>
+
+        <menuitem name="Customer Data Correction" id="kg_casio_customer_data_correction"
+                  action="kg_casio_customers_data_correction_action_window" parent="crm.crm_menu_config" sequence="20"/>
+
+
+        <!-- Data Correction -->
+
+
+    </data>
+</odoo>

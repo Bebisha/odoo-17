@@ -1,0 +1,26 @@
+<odoo>
+    <record id="cust_type_system_integrator" model="res.customer.type">
+        <field name="name">System Integrator</field>
+    </record>
+    <record id="cust_type_specialist_oem" model="res.customer.type">
+        <field name="name">Specialist-OEM</field>
+    </record>
+    <record id="cust_type_control_system_oem" model="res.customer.type">
+        <field name="name">Control System - OEM</field>
+    </record>
+    <record id="cust_type_direct_customer" model="res.customer.type">
+        <field name="name">Direct Customer</field>
+    </record>
+
+    <!-- Industry: Oil & Gas -->
+    <record id="industry_oil_gas" model="res.partner.industry">
+        <field name="name">Oil &amp; Gas</field>
+    </record>
+
+    <!-- Industry: Utility & Infrastructure -->
+    <record id="industry_utility_infrastructure" model="res.partner.industry">
+        <field name="name">Utility &amp; Infrastructure</field>
+    </record>
+
+
+</odoo>

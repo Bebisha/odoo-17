@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+        <record id="kg_sale_view_material_requisition_inherit_form" model="ir.ui.view">
+            <field name="name">kg.material.purchase.requisition.form.inherit</field>
+            <field name="model">material.purchase.requisition</field>
+            <field name="inherit_id" ref="material_purchase_requisition.material_purchase_requisition_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='department_id']" position="before">
+                     <field name="division_id"
+                                   readonly="state in ('done')" string="Division"/>
+                    <field name="vessel_id"
+                                   readonly="state in ('done')" string="Vessel"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="kg_sale_view_purchase_order_inherit_tree" model="ir.ui.view">
+            <field name="name">kg.material.purchase.requisition.tree.inherit</field>
+            <field name="model">material.purchase.requisition</field>
+            <field name="inherit_id" ref="material_purchase_requisition.material_purchase_requisition_tree_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='department_id']" position="before">
+                     <field name="division_id"
+                                   string="Department"/>
+                    <field name="vessel_id"
+                                   string="Vessel"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="kg_view_purchased_order_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.requisition.form.inherit</field>
+            <field name="model">purchase.requisitions</field>
+            <field name="inherit_id" ref="material_purchase_requisition.purchase_requisition_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='code']" position="before">
+                    <field name="vessel_id"
+                                   string="Vessel"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="kg_view_purchased_order_tree_inherit" model="ir.ui.view">
+            <field name="name">purchase.requisition.tree.inherit</field>
+            <field name="model">purchase.requisitions</field>
+            <field name="inherit_id" ref="material_purchase_requisition.purchase_requisition_tree_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='department_id']" position="before">
+                    <field name="vessel_id"
+                                   string="Vessel"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

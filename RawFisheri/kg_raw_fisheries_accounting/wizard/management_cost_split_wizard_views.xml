@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_management_cost_split_wizard_form">
+        <field name="name">management.cost.split.wizard.form</field>
+        <field name="model">management.cost.split.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="analytic_account_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="split_percent"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="from_date"/>
+                    </group>
+                    <group>
+                        <field name="to_date"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Print" name="action_print_xlsx" type="object" class="btn-primary"/>
+                    <button string="Cancel" name="cancel" type="object" special="cancel" class="btn-cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_management_cost_split_wizard" model="ir.actions.act_window">
+        <field name="name">Management Cost Split Wizard</field>
+        <field name="target">new</field>
+        <field name="res_model">management.cost.split.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem
+            id="menu_management_cost_split_wizard"
+            action="action_management_cost_split_wizard"
+            name="Management Cost Split"
+            parent="account.account_reports_management_menu"
+    />
+
+</odoo>

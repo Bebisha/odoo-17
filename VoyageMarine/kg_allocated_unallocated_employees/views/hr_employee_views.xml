@@ -1,0 +1,35 @@
+<odoo>
+
+    <record id="hr_employee_tree_inherit_available_badge" model="ir.ui.view">
+        <field name="name">hr.employee.tree.available.badge</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="availability_status"
+                       widget="badge" invisible="not availability_status"
+                       decoration-success="availability_status == 'available'"
+                       string=""/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_employee_kanban_inherit_available_badge" model="ir.ui.view">
+        <field name="name">hr.employee.kanban.available.badge</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//li[hasclass('hr_tags')]" position="after">
+                <li class="hr_available_status">
+                    <field name="availability_status"
+                           widget="badge" invisible="not availability_status"
+                           decoration-success="availability_status == 'available'"
+                           string=""/>
+                </li>
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>

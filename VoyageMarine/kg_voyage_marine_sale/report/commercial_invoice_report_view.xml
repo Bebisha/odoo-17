@@ -1,0 +1,2514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="voyage_commercial_invoice_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <div class="header" style="margin-bottom:20px;">
+
+                            <table class='table table-borderless table-condensed table-hover'>
+                                <tr width="100%">
+                                    <td style="width: 50%;" align="left">
+                                        <t t-if="o.company_id.logo">
+                                            <img t-att-src="image_data_uri(o.company_id.logo)"
+                                                 style="max-height:90px;max-width:90%" alt="Company Logo"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 50%;font-size:14px;" align="right">
+                                        <t t-if="o.company_id.name">
+                                            <strong>
+                                                <span t-esc="o.company_id.name"/>
+                                            </strong>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.phone">
+                                            <span t-esc="o.company_id.phone"/>
+                                            <i class="fa fa-phone" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.mobile">
+                                            <span t-esc="o.company_id.mobile"/>
+                                            <i class="fa fa-fax" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.email">
+                                            <span t-esc="o.company_id.email"/>
+                                            <i class="fa fa-envelope" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.zip">
+                                            <span>P.O. Box:
+                                                <span t-esc="o.company_id.zip"/>,
+                                            </span>
+                                        </t>
+                                        <t t-if="o.company_id.city">
+                                            <span t-esc="o.company_id.city"/>,
+                                        </t>
+                                        <t t-if="o.company_id.state_id.name">
+                                            <span t-esc="o.company_id.state_id.name"/>
+                                        </t>
+                                        <t t-if="o.company_id.country_id.code">
+                                            <span t-esc="o.company_id.country_id.code"/>
+                                        </t>
+                                        <i class="fa fa-map-marker" aria-hidden="true"
+                                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="margin:0">
+                                    <td style="width: 100%;border-bottom: 1pt solid black;" colspan="2"/>
+                                </tr>
+
+                            </table>
+                        </div>
+
+                        <t>
+                            <table width="100%" style="margin-top: 10px;" class="table-borderless">
+                                <tr>
+                                    <td style="width: 100%; font-size: 14px;padding-bottom:10px;" align="right">
+                                        <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                                        <span style="font-size: 14px; font-weight: bold; margin-left: 5px;"
+                                              t-esc="o.company_id.vat"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                        <h2 align="center">Commercial Invoice</h2>
+                        <!-- Header Section -->
+                        <table class="table table-sm table-borderless" style="width: 100%; margin-top: 5px;">
+                            <tr>
+                                <td style="width: 37%; padding: 10px; vertical-align: top; height: 100%;">
+                                    <table style="width: 100%; padding: 10px;">
+                                        <t>
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Shipper:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.partner_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t t-if="o.partner_id.street">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </table>
+                                </td>
+
+                                <td style="width:4%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 59%; margin-left:10%; vertical-align: top; height: 100%;">
+
+                                    <!--                        <table style="width: 100%;  padding: 10px;">-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="text-align: right; vertical-align: top;" width="100%" colspan="2">-->
+                                    <!--                                    <h1 style="margin: 0; font-size: 28px; font-weight: bold;">-->
+                                    <!--                                        Commercial Invoice-->
+                                    <!--                                    </h1>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="text-align: right; padding: 5px;  padding: 3px;" width="100%" colspan="2">-->
+                                    <!--                                    <t t-if="o.name">-->
+                                    <!--                                        <t t-esc="o.commercial_inv_no"/>-->
+                                    <!--                                    </t>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="width: 60%; text-align: right;  padding: 3px;" width="100%" colspan="2">-->
+                                    <!--                                    <t t-if="o.date">-->
+                                    <!--                                        <t t-esc="o.date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>-->
+                                    <!--                                    </t>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                        </table>-->
+                                    <table style="width: 100%; margin-top:5%;margin-left:10%; padding: 10px;">
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>No</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-esc="o.commercial_inv_no"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Date</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-esc="o.date"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Vessel/Project Name</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.vessel_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Job No</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.sale_order_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Po No</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.po_reference"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 45%; padding: 10px; vertical-align: top; height: 100%;">
+
+                                    <table style="width: 100%;  padding: 10px;">
+                                        <t>
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Bill to:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.bill_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+
+                                    </table>
+
+                                </td>
+
+                                <td style="width: 8%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 47%; padding: 10px; vertical-align: top; height: 100%;">
+                                    <table style="width: 100%; margin-top:5%;margin-left:10%; padding: 10px;">
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Mode of Transport:</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.model_of_transport"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>No. of Packages:</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.no_of_packages"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Net Weight (Kg):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_net_weight"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Gross Weight (Kg):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_gross_weight"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Volume (CBM):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_volume"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </td>
+                            </tr>
+
+                            <!-- Consignee Row -->
+                            <!-- Consignee Row -->
+                            <tr>
+                                <td style="width: 45%; padding: 10px; vertical-align: top; height: 100%;">
+
+                                    <table style="width: 100%;  padding: 10px;">
+                                        <t>
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Consignee:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.consignee_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t t-if="o.consignee_id.street">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </table>
+
+                                </td>
+
+                                <td style="width: 8%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 47%; padding: 10px; vertical-align: top; height: 100%;">
+
+
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <table width="100%" style="margin:0">
+                            <td style="width: 100%;border-bottom: 1pt solid black;" colspan="2"/>
+                        </table>
+
+
+                        <br/>
+                        <!-- Items Table -->
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <th style="border: 1px solid black;padding: 5px;">Sl No.</th>
+                                <th style="border: 1px solid black; padding: 5px;">PO Item No.</th>
+                                <th style="border: 1px solid black;padding: 5px;">Materials Description</th>
+                                <th style="border: 1px solid black;padding: 5px;">Qty</th>
+                                <th style="border: 1px solid black;padding: 5px;">UoM</th>
+                                <th style="border: 1px solid black;padding: 5px;">Unit Price
+                                    <br/>
+                                    <br/>(<t t-esc="o.company_id.currency_id.name"/>)
+                                </th>
+                                <th style="border: 1px solid black;padding: 5px;">Total Amt
+                                    <br/>
+                                    <br/>(<t t-esc="o.company_id.currency_id.name"/>)
+                                </th>
+                                <th style="border: 1px solid black;padding: 5px;">Country of Origin</th>
+                                <th style="border: 1px solid black;padding: 5px;">HS Code</th>
+                            </tr>
+
+                            <!--                <tr style="border-bottom: 1px solid black;">-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px; text-align: center;">-->
+                            <!--                        (<t t-esc="o.company_id.currency_id.name"/>)-->
+                            <!--                    </th>-->
+                            <!--                    <th style="padding: 5px; text-align: center;">-->
+                            <!--                        (<t t-esc="o.company_id.currency_id.name"/>)-->
+                            <!--                    </th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                </tr>-->
+
+                            <t t-foreach="o.commercial_line_ids" t-as="item">
+                                <tr t-if="item.product_id">
+                                    <!-- Box No. -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.box_no"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.tag_no"/>
+                                    </td>
+                                    <!-- Quantity -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.product_id.name"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.quantity"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.product_uom_id.name"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="'%.2f'%(item.unit_price)"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="'%.2f'%(item.subtotal)"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.country_of_orgin"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.hs_code"/>
+                                    </td>
+                                </tr>
+                                <!--                            <t t-set="total_qty" t-value="total_qty + item.quantity"/>-->
+                            </t>
+
+                            <!-- Total Row -->
+                            <tr>
+                                <td colspan="6" style="border: 1px solid black; padding: 5px; text-align: right;">
+                                    <strong>Grand Total:</strong>
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-esc="'%.2f'%(sum(o.packing_line_ids.mapped('subtotal')))"/>
+                                </td>
+                                <td colspan="6" style="border: 1px solid black;"></td>
+
+                            </tr>
+
+
+                        </table>
+                        <br/>
+
+                        <table style="width: 100%; height: 50px;">
+                            <tr>
+                                <td style="text-align: left; width: 20%; height: 50px;">
+                                    <strong>Total Amount in Words:</strong>
+                                </td>
+                                <td style="width: 70%; padding-left: 10px; height: 50px;">
+                                    <span style="padding-left: 5px;">
+                                        <t t-esc="o.currency_id.amount_to_text(sum(o.packing_line_ids.mapped('unit_price'))).replace(',', '')"/>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+
+                        <table style="width: 100%;" class="table table-sm table-borderless">
+                            <tr>
+                                <td style="text-align: left;">
+                                    for Voyage Marine Automation
+                                </td>
+                            </tr>
+
+                            <tr>
+
+
+                                <td style="text-align: left;">
+                                    <br/>
+                                    <br/>
+                                    <!--                        <br/>-->
+                                    ______________________________
+                                    <p>Authorized Sign &amp; Stamp</p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="footer o_standard_footer">
+                            <div style="font-size:11px" class="last-page">
+                                <p align="right">**General Terms &amp; Condition Shall apply**</p>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-top: 15px;">
+                                <table width="100%" class="table table-borderless table-sm">
+                                    <!--                                    <tr>-->
+                                    <tr width="100%" style="font-size:12px;">
+                                        <td align="center" colspan="2">
+                                            <t t-if="o.company_id.website">
+                                                <strong>
+                                                    <span t-esc="o.company_id.website"/>
+                                                </strong>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td style="border-bottom: 1pt solid black;" colspan="2"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td>
+                                            <div style="text-align: left;font-size:14px">
+                                                A professional Supplier and Service provider for All
+                                                Electrical &amp;
+                                                Instrumentation, Automation&amp; Control, Fire &amp; Safety,
+                                                Navigation and Communication and Calibration requirements
+                                                for Marine, Oil &amp; Gas
+                                                and Energy Industry.
+                                            </div>
+                                        </td>
+                                        <!--                                        <td width="25%">-->
+                                        <!--                                            <t t-if="o.company_id.logo">-->
+                                        <!--                                                <img t-att-src="image_data_uri(o.company_id.logo)"-->
+                                        <!--                                                     style="max-height:90px;max-width:90%" alt="Company Logo"/>-->
+                                        <!--                                                &lt;!&ndash;                                                    <img t-att-src="o.company_id.logo" width="22%" />&ndash;&gt;-->
+                                        <!--                                            </t>-->
+                                        <!--                                        </td>-->
+
+                                    </tr>
+                                    <!--                                    <tr>-->
+                                    <!--                                        <td colspan="2" align="center">-->
+                                    <!--                                            <div style="color:black; text-align: center;">-->
+                                    <!--                                                <p align="center">**General Terms &amp; Condition Shall apply.</p>-->
+                                    <!--                                            </div>-->
+
+                                    <!--                                        </td>-->
+                                    <!--                                    </tr>-->
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <div style="color:black; text-align: center;">
+                                                Page:
+                                                <span class="page"/>
+                                                of
+                                                <span class="topage"/>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <!--                                    </tr>-->
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+
+    </template>
+    <template id="voyage_packing_list_report">
+        <!--        <t t-call="kg_tax_invoice.voyage_commercial_invoice_report">-->
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page" style="page-break-before: always;">
+                        <div class="header" style="margin-bottom:20px;">
+
+                            <table class='table table-borderless table-condensed table-hover'>
+                                <tr width="100%">
+                                    <td style="width: 50%;" align="left">
+                                        <t t-if="o.company_id.logo">
+                                            <img t-att-src="image_data_uri(o.company_id.logo)"
+                                                 style="max-height:90px;max-width:90%" alt="Company Logo"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 50%;font-size:14px;" align="right">
+                                        <t t-if="o.company_id.name">
+                                            <strong>
+                                                <span t-esc="o.company_id.name"/>
+                                            </strong>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.phone">
+                                            <span t-esc="o.company_id.phone"/>
+                                            <i class="fa fa-phone" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.mobile">
+                                            <span t-esc="o.company_id.mobile"/>
+                                            <i class="fa fa-fax" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.email">
+                                            <span t-esc="o.company_id.email"/>
+                                            <i class="fa fa-envelope" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.zip">
+                                            <span>P.O. Box:
+                                                <span t-esc="o.company_id.zip"/>,
+                                            </span>
+                                        </t>
+                                        <t t-if="o.company_id.city">
+                                            <span t-esc="o.company_id.city"/>,
+                                        </t>
+                                        <t t-if="o.company_id.state_id.name">
+                                            <span t-esc="o.company_id.state_id.name"/>
+                                        </t>
+                                        <t t-if="o.company_id.country_id.code">
+                                            <span t-esc="o.company_id.country_id.code"/>
+                                        </t>
+                                        <i class="fa fa-map-marker" aria-hidden="true"
+                                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                        <br/>
+                                        <!--                            <t t-if="o.partner_id.company_id.vat">-->
+                                        <!--                                <span style="font-size: 14px;font-weight: bold;">TRN:</span>-->
+                                        <!--                                <span t-if="o.partner_id.company_id.vat"-->
+                                        <!--                                      style="font-size: 14px;font-weight: bold; display: inline; margin-left: 5px;"-->
+                                        <!--                                      t-esc="o.partner_id.company_id.vat"/>-->
+                                        <!--                            </t>-->
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="margin:0">
+                                    <td style="width: 100%;border-bottom: 1pt solid black;" colspan="2"/>
+                                </tr>
+                            </table>
+                        </div>
+                        <t t-if="o.company_id.vat">
+                            <table width="100%" style="margin-top: 10px;" class="table-borderless">
+                                <tr>
+                                    <td style="width: 100%; font-size: 14px;padding-bottom:10px;" align="right">
+                                        <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                                        <span style="font-size: 14px; font-weight: bold; margin-left: 5px;"
+                                              t-esc="o.company_id.vat"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                        <h2 align="center">Packing List</h2>
+                        <table class="table table-sm table-borderless" style="width: 100%; margin-top: 5px;">
+                            <tr>
+                                <td style="width: 37%; padding: 10px; vertical-align: top; height: 100%;">
+                                    <table style="width: 100%; padding: 10px;">
+                                        <t t-if="o.partner_id">
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Shipper:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.partner_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t t-if="o.partner_id.street">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </table>
+                                </td>
+
+                                <td style="width:4%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 59%; margin-left:10%; vertical-align: top; height: 100%;">
+
+                                    <!--                        <table style="width: 100%;  padding: 10px;">-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="text-align: right; vertical-align: top;" width="100%" colspan="2">-->
+                                    <!--                                    <h1 style="margin: 0; font-size: 28px; font-weight: bold;">-->
+                                    <!--                                        Commercial Invoice-->
+                                    <!--                                    </h1>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="text-align: right; padding: 5px;  padding: 3px;" width="100%" colspan="2">-->
+                                    <!--                                    <t t-if="o.name">-->
+                                    <!--                                        <t t-esc="o.commercial_inv_no"/>-->
+                                    <!--                                    </t>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="width: 60%; text-align: right;  padding: 3px;" width="100%" colspan="2">-->
+                                    <!--                                    <t t-if="o.date">-->
+                                    <!--                                        <t t-esc="o.date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>-->
+                                    <!--                                    </t>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                        </table>-->
+                                    <table style="width: 100%; margin-top:5%;margin-left:10%; padding: 10px;">
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>No</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-esc="o.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Date</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-esc="o.date"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Vessel/Project Name</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.vessel_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Job No</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.sale_order_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Po No</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.po_reference"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 45%; padding: 10px; vertical-align: top; height: 100%;">
+
+                                    <table style="width: 100%;  padding: 10px;">
+                                        <t t-if="o.bill_id.name">
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Bill to:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.bill_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t t-if="o.bill_id.street">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+
+                                    </table>
+
+                                </td>
+
+                                <td style="width: 8%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 47%; padding: 10px; vertical-align: top; height: 100%;">
+                                    <table style="width: 100%; margin-top:5%;margin-left:10%; padding: 10px;">
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Mode of Transport:</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.model_of_transport"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>No. of Packages:</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.no_of_packages"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Net Weight (Kg):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_net_weight"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Gross Weight (Kg):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_gross_weight"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Volume (CBM):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_volume"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </td>
+                            </tr>
+
+                            <!-- Consignee Row -->
+                            <!-- Consignee Row -->
+                            <tr>
+                                <td style="width: 45%; padding: 10px; vertical-align: top; height: 100%;">
+
+                                    <table style="width: 100%;  padding: 10px;">
+                                        <t t-if="o.consignee_id">
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Consignee:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.consignee_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t t-if="o.consignee_id.street">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </table>
+
+                                </td>
+
+                                <td style="width: 8%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 47%; padding: 10px; vertical-align: top; height: 100%;">
+
+
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!--            <br/>-->
+                        <table width="100%" style="margin:0">
+                            <td style="width: 100%;border-bottom: 1pt solid black;"/>
+                        </table>
+                        <br/>
+
+                        <!-- Items Table -->
+                        <table style="width: 100%; border-collapse: collapse; ">
+                            <tr>
+                                <th style="border: 1px solid black; padding: 5px;">Box No.</th>
+                                <th style="border: 1px solid black; padding: 5px;">TAG No.</th>
+                                <th style="border: 1px solid black; padding: 13px;">Materials Description</th>
+                                <th style="border: 1px solid black; padding: 5px;">Qty</th>
+                                <th style="border: 1px solid black; padding: 5px;">UoM</th>
+
+                                <!-- This is the header for Dimensions (L x W x H) -->
+                                <th colspan="3" style="border: 1px solid black; padding: 5px;">Diamension(in CM)
+                                    <br/>
+                                    <br/>(L x W x H)
+                                </th>
+
+
+                                <th style="border: 1px solid black; padding: 3px;">Net Wt
+                                    <br/>
+                                    <br/>(Kg)
+                                </th>
+                                <th style="border: 1px solid black; padding: 3px;">Gross Wt
+                                    <br/>
+                                    <br/>(Kg)
+                                </th>
+                                <th style="border: 1px solid black; padding: 4px;">Packing Type</th>
+                            </tr>
+
+                            <!-- Row for separate dimension headers (L, W, H) -->
+                            <tr>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+
+                                <!-- Separate headers for Length, Width, and Height -->
+                                <th style="border: 1px solid black; padding: 5px;">L</th>
+                                <th style="border: 1px solid black; padding: 5px;">W</th>
+                                <th style="border: 1px solid black; padding: 5px;">H</th>
+
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                            </tr>
+                            <t t-set="uom_list"
+                               t-value="[]"/> <!-- Initialize the uom_list variable as an empty string -->
+
+                            <t t-foreach="o.commercial_line_ids" t-as="item">
+                                <tr t-if="item.product_id">
+                                    <!-- Box No. -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.box_no"/>
+                                    </td>
+
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.tag_no"/>
+                                    </td>
+
+                                    <!-- Quantity -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.product_id.name"/>
+                                    </td>
+
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.quantity"/>
+                                    </td>
+
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.product_uom_id.name"/>
+                                        <t t-set="uom_name" t-value="item.product_uom_id.name or ''"/>
+                                        <t t-if="uom_name and uom_name not in uom_list">
+                                            <t t-set="uom_list" t-value="uom_list + [uom_name]"/>
+                                        </t>
+<!--                                        <tr>-->
+<!--                                            <td style="border: 1px solid black; padding: 5px;">-->
+<!--                                                <span t-esc="item.product_uom_id.name"/>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+                                    </td>
+                                    <!-- Dimensions (L) -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.dimension_l"/>
+                                    </td>
+
+                                    <!-- Dimensions (W) -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <spa t-esc="item.dimension_w"/>
+                                    </td>
+
+
+                                    <!-- Dimensions (H) -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.dimension_h"/>
+                                    </td>
+
+                                    <!-- Net Weight -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.net_weight_per_unit"/>
+                                    </td>
+
+                                    <!-- Gross Weight -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.gross_weight"/>
+                                    </td>
+
+                                    <!-- Packing Type -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.packing_type"/>
+                                    </td>
+                                </tr>
+                                <!--                            <t t-set="total_qty" t-value="total_qty + item.quantity"/>-->
+                            </t>
+
+                            <!-- Total Row -->
+                            <tr>
+                                <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: right;">
+                                    <strong>Grand Total:</strong>
+                                </td>
+                                <!--                     <span t-esc="sum(o.commercial_line_ids.mapped('quantity'))"/>-->
+                                <!--                            <td style="border: 1px solid black; padding: 5px;">-->
+                                <!--                                <span t-esc="o.amount_untaxed"/>-->
+                                <!--                            </td>-->
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-esc="sum(o.commercial_line_ids.mapped('quantity'))"/>
+
+                                    <!--                                <span t-esc="sum(item.mapped('quantity'))"/>-->
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-esc="', '.join(uom_list)"/>
+                                </td>
+                                <td colspan="3" style="border: 1px solid black; padding: 5px;"></td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <!--                                    <t t-if="item.net_weight_per_unit">-->
+                                    <span t-esc="sum(o.packing_line_ids.mapped('net_weight_per_unit'))"/>
+
+                                    <!--                                <span t-esc="o.total_net_weight"/>-->
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-esc="sum(o.packing_line_ids.mapped('gross_weight'))"/>
+                                    <!--                                <span t-esc="o.total_gross_weight"/>-->
+                                </td>
+
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <!--                                <span t-esc="o.packing_type"/>-->
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+
+                        <table style="width: 100%;" class="table table-sm table-borderless">
+                            <tr>
+                                <td style="text-align: left;">
+                                    for Voyage Marine Automation
+                                </td>
+                            </tr>
+
+                            <tr>
+
+
+                                <td style="text-align: left;">
+                                    <br/>
+                                    <br/>
+                                    <!--                        <br/>-->
+                                    ______________________________
+                                    <p>Authorized Sign &amp; Stamp</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <!--                        <p align="right" style="font-size: 12px;">-->
+                        <!--                            <i>**General Terms &amp; Condition shall apply</i>-->
+                        <!--                        </p>-->
+                        <div class="footer o_standard_footer">
+                            <div style="font-size:11px" class="last-page">
+                                <p align="right">**General Terms &amp; Condition Shall apply**</p>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-top: 15px;">
+                                <table width="100%" class="table table-borderless table-sm">
+                                    <!--                                    <tr>-->
+                                    <tr width="100%" style="font-size:12px;">
+                                        <td align="center" colspan="2">
+                                            <t t-if="o.company_id.website">
+                                                <strong>
+                                                    <span t-esc="o.company_id.website"/>
+                                                </strong>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td style="border-bottom: 1pt solid black;" colspan="2"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td width="100%">
+                                            <div style="text-align: left;font-size:14px">
+                                                A professional Supplier and Service provider for All
+                                                Electrical &amp;
+                                                Instrumentation, Automation&amp; Control, Fire &amp; Safety,
+                                                Navigation and Communication and Calibration requirements
+                                                for Marine, Oil &amp; Gas
+                                                and Energy Industry.
+                                            </div>
+                                        </td>
+                                        <!--                                        <td width="25%">-->
+                                        <!--                                            <t t-if="o.company_id.logo">-->
+                                        <!--                                                <img t-att-src="image_data_uri(o.company_id.logo)"-->
+                                        <!--                                                     style="max-height:90px;max-width:90%" alt="Company Logo"/>-->
+                                        <!--                                                &lt;!&ndash;                                                    <img t-att-src="o.company_id.logo" width="22%" />&ndash;&gt;-->
+                                        <!--                                            </t>-->
+                                        <!--                                        </td>-->
+
+                                    </tr>
+                                    <!--                                    <tr>-->
+                                    <!--                                        <td colspan="2" align="center">-->
+                                    <!--                                            <div style="color:black; text-align: center;">-->
+                                    <!--                                                <p align="center">**General Terms &amp; Condition Shall apply.</p>-->
+                                    <!--                                            </div>-->
+
+                                    <!--                                        </td>-->
+                                    <!--                                    </tr>-->
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <div style="color:black; text-align: center;">
+                                                Page:
+                                                <span class="page"/>
+                                                of
+                                                <span class="topage"/>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </t>
+
+            </t>
+        </t>
+
+    </template>
+
+    <template id="voyage_commercial_report">
+<!--        <t t-call="web.html_container">-->
+<!--            <t t-foreach="docs" t-as="o">-->
+<!--                <t t-call="web.basic_layout">-->
+                    <div class="page">
+                        <div class="header" style="margin-bottom:20px;">
+
+                            <table class='table table-borderless table-condensed table-hover'>
+                                <tr width="100%">
+                                    <td style="width: 50%;" align="left">
+                                        <t t-if="o.company_id.logo">
+                                            <img t-att-src="image_data_uri(o.company_id.logo)"
+                                                 style="max-height:90px;max-width:90%" alt="Company Logo"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 50%;font-size:14px;" align="right">
+                                        <t t-if="o.company_id.name">
+                                            <strong>
+                                                <span t-esc="o.company_id.name"/>
+                                            </strong>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.phone">
+                                            <span t-esc="o.company_id.phone"/>
+                                            <i class="fa fa-phone" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.mobile">
+                                            <span t-esc="o.company_id.mobile"/>
+                                            <i class="fa fa-fax" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.email">
+                                            <span t-esc="o.company_id.email"/>
+                                            <i class="fa fa-envelope" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.zip">
+                                            <span>P.O. Box:
+                                                <span t-esc="o.company_id.zip"/>,
+                                            </span>
+                                        </t>
+                                        <t t-if="o.company_id.city">
+                                            <span t-esc="o.company_id.city"/>,
+                                        </t>
+                                        <t t-if="o.company_id.state_id.name">
+                                            <span t-esc="o.company_id.state_id.name"/>
+                                        </t>
+                                        <t t-if="o.company_id.country_id.code">
+                                            <span t-esc="o.company_id.country_id.code"/>
+                                        </t>
+                                        <i class="fa fa-map-marker" aria-hidden="true"
+                                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="margin:0">
+                                    <td style="width: 100%;border-bottom: 1pt solid black;" colspan="2"/>
+                                </tr>
+
+                            </table>
+                        </div>
+
+                        <t>
+                            <table width="100%" style="margin-top: 10px;" class="table-borderless">
+                                <tr>
+                                    <td style="width: 100%; font-size: 14px;padding-bottom:10px;" align="right">
+                                        <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                                        <span style="font-size: 14px; font-weight: bold; margin-left: 5px;"
+                                              t-esc="o.company_id.vat"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                        <h2 align="center">Commercial Invoice</h2>
+                        <!-- Header Section -->
+                        <table class="table table-sm table-borderless" style="width: 100%; margin-top: 5px;">
+                            <tr>
+                                <td style="width: 37%; padding: 10px; vertical-align: top; height: 100%;">
+                                    <table style="width: 100%; padding: 10px;">
+                                        <t>
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Shipper:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.partner_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t t-if="o.partner_id.street">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </table>
+                                </td>
+
+                                <td style="width:4%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 59%; margin-left:10%; vertical-align: top; height: 100%;">
+
+                                    <!--                        <table style="width: 100%;  padding: 10px;">-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="text-align: right; vertical-align: top;" width="100%" colspan="2">-->
+                                    <!--                                    <h1 style="margin: 0; font-size: 28px; font-weight: bold;">-->
+                                    <!--                                        Commercial Invoice-->
+                                    <!--                                    </h1>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="text-align: right; padding: 5px;  padding: 3px;" width="100%" colspan="2">-->
+                                    <!--                                    <t t-if="o.name">-->
+                                    <!--                                        <t t-esc="o.commercial_inv_no"/>-->
+                                    <!--                                    </t>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="width: 60%; text-align: right;  padding: 3px;" width="100%" colspan="2">-->
+                                    <!--                                    <t t-if="o.date">-->
+                                    <!--                                        <t t-esc="o.date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>-->
+                                    <!--                                    </t>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                        </table>-->
+                                    <table style="width: 100%; margin-top:5%;margin-left:10%; padding: 10px;">
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>No</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-esc="o.commercial_inv_no"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Date</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-esc="o.date"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Vessel/Project Name</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.vessel_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Job No</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.sale_order_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Po No</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.po_reference"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 45%; padding: 10px; vertical-align: top; height: 100%;">
+
+                                    <table style="width: 100%;  padding: 10px;">
+                                        <t>
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Bill to:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.bill_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+
+                                    </table>
+
+                                </td>
+
+                                <td style="width: 8%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 47%; padding: 10px; vertical-align: top; height: 100%;">
+                                    <table style="width: 100%; margin-top:5%;margin-left:10%; padding: 10px;">
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Mode of Transport:</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.model_of_transport"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>No. of Packages:</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.no_of_packages"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Net Weight (Kg):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_net_weight"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Gross Weight (Kg):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_gross_weight"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Volume (CBM):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_volume"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </td>
+                            </tr>
+
+                            <!-- Consignee Row -->
+                            <!-- Consignee Row -->
+                            <tr>
+                                <td style="width: 45%; padding: 10px; vertical-align: top; height: 100%;">
+
+                                    <table style="width: 100%;  padding: 10px;">
+                                        <t>
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Consignee:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.consignee_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t t-if="o.consignee_id.street">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </table>
+
+                                </td>
+
+                                <td style="width: 8%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 47%; padding: 10px; vertical-align: top; height: 100%;">
+
+
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <table width="100%" style="margin:0">
+                            <td style="width: 100%;border-bottom: 1pt solid black;" colspan="2"/>
+                        </table>
+
+
+                        <br/>
+                        <!-- Items Table -->
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <th style="border: 1px solid black;padding: 5px;">Sl No.</th>
+                                <th style="border: 1px solid black; padding: 5px;">PO Item No.</th>
+                                <th style="border: 1px solid black;padding: 5px;">Materials Description</th>
+                                <th style="border: 1px solid black;padding: 5px;">Qty</th>
+                                <th style="border: 1px solid black;padding: 5px;">UoM</th>
+                                <th style="border: 1px solid black;padding: 5px;">Unit Price
+                                    <br/>
+                                    <br/>(<t t-esc="o.company_id.currency_id.name"/>)
+                                </th>
+                                <th style="border: 1px solid black;padding: 5px;">Total Amt
+                                    <br/>
+                                    <br/>(<t t-esc="o.company_id.currency_id.name"/>)
+                                </th>
+                                <th style="border: 1px solid black;padding: 5px;">Country of Origin</th>
+                                <th style="border: 1px solid black;padding: 5px;">HS Code</th>
+                            </tr>
+
+                            <!--                <tr style="border-bottom: 1px solid black;">-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px; text-align: center;">-->
+                            <!--                        (<t t-esc="o.company_id.currency_id.name"/>)-->
+                            <!--                    </th>-->
+                            <!--                    <th style="padding: 5px; text-align: center;">-->
+                            <!--                        (<t t-esc="o.company_id.currency_id.name"/>)-->
+                            <!--                    </th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                    <th style="padding: 5px;"></th>-->
+                            <!--                </tr>-->
+
+                            <t t-foreach="o.commercial_line_ids" t-as="item">
+                                <tr t-if="item.product_id">
+                                    <!-- Box No. -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.box_no"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.tag_no"/>
+                                    </td>
+                                    <!-- Quantity -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.product_id.name"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.quantity"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.product_uom_id.name"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="'%.2f'%(item.unit_price)"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="'%.2f'%(item.subtotal)"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.country_of_orgin"/>
+                                    </td>
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.hs_code"/>
+                                    </td>
+                                </tr>
+                                <!--                            <t t-set="total_qty" t-value="total_qty + item.quantity"/>-->
+                            </t>
+
+                            <!-- Total Row -->
+                            <tr>
+                                <td colspan="6" style="border: 1px solid black; padding: 5px; text-align: right;">
+                                    <strong>Grand Total:</strong>
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-esc="'%.2f'%(sum(o.packing_line_ids.mapped('subtotal')))"/>
+                                </td>
+                                <td colspan="6" style="border: 1px solid black;"></td>
+
+                            </tr>
+
+
+                        </table>
+                        <br/>
+
+                        <table style="width: 100%; height: 50px;">
+                            <tr>
+                                <td style="text-align: left; width: 20%; height: 50px;">
+                                    <strong>Total Amount in Words:</strong>
+                                </td>
+                                <td style="width: 70%; padding-left: 10px; height: 50px;">
+                                    <span style="padding-left: 5px;">
+                                        <t t-esc="o.currency_id.amount_to_text(sum(o.packing_line_ids.mapped('unit_price'))).replace(',', '')"/>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+
+                        <table style="width: 100%;" class="table table-sm table-borderless">
+                            <tr>
+                                <td style="text-align: left;">
+                                    for Voyage Marine Automation
+                                </td>
+                            </tr>
+
+                            <tr>
+
+
+                                <td style="text-align: left;">
+                                    <br/>
+                                    <br/>
+                                    <!--                        <br/>-->
+                                    ______________________________
+                                    <p>Authorized Sign &amp; Stamp</p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="footer o_standard_footer">
+                            <div style="font-size:11px" class="last-page">
+                                <p align="right">**General Terms &amp; Condition Shall apply**</p>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-top: 15px;">
+                                <table width="100%" class="table table-borderless table-sm">
+                                    <!--                                    <tr>-->
+                                    <tr width="100%" style="font-size:12px;">
+                                        <td align="center" colspan="2">
+                                            <t t-if="o.company_id.website">
+                                                <strong>
+                                                    <span t-esc="o.company_id.website"/>
+                                                </strong>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td style="border-bottom: 1pt solid black;" colspan="2"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td>
+                                            <div style="text-align: left;font-size:14px">
+                                                A professional Supplier and Service provider for All
+                                                Electrical &amp;
+                                                Instrumentation, Automation&amp; Control, Fire &amp; Safety,
+                                                Navigation and Communication and Calibration requirements
+                                                for Marine, Oil &amp; Gas
+                                                and Energy Industry.
+                                            </div>
+                                        </td>
+                                        <!--                                        <td width="25%">-->
+                                        <!--                                            <t t-if="o.company_id.logo">-->
+                                        <!--                                                <img t-att-src="image_data_uri(o.company_id.logo)"-->
+                                        <!--                                                     style="max-height:90px;max-width:90%" alt="Company Logo"/>-->
+                                        <!--                                                &lt;!&ndash;                                                    <img t-att-src="o.company_id.logo" width="22%" />&ndash;&gt;-->
+                                        <!--                                            </t>-->
+                                        <!--                                        </td>-->
+
+                                    </tr>
+                                    <!--                                    <tr>-->
+                                    <!--                                        <td colspan="2" align="center">-->
+                                    <!--                                            <div style="color:black; text-align: center;">-->
+                                    <!--                                                <p align="center">**General Terms &amp; Condition Shall apply.</p>-->
+                                    <!--                                            </div>-->
+
+                                    <!--                                        </td>-->
+                                    <!--                                    </tr>-->
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <div style="color:black; text-align: center;">
+                                                Page:
+                                                <span class="page"/>
+                                                of
+                                                <span class="topage"/>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <!--                                    </tr>-->
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+<!--                </t>-->
+<!--            </t>-->
+<!--        </t>-->
+
+    </template>
+     <template id="voyage_packing_report">
+        <!--        <t t-call="kg_tax_invoice.voyage_commercial_invoice_report">-->
+<!--        <t t-call="web.html_container">-->
+<!--            <t t-foreach="docs" t-as="o">-->
+<!--                <t t-call="web.basic_layout">-->
+                    <div class="page" style="page-break-before: always;">
+                        <div class="header" style="margin-bottom:20px;">
+
+                            <table class='table table-borderless table-condensed table-hover'>
+                                <tr width="100%">
+                                    <td style="width: 50%;" align="left">
+                                        <t t-if="o.company_id.logo">
+                                            <img t-att-src="image_data_uri(o.company_id.logo)"
+                                                 style="max-height:90px;max-width:90%" alt="Company Logo"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 50%;font-size:14px;" align="right">
+                                        <t t-if="o.company_id.name">
+                                            <strong>
+                                                <span t-esc="o.company_id.name"/>
+                                            </strong>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.phone">
+                                            <span t-esc="o.company_id.phone"/>
+                                            <i class="fa fa-phone" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.mobile">
+                                            <span t-esc="o.company_id.mobile"/>
+                                            <i class="fa fa-fax" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.email">
+                                            <span t-esc="o.company_id.email"/>
+                                            <i class="fa fa-envelope" aria-hidden="true"
+                                               style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.company_id.zip">
+                                            <span>P.O. Box:
+                                                <span t-esc="o.company_id.zip"/>,
+                                            </span>
+                                        </t>
+                                        <t t-if="o.company_id.city">
+                                            <span t-esc="o.company_id.city"/>,
+                                        </t>
+                                        <t t-if="o.company_id.state_id.name">
+                                            <span t-esc="o.company_id.state_id.name"/>
+                                        </t>
+                                        <t t-if="o.company_id.country_id.code">
+                                            <span t-esc="o.company_id.country_id.code"/>
+                                        </t>
+                                        <i class="fa fa-map-marker" aria-hidden="true"
+                                           style="margin-left: 5px; border-radius: 50%; background-color: #ddd; padding: 5px;"/>
+                                        <br/>
+                                        <!--                            <t t-if="o.partner_id.company_id.vat">-->
+                                        <!--                                <span style="font-size: 14px;font-weight: bold;">TRN:</span>-->
+                                        <!--                                <span t-if="o.partner_id.company_id.vat"-->
+                                        <!--                                      style="font-size: 14px;font-weight: bold; display: inline; margin-left: 5px;"-->
+                                        <!--                                      t-esc="o.partner_id.company_id.vat"/>-->
+                                        <!--                            </t>-->
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="margin:0">
+                                    <td style="width: 100%;border-bottom: 1pt solid black;" colspan="2"/>
+                                </tr>
+                            </table>
+                        </div>
+                        <t t-if="o.company_id.vat">
+                            <table width="100%" style="margin-top: 10px;" class="table-borderless">
+                                <tr>
+                                    <td style="width: 100%; font-size: 14px;padding-bottom:10px;" align="right">
+                                        <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                                        <span style="font-size: 14px; font-weight: bold; margin-left: 5px;"
+                                              t-esc="o.company_id.vat"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                        <h2 align="center">Packing List</h2>
+                        <table class="table table-sm table-borderless" style="width: 100%; margin-top: 5px;">
+                            <tr>
+                                <td style="width: 37%; padding: 10px; vertical-align: top; height: 100%;">
+                                    <table style="width: 100%; padding: 10px;">
+                                        <t t-if="o.partner_id">
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Shipper:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.partner_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t t-if="o.partner_id.street">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.partner_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.partner_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </table>
+                                </td>
+
+                                <td style="width:4%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 59%; margin-left:10%; vertical-align: top; height: 100%;">
+
+                                    <!--                        <table style="width: 100%;  padding: 10px;">-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="text-align: right; vertical-align: top;" width="100%" colspan="2">-->
+                                    <!--                                    <h1 style="margin: 0; font-size: 28px; font-weight: bold;">-->
+                                    <!--                                        Commercial Invoice-->
+                                    <!--                                    </h1>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="text-align: right; padding: 5px;  padding: 3px;" width="100%" colspan="2">-->
+                                    <!--                                    <t t-if="o.name">-->
+                                    <!--                                        <t t-esc="o.commercial_inv_no"/>-->
+                                    <!--                                    </t>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                            <tr width="100%">-->
+                                    <!--                                <td style="width: 60%; text-align: right;  padding: 3px;" width="100%" colspan="2">-->
+                                    <!--                                    <t t-if="o.date">-->
+                                    <!--                                        <t t-esc="o.date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>-->
+                                    <!--                                    </t>-->
+                                    <!--                                </td>-->
+                                    <!--                            </tr>-->
+                                    <!--                        </table>-->
+                                    <table style="width: 100%; margin-top:5%;margin-left:10%; padding: 10px;">
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>No</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-esc="o.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Date</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-esc="o.date"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Vessel/Project Name</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.vessel_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Job No</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.sale_order_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <strong>Po No</strong>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td style="text-align: left;margin-left:2%">
+                                                <span t-field="o.po_reference"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 45%; padding: 10px; vertical-align: top; height: 100%;">
+
+                                    <table style="width: 100%;  padding: 10px;">
+                                        <t t-if="o.bill_id.name">
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Bill to:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.bill_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t t-if="o.bill_id.street">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.bill_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.bill_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+
+                                    </table>
+
+                                </td>
+
+                                <td style="width: 8%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 47%; padding: 10px; vertical-align: top; height: 100%;">
+                                    <table style="width: 100%; margin-top:5%;margin-left:10%; padding: 10px;">
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Mode of Transport:</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.model_of_transport"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>No. of Packages:</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.no_of_packages"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Net Weight (Kg):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_net_weight"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Gross Weight (Kg):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_gross_weight"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%" style="text-align: left;">
+                                                <strong>Total Volume (CBM):</strong>
+                                            </td>
+                                            <td width="2%" style="text-align: left;">
+                                                <strong>:</strong>
+                                            </td>
+                                            <td width="49%" style="text-align: left;margin-left:2%">
+                                                <span t-field="o.total_volume"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </td>
+                            </tr>
+
+                            <!-- Consignee Row -->
+                            <!-- Consignee Row -->
+                            <tr>
+                                <td style="width: 45%; padding: 10px; vertical-align: top; height: 100%;">
+
+                                    <table style="width: 100%;  padding: 10px;">
+                                        <t t-if="o.consignee_id">
+                                            <tr>
+                                                <td style="vertical-align: top; white-space: nowrap;">
+                                                    <strong>Consignee:</strong>
+                                                </td>
+                                                <br/>
+                                                <td width="70%">
+                                                    <span t-esc="o.consignee_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <t t-if="o.consignee_id.street">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.street"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.street2">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.street2"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.city">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.city"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.consignee_id.country_id.name">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-esc="o.consignee_id.country_id.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </table>
+
+                                </td>
+
+                                <td style="width: 8%; border-top: 0; border-bottom: 0;"></td>
+
+                                <td style="width: 47%; padding: 10px; vertical-align: top; height: 100%;">
+
+
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!--            <br/>-->
+                        <table width="100%" style="margin:0">
+                            <td style="width: 100%;border-bottom: 1pt solid black;"/>
+                        </table>
+                        <br/>
+
+                        <!-- Items Table -->
+                        <table style="width: 100%; border-collapse: collapse; ">
+                            <tr>
+                                <th style="border: 1px solid black; padding: 5px;">Box No.</th>
+                                <th style="border: 1px solid black; padding: 5px;">TAG No.</th>
+                                <th style="border: 1px solid black; padding: 13px;">Materials Description</th>
+                                <th style="border: 1px solid black; padding: 5px;">Qty</th>
+                                <th style="border: 1px solid black; padding: 5px;">UoM</th>
+
+                                <!-- This is the header for Dimensions (L x W x H) -->
+                                <th colspan="3" style="border: 1px solid black; padding: 5px;">Diamension(in CM)
+                                    <br/>
+                                    <br/>(L x W x H)
+                                </th>
+
+
+                                <th style="border: 1px solid black; padding: 3px;">Net Wt
+                                    <br/>
+                                    <br/>(Kg)
+                                </th>
+                                <th style="border: 1px solid black; padding: 3px;">Gross Wt
+                                    <br/>
+                                    <br/>(Kg)
+                                </th>
+                                <th style="border: 1px solid black; padding: 4px;">Packing Type</th>
+                            </tr>
+
+                            <!-- Row for separate dimension headers (L, W, H) -->
+                            <tr>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+
+                                <!-- Separate headers for Length, Width, and Height -->
+                                <th style="border: 1px solid black; padding: 5px;">L</th>
+                                <th style="border: 1px solid black; padding: 5px;">W</th>
+                                <th style="border: 1px solid black; padding: 5px;">H</th>
+
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                                <th style="border: 1px solid black; padding: 5px;"></th>
+                            </tr>
+                            <t t-set="uom_list"
+                               t-value="[]"/> <!-- Initialize the uom_list variable as an empty string -->
+
+                            <t t-foreach="o.commercial_line_ids" t-as="item">
+                                <tr t-if="item.product_id">
+                                    <!-- Box No. -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.box_no"/>
+                                    </td>
+
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.tag_no"/>
+                                    </td>
+
+                                    <!-- Quantity -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.product_id.name"/>
+                                    </td>
+
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.quantity"/>
+                                    </td>
+
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.product_uom_id.name"/>
+                                        <t t-set="uom_name" t-value="item.product_uom_id.name or ''"/>
+                                        <t t-if="uom_name and uom_name not in uom_list">
+                                            <t t-set="uom_list" t-value="uom_list + [uom_name]"/>
+                                        </t>
+<!--                                        <tr>-->
+<!--                                            <td style="border: 1px solid black; padding: 5px;">-->
+<!--                                                <span t-esc="item.product_uom_id.name"/>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+                                    </td>
+                                    <!-- Dimensions (L) -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.dimension_l"/>
+                                    </td>
+
+                                    <!-- Dimensions (W) -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <spa t-esc="item.dimension_w"/>
+                                    </td>
+
+
+                                    <!-- Dimensions (H) -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.dimension_h"/>
+                                    </td>
+
+                                    <!-- Net Weight -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.net_weight_per_unit"/>
+                                    </td>
+
+                                    <!-- Gross Weight -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.gross_weight"/>
+                                    </td>
+
+                                    <!-- Packing Type -->
+                                    <td style="border: 1px solid black; padding: 5px;">
+                                        <span t-esc="item.packing_type"/>
+                                    </td>
+                                </tr>
+                                <!--                            <t t-set="total_qty" t-value="total_qty + item.quantity"/>-->
+                            </t>
+
+                            <!-- Total Row -->
+                            <tr>
+                                <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: right;">
+                                    <strong>Grand Total:</strong>
+                                </td>
+                                <!--                     <span t-esc="sum(o.commercial_line_ids.mapped('quantity'))"/>-->
+                                <!--                            <td style="border: 1px solid black; padding: 5px;">-->
+                                <!--                                <span t-esc="o.amount_untaxed"/>-->
+                                <!--                            </td>-->
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-esc="sum(o.commercial_line_ids.mapped('quantity'))"/>
+
+                                    <!--                                <span t-esc="sum(item.mapped('quantity'))"/>-->
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-esc="', '.join(uom_list)"/>
+                                </td>
+                                <td colspan="3" style="border: 1px solid black; padding: 5px;"></td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <!--                                    <t t-if="item.net_weight_per_unit">-->
+                                    <span t-esc="sum(o.packing_line_ids.mapped('net_weight_per_unit'))"/>
+
+                                    <!--                                <span t-esc="o.total_net_weight"/>-->
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-esc="sum(o.packing_line_ids.mapped('gross_weight'))"/>
+                                    <!--                                <span t-esc="o.total_gross_weight"/>-->
+                                </td>
+
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <!--                                <span t-esc="o.packing_type"/>-->
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+
+                        <table style="width: 100%;" class="table table-sm table-borderless">
+                            <tr>
+                                <td style="text-align: left;">
+                                    for Voyage Marine Automation
+                                </td>
+                            </tr>
+
+                            <tr>
+
+
+                                <td style="text-align: left;">
+                                    <br/>
+                                    <br/>
+                                    <!--                        <br/>-->
+                                    ______________________________
+                                    <p>Authorized Sign &amp; Stamp</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <!--                        <p align="right" style="font-size: 12px;">-->
+                        <!--                            <i>**General Terms &amp; Condition shall apply</i>-->
+                        <!--                        </p>-->
+                        <div class="footer o_standard_footer">
+                            <div style="font-size:11px" class="last-page">
+                                <p align="right">**General Terms &amp; Condition Shall apply**</p>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-top: 15px;">
+                                <table width="100%" class="table table-borderless table-sm">
+                                    <!--                                    <tr>-->
+                                    <tr width="100%" style="font-size:12px;">
+                                        <td align="center" colspan="2">
+                                            <t t-if="o.company_id.website">
+                                                <strong>
+                                                    <span t-esc="o.company_id.website"/>
+                                                </strong>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td style="border-bottom: 1pt solid black;" colspan="2"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td width="100%">
+                                            <div style="text-align: left;font-size:14px">
+                                                A professional Supplier and Service provider for All
+                                                Electrical &amp;
+                                                Instrumentation, Automation&amp; Control, Fire &amp; Safety,
+                                                Navigation and Communication and Calibration requirements
+                                                for Marine, Oil &amp; Gas
+                                                and Energy Industry.
+                                            </div>
+                                        </td>
+                                        <!--                                        <td width="25%">-->
+                                        <!--                                            <t t-if="o.company_id.logo">-->
+                                        <!--                                                <img t-att-src="image_data_uri(o.company_id.logo)"-->
+                                        <!--                                                     style="max-height:90px;max-width:90%" alt="Company Logo"/>-->
+                                        <!--                                                &lt;!&ndash;                                                    <img t-att-src="o.company_id.logo" width="22%" />&ndash;&gt;-->
+                                        <!--                                            </t>-->
+                                        <!--                                        </td>-->
+
+                                    </tr>
+                                    <!--                                    <tr>-->
+                                    <!--                                        <td colspan="2" align="center">-->
+                                    <!--                                            <div style="color:black; text-align: center;">-->
+                                    <!--                                                <p align="center">**General Terms &amp; Condition Shall apply.</p>-->
+                                    <!--                                            </div>-->
+
+                                    <!--                                        </td>-->
+                                    <!--                                    </tr>-->
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <div style="color:black; text-align: center;">
+                                                Page:
+                                                <span class="page"/>
+                                                of
+                                                <span class="topage"/>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+<!--                </t>-->
+
+<!--            </t>-->
+<!--        </t>-->
+
+    </template>
+
+    <template id="cipl_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <t t-call="kg_voyage_marine_sale.voyage_packing_report"/>
+                    <div style="page-break-before: always;"></div>
+                    <t t-call="kg_voyage_marine_sale.voyage_commercial_report"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

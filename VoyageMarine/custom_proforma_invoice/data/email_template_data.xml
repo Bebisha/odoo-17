@@ -1,0 +1,15 @@
+<odoo>
+    <record id="email_template_proforma" model="mail.template">
+        <field name="name">Proforma Invoice Email</field>
+        <field name="model_id" ref="model_custom_proforma_invoice"/>
+        <field name="subject">Your Proforma Invoice</field>
+        <field name="email_from">{{ user.email_formatted or '' }}</field>
+        <field name="email_to">{{ object.sale_order_id.partner_id.id }}</field>
+        <field name="body_html">
+            <![CDATA[
+            <p>Dear {{ object.sale_order_id.partner_id.name }},</p>
+            <p>Please find attached the Proforma Invoice.</p>
+            ]]>
+        </field>
+    </record>
+</odoo>

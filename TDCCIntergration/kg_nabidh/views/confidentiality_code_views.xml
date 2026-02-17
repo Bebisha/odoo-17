@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="confidentiality_code_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Confidentiality Code</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">confidentiality.code</field>
+
+    </record>
+    <record id="confidentiality_code_tree" model="ir.ui.view">
+        <field name="name">confidentiality.code.tree.views</field>
+        <field name="model">confidentiality.code</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="confidentiality_code_form" model="ir.ui.view">
+        <field name="name">confidentiality.code.form.views</field>
+        <field name="model">confidentiality.code</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="confidentiality_code_menu"
+              action="confidentiality_code_action"
+              name="Confidentiality Code"
+              parent="kg_nabidh.orc_menu"/>
+
+</odoo>

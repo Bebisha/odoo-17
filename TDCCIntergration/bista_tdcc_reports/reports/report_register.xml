@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <!-- Quotation Form Report Action -->
+        
+
+        
+        <!-- Change String of Report -->
+<!--        <report-->
+<!--            id="account.account_invoices_without_payment"-->
+
+<!--            model="account.move"-->
+<!--            string="Vendor Bills"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="account.report_invoice"-->
+<!--            file="account.report_invoice"-->
+<!--            attachment="(object.state in ('open','in_payment','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"-->
+<!--            print_report_name="(object._get_report_base_filename())"-->
+<!--        />-->
+
+        <record id="account.account_invoices_without_payment" model="ir.actions.report">
+            <field name="name">Vendor Bills</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account.report_invoice</field>
+            <field name="report_file">account.report_invoice</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="account.account_invoices_without_payment" model="ir.actions.report">
+            <field name="paperformat_id" ref="base.paperformat_euro"/>
+        </record>
+
+
+     <!-- Invoice Form Report Action -->
+     <!-- <report
+        id="custom_invoice_report"
+        model="account.invoice"
+        string="TDCC Tax Invoice"
+        name="bista_tdcc_reports.report_invoice_form"
+        file="bista_tdcc_reports.report_invoice_form"
+        report_type="qweb-pdf"
+    /> -->
+    
+
+        
+    <!-- Invoice List view report Action -->
+
+
+     <!-- Report vendor Payment Action -->
+<!--      <report-->
+<!--        id="tdcc_vendor_payment_report1"-->
+<!--        model="account.payment"-->
+<!--        string="TDCC Vendor Payment Receipt"-->
+<!--        name="bista_tdcc_reports.report_vendor_payment_form"-->
+<!--        file="bista_tdcc_reports.report_vendor_payment_form"-->
+<!--        report_type="qweb-pdf"-->
+<!--    />-->
+
+    <!-- Email report Action -->
+<!--    <report-->
+<!--        id="tdcc_email_report_action"-->
+<!--        model="mail.mail"-->
+<!--        string="Email Report"-->
+<!--        name="bista_tdcc_reports.report_email_form"-->
+<!--        file="bista_tdcc_reports.report_email_form"-->
+<!--        report_type="qweb-pdf"-->
+<!--    />-->
+
+    <!-- Receipt report Action -->
+<!--    <report-->
+<!--        id="action_receipt_report"-->
+<!--        string="Receipt Report"-->
+<!--        model="account.voucher"-->
+<!--        name="bista_tdcc_reports.report_receipt_form"-->
+<!--        file="bista_tdcc_reports.report_receipt_form"-->
+<!--        report_type="qweb-pdf"-->
+<!--    />-->
+
+    <record id="action_receipt_report" model="ir.actions.report">
+            <field name="name">Receipt Report</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_reports.report_receipt_form</field>
+            <field name="report_file">bista_tdcc_reports.report_receipt_form</field>
+            <field name="binding_type">report</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        </record>
+
+    <!-- Payment List view report Action -->
+
+    
+    <!-- Paper format for custom report -->
+     <record id="custom_quotation_form_paperformat" model="report.paperformat">
+        <field name="name">Quotation custom report</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+<!--        <field name="report_ids"-->
+<!--                    eval="[(4,ref('sale.action_report_saleorder'))]"></field>-->
+    </record>
+    <record id="sale.action_report_saleorder" model="ir.actions.report">
+            <field name="name">TDCC Quotation / Order</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_reports.report_quotation_form</field>
+            <field name="report_file">bista_tdcc_reports.report_quotation_form</field>
+            <field name="paperformat_id" ref="bista_tdcc_reports.custom_quotation_form_paperformat"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+<!--    <report-->
+<!--            id="sale.action_report_saleorder"-->
+<!--            string=" TDCC Quotation / Order"-->
+<!--            model="sale.order"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_tdcc_reports.report_quotation_form"-->
+<!--            file="bista_tdcc_reports.report_quotation_form"-->
+<!--            print_report_name="(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)"-->
+<!--        />-->
+
+    <!-- Invoice paper format -->
+     <record id="custom_invoice_form_paperformat" model="report.paperformat">
+        <field name="name">Invoice custom report</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+<!--        <field name="report_ids"-->
+<!--                    eval="[(4,ref('account.account_invoices'))]"></field>-->
+    </record>
+<!--    <report-->
+<!--            id="account.account_invoices"-->
+<!--            model="account.move"-->
+<!--            string="TDCC Tax Invoice"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_tdcc_reports.report_invoice_form"-->
+<!--            file="bista_tdcc_reports.report_invoice_form"-->
+<!--            attachment="(object.state in ('open','in_payment','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"-->
+<!--            print_report_name="(object._get_report_base_filename())"-->
+<!--        />-->
+    <record id="account.account_invoices" model="ir.actions.report">
+            <field name="name">TDCC Tax Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_reports.report_invoice_form</field>
+            <field name="report_file">bista_tdcc_reports.report_invoice_form</field>
+            <field name="paperformat_id" ref="bista_tdcc_reports.custom_invoice_form_paperformat"/>
+            <field name="binding_type">report</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        </record>
+
+<!--     Invoice List View paper format-->
+     <record id="custom_invoice_list_view_paperformat" model="report.paperformat">
+        <field name="name">Invoice List View Report</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+<!--        <field name="report_ids"-->
+<!--                    eval="[(4, ref('action_account_invoice_list_report')),-->
+<!--                    (4, ref('action_account_payment_list_report'))]"></field>-->
+    </record>
+<!--    <report-->
+<!--            id="action_account_invoice_list_report"-->
+<!--            model="account.invoice"-->
+<!--            string="TDCC Invoice List"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_tdcc_reports.report_invoice_list"-->
+<!--            file="bista_tdcc_reports.report_invoice_list"-->
+<!--        />-->
+    <record id="action_account_invoice_list_report" model="ir.actions.report">
+            <field name="name">TDCC Payment List</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_reports.report_invoice_list</field>
+            <field name="report_file">bista_tdcc_reports.report_invoice_list</field>
+            <field name="paperformat_id" ref="bista_tdcc_reports.custom_invoice_list_view_paperformat"/>
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>        </record>
+
+    <record id="action_account_payment_list_report" model="ir.actions.report">
+            <field name="name">TDCC Payment List</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_reports.report_payment_list</field>
+            <field name="report_file">bista_tdcc_reports.report_payment_list</field>
+            <field name="paperformat_id" ref="bista_tdcc_reports.custom_invoice_list_view_paperformat"/>
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="account.model_account_payment"/>
+    </record>
+
+
+<!--     <report-->
+<!--            id="action_account_payment_list_report"-->
+<!--            model="account.payment"-->
+<!--            string="TDCC Payment List"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="bista_tdcc_reports.report_payment_list"-->
+<!--            file="bista_tdcc_reports.report_payment_list"-->
+<!--        />-->
+    
+    <!-- Vendor Payment paper format -->
+     <record id="vendor_payment_paperformat" model="report.paperformat">
+        <field name="name">Vendor Payment</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+<!--        <field name="report_ids"-->
+<!--                    eval="[(4, ref('tdcc_vendor_payment_report1'))]"></field>-->
+    </record>
+         <record id="tdcc_vendor_payment_report1" model="ir.actions.report">
+            <field name="name">TDCC Vendor Payment Receipt</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_reports.report_vendor_payment_form</field>
+            <field name="report_file">bista_tdcc_reports.report_vendor_payment_form</field>
+            <field name="paperformat_id" ref="bista_tdcc_reports.vendor_payment_paperformat"/>
+             <field name="binding_model_id" ref="account.model_account_payment"/>
+            <field name="binding_type">report</field>
+    </record>
+
+    
+    <!-- Paper format for Email Templates -->
+     <record id="_tdcc_email_form_paperformat" model="report.paperformat">
+        <field name="name">Email report</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">15</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">10</field>
+        <field name="dpi">90</field>
+<!--        <field name="report_ids"-->
+<!--                    eval="[(4,ref('bista_tdcc_reports.tdcc_email_report_action'))]"></field>-->
+    </record>
+     <record id="tdcc_email_report_action" model="ir.actions.report">
+            <field name="name">Email Report</field>
+            <field name="model">mail.mail</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_tdcc_reports.report_email_form</field>
+            <field name="report_file">bista_tdcc_reports.report_email_form</field>
+            <field name="paperformat_id" ref="bista_tdcc_reports._tdcc_email_form_paperformat"/>
+            <field name="binding_model_id" ref="mail.model_mail_mail"/>
+            <field name="binding_type">report</field>
+     </record>
+
+</odoo>
+

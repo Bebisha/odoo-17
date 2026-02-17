@@ -1,0 +1,386 @@
+<odoo>
+    <template id="report_debit_note_template">
+        <t t-call="kg_voyage_marine_accounting.custom_external_layout_voyage">
+            <div class="page">
+                <t t-if="doc.company_id.vat">
+                    <table width="100%" style="margin-top: 10px;" class="table-borderless">
+                        <tr>
+                            <td style="width: 100%; font-size: 14px;padding-bottom:10px;" align="right">
+                                <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                                <span style="font-size: 14px; font-weight: bold; margin-left: 5px;"
+                                      t-esc="doc.company_id.vat"/>
+                            </td>
+                        </tr>
+                    </table>
+                </t>
+                <h6 style="margin-top:-10px; color:black;text:bold;text-align: right;font-size: 3em;">
+                    Debit Note
+                </h6>
+                <div class="row m-0">
+                    <div class="col-8" style="padding-left:3%; margin: 0; font-size: 14px;">
+                        <span>To:</span>
+                        <t t-if="doc.partner_id.name">
+                            <span style="font-size: 14px; font-weight: bold;" t-field="doc.partner_id.name"/>
+                            <br/>
+                        </t>
+
+                        <t t-if="doc.partner_id.zip or doc.partner_id.city">
+                            <span style="padding-left:6%; font-size: 14px;">Po Box:</span>
+                            <t t-if="doc.partner_id.zip">
+                                <span style="padding-left:1%" t-field="doc.partner_id.zip"/>
+                            </t>
+                            <t t-if="doc.partner_id.city">
+                                <span style="padding-left:1%" t-field="doc.partner_id.city"/>
+                            </t>
+                            <br/>
+                        </t>
+
+                        <t t-if="doc.partner_id.country_id">
+                            <span style="padding-left:6%" t-field="doc.partner_id.country_id.name"/>
+                            <br/>
+                        </t>
+
+                        <t t-if="doc.partner_id.phone">
+                            <span style="margin: 0;padding-left:6%">Tele:</span>
+                            <span t-field="doc.partner_id.phone"/>
+                        </t>
+
+                    </div>
+                    <div class="col-4 text-right;font-size: 14px; margin: 0;" style="margin-left: 40px;"
+                         align="left">
+                        <span style="color:black;text:bold;text-align: right">Debit Note no:</span>
+                        <span style="color:black;text:bold;text-align: right" t-field="doc.name"/>
+                        <br/>
+                        <span style="color:black;text:bold;text-align: right">Date:</span>
+                        <span style="color:black;text:bold;text-align: right" t-field="doc.date"/>
+                        <br/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row m-0">
+
+                    <div class="col-8" style="padding-left:3%; margin: 0; font-size: 14px;">
+                        <span>Req. by: Name.</span>
+                        <t t-if="doc.partner_id.name">
+                            <span style="font-size: 14px; font-weight: bold;" t-field="doc.partner_id.name"/>
+                            <br/>
+                        </t>
+
+                        <t t-if="doc.partner_id.email">
+                            <span style="padding-left:6%; font-size: 14px;">Email:</span>
+                            <span style="padding-left:1%" t-field="doc.partner_id.email"/>
+                            <br/>
+                        </t>
+
+                        <t t-if="doc.partner_id.phone">
+                            <span style="margin: 0;padding-left:6%">Tele:</span>
+                            <span t-field="doc.partner_id.phone"/>
+                        </t>
+
+                    </div>
+                    <div class="col-4 text-right;font-size: 14px; margin: 0;" style="margin-left: 40px;font-size: 14px;"
+                         align="left">
+                        <span style="color:black;text:bold;text-align: right">Original Invoice No :</span>
+                        <span style="color:black;text:bold;text-align: right" t-field="doc.reversed_entry_id.name"/>
+                        <br/>
+                        <span style="color:black;text:bold;text-align: right">Invoice date :</span>
+                        <span style="color:black;text:bold;text-align: right" t-field="doc.invoice_date"/>
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
+                <br/>
+                <div>
+                    <table class="table table-sm"
+                           style="width: 100%; border-collapse: collapse; border-bottom: 1px solid black;font-size: 14px;">
+                        <thead>
+                            <tr>
+                                <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                    Sl no.
+                                </th>
+                                <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                    Description
+                                </th>
+                                <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                    Qty
+                                </th>
+                                <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                    Unit Price(<t t-esc="doc.currency_id.name"/>)
+                                </th>
+                                <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                    Total(<t t-esc="doc.currency_id.name"/>)
+                                </th>
+                                <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                    VAT
+                                    %
+                                </th>
+                                <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                    VAT Amt
+                                    (<t t-esc="doc.currency_id.name"/>)
+                                </th>
+                                <th style="border-top: 1px solid black;border-bottom: .5px solid black; padding: 10px;">
+                                    Amount (<t t-esc="doc.currency_id.name"/>)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="1"/>
+                            <t t-set="total_discount" t-value="0"/>
+                            <t t-foreach="doc.invoice_line_ids" t-as="line">
+                                <t t-if="'Down Payment' not in (line.name or '')">
+                                    <t t-if="line.display_type == 'line_note' or line.display_type == 'line_section'">
+                                        <tr width="100%"
+                                            style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                            <td colspan="8"
+                                                style="text-align: left; padding: 10px; font-style: italic; background-color: #ffffff; border-bottom: .5px solid black;">
+                                                <t t-esc="line.name"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td style="border-bottom: .5px solid black; text-align: center; padding: 10px; font-size: 14px;">
+                                            <t t-esc="counter"/>
+                                            <t t-set="counter" t-value="counter + 1"/>
+                                        </td>
+                                        <td style="border-bottom: .5px solid black; padding: 10px;">
+                                            <t t-esc="line.name"/>
+                                        </td>
+                                        <td style="border-bottom: .5px solid black; text-align: center; padding: 10px;">
+                                            <t t-esc="line.quantity"/>
+                                        </td>
+
+                                        <td style="border-bottom: .5px solid black; text-align: right; padding: 10px;">
+                                            <t t-esc="'%.2f'%(line.price_unit)"
+                                               t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                                        </td>
+                                        <td style="border-bottom: .5px solid black; text-align: right; padding: 10px;">
+                                            <t t-esc="'%.2f'%(line.price_unit*line.quantity)"
+                                               t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                                        </td>
+                                        <td style="border-bottom: .5px solid black; text-align: center; padding: 10px;">
+                                            <t t-if="line.tax_ids" t-esc="'%.2f'%(line.tax_ids[0].amount) or '0.00'"/>
+                                        </td>
+                                        <td style="border-bottom: .5px solid black; text-align: right; padding: 10px;">
+                                            <t t-esc="'%.2f'%(line.l10n_ae_vat_amount)"
+                                               t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                                        </td>
+                                        <td style="border-bottom: .5px solid black; text-align: right; padding: 10px;">
+                                            <t t-esc="'%.2f'%(line.price_total)"
+                                               t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                    <table style="width:100%;font-size:14px;padding-left:10px; border-collapse: collapse;"
+                           class="table-borderless">
+
+                        <tr>
+                            <td width="60%" colspan="6"/>
+                            <td width="24%" colspan="2" align="right"
+                                style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px;">
+                                <span>Total Amount (<t t-esc="doc.currency_id.name"/>):
+                                </span>
+                            </td>
+                            <td width="16%" colspan="2"
+                                style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px; text-align:right;">
+                                <t t-esc="'%.2f'%(doc.amount_untaxed)"
+                                   t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60%" colspan="6"/>
+                            <td width="24%" colspan="2" align="right"
+                                style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px;">
+                                <span>VAT Amount (<t t-esc="doc.currency_id.name"/>):
+                                </span>
+                            </td>
+                            <td width="16%" colspan="2"
+                                style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px; text-align:right;">
+                                <t t-esc="'%.2f'%(doc.amount_tax)"
+                                   t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="17%" colspan="2" style="padding-top:5px;">
+                                <span style="display: block; width: 100%;">
+                                    <b>Net Amount In Words :</b>
+                                </span>
+                            </td>
+                            <td width="43%" colspan="4" align="left">
+                                <span style="display: block; width: 100%;padding-top:5px;">
+                                    <t t-esc="doc.currency_id.amount_to_text(doc.amount_total).replace(',', '')"
+                                       style="font-size: 14px;"/>
+
+                                </span>
+                            </td>
+                            <!--                            <td width="60%" colspan="6"/>-->
+                            <td width="24%" colspan="2" align="right"
+                                style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px;">
+                                <span>Net Amount(<t t-esc="doc.currency_id.name"/>):
+                                </span>
+                            </td>
+                            <td width="16%" colspan="2"
+                                style="border-bottom: 1pt solid black;padding-top:5px;padding-bottom:5px; text-align:right;">
+                                <t t-esc="'%.2f'%(doc.amount_total)"
+                                   t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!--                    <tr>-->
+                    <!--                        <td colspan="5" style="vertical-align: bottom;">-->
+                    <!--                            <span>-->
+                    <!--                                Net Amount In Words :-->
+                    <!--                                <t t-esc="doc.currency_id.amount_to_text(doc.amount_total).replace(',', '')"/>-->
+                    <!--                            </span>-->
+                    <!--                        </td>-->
+                    <!--                        <td colspan="3" align="right">-->
+                    <!--                            <table class="table-borderless"-->
+                    <!--                                   style="width: 100%; border-collapse: collapse; border: 1px solid white; font-size: 14px;">-->
+                    <!--                                <tr style="border-bottom: .5px solid black;">-->
+                    <!--                                    <td style="padding: 5px;" align="left">-->
+                    <!--                                        VAT Amount (<t t-esc="doc.currency_id.name"/>)-->
+                    <!--                                    </td>-->
+                    <!--                                    <td style="padding: 5px; text-align: right;">-->
+                    <!--                                        <t t-esc="'%.2f'%(doc.amount_tax)"-->
+                    <!--                                           t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                                <tr style="border-bottom: 1.5px solid black;font-size: 14px;">-->
+                    <!--                                    <td style="padding: 5px;font-weight: bold;" align="left">-->
+                    <!--                                        Net Amount(<t t-esc="doc.currency_id.name"/>)-->
+                    <!--                                    </td>-->
+                    <!--                                    <td style="padding: 5px; text-align: right;">-->
+                    <!--                                        <t t-esc="'%.2f'%(doc.amount_total)"-->
+                    <!--                                           t-field-options="{'widget': 'monetary','display_currency':'doc.currency_id'}"/>-->
+                    <!--                                    </td>-->
+                    <!--                                </tr>-->
+                    <!--                            </table>-->
+                    <!--                        </td>-->
+
+                    <!--                    </tr>-->
+
+                </div>
+                <br/>
+                <br/>
+                <div>
+                    <div style="width: 100%; font-size: 14px;">
+                        Reason for issuing Debit Note:
+
+                    </div>
+                    <table style="width: 100%; margin-top: 20px;border: 1px solid black;">
+                        <tr>
+                            <td style="text-align: left; font-weight: bold;">
+                                <div style="border: 1px solid black; height:60px;">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid white; font-size: 14px;">
+
+                        <tr style="height:70%;">
+                            <td>
+                                <div class="col-6 m-0" style="text-align: left;  font-size: 14px;">
+                                    <span>
+                                    </span>
+                                    <p style="font-size: 14px;"></p>
+                                    for Voyage Marine Automation
+                                    <br/>
+                                </div>
+                            </td>
+                            <td align="right">
+                                <div class="col-9 m-0" style="text-align: left; font-size: 14px;">
+                                    <span>
+                                    </span>
+                                    <p style="font-size: 14px; margin: 0;"></p>
+                                    Received &amp; Accepted :
+                                </div>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" style="height: 20px;"></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <table width="100%" style="border-collapse: collapse; border: 1px solid white; font-size: 14px;">
+                        <tr>
+                            <td width="20%">
+                                <p align="left" style="margin:0.5px 0;">Authorized sign &amp; Stamp</p>
+                                <p align="left" style="margin:0.5px 0;">----------------------------------</p>
+                                <p align="left" style="margin:0.5px 0;">Issued By</p>
+                            </td>
+                            <td width="10%">
+
+                            </td>
+                            <td width="20%">
+                                <p align="left" style="margin:0.5px 0;">Name &amp; Sign</p>
+                                <p align="left" style="margin:0.5px 0;">----------------------------------</p>
+                                <p align="left" style="margin:0.5px 0;">Approved By</p>
+                            </td>
+                            <td width="20%">
+
+                            </td>
+                            <td width="30%">
+                                <p align="left" style="margin:0.5px 0;">Sign &amp; Stamp</p>
+                                <p align="left" style="margin:0.5px 0;">----------------------------------</p>
+                                <p align="left" style="margin:0.5px 0;">Customer</p>
+                            </td>
+                        </tr>
+                        <!--                         <tr>-->
+                        <!--                            <td  width="30%">-->
+                        <!--                                <p align="left"><span t-field="doc.invoice_user_id.partner_id"></span></p>-->
+                        <!--                            </td>-->
+                        <!--                            <td  width="35%">-->
+                        <!--                                <p align="center"></p>-->
+                        <!--                            </td>-->
+                        <!--                            <td  width="35%">-->
+                        <!--                                <p align="right"><span t-field="doc.partner_id"></span></p>-->
+                        <!--                            </td>-->
+                        <!--                        </tr>-->
+                    </table>
+
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <!--    <template id="report_debit_note">-->
+    <!--        <t t-call="web.html_container">-->
+    <!--            <t t-foreach="docs" t-as="doc">-->
+    <!--                &lt;!&ndash;                <t t-if="doc.reversed_entry_id.id">&ndash;&gt;-->
+    <!--                <t t-call="kg_voyage_marine_accounting.report_debit_note_template"-->
+    <!--                   t-lang="doc.partner_id.lang"/>-->
+    <!--                &lt;!&ndash;                </t>&ndash;&gt;-->
+
+    <!--            </t>-->
+    <!--        </t>-->
+    <!--    </template>-->
+    <template id="report_debit_note">
+        <t t-call="web.html_container">
+            <t t-if="docs.filtered(lambda d: d.move_type == 'in_refund')">
+                <t t-foreach="docs.filtered(lambda d: d.move_type == 'in_refund')" t-as="doc">
+                    <t t-call="kg_voyage_marine_accounting.report_debit_note_template"
+                       t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+            <t t-else="">
+                <div>
+                    <p>Report is not available.</p>
+                </div>
+            </t>
+        </t>
+        <!--        </t-call>-->
+    </template>
+
+</odoo>
+

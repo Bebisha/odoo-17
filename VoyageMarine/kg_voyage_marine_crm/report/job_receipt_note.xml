@@ -1,0 +1,332 @@
+<odoo>
+    <template id="report_job_receipt_tmp_id">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header">
+
+                            <table class="table table-borderless table-condensed table-hover">
+                                <tr width="100%">
+                                    <td style="width:100%;" align="right">
+                                        <t t-if="doc.company_id.logo">
+                                            <img t-attf-src="data:image/*;base64,{{doc.company_id.logo}}"
+                                                 height="100px"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                        <br/>
+                        <t t-if="doc.company_id.vat">
+                            <table width="100%" style="margin-top: 10px;" class="table-borderless">
+                                <tr>
+                                    <td style="width: 100%; font-size: 14px;padding-bottom:10px;" align="right">
+                                        <span style="font-size: 14px; font-weight: bold;">TRN:</span>
+                                        <span style="font-size: 14px; font-weight: bold; margin-left: 5px;"
+                                              t-esc="doc.company_id.vat"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                        <table style="width:100%;font-size:12px;padding-left:10px;" class="table-borderless">
+                            <tr width="100%" align="center">
+                                <td width="100%" colspan="7" style="font-size:18px;align:center;padding-bottom:30px;">
+                                    <span>
+                                        <strong>Job Receipt Note</strong>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr width="100%">
+                                <td width="10%" style="padding:0;">
+                                    <b>Client:</b>
+                                </td>
+                                <td width="30%" colspan="2" style="padding:0;">
+                                    <span t-field="doc.partner_id.customer_code"/>
+                                    <t t-if="doc.partner_id.customer_code">
+                                        <span>&amp;nbsp;&amp;nbsp;</span>
+                                    </t>
+                                    <span t-field="doc.partner_id.name"/>
+                                </td>
+                                <td width="5%"/>
+                                <td width="20%"/>
+                                <td width="10%" style="padding:0;">
+                                    <b>Date:</b>
+                                </td>
+                                <td width="30%" colspan="2" style="0;">
+                                    <span t-field="doc.bid_closing_date"
+                                          t-options="{'widget': 'date','format': 'dd/MM/yyyy'}"/>
+                                </td>
+                            </tr>
+
+                            <tr width="100%">
+                                <td width="10%" style="0;">
+                                    <b>Vessel:</b>
+                                </td>
+                                <td width="30%" colspan="2" style="0;">
+                                    <span t-field="doc.vessel_id.code"/>
+                                    <t t-if="doc.vessel_id.code">
+                                        <span>&amp;nbsp;&amp;nbsp;</span>
+                                    </t>
+                                    <span t-field="doc.vessel_id.name"/>
+                                </td>
+                                <td width="5%"/>
+                                <td width="20%"/>
+                                <td width="10%" >
+                                    <b>Enquiry No:</b>
+                                </td>
+                                <td width="25%" >
+                                    <span t-field="doc.enq_no"/>
+                                </td>
+                            </tr>
+
+                            <tr width="100%">
+                                <td width="10%" >
+                                    <b>Project:</b>
+                                </td>
+                                <td width="30%" colspan="2" ></td>
+                                <td width="5%"/>
+                                <td width="20%"/>
+                                <td width="10%" style="padding:0;">
+                                    <b>Job No:</b>
+                                </td>
+                                <td width="25%" style="padding:0;">
+                                    <t t-foreach="doc.order_ids" t-as="order">
+                                        <div style="line-height:1.1;">
+                                            <span t-field="order.name"/>
+                                        </div>
+                                    </t>
+                                </td>
+                            </tr>
+
+                            <tr width="100%">
+                                <td width="10%" style="padding:0;">
+                                    <b>Location:</b>
+                                </td>
+                                <td width="50%" colspan="3" style="padding:0;">
+                                    <span t-esc="', '.join(doc.sml_ids.mapped('location_id.display_name'))"/>
+                                </td>
+                                <td width="10%"/>
+                                <td width="30%" colspan="2"/>
+                            </tr>
+
+                        </table>
+                        <br/>
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;margin-left:2px;font-size:12px;">
+                            <tr width="100%"
+                                style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                <td align="center" width="5%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Lot no:</strong>
+                                </td>
+                                <td align="center" width="25%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Instrument Name:</strong>
+                                </td>
+                                <td align="center" width="10%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Make</strong>
+                                </td>
+                                <td align="center" width="10%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Model</strong>
+                                </td>
+                                <td align="center" width="12%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>SL no:</strong>
+                                </td>
+                                <td align="center" width="13%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Accessories</strong>
+                                </td>
+                                <td align="center" width="10%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Status</strong>
+                                </td>
+                                <td align="center" width="15%"
+                                    style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                    <strong>Remarks</strong>
+                                </td>
+                            </tr>
+
+                            <t t-set="total_lines" t-value="0"/>
+                            <t t-set="i" t-value="1"/>
+                            <t t-if="doc.sml_ids">
+                                <t t-foreach="doc.sml_ids" t-as="line">
+                                    <t t-set="total_lines" t-value="total_lines + 1"/>
+                                    <tr width="100%"
+                                        style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                        <td align="center" width="5%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-esc="i"/>
+                                            <t t-set="i" t-value="i+1"/>
+                                        </td>
+                                        <td align="left" width="25%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td align="center" width="10%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.make_id.name"/>
+                                        </td>
+                                        <td align="center" width="10%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.model_id.name"/>
+                                        </td>
+                                        <td align="center" width="12%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.lot_id.name"/>
+                                        </td>
+                                        <td align="center" width="13%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.accesories"/>
+                                        </td>
+                                        <td align="center" width="10%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.physical_status_id.name"/>
+                                        </td>
+                                        <td align="left" width="15%"
+                                            style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                            <span t-field="line.remark"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr width="100%"
+                                    style="font-size:12px;border-left: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black;border-bottom: 1pt solid black;">
+                                    <td align="right" width="85%" colspan="7"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span>
+                                            <b>Total</b>
+                                        </span>
+                                    </td>
+                                    <td align="center" width="15%"
+                                        style="border-right: 1pt solid black;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;">
+                                        <span t-esc="total_lines"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                        <br/>
+                        <div style="margin-top:10px;">
+                            <strong style="text-decoration: underline;">
+                                General Note:
+                            </strong>
+                        </div>
+
+                        <!-- General Note Box -->
+                        <table class="table table-bordered" width="100%"
+                               style="margin-top:5px;border: 1pt solid black;">
+                            <tr>
+                                <td style="
+            padding:8px;
+            height:50px;
+            vertical-align:top;
+            overflow:hidden;
+        ">
+                                    <span t-field="doc.inspect_comments"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table width="100%" style="margin-top:20px; font-size:12px;" class="table-borderless">
+
+                            <!-- Requested By -->
+                            <tr>
+                                <td style="padding-bottom:20px;">
+                                    <strong>Assigned To:
+                                    </strong>
+
+                                    <div style="
+            margin-top:15px;
+            border-bottom:1px solid #000;
+            width:40%;
+            padding-bottom:2px;
+        ">
+                                        <span t-field="doc.create_uid.name"/>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <!-- Required Date -->
+                            <tr>
+                                <td style="padding-bottom:20px;">
+                                    <strong>Virtual Location:
+                                    </strong>
+                                    <div style="margin-top:15px; border-bottom:1px solid #000; width:40%;">
+                                        <span t-esc="', '.join(set(doc.sml_ids.mapped('location_dest_id.display_name')))"/>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!--                            &lt;!&ndash; Acknowledged By &ndash;&gt;-->
+                            <!--                            <tr>-->
+                            <!--                                <td style="padding-bottom:20px;">-->
+                            <!--                                    <strong>Acknowledged by:-->
+                            <!--                                    </strong>-->
+                            <!--                                    <div style="margin-top:15px; border-bottom:1px solid #000; width:40%;">-->
+                            <!--                                        <span t-field="line.requisition_id.approved_by_id"/>-->
+                            <!--                                    </div>-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+
+                        </table>
+                        <div style="margin-top:30px; border-top:1px solid #000; padding-top:8px;">
+                            <p style="text-align:center; font-style:italic; font-size:11px; margin:0;">
+                                A professional Supplier and Service provider for All Electrical &amp; Instrumentation,
+                                Automation &amp; Control, Fire &amp; Safety, Navigation and Communication and
+                                Calibration
+                                requirements for Marine, Oil &amp; Gas and Energy Industry.
+                            </p>
+                        </div>
+
+
+                        <div class="footer">
+
+                            <!-- Footer -->
+                            <div style="border-top:1px solid #000; margin-top:15px; padding-top:6px; font-size:10px;">
+
+                                <table width="100%" class="table-borderless">
+                                    <tr>
+
+                                        <!-- LEFT -->
+                                        <td width="33%" style="vertical-align:top;">
+                                            <strong>Form No.</strong>
+                                            <span t-esc="doc.get_file_name_from_folder()"/>
+                                            <br/>
+                                            <strong>Issue:</strong>
+                                            <br/>
+                                            <strong>Date:</strong>
+                                            <span t-field="doc.date_deadline"/>
+                                        </td>
+
+                                        <!-- CENTER -->
+                                        <td width="34%" style="text-align:center; vertical-align:top;">
+                                            <strong>www.voyagemarine.ae</strong>
+                                        </td>
+
+                                        <!-- RIGHT -->
+                                        <td width="33%" style="text-align:right; vertical-align:top;">
+                                            ISO 9001:2015;
+                                            <br/>
+                                            ISO 45001:2018;
+                                            <br/>
+                                            ISO 17025:2017
+                                            <br/>
+                                            <em>
+                                                Job Receipt Note
+                                            </em>
+                                        </td>
+
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

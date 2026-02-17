@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="sale_order_view" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[hasclass('oe_button_box')]" position="inside">
+                    <field name="rfq_count" invisible="1"/>
+                    <button class="oe_stat_button" name="action_open_rfq_order"
+                            type="object" icon="fa-bars" invisible="rfq_count == 0">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value" align="center">
+                                <field name="rfq_count"/>
+                            </span>
+                            <span class="o_stat_text">
+                                RFQ
+                            </span>
+                        </div>
+                    </button>
+                    <button class="oe_stat_button" name="action_open_purchase_order"
+                            type="object" icon="fa-bars" invisible="po_count == 0">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value" align="center">
+                                <field name="po_count"/>
+                            </span>
+                            <span class="o_stat_text">
+                                Purchase Order
+                            </span>
+                        </div>
+                    </button>
+                </xpath>
+
+                <field name="payment_term_id" position="after">
+                    <field name="is_warning" invisible="1"/>
+                    <field name="is_bocking" invisible="1"/>
+                    <field name="po_created" invisible="1"/>
+                </field>
+                <field name="validity_date" position="after">
+                    <field name="duration_validity" string="Validity duration" invisible="1" readonly="state in ['cancel', 'sale']"/>
+                </field>
+                <xpath expr="//field[@name='order_line']/tree//field[@name='product_uom_qty']"
+                       position="after">
+                    <field name="po_qty" readonly="1" force_save="1" column_invisible="1"/>
+                    <field name="balance_qty" string="Balance Qty" readonly="1" force_save="1" column_invisible="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="action_create_rfq" model="ir.actions.server">
+            <field name="name">Create RFQ</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_create_rfq()</field>
+            <field name="groups_id" eval="[(4, ref('kg_purchase.group_restricted_create_rfq_so'))]"/>
+        </record>
+
+    </data>
+</odoo>

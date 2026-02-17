@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_eiip_group_all,access_eiip_group,model_eiip_group,base.group_user,1,0,0,0
+access_eiip_group_manager,access_eiip_group,model_eiip_group,bista_tdcc_operations.group_tdcc_eip_eiip_manager,1,1,1,0
+access_student_enroll_manager,access_student_enroll,model_student_enroll,bista_tdcc_operations.group_tdcc_eip_eiip_manager,1,1,1,0
+access_student_enroll_all,access_student_enroll,model_student_enroll,bista_tdcc_operations.group_tdcc_director,1,0,0,0

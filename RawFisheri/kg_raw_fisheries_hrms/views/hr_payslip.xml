@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_payslip_form_inherit_kg" model="ir.ui.view">
+        <field name="name">hr.payslip.form.inherit.kg</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority">20</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='compute_sheet']" position="after">
+                <button name="action_partial_payment" type="object" class="btn btn-primary" string="Apply Partial Payment"
+                        invisible="not partial_payment or state != 'verify'"/>
+            </xpath>
+            <xpath expr="//field[@name='struct_id']" position="after">
+                <field name="partial_payment"/>
+                <field name="payment_percent" invisible="not partial_payment"/>
+                <field name="settlement_date" invisible="not partial_payment"/>
+                <field name="currency_id"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='worked_days_input']/field[@name='worked_days_line_ids']/tree/field[@name='number_of_hours']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+
+        <record id="department_manager_approval_notification" model="mail.activity.type">
+            <field name="name">Department Manager</field>
+            <field name="res_model">material.purchase.requisition</field>
+        </record>
+         <record id="reject_asset_notification" model="mail.activity.type">
+            <field name="name">Reject Asset Request</field>
+            <field name="res_model">material.purchase.requisition</field>
+        </record>
+
+        <record id="asset_approval_notification" model="mail.activity.type">
+            <field name="name">Asset Request Approval</field>
+            <field name="res_model">material.purchase.requisition</field>
+        </record>
+        <record id="sale_service_approval_notification" model="mail.activity.type">
+            <field name="name">Sales / Service Coordinator</field>
+            <field name="res_model">material.purchase.requisition</field>
+        </record>
+
+        <record id="material_requisition_approval_notification" model="mail.activity.type">
+            <field name="name">Material Requisition Approval</field>
+            <field name="res_model">material.purchase.requisition</field>
+        </record>
+
+        <record id="reject_material_requisition_notification" model="mail.activity.type">
+            <field name="name">Reject Material Requisition</field>
+            <field name="res_model">material.purchase.requisition</field>
+        </record>
+
+        <record id="line_manager_purchase_req_approval_notification" model="mail.activity.type">
+            <field name="name">Line Manager Approval</field>
+            <field name="res_model">purchase.requisitions</field>
+        </record>
+
+        <record id="purchase_requisition_approval_notification" model="mail.activity.type">
+            <field name="name">Purchase Requisition Approval</field>
+            <field name="res_model">purchase.requisitions</field>
+        </record>
+
+        <record id="reject_purchase_requisition_notification" model="mail.activity.type">
+            <field name="name">Reject Purchase Requisition</field>
+            <field name="res_model">purchase.requisitions</field>
+        </record>
+
+
+    </data>
+</odoo>

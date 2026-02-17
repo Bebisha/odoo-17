@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--   Tree view for daily catch model   -->
+        <record id="daily_catch_tree" model="ir.ui.view">
+            <field name="name">daily.catch.tree</field>
+            <field name="model">daily.catch</field>
+            <field name="arch" type="xml">
+                <tree string="Daily Catch" editable="bottom">
+                    <field name="date"/>
+                    <field name="vessel_id"/>
+                    <field name="activity_id"/>
+                    <field name="country_id"/>
+                    <field name="total_on_board"/>
+                    <field name="catch_of_day"/>
+                    <field name="army"/>
+                    <field name="correction"/>
+                    <field name="inventory"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

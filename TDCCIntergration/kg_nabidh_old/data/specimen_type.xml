@@ -1,0 +1,1352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="spec_abs" model="specimen.type">
+            <field name="code">ABS</field>
+            <field name="name">Abscess</field>
+        </record>
+
+        <record id="spec_acne" model="specimen.type">
+            <field name="code">ACNE</field>
+            <field name="name">Tissue, Acne</field>
+        </record>
+
+        <record id="spec_acnfld" model="specimen.type">
+            <field name="code">ACNFLD</field>
+            <field name="name">Fluid, Acne</field>
+        </record>
+
+        <record id="spec_airs" model="specimen.type">
+            <field name="code">AIRS</field>
+            <field name="name">Air Sample</field>
+        </record>
+
+        <record id="spec_all" model="specimen.type">
+            <field name="code">ALL</field>
+            <field name="name">Allograft</field>
+        </record>
+
+        <record id="spec_amp" model="specimen.type">
+            <field name="code">AMP</field>
+            <field name="name">Amputation</field>
+        </record>
+
+        <record id="spec_angi" model="specimen.type">
+            <field name="code">ANGI</field>
+            <field name="name">Catheter Tip, Angio</field>
+        </record>
+
+        <record id="spec_artc" model="specimen.type">
+            <field name="code">ARTC</field>
+            <field name="name">Catheter Tip, Arterial</field>
+        </record>
+
+        <record id="spec_aseru" model="specimen.type">
+            <field name="code">ASERU</field>
+            <field name="name">Serum, Acute</field>
+        </record>
+
+        <record id="spec_asp" model="specimen.type">
+            <field name="code">ASP</field>
+            <field name="name">Aspirate</field>
+        </record>
+
+        <record id="spec_atte" model="specimen.type">
+            <field name="code">ATTE</field>
+            <field name="name">Environmental, Autoclave Ampule</field>
+        </record>
+
+        <record id="spec_autoc" model="specimen.type">
+            <field name="code">AUTOC</field>
+            <field name="name">Environment, Attest</field>
+        </record>
+
+        <record id="spec_autp" model="specimen.type">
+            <field name="code">AUTP</field>
+            <field name="name">Autopsy</field>
+        </record>
+
+        <record id="spec_bbl" model="specimen.type">
+            <field name="code">BBL</field>
+            <field name="name">Blood bag</field>
+        </record>
+
+        <record id="spec_bcyst" model="specimen.type">
+            <field name="code">BCYST</field>
+            <field name="name">Cyst, Baker's</field>
+        </record>
+
+        <record id="spec_gasa" model="specimen.type">
+            <field name="code">GASA</field>
+            <field name="name">Aspirate, Gastric</field>
+        </record>
+
+        <record id="spec_gasan" model="specimen.type">
+            <field name="code">GASAN</field>
+            <field name="name">Antrum, Gastric</field>
+        </record>
+
+        <record id="spec_gasbr" model="specimen.type">
+            <field name="code">GASBR</field>
+            <field name="name">Brushing, Gastric</field>
+        </record>
+
+        <record id="spec_gasd" model="specimen.type">
+            <field name="code">GASD</field>
+            <field name="name">Drainage, Gastric</field>
+        </record>
+
+        <record id="spec_gast" model="specimen.type">
+            <field name="code">GAST</field>
+            <field name="name">Fluid/contents, Gastric</field>
+        </record>
+
+        <record id="spec_genv" model="specimen.type">
+            <field name="code">GENV</field>
+            <field name="name">Genital vaginal</field>
+        </record>
+
+        <record id="spec_graft" model="specimen.type">
+            <field name="code">GRAFT</field>
+            <field name="name">Graft</field>
+        </record>
+
+        <record id="spec_granu" model="specimen.type">
+            <field name="code">GRANU</field>
+            <field name="name">Granuloma</field>
+        </record>
+
+        <record id="spec_grosh" model="specimen.type">
+            <field name="code">GROSH</field>
+            <field name="name">Catheter, Groshong</field>
+        </record>
+
+        <record id="spec_gsol" model="specimen.type">
+            <field name="code">GSOL</field>
+            <field name="name">Solution, Gastrostomy</field>
+        </record>
+
+        <record id="spec_gspec" model="specimen.type">
+            <field name="code">GSPEC</field>
+            <field name="name">Biopsy, Gastric</field>
+        </record>
+
+        <record id="spec_gt" model="specimen.type">
+            <field name="code">GT</field>
+            <field name="name">Tube, Gastric</field>
+        </record>
+
+        <record id="spec_gtube" model="specimen.type">
+            <field name="code">GTUBE</field>
+            <field name="name">Drainage Tube, Gastrostomy</field>
+        </record>
+
+        <record id="spec_hbite" model="specimen.type">
+            <field name="code">HBITE</field>
+            <field name="name">Bite, Human</field>
+        </record>
+
+        <record id="spec_hblud" model="specimen.type">
+            <field name="code">HBLUD</field>
+            <field name="name">Blood, Autopsy</field>
+        </record>
+
+        <record id="spec_prp" model="specimen.type">
+            <field name="code">PRP</field>
+            <field name="name">Plasma, Platelet rich</field>
+        </record>
+
+        <record id="spec_psc" model="specimen.type">
+            <field name="code">PSC</field>
+            <field name="name">Pseudocyst</field>
+        </record>
+
+        <record id="spec_punct" model="specimen.type">
+            <field name="code">PUNCT</field>
+            <field name="name">Wound, Puncture</field>
+        </record>
+
+        <record id="spec_pus" model="specimen.type">
+            <field name="code">PUS</field>
+            <field name="name">Pus</field>
+        </record>
+
+        <record id="spec_pusfr" model="specimen.type">
+            <field name="code">PUSFR</field>
+            <field name="name">Pustule</field>
+        </record>
+
+        <record id="spec_pust" model="specimen.type">
+            <field name="code">PUST</field>
+            <field name="name">Pus</field>
+        </record>
+
+        <record id="spec_qc3" model="specimen.type">
+            <field name="code">QC3</field>
+            <field name="name">Quality Control</field>
+        </record>
+
+        <record id="spec_randu" model="specimen.type">
+            <field name="code">RANDU</field>
+            <field name="name">Urine, Random</field>
+        </record>
+
+        <record id="spec_rbite" model="specimen.type">
+            <field name="code">RBITE</field>
+            <field name="name">Bite, Reptile</field>
+        </record>
+
+        <record id="spec_rect" model="specimen.type">
+            <field name="code">RECT</field>
+            <field name="name">Drainage, Rectal</field>
+        </record>
+
+        <record id="spec_recta" model="specimen.type">
+            <field name="code">RECTA</field>
+            <field name="name">Abscess, Rectal</field>
+        </record>
+
+        <record id="spec_renal" model="specimen.type">
+            <field name="code">RENALC</field>
+            <field name="name">Cyst, Renal</field>
+        </record>
+
+        <record id="spec_renc" model="specimen.type">
+            <field name="code">RENC</field>
+            <field name="name">Fluid, Renal Cyst</field>
+        </record>
+
+        <record id="spec_res" model="specimen.type">
+            <field name="code">RES</field>
+            <field name="name">Respiratory</field>
+        </record>
+
+        <record id="spec_sal" model="specimen.type">
+            <field name="code">SAL</field>
+            <field name="name">Saliva</field>
+        </record>
+
+        <record id="spec_bite" model="specimen.type">
+            <field name="code">BITE</field>
+            <field name="name">Bite</field>
+        </record>
+
+        <record id="spec_bleb" model="specimen.type">
+            <field name="code">BLEB</field>
+            <field name="name">Bleb</field>
+        </record>
+
+        <record id="spec_blist" model="specimen.type">
+            <field name="code">BLIST</field>
+            <field name="name">Blister</field>
+        </record>
+
+        <record id="spec_boil" model="specimen.type">
+            <field name="code">BOIL</field>
+            <field name="name">Boil</field>
+        </record>
+
+        <record id="spec_bon" model="specimen.type">
+            <field name="code">BON</field>
+            <field name="name">Bone</field>
+        </record>
+
+        <record id="spec_bowl" model="specimen.type">
+            <field name="code">BOWL</field>
+            <field name="name">Bowel contents</field>
+        </record>
+
+        <record id="spec_bpu" model="specimen.type">
+            <field name="code">BPU</field>
+            <field name="name">Blood product unit</field>
+        </record>
+
+        <record id="spec_brn" model="specimen.type">
+            <field name="code">BRN</field>
+            <field name="name">Burn</field>
+        </record>
+
+        <record id="spec_brsh" model="specimen.type">
+            <field name="code">BRSH</field>
+            <field name="name">Brush</field>
+        </record>
+
+        <record id="spec_brth" model="specimen.type">
+            <field name="code">BRTH</field>
+            <field name="name">Breath (use EXHLD)</field>
+        </record>
+
+        <record id="spec_brus" model="specimen.type">
+            <field name="code">BRUS</field>
+            <field name="name">Brushing</field>
+        </record>
+
+        <record id="spec_bub" model="specimen.type">
+            <field name="code">BUB</field>
+            <field name="name">Bubo</field>
+        </record>
+
+        <record id="spec_bulla" model="specimen.type">
+            <field name="code">BULLA</field>
+            <field name="name">Bulla/Bullae</field>
+        </record>
+
+        <record id="spec_hemaq" model="specimen.type">
+            <field name="code">HEMAQ</field>
+            <field name="name">Catheter Tip, Hemaquit</field>
+        </record>
+
+        <record id="spec_hemo" model="specimen.type">
+            <field name="code">HEMO</field>
+            <field name="name">Catheter Tip, Hemovac</field>
+        </record>
+
+        <record id="spec_herni" model="specimen.type">
+            <field name="code">HERNI</field>
+            <field name="name">Tissue, Herniated</field>
+        </record>
+
+        <record id="spec_hev" model="specimen.type">
+            <field name="code">HEV</field>
+            <field name="name">Drain, Hemovac</field>
+        </record>
+
+        <record id="spec_hic" model="specimen.type">
+            <field name="code">HIC</field>
+            <field name="name">Catheter, Hickman</field>
+        </record>
+
+        <record id="spec_hydc" model="specimen.type">
+            <field name="code">HYDC</field>
+            <field name="name">Fluid, Hydrocele</field>
+        </record>
+
+        <record id="spec_ibite" model="specimen.type">
+            <field name="code">IBITE</field>
+            <field name="name">Bite, Insect</field>
+        </record>
+
+        <record id="spec_icyst" model="specimen.type">
+            <field name="code">ICYST</field>
+            <field name="name">Cyst, Inclusion</field>
+        </record>
+
+        <record id="spec_idc" model="specimen.type">
+            <field name="code">IDC</field>
+            <field name="name">Catheter Tip, Indwelling</field>
+        </record>
+
+        <record id="spec_ihg" model="specimen.type">
+            <field name="code">IHG</field>
+            <field name="name">Gas, Inhaled</field>
+        </record>
+
+        <record id="spec_ileo" model="specimen.type">
+            <field name="code">ILEO</field>
+            <field name="name">Drainage, Ileostomy</field>
+        </record>
+
+        <record id="spec_illeg" model="specimen.type">
+            <field name="code">ILLEG</field>
+            <field name="name">Source of Specimen is Illegible</field>
+        </record>
+
+        <record id="spec_imp" model="specimen.type">
+            <field name="code">IMP</field>
+            <field name="name">Implant</field>
+        </record>
+
+        <record id="spec_scar" model="specimen.type">
+            <field name="code">SCAR</field>
+            <field name="name">Tissue, Keloid (Scar)</field>
+        </record>
+
+        <record id="spec_sclv" model="specimen.type">
+            <field name="code">SCLV</field>
+            <field name="name">Catheter Tip, Subclavian</field>
+        </record>
+
+        <record id="spec_scroa" model="specimen.type">
+            <field name="code">SCROA</field>
+            <field name="name">Abscess, Scrotal</field>
+        </record>
+
+        <record id="spec_secre" model="specimen.type">
+            <field name="code">SECRE</field>
+            <field name="name">Secretion(s)</field>
+        </record>
+
+        <record id="spec_ser" model="specimen.type">
+            <field name="code">SER</field>
+            <field name="name">Serum</field>
+        </record>
+
+        <record id="spec_shu" model="specimen.type">
+            <field name="code">SHU</field>
+            <field name="name">Site, Shunt</field>
+        </record>
+
+        <record id="spec_shunf" model="specimen.type">
+            <field name="code">SHUNF</field>
+            <field name="name">Fluid, Shunt</field>
+        </record>
+
+        <record id="spec_shunt" model="specimen.type">
+            <field name="code">SHUNT</field>
+            <field name="name">Shunt</field>
+        </record>
+
+        <record id="spec_site" model="specimen.type">
+            <field name="code">SITE</field>
+            <field name="name">Site</field>
+        </record>
+
+        <record id="spec_skbp" model="specimen.type">
+            <field name="code">SKBP</field>
+            <field name="name">Biopsy, Skin</field>
+        </record>
+
+        <record id="spec_skn" model="specimen.type">
+            <field name="code">SKN</field>
+            <field name="name">Skin</field>
+        </record>
+
+        <record id="spec_smm" model="specimen.type">
+            <field name="code">SMM</field>
+            <field name="name">Mass, Sub-Mandibular</field>
+        </record>
+
+        <record id="spec_snv" model="specimen.type">
+            <field name="code">SNV</field>
+            <field name="name">Fluid, Synovial (Joint fluid)</field>
+        </record>
+
+        <record id="spec_bx" model="specimen.type">
+            <field name="code">BX</field>
+            <field name="name">Biopsy</field>
+        </record>
+
+        <record id="spec_calc" model="specimen.type">
+            <field name="code">CALC</field>
+            <field name="name">Calculus (=Stone)</field>
+        </record>
+
+        <record id="spec_carbu" model="specimen.type">
+            <field name="code">CARBU</field>
+            <field name="name">Carbuncle</field>
+        </record>
+
+        <record id="spec_cat" model="specimen.type">
+            <field name="code">CAT</field>
+            <field name="name">Catheter</field>
+        </record>
+
+        <record id="spec_cbite" model="specimen.type">
+            <field name="code">CBITE</field>
+            <field name="name">Bite, Cat</field>
+        </record>
+
+        <record id="spec_clipp" model="specimen.type">
+            <field name="code">CLIPP</field>
+            <field name="name">Clippings</field>
+        </record>
+
+        <record id="spec_cnjt" model="specimen.type">
+            <field name="code">CNJT</field>
+            <field name="name">Conjunctiva</field>
+        </record>
+
+        <record id="spec_col" model="specimen.type">
+            <field name="code">COL</field>
+            <field name="name">Colostrum</field>
+        </record>
+
+        <record id="spec_cone" model="specimen.type">
+            <field name="code">CONE</field>
+            <field name="name">Biopsy, Cone</field>
+        </record>
+
+        <record id="spec_cscr" model="specimen.type">
+            <field name="code">CSCR</field>
+            <field name="name">Scratch, Cat</field>
+        </record>
+
+        <record id="spec_cseru" model="specimen.type">
+            <field name="code">CSERU</field>
+            <field name="name">Serum, Convalescent</field>
+        </record>
+
+        <record id="spec_csite" model="specimen.type">
+            <field name="code">CSITE</field>
+            <field name="name">Catheter Insertion Site</field>
+        </record>
+
+        <record id="spec_inci" model="specimen.type">
+            <field name="code">INCI</field>
+            <field name="name">Site, Incision/Surgical</field>
+        </record>
+
+        <record id="spec_infil" model="specimen.type">
+            <field name="code">INFIL</field>
+            <field name="name">Infiltrate</field>
+        </record>
+
+        <record id="spec_ins" model="specimen.type">
+            <field name="code">INS</field>
+            <field name="name">Insect</field>
+        </record>
+
+        <record id="spec_intrd" model="specimen.type">
+            <field name="code">INTRD</field>
+            <field name="name">Catheter Tip, Introducer</field>
+        </record>
+
+        <record id="spec_it" model="specimen.type">
+            <field name="code">IT</field>
+            <field name="name">Intubation tube</field>
+        </record>
+
+        <record id="spec_iud" model="specimen.type">
+            <field name="code">IUD</field>
+            <field name="name">Intrauterine Device</field>
+        </record>
+
+        <record id="spec_ivcat" model="specimen.type">
+            <field name="code">IVCAT</field>
+            <field name="name">Catheter Tip, IV</field>
+        </record>
+
+        <record id="spec_ivfld" model="specimen.type">
+            <field name="code">IVFLD</field>
+            <field name="name">Fluid, IV</field>
+        </record>
+
+        <record id="spec_ivtip" model="specimen.type">
+            <field name="code">IVTIP</field>
+            <field name="name">Tubing Tip, IV</field>
+        </record>
+
+        <record id="spec_jeju" model="specimen.type">
+            <field name="code">JEJU</field>
+            <field name="name">Drainage, Jejunal</field>
+        </record>
+
+        <record id="spec_jntfld" model="specimen.type">
+            <field name="code">JNTFLD</field>
+            <field name="name">Fluid, Joint</field>
+        </record>
+
+        <record id="spec_jp" model="specimen.type">
+            <field name="code">JP</field>
+            <field name="name">Drainage, Jackson Pratt</field>
+        </record>
+
+        <record id="spec_sprm" model="specimen.type">
+            <field name="code">SPRM</field>
+            <field name="name">Spermatozoa</field>
+        </record>
+
+        <record id="spec_sprp" model="specimen.type">
+            <field name="code">SPRP</field>
+            <field name="name">Catheter Tip, Suprapubic</field>
+        </record>
+
+        <record id="spec_sprpb" model="specimen.type">
+            <field name="code">SPRPB</field>
+            <field name="name">Catheter Tip, Suprapubic</field>
+        </record>
+
+        <record id="spec_sps" model="specimen.type">
+            <field name="code">SPS</field>
+            <field name="name">Environmental, Spore Strip</field>
+        </record>
+
+        <record id="spec_spt" model="specimen.type">
+            <field name="code">SPT</field>
+            <field name="name">Sputum</field>
+        </record>
+
+        <record id="spec_sptc" model="specimen.type">
+            <field name="code">SPTC</field>
+            <field name="name">Sputum - coughed</field>
+        </record>
+
+        <record id="spec_sptt" model="specimen.type">
+            <field name="code">SPTT</field>
+            <field name="name">Sputum - tracheal aspirate</field>
+        </record>
+
+        <record id="spec_sput1" model="specimen.type">
+            <field name="code">SPUT1</field>
+            <field name="name">Sputum, Simulated</field>
+        </record>
+
+        <record id="spec_sputin" model="specimen.type">
+            <field name="code">SPUTIN</field>
+            <field name="name">Sputum, Inducted</field>
+        </record>
+
+        <record id="spec_sputsp" model="specimen.type">
+            <field name="code">SPUTSP</field>
+            <field name="name">Sputum, Spontaneous</field>
+        </record>
+
+        <record id="spec_ster" model="specimen.type">
+            <field name="code">STER</field>
+            <field name="name">Environmental, Sterrad</field>
+        </record>
+
+        <record id="spec_stl" model="specimen.type">
+            <field name="code">STL</field>
+            <field name="name">Stool = Fecal</field>
+        </record>
+
+        <record id="spec_csmy" model="specimen.type">
+            <field name="code">CSMY</field>
+            <field name="name">Fluid, Cystostomy Tube</field>
+        </record>
+
+        <record id="spec_cst" model="specimen.type">
+            <field name="code">CST</field>
+            <field name="name">Fluid, Cyst</field>
+        </record>
+
+        <record id="spec_csvr" model="specimen.type">
+            <field name="code">CSVR</field>
+            <field name="name">Blood, Cell Saver</field>
+        </record>
+
+        <record id="spec_ctp" model="specimen.type">
+            <field name="code">CTP</field>
+            <field name="name">Catheter tip</field>
+        </record>
+
+        <record id="spec_cvps" model="specimen.type">
+            <field name="code">CVPS</field>
+            <field name="name">Site, CVP</field>
+        </record>
+
+        <record id="spec_cvpt" model="specimen.type">
+            <field name="code">CVPT</field>
+            <field name="name">Catheter Tip, CVP</field>
+        </record>
+
+        <record id="spec_cyn" model="specimen.type">
+            <field name="code">CYN</field>
+            <field name="name">Nodule, Cystic</field>
+        </record>
+
+        <record id="spec_cyst" model="specimen.type">
+            <field name="code">CYST</field>
+            <field name="name">Cyst</field>
+        </record>
+
+        <record id="spec_dbite" model="specimen.type">
+            <field name="code">DBITE</field>
+            <field name="name">Bite, Dog</field>
+        </record>
+
+        <record id="spec_dcs" model="specimen.type">
+            <field name="code">DCS</field>
+            <field name="name">Sputum, Deep Cough</field>
+        </record>
+
+        <record id="spec_dec" model="specimen.type">
+            <field name="code">DEC</field>
+            <field name="name">Ulcer, Decubitus</field>
+        </record>
+
+        <record id="spec_deion" model="specimen.type">
+            <field name="code">DEION</field>
+            <field name="name">Environmental, Water (Deionized)</field>
+        </record>
+
+        <record id="spec_dia" model="specimen.type">
+            <field name="code">DIA</field>
+            <field name="name">Dialysate</field>
+        </record>
+
+        <record id="spec_keloi" model="specimen.type">
+            <field name="code">KELOI</field>
+            <field name="name">Lavage</field>
+        </record>
+
+        <record id="spec_kidfld" model="specimen.type">
+            <field name="code">KIDFLD</field>
+            <field name="name">Fluid, Kidney</field>
+        </record>
+
+        <record id="spec_lavg" model="specimen.type">
+            <field name="code">LAVG</field>
+            <field name="name">Lavage, Bronhial</field>
+        </record>
+
+        <record id="spec_lavgg" model="specimen.type">
+            <field name="code">LAVGG</field>
+            <field name="name">Lavage, Gastric</field>
+        </record>
+
+        <record id="spec_lavgp" model="specimen.type">
+            <field name="code">LAVGP</field>
+            <field name="name">Lavage, Peritoneal</field>
+        </record>
+
+        <record id="spec_lavpg" model="specimen.type">
+            <field name="code">LAVPG</field>
+            <field name="name">Lavage, Pre-Bronch</field>
+        </record>
+
+        <record id="spec_lens1" model="specimen.type">
+            <field name="code">LENS1</field>
+            <field name="name">Contact Lens</field>
+        </record>
+
+        <record id="spec_lens2" model="specimen.type">
+            <field name="code">LENS2</field>
+            <field name="name">Contact Lens Case</field>
+        </record>
+
+        <record id="spec_lesn" model="specimen.type">
+            <field name="code">LESN</field>
+            <field name="name">Lesion</field>
+        </record>
+
+        <record id="spec_liq" model="specimen.type">
+            <field name="code">LIQ</field>
+            <field name="name">Liquid, Unspecified</field>
+        </record>
+
+        <record id="spec_liqo" model="specimen.type">
+            <field name="code">LIQO</field>
+            <field name="name">Liquid, Other</field>
+        </record>
+
+        <record id="spec_lsac" model="specimen.type">
+            <field name="code">LSAC</field>
+            <field name="name">Fluid, Lumbar Sac</field>
+        </record>
+
+        <record id="spec_mahur" model="specimen.type">
+            <field name="code">MAHUR</field>
+            <field name="name">Catheter Tip, Makurkour</field>
+        </record>
+
+        <record id="spec_stone" model="specimen.type">
+            <field name="code">STONE</field>
+            <field name="name">Stone, Kidney</field>
+        </record>
+
+        <record id="spec_subma" model="specimen.type">
+            <field name="code">SUBMA</field>
+            <field name="name">Abscess, Submandibular</field>
+        </record>
+
+        <record id="spec_submx" model="specimen.type">
+            <field name="code">SUBMX</field>
+            <field name="name">Abscess, Submaxillary</field>
+        </record>
+
+        <record id="spec_sump" model="specimen.type">
+            <field name="code">SUMP</field>
+            <field name="name">Drainage, Sump</field>
+        </record>
+
+        <record id="spec_sup" model="specimen.type">
+            <field name="code">SUP</field>
+            <field name="name">Suprapubic Tap</field>
+        </record>
+
+        <record id="spec_sutur" model="specimen.type">
+            <field name="code">SUTUR</field>
+            <field name="name">Suture</field>
+        </record>
+
+        <record id="spec_swgz" model="specimen.type">
+            <field name="code">SWGZ</field>
+            <field name="name">Catheter Tip, Swan Gantz</field>
+        </record>
+
+        <record id="spec_tasp" model="specimen.type">
+            <field name="code">TASP</field>
+            <field name="name">Aspirate, Tracheal</field>
+        </record>
+
+        <record id="spec_tiss" model="specimen.type">
+            <field name="code">TISS</field>
+            <field name="name">Tissue</field>
+        </record>
+
+        <record id="spec_tisu" model="specimen.type">
+            <field name="code">TISU</field>
+            <field name="name">Tissue ulcer</field>
+        </record>
+
+        <record id="spec_tlc" model="specimen.type">
+            <field name="code">TLC</field>
+            <field name="name">Catheter Tip, Triple Lumen</field>
+        </record>
+
+        <record id="spec_trac" model="specimen.type">
+            <field name="code">TRAC</field>
+            <field name="name">Site, Tracheostomy</field>
+        </record>
+
+        <record id="spec_trans" model="specimen.type">
+            <field name="code">TRANS</field>
+            <field name="name">Transudate</field>
+        </record>
+
+        <record id="spec_dischg" model="specimen.type">
+            <field name="code">DISCHG</field>
+            <field name="name">Discharge</field>
+        </record>
+
+        <record id="spec_div" model="specimen.type">
+            <field name="code">DIV</field>
+            <field name="name">Diverticulum</field>
+        </record>
+
+        <record id="spec_drn" model="specimen.type">
+            <field name="code">DRN</field>
+            <field name="name">Drain</field>
+        </record>
+
+        <record id="spec_drng" model="specimen.type">
+            <field name="code">DRNG</field>
+            <field name="name">Drainage, Tube</field>
+        </record>
+
+        <record id="spec_drngp" model="specimen.type">
+            <field name="code">DRNGP</field>
+            <field name="name">Drainage, Penrose</field>
+        </record>
+
+        <record id="spec_earw" model="specimen.type">
+            <field name="code">EARW</field>
+            <field name="name">Ear wax (cerumen)</field>
+        </record>
+
+        <record id="spec_ebrush" model="specimen.type">
+            <field name="code">EBRUSH</field>
+            <field name="name">Brush, Esophageal</field>
+        </record>
+
+        <record id="spec_eeye" model="specimen.type">
+            <field name="code">EEYE</field>
+            <field name="name">Environmental, Eye Wash</field>
+        </record>
+
+        <record id="spec_eff" model="specimen.type">
+            <field name="code">EFF</field>
+            <field name="name">Environmental, Effluent</field>
+        </record>
+
+        <record id="spec_effus" model="specimen.type">
+            <field name="code">EFFUS</field>
+            <field name="name">Effusion</field>
+        </record>
+
+        <record id="spec_mass" model="specimen.type">
+            <field name="code">MASS</field>
+            <field name="name">Mass</field>
+        </record>
+
+        <record id="spec_mbld" model="specimen.type">
+            <field name="code">MBLD</field>
+            <field name="name">Blood, Menstrual</field>
+        </record>
+
+        <record id="spec_mucos" model="specimen.type">
+            <field name="code">MUCOS</field>
+            <field name="name">Mucosa</field>
+        </record>
+
+        <record id="spec_mucus" model="specimen.type">
+            <field name="code">MUCUS</field>
+            <field name="name">Mucus</field>
+        </record>
+
+        <record id="spec_nasdr" model="specimen.type">
+            <field name="code">NASDR</field>
+            <field name="name">Drainage, Nasal</field>
+        </record>
+
+        <record id="spec_nedl" model="specimen.type">
+            <field name="code">NEDL</field>
+            <field name="name">Needle</field>
+        </record>
+
+        <record id="spec_neph" model="specimen.type">
+            <field name="code">NEPH</field>
+            <field name="name">Site, Nephrostomy</field>
+        </record>
+
+        <record id="spec_ngasp" model="specimen.type">
+            <field name="code">NGASP</field>
+            <field name="name">Aspirate, Nasogastric</field>
+        </record>
+
+        <record id="spec_ngast" model="specimen.type">
+            <field name="code">NGAST</field>
+            <field name="name">Drainage, Nasogastric</field>
+        </record>
+
+        <record id="spec_ngs" model="specimen.type">
+            <field name="code">NGS</field>
+            <field name="name">Site, Naso/Gastric</field>
+        </record>
+
+        <record id="spec_tseru" model="specimen.type">
+            <field name="code">TSERU</field>
+            <field name="name">Serum, Trough</field>
+        </record>
+
+        <record id="spec_tstes" model="specimen.type">
+            <field name="code">TSTES</field>
+            <field name="name">Abscess, Testicular</field>
+        </record>
+
+        <record id="spec_ttra" model="specimen.type">
+            <field name="code">TTRA</field>
+            <field name="name">Aspirate, Transtracheal</field>
+        </record>
+
+        <record id="spec_tubes" model="specimen.type">
+            <field name="code">TUBES</field>
+            <field name="name">Tubes</field>
+        </record>
+
+        <record id="spec_tumor" model="specimen.type">
+            <field name="code">TUMOR</field>
+            <field name="name">Tumor</field>
+        </record>
+
+        <record id="spec_tzanc" model="specimen.type">
+            <field name="code">TZANC</field>
+            <field name="name">Smear, Tzanck</field>
+        </record>
+
+        <record id="spec_udent" model="specimen.type">
+            <field name="code">UDENT</field>
+            <field name="name">Source, Unidentified</field>
+        </record>
+
+        <record id="spec_ur" model="specimen.type">
+            <field name="code">UR</field>
+            <field name="name">Urine</field>
+        </record>
+
+        <record id="spec_urc" model="specimen.type">
+            <field name="code">URC</field>
+            <field name="name">Urine clean catch</field>
+        </record>
+
+        <record id="spec_urinb" model="specimen.type">
+            <field name="code">URINB</field>
+            <field name="name">Urine, Bladder Washings</field>
+        </record>
+
+        <record id="spec_efod" model="specimen.type">
+            <field name="code">EFOD</field>
+            <field name="name">Environmental, Food</field>
+        </record>
+
+        <record id="spec_eiso" model="specimen.type">
+            <field name="code">EISO</field>
+            <field name="name">Environmental, Isolette</field>
+        </record>
+
+        <record id="spec_elt" model="specimen.type">
+            <field name="code">ELT</field>
+            <field name="name">Electrode</field>
+        </record>
+
+        <record id="spec_envir" model="specimen.type">
+            <field name="code">ENVIR</field>
+            <field name="name">Env., Unidentified Substance</field>
+        </record>
+
+        <record id="spec_eoth" model="specimen.type">
+            <field name="code">EOTH</field>
+            <field name="name">Environmental, Other Substance</field>
+        </record>
+
+        <record id="spec_esoi" model="specimen.type">
+            <field name="code">ESOI</field>
+            <field name="name">Environmental, Soil</field>
+        </record>
+
+        <record id="spec_esos" model="specimen.type">
+            <field name="code">ESOS</field>
+            <field name="name">Environmental, Solution (Sterile)</field>
+        </record>
+
+        <record id="spec_eta" model="specimen.type">
+            <field name="code">ETA</field>
+            <field name="name">Aspirate, Endotrach</field>
+        </record>
+
+        <record id="spec_ettp" model="specimen.type">
+            <field name="code">ETTP</field>
+            <field name="name">Catheter Tip, Endotracheal</field>
+        </record>
+
+        <record id="spec_ettub" model="specimen.type">
+            <field name="code">ETTUB</field>
+            <field name="name">Tube, Endotracheal</field>
+        </record>
+
+        <record id="spec_ewhi" model="specimen.type">
+            <field name="code">EWHI</field>
+            <field name="name">Environmental, Whirlpool</field>
+        </record>
+
+        <record id="spec_exg" model="specimen.type">
+            <field name="code">EXG</field>
+            <field name="name">Gas, exhaled (=breath)</field>
+        </record>
+
+        <record id="spec_exs" model="specimen.type">
+            <field name="code">EXS</field>
+            <field name="name">Shunt, External</field>
+        </record>
+
+        <record id="spec_nodul" model="specimen.type">
+            <field name="code">NODUL</field>
+            <field name="name">Nodule(s)</field>
+        </record>
+
+        <record id="spec_nsecr" model="specimen.type">
+            <field name="code">NSECR</field>
+            <field name="name">Secretion, Nasal</field>
+        </record>
+
+        <record id="spec_oth" model="specimen.type">
+            <field name="code">OTH</field>
+            <field name="name">Other</field>
+        </record>
+
+        <record id="spec_orl" model="specimen.type">
+            <field name="code">ORL</field>
+            <field name="name">Lesion, Oral</field>
+        </record>
+
+        <record id="spec_oth2" model="specimen.type">
+            <field name="code">OTH2</field>
+            <field name="name">Source, Other</field>
+        </record>
+
+        <record id="spec_pacem" model="specimen.type">
+            <field name="code">PACEM</field>
+            <field name="name">Pacemaker</field>
+        </record>
+
+        <record id="spec_pcfl" model="specimen.type">
+            <field name="code">PCFL</field>
+            <field name="name">Fluid, Pericardial</field>
+        </record>
+
+        <record id="spec_pdsit" model="specimen.type">
+            <field name="code">PDSIT</field>
+            <field name="name">Site, Peritoneal Dialysis</field>
+        </record>
+
+        <record id="spec_pdts" model="specimen.type">
+            <field name="code">PDTS</field>
+            <field name="name">Site, Peritoneal Dialysis Tunnel</field>
+        </record>
+
+        <record id="spec_pelva" model="specimen.type">
+            <field name="code">PELVA</field>
+            <field name="name">Abscess, Pelvic</field>
+        </record>
+
+        <record id="spec_penil" model="specimen.type">
+            <field name="code">PENIL</field>
+            <field name="name">Lesion, Penile</field>
+        </record>
+
+        <record id="spec_peria" model="specimen.type">
+            <field name="code">PERIA</field>
+            <field name="name">Abscess, Perianal</field>
+        </record>
+
+        <record id="spec_piloc" model="specimen.type">
+            <field name="code">PILOC</field>
+            <field name="name">Cyst, Pilonidal</field>
+        </record>
+
+        <record id="spec_urinc" model="specimen.type">
+            <field name="code">URINC</field>
+            <field name="name">Urine, Catheterized</field>
+        </record>
+
+        <record id="spec_urinm" model="specimen.type">
+            <field name="code">URINM</field>
+            <field name="name">Urine, Midstream</field>
+        </record>
+
+        <record id="spec_urinn" model="specimen.type">
+            <field name="code">URINN</field>
+            <field name="name">Urine, Nephrostomy</field>
+        </record>
+
+        <record id="spec_urinp" model="specimen.type">
+            <field name="code">URINP</field>
+            <field name="name">Urine, Pedibag</field>
+        </record>
+
+        <record id="spec_urt" model="specimen.type">
+            <field name="code">URT</field>
+            <field name="name">Urine catheter</field>
+        </record>
+
+        <record id="spec_uscop" model="specimen.type">
+            <field name="code">USCOP</field>
+            <field name="name">Urine, Cystoscopy</field>
+        </record>
+
+        <record id="spec_uspec" model="specimen.type">
+            <field name="code">USPEC</field>
+            <field name="name">Source, Unspecified</field>
+        </record>
+
+        <record id="spec_vastip" model="specimen.type">
+            <field name="code">VASTIP</field>
+            <field name="name">Catheter Tip, Vas</field>
+        </record>
+
+        <record id="spec_vent" model="specimen.type">
+            <field name="code">VENT</field>
+            <field name="name">Catheter Tip, Ventricular</field>
+        </record>
+
+        <record id="spec_vitf" model="specimen.type">
+            <field name="code">VITF</field>
+            <field name="name">Vitreous Fluid</field>
+        </record>
+
+        <record id="spec_vom" model="specimen.type">
+            <field name="code">VOM</field>
+            <field name="name">Vomit</field>
+        </record>
+
+        <record id="spec_wash" model="specimen.type">
+            <field name="code">WASH</field>
+            <field name="name">Wash</field>
+        </record>
+
+        <record id="spec_wasi" model="specimen.type">
+            <field name="code">WASI</field>
+            <field name="name">Washing, e.g. bronchial washing</field>
+        </record>
+
+        <record id="spec_exudte" model="specimen.type">
+            <field name="code">EXUDTE</field>
+            <field name="name">Exudate</field>
+        </record>
+
+        <record id="spec_faw" model="specimen.type">
+            <field name="code">FAW</field>
+            <field name="name">Environmental, Water (Well)</field>
+        </record>
+
+        <record id="spec_fblood" model="specimen.type">
+            <field name="code">FBLOOD</field>
+            <field name="name">Blood, Fetal</field>
+        </record>
+
+        <record id="spec_fga" model="specimen.type">
+            <field name="code">FGA</field>
+            <field name="name">Fluid, Abdomen</field>
+        </record>
+
+        <record id="spec_fist" model="specimen.type">
+            <field name="code">FIST</field>
+            <field name="name">Fistula</field>
+        </record>
+
+        <record id="spec_fld" model="specimen.type">
+            <field name="code">FLD</field>
+            <field name="name">Fluid, Other</field>
+        </record>
+
+        <record id="spec_flt" model="specimen.type">
+            <field name="code">FLT</field>
+            <field name="name">Filter</field>
+        </record>
+
+        <record id="spec_flu" model="specimen.type">
+            <field name="code">FLU</field>
+            <field name="name">Fluid, Body unspecified</field>
+        </record>
+
+        <record id="spec_fluid" model="specimen.type">
+            <field name="code">FLUID</field>
+            <field name="name">Fluid</field>
+        </record>
+
+        <record id="spec_foley" model="specimen.type">
+            <field name="code">FOLEY</field>
+            <field name="name">Catheter Tip, Foley</field>
+        </record>
+
+        <record id="spec_frs" model="specimen.type">
+            <field name="code">FRS</field>
+            <field name="name">Fluid, Respiratory</field>
+        </record>
+
+        <record id="spec_fsclp" model="specimen.type">
+            <field name="code">FSCLP</field>
+            <field name="name">Scalp, Fetal</field>
+        </record>
+
+        <record id="spec_fur" model="specimen.type">
+            <field name="code">FUR</field>
+            <field name="name">Furuncle</field>
+        </record>
+
+        <record id="spec_gas" model="specimen.type">
+            <field name="code">GAS</field>
+            <field name="name">Gas</field>
+        </record>
+
+        <record id="spec_pins" model="specimen.type">
+            <field name="code">PINS</field>
+            <field name="name">Site, Pin</field>
+        </record>
+
+        <record id="spec_pis" model="specimen.type">
+            <field name="code">PIS</field>
+            <field name="name">Site, Pacemaker Insertion</field>
+        </record>
+
+        <record id="spec_plan" model="specimen.type">
+            <field name="code">PLAN</field>
+            <field name="name">Plant Material</field>
+        </record>
+
+        <record id="spec_plas" model="specimen.type">
+            <field name="code">PLAS</field>
+            <field name="name">Plasma</field>
+        </record>
+
+        <record id="spec_plb" model="specimen.type">
+            <field name="code">PLB</field>
+            <field name="name">Plasma bag</field>
+        </record>
+
+        <record id="spec_plevs" model="specimen.type">
+            <field name="code">PLEVS</field>
+            <field name="name">Serum, Peak Level</field>
+        </record>
+
+        <record id="spec_pnd" model="specimen.type">
+            <field name="code">PND</field>
+            <field name="name">Drainage, Penile</field>
+        </record>
+
+        <record id="spec_pol" model="specimen.type">
+            <field name="code">POL</field>
+            <field name="name">Polyps</field>
+        </record>
+
+        <record id="spec_popgs" model="specimen.type">
+            <field name="code">POPGS</field>
+            <field name="name">Graft Site, Popliteal</field>
+        </record>
+
+        <record id="spec_poplg" model="specimen.type">
+            <field name="code">POPLG</field>
+            <field name="name">Graft, Popliteal</field>
+        </record>
+
+        <record id="spec_poplv" model="specimen.type">
+            <field name="code">POPLV</field>
+            <field name="name">Site, Popliteal Vein</field>
+        </record>
+
+        <record id="spec_porta" model="specimen.type">
+            <field name="code">PORTA</field>
+            <field name="name">Catheter, Porta</field>
+        </record>
+
+        <record id="spec_ppp" model="specimen.type">
+            <field name="code">PPP</field>
+            <field name="name">Plasma, Platelet poor</field>
+        </record>
+
+        <record id="spec_prost" model="specimen.type">
+            <field name="code">PROST</field>
+            <field name="name">Prosthetic Device</field>
+        </record>
+
+        <record id="spec_wat" model="specimen.type">
+            <field name="code">WAT</field>
+            <field name="name">Water</field>
+        </record>
+
+        <record id="spec_wb" model="specimen.type">
+            <field name="code">WB</field>
+            <field name="name">Blood, Whole</field>
+        </record>
+
+        <record id="spec_wen" model="specimen.type">
+            <field name="code">WEN</field>
+            <field name="name">Wen</field>
+        </record>
+
+        <record id="spec_wick" model="specimen.type">
+            <field name="code">WICK</field>
+            <field name="name">Wick</field>
+        </record>
+
+        <record id="spec_wnd" model="specimen.type">
+            <field name="code">WND</field>
+            <field name="name">Wound</field>
+        </record>
+
+        <record id="spec_wnda" model="specimen.type">
+            <field name="code">WNDA</field>
+            <field name="name">Wound abscess</field>
+        </record>
+
+        <record id="spec_wndd" model="specimen.type">
+            <field name="code">WNDD</field>
+            <field name="name">Wound drainage</field>
+        </record>
+
+        <record id="spec_wnde" model="specimen.type">
+            <field name="code">WNDE</field>
+            <field name="name">Wound exudate</field>
+        </record>
+
+        <record id="spec_worm" model="specimen.type">
+            <field name="code">WORM</field>
+            <field name="name">Worm</field>
+        </record>
+
+        <record id="spec_wrt" model="specimen.type">
+            <field name="code">WRT</field>
+            <field name="name">Wart</field>
+        </record>
+
+        <record id="spec_wwa" model="specimen.type">
+            <field name="code">WWA</field>
+            <field name="name">Environmental, Water</field>
+        </record>
+
+        <record id="spec_wwo" model="specimen.type">
+            <field name="code">WWO</field>
+            <field name="name">Environmental, Water (Ocean)</field>
+        </record>
+
+        <record id="spec_wwt" model="specimen.type">
+            <field name="code">WWT</field>
+            <field name="name">Environmental, Water (Tap)</field>
+        </record>
+
+
+    </data>
+</odoo>

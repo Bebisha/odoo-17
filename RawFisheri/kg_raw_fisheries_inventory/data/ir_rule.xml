@@ -1,0 +1,35 @@
+<odoo>
+
+    <record id="kg_vessel_stock_quant_rule_id" model="ir.rule">
+        <field name="name">Factory Manager: Access Quants by Vessel</field>
+        <field name="model_id" ref="stock.model_stock_quant"/>
+        <field name="domain_force">['|', ('vessel_id', '=', False), ('vessel_id','=',user.employee_id.sponsor_name.id)]
+        </field>
+        <field name="groups" eval="[(4, ref('kg_raw_fisheries_hrms.factory_manager'))]"/>
+    </record>
+
+    <record id="kg_vessel_stock_valuation_layer_rule_id" model="ir.rule">
+        <field name="name">Factory Manager: Access Valuation by Vessel</field>
+        <field name="model_id" ref="stock_account.model_stock_valuation_layer"/>
+        <field name="domain_force">['|', ('vessel_id', '=', False), ('vessel_id','=',user.employee_id.sponsor_name.id)]
+        </field>
+        <field name="groups" eval="[(4, ref('kg_raw_fisheries_hrms.factory_manager'))]"/>
+    </record>
+
+    <record id="kg_vessel_stock_move_line_rule_id" model="ir.rule">
+        <field name="name">Factory Manager: Access Moves History by Vessel</field>
+        <field name="model_id" ref="stock.model_stock_move_line"/>
+        <field name="domain_force">['|', ('vessel_id', '=', False), ('vessel_id','=',user.employee_id.sponsor_name.id)]
+        </field>
+        <field name="groups" eval="[(4, ref('kg_raw_fisheries_hrms.factory_manager'))]"/>
+    </record>
+
+    <record id="kg_vessel_stock_move_rule_id" model="ir.rule">
+        <field name="name">Factory Manager: Access Moves by Vessel</field>
+        <field name="model_id" ref="stock.model_stock_move"/>
+        <field name="domain_force">['|', ('vessel_id', '=', False), ('vessel_id','=',user.employee_id.sponsor_name.id)]
+        </field>
+        <field name="groups" eval="[(4, ref('kg_raw_fisheries_hrms.factory_manager'))]"/>
+    </record>
+
+</odoo>

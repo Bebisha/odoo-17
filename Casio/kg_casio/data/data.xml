@@ -1,0 +1,21 @@
+<odoo>
+    <data noupdate="1">
+
+
+        <record id="seq_kg_voucher" model="ir.sequence">
+            <field name="name">Voucher</field>
+            <field name="code">kg.voucher</field>
+            <field name="prefix"></field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_cus_inv" model="ir.sequence">
+            <field name="name">Cust Inv</field>
+            <field name="code">kg.cus.inv</field>
+            <field name="prefix">CI/</field>
+            <field name="padding">4</field>
+        </record>
+
+
+    </data>
+</odoo>

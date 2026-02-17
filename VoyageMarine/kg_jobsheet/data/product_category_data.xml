@@ -1,0 +1,201 @@
+<odoo>
+    <data>
+        # scope
+        <record id="category_nav_com" model="product.category">
+            <field name="name">NAVIGATION &amp; COMMUNICATION</field>
+            <field name="is_scope">True</field>
+        </record>
+
+        <record id="category_field_service" model="product.category">
+            <field name="name">FIELD_SERVICE</field>
+            <field name="is_scope">True</field>
+        </record>
+
+        <record id="category_calibration" model="product.category">
+            <field name="name">CALIBRATION</field>
+            <field name="is_calibration">True</field>
+            <field name="is_scope">True</field>
+        </record>
+
+        <record id="category_lsa" model="product.category">
+            <field name="name">LSA</field>
+            <field name="is_lsa">True</field>
+            <field name="is_scope">True</field>
+        </record>
+
+        <record id="category_ffa" model="product.category">
+            <field name="name">FFA</field>
+            <field name="is_ffa">True</field>
+            <field name="is_scope">True</field>
+        </record>
+        <record id="category_navi_communication" model="product.category">
+            <field name="name">NAVIGATION AND COMMUNICATION</field>
+            <field name="is_navigation_communication">True</field>
+            <field name="is_scope">True</field>
+        </record>
+        <record id="category_field_service" model="product.category">
+            <field name="name">FIELD SERVICE</field>
+            <field name="is_field_service">True</field>
+            <field name="is_scope">True</field>
+        </record>
+        #
+        <record id="product_category_dimension" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_calibration"/>
+            <field name="name">DIMENSION</field>
+        </record>
+        <record id="product_category_electrical" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_calibration"/>
+            <field name="name">ELECTRICAL
+            </field>
+        </record>
+        <record id="product_category_flow_1" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_calibration"/>
+            <field name="name">FLOW
+            </field>
+        </record>
+        <record id="product_category_gas_1" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_calibration"/>
+            <field name="name">GAS
+            </field>
+        </record>
+        <record id="product_category_mass_1" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_calibration"/>
+            <field name="name">MASS
+            </field>
+        </record>
+        <record id="product_category_pressure_1" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_calibration"/>
+            <field name="name">PRESSURE
+            </field>
+        </record>
+        <record id="product_category_temperature" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_calibration"/>
+            <field name="name">TEMPERATURE
+            </field>
+        </record>
+        <record id="product_category_torque" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_calibration"/>
+            <field name="name">TORQUE
+
+            </field>
+        </record>
+        <record id="product_category_weighting" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_nav_com"/>
+            <field name="name">WEIGHING
+
+            </field>
+        </record>
+        <record id="product_category_miscellenous" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_nav_com"/>
+            <field name="name">MISCELLENOUS
+
+            </field>
+        </record>
+        <record id="product_category_fire_fiting" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_ffa"/>
+            <field name="name">Fire Fighting
+            </field>
+        </record>
+        <record id="product_category_navi_communication" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_navi_communication"/>
+            <field name="name">Navigation
+            </field>
+        </record>
+        <record id="product_category_field_service" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_field_service"/>
+            <field name="name">AUTOMATION
+            </field>
+        </record>
+        <record id="product_category_category_lsa" model="product.category">
+            <field name="parent_id" ref="kg_jobsheet.category_lsa"/>
+            <field name="name">Life Savings
+            </field>
+        </record>
+<!--        # additional category-->
+<!--            <record id="category_gas_detection_system" model="product.category">-->
+<!--                <field name="name">GAS DETECTION SYSTEM</field>-->
+<!--                <field name="is_gas_detection">True</field>-->
+
+<!--            </record>-->
+
+<!--            <record id="category_fire_detection_system" model="product.category">-->
+<!--                <field name="name">FIRE DETECTION SYSTEM</field>-->
+<!--                <field name="is_fire_detection">True</field>-->
+
+<!--            </record>-->
+
+<!--            <record id="category_electrical_system" model="product.category">-->
+<!--                <field name="name">ELECTRICAL SYSTEM</field>-->
+<!--                <field name="is_electrical">True</field>-->
+
+<!--            </record>-->
+
+<!--            <record id="category_measuring_control_instruments" model="product.category">-->
+<!--                <field name="name">MEASURING CONTROL INSTRUMENTS</field>-->
+<!--                <field name="is_measuring_control">True</field>-->
+
+<!--            </record>-->
+
+<!--            <record id="category_navigation_system" model="product.category">-->
+<!--                <field name="name">NAVIGATION SYSTEM</field>-->
+<!--                <field name="is_navigation">True</field>-->
+
+<!--            </record>-->
+
+<!--            <record id="category_communication_system" model="product.category">-->
+<!--                <field name="name">COMMUNICATION SYSTEM</field>-->
+<!--                <field name="is_communication">True</field>-->
+
+<!--            </record>-->
+
+<!--            <record id="category_featured_marine_products" model="product.category">-->
+<!--                <field name="name">FEATURED MARINE PRODUCTS</field>-->
+<!--                <field name="is_featured_marine">True</field>-->
+
+<!--            </record>-->
+
+<!--&lt;!&ndash;            <record id="category_life_saving_appliances" model="product.category">&ndash;&gt;-->
+<!--&lt;!&ndash;                <field name="name">LIFE SAVING APPLIANCES</field>&ndash;&gt;-->
+<!--&lt;!&ndash;                <field name="is_life_saving">True</field>&ndash;&gt;-->
+<!--&lt;!&ndash;               &ndash;&gt;-->
+<!--&lt;!&ndash;            </record>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <record id="category_fire_fighting_appliances" model="product.category">&ndash;&gt;-->
+<!--&lt;!&ndash;                <field name="name">FIRE FIGHTING APPLIANCES</field>&ndash;&gt;-->
+<!--&lt;!&ndash;                <field name="is_fire_fighting">True</field>&ndash;&gt;-->
+<!--&lt;!&ndash;              &ndash;&gt;-->
+<!--&lt;!&ndash;            </record>&ndash;&gt;-->
+
+<!--            <record id="category_cables" model="product.category">-->
+<!--                <field name="name">CABLES</field>-->
+<!--                <field name="is_cables">True</field>-->
+
+<!--            </record>-->
+
+<!--            <record id="category_hardwares" model="product.category">-->
+<!--                <field name="name">HARDWARES</field>-->
+<!--                <field name="is_hardwares">True</field>-->
+
+<!--            </record>-->
+
+<!--            <record id="category_tools_equipments" model="product.category">-->
+<!--                <field name="name">TOOL &amp; EQUIPMENTS</field>-->
+<!--                <field name="is_tools">True</field>-->
+<!--                <field name="is_scope">True</field>-->
+<!--            </record>-->
+
+<!--            <record id="category_consumables" model="product.category">-->
+<!--                <field name="name">CONSUMABLES</field>-->
+<!--                <field name="is_consumables">True</field>-->
+
+<!--            </record>-->
+
+<!--            <record id="category_health_safety_environment" model="product.category">-->
+<!--                <field name="name">HEALTH, SAFETY &amp; ENVIRONMENT</field>-->
+<!--                <field name="is_health_safety">True</field>-->
+
+<!--            </record>-->
+
+
+    </data>
+</odoo>

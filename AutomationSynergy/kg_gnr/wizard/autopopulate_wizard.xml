@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="po_autopopulate_orderline_wizard" model="ir.ui.view">
+            <field name="name">po.autopopulate.order.wizard</field>
+            <field name="model">po.autopopulate.order.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Autopopulate Orderline with Product related to po selected">
+                    <sheet>
+                        <group>
+                            <field name="po_ids" string="Purchase order"
+                                   domain="[('state','in',['purchase','done']),('id', 'in', not_git_po)]"
+                                   widget="many2many_tags" options="{'no_open':True,'no_create':True}" context="{'show_vendor_name':True}"/>
+                            <field name="not_git_po" widget="many2many_tags" invisible="1"/>
+<!--                            <field name="po_ids" string="Purchase order"-->
+<!--                                   domain="[('state','in',['purchase','done'])]"-->
+<!--                                   widget="many2many_tags" options="{'no_open':True,'no_create':True}" context="{'show_vendor_name':True}"/>-->
+<!--                            <field name="not_git_po" widget="many2many_tags" invisible="1"/>-->
+                        </group>
+                        <group>
+                            <field name="auto_line_ids">
+                                <tree create="0">
+                                    <field name="po_id"/>
+                                    <field name="po_line"/>
+                                    <field name="vendor_id"/>
+                                    <field name="product_id"/>
+                                    <field name="remaining_qty"/>
+                                    <field name="price"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_wizard" model="ir.actions.act_window">
+            <field name="name">Autopopulate Orderline with Product related to Category selected</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">po.autopopulate.orderline.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="po_autopopulate_orderline_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</odoo>

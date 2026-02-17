@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <header>
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <xpath expr="//field[@name='job_id']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <!--                <xpath expr="//field[@name='registration_number']" position='attributes'>-->
+                <!--                    <attribute name="required">1</attribute>-->
+                <!--                </xpath>-->
+                <xpath expr="//field[@name='image_1920']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='mobile_phone']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='work_email']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='address_id']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='resource_calendar_id']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='private_street']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='private_country_id']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='private_city']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='private_email']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='private_phone']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='private_state_id']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='private_street2']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='private_zip']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='lang']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='emergency_contact']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='certificate']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='study_field']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='study_school']" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='passport_id']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='country_id']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='gender']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='birthday']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='place_of_birth']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='country_of_birth']" position='attributes'>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <!--                <xpath expr="//field[@name='create_date']" position='attributes'>-->
+                <!--                    <attribute name="required">1</attribute>-->
+                <!--                </xpath>-->
+                <xpath expr="//field[@name='bank_account_id']" position='attributes'>
+                    <!--                    <attribute name="required">1</attribute>-->
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="has_work_permit" position="after">
+                    <!--                    <field name="labour_card_number"/>-->
+                    <field name="personal_no"/>
+                </field>
+                <!--                <xpath expr="//field[@name='currency_id']" position='attributes'>-->
+                <!--                    <attribute name="required">1</attribute>-->
+                <!--                </xpath>-->
+                <xpath expr="//page[@name='personal_information']/group" position="inside">
+                    <group string="BAnk Details">
+                        <field name="bank_account_id" required="1"/>
+                        <field name="iban"/>
+                        <field name="bic" required="1"/>
+                        <field name="currency_id" required="1"/>
+                    </group>
+
+                </xpath>
+                <field name="has_work_permit" position="after">
+                    <field name="medical" required="1"/>
+                    <field name="civilid" required="1"/>
+                    <field name="emp_civil_no" required="1"/>
+                    <field name="clearance_certificate"/>
+                </field>
+                <field name="tz" position="after">
+                    <field name="join_date" required="1"/>
+                    <field name="date_relieve" required="1"/>
+                    <field name="probation_period_length"/>
+                    <field name="probation_end_date"/>
+                    <field name="probation_completed"/>
+                    <field name="airticket_id"/>
+                </field>
+                <field name="visa_no" position="after">
+                    <field name="visa_uid_no" required="1"/>
+                    <field name="visa_emirate" required="1"/>
+                    <field name="emirate_no"/>
+
+                </field>
+                <field name="passport_id" position="after">
+                    <field name="passport_exp_date" required="1"/>
+
+                </field>
+                <field name="job_id" position="after">
+                    <field name="employee_contract" required="1"/>
+
+                </field>
+                <xpath expr="//h1" position="after">
+                    <h2>
+                        <field name="employee_id" placeholder="Jafza" style="font-size: min(2vw, 2.6rem);"/>
+                    </h2>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_res_bank_form" model="ir.ui.view">
+            <field name="name">res.bank.view.form.inherited.ent.uae.wps.report</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="base.view_res_bank_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bic']" position="after">
+                    <group>
+                        <field name="routing_code"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

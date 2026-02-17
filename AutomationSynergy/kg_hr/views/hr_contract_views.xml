@@ -1,0 +1,58 @@
+<odoo>
+    <data noupdate="0">
+        <record id="hr_contract_view_form" model="ir.ui.view">
+            <field name="name">View Contract Form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <group name="salary" position="inside">
+                    <field name="ot_rate"/>
+                </group>
+                <group name="salary" position="after">
+                    <group name="allowances" string="Allowance">
+                        <label for="housing_allowance"/>
+                        <div class="o_row mw-50" name="housing_allowance">
+                            <field name="housing_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3" name="wage_period_label">/ month</div>
+                        </div>
+
+                        <label for="transportation_allowance"/>
+                        <div class="o_row mw-50" name="transportation_allowance">
+                            <field name="transportation_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3" name="wage_period_label">/ month</div>
+                        </div>
+                        <label for="other_allowances"/>
+                        <div class="o_row mw-50" name="other_allowances">
+                            <field name="other_allowances" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3" name="wage_period_label">/ month</div>
+                        </div>
+                    </group>
+                </group>
+                <xpath expr="//page[@name='information_salary_hourly']/group[@name='main_info_hourly']"
+                       position="inside">
+                    <group name="allowances" string="Allowance">
+                        <label for="housing_allowance"/>
+                        <div class="o_row mw-50" name="housing_allowance">
+                            <field name="housing_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3" name="wage_period_label">/ month</div>
+                        </div>
+
+                        <label for="transportation_allowance"/>
+                        <div class="o_row mw-50" name="transportation_allowance">
+                            <field name="transportation_allowance" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3" name="wage_period_label">/ month</div>
+                        </div>
+                        <label for="other_allowances"/>
+                        <div class="o_row mw-50" name="other_allowances">
+                            <field name="other_allowances" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                            <div class="mb-3" name="wage_period_label">/ month</div>
+                        </div>
+                    </group>
+
+                    <!--                    <group string="Overtime" name="overtime"></group>-->
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

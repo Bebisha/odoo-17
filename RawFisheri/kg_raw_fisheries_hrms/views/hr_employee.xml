@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_employee_view_inherit_form">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="coach_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="parent_id" position="after">
+                    <field name="check_manager" invisible="1"/>
+                    <field name="restrict_editing" invisible="1"/>
+                </field>
+                <field name="parent_id" position="attributes">
+                    <attribute name="readonly">check_manager</attribute>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="parent_id" position="after">
+                    <field name="manager_ids" widget="many2many_tags" readonly="check_manager"/>
+                    <field name="check_access_team_id" invisible="1"/>
+                </field>
+                <field name="coach_id" position="before">
+                    <field name="factory_manager_ids" string="Factory Manager" widget="many2many_tags"
+                           invisible="not crew"/>
+                </field>
+                <xpath expr="//field[@name='department_id']" position="before">
+                    <field name="sponsor_name" string="Vessel"/>
+                    <field name="agency" string="Agency"/>
+                    <field name="employees_type"/>
+                </xpath>
+                <xpath expr="//field[@name='work_email']" position="after">
+                    <field name="date_of_joining"/>
+                    <field name="years_of_service"/>
+                </xpath>
+                <xpath expr="//field[@name='mobile_phone']" position="before">
+                    <field name="employee_no"/>
+                    <field name="crew"/>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <field name="employee_status" widget="statusbar"/>
+                </xpath>
+                <xpath expr="//page[@name='public']//field[@name='work_location_id']" position="after">
+                    <field name="work_location"/>
+                </xpath>
+                <xpath expr="//page[@name='public']//group[1]" position="before">
+                    <group string="Employee ID">
+                        <field name="employee_id_no"/>
+                        <field name="employee_id_issue_date"/>
+                        <field name="employee_id_expiry_date"/>
+                        <field name="employee_file_no"/>
+                    </group>
+                    <group string="Sign On">
+                        <field name="sign_on_date"/>
+                        <field name="sign_off_date"/>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']//field[@name='passport_id']" position="after">
+                    <field name="employee_passport_issue_date"/>
+                    <label for="employee_passport_expiry_date"/>
+                    <div class="o_row">
+                        <field name="employee_passport_expiry_date" force_save="True"/>
+                    </div>
+                    <field name="seaman_book_expiry_date"/>
+                    <field name="employee_medical_expiry_date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_employee_view_form_id" model="ir.ui.view">
+            <field name="name">hr.employee.view.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form3"/>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//div[@name='button_box']/button[@name='action_open_contract']" position="replace">
+                        <field name="check_access_team_id" invisible="1"/>
+                        <button name="action_open_contract"
+                                class="oe_stat_button"
+                                icon="fa-book"
+                                type="object"
+                                groups="hr_contract.group_hr_contract_manager, hr_contract.group_hr_contract_employee_manager"
+                                context="{'default_employee_id': id}"
+                                invisible="employee_type not in ['employee', 'student', 'trainee'] or not check_access_team_id">
+                            <div invisible="not first_contract_date" class="o_stat_info">
+                                <span class="o_stat_text text-success" invisible="contract_warning"
+                                      title="In Contract Since">In Contract Since
+                                </span>
+                                <span class="o_stat_value text-success" invisible="contract_warning">
+                                    <field name="first_contract_date" readonly="1"/>
+                                </span>
+                                <span class="o_stat_text text-danger" invisible="not contract_warning"
+                                      title="In Contract Since">
+                                    In Contract Since
+                                </span>
+                                <span class="o_stat_value text-danger" invisible="not contract_warning">
+                                    <field name="first_contract_date" readonly="1"/>
+                                </span>
+                            </div>
+                            <div invisible="first_contract_date" class="o_stat_info">
+                                <span class="o_stat_value text-danger">
+                                    <field name="contracts_count"/>
+                                </span>
+                                <span invisible="contracts_count != 1" class="o_stat_text text-danger">
+                                    Contract
+                                </span>
+                                <span invisible="contracts_count == 1" class="o_stat_text text-danger">
+                                    Contracts
+                                </span>
+                            </div>
+                        </button>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="kg_hr_view_employee_inherit_tree" model="ir.ui.view">
+            <field name="name">hr.employee.tree.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="sponsor_name" string="Vessel"/>
+                    <field name="employee_no"/>
+                </field>
+                <field name="parent_id" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </field>
+                <field name="parent_id" position="after">
+                    <field name="manager_ids" string="Managers" widget="many2many_tags" optional="show"/>
+                    <field name="factory_manager_ids" string="Factory Manager" widget="many2many_tags" optional="show"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_hr_employee_search_inherit_form" model="ir.ui.view">
+            <field name="name">hr.employee.search.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='my_team']" position="after">
+                    <separator/>
+                    <filter name="active_employee" string="Active" domain="[('employee_status', '=', 'active')]"/>
+                    <filter name="not_active_employee" string="Inactive"
+                            domain="[('employee_status', '=', 'not_active')]"/>
+                    <separator/>
+                </xpath>
+                <filter name="group_manager" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+                <filter name="group_manager" position="after">
+                    <filter name="group_by_managers" string="Managers" domain="[]"
+                            context="{'group_by': 'manager_ids'}"/>
+                </filter>
+                <filter name="group_job" position="after">
+                    <filter name="group_by_employee_status" string="Employee Status" domain="[]"
+                            context="{'group_by': 'employee_status'}"/>
+                    <filter name="group_by_vessel" string="Vessel" domain="[]"
+                            context="{'group_by': 'sponsor_name'}"/>
+                </filter>
+            </field>
+        </record>
+
+    </data>
+</odoo>

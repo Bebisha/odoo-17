@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="timesheet_entry_wizard_action" model="ir.actions.act_window">
+        <field name="name">Time Entry</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wizard.timesheet.entry</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="kg_voyage_marine_timesheet.model_wizard_timesheet_entry"/>
+        </record>
+
+    <menuitem name="Time Entry" id="timesheet_entry_wizard_menu"
+                  parent="hr_timesheet.timesheet_menu_root"
+                  action="timesheet_entry_wizard_action"
+                  sequence="10"/>
+
+</odoo>

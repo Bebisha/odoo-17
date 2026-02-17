@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--   Tree view for crew salary report model   -->
+    <record id="crew_salary_report_tree" model="ir.ui.view">
+        <field name="name">crew.salary.report.tree</field>
+        <field name="model">crew.salary.report</field>
+        <field name="arch" type="xml">
+            <tree string="crew salary report" create="False">
+                <header>
+                    <button name="create_final_entry" type="object" string="Create Final Entry"/>
+                </header>
+                <field name="employee_id"/>
+                <field name="vessel_id" optional="hide"/>
+                <field name="department_id" optional="hide"/>
+                <field name="start_date" optional="hide"/>
+                <field name="end_date" optional="hide"/>
+                <field name="basic_wage" optional="show"/>
+                <field name="house_allowance" optional="show"/>
+                <field name="transport_allowance" optional="show"/>
+                <field name="other_allowance" optional="show"/>
+                <field name="extra_income" optional="show"/>
+                <field name="discharge" optional="show"/>
+                <field name="fixed_sea_allowance" optional="show"/>
+                <field name="shop_deduction" optional="show"/>
+                <field name="overtime" optional="show"/>
+                <field name="holiday_allowance" optional="show"/>
+                <field name="pending_salary_amount" optional="show"/>
+                <field name="bonus" optional="show"/>
+                <field name="penalty" optional="show"/>
+                <field name="total_salary_amount" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--    Pivot view for crew salary report   -->
+    <record id="crew_salary_report_pivot" model="ir.ui.view">
+        <field name="name">crew.salary.report.pivot</field>
+        <field name="model">crew.salary.report</field>
+        <field name="arch" type="xml">
+            <pivot string="crew salary report" sample="1">
+                <field name="department_id" type="row"/>
+                <field name="basic_wage" type="measure"/>
+                <field name="house_allowance" type="measure"/>
+                <field name="transport_allowance" type="measure"/>
+                <field name="other_allowance" type="measure"/>
+                <field name="extra_income" type="measure"/>
+                <field name="discharge" type="measure"/>
+                <field name="fixed_sea_allowance" type="measure"/>
+                <field name="shop_deduction" type="measure"/>
+                <field name="overtime" type="measure"/>
+                <field name="holiday_allowance" type="measure"/>
+                <field name="bonus" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!--    Search view for crew salary report   -->
+    <record id="crew_salary_report_search" model="ir.ui.view">
+        <field name="name">crew.salary.report.search</field>
+        <field name="model">crew.salary.report</field>
+        <field name="arch" type="xml">
+            <search string="crew salary report">
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="vessel_id"/>
+                <group expand="1" string="Group By...">
+                    <filter string="Department" name="groupby_department_id" domain="[]"
+                            context="{'group_by': 'department_id'}"/>
+                    <filter string="Employee" name="groupby_employee_id" domain="[]"
+                            context="{'group_by': 'employee_id'}"/>
+                    <filter string="Vessel" name="groupby_vessel_id" context="{'group_by': 'vessel_id'}"/>
+                    <filter string="Start Date" name="start_date" context="{'group_by':'start_date:month'}"/>
+                    <filter string="End Date" name="end_date" context="{'group_by':'end_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

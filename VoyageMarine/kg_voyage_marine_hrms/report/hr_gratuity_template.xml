@@ -1,0 +1,378 @@
+<odoo>
+    <template id="hr_gratuity_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+
+                    <div class="page">
+                        <div class="header">
+                            <table class='table table-borderless table-condensed table-hover'>
+                                <tr width="100%">
+                                    <td style="width:50%;padding-top:40px;" align="left">
+                                        <t t-if="doc.company_id.logo">
+                                            <img t-attf-src="data:image/*;base64,{{doc.company_id.logo}}"
+                                                 height="100px" width="75%"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 50%;font-size:12px;padding-top:40px;" align="right">
+                                        <t t-if="doc.company_id.name">
+                                            <strong>
+                                                <span t-field="doc.company_id.name" style="font-size:15px;"/>
+                                            </strong>
+                                            <br/>
+                                        </t>
+                                        <t t-if="doc.company_id.phone">
+                                            <span t-field="doc.company_id.phone"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="doc.company_id.mobile">
+                                            <span t-field="doc.company_id.mobile"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="doc.company_id.email">
+                                            <span t-field="doc.company_id.email"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="doc.company_id.zip">
+                                            <span>P.O. Box:
+                                                <span t-field="doc.company_id.zip"/>,
+                                            </span>
+                                        </t>
+                                        <t t-if="doc.company_id.city">
+                                            <span t-field="doc.company_id.city"/>,
+                                        </t>
+                                        <t t-if="doc.company_id.state_id">
+                                            <span t-field="doc.company_id.state_id.name"/>
+                                        </t>
+                                        <t t-if="doc.company_id.country_id">
+                                            <span t-field="doc.company_id.country_id.code"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr width="100%">
+                                    <td style="width: 100%;border-bottom: 1pt solid black;" colspan="2"/>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <br></br>
+
+                        <table width="100%" style="font-size:13px;" class='table table-borderless'>
+                            <tr style="width: 100%;border-bottom: 1pt solid black;">
+                                <td width="100%" align="center" colspan="2">
+                                    <strong>Full and Final Settlement Slip</strong>
+                                </td>
+                            </tr>
+                            <tr style="width: 100%;border-bottom: 1pt solid black;">
+                                <td width="75%"/>
+                                <td align="left" width="25%">
+                                    <!--                                    <p style="text-align:right;">-->
+                                    <strong>Date:</strong>
+                                    <!--                            <span t-esc="format_date(doc.env, doc.create_date)"/>-->
+                                    <!--                                    </p>-->
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br/>
+
+                        <!-- EMPLOYEE DETAILS -->
+                        <table width="100%" style="font-size:13px;" class="table table-borderless">
+                            <tr>
+                                <td width="5%" style="border-right: 1pt solid black;"/>
+                                <td width="30%"
+                                    style="border-bottom: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black">
+                                    <strong>Employee Code:</strong>
+                                </td>
+                                <td width="40%"
+                                    style="border-bottom: 1pt solid black;border-left: 1pt solid black;border-top: 1pt solid black">
+                                    <span t-field="doc.employee_id.employee_no"/>
+                                </td>
+                                <td width="25%" style="border-left: 1pt solid black;border-left: 1pt solid black;"/>
+                            </tr>
+                            <tr>
+                                <td width="5%" style="border-right: 1pt solid black;"/>
+                                <td width="30%"
+                                    style="border-bottom: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black">
+                                    <strong>Employee Name:</strong>
+                                </td>
+                                <td width="40%"
+                                    style="border-bottom: 1pt solid black;border-left: 1pt solid black;border-top: 1pt solid black">
+                                    <span t-field="doc.employee_id.name"/>
+                                </td>
+                                <td width="25%" style="border-left: 1pt solid black;border-left: 1pt solid black;"/>
+                            </tr>
+                            <tr>
+                                <td width="5%" style="border-right: 1pt solid black;"/>
+                                <td width="30%"
+                                    style="border-bottom: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black">
+                                    <strong>Department:</strong>
+                                </td>
+                                <td width="40%"
+                                    style="border-bottom: 1pt solid black;border-left: 1pt solid black;border-top: 1pt solid black">
+                                    <span t-field="doc.employee_id.department_id.name"/>
+                                </td>
+                                <td width="25%" style="border-left: 1pt solid black;border-left: 1pt solid black;"/>
+                            </tr>
+                            <tr>
+                                <td width="5%" style="border-right: 1pt solid black;"/>
+                                <td width="30%"
+                                    style="border-bottom: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black">
+                                    <strong>Designation:</strong>
+                                </td>
+                                <td width="40%"
+                                    style="border-bottom: 1pt solid black;border-left: 1pt solid black;border-top: 1pt solid black">
+                                    <span t-field="doc.employee_id.job_id.name"/>
+                                </td>
+                                <td width="25%" style="border-left: 1pt solid black;border-left: 1pt solid black;"/>
+                            </tr>
+                            <tr>
+                                <td width="5%" style="border-right: 1pt solid black;"/>
+                                <td width="30%"
+                                    style="border-bottom: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black">
+                                    <strong>Date of Joining:</strong>
+                                </td>
+                                <td width="40%"
+                                    style="border-bottom: 1pt solid black;border-left: 1pt solid black;border-top: 1pt solid black">
+                                    <span t-field="doc.employee_joining_date"/>
+                                </td>
+                                <td width="25%" style="border-left: 1pt solid black;border-left: 1pt solid black;"/>
+                            </tr>
+                            <tr>
+                                <td width="5%" style="border-right: 1pt solid black;"/>
+                                <td width="30%"
+                                    style="border-bottom: 1pt solid black;border-right: 1pt solid black;border-top: 1pt solid black">
+                                    <strong>Contract Type:</strong>
+                                </td>
+                                <td width="40%"
+                                    style="border-bottom: 1pt solid black;border-left: 1pt solid black;border-top: 1pt solid black">
+                                    <span t-field="doc.employee_contract_type"/>
+                                </td>
+                                <td width="25%" style="border-left: 1pt solid black;border-left: 1pt solid black;"/>
+                            </tr>
+                        </table>
+
+                        <br/>
+                        <br/>
+
+                        <!-- PARTICULARS -->
+                        <table width="100%" border="1" class="table table-borderless"
+                               style="font-size:13px;border-collapse:collapse;">
+                            <tr>
+                                <td width="5%"></td>
+                                <td width="55%" style="border:1pt solid black;">
+                                    No. of days worked for the month:
+                                </td>
+                                <td width="35%" style="border:1pt solid black;text-align:right;"></td>
+                                <td width="5%"></td>
+                            </tr>
+
+                            <tr>
+                                <td width="5%"></td>
+                                <td width="55%" style="border:1pt solid black;">
+                                    Particulars
+                                </td>
+                                <td width="35%" style="border:1pt solid black;text-align:center;">
+                                    Amount
+                                </td>
+                                <td width="5%"></td>
+                            </tr>
+
+                            <!-- PAYMENTS -->
+                            <tr>
+                                <td></td>
+                                <td style="border:1pt solid black;">
+                                    <strong>PAYMENTS</strong>
+                                </td>
+                                <td style="border:1pt solid black;"></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td style="border:1pt solid black;">
+                                    Gratuity for
+                                    <span t-field="doc.employee_gratuity_years"/>
+                                    years
+                                </td>
+                                <td style="border:1pt solid black;text-align:right;">
+                                    <span t-field="doc.employee_gratuity_amount"/>
+                                </td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td style="border:1pt solid black;">Basic Salary</td>
+                                <td style="border:1pt solid black;text-align:right;">
+                                    <span t-field="doc.employee_basic_salary"/>
+                                </td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td style="border:1pt solid black;">Other Allowances</td>
+                               <td style="border:1pt solid black;text-align:right;">
+    <t t-esc="sum(env['hr.payslip.line'].search([
+        ('employee_id','=',doc.employee_id.id),
+        ('code','=','OTHER_ALLOW')
+    ]).mapped('total'))"
+   />
+
+</td>
+
+
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td style="border:1pt solid black;">Leave Salary</td>
+                                <td style="border:1pt solid black;text-align:right;"> <span t-field="doc.leave_salary_amount"/></td>
+                                <td></td>
+                            </tr>
+
+                            <!-- DEDUCTIONS -->
+                            <tr>
+                                <td></td>
+                                <td style="border:1pt solid black;">
+                                    <strong>DEDUCTIONS</strong>
+                                </td>
+                                <td style="border:1pt solid black;"></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td style="border:1pt solid black;">Salary Advance</td>
+                                <td style="border:1pt solid black;text-align:right;">0.00</td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td style="border:1pt solid black;">Telephone</td>
+                                <td style="border:1pt solid black;text-align:right;">0.00</td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td style="border:1pt solid black;">Notice Pay Recovery</td>
+                                <td style="border:1pt solid black;text-align:right;">0.00</td>
+                                <td></td>
+                            </tr>
+
+                            <!-- TOTAL -->
+                            <tr>
+                                <td></td>
+                                <td style="border:1pt solid black;">
+                                    <strong>Amount Payable / (Recoverable)</strong>
+                                </td>
+                                <td style="border:1pt solid black;text-align:right;">
+                                    <strong>
+                                        <span t-field="doc.employee_gratuity_amount"/>
+                                    </strong>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+
+                        <br/>
+                        <!-- APPROVAL & SIGNATURE -->
+                        <table width="100%" style="font-size:13px;" class="table table-borderless">
+                            <tr>
+                                <td width="5%"/>
+                                <td width="95%">
+                                    <strong>Approved By:</strong>
+                                    <br/>
+                                    <br/>
+                                    _______________________
+                                    <br/>
+                                    <br/>
+                                    Director
+                                </td>
+                                <!--                                <td width="50%" style="text-align:right;">-->
+                                <!--                                    <strong>Received By:</strong>-->
+                                <!--                                    <br/>-->
+                                <!--                                    <br/>-->
+                                <!--                                    _______________________-->
+                                <!--                                    <br/>-->
+                                <!--                                    Employee Signature-->
+                                <!--                                </td>-->
+                            </tr>
+                        </table>
+                        <br/>
+
+
+                        <!-- PAYMENT NOTE -->
+                        <p>
+                            <strong>Note:</strong>
+                            <br/>
+                            I hereby confirm that I have received the full &amp; final settlement including all benefits
+                            from the company.
+                        </p>
+
+                        <br/>
+                        <br/>
+
+                        <!-- APPROVAL & SIGNATURE -->
+                        <table width="100%" style="font-size:13px;" class="table table-borderless">
+                            <tr>
+                                <td width="5%"/>
+                                <td width="45%">
+                                    <strong>Paid by:</strong>
+                                    <br/>
+                                    <br/>
+                                    _______________________
+                                    <br/>
+                                    <br/>
+                                    Director
+                                </td>
+
+                                <td width="50%" style="text-align:right;">
+                                    <strong>Received By:</strong>
+                                    <br/>
+                                    <br/>
+                                    _______________________
+                                    <br/>
+                                    <br/>
+                                    Employee Signature
+                                </td>
+                            </tr>
+                        </table>
+                        <table width="100%" style="font-size:13px;" class="table table-borderless">
+                            <tr>
+                                <td width="5%"/>
+                                <td width="95%" style="border:1pt solid black;">
+                                    <span>Amount(<span t-field="doc.company_id.currency_id"/>):
+                                        <span t-field="doc.employee_gratuity_amount"/>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td width="5%"/>
+                                <td width="95%" style="border:1pt solid black;">
+                                    <span>Date:</span>
+
+                                </td>
+                            </tr>
+                        </table>
+                        <p>
+
+                            <br/>
+                            <span t-field="doc.company_id.currency_id"/>
+                            <span t-field="doc.employee_gratuity_amount"/>
+                            will be Transferred to your Bank NBD account No.
+                        </p>
+
+
+                    </div>
+                </t>
+            </t>
+        </t>
+
+    </template>
+</odoo>

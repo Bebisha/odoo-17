@@ -1,0 +1,67 @@
+<odoo>
+    <data noupdate="1">
+        <record id="mr_seq_new" model="ir.sequence">
+            <field name="name">MR Sequence</field>
+            <field name="code">mr.seq</field>
+            <field name="prefix">MO_%(year)s</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_packing_no_new" model="ir.sequence">
+            <field name="name">Packing No</field>
+            <field name="code">packing.no</field>
+            <field name="prefix">BOQ_%(y)s%(month)s</field>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_commercial_invoice_new" model="ir.sequence">
+            <field name="name">Commercial Invoice</field>
+            <field name="code">commercial.inv</field>
+            <field name="prefix">CI_%(y)s%(month)s</field>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_proforma_invoice" model="ir.sequence">
+            <field name="name">Proforma Invoice</field>
+            <field name="code">proforma.inv</field>
+            <field name="prefix">PI/%(y)s%(month)s/</field>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_customer_codes_id" model="ir.sequence">
+            <field name="name">Customer Code</field>
+            <field name="code">customer_code_seq</field>
+            <field name="prefix">DR</field>
+            <!--        <field eval="1" name="number_increment"/>-->
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_do" model="ir.sequence">
+            <field name="name">Delivery Note</field>
+            <field name="code">do.seq</field>
+            <field name="prefix"></field>
+            <!--        <field eval="1" name="number_increment"/>-->
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_vendor_codes_new_id" model="ir.sequence">
+            <field name="name">Vendor Code</field>
+            <field name="code">vendor_code_seq</field>
+            <field name="prefix">CR</field>
+            <!--        <field eval="1" name="number_increment"/>-->
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+
+    </data>
+
+</odoo>

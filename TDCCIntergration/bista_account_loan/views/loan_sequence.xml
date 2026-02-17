@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Sequences for certificate.of.completion -->
+        <record id="seq_loan_management" model="ir.sequence">
+            <field name="name">Loan Management</field>
+            <field name="code">account.loan.sequence</field>
+            <field name="prefix">FL</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+    </data>
+</openerp>

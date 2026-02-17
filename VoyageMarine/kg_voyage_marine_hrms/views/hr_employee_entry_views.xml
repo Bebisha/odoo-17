@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <menuitem id="hr_entry_tree" name="Entry" parent="hr.menu_hr_root" sequence="3"/>
+
+        <record id="hr_employee_entry_tree" model="ir.ui.view">
+            <field name="name">hr.employee.entry.tree</field>
+            <field name="model">hr.employee.entry</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Entries" editable="bottom" js_class="button_in_tree">
+                    <header>
+                        <button name="submit_for_approval" type="object" string="Request Approval"/>
+                        <button name="action_approve" type="object" string="Approve"/>
+                        <button name="action_set_to_draft" type="object" string="Set To Draft"/>
+                    </header>
+                    <field name="employee_id" readonly="state != 'draft' or state == 'approved'"/>
+                    <field name="type_entry" readonly="state != 'draft' or state == 'approved'"/>
+                    <field name="vessel_id" optional="hide" readonly="state != 'draft' or state == 'approved'"/>
+                    <field name="parent_id" optional="hide" readonly="state != 'draft' or state == 'approved'"/>
+                    <field name="start_date" readonly="state != 'draft' or state == 'approved'"/>
+                    <field name="end_date" readonly="state != 'draft' or state == 'approved'"/>
+                    <field name="duration" readonly="1" force_save="1" widget="float_time"/>
+                    <field name="name" readonly="state != 'draft' or state == 'approved'"/>
+                    <field name="total_allowance" readonly="1" force_save="1" column_invisible="1"/>
+                    <field name="anchorage_deduction" readonly="1" string="Anchorage Deduction Amount"/>
+                    <field name="overseas_deduction"
+                           readonly="1" string="Overseas Deduction Amount"/>
+                    <field name="over_time"
+                           readonly="1" string="Overtime Amount"/>
+                    <field name="over_time_rate"
+                           readonly="1" string="Overtime Fixed Allowance" column_invisible="1"/>
+
+                    <field name="state" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_employee_entry_search_id" model="ir.ui.view">
+            <field name="name">hr.employee.entry.search</field>
+            <field name="model">hr.employee.entry</field>
+            <field name="arch" type="xml">
+                <search string="Employee Documents">
+                    <field name="employee_id" string="Employee"/>
+                    <field name="vessel_id" string="Vessel"/>
+                    <field name="parent_id" string="Manager"/>
+                    <field name="type_entry" string="Entry type"/>
+                    <field name="state" string="Status"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Month" name="start_date"
+                                context="{'group_by':'start_date'}"/>
+                        <filter string="Vessel" name="vessel_id"
+                                context="{'group_by':'vessel_id'}"/>
+                        <filter string="Anchorage" name="type_entry"
+                                domain="[('type_entry','=','anchorage_entry')]"/>
+                        <filter string="Overseas" name="vessel_id"
+                                domain="[('type_entry','=','overseas_entries')]"/>
+                        <filter string="Draft" name="state"
+                                domain="[('state','=','draft')]"/>
+                        <filter string="To Approve" name="state"
+                                domain="[('state','=','to_approve')]"/>
+                        <filter string="Approve" name="state"
+                                domain="[('state','=','approved')]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_employee_entry_tree_action" model="ir.actions.act_window">
+            <field name="name">Employee Entries</field>
+            <field name="res_model">hr.employee.entry</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="hr_employee_entry_tree_menus" action="hr_employee_entry_tree_action"
+                  parent="kg_voyage_marine_hrms.hr_entry_tree" sequence="1"/>
+
+    </data>
+</odoo>

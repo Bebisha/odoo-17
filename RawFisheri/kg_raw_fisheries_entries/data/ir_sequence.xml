@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--  creating reference number for budget usage entry -->
+        <record id="budget_usage_sequence_id" model="ir.sequence">
+            <field name="name">Budget Usage Entry Sequence</field>
+            <field name="code">budget.usage.entry.sequence</field>
+            <field name="prefix">BE/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!--  creating reference number for daily stock report -->
+        <record id="daily_stock_sequence_id" model="ir.sequence">
+            <field name="name">Daily Stock Sequence</field>
+            <field name="code">daily.stock.sequence</field>
+            <field name="prefix">DSR/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

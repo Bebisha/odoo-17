@@ -1,0 +1,25 @@
+<odoo>
+    <record model="ir.ui.view" id="kg_project_res_users_form_inherit">
+        <field name="name">kg.project.res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <field name="share" position="after">
+                <field name="related_is_task_assigned" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="kg_project_res_users_search_inherit">
+        <field name="name">kg.project.res.users.search.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='filter_share']" position="after">
+                <filter name="assigned" string="Assigned" domain="[('related_is_task_assigned','=',True)]"/>
+                <filter name="unassigned" string="Unassigned" domain="[('related_is_task_assigned','=',False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

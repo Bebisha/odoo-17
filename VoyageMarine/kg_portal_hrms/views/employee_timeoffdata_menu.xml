@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="action_timeoff" model="ir.actions.act_window">
+            <field name="name">Employee Timeoff</field>
+            <field name="res_model">employee.time_off</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="employee_timeoff_view_form" model="ir.ui.view">
+            <field name="name">employee.time_off.form</field>
+            <field name="model">employee.time_off</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id" readonly="1"/>
+                                <field name="holiday_status_id" readonly="1"/>
+                                <field name="number_of_days_display" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="start_date" readonly="1"/>
+                                <field name="end_date" readonly="1"/>
+                                <field name="reason" readonly="1"/>
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="employee_timeoff_view_tree" model="ir.ui.view">
+            <field name="name">employee.time_off.tree</field>
+            <field name="model">employee.time_off</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="holiday_status_id"/>
+                    <field name="reason"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem
+                id="employee_time_off_portal"
+                name="Portal TimeOff"
+                parent="hr_holidays.menu_hr_holidays_management"
+                sequence="20"
+                action="action_timeoff"/>
+    </data>
+</odoo>

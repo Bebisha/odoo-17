@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="boe_wizard_form" model="ir.ui.view">
+        <field name="name">boe.module.create.form</field>
+        <field name="model">boe.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="boe_type"/>
+                    <field name="boe_no"/>
+                    <field name="ship_no"/>
+                    <field name="purchase_ids" widget="many2many_tags" invisible="1"/>
+                    <field name="stock_ids" widget="many2many_tags"/>
+                </group>
+                <footer>
+                    <button string="Add Boe Details" class="oe_highlight" type="object" name="add_values"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record model="ir.actions.server" id="action_confirm">
+        <field name="name">Add Boe Details</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.open_boe()
+        </field>
+    </record>
+    <record model="ir.actions.server" id="action_confirm">
+        <field name="name">Add Boe Details</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.open_boe_sale()
+        </field>
+    </record>
+    <record model="ir.actions.server" id="action_confirm">
+        <field name="name">Add Boe Details</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.open_boe_stock()
+        </field>
+    </record>
+</odoo>

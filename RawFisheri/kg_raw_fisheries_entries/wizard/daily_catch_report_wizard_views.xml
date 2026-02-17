@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="daily_catch_report_wizard_form" model="ir.ui.view">
+            <field name="name">daily.catch.report.wizard.form</field>
+            <field name="model">daily.catch.report.wizard</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Daily Catch Report">
+                    <group>
+                        <group>
+                            <field name="date_from" required="1"/>
+                        </group>
+                        <group>
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="vessel_id"/>
+                    </group>
+                    <footer>
+                        <button string="Print" name="action_print_xlsx" type="object" class="btn-primary"/>
+                        <button string="Cancel" name="cancel" type="object" special="cancel" class="btn-cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

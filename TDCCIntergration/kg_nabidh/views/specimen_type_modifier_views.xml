@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="specimen_type_modifier_views_form" model="ir.ui.view">
+        <field name="name">specimen.type.modifier.form</field>
+        <field name="model">specimen.type.modifier</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                    <group>
+                        <group>
+
+                            <field name="specimen_ID" placeholder="3258EDTA000004" invisible="1"/>
+                            <field name="specimen_id"/>
+                            <field name="specimen_type_id"/>
+                            <field name="specimen_date_time"/>
+                            <field name="specimen_source" placeholder="Blood/" invisible="1"/>
+                            <field name="specimen_source_id"/>
+<!--                            <field name="specimen_condition_id"/>-->
+<!--                            <field name="specimen_condition" placeholder="Fasting/" invisible="1"/>-->
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

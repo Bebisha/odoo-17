@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="view_hr_employee_id_expiry_tree" model="ir.ui.view">
+            <field name="name">hr.employee.id.expiry.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <tree string="ID Expiry Report" create="False"
+                      decoration-danger="employee_id_expiry_date and employee_id_expiry_date &lt; current_date"
+                      decoration-warning="employee_id_expiry_date &gt; current_date and employee_id_expiry_date &lt;= (context_today() + relativedelta(months=1)).strftime('%Y-%m-%d')"
+                      decoration-info="employee_id_expiry_date &gt; current_date and employee_id_expiry_date &lt;= (context_today() + relativedelta(months=2)).strftime('%Y-%m-%d')">
+                    <field name="name" string="Employee"/>
+                    <field name="employee_id_expiry_date"/>
+                    <field name="employee_id_issue_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_employee_id_expiry_search" model="ir.ui.view">
+            <field name="name">hr.employee.id.expiry.search</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <search string="Employee ID Expiry">
+                    <field name="name"/>
+                    <field name="employee_id_expiry_date"/>
+                    <filter name="expired" string="Expired"
+                            domain="[('employee_id_expiry_date', '&lt;', context_today())]"/>
+                    <separator/>
+                    <filter name="to_expire" string="To Expire in 2 Months"
+                            domain="[('employee_id_expiry_date', '&gt;=', context_today()), ('employee_id_expiry_date', '&lt;=', (context_today() + relativedelta(months=2)))]"/>
+                    <filter name="to_expire" string="To Expire in 1 Month"
+                            domain="[('employee_id_expiry_date', '&gt;=', context_today()), ('employee_id_expiry_date', '&lt;=', (context_today() + relativedelta(months=1)))]"/>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

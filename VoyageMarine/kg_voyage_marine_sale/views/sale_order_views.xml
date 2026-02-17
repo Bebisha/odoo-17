@@ -1,0 +1,893 @@
+<odoo>
+    <data>
+        <record id="kg_view_order_form_inherit" model="ir.ui.view">
+            <field name="name">approval.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//create[@name='add_section_control']" position="replace">
+                    <button name="add_section"/>
+                </xpath>
+                <xpath expr="//create[@name='add_note_control']" position="attributes">
+                    <attribute name="string"> Add a Section</attribute>
+                </xpath>
+
+                <xpath expr="//div[@class='oe_button_box']" position="after">
+                    <widget name="web_ribbon" title="Pending Approval" bg_color="text-bg-info"
+                            invisible="qtn_requested != True or qtn_approved == True"/>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success"
+                            invisible="qtn_approved != True"/>
+                    <widget name="web_ribbon" title="Reject" bg_color="bg-danger"
+                            invisible="is_reject != True"/>
+                    <widget name="web_ribbon" title="Sale" bg_color="bg-success"
+                            invisible="state != 'sale'"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger"
+                            invisible="state != 'cancel'"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_confirm']" position="before">
+                    <field name="qtn_requested" invisible="1"/>
+                    <field name="qtn_approved" invisible="1"/>
+                    <field name="user_approver" invisible="1"/>
+
+                    <field name="hide_revision_button" invisible="1"/>
+                    <field name="is_approval_required" invisible="1"/>
+                    <field name="hod_approved" invisible="1"/>
+                    <field name="supervisor_approved" invisible="1"/>
+                    <field name="is_reject" invisible="1"/>
+                    <field name="show_reject_button" invisible="1"/>
+                    <field name="hide_reject_button" invisible="1"/>
+                    <field name="is_readonly" invisible="1"/>
+                    <field name="boe_created" invisible="1"/>
+                    <field name="need_boe" invisible="1"/>
+                    <field name="qtn_requested_approved" invisible="1"/>
+                    <field name="requested_revision" invisible="1"/>
+                    <field name="approved_revision" invisible="1"/>
+                    <field name="created_revision" invisible="1"/>
+                    <field name="is_hod_reject" invisible="1"/>
+                    <field name="mr_created" invisible="1"/>
+                    <field name="need_mr" invisible="1"/>
+                    <button name="action_create_mr"
+                            string="Create MR"
+                            type="object"
+                            confirm="Are you sure you want to create the MR?"
+                            class="btn-primary"
+                            invisible="state != 'sale' "/>
+                    <button name="action_open_package_list"
+                            string="Create Packing"
+                            type="object"
+                            class="btn-primary" invisible="state not in ['sale','done']"/>
+                    <button name="qtn_approval_request" type="object" string="Request For Approval"
+                            invisible="qtn_requested == True or state in ['sale','done','cancel'] or is_reject == True"
+                            class="oe_highlight"/>
+                    <button name="qtn_approve" type="object" string="Quotation Approve"
+                            invisible="qtn_approved == True or qtn_requested == False or is_reject == True or state in ['sale','done','cancel']"
+                            class="oe_highlight"/>
+                    <button name="hod_approve" type="object" string="Head of Department"
+                            invisible="qtn_approved == False or is_approval_required == False or hod_approved == True or is_reject == True or state in ['sale','done','cancel']"
+                            class="oe_highlight"/>
+                    <button name="supervisor_approve" type="object" string="Management"
+                            invisible="amount_in_currency &lt;= 500000 or hod_approved == False or is_approval_required == False or supervisor_approved == True or is_reject == True or state in ['sale','done','cancel']"
+                            class="oe_highlight"/>
+                    <button name="kg_reject" type="object" string="Reject"
+                            invisible="show_reject_button == False or  is_reject == True or hide_reject_button == True or is_hod_reject == True"
+                            class="oe_highlight"/>
+<!--                    <button name="create_pro_inv" type="object" string="Create PRO-FORMA Invoice"-->
+<!--                            invisible="state != 'sale' or proforma_invoice_no"-->
+<!--                            class="oe_highlight"/>-->
+
+                    <button name="request_revision" type="object" string="Request For Revision"
+                            invisible="qtn_approved == False or hide_revision_button == True or state == 'cancel' or is_reject == True or requested_revision == True"/>
+                    <button name="approve_revision" type="object" string="Approve For Revision"
+                            invisible="requested_revision == False or approved_revision == True"
+                            class="oe_highlight"/>
+                    <button name="revision_reason" type="object" string="Create Revision"
+                            invisible="approved_revision == False or created_revision == True"
+                            class="oe_highlight"/>
+
+                    <button name="create_boe" type="object" string="Create BOE"
+                            invisible="boe_created == True or  state in ['sale','done','cancel'] or need_boe == False"
+                            class="oe_highlight"/>
+                    <button string="Create RFQ" name="open_rfq_wizard" type="object" class="oe_highlight"  invisible="state == 'cancel'"/>
+                    <button string="Delivery Note" name="action_delivery_note" type="object" class="oe_highlight"
+                            invisible="1"/>
+
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@id='send_by_email_primary']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@id='send_proforma_primary']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@id='send_proforma']" position="attributes">
+                    <attribute name="invisible">not proforma_invoice_no</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_draft']" position="attributes">
+                    <attribute name="invisible">state in ['sale','draft']</attribute>
+                </xpath>
+
+                <field name="partner_id" position="after">
+                    <field name="estimate_partner_ids" widget="many2many_tags" invisible="1"/>
+                    <field name="partner_id" widget="res_partner_many2one"
+                           context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                           placeholder="Type to find a customer..." readonly="qtn_requested_approved == True"
+                           domain="['|', ('partner_type', '=', 'customer'), ('partner_type', '=', False)]"
+/>
+                </field>
+
+                <xpath expr="//page[@name='other_information']/group/group[@name='sales_person']" position="inside">
+                    <field name="is_display_vat_column" />
+                </xpath>
+
+
+                <xpath expr="//notebook/page[@name='other_information']/group" position="inside">
+                    <group name="sale_revision" string="Revision">
+                        <field name="main_revision_id" readonly="1" force_save="1"/>
+                        <field name="revision_count" invisible="1" force_save="1"/>
+                        <field name="sale_revision_reason" readonly="1" force_save="1"/>
+                        <field name="revision_ids" readonly="1" force_save="1" widget="many2many_tags"/>
+                        <field name="available_reserved_lots" invisible="1"/>
+                    </group>
+
+                    <group name="estimation" string="Estimation">
+                        <field name="estimation_id" readonly="1" force_save="1"/>
+                    </group>
+                    <group name="material_requisition" string="Material Requisition">
+                        <field name="mr_ids" readonly="1" force_save="1" widget="many2many_tags"/>
+                    </group>
+                    <group name="purchase" string="Purchase">
+                        <field name="po_ids" readonly="1" force_save="1" widget="many2many_tags"/>
+                        <field name="so_po_ids" readonly="1" force_save="1" widget="many2many_tags" invisible="1"/>
+                        <field name="est_po_ids" readonly="1" force_save="1" widget="many2many_tags" invisible="1"/>
+                        <field name="enq_po_ids" readonly="1" force_save="1" widget="many2many_tags" invisible="1"/>
+                        <field name="mr_po_ids" readonly="1" force_save="1" widget="many2many_tags" invisible="1"/>
+                        <field name="purchase_status" readonly="1" force_save="1"/>
+                        <field name="po_attach_files" readonly="state != 'draft' and not user_approver or qtn_requested_approved == True"
+                               widget="many2many_binary"/>
+                    </group>
+                    <group name="survey" string="Survey">
+                        <field name="survey_id" readonly="state != 'draft' and not user_approver or qtn_requested_approved == True"/>
+                        <field name="survey_start_url"/>
+                    </group>
+                    <group name="manufacturing" string="Manufacturing">
+                        <field name="boe_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                    </group>
+                    <group name="approvals" string="Approved By">
+                        <field name="qtn_approved_user" readonly="1" force_save="1"/>
+                        <field name="hod_approved_user" readonly="1" force_save="1"/>
+                        <field name="supervisor_approved_user" readonly="1" force_save="1"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='product_uom']"
+                       position="after">
+                    <field name="delivery_date" readonly="is_order_approved"/>
+                    <field name="delivery_schedule" optional="hide" readonly="is_order_approved"/>
+                    <field name="manin_product_order_line_id" column_invisible="1"/>
+                    <field name="is_discount_line" column_invisible="1"/>
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='discount']"
+                       position="after">
+                    <field name="fixed_discount" optional="hide" readonly="is_order_approved"/>
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='customer_lead']"
+                       position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+<!--                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='margin']"-->
+<!--                       position="attributes">-->
+<!--                    <attribute name="readonly">False</attribute>-->
+<!--                </xpath>-->
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <field name="revision_count" invisible="1"/>
+                    <field name="boe_count" invisible="1"/>
+                    <field name="estimation_id" invisible="1"/>
+                    <field name="mr_count" invisible="1"/>
+                    <button class="oe_stat_button" type="object" name="action_view_revisions" icon="fa-bars"
+                            invisible="revision_count == 0">
+                        <field string="Revisions" name="revision_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" type="object" name="get_estimation" icon="fa-arrow-right"
+                            string="Estimation" invisible="not estimation_id"
+                            widget="statinfo">
+                    </button>
+                    <button class="oe_stat_button" type="object" name="get_mr_ids" icon="fa-exchange"
+                            invisible="not mr_ids" widget="statinfo">
+                        <field string="Material Requisition" name="mr_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" type="object" name="action_view_boe" icon="fa-flask"
+                            invisible="boe_count == 0">
+                        <field string="Bill of Materials" name="boe_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" type="object" name="action_view_bom" icon="fa-flask"
+                            invisible="bom_count == 0">
+                        <field string="Bill of Materials" name="bom_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" type="object" name="action_view_mo" icon="fa-flask"
+                            invisible="mo_count == 0">
+                        <field string="Manufacturing Order" name="mo_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" name="action_packing"
+                            type="object" icon="fa-bars" string="Packing List" invisible="packing_form_count == 0">
+                        <field name="packing_form_count" widget="statinfo" string="Packing List"/>
+                    </button>
+
+
+                </xpath>
+                <div class="oe_button_box" position="after">
+                    <widget name="web_ribbon" title="Rejected" bg_color="bg-danger"
+                            invisible="is_reject == False"/>
+                </div>
+                <xpath expr="//notebook/page[@name='other_information']" position="after">
+                    <page name="qtn_lines" string="Quotation Lines" invisible="1">
+                        <field name="qtn_so_line_ids" widget="section_and_note_one2many"
+                               readonly="state != 'draft' or qtn_requested_approved == True">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="description" widget="section_and_note_text"/>
+                                <field name="quantity"/>
+                                <field name="uom_id"/>
+                                <field name="unit_price"/>
+                                <field name="tax_ids" widget="many2many_tags"/>
+                                <field name="total" sum="Total"/>
+                                <button name="add_lines" type="object" string="Add Lines"
+                                        class="oe_highlight" invisible="parent.state != 'draft' or not product_id"/>
+
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Required Documents" name="processing_docs">
+                    <group>
+                        <group>
+                            <field name="processing_doc_ids" widget="many2many_tags"
+                                   options="{'no_create_edit': True,'no_create': True}"/>
+                        </group>
+                    </group>
+                    <br/>
+                    <field name="checklist_line_ids" options="{'no_create': True}">
+                        <tree editable="bottom" create="false" delete="false">
+                            <field name="processing_document_id" string="Documents"
+                                   options="{'no_create_edit': True,'no_create': True}"/>
+                            <field name="checklist_name_id" options="{'no_create_edit': True,'no_create': True}"
+                                   column_invisible="1"/>
+                            <field name="checkbox" string="Is Attached?" widget="boolean_toggle" column_invisible="1" readonly="1"/>
+                            <field name="attachment_filename" column_invisible="1"/>
+                            <field name="attachment" filename="attachment_filename" column_invisible="1"/>
+                            <field name="doc_attach_ids" widget="many2many_binary" class="oe_inline"/>
+                        </tree>
+                    </field>
+                </page>
+<!--                    <page string="Attachments">-->
+<!--                        <group>-->
+<!--                            <group>-->
+<!--                                <field name="po_attachment" filename="po_attachment_name"/>-->
+<!--                                <field name="po_attachment_name" invisible="1"/>-->
+<!--                            </group>-->
+<!--                            <group>-->
+<!--                                <field name="do_attachment" filename="do_attachment_name"/>-->
+<!--                                <field name="do_attachment_name" invisible="1"/>-->
+<!--                                <field name="available_reserved_lots" invisible="1"/>-->
+<!--                            </group>-->
+<!--                            <group>-->
+<!--                                <field name="job_completion_attachment" filename="job_completion_attachment_name"/>-->
+<!--                                <field name="job_completion_attachment_name" invisible="1"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
+<!--                    </page>-->
+                </xpath>
+
+                <field name="partner_shipping_id" position="after">
+                    <field name="order_type" required="1"
+                           readonly="is_readonly == True or qtn_requested_approved == True"/>
+                    <field name="vessel_name" readonly="is_readonly == True or qtn_requested_approved == True"
+                           invisible="1"/>
+                    <field name="vessel_id" readonly="is_readonly == True or qtn_requested_approved == True"/>
+                    <field name="division_id" required="1"
+                           readonly="is_readonly == True or qtn_requested_approved == True"/>
+                    <field name="jr_no"/>
+                    <field name="type_id"/>
+<!--                    <field name="bank_id"  widget="many2many_tags"/>-->
+
+                    <field name="amount_in_currency" invisible="1"/>
+                    <field name="is_approval_required" invisible="1"/>
+                    <field name="verify_payment_term" widget="many2many_tags" invisible="1"/>
+                </field>
+                <xpath expr="//group[@name='sale_header']/group[@name='order_details']" position="after">
+                    <group string="Choose Approval Users" name="choose_approve_users">
+                        <field name="qtn_approver_id" readonly="state not in ['draft', 'sent']" invisible="1"/>
+
+                        <field name="qtn_approve_user_ids" widget="many2many_tags"
+                               readonly="is_readonly == True or qtn_requested_approved == True"
+                               required="1"/>
+                        <field name="hod_approve_user_ids" widget="many2many_tags"
+                               readonly="is_readonly == True or qtn_requested_approved == True"
+                               required="is_approval_required" invisible="amount_in_currency &lt; 100000"/>
+
+                        <field name="sup_approve_user_ids" widget="many2many_tags"
+                               invisible="amount_in_currency &lt;= 500000"
+                               readonly="is_readonly == True or qtn_requested_approved == True"
+                               required="amount_in_currency &gt;= 500000"/>
+                        <field name="rejected_reason" readonly="1" force_save="1" invisible="state != 'rejected'"/>
+                    </group>
+
+                </xpath>
+                <xpath expr="//group[@name='note_group']/group[hasclass('oe_subtotal_footer')]"
+                       position="inside">
+                    <field colspan="2" name="advance_preview" nolabel="1" readonly="1" force_save="1"/>
+                </xpath>
+
+                <field name="payment_term_id" position="attributes">
+                    <attribute name="domain">[('id', 'in', verify_payment_term)]</attribute>
+                </field>
+
+                <field name="partner_invoice_id" position="before">
+                    <field name="attention" invisible="1"
+                           readonly="state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved == True"/>
+                     <field name="attn"
+                           readonly="state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved == True"/>
+                </field>
+
+                <field name="journal_id" position="after">
+                    <field name="partner_bank_id"
+                           readonly="state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved == True"/>
+                    <field name="company_partner_id" invisible="1"/>
+                    <field name="bank_id" widget="many2many_tags" domain="[('partner_id','=',company_partner_id)]"/>
+                </field>
+
+                <field name="payment_term_id" position="after">
+                    <field name="so_confirmed" invisible="1"/>
+                    <field name="quotation_reference" readonly="1" force_save="1" invisible="not so_confirmed"/>
+                    <field name="customer_reference" readonly="state != 'draft' and not user_approver or qtn_requested_approved == True"/>
+                    <field name="purchase_reference"/>
+                    <field name="purchase_date"/>
+                    <field name="proforma_invoice_no" invisible="1" force_save="1"/>
+                    <field name="so_reference" invisible="1"/>
+                    <field name="revision_id" invisible="1" />
+                </field>
+
+                <field name="payment_term_id" position="attributes">
+                    <attribute name="readonly">is_readonly == True or qtn_requested_approved == True or state != 'draft'
+                    </attribute>
+                </field>
+
+<!--                <field name="order_line" position="attributes">-->
+<!--                    <attribute name="readonly">qtn_requested_approved ==True</attribute>-->
+<!--                </field>-->
+                <field name="user_id" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="team_id" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="partner_invoice_id" position="attributes">
+                    <attribute name="readonly"> state != 'draft' and not user_approver or qtn_requested_approved == True</attribute>
+                </field>
+                <field name="partner_shipping_id" position="attributes">
+                    <attribute name="readonly"> state != 'draft' and not user_approver or qtn_requested_approved == True</attribute>
+                </field>
+                <field name="pricelist_id" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or qtn_requested_approved</attribute>
+                </field>
+                <field name="sale_order_option_ids" position="attributes">
+                    <attribute name="readonly">qtn_requested_approved == True</attribute>
+                </field>
+                <field name="sale_order_template_id" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or qtn_requested_approved == True</attribute>
+                </field>
+
+                <field name="date_order" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or qtn_requested_approved == True</attribute>
+                </field>
+                <field name="validity_date" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or qtn_requested_approved == True</attribute>
+                </field>
+                <xpath expr="//page[@name='other_information']/group/group[@name='sales_person']/field[@name='company_id']"
+                       position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </xpath>
+                <field name="client_order_ref" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="tag_ids" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="fiscal_position_id" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="incoterm" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="incoterm_location" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="origin" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="opportunity_id" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="campaign_id" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or qtn_requested_approved == True</attribute>
+                </field>
+                <field name="medium_id" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="source_id" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="commitment_date" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="signed_by" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="signed_on" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="signature" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+                <field name="note" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or is_readonly == True or qtn_requested_approved ==True
+                    </attribute>
+                </field>
+
+                <field name="require_signature" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or qtn_requested_approved ==True</attribute>
+                </field>
+
+                <field name="require_payment" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or qtn_requested_approved ==True</attribute>
+                </field>
+
+                <field name="journal_id" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or qtn_requested_approved ==True</attribute>
+                </field>
+
+                <field name="analytic_account_id" position="attributes">
+                    <attribute name="readonly">state != 'draft' and not user_approver or qtn_requested_approved ==True</attribute>
+                </field>
+
+                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_uom'][2]"
+                       position="attributes">
+                    <attribute name="required">0</attribute>
+                    <attribute name="readonly">is_order_approved</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='name']"
+                       position="attributes">
+                    <attribute name="readonly">display_type == 'line_section'</attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='product_id']"
+                       position="before">
+                    <field name="is_subitem" widget="boolean_toggle" string="Sub Item" column_invisible="1"/>
+                    <field name="is_order_approved" width="60px" column_invisible="1"/>
+                    <field name="base_price_unit" width="60px" column_invisible="1"/>
+                    <field name="sl_no" width="60px" string="SI.NO" readonly="is_order_approved"/>
+                    <field name="item_id" width="60px" string="item_id" column_invisible="1"/>
+                    <field name="labour_id" width="60px" string="labour_id" column_invisible="1"/>
+                    <field name="material_cost_id" width="60px" string="material_cost_id" column_invisible="1"/>
+                    <field name="other_cost_id" width="60px" string="other_cost_id" column_invisible="1"/>
+                    <field name="is_fl" width="60px" string="is_fl" column_invisible="1"/>
+                    <field name="is_discount_line" column_invisible="1" />
+                    <field name="code" width="60px" string="Code" required="is_order_approved or not is_discount_line "/>
+                    <field name="child_line_ids" column_invisible="1"/>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="required">0</attribute>
+                    <attribute name="readonly">is_order_approved ==True</attribute>
+
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_template_id']"
+                       position="attributes">
+                    <attribute name="readonly">is_order_approved ==True</attribute>
+
+                </xpath>
+ <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='name']"
+                       position="attributes">
+                    <attribute name="readonly">is_order_approved ==True</attribute>
+
+                </xpath>
+<xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_uom_qty']"
+                       position="attributes">
+                    <attribute name="readonly">is_order_approved ==True</attribute>
+
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='delivery_date']"
+                       position="attributes">
+                    <attribute name="readonly">is_order_approved ==True</attribute>
+
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_uom']"
+                       position="attributes">
+                    <attribute name="readonly">is_order_approved ==True</attribute>
+
+                </xpath>
+<!--                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='price_unit']"-->
+<!--                       position="attributes">-->
+<!--                    <attribute name="readonly">is_order_approved ==True</attribute>-->
+
+<!--                </xpath>-->
+                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='tax_id']"
+                       position="attributes">
+                    <attribute name="readonly">is_order_approved ==True</attribute>
+
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='discount']"
+                       position="attributes">
+                    <attribute name="readonly">is_order_approved ==True</attribute>
+
+                </xpath>
+<!--                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='purchase_price']"-->
+<!--                       position="attributes">-->
+<!--                    <attribute name="readonly">is_order_approved ==True</attribute>-->
+
+<!--                </xpath>-->
+
+
+<!--                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_template_id']"-->
+<!--                       position="attributes">-->
+<!--                    <attribute name="required">0</attribute>-->
+<!--                    <attribute name="column_invisible">parent.is_rental_product</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_id']"-->
+<!--                       position="before">-->
+<!--                     <field name ="product_template_id" domain=" [('rent_ok', '=', True),-->
+<!--                         ]" column_invisible="not parent.is_rental_product"/>-->
+<!--                     <field name ="product_id" domain=" [('rent_ok', '=', True),-->
+<!--                       ]" column_invisible="not parent.is_rental_product"  optional="hide"/>-->
+
+<!--                 </xpath>-->
+
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="department_id"/>
+                </xpath>
+
+                <xpath expr="//page[@name='customer_signature']" position="after">
+                    <page string="Terms and Conditions" name="terms_conditions">
+                        <group>
+                            <group name="sales_condition" string="Sales">
+                                <field name="terms_conditions_id" options="{'no_create': True}"
+                                       placeholder="Select Terms &amp; Conditions"
+                                       readonly="state != 'draft' and not user_approver or qtn_requested_approved ==True"/>
+                                <field name="note" placeholder="Terms &amp; Conditions"
+                                       readonly="state != 'draft' and not user_approver or qtn_requested_approved ==True"/>
+                            </group>
+                            <group name="delivery_condition" string="Delivery">
+                                <field name="delivery_terms_id" options="{'no_create': True}"
+                                       readonly="is_readonly == True or qtn_requested_approved == True"/>
+                                <field name="delivery_terms_condition"
+                                       readonly="state != 'draft' and not user_approver or qtn_requested_approved ==True"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='note']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='effective_date']" position="after">
+                    <field name="delivery_duration" readonly="state != 'draft' and not user_approver or qtn_requested_approved == True"/>
+                </xpath>
+
+
+                <xpath expr="//button[@id='create_invoice']" position="attributes">
+                    <attribute name="invisible">invoice_status not in ['to invoice','partial']</attribute>
+                </xpath>
+                <xpath expr="//group[@name='note_group']" position="before">
+                    <group>
+                        <field name="freight_custom" widget="monetary" options="{'currency_field': 'currency_id'}"
+                               readonly="state != 'draft' and not user_approver or qtn_requested_approved == True"/>
+                    </group>
+                    <group>
+                        <field name="custom_charge" widget="monetary" options="{'currency_field': 'currency_id'}"
+                               readonly="state != 'draft' and not user_approver or qtn_requested_approved == True"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//group[@name='note_group']/group[@name='sale_total']/field[@name='tax_totals']"
+                       position="after">
+                    <field name="amount_total"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']" position="before">
+                    <div class="d-flex" style="gap:10px;">
+                        <button name="add_section" type="object" string="Add a Note"
+                                invisible="qtn_requested_approved == True"
+                                class="oe_highlight"/>
+                        <button name="edit_section" type="object" string="Edit a Note"
+                                invisible="qtn_requested_approved == True"
+                                class="oe_highlight"/>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="kg_view_quotation_tree_with_onboarding_inherit" model="ir.ui.view">
+            <field name="name">kg.qtn.onboarding.tree.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="purchase_status"
+                           decoration-muted="purchase_status == 'ac_acknowledged'"
+                           decoration-info="purchase_status == 'in_stock'"
+                           decoration-warning="purchase_status == 'rfq'"
+                           decoration-primary="purchase_status == 'po_raised'"
+                           decoration-success="purchase_status == 'received'"
+                           widget="badge"/>
+                    <field name="approval_status"  widget="badge"
+                           decoration-warning="approval_status == 'pending'"
+                           decoration-success="approval_status == 'approved'"
+                           decoration-danger="approval_status == 'rejected'"
+                           decoration-muted="approval_status == 'none'"
+                    />
+                    <field name="delivery_status" string="Delivery Status"/>
+                    <field name="purchase_reference" string="Purchase Ref"/>
+
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_inherit_tree_sale_order_view" model="ir.ui.view">
+            <field name="name">kg.inherit.sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="invoice_status" position="after">
+
+                    <field name="purchase_status"
+                           decoration-muted="purchase_status == 'ac_acknowledged'"
+                           decoration-info="purchase_status == 'in_stock'"
+                           decoration-warning="purchase_status == 'rfq'"
+                           decoration-primary="purchase_status == 'po_raised'"
+                           decoration-success="purchase_status == 'received'"
+                           widget="badge"/>
+                    <field name="approval_status"  widget="badge"
+                       decoration-warning="approval_status == 'pending'"
+                       decoration-success="approval_status == 'approved'"
+                       decoration-danger="approval_status == 'rejected'"
+                       decoration-muted="approval_status == 'none'"
+
+                    />
+ <field name="delivery_status" string="Delivery Status"/>
+                    <field name="purchase_reference" string="Purchase Ref"/>
+
+                </field>
+
+
+            </field>
+        </record>
+
+
+
+        <record id="kg_view_crm_estimation_form_inherit" model="ir.ui.view">
+            <field name="name">kg.crm.estimation.form.inherit</field>
+            <field name="model">crm.estimation</field>
+            <field name="inherit_id" ref="kg_voyage_marine_crm.view_crm_estimation_form"/>
+            <field name="arch" type="xml">
+                <field name="estimate_date" position="after">
+                    <field name="division_id" required="1" readonly="status in ['confirm','cancel']"/>
+                </field>
+                  <xpath expr="//field[@name='partner_id']" position="attributes">
+                     <attribute name="domain">['|', ('partner_type', '=', 'customer'), ('partner_type', '=', False)]</attribute>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="kg_view_crm_lead_inherit" model="ir.ui.view">
+            <field name="name">kg.lead.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <field name="lost_reason_id" position="before">
+                    <field name="division_id" required="1"/>
+                    <field name="type_id" />
+                </field>
+
+            </field>
+        </record>
+         <record id="view_crm_lead_filter_inherits" model="ir.ui.view">
+            <field name="name">crm.lead.search.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/group" position="inside">
+                    <field name="type_id"/>
+                    <filter string="Local" name="local" domain="[('type_id', '=', 'local')]"/>
+                    <filter string="Middle East" name="meast" domain="[('type_id', '=', 'meast')]"/>
+                    <filter string="International" name="international" domain="[('type_id', '=', 'international')]"/>
+                    <filter string="Sister Concern" name="sisconcern" domain="[('type_id', '=', 'sisconcern')]"/>
+                    <filter string="Subcontracting" name="subcontracting"
+                            domain="[('type_id', '=', 'subcontracting')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_type_id" string="Type" context="{'group_by': 'type_id'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_sale_ar_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.ordfer.search.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/group" position="inside">
+                     <field name="type_id"/>
+
+
+            <!-- Filters -->
+                    <filter string="Local" name="local" domain="[('type_id', '=', 'local')]"/>
+                    <filter string="Middle East" name="meast" domain="[('type_id', '=', 'meast')]"/>
+                    <filter string="International" name="international" domain="[('type_id', '=', 'international')]"/>
+                    <filter string="Sister Concern" name="sisconcern" domain="[('type_id', '=', 'sisconcern')]"/>
+                    <filter string="Subcontracting" name="subcontracting" domain="[('type_id', '=', 'subcontracting')]"/>
+                    <filter string="Vessel" name="vessel_id" context="{'group_by': 'vessel_id'}"/>
+                    <filter string="Division" name="division_id" context="{'group_by': 'division_id'}"/>
+                    <filter string="Status" name="state" context="{'group_by': 'state'}"/>
+                     <group expand="0" string="Group By">
+                        <filter name="group_type_id" string="Type" context="{'group_by': 'type_id'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="kg_view_order_form_inherit_sale_project" model="ir.ui.view">
+            <field name="name">kg.sale.project.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_project.view_order_form_inherit_sale_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_view_project_ids']" position="replace">
+                    <button type="object" name="action_view_project_ids" class="oe_stat_button" icon="fa-puzzle-piece"
+                            invisible="not project_ids" groups="project.group_project_user">
+                        <field name="project_count" widget="statinfo" string="Projects"/>
+                    </button>
+                </xpath>
+                <xpath expr="//button[@name='action_view_milestone']" position="replace">
+                    <button class="oe_stat_button" name="action_view_milestone" type="object" icon="fa-check-square-o"
+                            invisible="not is_product_milestone or not project_ids"
+                            groups="project.group_project_milestone">
+                        <field name="milestone_count" widget="statinfo" string="Milestones"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+            <field name="domain">[('state','not in',['cancel','rejected'])]</field>
+        </record>
+
+        <record id="kg_cancel_action_quotations_with_onboarding" model="ir.actions.act_window">
+            <field name="name">Cancel/Reject Orders</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="domain">[('state','in',['cancel','rejected'])]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new quotation, the first step of a new sale!
+                </p>
+                <p>
+                    Once the quotation is confirmed by the customer, it becomes a sales order.
+                    <br/>
+                    You will be able to create an invoice and collect the payment.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="cancel_reject_menu" action="kg_cancel_action_quotations_with_onboarding" sequence="21"
+                  parent="sale.sale_order_menu"/>
+
+        <record id="kg_view_order_form_inherit_sale_stock_inherit" model="ir.ui.view">
+            <field name="name">kg.stock.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+            <field name="arch" type="xml">
+                <field name="picking_policy" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="picking_policy" position="after">
+                    <field name="picking_policy" required="True"
+                           readonly="state != 'draft' and not user_approver or qtn_requested_approved == True"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_view_order_form_with_variant_grid_inherit" model="ir.ui.view">
+            <field name="name">kg.grid.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_product_matrix.view_order_form_with_variant_grid"/>
+            <field name="arch" type="xml">
+                <field name="report_grids" position="attributes">
+                    <attribute name="readonly">not user_approver or qtn_requested_approved == True</attribute>
+                </field>
+            </field>
+        </record>
+
+          <record model="ir.ui.view" id="sale_margin_sale_order_inherited">
+        <field name="name">sale.order.margin.view.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line_form"/>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='margin']"
+                       position="attributes">
+                <attribute name="column_invisible">1</attribute>
+<!--                <attribute name="readonly">False</attribute>-->
+            </xpath>
+            <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='margin_percent']"
+                       position="attributes">
+                <attribute name="column_invisible">1</attribute>
+<!--                <attribute name="readonly">False</attribute>-->
+            </xpath>
+            <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='purchase_price']"
+                       position="attributes">
+                <attribute name="readonly">is_order_approved</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='margin']"
+                       position="after">
+                <field name="margin_per" string="Margin(%)" readonly="is_order_approved"/>
+                <field name="unit_price_margin_incl" optional="hide" readonly="is_order_approved"/>
+            </xpath>
+<!--            <xpath expr="//field[@name='tax_totals']" position="after">-->
+<!--                <label for="margin" groups="base.group_user"/>-->
+<!--                <div class="text-nowrap" groups="base.group_user">-->
+<!--                    <field name="margin" class="oe_inline"/>-->
+<!--                    <field name="amount_untaxed" invisible="1"/>-->
+<!--                    <span class="oe_inline" invisible="amount_untaxed == 0">-->
+<!--                        (<field name="margin_percent" nolabel="1" class="oe_inline" widget="percentage"/>)-->
+<!--                    </span>-->
+<!--                </div>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+        <record id="rental_order_primary_form_inherit_view" model="ir.ui.view">
+            <field name="name">rental.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="domain">
+                    [('rent_ok', '=', True)]
+                </attribute>
+
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='product_template_id']" position="attributes">
+                    <attribute name="domain">
+                    [('rent_ok', '=', True)]
+                </attribute>
+
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+
+</odoo>

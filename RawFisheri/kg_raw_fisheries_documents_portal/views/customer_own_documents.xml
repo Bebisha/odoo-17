@@ -1,0 +1,23 @@
+<odoo>
+
+    <template id="customer_own_documents_template" name="My Documents">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_body">
+                    <div class="row no-gutters">
+                        <div class="col-12">
+                            <h5 class="d-flex mb-1 mb-md-0 row">
+                                <div class="col-9">
+                                    <span t-field="document.name" class="text-truncate"/>
+                                    <small class="text-muted d-none d-md-inline">(#<span t-field="document.id"/>)
+                                    </small>
+                                </div>
+                            </h5>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

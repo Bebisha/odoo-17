@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="patient_visit_form" model="ir.ui.view">
+        <field name="name">patient.visit.views</field>
+        <field name="model">patient.visit</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                           <group>
+                        <group>
+                            <label for="full_name" string="Physician Name"/>
+                            <div>
+                                <div class="o_address_format" name="div_address">
+                                    <field name="first_name" invisible="1" placeholder="First Name..." class="o_first_name"/>
+                                    <field name="middle_name" invisible="1" placeholder="Middle Name......" class="o_middle_name"/>
+                                    <field name="last_name" invisible="1" class="o_last_name" placeholder="Last Name......."/>
+                                    <field name="full_name" widget="text" readonly="1" force_save="1"/>
+                                    <field name="mail_id" widget="email" />
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+
+                            <field name="admission_type" options="{'no_create': True}"/>
+                            <field name="patient_visit"/>
+                            <field name="visit_type"/>
+                            <field name="discharge_disposition_id" options="{'no_create': True}"/>
+<!--                            <field name="patient_class" options="{'no_create': True}"/>-->
+<!--                            <field name="patient_assigned_location_id"/>-->
+<!--&lt;!&ndash;                            <field name="patient_assigned_location_id"/>&ndash;&gt;-->
+<!--                            <field name="hospital_service" options="{'no_create': True}"/>-->
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+<!--    <menuitem id="patient_visit_menu"-->
+<!--              action="patient_visit_action"-->
+<!--              name="Patient visit"-->
+<!--              parent="kg_nabidh.patient_information_menu"/>-->
+
+</odoo>

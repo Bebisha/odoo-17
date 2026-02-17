@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+
+        <record id="kg_physical_status_action" model="ir.actions.act_window">
+            <field name="name">Physical Status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">physical.status</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_product_physical_status" name="Physical Status" parent="stock.menu_product_in_config_stock"
+                  action="kg_physical_status_action"/>
+
+        <record model="ir.ui.view" id="product_physical_status_tree">
+            <field name="name">physical.status.tree</field>
+            <field name="model">physical.status</field>
+            <field name="arch" type="xml">
+                <tree string="Physical Status">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_physical_status_form">
+            <field name="name">physical.status.form</field>
+            <field name="model">physical.status</field>
+            <field name="arch" type="xml">
+                <form string="Physical Status">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

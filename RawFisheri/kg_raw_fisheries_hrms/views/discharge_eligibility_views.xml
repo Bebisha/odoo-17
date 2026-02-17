@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="discharge_eligibility_form" model="ir.ui.view">
+            <field name="name">discharge.eligibility.form</field>
+            <field name="model">discharge.eligibility</field>
+            <field name="arch" type="xml">
+                <form string="Discharge Eligibility">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="employee_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <group>
+<!--                            <field name="department_id"/>-->
+                            <field name="quantity"/>
+                        </group>
+                        <group>
+                            <field name="vessel_id"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="discharge_eligibility_tree" model="ir.ui.view">
+            <field name="name">discharge.eligibility.tree</field>
+            <field name="model">discharge.eligibility</field>
+            <field name="arch" type="xml">
+                <tree string="Discharge Eligibility">
+                    <field name="name"/>
+                    <field name="employee_ids" widget="many2many_tags"/>
+                    <field name="quantity"/>
+<!--                    <field name="department_id"/>-->
+                    <field name="vessel_id"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

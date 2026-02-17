@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--  Template for Salary Pre Payment PDF Report  -->
+        <template id="salary_pre_payment_report">
+            <t t-call="web.html_container">
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%" style="font-size:25px;">
+                            <td width="75%" align="left" style="border: 1px solid white">
+                                <t t-if='request.env.company.logo'>
+                                    <img t-att-src='image_data_uri(request.env.company.logo)'
+                                         alt='Logo' style="max-width: 150px; max-height: 100px;"/>
+                                </t>
+                                <t t-else="">
+                                    <strong>
+                                        <span t-esc="company_name" style="text-transform: uppercase;"/>
+                                    </strong>
+                                </t>
+                            </td>
+                            <td align="right" width="25%" style="border: 1px solid white">
+                                <strong>
+                                    DATE :
+                                    <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="page">
+                    <table class='table table-borderless table-condensed table-hover' align="center">
+                        <tr width="100%" style="font-size:25px;">
+                            <td colsapn="2" style="border: 1px solid white" align="center">
+                                <span style="font-weight: bold;font-size:30px; margin-left:250px;">
+                                    SALARY PRE PAYMENT REPORT
+                                </span>
+                            </td>
+                        </tr>
+                        <tr style="font-size:18px;">
+                            <td>
+                                <strong>FROM:
+                                    <t t-esc="from"/>
+                                </strong>
+                            </td>
+                            <td align="right">
+                                <strong>TO:
+                                    <t t-esc="to"/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%"
+                           style='border-collapse:collapse;width:100%;margin:5pt;border: 1px solid black; border: 1px solid black'>
+                        <thead>
+                            <tr>
+                                <th style="height:50px; border: 1px solid black;">
+                                    <span>Employee</span>
+                                </th>
+                                <th style="height:50px; border: 1px solid black;">
+                                    <span>Vessel</span>
+                                </th>
+                                <th style="height:50px; border: 1px solid black;">
+                                    <span>Paid Date</span>
+                                </th>
+                                <th style="height:50px; border: 1px solid black;">
+                                    <span>Description</span>
+                                </th>
+                                <th style="height:50px; border: 1px solid black;">
+                                    <span>Advance Amount</span>
+                                </th>
+                                <th style="height:50px; border: 1px solid black;">
+                                    <span>Currency</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody align="center">
+                            <t t-foreach="payment_list" t-as="payment">
+                                <tr>
+                                    <td style="height:30px; border: 1px solid black;">
+                                        <t t-esc="payment['employee']"/>
+                                    </td>
+                                    <td style="height:30px; border: 1px solid black;">
+                                        <t t-esc="payment['vessel']"/>
+                                    </td>
+                                    <td style="height:30px; border: 1px solid black;">
+                                        <t t-esc="payment['paid_date'][0]"/>
+                                    </td>
+                                    <td style="height:30px; border: 1px solid black;">
+                                        <t t-if="payment['description']">
+                                            <t t-esc="payment['description'][0]"/>
+                                        </t>
+                                    </td>
+                                    <td style="height:30px; border: 1px solid black;">
+                                        <t t-esc="payment['amount']"/>
+                                    </td>
+                                    <td style="height:30px; border: 1px solid black;">
+                                        <t t-esc="payment['currency'][0]"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

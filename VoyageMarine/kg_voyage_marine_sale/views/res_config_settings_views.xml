@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <record id="kg_quotation_approval_configuration" model="ir.ui.view">
+            <field name="name">Quotation Approval</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//app[@name='sale_management']" position="inside">
+                    <h2>Approval</h2>
+                    <div class="row mt16 o_settings_container" name="quotation_approve_container">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <label for="quotation_approve_ids" string="Quotation Approval Users"
+                                           class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="quotation_approve_ids" widget="many2many_tags" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <label for="hod_approve_ids" string="Head of Department"
+                                           class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="hod_approve_ids" widget="many2many_tags" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <label for="supervisor_ids" string="Supervisor"
+                                           class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="supervisor_ids" widget="many2many_tags" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <label for="customer_ids" string="Customer Approval Users"
+                                           class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="customer_ids" widget="many2many_tags" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <label for="sale_revision_users_ids" string="Revision Approval Users"
+                                           class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="sale_revision_users_ids" widget="many2many_tags" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

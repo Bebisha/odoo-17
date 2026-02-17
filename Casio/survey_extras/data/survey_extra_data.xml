@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+         <record model="survey.survey" id="feedback_form">
+            <field name="title">CSAT Survey - [Project Name]</field>
+<!--            <field name="state">open</field>-->
+            <field name="access_mode">public</field>
+            <field name="questions_layout">one_page</field>
+            <field name="users_can_go_back" eval="True" />
+            <field name="description">&lt;p&gt;We have recently completed a project implementation with you and we would appreciate you spending a few minutes to complete this Customer Satisfaction Survey to help us ensure that our standard of customer care exceeds expectations wherever possible.&lt;/p&gt;</field>
+            <field name="description_done">&lt;p&gt;We highly appreciate you for spending time to provide your valuable feedback. We will definitely take it up for consideration and ensure our best services are always delivered. Thank you once again. For enquiries and more information on our services, please write to info@sandv.biz or visit our website at www.sandv.biz&lt;/p&gt;</field>
+        </record>
+        <!-- Page 1 -->
+        <record model="survey.question" id="feedback_1">
+            <field name="title">Customer Satisfaction Survey</field>
+            <field name="survey_id" ref="feedback_form" />
+            <field name="sequence">1</field>
+            <field name="question_type" eval="False"/>
+            <field name="is_page" eval="True"/>
+
+            <field name="description">&lt;p&gt;Your feedback is valuable to us. Please provide your rating against each criterion listed below.&lt;/p&gt;</field>
+        </record>
+        <record model="survey.question" id="feedback_1_1">
+            <field name="survey_id" ref="feedback_form" />
+            <field name="sequence">2</field>
+            <field name="title">Responsiveness</field>
+            <field name="question_type">simple_choice</field>
+<!--            <field name="question_type" eval="False"/>-->
+<!--            <field name="column_nb">4</field>-->
+            <field name="description">&lt;p&gt;How do you rate our responsiveness in dealing with you?&lt;/p&gt;</field>
+            <field name="constr_mandatory" eval="True" />
+        </record>
+                <record model="survey.question.answer" id="choice_1_1_1">
+                    <field name="question_id" ref="feedback_1_1"/>
+                    <field name="sequence">1</field>
+                    <field name="answer_score">10</field>
+                    <field name="value">Excellent</field>
+                </record>
+                <record model="survey.question.answer" id="choice_1_1_2">
+                    <field name="question_id" ref="feedback_1_1"/>
+                    <field name="sequence">2</field>
+                    <field name="answer_score">7.5</field>
+                    <field name="value">Good</field>
+                </record>
+                <record model="survey.question.answer" id="choice_1_1_3">
+                    <field name="question_id" ref="feedback_1_1"/>
+                    <field name="sequence">3</field>
+                    <field name="answer_score">5</field>
+                    <field name="value">Satisfactory</field>
+                </record>
+                <record model="survey.question.answer" id="choice_1_1_4">
+                    <field name="question_id" ref="feedback_1_1"/>
+                    <field name="sequence">4</field>
+                    <field name="answer_score">2.5</field>
+                    <field name="value">Poor</field>
+                </record>
+                <record model="survey.question.answer" id="choice_1_1_5">
+                    <field name="question_id" ref="feedback_1_1"/>
+                    <field name="sequence">5</field>
+                    <field name="answer_score">0</field>
+                    <field name="value">Very Poor</field>
+                </record>
+        <record model="survey.question" id="feedback_1_2">
+            <field name="survey_id" ref="feedback_form" />
+            <field name="sequence">3</field>
+            <field name="title">Professionalism</field>
+            <field name="question_type">simple_choice</field>
+<!--            <field name="column_nb">4</field>-->
+            <field name="description">&lt;p&gt;How do you rate our professionalism in dealing with you?&lt;/p&gt;</field>
+            <field name="constr_mandatory" eval="True" />
+        </record>
+            <record model="survey.question.answer" id="choice_1_2_1">
+                <field name="question_id" ref="feedback_1_2"/>
+                <field name="sequence">1</field>
+                <field name="answer_score">10</field>
+                <field name="value">Excellent</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_2_2">
+                <field name="question_id" ref="feedback_1_2"/>
+                <field name="sequence">2</field>
+                <field name="answer_score">7.5</field>
+                <field name="value">Good</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_2_3">
+                <field name="question_id" ref="feedback_1_2"/>
+                <field name="sequence">3</field>
+                <field name="answer_score">5</field>
+                <field name="value">Satisfactory</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_2_4">
+                <field name="question_id" ref="feedback_1_2"/>
+                <field name="sequence">4</field>
+                <field name="answer_score">2.5</field>
+                <field name="value">Poor</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_2_5">
+                <field name="question_id" ref="feedback_1_2"/>
+                <field name="sequence">5</field>
+                <field name="answer_score">0</field>
+                <field name="value">Very Poor</field>
+            </record>
+
+        <record model="survey.question" id="feedback_1_3">
+            <field name="survey_id" ref="feedback_form" />
+            <field name="sequence">4</field>
+            <field name="title">Technical Support</field>
+            <field name="question_type">simple_choice</field>
+<!--            <field name="column_nb">4</field>-->
+            <field name="description">&lt;p&gt;How do you rate the technical competence of our Consultants?&lt;/p&gt;</field>
+            <field name="constr_mandatory" eval="True" />
+        </record>
+            <record model="survey.question.answer" id="choice_1_3_1">
+                <field name="question_id" ref="feedback_1_3"/>
+                <field name="sequence">1</field>
+                <field name="answer_score">10</field>
+                <field name="value">Excellent</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_3_2">
+                <field name="question_id" ref="feedback_1_3"/>
+                <field name="sequence">2</field>
+                <field name="answer_score">7.5</field>
+                <field name="value">Good</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_3_3">
+                <field name="question_id" ref="feedback_1_3"/>
+                <field name="sequence">3</field>
+                <field name="answer_score">5</field>
+                <field name="value">Satisfactory</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_3_4">
+                <field name="question_id" ref="feedback_1_3"/>
+                <field name="sequence">4</field>
+                <field name="answer_score">2.5</field>
+                <field name="value">Poor</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_3_5">
+                <field name="question_id" ref="feedback_1_3"/>
+                <field name="sequence">5</field>
+                <field name="answer_score">0</field>
+                <field name="value">Very Poor</field>
+            </record>
+
+        <record model="survey.question" id="feedback_1_4">
+            <field name="survey_id" ref="feedback_form" />
+            <field name="sequence">5</field>
+            <field name="title">Service Quality</field>
+            <field name="question_type">simple_choice</field>
+<!--            <field name="column_nb">4</field>-->
+            <field name="description">&lt;p&gt;How do you rate the quality and performance of our services?&lt;/p&gt;</field>
+            <field name="constr_mandatory" eval="True" />
+        </record>
+            <record model="survey.question.answer" id="choice_1_4_1">
+                <field name="question_id" ref="feedback_1_4"/>
+                <field name="sequence">1</field>
+                <field name="answer_score">10</field>
+                <field name="value">Excellent</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_4_2">
+                <field name="question_id" ref="feedback_1_4"/>
+                <field name="sequence">2</field>
+                <field name="answer_score">7.5</field>
+                <field name="value">Good</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_4_3">
+                <field name="question_id" ref="feedback_1_4"/>
+                <field name="sequence">3</field>
+                <field name="answer_score">5</field>
+                <field name="value">Satisfactory</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_4_4">
+                <field name="question_id" ref="feedback_1_4"/>
+                <field name="sequence">4</field>
+                <field name="answer_score">2.5</field>
+                <field name="value">Poor</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_4_5">
+                <field name="question_id" ref="feedback_1_4"/>
+                <field name="sequence">5</field>
+                <field name="answer_score">0</field>
+                <field name="value">Very Poor</field>
+            </record>
+
+        <record model="survey.question" id="feedback_1_5">
+            <field name="survey_id" ref="feedback_form" />
+            <field name="sequence">6</field>
+            <field name="title">Service Delivery</field>
+            <field name="question_type">simple_choice</field>
+<!--            <field name="column_nb">4</field>-->
+            <field name="description">&lt;p&gt;Does our delivery, on-time performance and our commitment meet your delivery expectations?&lt;/p&gt;</field>
+            <field name="constr_mandatory" eval="True" />
+        </record>
+            <record model="survey.question.answer" id="choice_1_5_1">
+                <field name="question_id" ref="feedback_1_5"/>
+                <field name="sequence">1</field>
+                <field name="answer_score">10</field>
+                <field name="value">Excellent</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_5_2">
+                <field name="question_id" ref="feedback_1_5"/>
+                <field name="sequence">2</field>
+                <field name="answer_score">7.5</field>
+                <field name="value">Good</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_5_3">
+                <field name="question_id" ref="feedback_1_5"/>
+                <field name="sequence">3</field>
+                <field name="answer_score">5</field>
+                <field name="value">Satisfactory</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_5_4">
+                <field name="question_id" ref="feedback_1_5"/>
+                <field name="sequence">4</field>
+                <field name="answer_score">2.5</field>
+                <field name="value">Poor</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_5_5">
+                <field name="question_id" ref="feedback_1_5"/>
+                <field name="sequence">5</field>
+                <field name="answer_score">0</field>
+                <field name="value">Very Poor</field>
+            </record>
+
+        <record model="survey.question" id="feedback_1_6">
+            <field name="survey_id" ref="feedback_form" />
+            <field name="sequence">7</field>
+            <field name="title">Competitiveness</field>
+            <field name="question_type">simple_choice</field>
+<!--            <field name="column_nb">4</field>-->
+            <field name="description">&lt;p&gt;How do you rate the competitiveness of our services?&lt;/p&gt;</field>
+            <field name="constr_mandatory" eval="True" />
+        </record>
+            <record model="survey.question.answer" id="choice_1_6_1">
+                <field name="question_id" ref="feedback_1_6"/>
+                <field name="sequence">1</field>
+                <field name="answer_score">10</field>
+                <field name="value">Excellent</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_6_2">
+                <field name="question_id" ref="feedback_1_6"/>
+                <field name="sequence">2</field>
+                <field name="answer_score">7.5</field>
+                <field name="value">Good</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_6_3">
+                <field name="question_id" ref="feedback_1_6"/>
+                <field name="sequence">3</field>
+                <field name="answer_score">5</field>
+                <field name="value">Satisfactory</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_6_4">
+                <field name="question_id" ref="feedback_1_6"/>
+                <field name="sequence">4</field>
+                <field name="answer_score">2.5</field>
+                <field name="value">Poor</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_6_5">
+                <field name="question_id" ref="feedback_1_6"/>
+                <field name="sequence">5</field>
+                <field name="answer_score">0</field>
+                <field name="value">Very Poor</field>
+            </record>
+
+        <record model="survey.question" id="feedback_1_7">
+            <field name="survey_id" ref="feedback_form" />
+            <field name="sequence">8</field>
+            <field name="title">Quality</field>
+            <field name="question_type">simple_choice</field>
+<!--            <field name="column_nb">4</field>-->
+            <field name="description">&lt;p&gt;How do you rate our approach to quality management to ensure complete customer satisfaction?&lt;/p&gt;</field>
+            <field name="constr_mandatory" eval="True" />
+        </record>
+            <record model="survey.question.answer" id="choice_1_7_1">
+                <field name="question_id" ref="feedback_1_7"/>
+                <field name="sequence">1</field>
+                <field name="answer_score">10</field>
+                <field name="value">Excellent</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_7_2">
+                <field name="question_id" ref="feedback_1_7"/>
+                <field name="sequence">2</field>
+                <field name="answer_score">7.5</field>
+                <field name="value">Good</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_7_3">
+                <field name="question_id" ref="feedback_1_7"/>
+                <field name="sequence">3</field>
+                <field name="answer_score">5</field>
+                <field name="value">Satisfactory</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_7_4">
+                <field name="question_id" ref="feedback_1_7"/>
+                <field name="sequence">4</field>
+                <field name="answer_score">2.5</field>
+                <field name="value">Poor</field>
+            </record>
+            <record model="survey.question.answer" id="choice_1_7_5">
+                <field name="question_id" ref="feedback_1_7"/>
+                <field name="sequence">5</field>
+                <field name="answer_score">0</field>
+                <field name="value">Very Poor</field>
+            </record>
+
+        <record model="survey.question" id="feedback_1_8">
+            <field name="survey_id" ref="feedback_form" />
+            <field name="sequence">9</field>
+            <field name="title">Comments</field>
+            <field name="question_type">text_box</field>
+            <field name="description">&lt;p&gt;Feel free to provide any other comments you would like to share with us&lt;/p&gt;</field>
+        </record>
+    </data>
+</odoo>

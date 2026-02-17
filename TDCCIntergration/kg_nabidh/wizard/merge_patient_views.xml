@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="merge_record_wizard_form" model="ir.ui.view">
+            <field name="name">merge.record.wizard.form</field>
+            <field name="model">merge.record</field>
+            <field name="arch" type="xml">
+                <form string="Merge Patient">
+                    <group>
+                        <field name="merged_patient_ids" widget="many2many_tags"
+                               options="{'color_field': 'color', 'no_create_edit': True} " invisible="1" />
+                        <field name="merge_patient_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color', 'no_create_edit': True}" domain="[('id', 'not in', merged_patient_ids)]" />
+
+                        <field name="patient_id"/>
+
+                    </group>
+
+<!--                    <field name="date_ids" context="{'room_id' : context.get('room_id') or False,'physician_id' : context.get('physician_id') or False}">-->
+<!--                        <tree string='Dates' editable='bottom'>-->
+
+<!--                            <field name="room_id" required="0" options="{'no_create':True,'no_open':True}"/>-->
+<!--                            <field name="physician_id" required="1" options="{'no_create':True,'no_open':True}"/>-->
+<!--                        </tree>-->
+<!--                    </field>-->
+                    <footer>
+<!--                        <button name="merge_record_dd" string="Merge Patient" type="object" class="oe_highlight"/>-->
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="merge_patient" model="ir.actions.act_window">
+            <field name="name">Merge Patient</field>
+            <field name="res_model">merge.record</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

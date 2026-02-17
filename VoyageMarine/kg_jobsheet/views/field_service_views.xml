@@ -1,0 +1,230 @@
+<odoo>
+    <record id="view_field_service_form" model="ir.ui.view">
+        <field name="name">field.service.form</field>
+        <field name="model">field.service</field>
+        <field name="arch" type="xml">
+            <form string="Field Service">
+                <header>
+                    <button name="create_field_service" string="Create Field Service" type="object"
+                            class="btn-primary"
+
+                    />
+                    <button name="create_certificate" string="Create Certificate" type="object"
+                            class="btn-primary"
+
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="action_field_service"
+                                type="object" icon="fa-bars" string="Field Service" invisible="repair_form_count == 0">
+                            <field name="repair_form_count" widget="statinfo" string="Field Service"/>
+                        </button>
+                        <button class="oe_stat_button" name="action_sale_order"
+                                type="object" icon="fa-bars" string="Sale Order" invisible="sale_form_count == 0">
+                            <field name="sale_form_count" widget="statinfo" string="Sale Order"/>
+
+
+                        </button>
+
+                    </div>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" widget="res_partner_many2one"
+                                   domain="[('customer_rank','>', 0),('is_company', '=', True)]"
+                                   context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                                   placeholder="Type to find a customer..."/>
+                            <field name="vessel_id"/>
+                            <field name="lead_id"/>
+                            <field name="job_sheet_number"/>
+                            <field name="jr_no"/>
+                            <field name="product_group_id"/>
+                            <field name="product_category_parent_id" domain="[('is_scope', '=', True)]"/>
+                            <field name="product_category_id"/>
+                            <field name="product_id"/>
+                            <field name="qty_field_service"/>
+                        </group>
+                        <group string="Certificate and Date">
+                            <field name="certificate_no"/>
+                            <field name="certificate_ref" readonly="1"/>
+                            <field name="received_date"/>
+                            <field name="calibration_date"/>
+                            <field name="recommended_due_date"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Additional Information">
+<!--                            <group string="Unit Under Test">-->
+<!--                                <field name="unit_make"/>-->
+<!--                                <field name="unit_model"/>-->
+<!--                                <field name="unit_serial_no"/>-->
+<!--                            </group>-->
+                            <group string="Other Information">
+                                <field name="work_instruction"/>
+                                <field name="standards"/>
+                            </group>
+                        </page>
+                        <page string="Test Result">
+                            <group>
+                                <field name="certificate_content_view" widget="html" string="Result"/>
+                            </group>
+                        </page>
+                        <page string="Equipment Master">
+                            <field name="product_template_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id" string="Description"/>
+                                    <field name="equipment_make"/>
+                                    <field name="equipment_serial_no"/>
+                                    <field name="equipment_certificate_no"/>
+                                    <field name="equipment_traceability"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Service instrument">
+                            <field name="seq_lot_line_ids" readonly="0">
+                                <tree editable="bottom" create="False" decoration-success="is_already_created == True">
+                                    <field name="x_check_done" string="Done?" widget="boolean_button" readonly="False"/>
+                                    <field name="serial_no" string="NO." readonly="True" force_save="1"/>
+                                    <field name="pro_id" readonly="True" force_save="1"/>
+                                    <field name="lot_number_text" readonly="True" string="Description" force_save="1"/>
+
+                                    <field name="product_temp_id" column_invisible="1" force_save="1"/>
+                                    <field name="product_category" column_invisible="1" force_save="1"/>
+                                    <field name="uom_id" column_invisible="1" force_save="1"/>
+                                    <!--                    <field name="is_created" column_invisible="1"/>-->
+                                    <field name="des" column_invisible="1" force_save="1"/>
+                                    <field name="make_id" readonly="True" force_save="1"/>
+                                    <field name="model_id" readonly="True" force_save="1"/>
+                                    <field name="name" string="Serial No/ID No" readonly="True" force_save="1"/>
+                                    <field name="lot_id" string="Serial No/ID No" column_invisible="1" readonly="True"
+                                           force_save="1"/>
+                                    <field name="accesories" string="Accessories" readonly="True" force_save="1"/>
+                                    <field name="physical_status_id" string="Status" readonly="True" force_save="1"/>
+                                    <field name="remark" string="Remarks" readonly="True" force_save="1"/>
+                                    <!--                    <field name="lot_ids" column_invisible="1"/>-->
+                                    <!--                    <field name="serial_no" column_invisible="1"/>-->
+                                    <field name="qty" readonly="1" force_save="1"/>
+                                    <field name="unit_price" optional="hide" force_save="1"/>
+                                    <field name="is_already_created" optional="hide" force_save="1"/>
+                                </tree>
+
+                                <!--                                <tree editable="bottom">-->
+                                <!--                                    <field name="product_id" string="Description"/>-->
+                                <!--                                    <field name="equipment_make"/>-->
+                                <!--                                    <field name="equipment_serial_no"/>-->
+                                <!--                                    <field name="equipment_certificate_no"/>-->
+                                <!--                                    <field name="equipment_traceability"/>-->
+                                <!--                                </tree>-->
+                            </field>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_field_service_tree" model="ir.ui.view">
+        <field name="name">field.service.tree</field>
+        <field name="model">field.service</field>
+        <field name="arch" type="xml">
+            <tree string="Field Service">
+
+                <field name="vessel_id"/>
+                <field name="job_sheet_number"/>
+                <field name="product_group_id"/>
+                <field name="product_category_parent_id" domain="[('is_scope', '=', True)]"/>
+                <field name="product_category_id"/>
+                <field name="product_id"/>
+                <field name="qty_field_service"/>
+                <field name="certificate_no"/>
+                <field name="certificate_ref" readonly="1"/>
+                <field name="received_date"/>
+                <field name="calibration_date"/>
+                <field name="recommended_due_date"/>
+                <field name="unit_make" optional="hide"/>
+                <field name="unit_model" optional="hide"/>
+                <field name="unit_serial_no" optional="hide"/>
+                <field name="work_instruction"/>
+                <field name="standards"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_ffa_form_search" model="ir.ui.view">
+        <field name="name">field.service.view.search</field>
+        <field name="model">field.service</field>
+        <field name="arch" type="xml">
+            <search string="Field Service">
+                <!-- Filters -->
+                <filter name="filter_partner" string="Partner" domain="[('partner_id', '!=', False)]"/>
+                <!--                <filter name="filter_product_group_id" string="Group" domain="[('product_group_id', '!=', False)]"/>-->
+                <filter name="filter_product_category_parent_id" string="Category"
+                        domain="[('product_category_parent_id', '!=', False)]"/>
+
+                <filter name="filter_product_id" string="Product" domain="[('product_id', '!=', False)]"/>
+                <filter name="filter_vessel" string="Vessel" domain="[('vessel_id', '!=', False)]"/>
+                <filter name="filter_certificate_no" string="Certificate no"
+                        domain="[('certificate_no', '!=', False)]"/>
+                <filter name="filter_standards" string="standards" domain="[('standards', '!=', False)]"/>
+                <filter name="filter_work_instruction" string="Work Instruction"
+                        domain="[('work_instruction', '!=', False)]"/>
+
+
+                <!-- Group By Fields -->
+                <group expand="1" string="Group By">
+                    <field name="partner_id"/>
+                    <field name="product_group_id"/>
+                    <field name="product_category_id"/>
+                    <field name="work_instruction"/>
+                    <field name="standards"/>
+                    <field name="vessel_id"/>
+                    <field name="product_id"/>
+                    <field name="certificate_no"/>
+                    <field name="certificate_ref" readonly="1"/>
+
+
+                    <filter string="Partner" name="partner_id" domain="[]"
+                            context="{'group_by':'partner_id'}"/>
+                    <filter string="Scope" name="product_group_id" domain="[]"
+                            context="{'group_by':'product_group_id'}"/>
+                    <filter string="ScopeCategory" name="product_category_id" domain="[]"
+                            context="{'group_by':'product_category_id'}"/>
+                    <filter string="Work Instruction" name="work_instruction" domain="[]"
+                            context="{'group_by':'work_instruction'}"/>
+                    <filter string="Standards" name="standards" domain="[]"
+                            context="{'group_by':'standards'}"/>
+                    <filter string="Standards" name="standards" domain="[]"
+                            context="{'group_by':'standards'}"/>
+                    <filter string="Vessel" name="vessel" domain="[]"
+                            context="{'group_by':'vessel_id'}"/>
+                    <filter string="Product" name="product_id" domain="[]"
+                            context="{'group_by':'product_id'}"/>
+                    <filter string="Certificate number" name="certificate_no" domain="[]"
+                            context="{'group_by':'certificate_no'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_field_service_form" model="ir.actions.act_window">
+        <field name="name">Field Service Form</field>
+        <field name="res_model">field.service</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_field_service_form" name="Field Service Form" parent="job_sheet_menu_01"
+              action="action_field_service_form"/>
+</odoo>

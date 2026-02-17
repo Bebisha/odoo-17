@@ -1,0 +1,16 @@
+   <odoo>
+  <data>
+
+        <record id="view_res_mass_mail_inh" model="ir.ui.view">
+                    <field name="name">mailing.mailing.select</field>
+                    <field name="model">mailing.mailing</field>
+                    <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form"/>
+                    <field name="arch" type="xml">
+                        <button name="action_launch" position="after">
+                            <button name="get_mail_list" type="object" invisible="state in ('in_queue', 'done')" class="oe_highlight" string="Review Recipients"/>
+                        </button>
+
+                    </field>
+        </record>
+  </data>
+   </odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record model="crm.team" id="tdcc_team_360">
+            <field name="name">360</field>
+            <field name="program_type">360</field>
+            <field name="use_opportunities" eval="True"/>
+            <field name="use_leads" eval="True"/>
+<!--            <field name="dashboard_graph_group">week</field>-->
+            <field name="company_id" eval="False"/>
+        </record>
+
+
+        <record model="crm.team" id="tdcc_team_eip">
+            <field name="name">EIP</field>
+            <field name="program_type">eip</field>
+            <field name="use_opportunities">True</field>
+            <field name="use_leads">True</field>
+<!--            <field name="dashboard_graph_group">week</field>-->
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record model="crm.team" id="tdcc_team_eiip">
+            <field name="name">EIIP</field>
+            <field name="program_type">eiip</field>
+            <field name="use_opportunities">True</field>
+            <field name="use_leads">True</field>
+<!--            <field name="dashboard_graph_group">week</field>-->
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

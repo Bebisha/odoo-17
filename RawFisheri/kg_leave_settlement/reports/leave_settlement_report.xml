@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="leave_settlement_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <div class="header">
+                        <table class='table table-borderless table-condensed table-hover'>
+                            <tr width="100%">
+                                <td width="75%" align="left" style="border: 1px solid white">
+                                    <img t-if='o.company_id.logo'
+                                         t-att-src='image_data_uri(o.company_id.logo)'
+                                         alt='Logo' style="max-width: 150px; max-height: 100px;"/>
+                                    <br/>
+                                    <br/>
+                                </td>
+                                <td align="right" width="25%" style="border: 1px solid white">
+                                    <span>Date :</span>
+                                    <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colsapn="2" style="border: 1px solid white">
+                                    <span style="font-weight: bold;font-size:25px; margin-left:250px;">LEAVE
+                                        SETTLEMENT
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                        <div>
+                            <table width="100%" style='padding-top:50px;border:1px solid black'>
+                                <tr width="100%" style="font-size:19px;height:50px; height:50px;">
+                                    <td>
+                                        <strong>REFERENCE :</strong>
+                                        <strong t-esc="o.name"/>
+                                    </td>
+                                </tr>
+                                <tr style="height:50px; border-top:1px solid black;">
+                                    <td width="50%" style="border-top:1px solid black;border-right:1px solid black;">
+                                        <strong>Name :</strong>
+                                        <t t-esc="o.employee_id.name"/>
+                                    </td>
+                                    <td style="border-top:1px solid black;">
+                                        <strong>Department :</strong>
+                                        <t t-esc="o.department_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr style="height:50px; border-top:1px solid black;">
+                                    <td width="50%" style="border-top:1px solid black;border-right:1px solid black;">
+                                        <strong>Emp No. :</strong>
+                                        <t t-esc="o.emp_registration_number"/>
+                                    </td>
+                                    <td style="border-top:1px solid black;">
+                                        <strong>Designation :</strong>
+                                        <t t-esc="o.emp_job_title"/>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px">
+                                    <td colspan="2" style="border-top:1px solid black;">
+                                        <strong>Type Of Leave :</strong>
+                                        <t t-esc="o.holiday_status_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr style="height:50px">
+                                    <td colspan="2" style="border-top:1px solid black;">
+                                        <strong>LEAVES:</strong>
+                                    </td>
+                                </tr>
+                                <t t-foreach="o.leave_ids" t-as="leave">
+                                    <tr style="height:50px">
+                                        <td colspan="2" style="border-top:1px solid black;">
+                                            <t t-esc="leave.display_name"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr style="height:50px">
+                                    <td colspan="2" style="border-top:1px solid black;">
+                                        <strong>Total Leave :</strong>
+                                        <t t-esc="o.leave_total"/>
+                                    </td>
+                                </tr>
+                                <tr style="height:50px">
+                                    <td style="border-top:1px solid black;border-right:1px solid black;">
+                                        <strong>Balance Leave :</strong>
+                                        <t t-esc="o.balance_leave"/>
+                                    </td>
+                                    <td style="border-top:1px solid black;">
+                                        <strong>Leave Taken :</strong>
+                                        <t t-esc="o.leaves_taken"/>
+                                    </td>
+                                </tr>
+                                <tr style="height:50px;">
+                                    <td style="border-top:1px solid black;border-right:1px solid black;">
+                                        <strong>Leave Pay :</strong>
+                                        <t t-esc="'{:,.2f}'.format(o.leave_pay)"/>
+                                    </td>
+                                    <td style="border-top:1px solid black;">
+                                        <strong>Total Amount :</strong>
+                                        <t t-esc="'{:,.2f}'.format(o.amount_to_pay)"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <t t-if="o.leave_allowances_ids">
+                                <table style="width:100%;margin-top:70px;border:1px solid black">
+                                    <tr style="height:50px;">
+                                        <td colspan="3" align="center" style="font-size:15px;">
+                                            <strong>OTHER ALLOWANCES</strong>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:50px;">
+                                        <td width="50%"
+                                            style="border-top:1px solid black;border-right:1px solid black;">
+                                            <strong>LABEL</strong>
+                                        </td>
+                                        <td width="20%"
+                                            style="border-top:1px solid black;border-right:1px solid black;">
+                                            <strong>NO. OF DAYS</strong>
+                                        </td>
+                                        <td width="30%" style="border-top:1px solid black;">
+                                            <strong>AMOUNT</strong>
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="o.leave_allowances_ids" t-as="alw">
+                                        <tr style="height:50px;">
+                                            <td style="border-top:1px solid black;border-right:1px solid black;">
+                                                <t t-esc="alw.name"/>
+                                            </td>
+                                            <td style="border-top:1px solid black;border-right:1px solid black;">
+                                                <t t-esc="alw.days"/>
+                                            </td>
+                                            <td style="border-top:1px solid black;">
+                                                <t t-esc="'{:,.2f}'.format(alw.amount)"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="patient_profession_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Profession</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">patient.profession</field>
+
+    </record>
+    <record id="patient_profession_tree" model="ir.ui.view">
+        <field name="name">patient.profession.views</field>
+        <field name="model">patient.profession</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="patient_profession_form" model="ir.ui.view">
+        <field name="name">patient.profession.form.views</field>
+        <field name="model">patient.profession</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="patient_profession_menu"
+              action="patient_profession_action"
+              name="Profession"
+              parent="kg_nabidh.pid_menu"/>
+
+
+
+</odoo>

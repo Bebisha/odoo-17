@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Override ONLY the formula -->
+        <record id="l10n_ae_corporate_tax_report.ae_corporate_tax_report_expression_corporate_tax_amount"
+                model="account.report.expression">
+            <field name="engine">custom</field>
+            <field name="formula"> _report_custom_engine_custom_line_postprocess</field>
+            <field name="subformula">0.0</field>
+        </record>
+
+    </data>
+</odoo>

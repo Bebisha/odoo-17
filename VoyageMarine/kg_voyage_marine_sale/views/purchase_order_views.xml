@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <record id="kg_sale_view_purchase_order_inherit_form" model="ir.ui.view">
+            <field name="name">kg_sale_view_purchase_order_inherit_form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="kg_purchase.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pm_approver_id']" position="before">
+                    <field name="division_id" readonly="state in ['purchase', 'done']" invisible="1"/>
+                </xpath>
+                <field name="estimation_id" position="after">
+                    <field name="delivery_terms_id"
+                           readonly="state in ['pm_approved','gm_approved','to approve','purchase','done']"/>
+                </field>
+                <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_id']"
+                       position="after">
+                    <field name="division_id" readonly="state in ['purchase', 'done']" column_invisible="1"/>
+
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="kg_view_purchase_report_search_inherit_type" model="ir.ui.view">
+            <field name="name">purchase.report.search.inherit.type</field>
+            <field name="model">purchase.report</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/group" position="inside">
+                    <field name="division_id"/>
+
+                    <filter string="Division" name="division_id" domain="[]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_division_id" string="Division" context="{'group_by': 'division_id'}"/>
+
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="kg_view_purchase_report_tree_inherit_type" model="ir.ui.view">
+            <field name="name">purchase.report.tree.inherit.type</field>
+            <field name="model">purchase.report</field>
+            <field name="inherit_id" ref="purchase.purchase_report_view_tree"/>
+            <field name="arch" type="xml">
+                <!-- Add column for Type after Partner -->
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="division_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

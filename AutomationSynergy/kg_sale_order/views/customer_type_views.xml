@@ -1,0 +1,41 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_customer_type_tree" model="ir.ui.view">
+        <field name="name">res.customer.type.tree</field>
+        <field name="model">res.customer.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_customer_type_form" model="ir.ui.view">
+        <field name="name">res.customer.type.form</field>
+        <field name="model">res.customer.type</field>
+        <field name="arch" type="xml">
+            <form string="Customer Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menu and Action -->
+    <record id="action_customer_type" model="ir.actions.act_window">
+        <field name="name">Customer Types</field>
+        <field name="res_model">res.customer.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_customer_type_root"
+              name="Customer Type Master"
+              parent="sale.menu_sale_config"
+              action="action_customer_type"/>
+</odoo>

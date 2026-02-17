@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="work_instruction_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Work Instruction</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">work.instruction</field>
+
+    </record>
+    <record id="work_instruction_tree" model="ir.ui.view">
+        <field name="name">work.instruction.tree.views</field>
+        <field name="model">work.instruction</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="scope_id" domain="[('is_scope', '=', True)]" string="SCOPE"/>
+                <field name="product_category_id" string="INSTRUMENTS" domain="[('parent_id','=',scope_id)]"/>
+                <field name="name"/>
+                <field name="display_name" invisible="1"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="work_instruction_form" model="ir.ui.view">
+        <field name="name">work.instruction.form.views</field>
+        <field name="model">work.instruction</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="scope_id" domain="[('is_scope', '=', True)]" string="SCOPE"/>
+                            <field name="product_category_id" string="INSTRUMENTS"  domain="[('parent_id','=',scope_id)]"/>
+                            <field name="name"/>
+                            <field name="display_name" invisible="1"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="work_instruction_menu"
+              action="work_instruction_action"
+              name="Work Instruction"
+              parent="job_sheet_menu_03"/>
+
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_forward_approval_wizard_form" model="ir.ui.view">
+        <field name="name">forward.approval.wizard.form</field>
+        <field name="model">forward.approval.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Forward">
+                <group>
+                    <field name="current_user_id" invisible="1"/>
+                    <field name="move_id" invisible="1"/>
+                    <field name="user_ids" invisible="1" widget="many2many_tags"/>
+                    <field name="forward_user_id" required="1" domain="[('id','in',user_ids)]"/>
+                </group>
+                <footer>
+                    <button name="action_forward" type="object" string="Forward" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_forward_approval_wizard" model="ir.actions.act_window">
+        <field name="name">Approval Forward</field>
+        <field name="res_model">forward.approval.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'move_id': active_id}</field>
+    </record>
+
+    <record id="action_final_forward_approval_wizard" model="ir.actions.act_window">
+        <field name="name">Approval Forward</field>
+        <field name="res_model">forward.approval.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'active_id': active_id,'default_is_final_approve':True}</field>
+    </record>
+
+</odoo>

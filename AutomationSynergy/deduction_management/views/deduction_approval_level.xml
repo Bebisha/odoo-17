@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+      <record id="deduction_approval_settings_validation_tree_view" model="ir.ui.view">
+        <field name="name">deduction.approval.settings.tree</field>
+        <field name="model">deduction.approval.settings</field>
+        <field name="arch" type="xml">
+            <tree string="Deduction Requests">
+                <field name="name"/>
+                <field name="multi_level_validation"/>
+                <field name="deduction_rule_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+     <record id="deduction_approval_settings_validation_form_view" model="ir.ui.view">
+        <field name="name">deduction.approval.settings.form</field>
+        <field name="model">deduction.approval.settings</field>
+        <field name="arch" type="xml">
+            <form string="Deduction Approval Settings">
+                <header>
+
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="0"/>
+                        </h1>
+                    </div>
+                    <group col="4">
+                        <field name="multi_level_validation" />
+                        <field name="deduction_rule_id" required="1"/>
+
+                    </group>
+                    <notebook>
+                        <page string="Approval Level">
+                            <field name="leave_validators">
+                                <tree string="Approval Levels" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="deduction_approval_status" invisible="1"/>
+                                    <field name="approval_by"/>
+                                    <field name="deduction_validators" attrs="{'invisible': [('approval_by','!=','timeoff_officer')]}"/>
+                                </tree>
+                            </field>
+
+
+                        </page>
+                    </notebook>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+      <record id="action_deduction_approval_settings_validation" model="ir.actions.act_window">
+        <field name="name">Earnings And Deductions Approval Settings</field>
+        <field name="res_model">deduction.approval.settings</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create Approval Settings.
+            </p><p>
+            </p>
+        </field>
+    </record>
+
+
+
+
+
+<!--    <menuitem name="Approval Settings"-->
+<!--        parent="deduction_management.main_menu_deduction"-->
+<!--        id="deduction_approval_settings"-->
+<!--        action="action_deduction_approval_settings_validation"/>-->
+
+
+
+
+</odoo>

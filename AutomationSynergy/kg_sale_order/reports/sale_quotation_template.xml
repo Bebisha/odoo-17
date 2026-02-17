@@ -1,0 +1,900 @@
+<odoo>
+    <template id="sale_external_layout_inherit1">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row">
+
+                <div class="col-5 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 60px;"
+                         alt="Logo"/>
+                </div>
+
+                <div class="col-7 mb4">
+                    <span style="font-size:27px;">
+                        <!--                        Automation SYNERGY's (FZC)-->
+                        <t t-esc="company.name"/>
+                    </span>
+                    <br/>
+                    <br/>
+                    <span style="font-size:9px;">
+                        <strong>
+                            <t t-if="company.zip">[P.O. Box No:
+                                <t t-esc="company.zip"/>
+                                ]
+                            </t>
+                            <t t-if="company.street">
+                                [
+                                <t t-esc="company.street"/>
+                                <t t-if="not company.city">]</t>
+                                <t t-else="">,</t>
+                            </t>
+                            <t t-if="company.city">
+                                <t t-if="not company.street">[</t>
+                                <t t-esc="company.city">
+                                    ]
+                                </t>
+                            </t>
+                            <!--                            [ Sharjah Airport International Free-->
+                            <!--                            Zone ]-->
+
+                            <t t-if="company.state_id">
+                                [
+                                <t t-esc="company.state_id.name"/>
+                                <t t-if="company.country_id">,</t>
+                                <t t-else="">
+                                    ]
+                                </t>
+                            </t>
+                            <t t-if="company.country_id">
+                                <t t-if="not company.state_id">[</t>
+                                <t t-esc="company.country_id.name"/>
+                                ]
+                            </t>
+
+                        </strong>
+                    </span>
+
+                    <br/>
+                    <span style="font-size:9px;">
+                        <strong>
+                            <t t-if="company.phone">
+                                [Phone:
+                                <t t-esc="company.phone"/>
+                                ]
+                            </t>
+                            <t t-if="company.fax">
+                                [Fax:
+                                <t t-esc="company.fax"/>
+                                ]
+                            </t>
+                            <t t-if="company.website">[<t t-esc="company.website"/>]
+                            </t>
+                        </strong>
+                    </span>
+                    <br/>
+
+                    <br/>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-2 mb4">
+                    <strong>QUOTATION
+                    </strong>
+                </div>
+                <div class="col-10 mb4" style="border-bottom:1px solid"/>
+
+                <!--                <hr/>-->
+            </div>
+            <div class="row">
+                <div class="col-5 mb4">
+                    <!--                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 60px;"-->
+                    <!--                             alt="Logo"/>-->
+                </div>
+
+                <div class="col-4 mb4">
+
+                </div>
+                <div class="col-3 mb4 total-pages" style="font-size:13px;">
+
+                    Total No of Sheet:
+                    <span class="topage"/>
+                </div>
+            </div>
+        </div>
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+             t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <!--            <div class="pt-5">-->
+            <!--                &lt;!&ndash; This div ensures that the address is not cropped by the header. &ndash;&gt;-->
+            <!--                &lt;!&ndash;                <t t-call="web.address_layout"/>&ndash;&gt;-->
+            <!--            </div>-->
+            <t t-out="0"/>
+        </div>
+        <!--        </div>-->
+        <style>
+            .total-pages {
+            display: block;
+            }
+
+            @media print {
+            @page :nth(1) {
+            .total-pages {
+            display: block;
+            }
+            }
+            @page :nth(n+2) {
+            .total-pages {
+            display: none;
+            }
+            }
+            }
+        </style>
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <div t-field="company.report_footer"/>
+                </ul>
+
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page:
+                    <span class="page"/>
+                    /
+
+                    <span class="topage"/>
+                </div>
+                <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                    <span t-out="o.name">(document name)</span>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="sale_external_layout_inherit">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <t t-if="company.external_report_layout_id" t-call="{{company.external_report_layout_id.sudo().key}}">
+            <t t-out="0"/>
+        </t>
+        <t t-else="else" t-call="kg_sale_order.sale_external_layout_inherit1">
+            <t t-out="0"/>
+        </t>
+
+    </template>
+    <template id="sale_html_container">
+        <t t-set="body_classname" t-value="'container'"/>
+        <html t-att-lang="lang and lang.replace('_', '-')"
+              t-att-data-report-margin-top="data_report_margin_top"
+              t-att-data-report-header-spacing="data_report_header_spacing"
+              t-att-data-report-dpi="data_report_dpi"
+              t-att-data-report-landscape="data_report_landscape"
+              t-att-web-base-url="web_base_url">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="initial-scale=1"/>
+                <title>
+                    <t t-esc="title or 'Odoo Report'"/>
+                </title>
+                <t t-call-assets="web.report_assets_common" t-js="false"/>
+                <!--The following is kind of a hack-->
+                <!--in an iframe, we don't want the session to perform qweb_templates rpc-->
+                <script type="text/javascript">
+                    window.odoo = {};
+                    window.odoo.__session_info__ = {is_report: true};
+                </script>
+                <t t-call-assets="web.assets_common" t-css="false"/>
+                <t t-call-assets="web.report_assets_common" t-css="false"/>
+            </head>
+            <body t-att-class="'container' if not full_width else 'container-fluid'">
+                <div id="wrapwrap">
+                    <main>
+                        <t t-out="0"/>
+                    </main>
+                </div>
+            </body>
+
+        </html>
+    </template>
+    <template id="sale_report_id" name="Sale Order Report" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[@t-set='address']/div" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='address']/p" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='information_block']/strong" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='information_block']/div" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='information_block']/t/strong" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='information_block']/t/div" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+
+        <!--          <t t-set="information_block">-->
+        <!--                <strong>-->
+        <!--                    <t t-if="doc.partner_shipping_id == doc.partner_invoice_id">-->
+        <!--                        Invoicing and Shipping Address:-->
+        <!--                    </t>-->
+        <!--                    <t t-else="">-->
+        <!--                        Invoicing Address:-->
+        <!--                    </t>-->
+        <!--                </strong>-->
+        <!--                <div t-field="doc.partner_invoice_id"-->
+        <!--                    t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>-->
+        <!--                <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">-->
+        <!--                    <strong>Shipping Address:</strong>-->
+        <!--                    <div t-field="doc.partner_shipping_id"-->
+        <!--                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>-->
+        <!--                </t>-->
+        <!--            </t>-->
+
+        <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+            <!--        <xpath expr="//div[@class='page']" position="replace">-->
+            <t t-call="kg_sale_order.sale_html_container">
+                <t t-call="kg_sale_order.sale_external_layout_inherit">
+                    <div class="page">
+                        <div id="address">
+
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td class="col-6" style="font-size:13px;border:1px solid black;">To:
+                                        <br/>
+                                        <t t-esc="doc.partner_id.name"/>
+                                    </td>
+                                    <td class="col-6" style="font-size:13px;border:1px solid black;">From:
+                                        <br/>
+                                        <t t-esc="doc.user_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-6" style="font-size:13px;border:1px solid black;">Company:
+                                        <br/>
+                                        <t t-if="doc.partner_id.is_company">
+                                            <t t-esc="doc.partner_id.name"/>
+
+                                        </t>
+                                        <t t-else="">
+                                            <t t-if="doc.partner_id.parent_id">
+                                                <t t-esc="doc.partner_id.parent_id.name"/>
+                                            </t>
+                                        </t>
+                                    </td>
+                                    <td class="col-6" style="font-size:13px;border:1px solid black;">Date:
+                                        <br/>
+                                        <t t-esc="doc.date_order.strftime('%d %b %Y')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-6" style="font-size:13px;border:1px solid black;">Fax No.:
+                                        <br/>
+                                        <t t-if="doc.partner_id.fax">
+                                            <t t-esc="doc.partner_id.fax"/>
+                                        </t>
+                                    </td>
+                                    <td class="col-6" style="font-size:13px;border:1px solid black;">No of Sheets:
+                                        <br/>
+                                        <!--                                        <div class="topage"/>-->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-6" style="font-size:13px;border:1px solid black;">E-mail:
+                                        <br/>
+                                        <t t-if="doc.partner_id.email">
+                                            <t t-esc="doc.partner_id.email"/>
+                                        </t>
+                                    </td>
+                                    <td class="col-6" style="font-size:13px;border:1px solid black;">Our Reference No.:
+                                        <br/>
+                                        <t t-esc="doc.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-6" style="font-size:13px;border:1px solid black;">Your Reference No.:
+                                        <br/>
+                                        <t t-if="doc.your_reference">
+                                            <t t-esc="doc.your_reference"/>
+                                        </t>
+                                    </td>
+                                    <td class="col-6" style="font-size:13px;border:1px solid black;">Reply To:
+                                        <br/>
+                                        <t t-esc="doc.user_id.login"/>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="font-size:13px;border:1px solid black;">Subject:
+                                        <br/>
+                                        <t t-if="doc.subject">
+                                            <t t-esc="doc.subject"/>
+                                        </t>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div>
+                            <t t-if="doc.terms_conditions_id">
+                                <!--                                <t t-esc="doc.terms_conditions_id.name" style="font-size:13px;"/>-->
+                                <t t-esc="doc.terms_conditions" style="font-size:13px;"/>
+                                <br/>
+                                Submitted by,
+                                <br/>
+                                <t t-esc="doc.user_id.name" style="line-height: 1.5;"/>
+                                <br/>
+                                <t t-esc="doc.user_id.company_id.name" style="line-height: 1.5;"/>
+                            </t>
+                        </div>
+                        <!--                        <div>-->
+                        <!--                            <p align="center">-->
+                        <!--                                <strong style="font-size:12px;">-->
+                        <!--                                    <u>Please quote our reference number in all your correspondences to us.</u>-->
+                        <!--                                </strong>-->
+                        <!--                            </p>-->
+                        <!--                            <p style="font-size:12px;">Dear Sir/Madam,</p>-->
+                        <!--                            <p style="font-size:12px;">-->
+                        <!--                                &lt;!&ndash;                        <br/>&ndash;&gt;-->
+                        <!--                                We thank you very much for giving us an opportunity to serve your esteemed organization.-->
+                        <!--                                We are-->
+                        <!--                                pleased to quote for Assembly &amp; Accessories for Integration of Cabinets as per your-->
+                        <!--                                RFQ-->
+                        <!--                                Documents.-->
+                        <!--                                <br/>-->
+                        <!--                                <br/>-->
+                        <!--                                We believe our offer will be in line with your requirements. Please feel free to call us-->
+                        <!--                                or-->
+                        <!--                                contact undersigned for any queries in the below offer.-->
+                        <!--                                &lt;!&ndash;                        <br/>&ndash;&gt;-->
+                        <!--                                <br/>-->
+                        <!--                            </p>-->
+                        <!--                            <p style="font-size:12px;">-->
+                        <style>
+                            ol.custom-counter {
+                            list-style-type: upper-alpha;
+                            padding-left: 20px;
+                            }
+                            .custom-counter li {
+                            margin-bottom: 10px;
+                            }
+                            ul {
+                            margin-top: 5px;
+                            margin-bottom: 5px;
+                            padding-left: 20px;
+                            }
+                            ul li {
+                            margin-bottom: 5px;line-height: 1.5;
+                            }
+                            <!--                                                            .page-break {-->
+                            <!--                                                            page-break-before: always;-->
+                            <!--                                                            }-->
+
+
+                        </style>
+
+
+                        <!--                                <ol class="custom-counter" style="font-size:12px;">-->
+                        <!--                                    <li style="font-size:12px;">-->
+                        <!--                                        <strong>-->
+                        <!--                                            <u>Reference Documents:</u>-->
+                        <!--                                        </strong>-->
+                        <!--                                    </li>-->
+                        <!--                                    &lt;!&ndash;                            <br/>&ndash;&gt;-->
+                        <!--                                    &lt;!&ndash;                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ndash;&gt;-->
+                        <!--                                    Following documents &amp; correspondences were the basis of our proposal.-->
+                        <!--                                    <br/>-->
+                        <!--                                    <br/>-->
+                        <!--                                    <strong>Documents:</strong>-->
+                        <!--                                    <ul>-->
+                        <!--                                        <li>Mail Dated 06-July-2023, with subject “Neom Village 5k and 10k - Commercial-->
+                        <!--                                            Proposal-->
+                        <!--                                            Request”.-->
+                        <!--                                        </li>-->
+                        <!--                                        <li>Mail with comments received on 10-Jul-2023.-->
+                        <!--                                            <ul>-->
+                        <!--                                                <li>Include Power Supply Units.</li>-->
+                        <!--                                                <li>Changing 13 Amps PDU to 16 Amps.</li>-->
+                        <!--                                                <li>Increase decrease in MCB.</li>-->
+                        <!--                                                <li>Bus Bar qty updated.</li>-->
+                        <!--                                                <li>Increase 1U/2U name plates.</li>-->
+                        <!--                                                <li>Include Conduct FAT in KSA With clients and the ship the cabinets to-->
+                        <!--                                                    KSA.-->
+                        <!--                                                </li>-->
+                        <!--                                            </ul>-->
+                        <!--                                        </li>-->
+                        <!--                                        <li>Quote revised to be Ex-works JAFZA.</li>-->
+                        <!--                                        <li>The perforated door changed to plain door, plus roof mounted fan 2 nos per-->
+                        <!--                                            cabinet-->
+                        <!--                                            and 4-->
+                        <!--                                            Filter mounted in door per cabinet. Corresponding MCB and wiring added.-->
+                        <!--                                        </li>-->
+                        <!--                                    </ul>-->
+                        <!--                                    <li>-->
+                        <!--                                        <strong>-->
+                        <!--                                            <u>Base Proposal:-->
+                        <!--                                                <br/>Refer Attachment-1 for BOM.<br/>Refer Attachment-2 for Pricing.-->
+
+                        <!--                                            </u>-->
+                        <!--                                        </strong>-->
+                        <!--                                        <ul>-->
+                        <!--                                            <li>All Prices Quoted are in AED.</li>-->
+                        <!--                                            <li>Pricing is strictly based on the attached BOM; any changes to this will-->
+                        <!--                                                have-->
+                        <!--                                                commercial-->
+                        <!--                                                implications.-->
+                        <!--                                            </li>-->
+                        <!--                                        </ul>-->
+                        <!--                                    </li>-->
+                        <!--                                    <li>-->
+                        <!--                                        <strong>-->
+                        <!--                                            <u>Scope included in base proposal:</u>-->
+                        <!--                                        </strong>-->
+                        <!--                                        Scope of work includes as per your mail and drawings which are listed below:-->
+                        <!--                                        <ul>-->
+                        <!--                                            <li>Rittal make cabinet (COO-India) and cabinet accessories as listed in our-->
+                        <!--                                                BOM.-->
+                        <!--                                            </li>-->
+                        <!--                                            <li>Mounting and wiring of free issue items.</li>-->
+                        <!--                                            <li>Schneider make MCB’s are considered.</li>-->
+                        <!--                                            <li>Rittal make light &amp; Door Switch considered.</li>-->
+                        <!--                                            <li>LM Threm Hygrostat Consider.</li>-->
+                        <!--                                            <li>Trinity make Cables ducts is considered.</li>-->
+                        <!--                                            <li>Seecab make LSZH wires is considered.</li>-->
+                        <!--                                            <li>Weidmuller Make TB’s and TB accessories are considered.</li>-->
+                        <!--                                            <li>Avalon Make FOPP/SMFO Patch cords is considered.</li>-->
+                        <!--                                            <li>Avalon make Ethernet Communication cables are considered.</li>-->
+                        <!--                                            <li>Avalon Make Blanking Plate &amp; Cable Manager.</li>-->
+                        <!--                                            <li>Lugs, Cable Ties, all wiring accessories.</li>-->
+                        <!--                                            <li>Assembly &amp; Wiring will be done in our facility in Jebel Ali.</li>-->
+                        <!--                                            <li>We have considered wooden packing for all cabinets.</li>-->
+                        <!--                                            <li>Pre-FAT/FAT / I-FAT Staging is considered in our scope, which will be in-->
+                        <!--                                                KSA or-->
+                        <!--                                                UAE JAFZA.-->
+                        <!--                                            </li>-->
+                        <!--                                            <li>All Servers &amp; RTU Will be installed in our Works in JAFZA and will-->
+                        <!--                                                be-->
+                        <!--                                                shipped as installed inside the cabinet.-->
+                        <!--                                            </li>-->
+                        <!--                                        </ul>-->
+                        <!--                                    </li>-->
+                        <!--                                    <li>-->
+                        <!--                                        <strong>-->
+                        <!--                                            <u>Scope Excluded in base proposal:</u>-->
+                        <!--                                        </strong>-->
+                        <!--                                        <ul>-->
+                        <!--                                            <li>All Network Switches, Ethernet Switches, KVM Switches, RTU’s, Gateway,-->
+                        <!--                                                ETAP-->
+                        <!--                                                Workstation, Server and associated network accessories is not in our-->
+                        <!--                                                scope-->
+                        <!--                                                of supply.-->
+                        <!--                                            </li>-->
+                        <!--                                            <li>Cable glands are not considered in our scope of supply.</li>-->
+                        <!--                                            <li>Transport to KSA &amp; COO is not in our scope.</li>-->
+                        <!--                                            <li>Customs Duty &amp; KSA Entry VAT is not in our scope the same shall be-->
+                        <!--                                                re-imbursed to us at actual immediately without any bank charge-->
+                        <!--                                                deductions.-->
+                        <!--                                            </li>-->
+                        <!--                                            <li>Anything apart from our proposed BOM is not considered in our scope of-->
+                        <!--                                                supply.-->
+                        <!--                                            </li>-->
+                        <!--                                        </ul>-->
+                        <!--                                    </li>-->
+
+                        <!--                                    <li>-->
+                        <!--                                        <strong>-->
+                        <!--                                            <u>Deviation:</u>-->
+                        <!--                                        </strong>-->
+                        <!--                                        <ul>-->
+                        <!--                                            <li>We have considered standard 12-way Avalon make PDU with only 1 universal-->
+                        <!--                                                switch-->
+                        <!--                                                Instead of 10 Way Avalon Make PDU.-->
+                        <!--                                            </li>-->
+                        <!--                                            <li>We have considered Civaux make Hygrostat &amp; Space heater instead of-->
+                        <!--                                                LM-->
+                        <!--                                                Therm-->
+                        <!--                                                make Space Heater because 100W Space not standard in LM Therm Make.-->
+                        <!--                                            </li>-->
+                        <!--                                            <li>Gland Plate will be as standard by Cabinet Supplier, Dimension shown in-->
+                        <!--                                                drawing may-->
+                        <!--                                                vary with respect to actual cabinets gland plates and Thickness of Plate-->
+                        <!--                                                will be 2 mm.-->
+                        <!--                                            </li>-->
+                        <!--                                        </ul>-->
+                        <!--                                    </li>-->
+                        <!--                                    <li>-->
+                        <!--                                        <strong>-->
+                        <!--                                            <u>Delivery Schedule:</u>-->
+                        <!--                                        </strong>-->
+                        <!--                                        <ul>-->
+                        <!--                                            <li>We have considered standard 12-way Avalon make PDU with only 1 universal-->
+                        <!--                                                switch-->
+                        <!--                                                Instead of 10 Way Avalon Make PDU.-->
+                        <!--                                            </li>-->
+                        <!--                                        </ul>-->
+                        <!--                                    </li>-->
+                        <!--                                    <li>-->
+                        <!--                                        <strong>-->
+                        <!--                                            <u>Terms:</u>-->
+                        <!--                                        </strong>-->
+                        <!--                                        <ul style="font-size:12px;">-->
+                        <!--                                            <li style="font-size:12px;">Delivery: Ex-Works ASF Jebel Ali Freezone.-->
+                        <!--                                            </li>-->
+                        <!--                                            <li style="font-size:12px;">Warranty: 12 Months from date of Supply.-->
+                        <!--                                            </li>-->
+                        <!--                                            <li style="font-size:12px;">Validity: Price is valid till 1 week from date-->
+                        <!--                                                of this offer.-->
+                        <!--                                            </li>-->
+                        <!--                                            <li style="font-size:12px;">Payment: 30 % advance, 20% After completion of-->
+                        <!--                                                ETAP Engineer Inspection-->
+                        <!--                                                and 50%-->
+                        <!--                                                After Dispatch including FAT.-->
+                        <!--                                            </li>-->
+                        <!--                                        </ul>-->
+                        <!--                                    </li>-->
+                        <!--                                </ol>-->
+                        <!--                                <span style="font-size:12px;">-->
+                        <!--                                    Submitted by,-->
+                        <!--                                </span>-->
+                        <!--                                <br/>-->
+                        <!--                                <span style="font-size:12px;">-->
+
+                        <!--                                    Anantha Moorthi Pandian-->
+                        <!--                                </span>-->
+                        <!--                                <br/>-->
+                        <!--                                <span style="font-size:12px;">-->
+
+                        <!--                                    automation SYNERGY’s (FZC)-->
+                        <!--                                </span>-->
+                        <!--                            </p>-->
+                        <!--                        </div>-->
+                        <!--                        <div style="display: block;page-break-after: always;"/>-->
+                        <!--                        <div class="page">-->
+                        <!--                            <table class="table table-bordered" style="font-size:12px;">-->
+                        <!--                                <thead>-->
+                        <!--                                    <tr>-->
+                        <!--                                        <th>Sl.No</th>-->
+                        <!--                                        <th>Typical</th>-->
+                        <!--                                        <th>Cabinet Name / Item Description</th>-->
+                        <!--                                        <th>Cabinet Size-->
+                        <!--                                            Door Options-->
+                        <!--                                            Mounting Plates-->
+                        <!--                                        </th>-->
+                        <!--                                        <th>QTY</th>-->
+                        <!--                                        <th>UOM</th>-->
+                        <!--                                        <th>Unit Price-->
+                        <!--                                            (AED)-->
+                        <!--                                        </th>-->
+                        <!--                                        <th>Total Price-->
+                        <!--                                            (AED)-->
+                        <!--                                        </th>-->
+                        <!--                                    </tr>-->
+                        <!--                                </thead>-->
+                        <!--                                <t t-set="count" t-value="0"/>-->
+                        <!--                                <t t-set="total" t-value="0"/>-->
+                        <!--                                <t t-set="total_qty" t-value="0"/>-->
+                        <!--                                <tbody>-->
+                        <!--                                    &lt;!&ndash; Loop through your order lines and populate the table rows &ndash;&gt;-->
+                        <!--                                    <tr t-foreach="doc.order_line" t-as="line">-->
+                        <!--                                        &lt;!&ndash;                                        <tr>&ndash;&gt;-->
+                        <!--                                        <td>-->
+                        <!--                                            <t t-set="count" t-value="count+1"/>-->
+                        <!--                                            <t t-esc="count"/>-->
+
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            &lt;!&ndash;                                                <t t-esc="line.product_id.name"/>&ndash;&gt;-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <t t-esc="line.name"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            &lt;!&ndash;                                                <t t-esc="line.price_unit"/>&ndash;&gt;-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <t t-esc="line.product_uom_qty"/>-->
+                        <!--                                            <t t-set="total_qty" t-value="total_qty+line.product_uom_qty"/>-->
+
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <t t-esc="line.product_uom.name"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <t t-esc="line.price_unit"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <t t-esc="line.price_subtotal"/>-->
+                        <!--                                            <t t-set="total" t-value="total+line.price_subtotal"/>-->
+
+                        <!--                                        </td>-->
+                        <!--                                    </tr>-->
+
+                        <!--                                    <tr>-->
+                        <!--                                        <td>-->
+                        <!--                                            &lt;!&ndash;                                            <t t-set="count" t-value="count+1"/>&ndash;&gt;-->
+                        <!--                                            &lt;!&ndash;                                            <t t-esc="count"/>&ndash;&gt;-->
+
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            &lt;!&ndash;                                                <t t-esc="line.product_id.name"/>&ndash;&gt;-->
+                        <!--                                        </td>-->
+                        <!--                                        <td/>-->
+                        <!--                                        <td>-->
+                        <!--                                            Total-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <t t-esc="total_qty"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <t t-esc="total"/>-->
+                        <!--                                        </td>-->
+                        <!--                                    </tr>-->
+                        <!--                                </tbody>-->
+                        <!--                            </table>-->
+
+
+                        <!--                        </div>-->
+                    </div>
+                    <t t-if="doc.project_id">
+                        <div style="display: block;page-break-after: always;"/>
+                        <div class="page">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td align="center" style="font-size:18px;">
+                                        <strong>Bill Of Material</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table table-bordered" style="font-size:13px;border:none;">
+                                <t t-set="bom_id"
+                                   t-value="doc.env['bom.selection'].search([('project_id','=',doc.project_id.id)],order='id ASC')"/>
+                                <t t-set="bom_category" t-value="bom_id.mapped('bom_category_id')"/>
+
+                                <thead>
+
+                                    <tr>
+                                        <th rowspan="2" style="vertical-align:middle">Sl. No</th>
+                                        <th rowspan="2" style="vertical-align:middle">Make</th>
+                                        <th rowspan="2" style="vertical-align:middle">Product Series</th>
+                                        <th rowspan="2" style="vertical-align:middle">Item Description</th>
+                                        <th rowspan="2" style="vertical-align:middle">Rating</th>
+                                        <th rowspan="2" style="vertical-align:middle">UOM</th>
+                                        <th rowspan="2" style="vertical-align:middle">Model No.</th>
+                                        <t t-foreach="bom_category" t-as="bom_cat">
+                                            <th style="vertical-align:middle">
+                                                <t t-esc="bom_cat.name"/>
+                                            </th>
+                                        </t>
+                                    </tr>
+                                    <tr>
+                                        <t t-foreach="bom_category" t-as="bom_cat">
+                                            <th>Qty</th>
+                                        </t>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="sl_no" t-value="0"/>
+                                    <t t-set="letter" t-value="0"/>
+                                    <t t-set="bom_values" t-value="doc.get_bom_values()"/>
+                                    <t t-foreach="bom_values" t-as="product_category">
+
+                                        <tr style="background-color:#ffc000;font-weight:bold;">
+                                            <td>
+                                                <t t-set="letter" t-value="letter + 1"/>
+                                                <t t-esc="chr(64 + letter)"/>
+                                                <t t-set="sl_no" t-value="0"/>
+
+                                            </td>
+                                            <td t-att-colspan="len(bom_category)+6">
+                                                <t t-esc="product_category.name"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr t-foreach="product_category_value" t-as="product">
+                                            <td>
+                                                <t t-set="sl_no" t-value="sl_no + 1"/>
+                                                <t t-esc="sl_no"/>
+                                            </td>
+                                            <td>
+                                                <t t-if="list(product.keys())[0].brand_id">
+                                                    <t t-esc="list(product.keys())[0].brand_id.name"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="list(product.keys())[0].serial">
+                                                    <t t-esc="list(product.keys())[0].serial"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="list(product.keys())[0].description_sale">
+                                                    <t t-esc="list(product.keys())[0].description_sale"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-esc="list(product.keys())[0].display_name"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="list(product.keys())[0].rating_size and list(product.keys())[0].rating_size!='0'">
+                                                    <t t-esc="list(product.keys())[0].rating_size"/>
+                                                </t>
+                                            </td>
+
+                                            <t t-foreach="product_value" t-as="bom_categ">
+                                                <t t-foreach="bom_categ_value" t-as="category">
+                                                    <t t-if="category == 'uom'">
+                                                        <td align="center">
+                                                            <t t-set="matched" t-value="False"/>
+                                                            <t t-foreach="category_value" t-as="cate">
+                                                                <t t-if="cate.name">
+                                                                    <t t-set="matched" t-value="True"/>
+                                                                    <t t-esc="cate.name"/>
+                                                                </t>
+                                                            </t>
+                                                            <t t-if="not matched">
+                                                                <!-- leave the cell blank if no match -->
+                                                            </t>
+                                                        </td>
+                                                    </t>
+                                                </t>
+                                            </t>
+
+                                            <td>
+                                                <t t-if="list(product.keys())[0].model_id">
+                                                    <t t-esc="list(product.keys())[0].model_id.name"/>
+                                                </t>
+                                            </td>
+                                            <t t-foreach="product_value" t-as="bom_categ">
+                                                <t t-foreach="bom_categ_value" t-as="category">
+                                                    <t t-foreach="category_value" t-as="cate">
+                                                        <t t-if="category=='bom'">
+                                                            <td align="center">
+                                                                <t t-esc="cate_value"/>
+                                                            </td>
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </t>
+                    <div style="display: block;page-break-after: always;"/>
+                    <div class="page">
+                        <br/>
+
+                        <table class="table table-bordered" style="font-size:13px;">
+                            <thead>
+                                <tr>
+                                    <th valign="middle">Sl.No</th>
+                                    <th valign="middle">Typical</th>
+                                    <th valign="middle">Product</th>
+                                    <th valign="middle">Cabinet Name / Item Description</th>
+                                    <th valign="middle">Cabinet Size
+                                        Door Options
+                                        Mounting Plates
+                                    </th>
+                                    <th valign="middle">QTY</th>
+                                    <th valign="middle">UOM</th>
+                                    <th valign="middle">Unit Price
+                                        (
+                                        <t t-esc="doc.currency_id.name"/>
+                                        )
+                                    </th>
+                                    <th valign="middle">Total Price
+                                        (
+                                        <t t-esc="doc.currency_id.name"/>
+                                        )
+                                    </th>
+                                </tr>
+                            </thead>
+                            <t t-set="count" t-value="0"/>
+                            <t t-set="total" t-value="0"/>
+                            <t t-set="total_qty" t-value="0"/>
+                            <tbody>
+                                <!-- Loop through your order lines and populate the table rows -->
+                                <tr t-foreach="doc.order_line" t-as="line">
+                                    <!--                                        <tr>-->
+                                    <td align="center">
+                                        <t t-set="count" t-value="count+1"/>
+                                        <t t-esc="count"/>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.product_id.name"/>
+                                    </td>
+                                    <td align="left">
+                                        <t t-esc="line.name"/>
+                                    </td>
+                                    <td>
+                                        <!--                                                <t t-esc="line.price_unit"/>-->
+                                    </td>
+                                    <td align="center">
+                                        <t t-esc="'%.0f' % line.product_uom_qty"/>
+
+                                        <!--                                        <t t-esc="line.product_uom_qty"/>-->
+                                        <t t-set="total_qty" t-value="total_qty+line.product_uom_qty"/>
+
+                                    </td>
+                                    <td align="center">
+                                        <t t-esc="line.product_uom.name"/>
+                                    </td>
+                                    <td align="right">
+                                        <t t-esc="'%.2f' % line.price_unit"/>
+
+                                        <!--                                        <t t-esc="line.price_unit"/>-->
+                                    </td>
+                                    <td align="right">
+                                        <t t-esc="'%.2f' % line.price_subtotal"/>
+
+                                        <!--                                        <t t-esc="line.price_subtotal"/>-->
+                                        <t t-set="total" t-value="total+line.price_subtotal"/>
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <!--                                            <t t-set="count" t-value="count+1"/>-->
+                                        <!--                                            <t t-esc="count"/>-->
+
+                                    </td>
+                                    <td>
+                                        <!--                                                <t t-esc="line.product_id.name"/>-->
+                                    </td>
+                                    <td/>
+                                    <td/>
+                                    <td>
+                                        Total
+                                    </td>
+
+                                    <td align="center">
+                                        <t t-esc="'%.0f' % total_qty"/>
+
+                                        <!--                                        <t t-esc="total_qty"/>-->
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td align="right" t-if="doc.currency_id">
+                                        <!--                                        <t t-esc="total"/>-->
+                                        <t t-esc="doc.currency_id.name"/>
+                                        <t t-esc="'%.2f' % total"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

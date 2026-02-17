@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_mass_promo_mailing_tree" model="ir.ui.view">
+            <field name="name">mass.promo.mailing.tree</field>
+            <field name="model">mass.promo.mailing</field>
+            <field name="arch" type="xml">
+                <tree string="Mass Promo Mailing" import="false">
+                    <field name="name"/>
+                    <field name="date_sent"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mass_promo_mailing_form" model="ir.ui.view">
+            <field name="name">mass.promo.mailing.form</field>
+            <field name="model">mass.promo.mailing</field>
+            <field name="arch" type="xml">
+                <form string="Mass Promo Mailing" version="7.0">
+                    <header>
+                        <button name="sent_mail" string="Draft To Mass Mail" type="object"
+                                class="oe_highlight" invisible="state!='draft'"/>
+                        <button name="set_promo_code" string="Set Promo Code" type="object"
+                                class="oe_highlight"  invisible="state!='draft'"/>
+                        <button name="reset_promo_code" string="Reset Promo Code" type="object"
+                                class="oe_highlight" invisible="state!='draft'"/>
+                        <field name="state" widget="statusbar" nolabel="1"
+                               statusbar_visible="draft,sent"/>
+                    </header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button name="action_view_mass_mailing"
+                                    class="oe_stat_button"
+                                    icon="fa-envelope"
+                                    string="Mass Mail"
+                                    type="object">
+                            </button>
+
+                            <button name="action_view_promo_codes"
+                                    class="oe_stat_button"
+                                    icon="fa-gift"
+                                    type="object">
+                                <field string="Promo Code" name="promo_code_no" widget="statinfo"/>
+
+                            </button>
+                        </div>
+
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+
+
+                        <label for="date_sent" class="oe_edit_only"/>
+                        <h2>
+                            <field name="date_sent" required="1"/>
+                        </h2>
+
+                        <label for="promo_code_type" class="oe_edit_only"/>
+                        <h3>
+                            <field name="promo_code_type" required="1"/>
+                        </h3>
+                        <notebook>
+                            <page string="Promo Codes">
+                                <field name="cus_promo">
+                                    <tree editable="bottom">
+                                        <field name="partner_id"/>
+                                        <field name="partner_name" required="1"/>
+                                        <field name="email" required="1"/>
+                                        <field name="promo_code"/>
+                                            <field name="blacklist" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Content">
+
+                                <field name="body_html" widget="html" options="{'style-inline': true}"/>
+
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_mass_promo_mailing" model="ir.actions.act_window">
+            <field name="name">Mass Promo Mailing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mass.promo.mailing</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Promotional Mails Here !
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_parent_promo" name="Email Personalisation" parent="mass_mailing.mass_mailing_menu_root"
+                  sequence="6"/>
+        <menuitem id="menu_mass_promo_mailing" name="Promotional Mails"
+                  action="action_mass_promo_mailing" parent="menu_parent_promo"
+                  sequence="1"/>
+
+        <record id="view_customer_promo_codes_tree" model="ir.ui.view">
+            <field name="name">customer.promo.codes.tree</field>
+            <field name="model">customer.promo.codes</field>
+            <field name="arch" type="xml">
+                <tree string="Customer Promo Codes">
+                    <field name="partner_name"/>
+                    <field name="email"/>
+                    <field name="promo_code"/>
+                    <field name="mass_promo_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_customer_promo_codes" model="ir.actions.act_window">
+            <field name="name">Customer Promo Codes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.promo.codes</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Customer Promo Codes !
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_customer_promo_codes" name="Customer Promo Codes"
+                  action="action_customer_promo_codes" parent="menu_parent_promo"
+                  sequence="2"/>
+
+
+    </data>
+</odoo>

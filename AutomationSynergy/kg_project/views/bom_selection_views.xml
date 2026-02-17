@@ -1,0 +1,114 @@
+<odoo>
+    <record id="bom_selection_form_view" model="ir.ui.view">
+        <field name="name">bom.selection.form.view</field>
+        <field name="model">bom.selection</field>
+        <field name="arch" type="xml">
+            <form string="model">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" invisible="state!='draft'"
+                            class="btn-primary"
+                    />
+                    <button name="update_quantity" string="Done" type="object" class="btn-primary"
+                            invisible="not show_button or state=='done'"/>
+                    <button name="action_approved" groups="project.group_project_manager" string="Approve" type="object"
+                            invisible="state!='confirm'"
+                            class="btn-primary"
+                    />
+                    <button name="action_reject" groups="project.group_project_manager" string="Reject" type="object"
+                            invisible="state!='confirm'"
+                            class="btn-secondary"
+                    />
+                    <button name="create_mr" string="Create MR" type="object" class="btn-primary"
+                            invisible="state!='approve'"
+                    />
+                    <button name="action_cancel" string="Cancel" type="object"
+                            invisible="state not in ['approve','reject']"
+                            class="btn-secondary"
+                    />
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object"
+                            invisible="state not in ['cancel','approve','reject']"
+                            class="btn-secondary"
+                    />
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirm,done"/>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" type="object" name="action_view_mr" icon="fa-shopping-cart"
+                                invisible="mr_count==0">
+                            <field string="MR" name="mr_count" widget="statinfo"/>
+                        </button>
+
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sale_order_id" readonly="state != 'draft'"/>
+                            <field name="sale_order_ids" widget="many2many_tags" invisible="1"
+                                   readonly="state != 'draft'"/>
+                            <field name="product_ids" invisible="1" widget="many2many_tags"
+                                   readonly="state != 'draft'"/>
+                            <field name="product_category_ids" invisible="1" widget="many2many_tags"
+                                   readonly="state != 'draft'"/>
+                            <field name="show_bom_in" widget="radio" String="Select BOM by"
+                                   readonly="state != 'draft'"/>
+                            <field name="bom_category_id" invisible="show_bom_in=='product'" required="1"
+                                   readonly="state != 'draft'"/>
+                            <field name="product_id" required='1' force_save="1" readonly="state != 'draft'"/>
+                            <field name="product_category_id" invisible="1" readonly="state != 'draft'"/>
+                            <field name="show_button" force_save="1" invisible="1" readonly="state != 'draft'"/>
+                            <field name="is_updation" invisible="1" readonly="state != 'draft'"/>
+                            <!--                            <field name="qty"/>-->
+                            <!--                            <button name="update_qty" string="Update Qty" type="object" class="btn-primary"/>-->
+                            <label for="qty"/>
+                            <div class="row">
+                                <div class="col-md-7"> <!-- Adjust columns as per your layout -->
+                                    <field name="qty" readonly="state != 'draft'"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <button name="update_qty" string="Update Qty" type="object" class="btn-primary"
+                                            invisible="1"/>
+                                </div>
+                            </div>
+                            <field name="project_id" invisible="1" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="Lines" String="Lines">
+                            <field name="bom_selection_ids" widget="section_and_note_one2many"
+                                   force_save="1">
+                                <tree editable="bottom" limit="200" count_limit="200" create="true" delete="true">
+                                    <field name="display_type" column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="product_category_id" column_invisible="1"/>
+                                    <field name="project_id" column_invisible="1"/>
+                                    <field name="product_id" required="1" force_save="1"/>
+                                    <field name="qty"/>
+                                    <field name="uom_id"/>
+                                    <field name="bom_qty" column_invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page String="Lines" name="text">
+                            <field name="bom_selection_ids">
+                                <tree edit="bottom" create="1" delete="1">
+                                     <field name="project_id"/>
+                                </tree>
+
+                            </field>
+                        </page>
+                    </notebook>
+                    <!--                <footer>-->
+                    <!--                    <button string="Confirm" name="action_load_bom_lines" type="object" class="oe_highlight"-->
+                    <!--                    />-->
+                    <!--                    <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="x"/>-->
+                    <!--                </footer>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

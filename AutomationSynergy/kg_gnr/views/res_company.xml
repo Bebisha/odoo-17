@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="res_company_inherit_kg_oki_purchase">
+        <field name="name">res.company.form.inherit.kg.oki.partner.name</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+             <field name="vat" position="after">
+                <field name="is_default_picking" />
+             </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="res_partner_inherit_kg_oki_purchase">
+        <field name="name">res.partner.form.inherit.oki.partner.name</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+<!--            <xpath expr="//field[@name='vat']" position="after">-->
+<!--                <field name="supplier_rank" invisible="1"/>-->
+<!--                <field name="purchase_type" invisible="supplier_rank == 0"/>-->
+<!--            </xpath>-->
+             <group name="purchase" position="inside">
+                 <field name="supplier_rank" invisible="1"/>
+                 <field name="purchase_type" invisible="supplier_rank == 0"/>
+             </group>
+        </field>
+    </record>
+</odoo>

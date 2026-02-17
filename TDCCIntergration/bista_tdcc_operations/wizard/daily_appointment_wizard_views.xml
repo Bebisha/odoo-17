@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="create_daily_appointment_wizard_form" model="ir.ui.view">
+            <field name="name">daily.appointment.wizard.form</field>
+            <field name="model">daily.appointment.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Daily Appointment">
+                    <group>
+                        <group>
+                            <field name="start_date" required="1"/>
+                            <field name="end_date" required="1"/>
+                            <field name="physician_id" options="{'no_create': True, 'no_open':True}"/>
+                        </group>
+                        <group>
+                            <field name="code_id" options="{'no_create': True, 'no_open':True}"/>
+                            <field name="clinic_id" options="{'no_create': True, 'no_open':True}"/>
+                            <field name="room_id" options="{'no_create': True, 'no_open':True}"/>
+                        </group>
+                        <group>
+                            <field name="app_with_bal"/>
+                            <field name="print_pdf"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="open_appointments" string="Open Appointments" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="create_daily_appointment_action" model="ir.actions.act_window">
+            <field name="name">Daily Appointments</field>
+            <field name="res_model">daily.appointment.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

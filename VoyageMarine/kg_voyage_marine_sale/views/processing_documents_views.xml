@@ -1,0 +1,47 @@
+<odoo>
+
+    <record id="action_processing_documents" model="ir.actions.act_window">
+        <field name="name">Processing Documents</field>
+        <field name="res_model">processing.documents</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="processing_documents_menu" action="action_processing_documents" parent="sale.menu_sale_config"
+              sequence="21"/>
+
+    <record id="processing_documents_list_view" model="ir.ui.view">
+        <field name="name">kg.processing.documents.list.view</field>
+        <field name="model">processing.documents</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="company_id"/>
+                <field name="is_default"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="processing_documents_form_view" model="ir.ui.view">
+        <field name="name">kg.processing.documents.list.view</field>
+        <field name="model">processing.documents</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="is_default"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+</odoo>

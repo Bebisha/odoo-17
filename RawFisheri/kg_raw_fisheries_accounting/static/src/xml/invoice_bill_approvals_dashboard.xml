@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="kg_raw_fisheries_accounting.PendingApvDashboard">
+        <div style="min-height: 100vh; display: flex; flex-direction: column; padding: 20px;">
+            <h1 style="text-align: center; margin-bottom: 20px;">Pending Approvals Dashboard</h1>
+
+            <div style="width: 100%; max-width: 700px; margin: 20px auto; padding: 15px; background-color: #f9f9f9;
+                    border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <div style="display: flex; gap: 20px; margin-bottom: 5px;">
+                    <div style="flex: 1;">
+                        <label style="font-weight: bold; color: #333;">Select Type</label>
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="font-weight: bold; color: #333;">Select Approver</label>
+                    </div>
+                    <div style="width: 120px; text-align: right;"/>
+                </div>
+                <div style="display: flex; gap: 20px;">
+                    <div style="flex: 1;">
+                        <select t-on-change="onTypeChange"
+                                style="width: 100%; padding: 8px 12px; border: 1px solid #ccc;
+                                       border-radius: 4px; background-color: #fff; font-size: 14px;">
+                            <option value="">All</option>
+                            <option value="invoice">Invoice</option>
+                            <option value="bill">Bill</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <select t-on-change="onApproverChange"
+                                style="width: 100%; padding: 8px 12px; border: 1px solid #ccc;
+                                       border-radius: 4px; background-color: #fff; font-size: 14px;">
+                            <option value="">All</option>
+                            <t t-foreach="state.approvers" t-as="user" t-key="user">
+                                <option t-att-value="user">
+                                    <t t-esc="user"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+
+                    <div style="width: 120px; text-align: right;">
+                        <button t-on-click="onExportClick"
+                                style="background-color: #007bff; color: white; border: none; border-radius: 5px;padding: 8px 16px; font-size: 14px; cursor: pointer; transition: background-color 0.2s;">
+                            <i class="fa fa-download" style="margin-right: 5px;"/>
+                            Export
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="body" style="overflow-y: auto; max-height: calc(100vh - 350px);">
+                <table class="table table-hover" style="width: 100%;">
+                    <thead style="position: sticky; top: 0; background-color: #343a40; color: white;">
+                        <tr>
+                            <th style="text-align:center;">Number</th>
+                            <th style="text-align:center;">Customer</th>
+                            <th style="text-align:center;">Approver</th>
+                            <th style="text-align:center;">Invoice Date</th>
+                            <th style="text-align:center;">Due Date</th>
+                            <th style="text-align:right;">Total (USD)</th>
+                            <th style="text-align:center;">Status</th>
+                            <!--                            <th/>-->
+                            <!--                            <th/>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-if="state.PendingApvData.length === 0">
+                            <tr>
+                                <td colspan="7"
+                                    style="text-align: center;padding: 20px;color: #666;font-style: italic;font-weight: bold;
+                                            background-color: #fdfdfd;border-top: 1px solid #ddd;">
+                                    No results found.
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-foreach="state.PendingApvData" t-as="record" t-key="record.id">
+                            <tr>
+                                <td style="text-align:center;">
+                                    <a href="#" t-on-click.prevent="() => this.openRecord(record.id)">
+                                        <t t-esc="record.no or ''"/>
+                                    </a>
+                                </td>
+                                <td style="text-align:left;">
+                                    <t t-esc="record.partner or ''"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    <t t-esc="record.approver or ''"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    <t t-esc="record.invoice_date or ''"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    <t t-esc="record.due_date or ''"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <t t-esc="record.total.toFixed(2) or ''"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    <t t-if="record.state  == 'Waiting Invoice Final Approval'">
+                                        <span class="badge large rounded-pill text-bg-primary"
+                                              style="font-size:12px; padding:8px 16px;">
+                                            <t t-esc="record.state or ''"/>
+                                        </span>
+                                    </t>
+                                    <t t-if="record.state  == 'Waiting Bill Final Approval'">
+                                        <span class="badge large rounded-pill text-bg-warning"
+                                              style="font-size:12px; padding:8px 16px;">
+                                            <t t-esc="record.state or ''"/>
+                                        </span>
+                                    </t>
+                                    <t t-if="record.state  == 'Waiting Invoice Approval'">
+                                        <span class="badge large rounded-pill text-bg-info"
+                                              style="font-size:12px; padding:8px 16px;">
+                                            <t t-esc="record.state or ''"/>
+                                        </span>
+                                    </t>
+                                    <t t-if="record.state  == 'Waiting Bill Approval'">
+                                        <span class="badge large rounded-pill text-bg-success"
+                                              style="font-size:12px; padding:8px 16px;">
+                                            <t t-esc="record.state or ''"/>
+                                        </span>
+                                    </t>
+                                </td>
+                                <!--                                <td style="text-align:center;">-->
+                                <!--                                   <t t-if="record.state == 'Approval Requested'">-->
+                                <!--                                        <i class="fa fa-check" t-att-data-id="record.id"-->
+                                <!--                                           t-on-click="() => this.approveData(record.id)"-->
+                                <!--                                           style="color: green; font-size: 18px; cursor: pointer; margin-left:10px;"/>-->
+                                <!--                                    </t>-->
+                                <!--                                </td>-->
+                                <!--                                <td style="text-align:center;">-->
+                                <!--                                    <t t-if="record.state == 'Approval Requested'">-->
+                                <!--                                        <i class="fa fa-times" t-att-data-id="record.id"-->
+                                <!--                                           t-on-click="() => this.rejectData(record.id)"-->
+                                <!--                                           style="color: red; font-size: 18px; cursor: pointer; margin-left:10px;"/>-->
+                                <!--                                    </t>-->
+                                <!--                                </td>-->
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="unsubscribed" inherit_id="mass_mailing.unsubscribe_form" primary="True">
+
+        <xpath expr="//div[@id='o_mailing_subscription_form_manage']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+
+    </template>
+
+    <template id="mass_mailing.page_mailing_unsubscribe" name="Unsubscribed">
+        <t t-call="mass_mailing.layout">
+            <t t-call="kg_casio.unsubscribed"/>
+        </t>
+    </template>
+
+</odoo>

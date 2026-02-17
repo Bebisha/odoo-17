@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_leave_allocation_view_inherit_form">
+            <field name="name">hr.leave.allocation.form</field>
+            <field name="model">hr.leave.allocation</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="is_negative_allocation" invisible="0" readonly="1"/>
+                    <field name="is_deducted" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

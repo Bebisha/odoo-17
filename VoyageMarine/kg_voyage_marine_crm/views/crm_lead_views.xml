@@ -1,0 +1,266 @@
+<odoo>
+    <data>
+
+        <record id="kg_crm_lead_view_form_inherit" model="ir.ui.view">
+            <field name="name">kg.crm.lead.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <h1>
+                        <field name="enq_no"/>
+                    </h1>
+                </field>
+                <field name="tag_ids" position="after">
+                    <field name="estimation_created" invisible="1"/>
+                    <field name="vessel_id"/>
+                    <field name="po_ids" invisible="1"/>
+                    <field name="est_po_ids" widget="many2many_tags" string="Purchase Reference"/>
+                    <field name="is_fully_available" invisible="1"/>
+                    <field name="enquiry_type" required="1"/>
+                    <field name="po_ids" widget="many2many_tags" invisible="1"/>
+                    <field name="sml_ids" widget="many2many_tags" invisible="1"/>
+                </field>
+
+                <xpath expr="//field[@name='user_id'][1]" position="after">
+                    <field name="emp_id" invisible="1"/>
+                    <field name="employee_id"/>
+                </xpath>
+
+                <xpath expr="//group[@name='lead_priority']" position="after">
+                    <group name="inspections" string="Inspections" invisible="type != 'opportunity'">
+                        <field name="inspection" widget="radio" options="{'horizontal': true}" required="True"/>
+                        <field name="inspection_user_ids" widget="many2many_tags" invisible="inspection == 'no'"/>
+                        <field name="inspection_status" invisible="inspection == 'no' " readonly="1"/>
+                    </group>
+                    <group name="estimation" string="Estimation" invisible="type != 'opportunity'">
+                        <field name="estimation" widget="radio" options="{'horizontal': true}"/>
+                        <field name="estimation_type" invisible="estimation == 'no'" readonly="estimation_id"
+                               widget="many2many_tags"/>
+                        <field name="estimation_id" readonly="1" force_save="1"/>
+                    </group>
+                </xpath>
+
+                <field name="lost_reason_id" position="after">
+                    <field name="attn"/>
+                    <field name="enquiry_id"/>
+                    <field name="customer_ref"/>
+                    <field name="jr_no"/>
+
+                </field>
+                <field name="tag_ids" position="before">
+                    <field name="bid_closing_date"/>
+                    <field name="is_inspection_request_send" invisible="1"/>
+                    <field name="is_reject_inspection" invisible="1"/>
+                    <field name="is_approval_inspection" invisible="1"/>
+                </field>
+                <xpath expr="//div[@class='oe_button_box']" position="after">
+
+                    <widget name="web_ribbon" title="Send Inspection Request" bg_color="text-bg-info"
+                            invisible="is_inspection_request_send != True or is_approval_inspection == True or is_reject_inspection == True"/>
+                    <widget name="web_ribbon" title="Inspection Approved" bg_color="bg-success"
+                            invisible="is_approval_inspection != True or is_inspection_request_send != True or is_reject_inspection == True  "/>
+                    <widget name="web_ribbon" title="Reject Inspection" bg_color="bg-danger"
+                            invisible="is_reject_inspection != True or is_inspection_request_send != True"/>
+                </xpath>
+
+
+                <xpath expr="//button[@name='action_set_won_rainbowman']" position="before">
+                    <button string="Create Estimation" name="create_estimation" type="object" class="oe_highlight"
+                            invisible="type == 'lead' or estimation == 'no' or estimation_created == True or probability == 0 and not active"/>
+                    <button string="Create RFQ" name="open_rfq_wizard" type="object" class="oe_highlight"/>
+                    <button string="Inspection Request" name="send_inspection_request" type="object"
+                            class="oe_highlight"
+                            invisible="type == 'lead' or inspection == 'no' or is_inspection_request_send == True "/>
+                    <button string="Approve Inspection" name="inspection_approval" type="object" class="oe_highlight"
+                            invisible="type == 'lead' or po_ids  or inspection == 'no' or is_inspection_request_send != True or is_approval_inspection == True or is_reject_inspection == True"/>
+                    <button string="Inspection Reject" name="action_reject" type="object" class="oe_highlight"
+                            invisible="type == 'lead' or po_ids or inspection == 'no' or is_reject_inspection == True or is_inspection_request_send != True or is_approval_inspection == True "/>
+                    <button name="create_inspection_report" string="Create Inspection Report" type="object"
+                            class="oe_highlight"/>
+                    <button name="action_preview_job_note" string="Job Note Preview" type="object"
+                            class="btn-secondary"/>
+
+                </xpath>
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button class="oe_stat_button" type="object" name="get_estimation" icon="fa-arrow-right"
+                            string="Estimation" invisible="estimation_created == False"
+                            widget="statinfo">
+                    </button>
+                    <button class="oe_stat_button" type="object" name="get_rfq_ids" icon="fa-pencil-square-o"
+                            string="RFQ" invisible="rfq_count == 0"
+                            widget="statinfo">
+                        <field name="rfq_count" widget="statinfo" string="RFQ"/>
+                    </button>
+                    <button class="oe_stat_button" type="object" name="get_po_ids" icon="fa-pencil-square-o"
+                            string="Purchase" invisible="po_count == 0"
+                            widget="statinfo">
+                        <field name="po_count" widget="statinfo" string="Purchase Order"/>
+                    </button>
+                    <button class="oe_stat_button" name="action_view_delivery_note" type="object"
+                            string="View Inspection" icon="fa-arrow-right"
+                    />
+
+                    <field name="inspection_report_count" invisible="1"/>
+                    <button class="oe_stat_button" name="action_view_inspection_report" type="object"
+                            string="Inspection Reports" icon="fa-forward" invisible="inspection_report_count == 0">
+                        <field name="inspection_report_count" widget="statinfo" string="Inspection Reports"/>
+                    </button>
+                </xpath>
+                <xpath expr="//page[@name='lead']" position="after">
+
+                    <page string="Inspection Notes" invisible=" inspection == 'no'">
+                        <group>
+                            <field name="inspect_no"/>
+                            <field name="job_delivery_note" invisible="1"/>
+                            <field name="inspect_comments" placeholder="Note here..."/>
+                        </group>
+                    </page>
+                    <page string="Service Instrument" name="insp_calibration" invisible=" inspection == 'no'">
+                        <field name="is_service_instrument" invisible="1"/>
+
+                        <div class="row">
+                            <div class="col-2 col-md-1">
+                                <button name="action_delivery_note" type="object" string="Create Inspection"
+                                        class="btn-primary"
+                                />
+                            </div>
+                            <div class="col-2 col-md-1">
+                                <button name="action_view_delivery_note" type="object" string="View Inspection"
+                                        class="btn-primary"
+                                />
+                            </div>
+                        </div>
+
+                        <field name="inspection_cal_ids">
+                            <tree editable="bottom">
+                                <field name="id" column_invisible="1"/>
+                                <field name="sl_no" string="No." readonly="is_quant_created == True"/>
+                                <field name="code"/>
+                                <field name="is_equipment_true" column_invisible="1"/>
+                                <field name="pro_id" required="1"
+                                       context="{'default_is_equipment': True,'default_tracking': 'serial'}"
+                                       readonly="is_quant_created == True"/>
+                                <field name="product_temp_id" column_invisible="1"/>
+                                <field name="product_category" column_invisible="1"/>
+                                <field name="uom_id" column_invisible="1"/>
+                                <field name="is_quant_created" column_invisible="1"/>
+                                <field name="lot_number_text" readonly="True" string="Description"/>
+                                <field name="lot_ids" column_invisible="1"/>
+                                <field name="serial_no" column_invisible="1"/>
+                                <field name="qty" readonly="is_quant_created == True"/>
+                                <field name="remark" readonly="is_quant_created == True" string="Inspection Note"/>
+                                <field name="unit_price" optional="hide" column_invisible="1"/>
+                                <field name="sequence_lot_ids" widget="many2many_tags" column_invisible="1"/>
+                                <field name="update_qty" string="Incoming qty" readonly="is_quant_created == True" column_invisible="1"/>
+
+                                <button name="update_location" type="object" string="Update qty"
+                                        class="btn-primary" invisible="1"/>
+                                <button name="kg_views_product_location" type="object" string="view"
+                                        icon="fa-plus-square"
+                                        invisible="1"/>
+
+                                <button name="action_assign_serials" type="object" icon="fa-plus-square" role="img"
+                                        title="Assign Serial Numbers" invisible="1"/>
+
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="inspection_report" string="Inspection Report" invisible="1">
+                        <group>
+                            <group>
+                                <field name="inspection_report_id"/>
+                            </group>
+                        </group>
+                        <field name="inspection_content_view" string="Inspection Report"/>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="kg_quick_create_opportunity_form_inherit" model="ir.ui.view">
+            <field name="name">kg.crm.lead.quick.create.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+            <field name="arch" type="xml">
+                <field name="company_currency" position="before">
+                    <field name="enquiry_type" required="1"/>
+                    <field name="estimation" widget="radio" options="{'horizontal': true}" required="True"/>
+                    <field name="vessel_id" options="{'horizontal': true}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_crm_case_form_view_oppor_inherit" model="ir.ui.view">
+            <field name="name">kg.crm.case.oppor.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_sale_quotations_new']" position="replace">
+                    <button string="New Quotation" name="action_sale_quotations_new" type="object" class="oe_highlight"
+                            data-hotkey="q" title="Create new quotation"
+                            invisible="type == 'lead' or estimation == 'yes' or probability == 0 and not active"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="custom_crm_tree_view_opportunity" model="ir.ui.view">
+            <field name="name">custom.crm.lead.tree.opportunity</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='recurring_revenue_monthly']" position="after">
+                    <field name="enq_no"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_crm_case_leads_filter_inherits" model="ir.ui.view">
+            <field name="name">crm.lead.search.opportunity.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+                <!--                <search string="Search Leads">-->
+                <xpath expr="//search/field[@name='user_id']" position="after">
+                    <field name="enquiry_type"/>
+                    <field name="vessel_id"/>
+                    <field name="inspection"/>
+                    <field name="inspect_no"/>
+                    <field name="inspection_status"/>
+                    <field name="inspection_user_ids"/>
+                    <field name="enq_no"/>
+                </xpath>
+                <filter name="date_closed" position="after">
+                    <filter string="Vessel" name="vessel_id" context="{'group_by':'vessel_id'}"/>
+                    <filter string="Inspection" name="inspection" context="{'group_by':'inspection'}"/>
+                    <filter string="Enq No" name="inspection" context="{'group_by':'enq_no'}"/>
+                    <filter string="Inspection Status" name="inspection_status"
+                            context="{'group_by':'inspection_status'}"/>
+                    <filter string="Inspection Assignees" name="inspection_user_ids"
+                            context="{'group_by':'inspection_user_ids'}"/>
+                    <!--                     <filter string="Vessel" domain="[]" context="{'group_by': 'vessel_id'}"/>-->
+                </filter>
+
+            </field>
+        </record>
+        <record id="view_stock_quant_tree_custom" model="ir.ui.view">
+            <field name="name">stock.quant.tree.inherit</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="serial_no" optional="hide"/>
+                    <field name="make_id" optional="hide"/>
+                    <field name="model_id" optional="hide"/>
+                    <field name="accesories" optional="hide"/>
+                    <field name="physical_status_id" optional="hide"/>
+                    <field name="remark" optional="hide" />
+                    <field name="lot_number_text" optional="hide"/>
+                    <field name="lead_id" column_invisible="1"/>
+                    <field name="inspection_calibration_id" optional="hide"/>
+
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

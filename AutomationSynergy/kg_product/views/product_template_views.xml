@@ -1,0 +1,74 @@
+<odoo>
+    <record id="product_template_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.view.form.inherit1</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="attributes">
+                <attribute name="required">product_variant_count&lt;=1</attribute>
+            </field>
+            <field name="standard_price" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="weight" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+
+            <field name="default_code" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="categ_id" position="after">
+                <field name="brand_id"/>
+                <field name="model_id"/>
+                <field name="order_code"/>
+                <field name="default_code" string="Internal Reference No"/>
+                <field name="rating_size"/>
+                <field name="serial"/>
+            </field>
+
+        </field>
+    </record>
+    <record id="product_product_form_inherit" model="ir.ui.view">
+        <field name="name">product.product.view.form.inherit1</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="categ_id" position="after">
+                <field name="brand_id"/>
+                <field name="model_id"/>
+                <field name="order_code"/>
+                <field name="default_code"  string="Internal Reference No"/>
+                <field name="rating_size"/>
+                <field name="serial"/>
+            </field>
+
+        </field>
+    </record>
+
+    <record id="view_product_template_filter" model="ir.ui.view">
+        <field name="name">product.template.search.custom</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='filter_to_sell']" position="before">
+
+                <field name="brand_id"/>
+                <field name="serial"/>
+                <field name="model_id"/>
+                <field name="rating_size"/>
+                <field name="order_code"/>
+                <filter string="Brand" name="brand_id" context="{'group_by':'brand_id'}"/>
+                <filter string="Oder code" name="order_code" context="{'group_by':'order_code'}"/>
+                <filter string="Model" name="model_id" context="{'group_by':'model_id'}"/>
+            </xpath>
+
+        </field>
+
+    </record>
+
+
+</odoo>

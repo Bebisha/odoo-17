@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Appointment Medium Form -->
+    <record model="ir.ui.view" id="appointment_medium_form">
+        <field name="name">appointment.medium.form</field>
+        <field name="model">appointment.medium</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Medium Form">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                   options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Appointment Medium List -->
+    <record model="ir.ui.view" id="appointment_medium_tree">
+        <field name="name">appointment.medium.tree</field>
+        <field name="model">appointment.medium</field>
+        <field name="arch" type="xml">
+            <tree string="Appointment Medium List">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Appointment Medium Search -->
+    <record model="ir.ui.view" id="appointment_medium_search">
+        <field name="name">appointment.medium.search</field>
+        <field name="model">appointment.medium</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <filter string="Archived" name="inactive"
+                        domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Appointment Medium Action -->
+    <record model="ir.actions.act_window"
+            id="appointment_medium_action">
+        <field name="name">Mediums of Appointment</field>
+        <field name="res_model">appointment.medium</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Appointment Medium Menu -->
+    <menuitem id="appointment_medium_menu"
+              name="Mediums of Appointment"
+              action="appointment_medium_action"
+              parent="360_configuration_menu"
+              sequence="5"/>
+    <!--     groups="bista_tdcc_operations.group_tdcc_cre,bista_tdcc_operations.group_tdcc_cofounder,bista_tdcc_operations.group_appointment_manager"-->
+
+</odoo>

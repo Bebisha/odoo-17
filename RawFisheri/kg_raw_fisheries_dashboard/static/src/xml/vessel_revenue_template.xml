@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Template for vessel revenue dashboard -->
+<templates xml:space="preserve">
+    <t t-name="kg_raw_fisheries_dashboard.VesselRevenueTemplate">
+        <div style="height: 100vh; display: flex; flex-direction: column; padding: 20px;">
+            <h1 style="text-align: center; margin-bottom: 20px;">Vessel Revenue</h1>
+
+            <!-- Filter section -->
+            <div style="width: 20%;margin: 20px 0 15px 20px; display: flex; align-items: center; justify-content: flex-start;
+                        padding: 10px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 8px;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <label style="margin-right: 10px; font-weight: bold; color: #333;">Choose Vessel</label>
+                <select
+                        t-on-change="onVesselChange"
+                        style="flex: 1; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; background-color: #fff; font-size: 14px;">
+                    <option value="">All</option>
+                    <t t-foreach="state.vessels" t-as="vessel" t-key="vessel">
+                        <option t-att-value="vessel">
+                            <t t-esc="vessel"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+
+            <!-- Table section-->
+            <div style="overflow: auto; max-height: 80vh;">
+                <table class="table table-hover" style="width: 100%;">
+                    <thead style="position: sticky; top: 0; background-color: #343a40; color: white;">
+                        <tr style="text-align:center">
+                            <th style="text-align:center;">Vessel</th>
+                            <th style="text-align:right;">Previous Month Revenue</th>
+                            <th style="text-align:right;">Current Month Revenue</th>
+                            <th style="text-align:right;">Total Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-if="state.filteredData.length === 0">
+                            <tr>
+                                <td colspan="9"
+                                    style="text-align: center;padding: 20px;color: #666;font-style: italic;font-weight: bold;
+                                            background-color: #fdfdfd;border-top: 1px solid #ddd;">
+                                    No results found.
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-foreach="state.filteredData" t-as="record" t-key="record.vessel">
+                            <tr style="text-align:center">
+                                <td>
+                                    <t t-esc="record.vessel"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <t t-esc="record.previous_month"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <t t-esc="record.current_month"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <t t-esc="record.total_revenue"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>

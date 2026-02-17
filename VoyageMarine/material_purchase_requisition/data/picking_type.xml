@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+     <record id="stock_picking_material_issue" model="stock.picking.type">
+        <field name="name">Material Issue</field>
+        <field name="sequence_code">MI</field>
+        <field name="code">internal</field>
+         <field name="is_material_issue">True</field>
+    </record>
+    <record id="stock_picking_material_request" model="stock.picking.type">
+        <field name="name">Material Request</field>
+        <field name="sequence_code">MI</field>
+        <field name="code">internal</field>
+         <field name="is_material_request">True</field>
+    </record>
+</odoo>

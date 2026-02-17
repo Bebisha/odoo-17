@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_timesheet_entry_form" model="ir.ui.view">
+        <field name="name">Timesheet Entry</field>
+        <field name="model">wizard.timesheet.entry</field>
+        <field name="arch" type="xml">
+            <form string="Time Entry">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="sale_id" string="Job"/>
+                            <field name="project_id" string="Project"/>
+                            <field name="task_id" string="Scope"/>
+                            <field name="type"/>
+                            <field name="time_in" invisible="type != 'time_in'"/>
+                            <field name="time_out" invisible="type != 'time_out'"/>
+                        </group>
+                        <group>
+                            <field name="team_id"/>
+                            <field name="team_member_ids" widget="many2many_tags"/>
+                            <field name="anchorage" force_save="0"/>
+                            <field name="overseas" force_save="0"/>
+                        </group>
+                        <!--                        <group>-->
+                        <!--                            <button name="load_lines" id="load_lines" string="Load Lines" type="object"-->
+                        <!--                                    class="btn-primary"/>-->
+                        <!--                        </group>-->
+                    </group>
+                    <field name="entry_lines">
+                        <tree editable="bottom">
+                            <field name="assignee_id"/>
+                            <field name="timesheet_entry_id" column_invisible="True"/>
+                            <field name="timesheet_id" column_invisible="True"/>
+                            <field name="subtask_id" string="Task"
+                                   domain="[('parent_id', '!=', False), ('id', 'child_of', parent.task_id), ('project_id','=',parent.project_id)]"/>
+
+
+                            <field name="time_in"/>
+                            <field name="time_out" column_invisible="parent.type == 'time_in'"/>
+                            <field name="total_hours" column_invisible="parent.type == 'time_in'"
+                                   widget="timesheet_uom"/>
+                            <field name="normal_hours" column_invisible="parent.type == 'time_in'"
+                                   widget="timesheet_uom"/>
+                            <field name="ot_hours" column_invisible="parent.type == 'time_in'" widget="timesheet_uom"/>
+                            <field name="anchorage"  force_save="0"/>
+                            <field name="overseas"  force_save="0"/>
+                            <!--                            <field name="travel" widget="boolean_toggle"/>-->
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="action_submit" id="action_submit" string="Submit" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </footer>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

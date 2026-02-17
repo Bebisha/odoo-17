@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_deduction_management,access.deduction.management,model_hr_deduction,base.group_user,1,1,1,1
+access_deduction_management_line,access.deduction.management.line,model_hr_deduction_line,base.group_user,1,1,1,1
+access_earnings_deduction_import,access.earnings.deduction.import,model_earnings_deduction_import,base.group_user,1,1,1,1
+access_earn_ded_elements,access.earn.ded.elements,model_earn_ded_elements,base.group_user,1,1,1,1
+access_deduction_approval_settings,access.deduction.approval.settings,model_deduction_approval_settings,base.group_user,1,1,1,1
+access_deduction_approval_validators,access.deduction.approval.validators,model_deduction_approval_validators,base.group_user,1,1,1,1
+access_deduction_approval_status,access.deduction.approval.status,model_deduction_approval_status,base.group_user,1,1,1,1
+

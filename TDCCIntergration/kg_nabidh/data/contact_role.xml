@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="contact_role_c" model="contact.role">
+            <field name="code">C</field>
+            <field name="name">Emergency Contact</field>
+        </record>
+
+        <record id="contact_role_e" model="contact.role">
+            <field name="code">E</field>
+            <field name="name">Employer</field>
+        </record>
+
+        <record id="contact_role_n" model="contact.role">
+            <field name="code">N</field>
+            <field name="name">Next-of-Kin</field>
+        </record>
+
+        <record id="contact_role_o" model="contact.role">
+            <field name="code">O</field>
+            <field name="name">Other</field>
+        </record>
+
+        <record id="contact_role_u" model="contact.role">
+            <field name="code">U</field>
+            <field name="name">Unknown</field>
+        </record>
+
+        <record id="contact_role_g" model="contact.role">
+            <field name="code">G</field>
+            <field name="name">Government Department</field>
+        </record>
+
+        <record id="contact_role_i" model="contact.role">
+            <field name="code">I</field>
+            <field name="name">Insurance Company</field>
+        </record>
+
+    </data>
+</odoo>

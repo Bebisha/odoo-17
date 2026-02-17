@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--  Template for resigned employees pdf report  -->
+    <template id="report_resigned_employees_pdf">
+        <t t-call="web.html_container">
+            <div class="page">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%" style="font-size:25px;">
+                            <td width="75%" align="left" style="border: 1px solid white">
+                                <t t-if='request.env.company.logo'>
+                                    <img t-att-src='image_data_uri(request.env.company.logo)'
+                                         alt='Logo' style="max-width: 150px; max-height: 100px;"/>
+                                </t>
+                                <t t-else="">
+                                    <strong>
+                                        <span t-esc="company_id" style="text-transform: uppercase;"/>
+                                    </strong>
+                                </t>
+                            </td>
+                            <td align="right" width="25%" style="border: 1px solid white">
+                                <strong>
+                                    DATE :
+                                    <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colsapn="2" style="border: 1px solid white" align="center">
+                                <span style="font-weight: bold;font-size:30px; margin-left:250px;">LEAVE BALANCE REPORT
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table style='border-collapse:collapse;width:100%;margin:5pt;border: 1px solid black;'>
+                        <thead>
+                            <tr style="height:50px; border: 1px solid black;">
+                                <th style="border-right: 1px solid black;">
+                                    <span>EMPLOYEE</span>
+                                </th>
+                                <th style="border-right: 1px solid black;">
+                                    <span>EMPLOYEE NO.</span>
+                                </th>
+                                <th style="border-right: 1px solid black;">
+                                    <span>JOB</span>
+                                </th>
+                                <th style="border-right: 1px solid black;">
+                                    <span>DEPARTMENT</span>
+                                </th>
+                                <th style="border-right: 1px solid black;">
+                                    <span>DATE OF JOINING</span>
+                                </th>
+                                <th style="border-right: 1px solid black;">
+                                    <span>YEARS OF SERVICE</span>
+                                </th>
+                                <th style="border-right: 1px solid black;">
+                                    <span>DATE OF DEPARTURE</span>
+                                </th>
+                                <th style="border-right: 1px solid black;">
+                                    <span>DEPARTURE REASON</span>
+                                </th>
+                                <th>
+                                    <span>ADDITIONAL INFORMATION</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="value_list" t-as="value" style="height:40px; border: 1px solid black;">
+                                <td style="border-right: 1px solid black; text-align:center;">
+                                    <t t-esc="value['employee']"/>
+                                </td>
+                                <td style="border-right: 1px solid black; text-align:center;">
+                                    <t t-esc="value['employee_no']"/>
+                                </td>
+                                <td style="border-right: 1px solid black; text-align:center;">
+                                    <t t-esc="value['job']"/>
+                                </td>
+                                <td style="border-right: 1px solid black; text-align:center;">
+                                    <t t-esc="value['department']"/>
+                                </td>
+                                <td style="border-right: 1px solid black; text-align:center;">
+                                    <t t-esc="value['date_of_joining']"/>
+                                </td>
+                                <td style="border-right: 1px solid black; text-align:center;">
+                                    <t t-esc="value['years_of_service']"/>
+                                </td>
+                                <td style="border-right: 1px solid black; text-align:center;">
+                                    <t t-esc="value['departure_date']"/>
+                                </td>
+                                <td style="border-right: 1px solid black; text-align:center;">
+                                    <t t-esc="value['departure_reason_id']"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    <t t-esc="value['departure_description']"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

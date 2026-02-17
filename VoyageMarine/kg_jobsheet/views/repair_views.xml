@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="delivery_repair_server_action" model="ir.actions.server">
+        <field name="name">Create Delivery</field>
+        <field name="model_id" ref="repair.model_repair_order"/>
+        <field name="binding_model_id" ref="repair.model_repair_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_delivery_repair()
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_repair_order_form+inherited">
+        <field name="name">repair.form.inherited</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml">
+            <field name="picking_id" position="before">
+                <field name="vessel_id"/>
+                <field name="job_ref_calibration" invisible="jobsheet_form_count == 0"/>
+                <field name="job_ref_lsa" invisible="jobsheet_form_count_lsa == 0"/>
+                <field name="job_ref_ffa" invisible="jobsheet_form_count_ffa == 0"/>
+                <field name="job_ref_field_service" invisible="job_ref_field_service == 0"/>
+                <field name="job_ref_nav_comm" invisible="job_ref_nav_comm == 0"/>
+                <field name="product_category_id" domain="[('is_scope', '=', True)]"/>
+                <field name="product_loct_id"/>
+                <field name="lot_vir_id"
+                       domain="[('quant_ids.location_id', '=', product_loct_id),('quant_ids.product_id', '=', product_id)]"/>
+                <field name="saleorder_id"/>
+                <field name="customer_location_id"/>
+                <field name="is_calibration_repair" invisible="1"/>
+                <field name="is_line" invisible="1"/>
+                <field name="is_revision_request" invisible="1"/>
+                <field name="is_revision_approve" invisible="1"/>
+                <field name="revision_created" invisible="1"/>
+            </field>
+            <field name="lot_id" position="after">
+                <field name="make_id"  invisible="tracking not in ['serial', 'lot']"/>
+                <field name="model_id"  invisible="tracking not in ['serial', 'lot']"/>
+                <field name="accesories" invisible="tracking not in ['serial', 'lot']"/>
+                <field name="physical_status_id" invisible="tracking not in ['serial', 'lot']"/>
+                <field name="remark"  invisible="tracking not in ['serial', 'lot']"/>
+            </field>
+
+            <field name="tag_ids" position="after">
+                <field name="jr_no"/>
+            </field>
+
+            <xpath expr="//button[@name='%(repair.action_repair_move_lines)d']" position="replace">
+                <button name="%(repair.action_repair_move_lines)d" type="action" string="Product Moves"
+                        class="oe_stat_button"
+                        icon="fa-exchange" invisible="state not in ['done', 'cancel','calibrated']"/>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='page_miscellaneous']" position="after">
+                <page string="Test Result">
+                    <field name="certificate_content_view"/>
+                </page>
+
+            </xpath>
+            <xpath expr="//field[@name='move_ids']/tree//field[@name='repair_line_type']"
+                   position="after">
+                <field name="repair_line_type_display" />
+            </xpath>
+            <xpath expr="//field[@name='move_ids']/tree//field[@name='repair_line_type']"
+                   position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_repair_end']" position="attributes">
+                <attribute name="string">Delivery</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_qty']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <!--             <xpath expr="//button[@name='action_repair_start']" position="attributes">-->
+            <!--                <attribute name="invisible">state != 'confirmed' or is_line</attribute>-->
+            <!--            </xpath>-->
+            <xpath expr="//button[@name='action_create_sale_order']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!--            <xpath expr="//field[@name='lot_id']" position="attributes">-->
+            <!--                <attribute name="invisible">1</attribute>-->
+            <!--                <attribute name="required">0</attribute>-->
+            <!--            </xpath>-->
+            <xpath expr="//button[@name='action_repair_end']" position="after">
+                <field name="mr_created" invisible="1"/>
+                <button name="create_material_rqst" string="Material Request" type="object"
+                        class="btn-primary" invisible="state != 'confirmed' or mr_created == True or is_line"
+
+                />
+                <button name="create_final_certificate" string="Final Certificate" type="object"
+                        class="btn-primary" invisible="jobsheet_form_count == 0 or is_line"
+
+                />
+                <button name="create_final_certificate_lsa" string="Final Certificate" type="object"
+                        class="btn-primary" invisible="jobsheet_form_count_lsa == 0 or is_line"
+
+                />
+                <button name="create_final_certificate_ffa" string="Final Certificate" type="object"
+                        class="btn-primary" invisible="jobsheet_form_count_ffa == 0 or is_line"
+
+                />
+                <button name="create_final_certificate_field_service" string="Final Certificate" type="object"
+                        class="btn-primary" invisible="job_ref_field_service == 0 or is_line"
+
+                />
+                <button name="create_final_certificate_nav_com" string="Final Certificate" type="object"
+                        class="btn-primary" invisible="job_ref_nav_comm == 0 or is_line"
+
+                />
+                <button name="request_revision" type="object" string="Request For Revision" class="oe_highlight"
+                        invisible="not is_line or is_revision_request or state != 'confirmed'"/>
+                <button name="approve_revision" type="object" string="Approve For Revision"
+                        invisible="not is_revision_request or is_revision_approve or state in ['under_repair','done']"
+                        class="oe_highlight"/>
+                <button name="revision_reason" type="object" string="Create Revision"
+                        class="oe_highlight"
+                        invisible="not is_revision_approve or revision_created or state in ['under_repair','done']"/>
+
+            </xpath>
+
+            <xpath expr="//button[@name='action_repair_start']" position="attributes">
+                <attribute name="invisible">state != 'confirmed' or is_line</attribute>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" name="action_view_mr"
+                        type="object" icon="fa-bars" string="Material Request" invisible="mr_created == False">
+                </button>
+
+                <button class="oe_stat_button" name="action_sale_order"
+                        type="object" icon="fa-bars" string="Sale Order" invisible="sale_form_count == 0">
+                    <field name="sale_form_count" widget="statinfo" string="Sale Order"/>
+
+
+                </button>
+
+                <button class="oe_stat_button" name="action_jobsheet"
+                        type="object" icon="fa-bars" string="Calibration Job sheet "
+                        invisible="jobsheet_form_count == 0">
+                    <field name="jobsheet_form_count" widget="statinfo" string="Calibration Job sheet"/>
+                </button>
+
+
+                <button class="oe_stat_button" name="action_jobsheet_lsa"
+                        type="object" icon="fa-bars" string="Calibration Job sheet Job sheet"
+                        invisible="jobsheet_form_count_lsa == 0">
+                    <field name="jobsheet_form_count_lsa" widget="statinfo" string="LSA Job sheet"/>
+                </button>
+                <button class="oe_stat_button" name="action_view_delivery_note_repair"
+                        type="object" icon="fa-bars" string="Delivery Note"
+                        invisible="state not in ['done', 'cancel','calibrated']">
+                    <!--                    <field name="jobsheet_form_count_lsa" widget="statinfo" string="LSA Job sheet"/>-->
+                </button>
+
+                <button class="oe_stat_button" name="action_jobsheet_ffa"
+                        type="object" icon="fa-bars" string="Calibration Job sheet Job sheet"
+                        invisible="jobsheet_form_count_ffa == 0">
+                    <field name="jobsheet_form_count_ffa" widget="statinfo" string="FFA Job sheet"/>
+                </button>
+                <button class="oe_stat_button" name="action_jobsheet_field_service"
+                        type="object" icon="fa-bars" string="Calibration Job sheet Job sheet"
+                        invisible="jobsheet_form_count_field_service == 0">
+                    <field name="jobsheet_form_count_field_service" widget="statinfo" string="Field service Job sheet"/>
+                </button>
+                <button class="oe_stat_button" name="action_jobsheet_nav_comm"
+                        type="object" icon="fa-bars" string="Calibration Job sheet Job sheet"
+                        invisible="jobsheet_form_count_nav_comm == 0">
+                    <field name="jobsheet_form_count_nav_comm" widget="statinfo" string="Nav and comm Job sheet"/>
+                </button>
+
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

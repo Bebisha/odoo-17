@@ -1,0 +1,180 @@
+<odoo>
+    <data noupdate="0">
+
+        <record id="structure_auto" model="hr.payroll.structure">
+            <field name="name">Automation synergy Regular Pay</field>
+            <field name="type_id" ref="hr_contract.structure_type_employee"/>
+            <field name="unpaid_work_entry_type_ids"
+                   eval="[(4, ref('hr_work_entry_contract.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="kg_hr_housing_allowance" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">HRA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Housing Rent Allowance</field>
+            <field name="sequence" eval="5"/>
+            <field name="amount_python_compute">result=(payslip.paid_amount/contract.wage)*contract.housing_allowance
+            </field>
+
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+        </record>
+        <record id="kg_hr_food_allowance" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">FA</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs['FA'].amount > 0.0 if 'FA' in inputs else False</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Food Allowance</field>
+            <field name="sequence" eval="5"/>
+            <field name="amount_python_compute">result = inputs['FA'].amount if 'FA' in inputs else False</field>
+            <field name="is_earn_deduct">True</field>
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+        </record>
+        <record id="kg_hr_transport_allowances" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">TA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Transport Allowance</field>
+            <field name="sequence" eval="5"/>
+            <field name="amount_python_compute">result=(payslip.paid_amount/contract.wage)*contract.transportation_allowance</field>
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+        </record>
+        <record id="kg_hr_advance_allowances" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">AA</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs['AA'].amount > 0.0 if 'AA' in inputs else False</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Advance Allowance</field>
+            <field name="sequence" eval="5"/>
+            <field name="amount_python_compute">result = inputs['AA'].amount if 'AA' in inputs else False</field>
+            <field name="is_earn_deduct">True</field>
+
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+        </record>
+        <record id="kg_hr_bonus_allowances" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">BA</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs['BA'].amount > 0.0 if 'BA' in inputs else False</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Bonus/ Incentive</field>
+            <field name="sequence" eval="5"/>
+            <field name="is_earn_deduct">True</field>
+
+            <field name="amount_python_compute">result = inputs['BA'].amount</field>
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+        </record>
+
+        <record id="kg_hr_other_allowance" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">OTA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Other Allowance</field>
+            <field name="sequence" eval="5"/>
+            <field name="amount_python_compute">result=(payslip.paid_amount/contract.wage)*contract.other_allowances
+            </field>
+
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+        </record>
+
+        <record id="kg_hr_d_non_working_days" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">DNWD</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs['DNWD'].amount > 0.0 if 'DNWD' in inputs else False
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">D: Non-working Days</field>
+            <field name="sequence" eval="5"/>
+            <field name="amount_python_compute">result = -inputs['DNWD'].amount
+            </field>
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+            <field name="is_earn_deduct">True</field>
+
+        </record>
+        <record id="kg_hr_d_advance" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">DA</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs['DA'].amount > 0.0 if 'DA' in inputs else False
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">D: Advances</field>
+            <field name="sequence" eval="5"/>
+            <field name="amount_python_compute">result = -inputs['DA'].amount</field>
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+            <field name="is_earn_deduct">True</field>
+
+        </record>
+        <record id="kg_hr_d_telephone" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">DT</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs['DT'].amount > 0.0 if 'DT' in inputs else False
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">D: Telephone</field>
+            <field name="sequence" eval="5"/>
+            <field name="amount_python_compute">result = -inputs['DT'].amount
+            </field>
+            <field name="is_earn_deduct">True</field>
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+        </record>
+
+        <record id="kg_hr_d_security_deposit" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">DSD</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs['DSD'].amount > 0.0 if 'DSD' in inputs else False
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">D: Security Deposit</field>
+            <field name="sequence" eval="5"/>
+            <field name="amount_python_compute">result = -inputs['DSD'].amount
+            </field>
+            <field name="is_earn_deduct">True</field>
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+        </record>
+        <record id="kg_hr_d_other" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">DO</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs['DO'].amount > 0.0 if 'DO' in inputs else False
+            </field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">D: Others</field>
+            <field name="sequence" eval="5"/>
+            <field name="is_earn_deduct">True</field>
+
+            <field name="amount_python_compute">result = -inputs['DO'].amount
+            </field>
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+            <field name="is_earn_deduct">True</field>
+
+        </record>
+        <record id="overtime_salary_rule" model="hr.salary.rule">
+            <field name="name">Overtime Amount</field>
+            <field name="code">OT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="kg_hr.structure_auto"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = payslip.overtime_amount</field>
+        </record>
+
+        <!--        <record id="kg_hr_ot_allowance" model="hr.salary.rule">-->
+        <!--            <field name="amount_select">code</field>-->
+        <!--            <field name="code">OT</field>-->
+        <!--            <field name="category_id" ref="hr_payroll.ALW"/>-->
+        <!--            <field name="name">Overtime Allowance</field>-->
+        <!--            <field name="sequence" eval="5"/>-->
+        <!--            <field name="amount_python_compute">contract.wage-->
+        <!--            </field>-->
+
+        <!--            <field name="struct_id" ref="kg_hr.structure_auto"/>-->
+        <!--        </record>-->
+
+    </data>
+</odoo>

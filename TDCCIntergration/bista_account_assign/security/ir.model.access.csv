@@ -1,0 +1,15 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_account_asset_asset_employee,account.asset.asset.employee,account_asset.model_account_asset,base.group_user,1,0,0,0
+access_account_asset_asset_assetofficer,account.asset.asset.assetofficer,account_asset.model_account_asset,group_assets_officer,1,1,0,0
+access_account_asset_asset_assetmanager,account.asset.asset.assetmanager,account_asset.model_account_asset,group_assets_manager,1,1,1,1
+access_account_asset_manager,account.asset.manager,account_asset.model_account_asset,hr.group_hr_manager,1,1,1,1
+access_assets_history_employee,assets.history.employee,model_assets_history,base.group_user,1,0,0,0
+access_assets_history_assetofficer,assets.history.assetofficer,model_assets_history,group_assets_officer,1,1,0,0
+access_assets_history_assetmanager,assets.history.assetmanager,model_assets_history,group_assets_manager,1,1,1,1
+access_assets_history_manager,assets.history.manager,model_assets_history,hr.group_hr_manager,1,1,1,1
+access_employee_assets_usr,employee.assets.usr,model_employee_assets,base.group_user,1,0,0,0
+access_employee_assets_assetofficer,employee.assets.assetofficer,model_employee_assets,group_assets_officer,1,1,1,0
+access_employee_assets_assetmanager,employee.assets.assetmanager,model_employee_assets,group_assets_manager,1,1,1,1
+access_employee_assets_manager,employee.assets.manager,model_employee_assets,hr.group_hr_manager,1,1,1,1
+access_assets_history,assets_history,model_assets_history,base.group_user,1,1,1,1
+access_wiz_asset_request,wiz_asset_request,model_wiz_asset_request,base.group_user,1,1,1,1

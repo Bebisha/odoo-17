@@ -1,0 +1,69 @@
+<odoo>
+
+    <record id="ticket_input_type" model="hr.payslip.input.type">
+        <field name="name">Ticket</field>
+        <field name="code">TICKET</field>
+        <field name="country_id" eval="False"/>
+    </record>
+
+    <record id="leave_salary_input_type" model="hr.payslip.input.type">
+        <field name="name">Leave Salary</field>
+        <field name="code">LEAVE_SALARY</field>
+        <field name="country_id" eval="False"/>
+    </record>
+
+    <record id="sales_service_incentives_input_type" model="hr.payslip.input.type">
+        <field name="name">Sales/Service Incentives</field>
+        <field name="code">SALES_SERVICE_INCENTIVES</field>
+        <field name="country_id" eval="False"/>
+    </record>
+
+    <record id="performance_allowance_monthly_input_type" model="hr.payslip.input.type">
+        <field name="name">Performance Allowance-Monthly</field>
+        <field name="code">PERFORMANCE_ALW_MONTHLY</field>
+        <field name="country_id" eval="False"/>
+    </record>
+
+    <record id="ot_lumpsum_input_type" model="hr.payslip.input.type">
+        <field name="name">OT Lumpsum</field>
+        <field name="code">OT_LUMPSUM</field>
+        <field name="country_id" eval="False"/>
+    </record>
+
+    <record id="cash_advance_input_type" model="hr.payslip.input.type">
+        <field name="name">Cash Advance</field>
+        <field name="code">CASH_ADVANCE</field>
+        <field name="country_id" eval="False"/>
+    </record>
+
+    <record id="vehicle_fine_input_type" model="hr.payslip.input.type">
+        <field name="name">Vehicle Fine</field>
+        <field name="code">VEHICLE_FINE</field>
+        <field name="country_id" eval="False"/>
+    </record>
+
+    <record id="overseas_input_type" model="hr.payslip.input.type">
+        <field name="name">Overseas</field>
+        <field name="code">OVERSEAS</field>
+        <field name="country_id" eval="False"/>
+    </record>
+
+    <record id="anchorage_input_type" model="hr.payslip.input.type">
+        <field name="name">Anchorage</field>
+        <field name="code">ANCHORAGE</field>
+        <field name="country_id" eval="False"/>
+    </record>
+
+     <record id="custom_overtime_input_type" model="hr.payslip.input.type">
+        <field name="name">Overtime</field>
+        <field name="code">OVERTIME</field>
+        <field name="country_id" eval="False"/>
+    </record>
+    <record id="custom_overtime_fixed_input_type" model="hr.payslip.input.type">
+        <field name="name">Fixed Allowance</field>
+        <field name="code">FIXED_ALLOWANCE</field>
+        <field name="country_id" eval="False"/>
+    </record>
+
+
+</odoo>

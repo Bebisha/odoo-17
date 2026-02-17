@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_loan_summary">
+    <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+            <t t-if="not docs">
+                <div class="page" >
+                <div class="oe_structure"/>
+                    <div class="row">
+                        <h3>No matching records found!.</h3>
+                    </div>
+                </div>
+            </t>
+            <t t-if="docs">
+                <t t-foreach="doc_ids" t-as="wiz">
+                    <div style="font-size:19px; align:left;">
+                        Loan Summary Report From: <t t-esc="wiz.date_from"/> to <t t-esc="wiz.date_to"/>.
+                    </div>
+                    <t t-foreach="data" t-as="department">
+                        <h3>
+                            <span t-esc="department.name"/>
+                        </h3>
+                        <t t-foreach="docs" t-as="o">
+                            <t t-if="department.id == o.employee_id.department_id.id">
+                                <div class="page" >
+                                    <div class="row">
+                                        <table class="table table-bordered"
+                                               width="100%" height="100%"
+                                               style="border: 1px solid #000000;font-size:13px">
+                                            <thead>
+                                                <tr bgcolor="#D3D3D3">
+                                                    <th height="10%"
+                                                        class="text-center">
+                                                        <b>Start Date</b>
+                                                    </th>
+                                                    <th height="10%"
+                                                        class="text-center">
+                                                        <b>End Date</b>
+                                                    </th>
+                                                    <th height="10%"
+                                                        class="text-center">
+                                                        <b>Employee</b>
+                                                    </th>
+                                                    <th height="10%"
+                                                        class="text-center">
+                                                        <b>Department</b>
+                                                    </th>
+                                                    <th height="10%"
+                                                        class="text-center">
+                                                        <b>Loan Amount</b>
+                                                    </th>
+                                                    <th height="10%"
+                                                        class="text-center">
+                                                        <b>Paid Amount</b>
+                                                    </th>
+                                                    <th height="10%"
+                                                        class="text-center">
+                                                        <b>Remaining Amount</b>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr bgcolor="#D3D3D3">
+                                                    <td height="10%"
+                                                        class="text-center">
+                                                        <span t-esc="wiz.date_from"/>
+                                                    </td>
+                                                    <td height="10%"
+                                                        class="text-center">
+                                                        <span t-esc="wiz.date_to"/>
+                                                    </td>
+                                                    <td height="10%"
+                                                        class="text-center">
+                                                        <span t-esc="o.employee_id.name"/>
+                                                    </td>
+                                                    <td height="10%"
+                                                        class="text-center">
+                                                        <span t-esc="o.department_id.name"/>
+                                                    </td>
+                                                    <td height="10%"
+                                                        class="text-right">
+                                                        <span t-esc="o.loan_amount"/>
+                                                    </td>
+                                                    <td height="10%"
+                                                        class="text-right">
+                                                        <span t-esc="o.total_paid_installment_amount"/>
+                                                    </td>
+                                                    <td height="10%"
+                                                        class="text-right">
+                                                        <span t-esc="o.remaining_installments_total_amount"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </t>
+        </t>
+    </template>
+</odoo>

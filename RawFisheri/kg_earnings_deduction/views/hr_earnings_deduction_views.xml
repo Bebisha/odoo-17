@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--Deduction Tree view-->
+        <record id="hr_deduction_tree_view" model="ir.ui.view">
+            <field name="name">hr.earn.ded.tree</field>
+            <field name="model">hr.earn.ded</field>
+            <field name="arch" type="xml">
+                <tree string="Deduction Requests">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="deduction_amount"/>
+                    <field name="date" string="Date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Deduction Form view-->
+        <record id="hr_deduction_form_view" model="ir.ui.view">
+            <field name="name">hr.earn.ded.form</field>
+            <field name="model">hr.earn.ded</field>
+            <field name="arch" type="xml">
+                <form string="Deduction Request">
+                    <header>
+                        <button name="action_validate" type="object" string="Validate"
+                                invisible="state not in ('draft', 'refuse')"
+                                class="oe_highlight"/>
+                        <button name="action_approve" type="object" string="Approve" invisible="state != 'validate'"
+                                class="oe_highlight"/>
+                        <button name="action_refuse" type="object" string="Refuse"
+                                invisible="state not in ('validate', 'approve')"
+                                class="oe_highlight"/>
+                        <button name="action_cancel" type="object" string="Cancel"
+                                invisible="state not in ('approve', 'refuse')"/>
+                        <button name="action_draft" type="object" string="Mark as Draft" invisible="state != 'cancel'"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,validate,approve,done,refuse,cancel"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                         <field name="readonly_employee_id" invisible="1"/>
+                        <field name="readonly_contract_id" invisible="1"/>
+                        <field name="readonly_type" invisible="1"/>
+                        <field name="readonly_deduction_rule_id" invisible="1"/>
+                        <field name="readonly_allowance_rule_id" invisible="1"/>
+                        <field name="readonly_deduction_amount" invisible="1"/>
+                        <field name="readonly_installment" invisible="1"/>
+                        <field name="readonly_payment_date" invisible="1"/>
+                        <field name="invisible_deduction_rule_id" invisible="1"/>
+                        <field name="invisible_allowance_rule_id" invisible="1"/>
+                        <field name="required_deduction_rule_id" invisible="1"/>
+                        <field name="required_allowance_rule_id" invisible="1"/>
+                        <group col="4">
+                            <field name="employee_id" readonly="readonly_employee_id"/>
+                            <field name="contract_id" readonly="readonly_contract_id"/>
+                            <field name="date"/>
+                            <field name="department_id"/>
+                            <field name="job_position"/>
+                            <field name="type" widget="radio" readonly="readonly_type" required="1"/>
+                            <field name="deduction_rule_id" readonly="readonly_deduction_rule_id"
+                                   invisible="type == 'earnings'" required="type == 'deductions'"
+                                   options="{'no_create': True}"/>
+                            <field name="allowance_rule_id" readonly="readonly_allowance_rule_id"
+                                   invisible="type != 'earnings'"
+                                   options="{'no_create': True}"/>
+                            <field name="deduction_amount" readonly="readonly_deduction_amount"/>
+                            <field name="is_recurring"/>
+                            <field name="installment" readonly="readonly_installment" invisible="is_recurring"/>
+                            <field name="payment_date" readonly="readonly_payment_date"/>
+                            <field name="currency_id" options="{'no_create': True}" groups="base.group_multi_company"
+                                   invisible="1"/>
+                        </group>
+                        <notebook  invisible="is_recurring">
+                            <page string="Installments">
+                                <field name="deduction_lines">
+                                    <tree string="Installments" editable="bottom" delete="false">
+                                        <field name="date"/>
+                                        <field name="amount"/>
+                                        <field name="state" invisible="1"/>
+                                        <button name="action_skip" type="object" string="Skip" state="active"
+                                                class="oe_highlight"/>
+                                        <field name="paid"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2">
+                                    <field name="total_amount" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" force_save="1"/>
+                                    <field name="total_paid_amount" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" force_save="1"/>
+                                    <field name="balance_amount" class="oe_subtotal_footer_separator" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" force_save="1"/>
+                                </group>
+                                <button type="object" name="compute_installment" string="Compute Installment"
+                                        colspan="2" readonly="readonly_employee_id"
+                                        class="oe_stat_button"
+                                        icon="fa-clock-o"/>
+                                <div class="oe_clear"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+<!--                    <div class="oe_chatter">-->
+<!--                        <field name="message_follower_ids" widget="mail_followers"/>-->
+<!--                        <field name="message_ids" widget="mail_thread"/>-->
+<!--                    </div>-->
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_deduction_tree_view_kanban_view" model="ir.ui.view">
+            <field name="name">hr.earn.ded.kanban</field>
+            <field name="model">hr.earn.ded</field>
+            <field name="arch" type="xml">
+                <kanban string=" Earnings And Deductions">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_content oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong>
+                                            <span>
+                                                <field name="name"/>
+                                            </span>
+                                        </strong>
+                                    </div>
+                                    <div class="col-12">
+
+                                        <strong>Employee Name:</strong>
+                                        <span></span>
+
+                                        <field name="employee_id"/>
+                                    </div>
+                                    <br></br>
+                                    <div class="col-12">
+                                        <span></span>
+                                        <strong>Date:</strong>
+
+                                        <span>
+                                            <field name="payment_date"/>
+                                        </span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span>
+                                            <field name="type"/>
+                                        </span>
+                                        <span>:</span>
+                                        <field name="required_deduction_rule_id" invisible="1"/>
+                                        <field name="deduction_rule_id" invisible="required_deduction_rule_id"/>
+                                        <field name="allowance_rule_id" invisible="required_deduction_rule_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="search_earnings_deduction_search_view">
+            <field name="name">hr.earn.ded.search</field>
+            <field name="model">hr.earn.ded</field>
+            <field name="arch" type="xml">
+                <search string="Search Alias">
+                    <field name="employee_id"/>
+                    <separator/>
+                    <field name="employee_id" string="Employee Number"
+                           filter_domain="[('employee_id.emp_id','ilike',self)]"/>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

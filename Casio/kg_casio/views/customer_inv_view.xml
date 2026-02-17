@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_kg_cust_inv_tree" model="ir.ui.view">
+            <field name="name">kg.cust.inv.tree</field>
+            <field name="model">kg.cust.inv</field>
+            <field name="arch" type="xml">
+                <tree string="Customer Invoice Info" import="true">
+                    <field name="name"/>
+                    <field name="kg_cas_customer_id"/>
+                    <field name="email_cus"/>
+                    <field name="mobile_cus"/>
+                    <field name="kg_pur_date"/>
+                    <field name="kg_salesperson"/>
+                    <field name="kg_outlet_id"/>
+                    <field name="kg_price_bef_disc"/>
+                    <field name="kg_inv_disc"/>
+                    <field name="kg_price_after_disc"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kg_cust_inv_form" model="ir.ui.view">
+            <field name="name">kg.cust.inv.form</field>
+            <field name="model">kg.cust.inv</field>
+            <field name="arch" type="xml">
+                <form string="voucher" version="7.0">
+                    <header>
+
+                    </header>
+
+                    <sheet>
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+
+                        <group>
+                            <group>
+                                <field name="kg_pur_date" required="1"/>
+                                <field name="kg_outlet_id"/>
+                                 <field name="kg_cas_customer_id"/>
+                                <field name="mobile_cus"/>
+
+                            </group>
+                            <group>
+                                <field name="kg_salesperson" readonly="0"/>
+                                <field name="kg_voucher_id"/>
+                                   <field name="email_cus"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Items">
+                                <field name="kg_inv_lines">
+                                    <tree editable="bottom">
+                                        <field name="name" required="1"/>
+                                        <field name="kg_price_bef_disc" required="1" sum="total"/>
+
+                                        <field name="kg_price_after_disc" required="1"
+                                               sum="total"/>
+                                    </tree>
+
+                                    <form>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="kg_price_bef_disc"/>
+
+                                            <field name="kg_price_after_disc"/>
+                                        </group>
+                                    </form>
+                                </field>
+
+                                <group>
+                                    <field name="kg_price_bef_disc"/>
+                                    <field name="kg_price_after_disc"/>
+                                    <field name="kg_inv_disc"/>
+                                </group>
+
+                            </page>
+
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_kg_cust_inv" model="ir.actions.act_window">
+            <field name="name">Customer Invoice Info</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.cust.inv</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Record Customer Invoice Info.
+                </p>
+            </field>
+        </record>
+
+
+        <record id="view_kg_inv_lines_tree" model="ir.ui.view">
+            <field name="name">kg.inv.lines.tree</field>
+            <field name="model">kg.inv.lines</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice Analysis" import="false">
+                    <field name="name"/>
+                    <field name="salesperson"/>
+                    <field name="date_of_purchase"/>
+                    <field name="customer_id"/>
+                    <field name="outlet"/>
+                    <field name="kg_price_bef_disc"/>
+                    <field name="kg_price_after_disc"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_kg_inv_lines_calendar" model="ir.ui.view">
+            <field name="name">kg.inv.lines.calendar</field>
+            <field name="model">kg.inv.lines</field>
+            <field name="arch" type="xml">
+                <calendar string="Invoice Analysis" mode="month" date_start="date_of_purchase" color="salesperson">
+                    <field name="customer_id"/>
+                    <field name="outlet"/>
+                </calendar>
+            </field>
+        </record>
+
+
+
+
+         <record id="action_kg_inv_lines" model="ir.actions.act_window">
+            <field name="name">Invoice Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.inv.lines</field>
+            <field name="view_mode">tree,graph,pivot,form,calendar</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Customer Invoice Analysis.
+                </p>
+            </field>
+        </record>
+
+
+        <!-- <record id="action_models" model="ir.actions.act_window">
+            <field name="name">Models</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">watch.models</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Models.
+                </p>
+            </field>
+        </record>
+
+
+         <record id="action_stores" model="ir.actions.act_window">
+            <field name="name">Stores</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">watch.stores</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Stores.
+                </p>
+            </field>
+        </record>
+
+
+
+         <record id="action_brand" model="ir.actions.act_window">
+            <field name="name">Brand</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.casio.brand</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                 Create Brand
+                </p>
+            </field>
+        </record> -->
+
+        
+
+        <!-- <menuitem id="casio_watch_config" name="Watch Info" parent="casio_root" sequence="3"/>
+
+        <menuitem id="watch_stores" name="Stores" parent="casio_watch_config" action="action_stores"
+                  sequence="3"/>
+
+        <menuitem id="watch_models" name="Models" parent="casio_watch_config" action="action_models"
+                  sequence="2"/>
+
+        <menuitem id="watch_brand" name="Brand" parent="casio_watch_config" action="action_brand"
+                  sequence="1"/> -->
+        
+
+        <!-- Customer Invoice Information Menu -->
+            <menuitem id="customer_invoice_info_action_menu" name="Customer Invoice Info" parent="crm.crm_menu_sales"
+                  action="action_kg_cust_inv" sequence="7"/>
+
+        <menuitem id="customer_invoice_lines_action_menu" name="Customer Invoice Analysis" parent="crm.crm_menu_report"
+                  action="action_kg_inv_lines" sequence="4"/>
+
+    </data>
+</odoo>

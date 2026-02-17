@@ -1,0 +1,119 @@
+<odoo>
+    <data>
+
+
+        <record id="child_patient_form_partner_form_inherit" model="ir.ui.view">
+            <field name="name">child.patient.form.partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="bista_tdcc_operations.view_partner_form_inherited"/>
+            <field name="arch" type="xml">
+                <field name="physician_service_type_ids" position="after">
+                    <group>
+                        <group invisible=" is_student == False " required = "is_student == False ">
+                            <field name="set_id_pid"/>
+                            <field name="patient_identifier_list"/>
+                            <field name="patient_alias"/>
+                            <field name="race"/>
+                            <field name="phone_business"/>
+                            <field name="primary_lang"/>
+                            <field name="marital_status"/>
+                            <field name="religion"/>
+                            <field name="patient_ssn_no"/>
+                            <field name="mothers_identifier"/>
+                            <field name="ethnic_group"/>
+                            <field name="birth_place"/>
+                            <field name="multi_birth_indicator"/>
+                            <field name="birth_order" invisible="multi_birth_indicator == 'No'"/>
+                            <field name="citizenship"/>
+                            <field name="patient_death_datetime"/>
+                            <field name="patient_death_indicator"/>
+                            <field name="identity_unknown_indicator"/>
+                            <field name="last_updated_datetime"/>
+                            <field name="last_update_facility"/>
+
+                        </group>
+                        <group invisible=" is_student == False " >
+                            <field name="patient_id"/>
+                            <field name="alternt_patient_id_pid"/>
+                            <field name="patient_driver_licenc_no"/>
+                            <field name="veterans_military_status"/>
+                            <field name="identity_reliability_code"/>
+                            <field name="country_code"/>
+
+                            <field name="species_code"/>
+                            <field name="breed_code"/>
+                            <field name="strain"/>
+                            <field name="production_class_code"/>
+                            <field name="tribal_citizenship"/>
+
+                        </group>
+                    </group>
+                </field>
+                <field name="mother_name" position="replace">
+                    <field name="mother_name" required="1"/>
+                </field>
+                <field name="mother_name" position="after">
+                    <field name="mother_middle_name"/>
+                    <field name="mother_last_name"/>
+                </field>
+                <field name="dob" position="replace">
+                    <field name="dob" required="1"/>
+                </field>
+
+
+            </field>
+        </record>
+        <record id="res_partner_form_child_inherit" model="ir.ui.view">
+            <field name="name">res_partner_form_child_inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='first_name']" position="after">
+                    <field name="middle_name"/>
+                </xpath>
+                <xpath expr="//field[@name='first_name']" position="replace">
+                    <field name="first_name" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='last_name']" position="replace">
+                    <field name="last_name" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='street']" position="replace">
+                    <field name="street" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='street2']" position="replace">
+                    <field name="street2" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='city']" position="replace">
+                    <field name="city" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='state_id']" position="replace">
+                    <field name="state_id" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='zip']" position="replace">
+                    <field name="zip" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='country_id']" position="replace">
+                    <field name="country_id" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="replace">
+                    <field name="phone" required="1"/>
+                </xpath>
+                <!--                <xpath expr="//field[@name='country_id']" position="after">-->
+                <!--                    <field name="country_code" required="0"/>-->
+                <!--                </xpath>-->
+                <xpath expr="//field[@name='bank_ids']" position="replace">
+                    <field name="bank_ids" required="1">
+                        <!--                                <tree editable="bottom">-->
+                        <!--                                    <field name="acc_number" required="1"/>-->
+                        <!--                                    <field name="acc_holder_name" invisible="1"/>-->
+                        <!--                                </tree>-->
+                    </field>
+
+
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

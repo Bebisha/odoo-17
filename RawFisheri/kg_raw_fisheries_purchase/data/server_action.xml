@@ -1,0 +1,10 @@
+<odoo>
+    <record id="action_confirm_po_entry" model="ir.actions.server">
+        <field name="name">Confirm Entries</field>
+        <field name="model_id" ref="kg_raw_fisheries_purchase.model_purchase_entry"/>
+        <field name="binding_model_id" ref="kg_raw_fisheries_purchase.model_purchase_entry"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.confirm_po_entry()</field>
+    </record>
+</odoo>

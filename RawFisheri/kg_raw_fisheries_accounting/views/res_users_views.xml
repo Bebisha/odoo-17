@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="kg_view_inherited_users_form_id">
+        <field name="name">kg.res.users.form.inherit</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="model">res.users</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="account" string="Accounting" invisible="1">
+                    <group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="inv_approval_limit" widget="monetary"/>
+                            <field name="bill_approval_limit" widget="monetary"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="kg_view_users_simple_form_inherit_id">
+        <field name="name">kg.res.users.simplae.form.inherit</field>
+        <field name="inherit_id" ref="base.view_users_simple_form"/>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <field name="mobile" position="after">
+                <field name="email"/>
+            </field>
+        </field>
+    </record>
+
+
+
+
+</odoo>

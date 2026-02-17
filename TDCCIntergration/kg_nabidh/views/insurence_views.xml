@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    <record id="insurance_action" model="ir.actions.act_window">-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="name">Insurance</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        <field name="res_model">insurance.form</field>-->
+
+<!--    </record>-->
+<!--    <record id="Insurance_tree" model="ir.ui.view">-->
+<!--        <field name="name">insurance.form.views</field>-->
+<!--        <field name="model">insurance.form</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                <field name="name"/>-->
+<!--                <field name="health_plan_id"/>-->
+<!--                <field name="insurence_compny_id"/>-->
+<!--                <field name="policy_no"/>-->
+
+
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+    <record id="Insurance_form" model="ir.ui.view">
+        <field name="name">Insurance.form.views</field>
+        <field name="model">insurance.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+
+                            <field name="in_company_name"/>
+                            <field name="insured_name"/>
+                            <field name="health_plan_id"/>
+                            <field name="company_des"/>
+
+
+                        </group>
+                        <group>
+                            <field name="insurence_compny_id"/>
+                            <field name="policy_no"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+<!--    <menuitem id="Insurance_action_menu"-->
+<!--              action="insurance_action"-->
+<!--              name="Insurance"-->
+<!--              parent="kg_nabidh.patient_information_menu"/>-->
+
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="nationality_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Nationality</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">nationality.form</field>
+
+    </record>
+    <record id="nationality_tree" model="ir.ui.view">
+        <field name="name">nationality.tree.views</field>
+        <field name="model">nationality.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="nationality_form" model="ir.ui.view">
+        <field name="name">nationality.form.views</field>
+        <field name="model">nationality.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="nationality_menu"
+              action="nationality_action"
+              name="Nationality"
+              parent="kg_nabidh.pid_menu"/>
+
+</odoo>

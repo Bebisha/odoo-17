@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--   Tree view for fuel analysis model   -->
+        <record id="fuel_usage_analysis_tree" model="ir.ui.view">
+            <field name="name">fuel.usage.analysis.tree</field>
+            <field name="model">fuel.usage.analysis</field>
+            <field name="arch" type="xml">
+                <tree string="Fuel Usage Analysis" editable="bottom">
+                    <field name="date" width="10%"/>
+                    <field name="activity_id" width="40%"/>
+                    <field name="vessel_id" width="20%"/>
+                    <field name="tons_mgo" width="10%" string="Daily Use MGO(in Tons)"/>
+                    <field name="tons_hfo" width="10%" string="Daily Use HFO(in Tons)"/>
+<!--                    <field name="production" width="30%"/>-->
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

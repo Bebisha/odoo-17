@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="leave_application_form">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="header" align="center">
+                            <img t-att-src="image_data_uri(o.company_id.logo)"
+                                 style="height:150px;width:170px;margin-top:-15px;" align="center" alt="Company Logo"/>
+                            <br/>
+                            <strong>رونق السلام العالمية ش.م.م</strong>
+                            <br/>
+                            <strong>قسم الموارد البشرية</strong>
+                            <br/>
+                            <strong t-esc="o.company_id.name" style="text-transform: uppercase;"/>
+                        </div>
+                        <div>
+                            <h2 align="center">إستمارة طلب إجازة</h2>
+                            <h2 align="center">LEAVE APPLICATION</h2>
+                            <table class='table table-borderless table-condensed table-hover' align="center"
+                                   style="margin-top:40px;font-size:18px;border-collapse:collapse;border-radius: 5px 5px 5px 5px;width:100%;margin:5pt;border-bottom: 2px solid black;border-top: 2px solid black;border-left: 2px solid black;border-right: 2px solid black;">
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>
+                                            <t t-esc="datetime.date.today()"/>
+                                            :Date
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>
+                                            <t t-esc="datetime.date.today()"/>
+                                            :التاريخ
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>
+                                            <t t-esc="o.employee_id.name"/>
+                                            :Name
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>
+                                            <t t-esc="o.employee_id.name"/>
+                                            :الإسم
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong><t t-esc="o.employee_id.job_id.name"/>:Designation
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong><t t-esc="o.employee_id.job_id.name"/>:الوظيفة
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>
+                                            <t t-esc="o.employee_id.work_location"/>
+                                            :Place of work
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong><t t-esc="o.employee_id.work_location"/>: موقع العمل
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>
+                                            <t t-esc="o.employee_id.department_id.name"/>
+                                            :Department
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong><t t-esc="o.employee_id.department_id.name"/>: القسم
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>
+                                            <t t-esc="o.number_of_days"/>
+                                            :Number of Days
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong><t t-esc="o.number_of_days"/>: عدد أيام الإجازة المطلوبه
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>
+                                            <t t-esc="o.date_from.strftime('%Y-%m-%d')"/>
+                                            :From
+                                            <t t-esc="o.date_to.strftime('%Y-%m-%d')"/>
+                                            :To
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>
+                                            <t t-esc="o.date_to.strftime('%Y-%m-%d')"/>
+                                            إلى
+                                            <t t-esc="o.date_from.strftime('%Y-%m-%d')"/>
+                                            من
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <t t-esc="o.contact_during_leave"/>
+                                        <strong>:Contact phone during leave</strong>
+                                    </td>
+                                    <td align="right">
+                                        <t t-esc="o.contact_during_leave"/><strong>: رقم الاتصال في فترة الإجازة</strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>:Emp.signature</strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>:توقيع مقدم الطلب</strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>Direct manager approval</strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>توقيع المدير المباش</strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>
+                                            <t t-esc="o.holiday_status_id.name"/>
+                                            :Type of leave
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>
+                                            <t t-esc="o.holiday_status_id.name"/>
+                                            :نوع الإجازة
+                                        </strong>
+                                    </td>
+                                </tr>
+<!--                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">-->
+<!--                                    <td colspan="2" style="border-right: 1px solid black;" align="right">-->
+<!--                                        <strong>-->
+<!--                                            <t t-esc="o.holiday_status_id.name"/>-->
+<!--                                        </strong>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>For HR use only</strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>لإستخدام الموارد البشريه</strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>
+                                            <t t-esc="o.employee_id.date_of_joining"/>
+                                            :DOJ
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong><t t-esc="o.employee_id.date_of_joining"/>: تاريخ التعيين
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>
+                                            <t t-esc="o.balance_leave"/>
+                                            :Leave Balance
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>
+                                            <t t-esc="o.balance_leave"/>
+                                            :رصيد الإجازه
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:80px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>:Deduction
+                                            <br/>
+                                            :LOP if any
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>الأيام المخصومه</strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>
+                                            <t t-esc="o.balance_leave"/>
+                                            :Remaining Leave
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong><t t-esc="o.balance_leave"/>: الإجازه المتبقيه بالرصيد
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>
+                                            <t t-esc="o.employee_id.date_of_joining"/>
+                                            :D.O. Start to work
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong><t t-esc="o.employee_id.date_of_joining"/>: تاريخ مباشرة العمل
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:100px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>:Ticket
+                                            <br/>
+                                            :CO. A/C
+                                            <br/>
+                                            :Salary. A/C
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>: التذكره
+                                            <br/>
+                                            : حساب الشركه
+                                            <br/>
+                                            : حساب الموظف
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>:HRD</strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>: قسم الموارد البشرية</strong>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="height:50px; border-bottom: 1px solid black;">
+                                    <td style="border-right: 1px solid black;" align="right">
+                                        <strong>:HRM Approval</strong>
+                                    </td>
+                                    <td align="right">
+                                        <strong>: مدير الموارد البشرية</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

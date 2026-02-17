@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_picking_operation" inherit_id="stock.report_picking">
+        <xpath expr="//p[@t-field='o.note']" position="after">
+            <div t-if="o.picking_type_id.code == 'incoming'">
+                <table style="width:100%; margin-top: 20px;">
+                    <tr width="100%">
+                        <td width="25%" style="padding-left: 2%;">
+                            <strong>Packaging</strong>
+                        </td>
+                        <td width="75%" style="padding-left: 2%;">
+                            <span t-if="o.checklist_packaging">☑</span>
+                            <span t-if="not o.checklist_packaging">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>Physical Condition</strong>
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <span t-if="o.checklist_physical_condition">☑</span>
+                            <span t-if="not o.checklist_physical_condition">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>Delivered Quantity</strong>
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <span t-if="o.checklist_delivered_qty">☑</span>
+                            <span t-if="not o.checklist_delivered_qty">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>Shipping Documents</strong>
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <span t-if="o.checklist_shipping_docs">☑</span>
+                            <span t-if="not o.checklist_shipping_docs">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>COC / COO</strong>
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <span t-if="o.checklist_coc_coo">☑</span>
+                            <span t-if="not o.checklist_coc_coo">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>Invoice</strong>
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <span t-if="o.checklist_invoice">☑</span>
+                            <span t-if="not o.checklist_invoice">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>Expiration Date</strong>
+                        </td>
+                        <td style="padding-left: 2%;" >
+                            <span t-if="o.checklist_expiration_date">☑</span>
+                            <span t-if="not o.checklist_expiration_date">☐</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div t-if="o.picking_type_id.code == 'outgoing'">
+                <table style="width:100%; margin-top: 20px;">
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>Commercial Invoice</strong>
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <span t-if="o.checklist_commercial_invoice">☑</span>
+                            <span t-if="not o.checklist_commercial_invoice">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>Packing List</strong>
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <span t-if="o.checklist_packing_list">☑</span>
+                            <span t-if="not o.checklist_packing_list">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>COC</strong>
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <span t-if="o.checklist_coc">☑</span>
+                            <span t-if="not o.checklist_coc">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>COO</strong>
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <span t-if="o.checklist_coo">☑</span>
+                            <span t-if="not o.checklist_coo">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>Delivery Order</strong>
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <span t-if="o.checklist_delivery_order">☑</span>
+                            <span t-if="not o.checklist_delivery_order">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>Invoice</strong>
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <span t-if="o.checklist_invoice_do">☑</span>
+                            <span t-if="not o.checklist_invoice_do">☐</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 2%;">
+                            <strong>Payment Received</strong>
+                        </td>
+                        <td style="padding-left: 2%;" >
+                            <span t-if="o.checklist_payment_received">☑</span>
+                            <span t-if="not o.checklist_payment_received">☐</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+        </xpath>
+
+    </template>
+</odoo>

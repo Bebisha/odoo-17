@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="address_type_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Address Type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">address.type</field>
+
+    </record>
+    <record id="address_type_tree" model="ir.ui.view">
+        <field name="name">address.type.tree.views</field>
+        <field name="model">address.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="address_type_form" model="ir.ui.view">
+        <field name="name">address.type.form.views</field>
+        <field name="model">address.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="address_type_menu"
+              action="address_type_action"
+              name="Address Type"
+              parent="kg_nabidh.nk1_menu"
+    />
+
+</odoo>

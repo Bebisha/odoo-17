@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Public Holidays Form -->
+        <record model="ir.ui.view" id="public_holidays_form">
+            <field name="name">public.holidays.form</field>
+            <field name="model">public.holidays</field>
+            <field name="arch" type="xml">
+                <form string="Public Holidays Form">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options="{&quot;terminology&quot;: &quot;archive&quot;}" />
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" required="1" />
+                                <field name="date" required="1" />
+                                <field name="comment" />
+                            </group>
+                            <group>
+                                <field name="clinic_id" options="{'no_create':True}" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Public Holidays List -->
+        <record model="ir.ui.view" id="public_holidays_tree">
+            <field name="name">public.holidays.tree</field>
+            <field name="model">public.holidays</field>
+            <field name="arch" type="xml">
+                <tree string="Public Holidays List">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="clinic_id" options="{'no_create': True}" />
+                    <field name="active" widget="boolean_toggle" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Public Holidays Search -->
+        <record model="ir.ui.view" id="public_holidays_search">
+            <field name="name">public.holidays.search</field>
+            <field name="model">public.holidays</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <filter string="Archived" name="inactive"
+                        domain="[('active','=',False)]" />
+                </search>
+            </field>
+        </record>
+
+        <!-- Public Holidays Action -->
+        <record model="ir.actions.act_window"
+            id="public_holidays_action">
+            <field name="name">Public Holidays</field>
+            <field name="res_model">public.holidays</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Public Holidays Menu -->
+        <menuitem id="public_holidays_menu"
+            parent="bista_tdcc_operations.miscellaneous_configuration_menu"
+            action="public_holidays_action" sequence="8" />
+
+</odoo>

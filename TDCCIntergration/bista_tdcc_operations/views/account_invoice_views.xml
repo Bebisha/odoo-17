@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="invoice_form_tdcc" model="ir.ui.view">
+        <field name="name">account.move.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='header_left_group']" position="inside">
+                <field name="payment_info"/>
+                <field name="with_service_type"/>
+                <field name="with_description"/>
+                <field name="vat_description"/>
+            </xpath>
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <field name="invoice_has_outstanding" groups="account.group_account_invoice" invisible="1"/>
+                <button name="%(bista_tdcc_operations.manage_outstanding_payment_action)d" type="action"
+                        style="height: 55px;"
+                        options="{'invisible':['|','|',('type','!=','out_invoice'),('state','!=','open'),('has_outstanding','=',False)]}"
+                        icon="fa-tasks" class="btn oe_stat_button"
+                        string="Manage Outstanging Payment"
+                        groups="account.group_account_invoice"/>
+            </xpath>
+            <xpath expr="//sheet/field[@name='move_type']" position="before">
+                <div groups="account.group_account_invoice"
+                     class="alert alert-warning" role="alert"
+                     style="margin-bottom:0px;display: inline-block;"
+                     invisible="invoice_cancel_req == False or state == 'cancel'"
+                >
+                    Invoice Cancel Request from
+                    <bold>
+                        <field name="invoice_cancel_req_user_id" readonly="1"/>
+                    </bold>
+                    .
+                </div>
+                <field name="invoice_cancel_req" invisible="1"/>
+                <field name="invoice_cancel_req_user_id" invisible="1"/>
+            </xpath>
+            <xpath
+                    expr="//page[@name='other_info']/group/group/field[@name='partner_bank_id']"
+                    position="after">
+                <field name="tdcc_invoice_id" invisible="1"/>
+                <field name="cancel_date" readonly="1" invisible="'cancel_date' == False"/>
+                <field name="appointment_id" force_save="1" readonly="1"
+                       options="{'no_create_edit': True}" invisible="appointment_id == False "/>
+                <field name="group_appointment_booking_id"
+                       options="{'no_create_edit': True}" invisible="appointment_id == False "/>
+            </xpath>
+            <xpath
+                    expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']"
+                    position="after">
+                <field name="tdcc_invoice_line_id" column_invisible="True"/>
+                <field name="service_type_id"
+                       options="{'no_create_edit': True}"
+                       column_invisible="parent.move_type not in ['out_invoice', 'out_refund']"
+                       required="parent.move_type in ['out_invoice', 'out_refund']"/>/>
+                <field name="service_group_id"
+                       options="{'no_create_edit': True}" column_invisible="True"/>
+                <field name="appointment_type_id"
+                       options="{'no_create_edit': True}" column_invisible="True"/>
+            </xpath>
+            <field name="invoice_date" position="attributes">
+                <attribute name="readonly">(appointment_id != False)</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="line_ids" position="after">
+                <field name="payment_log_ids" invisible="1">
+                    <tree create="false" edit="false">
+                        <field name="date"/>
+                        <field name="invoice_id" invisible="1"/>
+                        <field name="move_line_id"/>
+                        <field name="payment_id"/>
+                        <field name="amount"/>
+                    </tree>
+                </field>
+            </field>
+            <field name="invoice_date_due" position="after">
+                <field name="journal_id" groups="account.group_account_user"
+                       options="{'no_create': True}"/>
+            </field>
+            <field name="team_id" position="after">
+                <field name="program_type" invisible="1"/>
+                <field name="class_id" options="{'no_create_edit': True}" invisible="program_type != 'eip' "/>
+            </field>
+
+            <field name="partner_id" position="after">
+                <field name="attendant_id" options="{'no_create':True,'no_open':True}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter_tdcc" model="ir.ui.view">
+        <field name="name">account.move.select.tdcc.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id"
+               ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/field[@name='journal_id']" position="after">
+                <field name="appointment_id"/>
+                <field name="invoice_cancel_req_user_id"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter string="Invoice Cancel Request User" name="invoice_cancel_request_user"
+                        context="{'group_by':'invoice_cancel_req_user_id'}"/>
+            </xpath>
+            <xpath expr="//search/filter[@name='activities_upcoming_all']" position="after">
+                <filter string="Today Invoice Cancel Request"
+                        name="inv_cancel_req_today"
+                        domain="[('inv_cancel_req_date', '&gt;=', datetime.datetime.now().replace(hour=0, minute=0, second=0)),
+                            ('inv_cancel_req_date', '&lt;=', datetime.datetime.now().replace(hour=23, minute=59, second=59))]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Invoice Cancel Request Action -->
+    <record model="ir.actions.act_window" id="invoice_cancel_req_action">
+        <field name="name">Invoice Cancel Requests</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('invoice_cancel_req','=',True),
+            ('type', '=','out_invoice')]
+        </field>
+        <field name="view_ids"
+               eval="[(5,0,0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('account.view_move_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('account.view_move_form')})]"/>
+    </record>
+
+    <!-- Sponsor Action -->
+    <record model="ir.actions.act_window" id="sponsor_action">
+        <field name="name">Sponsors</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_sponsor', '=', True)]</field>
+        <field name="context">{'default_is_sponsor': True,
+            'default_customer':
+            True,
+            }
+        </field>
+    </record>
+
+    <!-- Sponsor Main Menu -->
+    <menuitem id="sponsor_main_menu" name="Sponsors"
+              parent="account_accountant.menu_accounting"
+              groups="account.group_account_invoice" sequence="4"/>
+
+    <!-- Sponsor Menu -->
+    <menuitem id="sponsor_menu" action="sponsor_action"
+              parent="sponsor_main_menu" sequence="1"/>
+
+    <record id="invoice_supplier_form_tdcc" model="ir.ui.view">
+        <field name="name">account.move.form.tdcc.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Cancellation Details" name="cancellation_details">
+                    <group>
+                        <field name="invoice_cancel_reason_id"/>
+                    </group>
+                    <label for="cancel_reason" string="Cancel Reason(Old)"/>
+                    <field name="cancel_reason"/>
+                </page>
+            </xpath>
+            <field name="line_ids" position="after">
+                <field name="payment_log_ids" invisible="1">
+                    <tree create="false" edit="false">
+                        <field name="date"/>
+                        <field name="invoice_id" invisible="1"/>
+                        <field name="move_line_id"/>
+                        <field name="payment_id"/>
+                        <field name="amount"/>
+                    </tree>
+                </field>
+            </field>
+            <!--            <field name="invoice_vendor_bill_id" position="after">-->
+            <!--                <field name="with_description"/>-->
+            <!--                <field name="vat_description"/>-->
+            <!--            </field>-->
+        </field>
+    </record>
+    <!-- Remove groups from account journal -->
+    <record id="account_journal_inherited_form_view_tdcc" model="ir.ui.view">
+        <field name="name">account.journal.inherited.form.tdcc</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <field name="restrict_mode_hash_table" position="attributes">
+                <attribute name="groups">bista_tdcc_operations.group_tdcc_cofounder</attribute>
+            </field>
+        </field>
+    </record>
+
+    <!-- Display all invoices on customers -->
+    <record id="account.action_move_out_refund_type" model="ir.actions.act_window">
+        <field name="domain">[('move_type','=','out_refund')]</field>
+        <!--        <field name="domain">[('type','in', ['out_invoice', 'out_refund'])]</field>-->
+    </record>
+
+    <!-- Vendor Bill tree view to display accounting date -->
+    <record id="vendor_bill_inherited_form_view_tdcc" model="ir.ui.view">
+        <field name="name">vendor.bill.inherited.form.tdcc</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_in_invoice_bill_tree"/>
+        <field name="arch" type="xml">
+            <field name="invoice_date_due" position="before">
+                <field name="date"/>
+            </field>
+        </field>
+    </record>
+
+
+</odoo>

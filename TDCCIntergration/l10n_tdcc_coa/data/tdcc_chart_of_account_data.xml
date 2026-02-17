@@ -1,0 +1,2525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="tdcc_chart_template" model="account.chart.template">
+            <field name="name">TDCC Chart of Accounts</field>
+            <field name="code_digits">6</field>
+            <field name="bank_account_code_prefix">1</field>
+            <field name="cash_account_code_prefix">1</field>
+            <field name="transfer_account_code_prefix">1113</field>
+            <field name="currency_id" ref="base.AED" />
+            <field name="complete_tax_set" eval="True" />
+        </record>
+
+        <!-- Expense -->
+
+        <record model="account.account.template" id="tdcc_account_11502">
+            <field name="name">Preliminary Expenses</field>
+            <field name="code">11502</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+
+        <!-- Bank And Cash -->
+
+        <record model="account.account.template" id="tdcc_account_11101">
+            <field name="name">Cash In Hand</field>
+            <field name="code">11101</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11106">
+            <field name="name">Commercial Bank Of Dubai</field>
+            <field name="code">11106</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11105">
+            <field name="name">E Dirhams</field>
+            <field name="code">11105</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11107">
+            <field name="name">Naqodi</field>
+            <field name="code">11107</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11102">
+            <field name="name">Petty Cash</field>
+            <field name="code">11102</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11104">
+            <field name="name">Petty Cash Accounts</field>
+            <field name="code">11104</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11205">
+            <field name="name">Mashreq Bank</field>
+            <field name="code">11205</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+
+        <record model="account.account.template" id="tdcc_account_11206">
+            <field name="name">Mashreq Bank Credit Card (Company)</field>
+            <field name="code">11206</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity" />
+            <field name="reconcile" eval="True" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <!-- Note -->
+        <record model="account.account.template" id="tdcc_account_11400">
+            <field name="name">Accounts Receivables</field>
+            <field name="code">11400</field>
+            <field name="user_type_id" ref="account.data_account_type_receivable" />
+            <field name="reconcile" eval="True" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11301">
+            <field name="name">Pdc Received</field>
+            <field name="code">11301</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11702">
+            <field name="name">Dewa Deposit</field>
+            <field name="code">11702</field>
+            <field name="user_type_id" ref="account.data_account_type_prepayments" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11701">
+            <field name="name">Refundable Labour Guarantee</field>
+            <field name="code">11701</field>
+            <field name="user_type_id" ref="account.data_account_type_prepayments" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <!-- Current Assets -->
+        <record model="account.account.template" id="tdcc_account_11501">
+            <field name="name">Inventory Account</field>
+            <field name="code">11501</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11804">
+            <field name="name">Prepaid Expenses</field>
+            <field name="code">11804</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11803">
+            <field name="name">Prepaid Insurance</field>
+            <field name="code">11803</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11801">
+            <field name="name">Prepaid Rent</field>
+            <field name="code">11801</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11802">
+            <field name="name">Prepaid Visa Expense</field>
+            <field name="code">11802</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <!-- Pre payment -->
+        <record model="account.account.template" id="tdcc_account_11606">
+            <field name="name">Donna (Petty Cash)</field>
+            <field name="code">11606</field>
+            <field name="user_type_id" ref="account.data_account_type_prepayments" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11601">
+            <field name="name">Donna Cara</field>
+            <field name="code">11601</field>
+            <field name="user_type_id" ref="account.data_account_type_prepayments" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11604">
+            <field name="name">Helju Mathews</field>
+            <field name="code">11604</field>
+            <field name="user_type_id" ref="account.data_account_type_prepayments" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11605">
+            <field name="name">Jaspreet Bumbra</field>
+            <field name="code">11605</field>
+            <field name="user_type_id" ref="account.data_account_type_prepayments" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11603">
+            <field name="name">Michelle Choytooa</field>
+            <field name="code">11603</field>
+            <field name="user_type_id" ref="account.data_account_type_prepayments" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11602">
+            <field name="name">Motie Ismail</field>
+            <field name="code">11602</field>
+            <field name="user_type_id" ref="account.data_account_type_prepayments" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <!-- -->
+        <record model="account.account.template" id="tdcc_account_11503">
+            <field name="name">Preliminary Expense</field>
+            <field name="code">11503</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+
+        <!-- Fixed Assests -->
+
+        <record model="account.account.template" id="tdcc_account_12823">
+            <field name="name">Accum Dep For Educational Psychology Resourses</field>
+            <field name="code">12823</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12825">
+            <field name="name">Accum Dep For Extension Of Tdcc</field>
+            <field name="code">12825</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12813">
+            <field name="name">Accum Dep For Learning Support Resourses</field>
+            <field name="code">12813</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12819">
+            <field name="name">Accum Dep For Play Ground Expenses</field>
+            <field name="code">12819</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12814">
+            <field name="name">Accum Dep For Play Ground Resourses</field>
+            <field name="code">12814</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12820">
+            <field name="name">Accum Dep For Renovation Expenses</field>
+            <field name="code">12820</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12824">
+            <field name="name">Accum Dep For Satellite Resourses</field>
+            <field name="code">12824</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12806">
+            <field name="name">Accum Dep. For Computer &amp; Printers</field>
+            <field name="code">12806</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12811">
+            <field name="name">Accum Dep. For Office Furniture</field>
+            <field name="code">12811</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12812">
+            <field name="name">Accum. Dep For Educational Resourses</field>
+            <field name="code">12812</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12809">
+            <field name="name">Accum. Dep For Furniture For Trio</field>
+            <field name="code">12809</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12816">
+            <field name="name">Accum. Dep For It Equipment</field>
+            <field name="code">12816</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12817">
+            <field name="name">Accum. Dep For Orison Software</field>
+            <field name="code">12817</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12818">
+            <field name="name">Accum. Dep. For Eclinic Software</field>
+            <field name="code">12818</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12808">
+            <field name="name">Accum. Dep. For Educational Furniture</field>
+            <field name="code">12808</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12807">
+            <field name="name">Accum. Dep. For Electronics, Tools &amp; Equipment
+            </field>
+            <field name="code">12807</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12810">
+            <field name="name">Accum. Dep. For Nurse Room Furniture</field>
+            <field name="code">12810</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12815">
+            <field name="name">Accum. Dep. For Therapy Resourses</field>
+            <field name="code">12815</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12413">
+            <field name="name">Access Control System</field>
+            <field name="code">12413</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12418">
+            <field name="name">Azinova Crm</field>
+            <field name="code">12418</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12417">
+            <field name="name">Azinova Crm Software</field>
+            <field name="code">12417</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12420">
+            <field name="name">Bista Solutions-Odoo Software</field>
+            <field name="code">12420</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12408">
+            <field name="name">Camera</field>
+            <field name="code">12408</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12409">
+            <field name="name">Card Reader</field>
+            <field name="code">12409</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12404">
+            <field name="name">Computer &amp; Printers</field>
+            <field name="code">12404</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12405">
+            <field name="name">Eclinic Software</field>
+            <field name="code">12405</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12407">
+            <field name="name">Flash Drive</field>
+            <field name="code">12407</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12416">
+            <field name="name">I Pad 34Gb</field>
+            <field name="code">12416</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12415">
+            <field name="name">I Pad 64 Gb</field>
+            <field name="code">12415</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12414">
+            <field name="name">It Equipment &amp; Devices</field>
+            <field name="code">12414</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12403">
+            <field name="name">Laptop (Lenovo)</field>
+            <field name="code">12403</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12401">
+            <field name="name">Laptop (Thoshiba)</field>
+            <field name="code">12401</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12412">
+            <field name="name">Mobile Phone &amp; Sim Card</field>
+            <field name="code">12412</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12410">
+            <field name="name">Mouse</field>
+            <field name="code">12410</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12419">
+            <field name="name">One Clique Hr Software</field>
+            <field name="code">12419</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12406">
+            <field name="name">Orison Financial &amp; Hr System</field>
+            <field name="code">12406</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12402">
+            <field name="name">Printer (Hp Color Laserjet)</field>
+            <field name="code">12402</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12411">
+            <field name="name">Wireless Mouse</field>
+            <field name="code">12411</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12605">
+            <field name="name">Binder Mechine</field>
+            <field name="code">12605</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12608">
+            <field name="name">Bladeless Fan</field>
+            <field name="code">12608</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12603">
+            <field name="name">Cleaning Equipment</field>
+            <field name="code">12603</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12609">
+            <field name="name">Electronices, Tools &amp; Equipments</field>
+            <field name="code">12609</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12604">
+            <field name="name">Ladder Adjustable</field>
+            <field name="code">12604</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12601">
+            <field name="name">Office Equipment</field>
+            <field name="code">12601</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12607">
+            <field name="name">Paper Trimmer</field>
+            <field name="code">12607</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12602">
+            <field name="name">Vaccum Cleaner</field>
+            <field name="code">12602</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12606">
+            <field name="name">Water Pressure Sprayer</field>
+            <field name="code">12606</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12102">
+            <field name="name">Educational Furniture</field>
+            <field name="code">12102</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12103">
+            <field name="name">Furniture For Trio</field>
+            <field name="code">12103</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12104">
+            <field name="name">Nurse Room Furniture</field>
+            <field name="code">12104</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12101">
+            <field name="name">Office Furniture</field>
+            <field name="code">12101</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12303">
+            <field name="name">Additional Renovation &amp; Construction Expenses
+            </field>
+            <field name="code">12303</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12304">
+            <field name="name">Extension Of Tdcc</field>
+            <field name="code">12304</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12302">
+            <field name="name">Play Ground Construction &amp; Landscaping</field>
+            <field name="code">12302</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12301">
+            <field name="name">Villa 26 Renovation &amp; Construction</field>
+            <field name="code">12301</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12700">
+            <field name="name">Other Fixed Asset</field>
+            <field name="code">12700</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12200">
+            <field name="name">Plant And Machinery</field>
+            <field name="code">12200</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12821">
+            <field name="name">Educational Psychology Resourses</field>
+            <field name="code">12821</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12802">
+            <field name="name">Educational Resourses</field>
+            <field name="code">12802</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12805">
+            <field name="name">Learning Support Resourses</field>
+            <field name="code">12805</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12804">
+            <field name="name">Play Ground Resourses</field>
+            <field name="code">12804</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12822">
+            <field name="name">Satellite Resourses</field>
+            <field name="code">12822</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12803">
+            <field name="name">Therapy Resourse</field>
+            <field name="code">12803</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_12500">
+            <field name="name">Vehicles</field>
+            <field name="code">12500</field>
+            <field name="user_type_id" ref="account.data_account_type_fixed_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <!-- Note -->
+        <record model="account.account.template" id="tdcc_account_21100">
+            <field name="name">Accounts Payable</field>
+            <field name="code">21100</field>
+            <field name="user_type_id" ref="account.data_account_type_payable" />
+            <field name="reconcile" eval="True" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21506">
+            <field name="name">Accured Audit Fee</field>
+            <field name="code">21506</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21510">
+            <field name="name">Accured Interest On Loan For Mazrui Holding</field>
+            <field name="code">21510</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21508">
+            <field name="name">Accured Interest On Loan From Dht</field>
+            <field name="code">21508</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21509">
+            <field name="name">Accured Interest On Loan From Nof</field>
+            <field name="code">21509</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21514">
+            <field name="name">Accured Pr Expenses</field>
+            <field name="code">21514</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21501">
+            <field name="name">Bakhtaver Ayrton</field>
+            <field name="code">21501</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21503">
+            <field name="name">Karin Maria Sheil</field>
+            <field name="code">21503</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21512">
+            <field name="name">Khalid Thani Al Mheiri</field>
+            <field name="code">21512</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21504">
+            <field name="name">Mandy Ewen</field>
+            <field name="code">21504</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21502">
+            <field name="name">Mary Hewson Klien</field>
+            <field name="code">21502</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21505">
+            <field name="name">Refund</field>
+            <field name="code">21505</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21515">
+            <field name="name">Ruba Tabari</field>
+            <field name="code">21515</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21511">
+            <field name="name">Shelley Dallas</field>
+            <field name="code">21511</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21513">
+            <field name="name">Accured Telephone &amp; Internet Expenses</field>
+            <field name="code">21513</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21300">
+            <field name="name">Bank Over Draft</field>
+            <field name="code">21300</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21701">
+            <field name="name">Pdc Issued</field>
+            <field name="code">21701</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="True" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21601">
+            <field name="name">Provision For Gratuity</field>
+            <field name="code">21601</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_21400">
+            <field name="name">Staff Salary Payables</field>
+            <field name="code">21400</field>
+            <field name="user_type_id" ref="account.data_account_type_payable" />
+            <field name="reconcile" eval="True" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_V001">
+            <field name="name">Input Vat</field>
+            <field name="code">V001</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_V002">
+            <field name="name">Output Vat</field>
+            <field name="code">V002</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_V005">
+            <field name="name">Reverse Charge Input</field>
+            <field name="code">V005</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_V006">
+            <field name="name">Reverse Charge Output</field>
+            <field name="code">V006</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <!-- Non Current Liability -->
+        <record model="account.account.template" id="tdcc_account_22207">
+            <field name="name">Bridge Loan</field>
+            <field name="code">22207</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22208">
+            <field name="name">Al Ittihad Drug Store Llc</field>
+            <field name="code">22208</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22210">
+            <field name="name">Nof Abdulla Mohammed Almazrouei</field>
+            <field name="code">22210</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22209">
+            <field name="name">Spreadt General Trading Llc</field>
+            <field name="code">22209</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22102">
+            <field name="name">Loan From Dalya Hisham</field>
+            <field name="code">22102</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22103">
+            <field name="name">Loan From Nof Al Mazrui</field>
+            <field name="code">22103</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22101">
+            <field name="name">Mazrui International L.L.C</field>
+            <field name="code">22101</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22104">
+            <field name="name">Repayment Account For Dalya Hisham Tabari</field>
+            <field name="code">22104</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22106">
+            <field name="name">Repayment Account For Mazrui International L.L.C
+            </field>
+            <field name="code">22106</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22105">
+            <field name="name">Repayment Account For Nof Abdulla Mohammed
+                Almazrouei</field>
+            <field name="code">22105</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22201">
+            <field name="name">Gratuity Provisioning</field>
+            <field name="code">22201</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22202">
+            <field name="name">Leave Salary Provisioning</field>
+            <field name="code">22202</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22205">
+            <field name="name">Dalya Salaries Payable</field>
+            <field name="code">22205</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22206">
+            <field name="name">Nof Salaries Payable Account</field>
+            <field name="code">22206</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_22203">
+            <field name="name">Ticket Provisioning</field>
+            <field name="code">22203</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+
+        <!-- Sponser Account for TDCC -->
+        <record model="account.account.template" id="tdcc_sponser_account">
+            <field name="name">Sponsor Current Liability</field>
+            <field name="code">TDCCCL</field>
+            <field name="user_type_id" ref="account.data_account_type_non_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+
+        <!-- Equity -->
+        <record model="account.account.template" id="tdcc_account_31001">
+            <field name="name">Capital Dalya Hisham Tabari</field>
+            <field name="code">31001</field>
+            <field name="user_type_id" ref="account.data_account_type_equity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_31002">
+            <field name="name">Capital Nof Al Mazrui</field>
+            <field name="code">31002</field>
+            <field name="user_type_id" ref="account.data_account_type_equity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_33002">
+            <field name="name">Previous Year Profit</field>
+            <field name="code">33002</field>
+            <field name="user_type_id" ref="account.data_account_type_equity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+
+        <!-- Income -->
+
+
+        <record model="account.account.template" id="tdcc_account_52101">
+            <field name="name">Invoice Correction</field>
+            <field name="code">52101</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_41022">
+            <field name="name">360 Department- Revenue</field>
+            <field name="code">41022</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_41020">
+            <field name="name">Eip Revenue</field>
+            <field name="code">41020</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_41021">
+            <field name="name">I Succeed Revenue</field>
+            <field name="code">41021</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_41023">
+            <field name="name">Taaleem Project-Revenue</field>
+            <field name="code">41023</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_41013">
+            <field name="name">Bakti Revenue</field>
+            <field name="code">41013</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_41014">
+            <field name="name">Karin Revenue</field>
+            <field name="code">41014</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_41018">
+            <field name="name">Louis Heyman</field>
+            <field name="code">41018</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_52103">
+            <field name="name">Manual Sales Before 23 March</field>
+            <field name="code">52103</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_41004">
+            <field name="name">Sales Account</field>
+            <field name="code">41004</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_44001">
+            <field name="name">Discount Received</field>
+            <field name="code">44001</field>
+            <field name="user_type_id" ref="account.data_account_type_other_income" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_44004">
+            <field name="name">Other Income</field>
+            <field name="code">44004</field>
+            <field name="user_type_id" ref="account.data_account_type_other_income" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <!-- Expense -->
+        <record model="account.account.template" id="tdcc_account_51219">
+            <field name="name">Eip Airfare</field>
+            <field name="code">51219</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51218">
+            <field name="name">Eip Gratuity</field>
+            <field name="code">51218</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51216">
+            <field name="name">Eip Pd</field>
+            <field name="code">51216</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51271">
+            <field name="name">Eip Reimbursement</field>
+            <field name="code">51271</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51269">
+            <field name="name">Eip Retail Purchase</field>
+            <field name="code">51269</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51212">
+            <field name="name">Eip Salaries</field>
+            <field name="code">51212</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51255">
+            <field name="name">360 Department Airfare</field>
+            <field name="code">51255</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51254">
+            <field name="name">360 Department Gratuity</field>
+            <field name="code">51254</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51253">
+            <field name="name">360 Department Pd</field>
+            <field name="code">51253</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51270">
+            <field name="name">360 Department- Retail Purchase</field>
+            <field name="code">51270</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51250">
+            <field name="name">360 Department Salaries</field>
+            <field name="code">51250</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51257">
+            <field name="name">I Succeed Salaries</field>
+            <field name="code">51257</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51260">
+            <field name="name">I Succeed Airfare</field>
+            <field name="code">51260</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51259">
+            <field name="name">I Succeed Gratuity</field>
+            <field name="code">51259</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51258">
+            <field name="name">I Succeed Pd</field>
+            <field name="code">51258</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51262">
+            <field name="name">Bakti Salary</field>
+            <field name="code">51262</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51264">
+            <field name="name">Karin Salary</field>
+            <field name="code">51264</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51265">
+            <field name="name">Meg Salary</field>
+            <field name="code">51265</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51268">
+            <field name="name">Expert Partners- Airfare/ Hotel/ F&amp;B</field>
+            <field name="code">51268</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51267">
+            <field name="name">Expert Partners Fee</field>
+            <field name="code">51267</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51101">
+            <field name="name">Cost Of Sales Account</field>
+            <field name="code">51101</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51107">
+            <field name="name">Stock Adjustment</field>
+            <field name="code">51107</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51125">
+            <field name="name">360 Department Employee Air Fair</field>
+            <field name="code">51125</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51126">
+            <field name="name">360 Department Employee Gratuity</field>
+            <field name="code">51126</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521135">
+            <field name="name">Expert Partner Salaries</field>
+            <field name="code">521135</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521140">
+            <field name="name">Incentives &amp;Bonus</field>
+            <field name="code">521140</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521115">
+            <field name="name">Part Time Staff Salaries</field>
+            <field name="code">521115</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51115">
+            <field name="name">Professional Development Expenses Direct</field>
+            <field name="code">51115</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51117">
+            <field name="name">Resources Direct</field>
+            <field name="code">51117</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51119">
+            <field name="name">Ruba Tabari Commission</field>
+            <field name="code">51119</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51114">
+            <field name="name">Salarieis Direct</field>
+            <field name="code">51114</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51127">
+            <field name="name">Sam Commissions</field>
+            <field name="code">51127</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51116">
+            <field name="name">Staff Airticket Direct</field>
+            <field name="code">51116</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521053">
+            <field name="name">Trio Salaries</field>
+            <field name="code">521053</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51202">
+            <field name="name">Clearing Charges</field>
+            <field name="code">51202</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51102">
+            <field name="name">Purchase Account</field>
+            <field name="code">51102</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51110">
+            <field name="name">Cutting Labour Cost</field>
+            <field name="code">51110</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51112">
+            <field name="name">Emb Labour Cost</field>
+            <field name="code">51112</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51111">
+            <field name="name">Finishing Labour Cost</field>
+            <field name="code">51111</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51113">
+            <field name="name">Print Labour Cost</field>
+            <field name="code">51113</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51109">
+            <field name="name">Stitiching Labour Cost</field>
+            <field name="code">51109</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51103">
+            <field name="name">Production - Material</field>
+            <field name="code">51103</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51104">
+            <field name="name">Production - Labour Expense</field>
+            <field name="code">51104</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51105">
+            <field name="name">Production - Electricity</field>
+            <field name="code">51105</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51106">
+            <field name="name">Production - Water</field>
+            <field name="code">51106</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51241">
+            <field name="name">Blexpense Foreign</field>
+            <field name="code">51241</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51239">
+            <field name="name">Car Expense Local</field>
+            <field name="code">51239</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51248">
+            <field name="name">Clearing Documents</field>
+            <field name="code">51248</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51242">
+            <field name="name">Cnexpense Foreign</field>
+            <field name="code">51242</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51252">
+            <field name="name">Container Releasing</field>
+            <field name="code">51252</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51222">
+            <field name="name">Custom Duty</field>
+            <field name="code">51222</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51204">
+            <field name="name">Custom Duty(C)</field>
+            <field name="code">51204</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51220">
+            <field name="name">Damage Expense</field>
+            <field name="code">51220</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51217">
+            <field name="name">Damarage Expense</field>
+            <field name="code">51217</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51223">
+            <field name="name">Delivery Order</field>
+            <field name="code">51223</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51205">
+            <field name="name">Delivery Order(C)</field>
+            <field name="code">51205</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51229">
+            <field name="name">Dpa</field>
+            <field name="code">51229</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51207">
+            <field name="name">Dpa(C)</field>
+            <field name="code">51207</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51210">
+            <field name="name">E.Clearance(C)</field>
+            <field name="code">51210></field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51232">
+            <field name="name">E.Clearence</field>
+            <field name="code">51232</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51226">
+            <field name="name">Exchange Letter</field>
+            <field name="code">51226</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51235">
+            <field name="name">Exchange Letter(C)</field>
+            <field name="code">51235</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51227">
+            <field name="name">Extention</field>
+            <field name="code">51227</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51236">
+            <field name="name">Extention(C)</field>
+            <field name="code">51236</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51225">
+            <field name="name">Inspection Fee</field>
+            <field name="code">51225</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51237">
+            <field name="name">capital Dalya Hisham Tabari</field>
+            <field name="code">51237</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51228">
+            <field name="name">Load Unload</field>
+            <field name="code">51228</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51238">
+            <field name="name">Load Unload(C)</field>
+            <field name="code">51238</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51214">
+            <field name="name">Ocean And Loading</field>
+            <field name="code">51214</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51221">
+            <field name="name">Other Expense(C)</field>
+            <field name="code">51221</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51234">
+            <field name="name">Other Expenses</field>
+            <field name="code">51234</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51263">
+            <field name="name">Out Door Expense</field>
+            <field name="code">51263</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+
+        <record model="account.account.template" id="tdcc_account_51215">
+            <field name="name">Purchase Expenses</field>
+            <field name="code">51215</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51251">
+            <field name="name">Recovery Charges</field>
+            <field name="code">51251</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51233">
+            <field name="name">Service Charges</field>
+            <field name="code">51233</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51211">
+            <field name="name">Service Charges(C)</field>
+            <field name="code">51211</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51243">
+            <field name="name">Shipping Charges</field>
+            <field name="code">51243</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51224">
+            <field name="name">Transport</field>
+            <field name="code">51224</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51246">
+            <field name="name">Transport Local Expense</field>
+            <field name="code">51246</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51247">
+            <field name="name">Transpot Foreign Expense</field>
+            <field name="code">51247</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51231">
+            <field name="name">True Copy</field>
+            <field name="code">51231</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51213">
+            <field name="name">True Copy(C)</field>
+            <field name="code">51213</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51230">
+            <field name="name">Vcc</field>
+            <field name="code">51230</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51208">
+            <field name="name">Vcc(C)</field>
+            <field name="code">51208</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51249">
+            <field name="name">Vehicle Amount</field>
+            <field name="code">51249</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521169">
+            <field name="name">Taaleem Utilities And Expenses</field>
+            <field name="code">521169</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521157">
+            <field name="name">360 Department Resources</field>
+            <field name="code">521157></field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521156">
+            <field name="name">Eip Resources</field>
+            <field name="code">521156</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521167">
+            <field name="name">Taaleem Resources</field>
+            <field name="code">521167</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_V007">
+            <field name="name">capital Dalya Hisham Tabari</field>
+            <field name="code">V007</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521160">
+            <field name="name">Ops/ Hr / Finance - Airfare</field>
+            <field name="code">521160</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521159">
+            <field name="name">Ops/ Hr / Finance - Salaries</field>
+            <field name="code">521159</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521161">
+            <field name="name">Ops/ Hr/ Finance- Gratuity</field>
+            <field name="code">521161</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521162">
+            <field name="name">Ops/ Hr/ Finance- Pd</field>
+            <field name="code">521162</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521165">
+            <field name="name">Food And Beverages</field>
+            <field name="code">521165></field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521166">
+            <field name="name">Gifts</field>
+            <field name="code">521166</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521164">
+            <field name="name">Team Building</field>
+            <field name="code">521164</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521132">
+            <field name="name">Annual Audit Charges</field>
+            <field name="code">521132</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521114">
+            <field name="name">Consultation Expenses</field>
+            <field name="code">521114</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521143">
+            <field name="name">Expenses Paid By Dht</field>
+            <field name="code">521143</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521144">
+            <field name="name">Expenses Paid By Nof</field>
+            <field name="code">521144</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521129">
+            <field name="name">General Admin (Mail/Courier/Petrol/Consumables)
+            </field>
+            <field name="code">521129</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521133">
+            <field name="name">Legal Expenses</field>
+            <field name="code">521133</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521051">
+            <field name="name">Office Supplies / Equipment</field>
+            <field name="code">521051</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521137">
+            <field name="name">Pathologist Training Materials</field>
+            <field name="code">521137</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521102">
+            <field name="name">Postal, Courier&amp; Custom</field>
+            <field name="code">521102</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521048">
+            <field name="name">Printing &amp; Stationary</field>
+            <field name="code">521048</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521154">
+            <field name="name">Recruitment Expenses</field>
+            <field name="code">521154</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521148">
+            <field name="name">Rent A Car</field>
+            <field name="code">521148</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521124">
+            <field name="name">Tdcc Staff Gift &amp; Party</field>
+            <field name="code">521124</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521058">
+            <field name="name">Transportation &amp; Parking Expenses</field>
+            <field name="code">521058</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521050">
+            <field name="name">Uniform</field>
+            <field name="code">521050</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521066">
+            <field name="name">Rent</field>
+            <field name="code">521066</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521110">
+            <field name="name">Additional Load Expenses</field>
+            <field name="code">521110</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521056">
+            <field name="name">Water &amp; Electricity Dewa</field>
+            <field name="code">521056</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521052">
+            <field name="name">Telephone &amp; Internet Charges</field>
+            <field name="code">521052</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521092">
+            <field name="name">Civil Defence</field>
+            <field name="code">521092</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521097">
+            <field name="name">Community Development Authority</field>
+            <field name="code">521097</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521096">
+            <field name="name">Department Of Economic</field>
+            <field name="code">521096</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521090">
+            <field name="name">Dha</field>
+            <field name="code">521090</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521146">
+            <field name="name">Dubai Court</field>
+            <field name="code">521146</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521130">
+            <field name="name">Dubai Municipality</field>
+            <field name="code">521130</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521131">
+            <field name="name">Dubai Police</field>
+            <field name="code">521131</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521045">
+            <field name="name">Government Expenses</field>
+            <field name="code">521045</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521091">
+            <field name="name">Ministry Of Social Affairs Expenses</field>
+            <field name="code">521091</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+
+        <record model="account.account.template" id="tdcc_account_521147">
+            <field name="name">Visa Medical Expenses</field>
+            <field name="code">521147</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521047">
+            <field name="name">Insurance</field>
+            <field name="code">521047</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521122">
+            <field name="name">Amc For Fire Alarm System</field>
+            <field name="code">521122</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521060">
+            <field name="name">Outside Labour Expenses</field>
+            <field name="code">521060</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521112">
+            <field name="name">Play Ground Maintenance</field>
+            <field name="code">521112</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521061">
+            <field name="name">Repair &amp; Maintanance Exp</field>
+            <field name="code">521061</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521049">
+            <field name="name">Security Guard</field>
+            <field name="code">521049</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521085">
+            <field name="name">Accounting Software Expenses</field>
+            <field name="code">521085</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521084">
+            <field name="name">Dropbox Expenses</field>
+            <field name="code">521084</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521083">
+            <field name="name">E Clinic Expenses</field>
+            <field name="code">521083</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521086">
+            <field name="name">Google Application Expenses</field>
+            <field name="code">521086</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521054">
+            <field name="name">It Software Maintenance Expenses</field>
+            <field name="code">521054</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521101">
+            <field name="name">Sms Alert Expenses</field>
+            <field name="code">521101</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521087">
+            <field name="name">Web Hosting Expenses</field>
+            <field name="code">521087</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521055">
+            <field name="name">Lcp Monthly Therapy Service Fee</field>
+            <field name="code">521055</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521106">
+            <field name="name">Ein Utilities &amp; Expenses</field>
+            <field name="code">521106</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521108">
+            <field name="name">Food Explorers Expenses</field>
+            <field name="code">521108</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521138">
+            <field name="name">Learning Support &amp; Therapy Expenses</field>
+            <field name="code">521138</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521117">
+            <field name="name">Parent &amp; Family Support Expenses</field>
+            <field name="code">521117</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521139">
+            <field name="name">Professional Development Cost</field>
+            <field name="code">521139</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521044">
+            <field name="name">Events</field>
+            <field name="code">521044</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521062">
+            <field name="name">Marketing Print Material</field>
+            <field name="code">521062</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521136">
+            <field name="name">Marketing &amp; Advertising</field>
+            <field name="code">521136</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521089">
+            <field name="name">Online Advertising</field>
+            <field name="code">521089</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521043">
+            <field name="name">Pr / Graphic Designer / Photographer Expenses
+            </field>
+            <field name="code">521043</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521088">
+            <field name="name">Press Advertising</field>
+            <field name="code">521088</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521063">
+            <field name="name">Website Maintenance &amp; Sem Expenses</field>
+            <field name="code">521063</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521099">
+            <field name="name">Air Fare Recruitment</field>
+            <field name="code">521099</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521098">
+            <field name="name">Professional Development Expenses</field>
+            <field name="code">521098</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521100">
+            <field name="name">Recruitment Expenses</field>
+            <field name="code">521100</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521113">
+            <field name="name">Visa &amp; Medical Expenses</field>
+            <field name="code">521113</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521109">
+            <field name="name">Complimentary Sessions</field>
+            <field name="code">521109</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521149">
+            <field name="name">Full &amp; Final Settelment</field>
+            <field name="code">521149</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521145">
+            <field name="name">P D For Admin Staff</field>
+            <field name="code">521145</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521093">
+            <field name="name">Salaries &amp; Wages - Basic Pay</field>
+            <field name="code">521093</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521103">
+            <field name="name">Salaries &amp; Wages - Other Allowance</field>
+            <field name="code">521103</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_52205">
+            <field name="name">Salaries &amp; Wages - Overtime</field>
+            <field name="code">52205</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521095">
+            <field name="name">Salaries &amp; Wages - Transportation</field>
+            <field name="code">521095</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_52202">
+            <field name="name">Salary &amp; Wages</field>
+            <field name="code">52202</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+
+        <record model="account.account.template" id="tdcc_account_521094">
+            <field name="name">Salary &amp; Wages - House Rent</field>
+            <field name="code">521094</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521094">
+            <field name="name">Salary &amp; Wages - House Rent</field>
+            <field name="code">521094</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="True" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_52204">
+            <field name="name">Staff - Air Fare</field>
+            <field name="code">52204</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_52203">
+            <field name="name">Staff - Leave Salary</field>
+            <field name="code">52203</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521059">
+            <field name="name">Staff - Medical Expense</field>
+            <field name="code">521059</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521125">
+            <field name="name">Staff Bonus</field>
+            <field name="code">521125</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_52201">
+            <field name="name">Staff Gratuity</field>
+            <field name="code">52201</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521126">
+            <field name="name">Staff Incentive</field>
+            <field name="code">521126</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521104">
+            <field name="name">Staff Rent A Car</field>
+            <field name="code">521104</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521046">
+            <field name="name">Bank Charges</field>
+            <field name="code">521046</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521057">
+            <field name="name">Credit Card Bank Charges</field>
+            <field name="code">521057</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521065">
+            <field name="name">Exchange Differance</field>
+            <field name="code">521065</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521142">
+            <field name="name">Interest On Bridge Loan</field>
+            <field name="code">521142</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521134">
+            <field name="name">Interest On Loan</field>
+            <field name="code">521134</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521111">
+            <field name="name">Interest On Over Draft</field>
+            <field name="code">521111</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521071">
+            <field name="name">Travel Expenses</field>
+            <field name="code">521071</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521120">
+            <field name="name">Educational Psychology</field>
+            <field name="code">521120</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521064">
+            <field name="name">Lcp Jackie Harland Quaterly Visit Expenses</field>
+            <field name="code">521064</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521121">
+            <field name="name">Specialist Doctor</field>
+            <field name="code">521121</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521119">
+            <field name="name">Tina Wood Expenses</field>
+            <field name="code">521119</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_522041">
+            <field name="name">Air Fair Allowance(General Expenses )</field>
+            <field name="code">522041</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521041">
+            <field name="name">Discount Allowed(General Expenses )</field>
+            <field name="code">521041</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521042">
+            <field name="name">Depreciation Expense</field>
+            <field name="code">521042</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521141">
+            <field name="name">Management Fee</field>
+            <field name="code">521141</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521067">
+            <field name="name">Prelminary Expenses Write Off</field>
+            <field name="code">521067</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521123">
+            <field name="name">Playground Expenses Depreciation</field>
+            <field name="code">521123</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521116">
+            <field name="name">Renovation Expenses Depreciation</field>
+            <field name="code">521116</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_52102">
+            <field name="name">Receipt Deductions</field>
+            <field name="code">52102</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+       <!--  <record model="account.account.template" id="tdcc_account_C000">
+            <field name="name">Cash Customer</field>
+            <field name="code">C000</field>
+             <field name="user_type_id" ref="account.data_account_type_receivable" />
+            <field name="reconcile" eval="True" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record> -->
+        <record model="account.account.template" id="tdcc_account_S000502">
+            <field name="name">Department Of Economic Development</field>
+            <field name="code">S000502</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_comdue">
+            <field name="name">Commission Due</field>
+            <field name="code">COMDUE</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_V007">
+            <field name="name">Vat Non-Refundable Expense</field>
+            <field name="code">V007</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_11204">
+            <field name="name">Card Account</field>
+            <field name="code">11204</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_S000601">
+            <field name="name">Dalya Tabari</field>
+            <field name="code">S000601</field>
+            <field name="user_type_id" ref="account.data_account_type_payable" />
+            <field name="reconcile" eval="True" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_S000606">
+            <field name="name">Nof Al Mazrouei</field>
+            <field name="code">S000606</field>
+            <field name="user_type_id" ref="account.data_account_type_payable" />
+            <field name="reconcile" eval="True" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_S000609">
+            <field name="name">Ruba Tabari</field>
+            <field name="code">S000609</field>
+            <field name="user_type_id" ref="account.data_account_type_payable" />
+            <field name="reconcile" eval="True" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_41015">
+            <field name="name">Meg Revenue</field>
+            <field name="code">41015</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_41017">
+            <field name="name">Dr. Ruba Tabari</field>
+            <field name="code">41017</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51276">
+            <field name="name">Taaleem Salaries</field>
+            <field name="code">51276</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51278">
+            <field name="name">Eip Final Settlement</field>
+            <field name="code">51278</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51280">
+            <field name="name">360 Department Commissions</field>
+            <field name="code">51280</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_51279">
+            <field name="name">360 Department Final Settlement</field>
+            <field name="code">51279</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+        <record model="account.account.template" id="tdcc_account_521170">
+            <field name="name">Ops/Hr/Finance-Final Settlement</field>
+            <field name="code">521170</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+
+        <!-- Added new Accounts for Trail Balance Sheet -->
+
+    <record model="account.account.template" id="tdcc_account_C049">
+         <field name="name">Receivable from Accountants</field>
+         <field name="code">0C049</field>
+         <field name="user_type_id" ref="account.data_account_type_receivable" />
+         <field name="reconcile" eval="True" />
+         <field name="chart_template_id" ref="tdcc_chart_template"/>
+     </record>
+
+     <record model="account.account.template" id="tdcc_account_11504">
+         <field name="name">Reconcilation Diff Odoo vs Orizon</field>
+         <field name="code">11504</field>
+         <field name="user_type_id" ref="account.data_account_type_current_assets" />
+         <field name="reconcile" eval="False" />
+         <field name="chart_template_id" ref="tdcc_chart_template"/>
+     </record>
+
+     <record model="account.account.template" id="tdcc_account_tdcc150">
+            <field name="name">Staff Salaries Payable</field>
+            <field name="code">TDCC150</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+            <field name="reconcile" eval="False" />
+            <field name="chart_template_id" ref="tdcc_chart_template" />
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="admit_source_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Admit Source</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">admit.source</field>
+
+    </record>
+    <record id="admit_source_tree" model="ir.ui.view">
+        <field name="name">admit.source.tree.views</field>
+        <field name="model">admit.source</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="admit_source_form" model="ir.ui.view">
+        <field name="name">admit.source.form.views</field>
+        <field name="model">admit.source</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="admit_source_menu"
+              action="admit_source_action"
+              name="Admit Source"
+              parent="kg_nabidh.pv1_menu"/>
+
+</odoo>

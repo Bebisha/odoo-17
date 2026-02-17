@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="kg_employee_dashboard.EmployeeDashboard" owl="1">
+        <div class="container mt-4" style="height: 100vh; overflow-y: auto; padding: 20px;padding-bottom:70px;">
+            <h1 class="text-center mb-4">Employee Dashboard</h1>
+
+            <h4 class="mt-5">Assigned Employees</h4>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr style="background-color:#FFF1D5;">
+                        <th>Employee</th>
+                        <th class="text-center">Deadline</th>
+
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="state.assigned" t-as="emp" t-key="emp.name">
+                        <tr>
+                            <td>
+                                <span>
+                                    <t t-esc="emp.name"/>
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="emp.latest_deadline or 'N/A'"/>
+                            </td>
+                            <td class="text-center">
+                                <!--                                    <t t-if="emp.tasks and emp.tasks.length">-->
+                                <!--                                        <span t-esc="emp.tasks.length + ' task'" class="me-2"/>-->
+                                <!--                                    </t>-->
+                                <button class="btn btn-outline-info btn-sm"
+                                        t-on-click="() => this.navigateToEmployeeProjects(emp)"
+                                        t-if="emp.project_ids.length">
+                                    <i class="fa fa-eye"/>
+                                </button>
+                                <span t-if="!emp.project_ids.length">
+                                    <em>No Projects</em>
+                                </span>
+                            </td>
+                        </tr>
+                    </t>
+                    <!--                    </t>-->
+                </tbody>
+            </table>
+
+            <h4 class="mt-5">Unassigned Employees</h4>
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr style="background-color:#FFF1D5;">
+                        <th>Employee</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="state.unassigned" t-as="emp" t-key="emp.name">
+                        <tr>
+                            <td>
+                                <t t-esc="emp.name"/>
+                            </td>
+                            <td class="text-center text-danger">
+                                <em>No Tasks</em>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+
+            <t>
+                <h4 class="mt-5">Forecasted Employees</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr style="background-color:#FFF1D5;">
+                            <th>Employee</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="state.forecasted" t-as="emp" t-key="emp.name">
+                            <tr>
+                                <td>
+                                    <t t-esc="emp.name"/>
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        <!--                                        <t t-if="emp.tasks and emp.tasks.length">-->
+                                        <!--                                            <span t-esc="emp.tasks.length + ' task'" class="me-2"/>-->
+                                        <!--                                        </t>-->
+                                        <t t-if="emp.project_ids and emp.project_ids.length">
+                                            <button class="btn btn-outline-info btn-sm"
+                                                    t-on-click="(e) => this.viewEmployeeProjects(e, emp.project_ids)">
+                                                <i class="fa fa-eye"/>
+                                            </button>
+                                        </t>
+                                    </div>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+            </t>
+        </div>
+    </t>
+</templates>

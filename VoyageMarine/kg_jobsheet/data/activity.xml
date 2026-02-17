@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+
+        <record id="material_req_notification" model="mail.activity.type">
+            <field name="name">Material Requesition</field>
+            <field name="res_model">material.purchase.requisition</field>
+        </record>
+
+         <record id="material_issue_notification" model="mail.activity.type">
+            <field name="name">Material Issued</field>
+            <field name="res_model">repair.order</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,11 @@
+<odoo>
+
+    <record id="sale.action_report_pro_forma_invoice" model="ir.actions.report">
+        <field name="paperformat_id" ref="kg_raw_fisheries_sale.paperformat_sale_invoice_report"/>
+    </record>
+
+     <record id="sale_pdf_quote_builder.action_report_saleorder_raw" model="ir.actions.report">
+        <field name="paperformat_id" ref="kg_raw_fisheries_sale.paperformat_sale_invoice_report"/>
+    </record>
+
+</odoo>

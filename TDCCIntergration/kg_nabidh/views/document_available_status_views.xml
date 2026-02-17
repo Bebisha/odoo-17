@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="document_available_status_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Document Available Status</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">document.available.status</field>
+
+    </record>
+    <record id="document_available_status_tree" model="ir.ui.view">
+        <field name="name">document.available.status.tree.views</field>
+        <field name="model">document.available.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="code"/>
+                <field name="name"/>
+
+
+            </tree>
+        </field>
+    </record>
+    <record id="document_available_status_form" model="ir.ui.view">
+        <field name="name">document.available.status.form.views</field>
+        <field name="model">document.available.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="document_available_status_menu"
+              action="document_available_status_action"
+              name="Document Available Status"
+              parent="kg_nabidh.txa_menu"/>
+
+</odoo>

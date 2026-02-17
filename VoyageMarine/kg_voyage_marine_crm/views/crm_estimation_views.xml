@@ -1,0 +1,270 @@
+<odoo>
+    <data>
+
+        <record id="action_estimation" model="ir.actions.act_window">
+            <field name="name">Estimation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.estimation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_crm_estimation" name="Estimation" parent="crm.crm_menu_sales"
+                  action="action_estimation"/>
+
+        <record model="ir.ui.view" id="crm_estimation_tree">
+            <field name="name">crm.estimation.tree</field>
+            <field name="model">crm.estimation</field>
+            <field name="arch" type="xml">
+                <tree string="Estimation" default_order="id desc">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="estimate_date"/>
+                    <field name="status"/>
+                    <field name="vessel_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="crm_estimation_search">
+            <field name="name">crm.estimation.search</field>
+            <field name="model">crm.estimation</field>
+            <field name="arch" type="xml">
+                <search string="Estimation Search">
+                    <field name="name"/>
+                    <field name="status"/>
+                    <field name="vessel_id"/>
+                    <filter string="Open" name="status" domain="[('status', '=', 'open')]"/>
+                    <filter string="Closed" name="status" domain="[('status', '=', 'closed')]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Vessel" name="vessel_id" context="{'group_by': 'vessel_id'}"/>
+                        <filter string="Status" name="status" context="{'group_by': 'status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="view_crm_estimation_form" model="ir.ui.view">
+            <field name="name">crm.estimation.form</field>
+            <field name="model">crm.estimation</field>
+            <field name="arch" type="xml">
+                <form string="Estimation">
+                    <header>
+                        <field name="so_ids" invisible="1"/>
+                        <field name="is_qtn" invisible="1"/>
+                        <button string="Confirm" name="action_confirm" type="object"
+                                invisible="status not in 'new'"
+                                class="oe_highlight"/>
+                        <button string="Cancel" name="action_cancel" type="object" invisible="status  in 'cancel'"/>
+                        <button string="Reset To Draft" name="reset_to_draft" type="object"
+                                invisible="1"/>
+                        <button name="update_quotation" string="Update Quotation" type="object" class="oe_highlight"
+                                confirm="Are you sure to update the quotation?"
+                                invisible="not is_qtn or not so_ids"/>
+                        <field name="status" widget="statusbar" statusbar_visible="new,confirm,cancel"/>
+                    </header>
+                    <sheet>
+                        <xpath expr="//div[hasclass('oe_button_box')]" position="before">
+                            <div class="alert alert-warning text-center"
+                                 role="alert" invisible="is_same_scope == False">
+                                The scope has already registered on the same date. Please find and update.
+                            </div>
+                        </xpath>
+                        <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="active == True"/>
+                        <div class="oe_button_box" name="button_box">
+                            <field name="po_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="est_po_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="enq_po_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="is_same_scope" invisible="1"/>
+                            <field name="display_name" invisible="1"/>
+                            <button class="oe_stat_button" type="object" icon="fa-pencil-square-o"
+                                    invisible="not est_rfq_count"
+                                    name="get_rfq_order" string="RFQ">
+                                <field string="RFQ" name="est_rfq_count" widget="statinfo"/>
+
+                            </button>
+                            <button class="oe_stat_button" type="object" icon="fa-pencil-square-o"
+                                    invisible="not est_po_ids"
+                                    name="get_purchase_order" string="Purchase Order">
+                                <field string="Purchase Order" name="est_po_count" widget="statinfo"/>
+
+                            </button>
+                            <button class="oe_stat_button" type="object" icon="fa-pencil-square-o"
+                                    name="get_sale_order" string="Quotation" invisible="not so_ids"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="description" placeholder="Estimation Name" required="1"
+                                       readonly="not is_qtn and so_ids"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="active" invisible="1"/>
+                                <field name="name" readonly="1" force_save="1"/>
+                                <field name="scope" required="1"
+                                       readonly="not is_qtn and so_ids"/>
+                                <field name="work_type_id" readonly="not is_qtn and so_ids"
+                                       invisible="1"/>
+                                <field name="price_list_id" readonly="not is_qtn and so_ids"
+                                       required="1"/>
+                                <field name="currency_id" readonly="1"/>
+
+                                <field name="so_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                                <field name="est_po_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                                <field name="vessel_id" readonly="not is_qtn and so_ids"/>
+                                <field name="jr_no"/>
+                            </group>
+                            <group>
+                                <field name="enquiry_no" readonly="not is_qtn and so_ids"/>
+                                <field name="lead_id" readonly="not is_qtn and so_ids"/>
+                                <field name="company_id" readonly="not is_qtn and so_ids" required="1"/>
+                                <field name="attn" readonly="not is_qtn and so_ids"/>
+                                <field name="partner_id" readonly="not is_qtn and so_ids" required="1"/>
+                                <field name="estimate_date" required="1" readonly="not is_qtn and so_ids"/>
+                                <field name="customer_ref" readonly="not is_qtn and so_ids"/>
+                                <field name="bid_closing_date" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="item_cost" string="Items">
+                                <field name="item_ids" widget="section_and_note_one2many"
+                                       context="{'default_display_type': False}"
+                                       readonly="not is_qtn and so_ids" mode="tree">
+                                    <tree editable="bottom">
+                                        <field name="sl_no"/>
+                                        <field name="display_type" column_invisible="1"/>
+                                        <field name="code" string="Code" required="1"/>
+                                        <field name="description" required="1"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id" required="1"/>
+                                        <field name="unit_price" string="Unit Price"/>
+                                        <field name="subitems_total" string="Subitem Total(Margin Excl)" optional="hide"/>
+                                        <field name="total_unit_price" string="Subtotal(Margin Excl)"/>
+                                        <field name="total" sum="Total" column_invisible="1"/>
+                                        <field name="margin"/>
+                                        <field name="margin_amount"/>
+                                        <field name="subtotal" sum="Sub Total" string="Subtotal(Margin Incl)"/>
+                                        <field name="total_subitems" column_invisible="1"/>
+                                        <button name="kg_add_subitems" type="object" string="SUBITEMS"
+                                                class="oe_highlight"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="labour_cost" string="Labour Cost">
+                                <field name="labour_cost_ids" widget="section_and_note_one2many"
+                                       readonly="not is_qtn and so_ids">
+                                    <tree editable="bottom">
+                                        <field name="sl_no"/>
+                                        <field name="product_uom_category_id" column_invisible="1"/>
+                                        <field name="code" string="Code" required="1"/>
+                                        <field name="product_id" domain="[('is_labour_product', '=', True)]"
+                                               required="1"/>
+                                        <field name="description" widget="section_and_note_text"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id" required="1"
+                                               domain="[('category_id','=',product_uom_category_id)]"/>
+                                        <field name="unit_price" string="Unit Price"/>
+                                        <field name="subitems_total" string="Subitem Total(Margin Excl)" optional="hide"/>
+                                        <field name="total_unit_price" string="Subtotal(Margin Excl)"/>
+                                        <field name="margin"/>
+                                        <field name="margin_amount"/>
+                                        <field name="subtotal" sum="Sub Total" string="Subtotal(Margin Incl)"/>
+                                        <field name="total_subitems" column_invisible="1"/>
+                                        <button name="kg_add_subitems" type="object" string="SUBITEMS"
+                                                class="oe_highlight"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="material_cost" string="Material Cost">
+                                <field name="material_cost_ids" widget="section_and_note_one2many"
+                                       readonly="not is_qtn and so_ids">
+                                    <tree editable="bottom">
+                                        <field name="sl_no"/>
+                                        <field name="product_uom_category_id" column_invisible="1"/>
+                                        <field name="code" string="Code" required="1"/>
+                                        <field name="product_id" domain="[('detailed_type','=','product')]"
+                                               required="1"/>
+                                        <field name="description" widget="section_and_note_text"/>
+                                        <field name="quantity"/>
+                                        <field name="po_qty" readonly="1" force_save="1" column_invisible="1"/>
+                                        <field name="balance_qty" readonly="1" force_save="1" column_invisible="1"/>
+                                        <field name="uom_id" required="1"
+                                               domain="[('category_id','=',product_uom_category_id)]"/>
+                                        <field name="unit_price" string="Unit Price"/>
+                                        <field name="subitems_total" string="Subitem Total(Margin Excl)" optional="hide"/>
+                                        <field name="total_unit_price" string="Subtotal(Margin Excl)"/>
+                                        <field name="margin"/>
+                                        <field name="margin_amount"/>
+                                        <field name="subtotal" sum="Sub Total" string="Subtotal(Margin Incl)"/>
+                                        <field name="total_subitems" column_invisible="1"/>
+                                        <button name="kg_add_subitems" type="object" string="SUBITEMS"
+                                                class="oe_highlight"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="other_cost" string="Other Cost">
+                                <field name="other_cost_ids" widget="section_and_note_one2many"
+                                       readonly="not is_qtn and so_ids">
+                                    <tree editable="bottom">
+                                        <field name="sl_no"/>
+                                        <field name="product_uom_category_id" column_invisible="1"/>
+                                        <field name="code" string="Code" required="1"/>
+                                        <field name="product_id" domain="[('detailed_type', 'not in', ['product'])]" required="1"/>
+                                        <field name="description" widget="section_and_note_text"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id" required="1"
+                                               domain="[('category_id','=',product_uom_category_id)]"/>
+                                        <field name="unit_price" string="Unit Price"/>
+                                        <field name="subitems_total" string="Subitem Total(Margin Excl)" optional="hide"/>
+                                        <field name="total_unit_price" string="Subtotal(Margin Excl)"/>
+                                        <field name="margin"/>
+                                        <field name="margin_amount"/>
+                                        <field name="subtotal" sum="Sub Total" string="Subtotal(Margin Incl)"/>
+                                        <field name="total_subitems" column_invisible="1"/>
+                                        <button name="kg_add_subitems" type="object" string="SUBITEMS"
+                                                class="oe_highlight"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Summary" name="summary">
+                                <group>
+                                    <group string="Total cost">
+                                        <field name="item_cost"/>
+                                        <field name="labour_cost"/>
+                                        <field name="material_cost"/>
+                                        <field name="other_cost"/>
+                                    </group>
+                                    <group string="Subtotal">
+                                        <field name="total_item_cost"/>
+                                        <field name="total_labour_cost"/>
+                                        <field name="total_material_cost"/>
+                                        <field name="total_other_cost"/>
+                                    </group>
+                                    <group string="Total">
+                                        <field name="total_cost"/>
+                                        <field name="total_estimate"/>
+                                        <field name="total_margin"/>
+                                        <field name="margin_estimation_cost" invisible="1"/>
+                                        <field name="margin_percentage"/>
+                                    </group>
+                                    <group string="Final Value">
+                                        <field name="tax_id" readonly="not is_qtn and so_ids"/>
+                                        <field name="tax_amount"/>
+                                        <field name="total"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

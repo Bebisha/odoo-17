@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_asset_form_inherit" model="ir.ui.view">
+        <field name="name">account.asset.form.inherit</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <label for="asset_model_code" name="asset_model_code_label" invisible="state != 'model'"
+                       string="Asset Model Code"/>
+                <field name="asset_model_code" invisible="state != 'model'" string="Asset Model Code"/>
+                <label for="sequence_number" name="sequence_number_label" string="Sequence Number"
+                       invisible="state == 'model'"/>
+                <field name="sequence_number" string="Sequence Number" invisible="state == 'model'"/>
+                <field name="display_name" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[@name='main_page']" position="inside">
+                <group string ="Additional fields">
+                    <group>
+                        <field name="vehicle_no"/>
+                        <field name="engine_no"/>
+                         <field name="category_id"/>
+                    </group>
+                    <group>
+                        <field name="make"/>
+                        <field name="model"/>
+                        <field name="serial_no"/>
+                    </group>
+                    <group>
+                        <field name="inspection_date"/>
+                        <field name="certificate_no"/>
+                    </group>
+                    <group>
+                        <field name="cal_date"/>
+                        <field name="due_date"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_asset_tree_inherit" model="ir.ui.view">
+        <field name="name">account.asset.tree.inherit</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_model_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="asset_model_code" invisible="state != 'model'"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_asset_tree_inherit" model="ir.ui.view">
+        <field name="name">account.asset.tree.inherit</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="sequence_number" invisible="state == 'model'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem parent="project.menu_main_pm" id="menu_action_account_asset_form_sale" action="account_asset.action_account_asset_form" sequence="10" groups="kg_asset.group_show_asset_menu"/>
+
+</odoo>

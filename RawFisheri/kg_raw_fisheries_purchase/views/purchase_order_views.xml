@@ -1,0 +1,21 @@
+<odoo>
+
+    <record id="kg_purchase_order_view_form_inherit_id" model="ir.ui.view">
+        <field name="name">kg.purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']" position="before">
+                <button name="open_import_wizard" type="object" string="Import Products" class="oe_highlight"
+                        invisible="state in ['purchase','done']"/>
+            </xpath>
+            <field name="partner_ref" position="after">
+                <field name="vessel_id"/>
+            </field>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="product_image" widget="image" class="oe_avatar" options="{'preview_image': 'product_image'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

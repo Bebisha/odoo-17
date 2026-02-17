@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="web_gantt.GanttRenderer.Header" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_gantt_header_slots')]" position="replace">
+            <div class="o_gantt_header_slots o_gantt_grid_columns flex-grow-1 bg-view fw-bold bg-100">
+                <t t-set="formats" t-value="{'week': 'cccc, d', 'month': 'dd', 'year': env.isSmall ? 'MMM' : 'MMMM'}"/>
+                <t t-set="test" t-value="30"/>
+                <t t-if="activeModel == 'project.task'">
+                    <div class="o_gantt_title o_gantt_row_sidebar d-flex align-items-center"
+                         style="grid-column:1 / span 11;font-size:12px;">ASSIGNED</div>
+                    <div class="o_gantt_title o_gantt_row_sidebar d-flex align-items-center"
+                         style="grid-column:12 / span 4;font-size:12px;">PROGRESS</div>
+                    <div class="o_gantt_title d-flex align-items-center justify-content-center"
+                         style="grid-column:16 / span 8;font-size:12px;">START</div>
+                    <div class="o_gantt_title d-flex align-items-center"
+                         style="grid-column:24 / span 8;font-size:12px;">END</div>
+                </t>
+
+
+                <t t-foreach="columns" t-as="column" t-key="column.id">
+                    <t t-set="test" t-value="test + 2"/>
+                    <t t-if="activeModel == 'project.task'">
+                        <div class="o_gantt_title d-flex align-items-center justify-content-center py-2" t-att-class="{o_gantt_today: column.isToday, 'bg-100': !column.isToday,
+                                                    'hrgantt_sat_weekdays_bg': column.start.toFormat('ccc') === 'Sat' and (model.metaData.scale.id=='month' or model.metaData.scale.id=='week'),
+                                                    'hrgantt_sun_weekdays_bg': column.start.toFormat('ccc') === 'Sun' and (model.metaData.scale.id=='month' or model.metaData.scale.id=='week')}"
+                             t-att-style="getGridPosition({column: [column.grid.column[0]+30,column.grid.column[1]]});">
+
+                            <t t-if="model.metaData.scale.id in formats"
+                               t-esc="column.start.toFormat(formats[model.metaData.scale.id])"/>
+
+                            <small t-else="" class="text-center">
+                                <b t-esc="column.start.toFormat('h')"/>
+                                <div class="d-xl-inline-block" t-esc="column.start.toFormat('a').toLowerCase()"/>
+                            </small>
+                            <br/>
+                            <t t-if="model.metaData.scale.id=='month'" t-esc="column.start.toFormat('ccc')[0]"/>
+                        </div>
+                    </t>
+
+                    <t t-else="">
+                        <div class="o_gantt_title d-flex align-items-center justify-content-center py-2" t-att-class="{o_gantt_today: column.isToday, 'bg-100': !column.isToday,
+                                                    'hrgantt_sat_weekdays_bg': column.start.toFormat('ccc') === 'Sat' and (model.metaData.scale.id=='month' or model.metaData.scale.id=='week'),
+                                                    'hrgantt_sun_weekdays_bg': column.start.toFormat('ccc') === 'Sun' and (model.metaData.scale.id=='month' or model.metaData.scale.id=='week')}"
+                             t-att-style="getGridPosition({column: column.grid.column});">
+
+                            <t t-if="model.metaData.scale.id in formats"
+                               t-esc="column.start.toFormat(formats[model.metaData.scale.id])"/>
+
+                            <small t-else="" class="text-center">
+                                <b t-esc="column.start.toFormat('h')"/>
+                                <div class="d-xl-inline-block" t-esc="column.start.toFormat('a').toLowerCase()"/>
+                            </small>
+                            <br/>
+                            <t t-if="model.metaData.scale.id=='month'" t-esc="column.start.toFormat('ccc')[0]"/>
+                        </div>
+                    </t>
+                </t>
+
+            </div>
+        </xpath>
+    </t>
+
+
+    <t t-inherit="web_gantt.GanttRenderer.RowContent" t-inherit-mode="extension">
+          <xpath expr="//t[@t-name='web_gantt.GanttRenderer.RowContent']" position="replace">
+              <t t-name="web_gantt.GanttRenderer.RowContent">
+
+                 <t t-if="activeModel == 'project.task'">
+                    <t t-set="test" t-value="28"/>
+                     <t t-foreach="columns" t-as="column" t-key="column.id">
+                        <t t-set="test" t-value="test + 2"/>
+                         <t t-if="test == 30">
+
+                            <div class="o_gantt_cell" t-att-class="{
+                                o_sample_data_disabled: isDisabled(row),
+                                o_gantt_today: column.isToday,
+                                o_gantt_group: row.isGroup,
+                                o_gantt_hoverable: isHoverable(row),
+                                o_group_open: !model.isClosed(row.id),
+                                }"
+                                 t-attf-style="text-align:center;{{ getGridPosition({ column: [1,10], row: row.grid.row }) }};{{ row.cellColors[column.id] || '' }}"
+                                 t-att-data-row-id="row.id"
+                                 t-att-data-column-index="column_index"
+                                 t-on-click.synthetic="() => row.isGroup and this.model.toggleRow(row.id)">
+                                 <span t-esc="row.assigned_user"/>
+                            </div>
+
+                             <div class="o_gantt_cell" t-att-class="{
+                                o_sample_data_disabled: isDisabled(row),
+                                o_gantt_today: column.isToday,
+                                o_gantt_group: row.isGroup,
+                                o_gantt_hoverable: isHoverable(row),
+                                o_group_open: !model.isClosed(row.id),
+                                }"
+                                  t-attf-style="text-align:center;{{ getGridPosition({ column: [11,4], row: row.grid.row }) }};{{ row.cellColors[column.id] || '' }}"
+                                  t-att-data-row-id="row.id"
+                                  t-att-data-column-index="column_index"
+                                  t-on-click.synthetic="() => row.isGroup and this.model.toggleRow(row.id)">
+                               <span t-esc="row.progress"/>
+                             </div>
+
+                             <div class="o_gantt_cell" t-att-class="{
+                                o_sample_data_disabled: isDisabled(row),
+                                o_gantt_today: column.isToday,
+                                o_gantt_group: row.isGroup,
+                                o_gantt_hoverable: isHoverable(row),
+                                o_group_open: !model.isClosed(row.id),
+                                }"
+                                  t-attf-style="text-align:center;{{ getGridPosition({ column: [15,8], row: row.grid.row }) }};{{ row.cellColors[column.id] || '' }}"
+                                  t-att-data-row-id="row.id"
+                                  t-att-data-column-index="column_index"
+                                  t-on-click.synthetic="() => row.isGroup and this.model.toggleRow(row.id)">
+                                 <span t-esc="row.start_date"/>
+                             </div>
+
+                             <div class="o_gantt_cell" t-att-class="{
+                                o_sample_data_disabled: isDisabled(row),
+                                o_gantt_today: column.isToday,
+                                o_gantt_group: row.isGroup,
+                                o_gantt_hoverable: isHoverable(row),
+                                o_group_open: !model.isClosed(row.id),
+                                }"
+                                  t-attf-style="text-align:center;{{ getGridPosition({ column: [23,8], row: row.grid.row }) }};{{ row.cellColors[column.id] || '' }}"
+                                  t-att-data-row-id="row.id"
+                                  t-att-data-column-index="column_index"
+                                  t-on-click.synthetic="() => row.isGroup and this.model.toggleRow(row.id)">
+                                <span t-esc="row.end_date"/>
+                             </div>
+                        </t>
+
+                         <div class="o_gantt_cell" t-att-class="{
+                                o_sample_data_disabled: isDisabled(row),
+                                o_gantt_today: column.isToday,
+                                o_gantt_group: row.isGroup,
+                                o_gantt_hoverable: isHoverable(row),
+                                o_group_open: !model.isClosed(row.id),
+                            }"
+                              t-attf-style="{{ getGridPosition({ column: [column.grid.column[0]+30,column.grid.column[1]], row: row.grid.row }) }};{{ row.cellColors[column.id] || '' }}"
+                              t-att-data-row-id="row.id"
+                              t-att-data-test="column.grid.column"
+                              t-att-data-column-index="column_index"
+                              t-on-pointerdown.synthetic="onSelectStart"
+                              t-on-click.synthetic="() => row.isGroup and this.model.toggleRow(row.id)"/>
+                    </t>
+
+
+                     <!-- Pills -->
+                     <t t-if="row.isGroup">
+                        <!-- Group pills -->
+                         <t t-foreach="row.pills" t-as="pill" t-key="pill.id">
+                            <div class="o_gantt_pill_wrapper o_gantt_group_pill align-items-center"
+                                 t-att-class="{
+                                    o_sample_data_disabled: isDisabled(row),
+                                    o_group_open: !model.isClosed(row.id),
+                                    }"
+                                 t-att-style="getGridPosition({'column':[pill.grid.column[0]+30,pill.grid.column[1]],'row':pill.grid.row})">
+                                 <div class="o_gantt_pill o_gantt_consolidated_pill position-relative overflow-visible"
+                                      t-att-class="pill.className"
+                                      t-att-title="pill.displayName">
+                                    <span t-if="pill._progress"
+                                          class="position-absolute h-100 o_gantt_progress"
+                                          t-attf-style="width:{{ pill._progress }}%;"/>
+                                 </div>
+                                <span class="o_gantt_pill_title 111 bg-view text-truncate px-1 z-index-1"
+                                      t-esc="pill.displayName"/>
+                            </div>
+                         </t>
+                     </t>
+
+                     <t t-else="">
+                        <!-- Standard pills -->
+                         <t t-foreach="row.pills" t-as="pill" t-key="pill.id">
+                            <t t-call="{{ constructor.pillTemplate }}"/>
+                         </t>
+                     </t>
+                 </t>
+
+                  <t t-else="">
+                    <t t-foreach="columns" t-as="column" t-key="column.id">
+                        <div
+                                class="o_gantt_cell"
+                                t-att-class="{
+                            o_sample_data_disabled: isDisabled(row),
+                            o_gantt_today: column.isToday,
+                            o_gantt_group: row.isGroup,
+                            o_gantt_hoverable: isHoverable(row),
+                            o_group_open: !model.isClosed(row.id),
+                        }"
+                                t-attf-style="{{ getGridPosition({ column: column.grid.column, row: row.grid.row }) }};{{ row.cellColors[column.id] || '' }}"
+                                t-att-data-row-id="row.id"
+                                t-att-data-column-index="column_index"
+                                t-on-pointerdown.synthetic="onSelectStart"
+                                t-on-click.synthetic="() => row.isGroup and this.model.toggleRow(row.id)"/>
+
+                    </t>
+                      <!-- Pills -->
+                      <t t-if="row.isGroup">
+                            <!-- Group pills -->
+                          <t t-foreach="row.pills" t-as="pill" t-key="pill.id">
+                            <div class="o_gantt_pill_wrapper o_gantt_group_pill align-items-center"
+                                 t-att-class="{
+                                    o_sample_data_disabled: isDisabled(row),
+                                    o_group_open: !model.isClosed(row.id),}"
+                                 t-att-style="getGridPosition(pill.grid)">
+
+                                <div class="o_gantt_pill o_gantt_consolidated_pill position-relative overflow-visible"
+                                     t-att-class="pill.className"
+                                     t-att-title="pill.displayName">
+                                    <span t-if="pill._progress"
+                                          class="position-absolute h-100 o_gantt_progress"
+                                          t-attf-style="width:{{ pill._progress }}%;"/>
+
+                                </div>
+                                <span class="o_gantt_pill_title 222 bg-view text-truncate px-1 z-index-1"
+                                      t-esc="pill.displayName"/>
+                            </div>
+                         </t>
+                     </t>
+
+                      <t t-else="">
+                            <!-- Standard pills -->
+                          <t t-foreach="row.pills" t-as="pill" t-key="pill.id">
+                            <t t-call="{{ constructor.pillTemplate }}"/>
+                          </t>
+                     </t>
+
+                 </t>
+              </t>
+          </xpath>
+     </t>
+
+    <t t-inherit="web_gantt.GanttRenderer.Pill" t-inherit-mode="extension">
+             <xpath expr="//t[@t-name='web_gantt.GanttRenderer.Pill']" position="replace">
+                  <t t-name="web_gantt.GanttRenderer.Pill">
+                         <t t-if="activeModel == 'project.task'">
+                             <t t-set="renderConnectors" t-value="shouldRenderRecordConnectors(pill.record)"/>
+                              <div class="o_gantt_pill_wrapper" t-att-class="{
+                                    o_sample_data_disabled: isDisabled(row),
+                                    o_draggable: !pill.disableDrag,
+                                    o_undraggable: pill.disableDrag,
+                                    o_resizable: !pill.disableStartResize or !pill.disableStopResize,
+                                    'position-relative': renderConnectors
+                                     }"
+                                         t-att-style="getGridPosition({'column':[pill.grid.column[0]+30,pill.grid.column[1]],'row':pill.grid.row})"
+                                         t-att-data-pill-id="pill.id">
+
+                                     <t t-if="renderConnectors" t-call="{{ constructor.connectorCreatorTemplate }}">
+                                        <t t-set="alignment" t-value="{ horizontal: 'left', vertical: 'top' }"/>
+                                     </t>
+
+                                     <div class="o_gantt_pill position-relative h-100 d-flex align-items-center"
+                                         t-att-class="pill.className"
+                                         t-on-click.synthetic="(ev) => this.onPillClicked(ev, pill)">
+                                         <span t-if="pill._progress"
+                                               class="position-absolute h-100 o_gantt_progress"
+                                               t-attf-style="width:{{ pill._progress }}%;"/>
+                                         <span class="o_gantt_pill_title 33 text-truncate mx-1" t-esc="pill.displayName"/>
+                                         <div t-if="pill.disableDrag" class="o_gantt_lock fa fa-lock ms-auto me-2"/>
+                                     </div>
+
+                                     <t t-if="renderConnectors" t-call="{{ constructor.connectorCreatorTemplate }}">
+                                        <t t-set="alignment" t-value="{ horizontal: 'right', vertical: 'bottom' }"/>
+                                     </t>
+                              </div>
+                         </t>
+
+                         <t t-else="">
+                            <t t-set="renderConnectors" t-value="shouldRenderRecordConnectors(pill.record)"/>
+                            <div class="o_gantt_pill_wrapper"
+                               t-att-class="{
+                                o_sample_data_disabled: isDisabled(row),
+                                o_draggable: !pill.disableDrag,
+                                o_undraggable: pill.disableDrag,
+                                o_resizable: !pill.disableStartResize or !pill.disableStopResize,
+                                'position-relative': renderConnectors
+                                    }"
+                                               t-att-style="getGridPosition(pill.grid)"
+                                               t-att-data-pill-id="pill.id" >
+
+                                <t t-if="renderConnectors" t-call="{{ constructor.connectorCreatorTemplate }}">
+                                    <t t-set="alignment" t-value="{ horizontal: 'left', vertical: 'top' }"/>
+                                </t>
+                               <div class="o_gantt_pill position-relative h-100 d-flex align-items-center"
+                                   t-att-class="pill.className"
+                                   t-on-click.synthetic="(ev) => this.onPillClicked(ev, pill)">
+
+                                    <span t-if="pill._progress"
+                                            class="position-absolute h-100 o_gantt_progress"
+                                            t-attf-style="width:{{ pill._progress }}%;"/>
+                                   <span class="o_gantt_pill_title text-truncate mx-1" t-esc="pill.displayName"/>
+                                   <div t-if="pill.disableDrag" class="o_gantt_lock fa fa-lock ms-auto me-2"/>
+                               </div>
+
+                              <t t-if="renderConnectors" t-call="{{ constructor.connectorCreatorTemplate }}">
+                                 <t t-set="alignment" t-value="{ horizontal: 'right', vertical: 'bottom' }"/>
+                              </t>
+                            </div>
+                         </t>
+
+                  </t>
+             </xpath>
+         </t>
+
+        <t t-inherit="web_gantt.GanttRenderer" t-inherit-mode="extension">
+             <xpath expr="//t[@t-name='web_gantt.GanttRenderer']" position="replace">
+                  <t t-name="web_gantt.GanttRenderer">
+                      <t t-if="activeModel == 'project.task'">
+                            <div t-ref="root"
+                                 class="o_gantt_renderer o_renderer bg-view"
+                                 t-att-class="{ o_no_groups: !model.metaData.groupedBy.length }"
+                                 t-attf-style="--Gantt__RowHeader-width: {{ state.rowHeaderWidth }}px;
+                                        --Gantt__Pill-height: {{ pillHeight - 1 }}px;
+                                        --Gantt__Row-height: {{ rowHeight }}px;
+                                        --Gantt__Template-rows: {{ gridTemplate.rows }};
+                                        --Gantt__Template-columns:93;"
+                                 t-on-pointermove="throttledOnPointerMove"
+                                 t-on-pointerleave="onPointerLeave">
+
+                                 <t t-call="{{ constructor.headerTemplate }}"/>
+                                 <t t-if="model.metaData.groupedBy.length">
+                                    <div class="o_gantt_row_headers o_gantt_grid_rows">
+                                        <t t-foreach="visibleRows" t-as="row" t-key="row.id">
+                                            <t t-call="{{ constructor.rowHeaderTemplate }}"/>
+                                        </t>
+                                    </div>
+                                 </t>
+                                 <div t-ref="cellContainer"
+                                     class="o_gantt_cells o_gantt_grid_rows o_gantt_grid_columns position-relative">
+                                    <t t-foreach="visibleRows" t-as="row" t-key="row.id">
+                                        <t t-call="{{ constructor.rowContentTemplate }}"/>
+                                    </t>
+                                    <t t-foreach="extraPills" t-as="pill" t-key="pill.id">
+                                        <t t-call="{{ constructor.pillTemplate }}"/>
+                                    </t>
+                                    <t t-if="shouldRenderConnectors()">
+                                        <t t-foreach="visibleConnectors" t-as="connector" t-key="connector.id">
+                                            <GanttConnector
+                                                    reactive="connector"
+                                                    onRemoveButtonClick="() => this.onRemoveButtonClick(connector.id)"
+                                                    onLeftButtonClick="() => this.onRescheduleButtonClick('backward', connector.id)"
+                                                    onRightButtonClick="() => this.onRescheduleButtonClick('forward', connector.id)"
+                                            />
+                                        </t>
+                                    </t>
+                                    <GanttResizeBadge reactive="resizeBadgeReactive"/>
+                                 </div>
+
+                                <t t-if="totalRow">
+                                    <t t-call="{{ constructor.totalRowTemplate }}"/>
+                                </t>
+
+                            </div>
+                      </t>
+
+                      <t t-else="">
+                          <div t-ref="root"
+                               class="o_gantt_renderer o_renderer bg-view"
+                               t-att-class="{ o_no_groups: !model.metaData.groupedBy.length }"
+                               t-attf-style="--Gantt__RowHeader-width:{{state.rowHeaderWidth}}px;
+                              --Gantt__Pill-height:{{pillHeight - 1}}px;
+                              --Gantt__Row-height:{{rowHeight}}px;
+                              --Gantt__Template-rows:{{gridTemplate.rows}};
+                              --Gantt__Template-columns:{{gridTemplate.columns}}"
+                                   t-on-pointermove="throttledOnPointerMove"
+                                   t-on-pointerleave="onPointerLeave" >
+
+                              <t t-call="{{ constructor.headerTemplate }}"/>
+                              <t t-if="model.metaData.groupedBy.length">
+                                  <div class="o_gantt_row_headers o_gantt_grid_rows">
+                                      <t t-foreach="visibleRows" t-as="row" t-key="row.id">
+                                          <t t-call="{{ constructor.rowHeaderTemplate }}"/>
+                                      </t>
+                                  </div>
+                              </t>
+
+                              <div t-ref="cellContainer"
+                                   class="o_gantt_cells o_gantt_grid_rows o_gantt_grid_columns position-relative">
+                                        <t t-foreach="visibleRows" t-as="row" t-key="row.id">
+                                            <t t-call="{{ constructor.rowContentTemplate }}"/>
+                                        </t>
+                                      <t t-foreach="extraPills" t-as="pill" t-key="pill.id">
+                                         <t t-call="{{ constructor.pillTemplate }}"/>
+                                      </t>
+                                      <t t-if="shouldRenderConnectors()">
+                                            <t t-foreach="visibleConnectors" t-as="connector" t-key="connector.id">
+                                                <GanttConnector
+                                                        reactive="connector"
+                                                        onRemoveButtonClick="() => this.onRemoveButtonClick(connector.id)"
+                                                        onLeftButtonClick="() => this.onRescheduleButtonClick('backward', connector.id)"
+                                                        onRightButtonClick="() => this.onRescheduleButtonClick('forward', connector.id)"/>
+                                            </t>
+                                      </t>
+                                      <GanttResizeBadge reactive="resizeBadgeReactive"/>
+                              </div>
+
+                              <t t-if="totalRow">
+                                <t t-call="{{ constructor.totalRowTemplate }}"/>
+                              </t>
+                          </div>
+                      </t>
+                  </t>
+             </xpath>
+        </t>
+
+
+</templates>
+

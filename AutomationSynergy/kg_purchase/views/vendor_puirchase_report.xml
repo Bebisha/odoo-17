@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <record id="view_boe_report" model="ir.ui.view">
+            <field name="name">vendor.purchase.report.tree</field>
+            <field name="model">vendor.purchase.report</field>
+            <field name="arch" type="xml">
+                <tree string="vendor purchase report" expand="1" editable="bottom" create="false">
+                    <field name="vendor"/>
+                    <field name="model_id"/>
+                    <field name="vendor_date"/>
+                    <field name="po_number"/>
+                    <field name="asf_date"/>
+                    <field name="product_id"/>
+                    <field name="qty_pending"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_vendor_purchase_report_search" model="ir.ui.view">
+            <field name="name">vendor.purchase.report.search</field>
+            <field name="model">vendor.purchase.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="vendor"/>
+                    <field name="product_id"/>
+                    <field name="po_number"/>
+                    <field name="model_id"/>
+                    <field name="asf_date"/>
+                    <field name="product_id"/>
+                    <field name="qty_pending"/>
+
+                    <group string="Group By">
+                        <filter string="Vendor" name="vendor" context="{'group_by': 'vendor'}"/>
+                        <filter string="Product" name="product_id" context="{'group_by': 'product_id'}"/>
+                        <filter string="PO number" name="po_number" context="{'group_by': 'po_number'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_reports_menus" model="ir.actions.server">
+            <field name="name">Vendor Wise Pending Order</field>
+            <field name="model_id" ref="kg_purchase.model_vendor_purchase_report"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.vendor_purchase_report()
+            </field>
+        </record>
+
+        <menuitem id="purchase_report_vendors_menu_reports"
+                  name="Vendor Wise Pending Order"
+                  parent="purchase.purchase_report_main"
+                  action="action_reports_menus"
+                  sequence="5"
+        />
+    </data>
+</odoo>

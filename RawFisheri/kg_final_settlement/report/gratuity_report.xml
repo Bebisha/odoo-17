@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- paper format for gratuity report -->
+    <record id="paperformat_gratuity_report_paper_id" model="report.paperformat">
+        <field name="name">Gratuity Report</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">30</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- action for employee gratuity report -->
+    <record id="action_report_employee_gratuity_id" model="ir.actions.report">
+        <field name="name">Employee Gratuity</field>
+        <field name="model">hr.resignation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_final_settlement.employee_gratuity_temp_id</field>
+        <field name="report_file">kg_final_settlement.employee_gratuity_temp_id</field>
+        <field name="paperformat_id" ref="paperformat_gratuity_report_paper_id"/>
+        <field name="binding_model_id" ref="model_hr_resignation"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

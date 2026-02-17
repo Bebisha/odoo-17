@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_requisition_form_view" model="ir.ui.view">
+        <field name="name">purchase.requisition.form.view</field>
+        <field name="model">purchase.requisitions</field>
+        <field name="arch" type="xml">
+            <form string="Requisition">
+                <header>
+                    <field name="is_head" invisible="1"/>
+                    <!-- Confirm -->
+                    <button name="%(action_vendor_po)d" type="action"
+                            string="Create RFQ" class="btn-primary"
+                            context="{'default_purchase_requistion_id': active_id}"
+                            invisible="state not in ['new','in_progress']"/>
+                    <!--                            invisible="state != 'open'"/>-->
+                    <button name="send_rfq" string="Send RFQ" type="object" invisible="1"
+                            class="oe_highlight"/>
+                    <button name="action_done" string="Done" type="object" class="btn-primary"
+                            groups="base.group_user" invisible="state not in ['new','in_progress']"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('cancel')"
+                            groups="base.group_user"/>
+                    <button name="action_reset_draft" type="object" string="Reset To Draft"
+                            invisible="state in ('new')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="new,cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="purchase_order_button" class="oe_stat_button" icon="fa-book"
+                                invisible="purchase_order_count == 0">
+                            <field name="purchase_order_count" widget="statinfo" string="Order"/>
+                        </button>
+                        <button type="object" name="action_view_mr" class="oe_stat_button" icon="fa-book"
+                                invisible="mr_count == 0">
+                            <field name="mr_count" widget="statinfo" string="MR"/>
+                        </button>
+                    </div>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="sequence" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="check_po" invisible="1"/>
+                            <field name="employee_id" readonly="state == 'done'"/>
+                            <field name="department_id" readonly="state == 'done'"/>
+                            <field name="depart_responsible_id" readonly="state == 'done'"
+                                   invisible="1"/>
+                            <field name="department_res_id" readonly="state == 'done'"
+                                   invisible="1"/>
+                            <field name="purchase_user_id" readonly="state=='done'"/>
+                            <field name="requisition_action" readonly="state != 'new'"
+                                   required="1" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="requisition_id" invisible="1"/>
+                            <field name="mr_ids" invisible="1"/>
+                            <field name="mr_ids" invisible="1"/>
+                            <field name="requisition_date" string="Request Date"
+                                   readonly="state == 'done'"/>
+                            <field name="received_date" readonly="1" invisible="1"/>
+                            <field name="requisition_deadline_date"
+                                   readonly="state == 'done'"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="currency_id" readonly="state == 'done'" invisible="1"/>
+                            <field name="completion_date" invisible="state != 'done'"/>
+                            <field name="remarks" invisible="1"/>
+                            <field name="phase_sjr" invisible="1"/>
+                            <field name="analytic_account_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <label for="reason_for_requisition" readonly="state == 'done'"/>
+                    <field name="reason_for_requisition" readonly="state == 'done'"/>
+                    <notebook>
+                        <page string="Requisitions Lines">
+                            <field name="requisition_line_ids" readonly="state in ('in_progress','done')">
+                                <tree string="Requisitions Lines" editable="bottom">
+                                    <field name="requisition_action" column_invisible="1"/>
+                                    <field name="is_not_available" column_invisible="1"/>
+                                    <field name="product_id"/>
+                                    <field name="description"/>
+                                    <field name="qty" column_invisible="1"/>
+                                    <field name="demand_qty" optional="show" readonly="1"/>
+                                    <field name="po_quantity"/>
+                                    <field name="purchase_quantity"/>
+                                    <field name="price_unit" column_invisible="1"/>
+                                    <field name="uom_id"/>
+                                    <field name="pr_remarks" optional="hide"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                    <field name="vendor_id" required="0" column_invisible="1"
+                                           groups="material_purchase_requisition.group_purchase_requisition_user,material_purchase_requisition.group_requisition_department_manager"/>
+                                    <field name="total_price" invisible="1"/>
+                                    <button name="action_view_stock" type="object" string="View Stock"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="amount_total" string="Total" colspan="2"/>
+                            </group>
+                        </page>
+                        <page string="Picking Details"
+                              groups="material_purchase_requisition.group_purchase_requisition_user,material_purchase_requisition.group_requisition_department_manager">
+                            <group string="Purchase Order Configuration">
+                                <group>
+                                    <field name="picking_type_id" groups="base.group_no_one"
+                                           readonly="state == 'cancel'"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="purchase_requisition_tree_view" model="ir.ui.view">
+        <field name="name">purchase.requisition.tree.view</field>
+        <field name="model">purchase.requisitions</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Requisition">
+                <field name="sequence" string="Number"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="requisition_responsible_id"/>
+                <field name="requisition_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="purchase_requisition_sequence" model="ir.sequence">
+        <field name="name">Purchase Requisition</field>
+        <field name="code">purchase.requisitions</field>
+        <field name="prefix">PR00</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="action_purchase_requisition" model="ir.actions.act_window">
+        <field name="name">Purchase Requisition</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.requisitions</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="action_purchase_requisition_in_purchase" model="ir.actions.act_window">
+        <field name="name">Purchase Requisition</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.requisitions</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_in_progress': 1}</field>
+    </record>
+
+    <record id="purchase_req_search" model="ir.ui.view">
+        <field name="name">purchase.requisitions.search</field>
+        <field name="model">purchase.requisitions</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter string="In Progress" name="in_progress"
+                        domain="[('state','=','in_progress'),('purchase_user_id','=', uid)]"/>
+            </search>
+        </field>
+    </record>
+<!--    <menuitem id="menu_purchase_requisition"-->
+<!--              name="Purchase Requisition"-->
+<!--              parent="material_purchase_requisition.menu_sub_purchase_requisition"-->
+<!--              action="action_purchase_requisition"-->
+<!--              sequence="2"/>-->
+<!--    <menuitem id="menu_purchase_requisition_in_purchase"-->
+<!--              name="Purchase Requisition"-->
+<!--              parent="purchase.menu_purchase_root"-->
+<!--              action="action_purchase_requisition_in_purchase" -->
+<!--              sequence="22"/>-->
+</odoo>

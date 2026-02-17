@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="z_consent_history_form">
+        <field name="name">z.segment.consent.form</field>
+        <field name="model">z.segment.consent</field>
+        <field name="arch" type="xml">
+            <form string="Z Segment Consent">
+                <sheet>
+                    <group>
+                        <field name="is_opted"/>
+                        <field name="facility_from_date"/>
+                        <field name="global_from_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

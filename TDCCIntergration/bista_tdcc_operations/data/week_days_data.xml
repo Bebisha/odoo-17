@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+	<record model="week.days" id="monday">
+            <field name="name">mon</field>
+        </record>
+
+        <record model="week.days" id="tuesday">
+            <field name="name">tue</field>
+        </record>
+
+        <record model="week.days" id="wednesday">
+            <field name="name">wed</field>
+        </record>
+
+        <record model="week.days" id="thursday">
+            <field name="name">thu</field>
+        </record>
+
+        <record model="week.days" id="friday">
+            <field name="name">fri</field>
+        </record>
+
+        <record model="week.days" id="saturday">
+            <field name="name">sat</field>
+        </record>
+
+        <record model="week.days" id="sunday">
+            <field name="name">sun</field>
+        </record>
+</odoo>

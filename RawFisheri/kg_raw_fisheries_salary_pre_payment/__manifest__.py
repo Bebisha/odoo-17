@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'KG Raw Fisheries Salary Pre Payment',
+    'version': '17.0',
+    'summary': 'Raw Fisheries ERP',
+    'description': 'Enterprise Odoo ERP Implementation for Raw Fisheries',
+    'category': 'Other',
+    'author': 'KG',
+    'license': 'AGPL-3',
+    'website': 'www.klystronglobal.com',
+    'depends': ['base', 'hr', 'hr_payroll', 'kg_raw_fisheries_hrms'],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/ir_sequence.xml',
+        'report/salary_pre_payment_report.xml',
+        'report/report.xml',
+        'wizard/salary_pre_payment_report_wizard_views.xml',
+        'wizard/menu.xml',
+        'views/salary_pre_payment_views.xml',
+        'views/salary_pre_payment_request_views.xml',
+        'views/menu.xml',
+    ],
+    'demo': [],
+    'installable': True,
+    'auto_install': False,
+    'application': False,
+}

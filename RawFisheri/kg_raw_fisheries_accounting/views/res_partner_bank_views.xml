@@ -1,0 +1,25 @@
+<odoo>
+    <record model="ir.ui.view" id="kg_view_inherited_res_partner_bank_form">
+        <field name="name">kg.res.partner.bank.inherit</field>
+        <field name="inherit_id" ref="base.view_partner_bank_form"/>
+        <field name="model">res.partner.bank</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group[2]" position="after">
+                <group name="correspondent_details" string="Correspondent Details" invisible="1">
+                    <field name="correspondent_bank"/>
+                    <field name="correspondent_swift_code"/>
+                </group>
+                <group name="correspondent_details" string="Correspondent Details" invisible="1">
+                    <field name="correspondent_acc_no"/>
+                </group>
+            </xpath>
+            <field name="acc_number" position="after">
+                <field name="iban_no"/>
+                <field name="swift_code"/>
+            </field>
+            <field name="currency_id" position="after">
+                <field name="is_correspondent_bank" widget="boolean_toggle"/>
+            </field>
+        </field>
+    </record>
+</odoo>

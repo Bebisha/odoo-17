@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--     <record id="associated_parties_action" model="ir.actions.act_window"> -->
+    <!--         <field name="type">ir.actions.act_window</field> -->
+    <!--         <field name="name">Associated Parties</field> -->
+    <!--         <field name="view_mode">tree,form</field> -->
+    <!--         <field name="res_model">associated.parties</field> -->
+    <!--     </record> -->
+    <!--     <record id="associated_parties_tree" model="ir.ui.view"> -->
+    <!--         <field name="name">associated.parties.tree</field> -->
+    <!--         <field name="model">associated.parties</field> -->
+    <!--         <field name="arch" type="xml"> -->
+    <!--             <tree> -->
+    <!--                 <field name="name"/> -->
+    <!--                 <field name="address"/> -->
+    <!--                 <field name="emergency_contact"/> -->
+    <!--             </tree> -->
+    <!--         </field> -->
+    <!--     </record> -->
+    <record id="associated_parties_form" model="ir.ui.view">
+        <field name="name">associated.parties.form</field>
+        <field name="model">associated.parties</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+<!--                        <group>-->
+<!--                            <label for="full_name" string="Name"/>-->
+<!--                            <div>-->
+<!--                                <div class="o_address_format" name="div_address">-->
+<!--                                    <field name="first_name" placeholder="First Name..." class="o_first_name"/>-->
+<!--                                    <field name="middle_name" placeholder="Middle Name......" class="o_middle_name"/>-->
+<!--                                    <field name="last_name" class="o_last_name" placeholder="Last Name......."/>-->
+<!--                                    <field name="full_name" widget="text" readonly="1" invisible="1"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </group>-->
+                        <!--                     <group> -->
+                        <!--                         <field name="full_name" readonly="1" invisible="1"/> -->
+                        <!--                         <field name="first_name"/> -->
+                        <!--                         <field name="middle_name"/> -->
+                        <!--                         <field name="last_name"/> -->
+                        <!--                         &lt;!&ndash; Include the computed field 'full_name' &ndash;&gt; -->
+                        <!--                     </group> -->
+<!--                        <group>-->
+<!--                            <label for="complete_address" string="Address"/>-->
+<!--                            <div>-->
+<!--                                <div class="o_address_format" name="div_address">-->
+<!--                                    <field name="street" placeholder="Street..." class="o_address_street"/>-->
+<!--                                    &lt;!&ndash;                                 <field name="street2" placeholder="Street 2..." class="o_address_street"/> &ndash;&gt;-->
+<!--                                    <field name="city" placeholder="City" class="o_address_city"/>-->
+<!--                                    <field name="states" class="o_address_state" placeholder="State"/>-->
+<!--                                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>-->
+<!--                                    <field name="country" placeholder="Country" class="o_address_country" options="{'no_create': True}"/>-->
+<!--                                    <field name="addres_type" placeholder="Address type" class="o_address_country"/>-->
+<!--                                    <field name="complete_address" widget="text" readonly="1" invisible="1"/>-->
+<!--                                    <field name="phone_number" placeholder="Please enter your mobile number"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </group>-->
+                        <!--                     <group> -->
+                        <!--                         <group> -->
+                        <!--                             <field name="street"/> -->
+                        <!--                             <field name="city"/> -->
+                        <!--                             <field name="state"/> -->
+                        <!--                             <field name="country"/> -->
+                        <!--                             <field name="addres_type"/> -->
+                        <!--                             <field name="complete_address" readonly="1" invisible="1"/> -->
+                        <!--                             <field name="phone_number"/> -->
+                        <!--                         </group> -->
+                        <group>
+                            <field name="emergency_contact"/>
+                            <!--                             <field name="address"/> -->
+                            <field name="relationship" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--     <menuitem id="associated_parties_menu" -->
+    <!--               action="associated_parties_action" -->
+    <!--               name="Associated Parties" -->
+    <!--               parent="kg_nabidh.patient_information_menu"/> -->
+</odoo>

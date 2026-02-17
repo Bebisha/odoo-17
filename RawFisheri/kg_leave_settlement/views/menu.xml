@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_leave_settlement" model="ir.actions.act_window">
+        <field name="name">Leave Settlement</field>
+        <field name="res_model">leave.settlement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_leave_settlement" name="Leave Settlement"
+              parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root" action="action_leave_settlement" sequence="68"/>
+</odoo>

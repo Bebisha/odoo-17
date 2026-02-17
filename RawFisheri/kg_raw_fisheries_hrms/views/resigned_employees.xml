@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--    Tree view for resigned employee list   -->
+        <record id="resigned_employee_tree" model="ir.ui.view">
+            <field name="name">resigned.employee.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <tree string="Resigned Employees" create="False">
+                    <header>
+                        <button name="resigned_employees_pdf" type="object" string="Print PDF"/>
+                    </header>
+                    <field name="name" string="Employee"/>
+                    <field name="employee_no"/>
+                    <field name="departure_reason_id"/>
+                    <field name="departure_description"/>
+                    <field name="date_of_joining"/>
+                    <field name="years_of_service"/>
+                    <field name="departure_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--    Search view for resigned employee list   -->
+        <record id="resigned_employee_search" model="ir.ui.view">
+            <field name="name">resigned.employee.search</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <search string="Resigned Employees">
+                    <field name="name"/>
+                    <field name="employee_no"/>
+                </search>
+            </field>
+        </record>
+
+        <!--    Action for resigned employee list   -->
+        <record id="action_hr_employee_resigned" model="ir.actions.act_window">
+            <field name="name">Resigned Employees</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="resigned_employee_tree"/>
+            <field name="search_view_id" ref="resigned_employee_search"/>
+            <field name="domain">[('active', '=', False)]</field>
+        </record>
+
+        <!--    Menu item for resigned employee list   -->
+        <menuitem name="Resigned Employees" id="resigned_employee" action="action_hr_employee_resigned"
+                  parent="hr.menu_hr_employee_payroll"/>
+
+    </data>
+</odoo>

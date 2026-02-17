@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="kg_quant_search_view_inherit" model="ir.ui.view">
+        <field name="name">kg.stock.quant.search.inherit.id</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='transit_loc']" position="after">
+                <filter name="excluding_sale_location" string="Excluding Warehouse"
+                        domain="[('is_non_sale_location','=',False),('location_id.usage','=', 'internal')]"/>
+                <filter name="including_sale_location" string="Including Warehouse"
+                        domain="[('location_id.usage','=', 'internal')]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

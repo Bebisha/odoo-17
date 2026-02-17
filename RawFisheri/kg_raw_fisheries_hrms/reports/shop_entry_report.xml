@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--  Template for Shop Entries PDF Report  -->
+        <template id="shop_entry_report">
+            <t t-call="web.html_container">
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%" style="font-size:25px;">
+                            <td width="75%" align="left" style="border: 1px solid white">
+                                <t t-if='request.env.company.logo'>
+                                    <img t-att-src='image_data_uri(request.env.company.logo)'
+                                         alt='Logo' style="max-width: 150px; max-height: 100px;"/>
+                                </t>
+                                <t t-else="">
+                                    <strong>
+                                        <span t-esc="company_name" style="text-transform: uppercase;"/>
+                                    </strong>
+                                </t>
+                            </td>
+                            <td align="right" width="25%" style="border: 1px solid white">
+                                <strong>
+                                    DATE :
+                                    <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="page">
+                    <table class='table table-borderless table-condensed table-hover' align="center">
+                        <tr width="100%" style="font-size:25px;">
+                            <td colsapn="2" style="border: 1px solid white" align="center">
+                                <span style="font-weight: bold;font-size:30px; margin-left:250px;">
+                                    SHOP ENTRIES REPORT
+                                </span>
+                            </td>
+                        </tr>
+                        <tr style="font-size:18px;">
+                            <td>
+                                <strong>FROM:
+                                    <t t-esc="from"/>
+                                </strong>
+                            </td>
+                            <td align="right">
+                                <strong>TO:
+                                    <t t-esc="to"/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%"
+                           style='border-collapse:collapse;width:100%;margin:5pt;border: 1px solid black; border: 1px solid black'>
+                        <thead>
+                            <tr>
+                                <th style="height:50px; border: 1px solid black;">
+                                    <span>Employee</span>
+                                </th>
+                                <th style="height:50px; border: 1px solid black;">
+                                    <span>Vessel</span>
+                                </th>
+                                <th style="height:50px; border: 1px solid black;">
+                                    <span>Amount</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody align="center">
+                            <t t-foreach="entry_list" t-as="entry">
+                                <tr>
+                                    <td style="height:30px; border: 1px solid black;">
+                                        <t t-esc="entry['employee']"/>
+                                    </td>
+                                    <td style="height:30px; border: 1px solid black;">
+                                        <t t-esc="entry['vessel']"/>
+                                    </td>
+                                    <td style="height:30px; border: 1px solid black;">
+                                        <t t-esc="entry['amount']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

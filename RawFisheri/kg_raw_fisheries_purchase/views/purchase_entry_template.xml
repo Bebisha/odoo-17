@@ -1,0 +1,217 @@
+<odoo>
+    <template id="kg_custom_purchase_order_template" name="Purchase Order Web View">
+        <t t-call="website.layout">
+            <div class="container mt-5 mb-5">
+                <h2>Purchase Order:
+                    <t t-esc="order.name"/>
+                    <t t-if="order.state == 'approved'">
+                        <span class="badge bg-success ms-2">Approved</span>
+                    </t>
+                    <t t-if="order.state == 'rejected'">
+                        <span class="badge bg-danger ms-2">Rejected</span>
+                        <br/>
+                        <label style="color:#b22222; font-weight:bold;">
+                            Reason:
+                            <t t-esc="order.reject_reason or 'No reason provided'"/>
+                        </label>
+                    </t>
+                </h2>
+
+                <!-- Order Info -->
+                <table style="width:100%; margin-top:15px;">
+                    <tr>
+                        <td style="width:50%; vertical-align:top; text-align:left;">
+                            <p>
+                                <strong>Order No:</strong>
+                                <t t-esc="order.order_no"/>
+                            </p>
+                            <p>
+                                <strong>Vendor:</strong>
+                                <t t-esc="order.vendor_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Vessel:</strong>
+                                <t t-esc="order.vessel_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Type:</strong>
+                                <t t-esc="order.enquiry_type_id.name"/>
+                            </p>
+                        </td>
+                        <td style="width:50%; vertical-align:top; text-align:left;">
+                            <p>
+                                <strong>Date:</strong>
+                                <t t-esc="order.date_of_order"/>
+                            </p>
+                            <p>
+                                <strong>Ship To:</strong>
+                                <t t-esc="order.ship_to"/>
+                            </p>
+                            <p>
+                                <strong>Bill To:</strong>
+                                <t t-esc="order.bill_to"/>
+                            </p>
+                            <p>
+                                <strong>Currency:</strong>
+                                <t t-esc="order.currency_id.name"/>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Order Lines -->
+                <table class="table table-bordered mt-4" style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="width:29%; text-align:left;">Part No &amp; Description</th>
+                            <th style="width:8%; text-align:center;">Quantity</th>
+                            <th style="width:8%; text-align:center;">Unit</th>
+                            <th style="width:10%; text-align:right;">Unit Price</th>
+                            <th style="width:10%; text-align:center;">Disc(%)</th>
+                            <th style="width:11%; text-align:center;">VAT</th>
+                            <th style="width:12%; text-align:right;">VAT Excl</th>
+                            <th style="width:12%; text-align:right;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="order.po_entry_ids" t-as="line">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <strong>
+                                            <t t-esc="line.part_no"/>
+                                        </strong>
+                                    </div>
+                                    <div>
+                                        <t t-esc="line.description"/>
+                                    </div>
+                                </td>
+                                <td style="text-align:center;">
+                                    <t t-esc="'%.2f' % line.qty"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    <t t-esc="line.uom_id.name"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <t t-esc="'%.2f' % line.price"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    <t t-esc="'%.2f' % line.discount"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    <t t-esc="', '.join(line.tax_ids.mapped('name'))"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <t t-esc="'%.2f' % line.total_tax_excl"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <t t-esc="'%.2f' % line.total"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td colspan="7" style="text-align:right; font-weight:bold;">Untaxed Amount</td>
+                            <td style="text-align:right; font-weight:bold;">
+                                <t t-esc="'%.2f' % order.untaxed_amount"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="7" style="text-align:right; font-weight:bold;">Taxed Amount</td>
+                            <td style="text-align:right; font-weight:bold;">
+                                <t t-esc="'%.2f' % order.taxed_amount"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="7" style="text-align:right; font-weight:bold;">Total</td>
+                            <td style="text-align:right; font-weight:bold;">
+                                <t t-esc="'%.2f' % order.purchase_amount"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <t t-if="order.state not in ['approved', 'rejected']">
+                    <div class="d-flex flex-column align-items-center mt-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <input type="checkbox" id="show_reject_reason"
+                                   class="me-2"
+                                   onclick="toggleRejectReason()"/>
+                            <label for="reject_reason" class="me-2 mb-0">
+                                <strong>If you want reject?</strong>
+                            </label>
+
+                            <div id="reject_reason_box" style="display:none;">
+                                <textarea id="reject_reason" name="reason"
+                                          class="form-control" t-att-value="reason"
+                                          style="width:220px; height:40px; font-size:13px; resize:none;"
+                                          placeholder="Enter reason"/>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <a t-att-href="'/purchase/order/approve/%s' % order.id"
+                               class="btn btn-sm btn-outline-success me-3">
+                                ✅ Approve
+                            </a>
+
+                            <div id="reject_button_box" style="display:none;">
+                                <form t-att-action="'/purchase/order/reject/%s' % order.id"
+                                      method="POST" class="d-inline" onsubmit="return validateRejectReason()">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        ❌ Reject
+                                    </button>
+                                    <textarea id="update_reject_reason" name="update_reason"
+                                              class="form-control" t-att-value="update_reason"
+                                              style="display:none;"
+                                              placeholder="Enter reason"/>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+
+            </div>
+
+            <script>
+                function toggleRejectReason() {
+                var checkbox = document.getElementById("show_reject_reason");
+                var box = document.getElementById("reject_reason_box");
+                var buttonBox = document.getElementById("reject_button_box");
+
+                if (checkbox.checked) {
+                box.style.display = "block";
+                buttonBox.style.display = "block";
+                } else {
+                box.style.display = "none";
+                buttonBox.style.display = "none";
+                }
+                }
+
+                document.addEventListener("DOMContentLoaded", function () {
+                var rejectReason = document.getElementById("reject_reason");
+                var updateRejectReason = document.getElementById("update_reject_reason");
+
+                if (rejectReason &amp;&amp; updateRejectReason) {
+                rejectReason.addEventListener("input", function () {
+                updateRejectReason.value = rejectReason.value;
+                });
+                }
+                });
+
+                function validateRejectReason() {
+                var checkbox = document.getElementById("show_reject_reason");
+                var reason = document.getElementById("reject_reason").value.trim();
+
+                if (checkbox.checked &amp;&amp; reason === "") {
+                alert("Reject reason is required.");
+                return false;
+                }
+                return true;
+                }
+            </script>
+
+        </t>
+    </template>
+</odoo>

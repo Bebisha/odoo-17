@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="kg_update_qty_form_view">
+            <field name="name">Update Quantity</field>
+            <field name="model">kg.update.qty.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Update Quantity Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="shipment_id" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Update Lines" name="kg_update_qty_lines">
+                                <field name="line_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id" readonly="1" force_save="1"/>
+                                        <field name="shortage_qty"/>
+                                        <field name="shipping_qty" readonly="1" force_save="1"/>
+                                        <field name="reason"/>
+                                        <field name="shipment_advice_summary_id" column_invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button name="kg_update_qty_button" type="object" class="btn-primary"
+                                string="Confirm"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="kg_update_qty_form_view_action" model="ir.actions.act_window">
+            <field name="name">Update Quantity</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.update.qty.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="kg_update_qty_form_view"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>
