@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2020 - Today TechKhedut.
+    Part of TechKhedut. See LICENSE file for full copyright and licensing details.-->
+<odoo>
+    <!-- FB Page Tree View -->
+    <record id="view_fb_page_tree" model="ir.ui.view">
+        <field name="name">fb.page.tree</field>
+        <field name="model">fb.page</field>
+        <field name="arch" type="xml">
+            <tree string="Facebook Page">
+                <field name="name"/>
+                <field name="page_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FB Page Form View -->
+    <record id="view_fb_page_form" model="ir.ui.view">
+        <field name="name">fb.page.form</field>
+        <field name="model">fb.page</field>
+        <field name="arch" type="xml">
+            <form string="Facebook Page">
+                  <header>
+                    <button type="object" name="get_lead_form" string="Sync Lead Form" invisible="id == False" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                        <group>
+                            <field name="page_id" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="page_access_token" password="1" />
+                    </group>
+                    <notebook>
+                        <page string="Lead Form" name="lead_form">
+                            <field name="fb_lead_form_ids" nolabel="1">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="form_id" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- FB Page Action -->
+    <record id="action_fb_page" model="ir.actions.act_window">
+        <field name="name">Facebook Page</field>
+        <field name="res_model">fb.page</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to create add new page.
+            </p>
+        </field>
+    </record>
+    <!-- FB Page Menu -->
+    <menuitem action="action_fb_page"
+              id="sub_menu_fb_page"
+              name="Facebook Page"
+              parent="main_menu_fb_configuration" sequence="2"/>
+</odoo>

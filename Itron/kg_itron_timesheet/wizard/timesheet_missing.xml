@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_missing_timesheet_wizard" model="ir.ui.view">
+        <field name="name">missing.timesheet.wizard.form</field>
+        <field name="model">timesheet.missing</field>
+        <field name="arch" type="xml">
+            <form string="Missing Timesheet">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="assignees_ids"  widget="many2many_tags" invisible="is_contract != False"/>
+                            <field name="assignee_ids" widget="many2many_tags" invisible="is_contract != True"/>
+<!--                            <field name="assignee_id"-->
+<!--       domain="['|', ('contract_ids.state', '=', 'open'), ('is_contract_helper', '=', False)]"/>-->
+
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                            <field name="is_contract" />
+                        </group>
+                    </group>
+                    <field name="missing_ids" no-create="True" invisible="is_contract == False">
+                        <tree editable="bottom" create="0" delete="0">
+                            <field name="employee_id"/>
+                            <field name="missing_date"/>
+                            <!--                            <field name="on_leave" />-->
+                        </tree>
+                    </field>
+                    <field name="missing_time_ids" no-create="True" invisible="is_contract == True">
+                        <tree editable="bottom" create="0" delete="0">
+                            <field name="employee_id"/>
+                            <field name="missing_date"/>
+                        <!--                            <field name="on_leave" />-->
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_missing_timesheet_wizard" model="ir.actions.act_window">
+        <field name="name">Missing Timesheets</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">timesheet.missing</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>  <!-- Opens in a popup -->
+    </record>
+
+
+    <menuitem id="menu_hr_time_missing"
+              name="Missing Timesheets"
+              parent="hr_timesheet.timesheet_menu_root"
+              action="action_missing_timesheet_wizard"
+              sequence="55"/>
+</odoo>

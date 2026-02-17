@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_invoice_wizard,access.invoice.wizard,model_invoice_wizard,base.group_user,1,1,1,1
+access_po_wizard,access.po.wizard,model_po_wizard,base.group_user,1,1,1,1
+access_so_wizard,access.so.wizard,model_so_wizard,base.group_user,1,1,1,1
+access_sale_advance_payment_inv1,access.sale.advance.payment.inv1,model_sale_advance_payment_inv1,base.group_user,1,1,1,1
+access_journal_voucher_user,access.journal.voucher.model,model_journal_voucher,base.group_user,1,1,1,1
+access_journal_voucher_line_user,access.journal.voucher.line.model,model_journal_voucher_line,base.group_user,1,1,1,1
+access_kg_industry,access.kg.industry,model_kg_industry,base.group_user,1,1,1,1
+

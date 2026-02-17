@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="action_project_updates_report" model="ir.actions.report">
+            <field name="name">Project Updates Report</field>
+            <field name="model">project.status.update.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Project Updates Report'</field>
+            <field name="report_name">kg_project_milestone.project_updates_tem_id</field>
+            <field name="report_file">kg_project_milestone.project_updates_tem_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_project_updates_report_html" model="ir.actions.report">
+            <field name="name">Project Updates Report</field>
+            <field name="model">project.status.update.wizard</field>
+            <field name="report_type">qweb-html</field>
+            <field name="print_report_name">'Project Updates Report'</field>
+            <field name="report_name">kg_project_milestone.project_updates_tem_id</field>
+            <field name="report_file">kg_project_milestone.project_updates_tem_id</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="ContractOrderDashboard">
+        <div class="dashboard-container"
+             style="padding: 20px; background-color: #f9f9f9; font-family: Arial, sans-serif;">
+            <center>
+                <h1 style="margin-bottom: 20px; color: #2c3e50; font-weight: bold;">
+                    Contract Order Dashboard
+                </h1>
+            </center>
+
+            <div id="dashboard-content"
+                 style="background-color: #ffffff; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                <t t-name="my_subscription.FilterSection">
+                    <div class="d-flex flex-wrap p-3"
+                         style="width: 100%; gap: 20px;background-color: #e9ecef; border-radius: 5px; margin-bottom: 20px;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <select id="project_select_task" class="form-select select-button-style"
+                                    t-on-change="(e) => this.updateProjectFilter(e)">
+                                <option value="0" selected="1">Project: All</option>
+                                <t t-foreach="state.projects" t-as="project" t-key="project.id">
+                                    <option t-att-value="project.id" t-esc="project.name"
+                                            t-att-selected="project.id == state.selectedProjectId"/>
+                                </t>
+                            </select>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <select id="customer_select" class="form-select select-button-style"
+                                    t-on-change="(e) => this.updateCustomerFilter(e)">
+                                <option value="0" selected="1">Customer: All</option>
+                                <t t-foreach="state.customers" t-as="customer" t-key="customer.id">
+                                    <option t-att-value="customer.id" t-esc="customer.name"
+                                            t-att-selected="customer.id == state.selectedCustomerId"/>
+                                </t>
+                            </select>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <select id="contract_type_select" class="form-select select-button-style"
+                                    t-on-change="(e) => this.updateContractTypeFilter(e)">
+                                <option value="" selected="1">Contract Type: All</option>
+                                <t t-foreach="state.contractTypes" t-as="type" t-key="type">
+                                    <option t-att-value="type[0]" t-esc="type[1]"
+                                            t-att-selected="type[0] == state.selectedContractType"/>
+                                </t>
+                            </select>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <div class="input-group">
+                                <span class="input-group-text" style="color:black;">
+                                    Start Date
+                                    <i class="bi bi-calendar-date"/>
+                                </span>
+                                <input type="date" id="start_date" class="form-control custom-date-button"
+                                       t-on-change="(e) => this.filterByStartDate(e)"/>
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                        <div class="input-group">
+                            <span class="input-group-text" style="color:black;">
+                                End Date<i class="bi bi-calendar-date"/>
+                            </span>
+                            <input type="date" id="end_date" class="form-control custom-date-button"
+                                   t-on-change="(e) => this.updateSuccessEndDate(e)"/>
+                        </div>
+                    </div>
+                    </div>
+
+                </t>
+<!--                <h1 style="margin-bottom: 20px; color: #2c3e50;font-size:20px;">-->
+<!--                    Contract Order-->
+<!--                </h1>-->
+                <table class="table table-hover table-striped"
+                       style="width: 100%; border-collapse: collapse;">
+                    <thead style="background-color:#2c3e50; color: #fff;">
+                        <tr>
+                            <!--                            <th style="padding: 12px; font-size: 16px;">Project</th>-->
+                            <th style="padding: 12px; font-size: 16px;text-align: left;">Customer</th>
+                            <th style="padding: 12px; font-size: 16px; text-align: left;">Project</th>
+                            <th style="padding: 12px; font-size: 16px; text-align: center;">Contract Type</th>
+                            <th style="padding: 12px; font-size: 16px; text-align: center;">Start Date</th>
+                            <th style="padding: 12px; font-size: 16px; text-align: center;">End Date</th>
+                            <th style="padding: 12px; font-size: 16px; text-align: right;">Total</th>
+                            <th style="padding: 12px; font-size: 16px; text-align: right;">Amount Paid</th>
+                            <th style="padding: 12px; font-size: 16px; text-align: right;">Amount Due</th>
+                            <th style="padding: 12px; font-size: 16px; text-align: center;">Next Invoice Date</th>
+                            <th style="padding: 12px; font-size: 16px; text-align: center;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="state.contract_order" t-as="co" t-key="co.id">
+                            <tr t-on-click="(e) => this.show_contracts(e, co.id)">
+                                <td style="text-align: left;" t-esc="co.customers"/>
+                                <td style="text-align: left;" t-esc=" co.project_id"/>
+                                <td style="text-align: center;" t-esc="co.contract_type"/>
+                                <td style="text-align: center;" t-esc="co.date_start"/>
+                                <td style="text-align: center;" t-esc="co.date_end"/>
+                                <td  t-esc="co.total"  style="text-align: right;"/>
+                                <td t-esc="co.amount_paid" style="text-align: right;"/>
+                                <td t-esc="co.kg_pending_amt" style="text-align: right;"/>
+                                <td style="text-align: center;" t-esc="co.next_invoice_date"/>
+                                <td style="text-align: center;" t-esc="co.status"/>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>

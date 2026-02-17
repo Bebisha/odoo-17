@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record id="email_template_lead_welcome" model="mail.template">
+            <field name="name">Lead Welcome Email</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="email_cc">sales@klystronglobal.com</field>
+            <field name="email_to">{{ object.email_from }}</field>
+
+            <field name="subject">Welcome to Our Services</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <field name="body_html">
+                    <div style="margin: 0px; padding: 0px; font-size: 13px; font-family: Arial, sans-serif;">
+
+                        <p style="margin-bottom: 16px;">
+                            <span style="margin-right: 4px;">Dear</span>
+                            <t t-out="object.contact_name or object.partner_name or 'Customer'"/>,
+                        </p>
+
+                        <p style="margin-bottom: 16px;">
+                            Thank you for contacting <strong>Klystron Global</strong>.
+                        </p>
+
+                        <p style="margin-bottom: 16px;">
+                            We are excited to assist you with your enquiry.
+                            One of our team member will contact you shortly to better understand your needs and provide
+                            the best solution.
+                        </p>
+
+                        <p style="margin-bottom: 16px;">
+                            In the meantime, feel free to explore our services on our
+                            <a t-att-href="object.company_id.website" target="_blank">website</a>
+                        </p>
+
+                        <p style="margin-bottom: 24px;">
+                            Best regards,
+                            <br/>
+                            Klystron Global Team
+                        </p>
+
+
+                    </div>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

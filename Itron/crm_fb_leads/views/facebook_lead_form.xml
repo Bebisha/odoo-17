@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2020 - Today TechKhedut.
+    Part of TechKhedut. See LICENSE file for full copyright and licensing details.-->
+<odoo>
+    <!-- FB Lead Form View -->
+    <record id="view_fb_lead_tree" model="ir.ui.view">
+        <field name="name">fb.lead.form.tree</field>
+        <field name="model">fb.lead.form</field>
+        <field name="arch" type="xml">
+            <tree string="Facebook Lead Form">
+                <field name="name"/>
+                <field name="form_id"/>
+                <field name="fb_page_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FB Lead Form View -->
+    <record id="view_fb_lead_form" model="ir.ui.view">
+        <field name="name">fb.lead.form.view</field>
+        <field name="model">fb.lead.form</field>
+        <field name="arch" type="xml">
+            <form string="Facebook Lead Form">
+                <header>
+                    <button type="object" name="auto_mapping_fields" string="Automatic Mapping"
+                            invisible="id == False"/>
+                    <button type="object" name="fetch_facebook_leads" string="Fetch Leads"
+                            invisible="id == False"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="form_id"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                        </group>
+                        <group>
+                            <field name="fb_page_id"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color', 'no_create_edit': True}"/>
+                            <field name="lead_interest_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lead Fields Mapping" name="lead_fields_mapping">
+                            <field name="map_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="lead_field"/>
+                                    <field name="odoo_field"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- FB Lead Action -->
+    <record id="action_fb_lead_form" model="ir.actions.act_window">
+        <field name="name">Facebook Lead Form</field>
+        <field name="res_model">fb.lead.form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- FB Lead Menu -->
+    <menuitem action="action_fb_lead_form"
+              id="sub_menu_fb_lead_form"
+              name="Facebook Lead Form"
+              parent="main_menu_fb_configuration"
+              sequence="3"/>
+</odoo>

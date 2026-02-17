@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="module_lead_category" model="ir.module.category">
+            <field name="name">Lead</field>
+            <field name="sequence">17</field>
+        </record>
+
+        <record id='kg_lead_group_user' model='res.groups'>
+            <field name='name'>User</field>
+            <field name="category_id" ref="kg_lead.module_lead_category"/>
+        </record>
+
+        <record id="kg_lead_group_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="kg_lead.module_lead_category"/>
+            <field name="implied_ids" eval="[(4, ref('kg_lead.kg_lead_group_user'))]"/>
+        </record>
+    </data>
+</odoo>

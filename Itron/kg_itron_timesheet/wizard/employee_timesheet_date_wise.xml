@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- employee.timesheet.date.wise.wizard form view -->
+    <record id="employee_timesheet_date_wise_wizard_form_id" model="ir.ui.view">
+        <field name="name">employee.timesheet.date.wise.wizard</field>
+        <field name="model">employee.timesheet.date.wise.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="company_id"/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" type="object"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+      <!--    Action employee timesheet date wise wizard-->
+    <record id="action_timesheet_report_date_wise" model="ir.actions.act_window">
+        <field name="name">Employee Timesheet Date Wise</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.timesheet.date.wise.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="employee_timesheet_date_wise_wizard_form_id"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

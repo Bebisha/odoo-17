@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="LeavesDashboard">
+        <div style="width: 80%; margin: auto; margin-top: 40px;">
+            <!-- Dashboard Heading -->
+            <style>
+                 tr:hover {
+                background-color: #ecf0f1;
+                }
+            </style>
+            <h1 style="font-size: 2.2em;color: #34495e;font-weight: bold;text-align:center;">
+                TimeOff Dashboard
+            </h1>
+            <br/>
+
+            <!-- Company Selector -->
+            <div style="margin-bottom: 20px; display: flex; align-items: center;">
+                <label for="companySelect"
+                       style="font-family: Arial, sans-serif; color: #333; margin-right: 10px; font-size: 15px;">
+                    <strong>Company</strong>
+                </label>
+                <select id="companySelect" t-on-change="onCompanyChange"
+                        style="padding: 5px 10px; font-family: Arial, sans-serif; width: 200px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; text-align: left;">
+                    <t t-foreach="state.companyData" t-as="company" t-key="company.id">
+                        <option t-att-value="company.id" t-att-selected="state.selectedCompanyId == company.id"
+                                t-esc="company.name"/>
+                    </t>
+                </select>
+            </div>
+
+            <!-- Employee Leave Table -->
+            <t t-if="state.filteredEmployeeData and state.filteredEmployeeData.length > 0">
+                <t t-set="selectedCompany"
+                   t-value="state.companyData.filter(company => company.id == state.selectedCompanyId)[0]"/>
+
+                <div style="width: 100%; max-height: 600px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px;">
+                    <table style="width: 100%; table-layout: fixed; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+                        <thead>
+                            <tr style="background-color: #243742; color: white; height: 50px; text-align: center;">
+                                <th style="padding: 12px; border: 1px solid #ddd;">Employee Name</th>
+                                <th style="padding: 12px; border: 1px solid #ddd;">Sick Leaves</th>
+                                <t t-if="selectedCompany.country_code == 'IN'">
+                                    <th style="padding: 12px; border: 1px solid #ddd;">Casual Leaves</th>
+                                </t>
+                                <t t-else="">
+                                    <th style="padding: 12px; border: 1px solid #ddd;">Annual Leaves</th>
+                                </t>
+                                <th style="padding: 12px; border: 1px solid #ddd;">Unpaid Leaves</th>
+                                <th style="padding: 12px; border: 1px solid #ddd;">Total Leaves</th>
+                                <th style="padding: 12px; border: 1px solid #ddd;">Remaining Leaves</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.filteredEmployeeData" t-as="employee" t-key="employee.id">
+                                <tr style="text-align: center;">
+                                    <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">
+                                        <t t-esc="employee.name"/>
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;cursor:pointer" t-on-click="(e) => this.tot_sick(e, employee.id)">
+
+                                            <t t-esc="employee.total_sick_leaves"/>
+                                            /
+                                            <t t-esc="employee.total_sick_allocation"/>
+
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;cursor:pointer" t-on-click="(e) => this.tot_casual(e, employee.id)">
+
+                                            <t t-esc="employee.total_casual_leave"/>
+                                            /
+                                            <t t-esc="employee.total_casual_allocation"/>
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;cursor:pointer" t-on-click="(e) => this.tot_unpaid(e, employee.id)">
+                                            <t t-esc="employee.total_unpaid_leave"/>
+
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <t t-esc="employee.total_leave"/>
+                                        /
+                                        <t t-esc="employee.total_leave_allocation"/>
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">
+                                        <t t-esc="employee.total_allocation"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+
+            <!-- Fallback Message -->
+            <t t-else="">
+                <p style="text-align: center; font-family: Arial, sans-serif; font-size: 1.2em; color: #666; margin-top: 20px;">
+                    No employee data available for the selected company.
+                </p>
+            </t>
+        </div>
+    </t>
+</templates>

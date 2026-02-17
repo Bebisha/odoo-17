@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Activity Main Menu -->
+        <menuitem id="activity_main_menu_id" name="Activities" web_icon="kg_activities,static/description/icon.png">
+            <!-- Activity Sub Menu -->
+            <menuitem id="activity_parent_id" name="Activities" sequence="1">
+                <!-- Activity All Activities Menu -->
+                <menuitem id="all_activity_menu_id" name="All Activities" action="all_activity_actions"
+                groups="base.group_system"/>
+                <!-- Activity My Activities Menu -->
+                <menuitem id="my_activity_menu_ids" name="My Activities" action="my_activity_id_actions"
+                />
+            </menuitem>
+
+            <menuitem id="activity_report" name="Reporting" sequence="2">
+                 <menuitem id="Activities_menu_id" name="Activities"
+                          action="activity_report_graph_action" groups="base.group_system"/>
+            </menuitem>
+
+            <!-- Configuration Sub Menu -->
+            <menuitem id="activity_conf_id" name="Configuration" sequence="3" groups="base.group_system">
+                <!-- Activity Type Menu -->
+                <menuitem id="activity_type_menu_id" name="Activity Types"
+                          action="sales_team.mail_activity_type_action_config_sales"/>
+                <!-- Activity Type Plan menu -->
+                <menuitem id="activity_type_plan_menu_id" name="Activity Plans"
+                          action="mail_activity_plan_action_mail_activity_history"/>
+                <!-- Activity menu -->
+                <menuitem id="activity_menu_id" name="Activity"
+                          action="kg_crm.kg_activity_action"/>
+            </menuitem>
+
+
+
+        </menuitem>
+    </data>
+</odoo>

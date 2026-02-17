@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_opportunity" name="Opportunity"
+              customize_show="True" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Opportunity</t>
+                <t t-set="url" t-value="'/my/oppurtunity'"/>
+                <t t-set="placeholder_count" t-value="'opportunity_count'"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'opports_list_view'" class="breadcrumb-item">Opportunity</li>
+            <li t-if="page_name == 'opports_form_view'" class="breadcrumb-item">
+                <a href="/my/oppurtunity">Opportunity</a>
+                /
+                <t t-out="opport.name"/>
+            </li>
+        </xpath>
+    </template>
+    <template id="wb_opportunity_list_view_portal">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Opportunity/Lead</t>
+            </t>
+            <t t-if="opports" t-call="portal.portal_table">
+                <t t-foreach="group_opports" t-as="opports">
+                    <thead>
+                        <tr t-if="groupby in ('team_id','user_id','type')">
+                            <th class="text-left">
+                                <th class="text-left" t-if="groupby == 'team_id'" colspan="7">
+                                    <h2>Sales Team : <em class="font-weight-normal text-muted;bold" t-out="opports['team_id'].name"/>
+                                    </h2>
+                                </th>
+                                <th class="text-left" t-if="groupby == 'user_id'" colspan="7">
+                                    <h1>Salesperson : <em class="font-weight-normal text-muted;bold" t-out="opports['user_id'].name"/>
+                                    </h1>
+                                </th>
+                                <th class="text-left" t-if="groupby == 'type'" colspan="7">
+                                    <h1>Type : <em class="font-weight-normal text-muted;bold" t-out="opports['type']"/></h1>
+                                </th>
+                            </th>
+                        </tr>
+                        <tr class="active">
+                            <th class="text-left">Name</th>
+                            <th class="text-left">Email</th>
+                            <th class="text-left">Mobile</th>
+                            <th class="text-left">Contact Name</th>
+                            <th class="text-left">Company Name</th>
+                            <th class="text-left" t-if="groupby != 'team_id'">Sales Team</th>
+                            <th class="text-left" t-if="groupby != 'user_id'">Salesperson</th>
+                            <th class="text-left" t-if="groupby != 'type'">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="opports['opports']" t-as="opport">
+                            <tr>
+                                <td class="text-left">
+                                    <t t-if="opport.name">
+                                        <a t-attf-href="/my/oppurtunity/#{opport.id}">
+                                            <t t-out="opport.name"/>
+                                        </a>
+                                    </t>
+                                </td>
+                                <td class="text-left">
+                                    <t t-if="opport.email_from">
+                                        <t t-out="opport.email_from"/>
+                                    </t>
+                                </td>
+                                <td class="text-left">
+                                    <t t-if="opport.mobile">
+                                        <t t-out="opport.mobile"/>
+                                    </t>
+                                </td>
+                                <td class="text-left">
+                                    <t t-if="opport.contact_name">
+                                        <t t-out="opport.contact_name"/>
+                                    </t>
+                                </td>
+                                <td class="text-left">
+                                    <t t-if="opport.partner_name">
+                                        <t t-out="opport.partner_name"/>
+                                    </t>
+                                </td>
+                                <td class="text-left" t-if="groupby != 'team_id'">
+                                    <t t-if="opport.team_id">
+                                        <t t-out="opport.team_id.name"/>
+                                    </t>
+                                </td>
+                                <td class="text-left" t-if="groupby != 'user_id'">
+                                    <t t-if="opport.user_id">
+                                        <t t-out="opport.user_id.name"/>
+                                    </t>
+                                </td>
+                                <td class="text-left" t-if="groupby != 'type'">
+                                    <t t-out="opport.type"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="wb_opportunity_form_view_portal" inherit_id="portal.portal_sidebar">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <t t-if="page_name =='opports_form_view'">
+                <section style="background-color: #eee;">
+                    <div class="container py-5">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card mb-4">
+                                    <div class="card-body text-center">
+                                        <h3 class="my-3">
+                                            <u>
+                                                CRM
+                                            </u>
+                                        </h3>
+                                        <h5 class="my-3">
+                                            <t t-out="opport.name"/>
+                                        </h5>
+                                        <p class="text-muted mb-1">
+                                            Email:
+                                            <t t-out="opport.email_from"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Opportunity Name</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="opport.name"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Mobile</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="opport.mobile"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Contact Name</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="opport.contact_name"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Company Name</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="opport.partner_name"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Sales Team</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="opport.team_id.name"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Salesperson</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="opport.user_id.name"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Assignment Date</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="opport.date_open"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Company</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="opport.company_id.name"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Created On</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="opport.create_date"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Type</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="opport.type"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </t>
+        </xpath>
+    </template>
+</odoo>

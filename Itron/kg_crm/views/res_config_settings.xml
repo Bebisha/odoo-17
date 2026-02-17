@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form_estimation" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.estimation</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="crm.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//app[@name='crm']" position="inside">
+                    <block title="Estimation">
+                        <div class="row mt16 o_settings_container" id="end_contract_setting">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <group>
+                                    <field name="per_weak_cost"/>
+                                </group>
+                            </div>
+                        </div>
+                    </block>
+                    <div id="leads_report_users" class="app_settings_block">
+                        <h2>Leads Daily Mail Users</h2>
+                        <div class="row mt16 o_settings_container" id="leads_report_user">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <group>
+                                    <field name="crm_daily_mail_users_ids" widget="many2many_tags"/>
+                                    <!--                                     <field name="late_sec_approval_ids" widget="many2many_tags"/> -->
+                                </group>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

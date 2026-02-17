@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="holiday_status_carry_forward" model="hr.leave.type">
+            <field name="name">Carry Forward Leave</field>
+<!--            <field name="requires_allocation">yes</field>-->
+            <field name="employee_requests">no</field>
+            <field name="leave_validation_type">both</field>
+            <field name="allocation_validation_type">officer</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave"/>
+            <field name="allocation_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <!--            <field name="icon_id" ref="hr_holidays.icon_14"/>-->
+<!--            <field name="color">2</field>-->
+            <field name="company_id"
+                   eval="False"/> <!-- Explicitely set to False for it to be available to all companies -->
+            <field name="sequence">1</field>
+        </record>
+
+
+
+    </data>
+</odoo>

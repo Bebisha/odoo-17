@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_project_details">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <h1 class="text-center">Project-Task Status Report</h1>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h5 class="text-right">Date:
+                        <span t-esc="today"/>
+                    </h5>
+                    <br/>
+                    <div class="page">
+                        <h4>Active Project</h4>
+                        <br/>
+                        <table width="100%" height="100%">
+                            <thead>
+                                <tr>
+                                    <th style="border: 1px solid black;text-align: center">
+                                        Project Name
+                                    </th>
+                                    <th style="border: 1px solid black;text-align: center">
+                                        Status
+                                    </th>
+                                    <th style="border: 1px solid black;text-align: center">
+                                        Golive Date
+                                    </th>
+                                    <th style="border: 1px solid black;text-align: center">
+                                        Next Milestone
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="active" t-as="record">
+                                    <tr>
+                                        <td style="border: 1px solid black;text-align: center">
+                                            <span t-esc="record['project_name']"/>
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center">
+                                            <span t-esc="record['status']"/>
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center">
+                                        </td>
+                                        <td style="border: 1px solid black;text-align: center">
+                                            <span t-esc="record['milestone']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <h4>Today Task</h4>
+                        <br/>
+                        <table width="100%" height="100%">
+                            <thead>
+                                <tr>
+
+                                    <th style="border: 1px solid black;text-align: center">
+                                        Project
+                                    </th>
+                                    <th style="border: 1px solid black;text-align: center">
+                                        Responsible
+
+                                    </th>
+                                    <th style="border: 1px solid black;text-align: center">
+                                        Total Task
+                                    </th>
+                                    <th style="border: 1px solid black;text-align: center">
+                                        Overdue
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <t t-set="total_overdue" t-value="0"/>
+                                <t t-set="total_task" t-value="0"/>
+
+                                <t t-foreach="data" t-as="record">
+                                    <t t-set="project_name" t-value=""/>
+                                    <t t-foreach="record['assignees_list']" t-as="ass">
+                                        <tr>
+                                            <td style="border-left: 1px solid black;  text-align: center">
+                                                <t t-if="project_name != record['project']">
+                                                    <t t-set="project_name" t-value="record['project']"/>
+                                                    <span t-esc="project_name"/>
+                                                </t>
+                                            </td>
+                                            <td style="border: 1px solid black; text-align: center">
+                                                <span t-esc="ass['assignees']"/>
+                                            </td>
+                                            <td style="border: 1px solid black; text-align: center">
+                                                <span t-esc="ass['total_task']"/>
+                                            </td>
+                                            <td style="border: 1px solid black; text-align: center">
+                                                <span t-esc="ass['over_due']"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <thead>
+                                    <tr t-if="record['assignees_list'] and len(record['assignees_list'])!=0" style="border: 1px solid black;text-align: center">
+                                        <t t-foreach="record['total_list']" t-as="total">
+                                            <th style="border-bottom: 1px solid black;text-align: center" colspan="2">
+                                                <b>Total:</b>
+                                            </th>
+                                            <th style="border: 1px solid black;text-align: center">
+                                                <span t-esc="total['sum_of_task']"/>
+                                                <t t-set="total_task"
+                                                   t-value="total_task + total['sum_of_task']"/>
+                                            </th>
+                                            <th style="border: 1px solid black;text-align: center">
+                                                <span t-esc="total['sum_of_overdue']"/>
+                                                <t t-set="total_overdue"
+                                                   t-value="total_overdue + total['sum_of_overdue']"/>
+                                            </th>
+                                        </t>
+                                    </tr>
+                                    </thead>
+                                </t>
+                                <thead>
+                                <tr t-if="project_name!=''">
+                                    <th style="border: 1px solid black;padding-left: 30px" colspan="2">
+                                        <b>Total:</b>
+                                    </th>
+                                    <th style="border: 1px solid black;text-align: center">
+                                        <span t-esc="total_task"/>
+                                    </th>
+                                    <th style="border: 1px solid black;text-align: center">
+                                        <span t-esc="total_overdue"/>
+                                    </th>
+                                </tr>
+                                </thead>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <t t-if="non_ass_data">
+                            <h4>Task without Assignees</h4>
+                            <br/>
+                            <table width="100%" height="100%">
+                                <thead>
+                                    <tr>
+                                        <th style="border: 1px solid black;text-align: center">
+                                            Project
+
+                                        </th>
+                                        <th style="border: 1px solid black;text-align: center">
+                                            Task
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="non_ass_data" t-as="record">
+                                        <tr t-foreach="record['project_name']" t-as="project">
+                                            <td style="border: 1px solid black;text-align: center">
+                                                <span t-esc="project.name"/>
+                                            </td>
+                                            <td style="border: 1px solid black;text-align: center">
+                                                <span t-esc="record['non_task']"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </div>
+            </t>
+
+        </t>
+    </template>
+    <report
+            id="action_report_project_details"
+            model="project.status.config"
+            name="kg_project_status_mail.report_project_details"
+            file="kg_project_status_mail.report_project_details"
+            string="Project Details"
+            report_type="qweb-pdf"
+            multi="False"/>
+</odoo>

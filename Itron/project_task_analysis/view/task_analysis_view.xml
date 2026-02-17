@@ -1,0 +1,79 @@
+<odoo>
+    <data>
+
+        <record id="task_analysis_view_tree" model="ir.ui.view">
+            <field name="name">Task Analysis</field>
+            <field name="model">task.analysis</field>
+            <field name="arch" type="xml">
+                <tree string="Project Task Analysis">
+                    <field name="assignee_id"/>
+                    <field name="project_id"/>
+                    <field name="inbox_count"/>
+                    <field name="today_count"/>
+                    <field name="over_due"/>
+                    <field name="pending_total"/>
+                    <field name="fixed_count"/>
+                    <field name="hold_count"/>
+                    <field name="total"/>
+                    <field name="team_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_task_analysis_search" model="ir.ui.view">
+            <field name="name">task.analysis.filter</field>
+            <field name="model">task.analysis</field>
+            <field name="arch" type="xml">
+                <search string="Task">
+                    <field name="assignee_id"/>
+                    <field name="team_id"/>
+                    <field name="project_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Team" name="groupby_team" domain="[]" context="{'group_by': 'team_id'}"/>
+                        <filter string="Assignee" name="groupby_assignee" domain="[]"
+                                context="{'group_by': 'assignee_id'}"/>
+                        <filter string="Project" name="groupby_project" domain="[]"
+                                context="{'group_by': 'project_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="task_analysis_pivot" model="ir.ui.view">
+            <field name="name">task.analysis.pivot</field>
+            <field name="model">task.analysis</field>
+            <field name="arch" type="xml">
+                <pivot string="Task Analysis" sample="1">
+                    <field name="team_id"/>
+                    <field name="assignee_id"/>
+                    <field name="project_id"/>
+                    <field name="inbox_count" type="measure"/>
+                    <field name="today_count" type="measure"/>
+                    <field name="over_due" type="measure"/>
+                    <field name="pending_total" type="measure"/>
+                    <field name="fixed_count" type="measure"/>
+                    <field name="hold_count" type="measure"/>
+                    <field name="total" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+<!--        <record id="action_task_analysis" model="ir.actions.server">-->
+<!--            <field name="name">Task Analysis</field>-->
+<!--            <field name="model_id" ref="project_task_analysis.model_task_analysis"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">-->
+<!--                action = model.load_task_details()-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <menuitem-->
+<!--                id="menu_task_analysis"-->
+<!--                action="action_task_analysis"-->
+<!--                name="Task Analysis View"-->
+<!--                parent="project.menu_project_report"-->
+<!--                sequence="3"/>-->
+
+
+    </data>
+</odoo>

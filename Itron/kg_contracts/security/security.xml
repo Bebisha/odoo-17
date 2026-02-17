@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="kg_project_contract_request_amc_rule" model="ir.rule">
+            <field name="name">Access AMC User in Project Team</field>
+            <field name="model_id" ref="model_project_contract_request_amc"/>
+            <field name="domain_force">
+                ['|', ('project_id.project_team_user_ids', 'in', [user.id]),
+                ('create_uid', '=', user.id)]
+            </field>
+        </record>
+        <record id="contract_amc_rule_multicompany" model="ir.rule">
+            <field name="name">AMC Contract : multi-company rule</field>
+            <field name="model_id" ref="model_project_contract_request_amc"/>
+            <field name="domain_force">[('|'),
+                ('allowed_company_ids', '=', False),
+                ('allowed_company_ids', 'in', company_ids)
+                ]
+            </field>
+        </record>
+<!--        <record id="contract_offshore_rule_multicompany" model="ir.rule">-->
+<!--            <field name="name">Offshore Contract : multi-company rule</field>-->
+<!--            <field name="model_id" ref="model_project_contract_request"/>-->
+<!--            <field name="domain_force">[('|'),-->
+<!--                ('allowed_company_ids', '=', False),-->
+<!--                ('allowed_company_ids', 'in', company_ids)-->
+<!--                ]-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

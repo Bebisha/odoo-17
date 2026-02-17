@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="website_menu_kiosks" model="website.menu">
+            <field name="name">Kiosk</field>
+            <field name="url">/kg/portal/kiosks_menu</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">49</field>
+        </record>
+
+        <record id="website_menu_odoo_menu" model="website.menu">
+            <field name="name">Odoo</field>
+            <field name="url">/kg/portal/odoo_menu</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="website_menu_payment_menu" model="website.menu">
+            <field name="name">Payment</field>
+            <field name="url">/kg/portal/payment_menu</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">51</field>
+        </record>
+
+        <record id="website_menu_seo_menu" model="website.menu">
+            <field name="name">SEO</field>
+            <field name="url">/kg/portal/seo_menu</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">52</field>
+        </record>
+
+        <record id="website_menu_devops" model="website.menu">
+            <field name="name">Devops</field>
+            <field name="url">/kg/portal/devops</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">53</field>
+        </record>
+
+        <record id="website_menu_testing_menu" model="website.menu">
+            <field name="name">Testing</field>
+            <field name="url">/kg/portal/testing_menu</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">54</field>
+        </record>
+    </data>
+</odoo>

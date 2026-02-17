@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="helpdesk_ticket_view_form_sla_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.form.sla.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="after">
+                <field name="is_sla_exceeded" invisible="1"/>
+                <div class="alert alert-danger text-center" role="alert"
+                     invisible="is_sla_exceeded == False">
+                    ⚠️ SLA Response Time Exceeded!
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+
+                <div class="d-flex mb-4">
+                    <field name="sla_status_ids" widget="many2many_tags"
+                           options="{'color_field': 'color', 'no_edit_color': True}" class="mb-0" readonly="1"/>
+                    <div class="mx-2 text-muted d-inline-flex align-items-center h-100">
+                        <i class="fa fa-lg fa-clock-o me-2 mt-1" aria-label="Sla Deadline" title="Sla Deadline"/>
+                        <field name="sla_deadline" class="mb-0" widget="remaining_days"/>
+
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='reject_reason']" position="after">
+                <field name="sla_ids" groups="kg_sla_policies.group_use_sla" invisible="0" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//field[@name='priority']" position="after">
+                <field name="ticket_type_id"/>
+
+                <field name="is_sla_exceeded" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='data_collection']" position="after">
+                <field name="response_time"/>
+                <field name="balance_time" widget="float_time"/>
+
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

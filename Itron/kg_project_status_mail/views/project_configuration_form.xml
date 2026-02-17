@@ -1,0 +1,54 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+
+    <record id="project_user_config_tree" model="ir.ui.view">
+        <field name="name">project.status.config.tree</field>
+        <field name="model">project.status.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="user_ids"/>
+                <field name="project_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_user_config_form" model="ir.ui.view">
+        <field name="name">project.status.config.form</field>
+        <field name="model">project.status.config</field>
+        <field name="arch" type="xml">
+            <form string="Partner Project Status">
+                <sheet>
+                    <group name="project_user_config main">
+                        <group name="user_details">
+                            <field name="user_ids" widget="many2many_tags"/>
+                            <field name="project_team_id"/>
+                        </group>
+                        <group name="project_details">
+                            <field name="project_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_user_config_menu_action" model="ir.actions.act_window">
+        <field name="name">Partner Project Status</field>
+        <field name="res_model">project.status.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem name="Project Status"
+              id="project_users_config_menu"
+              action="project_user_config_menu_action"
+              sequence="5"
+              parent="project.menu_project_config"/>
+
+</odoo>
+

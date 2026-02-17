@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem name="KG Dashboards" id="root_menu_dashboard_kg" sequence="1"
+              web_icon="kg_timeoff_dashboard,static/description/icon.png"
+    />
+    <menuitem name="Today's Leave" id="menu_today_leave" sequence="1"
+              action="action_leave_dashboard_view"
+              parent="root_menu_dashboard_kg" groups="kg_attendance.all_approval_access,kg_timeoff_dashboard.group_admin_india_dashboard"/>
+
+    <menuitem name="TimeOff" id="menu_timeoff_root" sequence="1"
+              parent="root_menu_dashboard_kg"/>
+
+
+    <menuitem name="All Leaves" id="menu_all_leaves" sequence="2"
+              action="advanced_timeoff_dashboard_action"
+              parent="menu_timeoff_root"/>
+
+
+    <menuitem name="Late Arrival"
+              id="menu_late_root"
+              groups="hr_holidays.group_hr_holidays_manager,kg_timeoff_dashboard.group_admin_india_dashboard"
+              parent="root_menu_dashboard_kg"/>
+
+    <menuitem name="Late Arrival"
+              id="menu_late_dashboard"
+              action="late_coming_dashboard_action"
+              parent="menu_late_root"
+              groups="hr_holidays.group_hr_holidays_manager,kg_timeoff_dashboard.group_admin_india_dashboard"/>
+
+    <menuitem name="Waiting Approvals"
+              id="menu_late_waiting"
+              action="late_coming_waiting_dashboard_action"
+              parent="menu_late_root"
+              groups="hr_holidays.group_hr_holidays_manager,kg_timeoff_dashboard.group_admin_india_dashboard"/>
+
+    <menuitem name="Waiting Approval" id="waiting_approval_dashboard_menu_id"
+              parent="kg_timeoff_dashboard.menu_timeoff_root"
+              sequence="3" action="waiting_approval_dashboard_action"/>
+
+    <menuitem name="Project" id="menu_project_dashboard_id" action="task_project_dashboard_action_id"
+              parent="root_menu_dashboard_kg"
+    />
+    <menuitem name="Resource" id="menu_resource_dashboard_id" sequence="1"
+              parent="root_menu_dashboard_kg"
+    />
+    <menuitem name="Resource Pool" id="resource_pool_dashboard_id" sequence="1"
+              parent="menu_resource_dashboard_id" action="action_resource_pool_dashboard"
+              groups="kg_itron_timesheet.group_project_administrator,kg_timeoff_dashboard.group_admin_india_dashboard"
+
+    />
+    <menuitem name="Resource Request" id="resource_request_dashboard_id"
+              parent="menu_resource_dashboard_id" action="action_resource_request_dashboard"/>
+
+    <menuitem name="Timesheet" id="menu_timesheet_dashboard"
+              parent="root_menu_dashboard_kg"
+              groups="kg_itron_timesheet.group_project_administrator,hr_timesheet.group_hr_timesheet_approver"/>
+
+    <menuitem name="Missing Timesheet" id="menu_timesheet_dashboard_id" action="action_dashboard_view"
+              parent="menu_timesheet_dashboard"
+              groups="kg_itron_timesheet.group_project_administrator,hr_timesheet.group_hr_timesheet_approver,"
+              sequence="1"/>
+
+
+    <menuitem id="helpdesk_menu_open_dashboard"
+              name="Helpdesk"
+              action="helpdesk_dashboard_action"
+              groups="kg_itron_timesheet.group_project_administrator,helpdesk_mgmt.group_helpdesk_user_own,helpdesk_mgmt.group_helpdesk_user,helpdesk_mgmt.group_helpdesk_manager"
+              parent="kg_timeoff_dashboard.root_menu_dashboard_kg"
+              sequence="1"/>
+
+    <menuitem id="task_menu_open_dashboard_1"
+              name=" Task Dashboard"
+              action="task_project_dashboard_action_id"
+              parent="menu_project_dashboard_id"
+
+    />
+
+
+    <!--    <menuitem name="Contract Dashboard" id="kg_contract_dashboard_menu"-->
+    <!--              parent="menu_project_dashboard_id"-->
+    <!--              groups="kg_itron_timesheet.group_project_administrator"-->
+    <!--              sequence="3" action="action_contract_dashboard_id"/>-->
+    <menuitem name="Contract" id="menu_Contract_dashboard_root" parent="root_menu_dashboard_kg"
+              groups="account.group_account_manager"/>
+    <menuitem name="AMC" id="kg_amc_dashboard_menu" parent="menu_Contract_dashboard_root"
+              groups="account.group_account_manager" sequence="1" action="action_amc_dashboard_id"/>
+    <menuitem name="Onsite/Offshore" id="kg_onsite_offshore_dashboard_menu" parent="menu_Contract_dashboard_root"
+              groups="account.group_account_manager" sequence="2"
+              action="action_contract_dashboard_id"/>
+
+
+
+    <menuitem name="Employee Timesheet Hours" id="employee_timesheet_dashboard_menu_id"
+              parent="menu_timesheet_dashboard" action="kg_itron_timesheet.action_timesheet_analysis_report"
+              sequence="2"/>
+
+    <menuitem name="Employee Timesheet Date Wise" id="employee_timesheet_date_wise_menu_id"
+              parent="menu_timesheet_dashboard" action="kg_itron_timesheet.action_timesheet_report_date_wise"
+              groups="kg_itron_timesheet.group_project_administrator"
+              sequence="3"/>
+
+</odoo>

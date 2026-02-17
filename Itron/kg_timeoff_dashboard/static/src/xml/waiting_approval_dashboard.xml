@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="WaitingApprovalDashboard">
+        <div class="dashboard-container">
+            <style>
+                .dashboard-container {
+                font-family: Arial, sans-serif;
+                background-color: #f9f9f9;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                max-width: 90%;
+                margin: auto;
+                }
+                h1 {
+                font-size: 2.2em;
+                color: #34495e;
+                font-weight: bold;
+                }
+                #dashboard-content {
+                margin-top: 20px;
+                }
+                table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: #fff;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                }
+                table thead {
+                background-color: #2c3e50;
+                color: #ecf0f1;
+                }
+                table thead th {
+                padding: 12px;
+                text-align: left;
+                font-weight: 600;
+                }
+                table tbody tr {
+                border-bottom: 1px solid #dcdde1;
+                }
+                table tbody tr:nth-child(even) {
+                background-color: #f5f5f5;
+                }
+                table tbody tr:hover {
+                background-color: #ecf0f1;
+                }
+                table td {
+                padding: 10px;
+                color: #2c3e50;
+                vertical-align: middle;
+                }
+                table td t-esc {
+                font-weight: bold;
+                }
+                .table-responsive {
+                overflow-x: auto;
+                }
+                .center {
+                text-align: center;
+                }
+                .filter-container {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 20px;
+                font-family: Arial, sans-serif;
+                }
+
+                .filter-container label {
+                font-weight: 600;
+                font-size: 16px;
+                color: #444;
+                }
+
+                #company-select {
+                width: 220px;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                padding: 8px 12px;
+                font-size: 14px;
+                color: #555;
+                background-color: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+                }
+
+                #company-select:hover {
+                border-color: #f9f9f9;
+                background-color: #f8f9fa;
+                }
+
+                #company-select:focus {
+                border-color: #f9f9f9;
+                outline: none;
+                box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+                }
+
+
+                #company-select option {
+                font-size: 14px;
+                padding: 5px;
+                }
+
+                @media (max-width: 600px) {
+                .filter-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                }
+
+                #company-select {
+                width: 100%;
+                }
+            </style>
+            <center>
+                <h1 style="margin:20px;">
+                    Waiting Timeoff Approval
+                </h1>
+            </center>
+
+            <div class="filter-container">
+                <label for="company-select">Company:</label>
+                <select id="company-select" t-on-change="onCompanyChange">
+                    <option value="">All Companies</option>
+                    <t t-foreach="state.companies" t-as="company" t-key="company.id">
+                        <option t-att-value="company.id" t-esc="company.name"/>
+                    </t>
+                </select>
+            </div>
+            <div id="dashboard-content">
+                <table class="table table-striped table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">Employee</th>
+                            <th style="text-align:center">Type</th>
+                            <th style="text-align:center">Company</th>
+                            <th style="text-align:center">Start Date</th>
+                            <th style="text-align:center">End Date</th>
+                            <th style="text-align:center">Duration</th>
+                            <th style="text-align:center">Reason</th>
+                            <th style="text-align:center">Status</th>
+                            <th style="text-align:center">Actions</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="state.result" t-as="leave" t-key="leave.id">
+                            <tr align="center">
+                                <td t-on-click="(e) => this.onclick_leaves(e, leave.id,'employee')"
+                                    style="cursor:pointer">
+                                    <t t-esc="leave.employee_id"/>
+                                </td>
+                                <td>
+                                    <t t-esc="leave.holiday_status_id"/>
+                                </td>
+                                <td>
+                                    <t t-esc="leave.company"/>
+                                </td>
+                                <td t-on-click="(e) => this.onclick_leaves(e, leave.id, 'leave')">
+                                    <t t-esc="leave.request_date_from"/>
+                                </td>
+                                <td t-on-click="(e) => this.onclick_leaves(e, leave.id, 'leave')">
+                                    <t t-esc="leave.request_date_to"/>
+                                </td>
+                                <td>
+                                    <t t-esc="leave.number_of_days_display"/>
+                                </td>
+                                <td style="position: relative;">
+                                    <i class="fa fa-info-circle reason-tooltip-icon"
+                                       style="cursor: pointer; font-size: 16px; color: #007bff;">
+                                    </i>
+                                    <div class="reason-tooltip">
+                                        <t t-esc="leave.reason"/>
+                                    </div>
+                                </td>
+
+                                <style>
+                                    .reason-tooltip {
+                                    visibility: hidden;
+                                    background-color: #ADD8E6;
+                                    color: black;
+                                    text-align: center;
+                                    padding: 10px 12px ;
+                                    border-radius: 5px;
+                                    position: absolute;
+                                    bottom: 12%;
+                                    left: 50%;
+                                    transform: translateX(-50%);
+                                    white-space: nowrap;
+                                    font-size: 16px;
+                                    z-index: 1000; /* Ensures it appears above other elements */
+                                    opacity: 0;
+                                    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+                                    }
+
+                                    /* Make the tooltip appear when hovering over the entire td */
+                                    td:hover .reason-tooltip {
+                                    visibility: visible;
+                                    opacity: 1;
+                                    }
+                                </style>
+
+
+                                <td>
+                                    <t t-esc="leave.state"/>
+                                </td>
+                                <td>
+
+                                    <button class="btn btn-outline-success fw-semibold  px-2 py-1  rounded-pill"
+                                            t-if="leave.state === 'To Approve'"
+                                            t-on-click="() => this.handleApproveRecord(leave)"
+                                            style="align-items: center;  margin: 5px;   padding:5px; white-space: nowrap; font-size: 16px;">
+                                        ✔ Approve
+                                    </button>
+
+                                    <button class="btn btn-outline-success fw-semibold  px-2 py-1  rounded-pill"
+                                            t-if="leave.state === 'Second Approval'"
+                                            t-on-click="() => this.handleSecondApproveRecord(leave)"
+                                            style=" align-items: center; margin: 5px;   padding:5px;   white-space: nowrap; font-size: 16px;">
+                                        ✔ Approve
+                                    </button>
+
+                                    <button class="btn btn-outline-danger fw-semibold  px-2 py-1  rounded-pill"
+                                            t-on-click="() => this.handleRejectRecord(leave)"
+                                            style="align-items: center;  margin: 5px;  padding:5px;  white-space: nowrap; font-size: 16px;"
+                                    >
+                                        ✖ Reject
+                                    </button>
+
+                                    <!--                                    <button t-if="leave.state === 'To Approve'"-->
+                                    <!--                                            t-on-click="() => this.handleApproveRecord(leave)"-->
+                                    <!--                                            style="border: 2px solid green; padding: 5px 10px; cursor: pointer; background: none; color: black;border-radius:5px; font-weight: bold; transition: background 0.3s ease-in-out;"-->
+                                    <!--                                            onmouseover="this.style.background='green'; this.style.color='white';"-->
+                                    <!--                                            onmouseout="this.style.background='none'; this.style.color='black';">-->
+                                    <!--                                        Approve-->
+                                    <!--                                    </button>-->
+                                    <!--                                    &lt;!&ndash;                                    <button t-if="leave.state === 'To Approve'"&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                                            t-on-click="() => this.handleApproveRecord(leave)">&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                                        Approve&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                                    </button>&ndash;&gt;-->
+                                    <!--                                    <button t-if="leave.state === 'Second Approval'"-->
+                                    <!--                                            style="border-radius:5px;border: 2px solid green; padding: 5px 10px; cursor: pointer; background: none; color: black; font-weight: bold; transition: background 0.3s ease-in-out;"-->
+                                    <!--                                            onmouseover="this.style.background='green'; this.style.color='white';"-->
+                                    <!--                                            onmouseout="this.style.background='none'; this.style.color='black';"-->
+                                    <!--                                            t-on-click="() => this.handleSecondApproveRecord(leave)"-->
+                                    <!--                                            class="approve-button">-->
+                                    <!--                                        Approve-->
+                                    <!--                                    </button>-->
+                                    <!--                                    <button t-if="leave.state === 'To Approve' or leave.state === 'Second Approval'"-->
+                                    <!--                                            style="margin:5px;border: 2px solid red;border-radius:5px; padding: 5px 10px; cursor: pointer; background: none; color: black; font-weight: bold; transition: background 0.3s ease-in-out;"-->
+                                    <!--                                            onmouseover="this.style.background='red'; this.style.color='white';"-->
+                                    <!--                                            onmouseout="this.style.background='none'; this.style.color='black';"-->
+                                    <!--                                            t-on-click="() => this.handleRejectRecord(leave)">-->
+                                    <!--                                        Reject-->
+                                    <!--                                    </button>-->
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--            <div id="dashboard-content">-->
+            <!--                <table class="table table-striped table-responsive table-hover">-->
+            <!--                    <thead>-->
+            <!--                        <tr>-->
+            <!--                            <th style="text-align:center">Employee</th>-->
+            <!--                            <th style="text-align:center">Type</th>-->
+            <!--                            <th style="text-align:center">Company</th>-->
+            <!--                            <th style="text-align:center">Start Date</th>-->
+            <!--                            <th style="text-align:center">End Date</th>-->
+            <!--                            <th style="text-align:center">Duration</th>-->
+            <!--                            <th style="text-align:center">Status</th>-->
+            <!--                            <th style="padding: 12px; font-size: 16px;">Actions</th>-->
+
+            <!--                        </tr>-->
+            <!--                    </thead>-->
+            <!--                    <tbody>-->
+            <!--                        <t t-foreach="state.result" t-as="leave" t-key="leave.id">-->
+            <!--                            <tr align="center">-->
+            <!--                                <td t-on-click="(e) => this.onclick_leaves(e, leave.id,'employee')" style="cursor:pointer">-->
+            <!--                                    <t t-esc="leave.employee_id"/>-->
+            <!--                                </td>-->
+            <!--                                <td>-->
+            <!--                                    <t t-esc="leave.holiday_status_id"/>-->
+            <!--                                </td>-->
+            <!--                                <td>-->
+            <!--                                    <t t-esc="leave.company"/>-->
+            <!--                                </td>-->
+            <!--                                <td t-on-click="(e) => this.onclick_leaves(e, leave.id, 'leave')">-->
+            <!--                                    <t t-esc="leave.request_date_from"/>-->
+            <!--                                </td>-->
+            <!--                                <td t-on-click="(e) => this.onclick_leaves(e, leave.id, 'leave')">-->
+            <!--                                    <t t-esc="leave.request_date_to"/>-->
+            <!--                                </td>-->
+            <!--                                <td>-->
+            <!--                                    <t t-esc="leave.number_of_days_display"/>-->
+            <!--                                </td>-->
+            <!--                                <td>-->
+            <!--                                    <t t-esc="leave.state"/>-->
+            <!--                                </td>-->
+            <!--                                <td><button t-if="leave.state === 'To Approve'"-->
+            <!--        t-on-click="() => this.handleApproveRecord(leave)"-->
+            <!--        style="border: 2px solid green; padding: 5px 10px; cursor: pointer; background: none; color: black;border-radius:5px; font-weight: bold; transition: background 0.3s ease-in-out;"-->
+            <!--        onmouseover="this.style.background='green'; this.style.color='white';"-->
+            <!--        onmouseout="this.style.background='none'; this.style.color='black';">-->
+            <!--    Approve-->
+            <!--</button>-->
+            <!--&lt;!&ndash;                                    <button t-if="leave.state === 'To Approve'"&ndash;&gt;-->
+            <!--&lt;!&ndash;                                            t-on-click="() => this.handleApproveRecord(leave)">&ndash;&gt;-->
+            <!--&lt;!&ndash;                                        Approve&ndash;&gt;-->
+            <!--&lt;!&ndash;                                    </button>&ndash;&gt;-->
+            <!--                                     <button t-if="leave.state === 'Second Approval'"  style="border-radius:5px;border: 2px solid green; padding: 5px 10px; cursor: pointer; background: none; color: black; font-weight: bold; transition: background 0.3s ease-in-out;"-->
+            <!--        onmouseover="this.style.background='green'; this.style.color='white';"-->
+            <!--        onmouseout="this.style.background='none'; this.style.color='black';"-->
+            <!--                                            t-on-click="() => this.handleSecondApproveRecord(leave)" class="approve-button">-->
+            <!--                                        Approve-->
+            <!--                                    </button>-->
+            <!--                                    <button t-if="leave.state === 'To Approve' or leave.state === 'Second Approval'" style="margin:5px;border: 2px solid red;border-radius:5px; padding: 5px 10px; cursor: pointer; background: none; color: black; font-weight: bold; transition: background 0.3s ease-in-out;"-->
+            <!--        onmouseover="this.style.background='red'; this.style.color='white';"-->
+            <!--        onmouseout="this.style.background='none'; this.style.color='black';"-->
+            <!--                                            t-on-click="() => this.handleRejectRecord(leave)">-->
+            <!--                                        Reject-->
+            <!--                                    </button>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                        </t>-->
+            <!--                    </tbody>-->
+            <!--                </table>-->
+            <!--            </div>-->
+        </div>
+    </t>
+</templates>

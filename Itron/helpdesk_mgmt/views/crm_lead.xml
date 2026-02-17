@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="crm_lead_inherit_form" model="ir.ui.view">
+        <field name="name">crm.lead.view.form.inherit.help.team</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                    <button name="create_ticket" class="oe_highlight"  string="Create Ticket" type="object"  />
+                </xpath>
+            <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" name='get_ticket'
+                            icon="fa-id-card-o" invisible="ticket_count == 0">
+                        <field string="Ticket" name="ticket_count" widget="statinfo"/>
+                    </button>
+                </div>
+        </field>
+    </record>
+
+
+</odoo>

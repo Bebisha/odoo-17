@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_modules,access_crm_modules,model_crm_modules,,1,1,1,1
+access_kg_qualifications,kg.qualifications,model_kg_qualifications,base.group_user,1,1,1,1
+access_kg_deal_milestone,kg.deal.milestone,model_kg_deal_milestone,base.group_user,1,1,1,1
+access_kg_crm_estimation,kg.crm.estimation,model_kg_crm_estimation,base.group_user,1,1,1,1
+access_kg_crm_estimation_line,kg.crm.estimation.line,model_kg_crm_estimation_line,base.group_user,1,1,1,1
+access_kg_activity,kg.activity,model_kg_activity,base.group_user,1,1,1,1
+access_lead_interest,lead.interest,model_lead_interest,base.group_user,1,1,1,1
+access_lead_activity_status,lead.activity.status,model_lead_activity_status,base.group_user,1,1,1,1

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="timesheet_view_tree_inherit" model="ir.ui.view">
+        <field name="name">account.analytic.line.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="editable">top</attribute>
+            </tree>
+            <field name="task_id" position="attributes">
+                <attribute name="context">{'default_date_start': date,'default_project_id':
+                    project_id,'default_user_ids': [(6, 0, [uid])], 'search_default_my_tasks': True,
+                    'search_default_open_tasks': True}
+                </attribute>
+                <attribute name="domain">[('user_ids', 'in', uid), ('allow_timesheets', '=', True), ('project_id', '=?',
+                    project_id), ('is_timeoff_task', '=', False)]
+                </attribute>
+                <attribute name="readonly">project_activity == 'activity'</attribute>
+            </field>
+            <field name="unit_amount" position="before">
+                <field name="date_start" required="1" string="Start Date"/>
+                <field name="date_end" required="1" string="End Date"/>
+            </field>
+            <field name="task_id" position="after">
+                <field name="activity_id" readonly="project_activity in ['project','success_pack']"  domain="[('user_id', '=', uid)]"/>
+
+            </field>
+            <field name="project_id" position="before">
+                <field name="project_activity"/>
+            </field>
+            <field name="task_id" position="after">
+                <field name="milestone_id"/>
+            </field>
+            <field name="project_id" position="attributes">
+                <attribute name="readonly">project_activity in ['activity','success_pack']</attribute>
+                <attribute name="required">project_activity == 'project'</attribute>
+            </field>
+
+            <field name="unit_amount" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+
+        </field>
+    </record>
+<!--    <record id="timesheet_view_tree_inherit" model="ir.ui.view">-->
+<!--        <field name="name">account.analytic.line.inherit</field>-->
+<!--        <field name="model">account.analytic.line</field>-->
+<!--        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <field name="task_id" position="attributes">-->
+<!--                <attribute name="context">{'default_date_start': date,'default_project_id': project_id,'default_user_ids': [(6, 0, [uid])], 'search_default_my_tasks': True, 'search_default_open_tasks': True}</attribute>-->
+<!--                <attribute name="domain">[('user_ids', 'in', uid), ('allow_timesheets', '=', True), ('project_id', '=?', project_id), ('is_timeoff_task', '=', False)]</attribute>-->
+<!--            </field>-->
+<!--            <field name="unit_amount" position="before">-->
+<!--                <field name="date_start" required="1" string="Start Date"/>-->
+<!--                <field name="date_end" required="1" string="End Date"/>-->
+<!--            </field>-->
+<!--            <field name="unit_amount" position="attributes">-->
+<!--                <attribute name="readonly">1</attribute>-->
+<!--                <attribute name="force_save">1</attribute>-->
+<!--            </field>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="timesheet_project_view_tree_inherit" model="ir.ui.view">
+        <field name="name">project.task.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='unit_amount']"  position="before">
+                <field name="date_start" required="1" string="Start Date"/>
+                <field name="date_end" required="1" string="End Date"/>
+            </xpath>
+            <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='unit_amount']"  position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+</odoo>

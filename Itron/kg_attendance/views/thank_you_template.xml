@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="thank_you_template" name="Thank You Page">
+        <t t-call="website.layout">
+            <div class="container mt-5 mb-5">
+                <h2 class="text-center">Thank You!</h2>
+                <p class="text-center">
+                    Your rejection reason has been successfully submitted.
+                </p>
+                <div class="text-center">
+                    <a href="/" class="btn btn-primary">Go Back to Dashboard</a>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Sequence -->
+        <record id="kg_expense_sequence" model="ir.sequence">
+            <field name="name">Expense Sequence</field>
+            <field name="code">expense.sequence</field>
+            <field name="prefix">ES</field>
+            <field name="padding">5</field>
+            <field name="company_id"/>
+        </record>
+</odoo>

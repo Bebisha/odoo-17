@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="crm_modules_view_tree" model="ir.ui.view">
+        <field name="name">crm_modules_view_tree</field>
+        <field name="model">crm.modules</field>
+        <field name="arch" type="xml">
+            <tree string="Modules">
+                <field name="name"/>
+                <field name="product_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="crm_modules_view_form" model="ir.ui.view">
+        <field name="name">crm_modules_view_form</field>
+        <field name="model">crm.modules</field>
+        <field name="arch" type="xml">
+            <form string="Modules">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="product_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="crm_modules_action" model="ir.actions.act_window">
+        <field name="name">Modules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.modules</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_crm_modules" name="Modules" parent="crm.crm_menu_config" action="crm_modules_action"
+              sequence="25"/>
+</odoo>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kg_attendance,kg.attendance,model_kg_attendance,base.group_user,1,1,1,1
+access_attendance_line,attendance.line,model_attendance_line,base.group_user,1,1,1,1
+access_kg_attendance_report,kg.attendance.report,model_kg_attendance_report,base.group_user,1,1,1,1
+access_early_late_request,early_late_request,model_early_late_request,,1,1,1,0
+access_early_late_request_admin,early_late_request,model_early_late_request,hr_holidays.group_hr_holidays_manager,1,1,1,1
+access_late_report,late.report,model_late_report,base.group_user,1,1,1,1
+access_reject_reason_wizard_id,access_reject_reason_wizard,model_reject_reason_wizard,base.group_user,1,1,1,1

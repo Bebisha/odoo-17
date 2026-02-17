@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_project_update_form" model="ir.ui.view">
+            <field name="name">Project Update</field>
+            <field name="model">project.update.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Sales From PO">
+                    <sheet>
+                        <p class="oe_grey">
+                            Milestone Status:
+                        </p>
+                        <field name="milestone_status" placeholder="Milestone updates"/>
+                        <button name="view_open_tasks"  string="View Open Tasks" type="object" class="btn-primary"/>
+                        <p class="oe_grey">
+                            You can add project Updates.
+                        </p>
+                        <group>
+                            <group>
+                                <field name="name"  />
+                                <field name="date"  />
+                            </group>
+                            <group>
+                                <field name="status" />
+                            </group>
+                        </group>
+                        <group>
+                                <field name="status_update" placeholder="Add updates"/>
+                        </group>
+                        <field name="previous_status" />
+                        <footer>
+                            <button name="create_project_update"  string="Create Updates" type="object"
+                                class="btn-primary"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_project_update_wizard" model="ir.actions.act_window">
+            <field name="name">Project Update</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.update.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+</odoo>

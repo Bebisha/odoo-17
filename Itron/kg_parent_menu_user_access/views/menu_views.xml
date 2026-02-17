@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <record id="mail.menu_root_discuss" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[Command.set([ref('kg_parent_menu_user_access.group_discuss_access')])]"/>
+        </record>
+        <record id="contacts.menu_contacts" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[Command.set([ref('kg_parent_menu_user_access.group_contacts_access')])]"/>
+        </record>
+        <record id="project_todo.menu_todo_todos" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[Command.set([ref('kg_parent_menu_user_access.group_to_do_access')])]"/>
+        </record>
+        <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+             <field name="groups_id"
+                   eval="[Command.set([ref('kg_parent_menu_user_access.group_calendar_access')])]"/>
+        </record>
+        <record id="utm.menu_link_tracker_root" model="ir.ui.menu">
+             <field name="groups_id"
+                   eval="[Command.set([ref('kg_parent_menu_user_access.group_link_tracker_access')])]"/>
+        </record>
+        <record id="base.menu_management" model="ir.ui.menu">
+             <field name="groups_id"
+                   eval="[Command.set([ref('kg_parent_menu_user_access.group_apps_access')])]"/>
+        </record>
+
+
+
+<!--        <record id="mail.menu_root_discuss" model="ir.ui.menu">-->
+<!--            <field name="groups_id" eval="[(4, ref('kg_parent_menu_user_access.group_discuss_access'))]"/>-->
+<!--        </record>-->
+<!--        <record id="contacts.menu_contacts" model="ir.ui.menu">-->
+<!--            <field name="groups_id" eval="[(4, ref('kg_parent_menu_user_access.group_contacts_access'))]"/>-->
+<!--        </record>-->
+<!--        <record id="project_todo.menu_todo_todos" model="ir.ui.menu">-->
+<!--            <field name="groups_id" eval="[(4, ref('kg_parent_menu_user_access.group_to_do_access'))]"/>-->
+<!--        </record>-->
+<!--        <record id="calendar.mail_menu_calendar" model="ir.ui.menu">-->
+<!--            <field name="groups_id" eval="[(4, ref('kg_parent_menu_user_access.group_calendar_access'))]"/>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

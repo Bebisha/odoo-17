@@ -1,0 +1,54 @@
+<odoo>
+    <record id="hr_employee_public_form_inherit_hide_job" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.hide.job</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="industry_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_kg_industry_form" model="ir.ui.view">
+        <field name="name">hr.designation.form</field>
+        <field name="model">kg.industry</field>
+        <field name="arch" type="xml">
+            <form string="Industry">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_industry_tree" model="ir.ui.view">
+        <field name="name">kg.industry.tree</field>
+        <field name="model">kg.industry</field>
+        <field name="arch" type="xml">
+            <tree string="Industry">
+                <field name="name"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_kg_industry" model="ir.actions.act_window">
+        <field name="name">Industry</field>
+        <field name="res_model">kg.industry</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_industry"
+              name="Industry"
+              parent="sale.menu_sales_config"
+              action="action_kg_industry"/>
+</odoo>

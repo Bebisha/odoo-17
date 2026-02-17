@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  creating reference number of hr applicant -->
+    <data>
+        <record id="hr_applicant_sequence_id" model="ir.sequence">
+            <field name="name">HR Applicant</field>
+            <field name="code">hr.applicant</field>
+            <field name="prefix">HRD/KLY/OL/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="suffix">/%(year)s</field>
+            <field name="use_date_range" eval="True"/>
+        </record>
+
+         <record id="seq_job_position" model="ir.sequence">
+        <field name="name">Job Position Id</field>
+        <field name="code">seq_job_position</field>
+        <field name="prefix">KLY/JB/</field>
+        <field name="padding">6</field>
+        <field name="number_next_actual">100001</field>
+        <field name="company_id" eval="False"></field>
+    </record>
+    </data>
+</odoo>

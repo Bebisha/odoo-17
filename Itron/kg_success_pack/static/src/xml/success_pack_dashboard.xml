@@ -1,0 +1,356 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="SuccessPackDashboard">
+        <style>
+            /* Transform a into a button-like appearance */
+            .select-button-style {
+                /* Basic look */
+                background-color: white;
+                /* Light gray background */
+                border: 1px solid black;
+                border-radius: 4px;
+                color: black;
+                font-size: 14px;
+                cursor: pointer;
+                width: 110% !important;
+                ;
+
+                /* Spacing to mimic a button */
+                padding: 0.375rem 1.5rem 0.375rem 0.75rem;
+                min-width: 80px;
+
+                /* Remove the native arrow in most modern browsers */
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+
+                /* Add a custom arrow icon (down chevron) on the right */
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23495057' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M4.646 6.646a.5.5 0 0 1 .708 0L8 9.293l2.646-2.647a.5.5 0 0 1 .708.708L8.354 10.707a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 0.75rem center;
+                background-size: 16px 16px;
+            }
+
+            /* Style the dropdown options to keep them legible */
+            .select-button-style option {
+                background-color: #fff;
+                color: #495057;
+            }
+
+            /* Focus/hover states for better UX */
+            .select-button-style:hover {
+                background-color: #dee2e6;
+            }
+
+            .select-button-style:focus {
+                outline: none;
+                box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.25);
+            }
+
+            /* Transform a date input into a button-like appearance */
+            .custom-date-button {
+                background-color: white;
+                /* Light gray background (like a button) */
+                border: 1px solid black;
+                border-radius: 4px;
+                color: black;
+                font-size: 14px;
+                cursor: pointer;
+                padding: 0.375rem 0.75rem;
+                width: auto;
+                min-width: 110px;
+                /* Adjust as needed for your layout */
+
+                /* Remove native "spinner"/arrow in some browsers */
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+            }
+
+            /* Hide the default calendar icon in Chrome/Safari/Edge */
+            .custom-date-button::-webkit-calendar-picker-indicator {
+                opacity: 0;
+                cursor: pointer;
+                /* Keep pointer to indicate it's clickable */
+            }
+
+            /* Optional: remove the "clear" button in Chrome */
+            .custom-date-button::-webkit-clear-button {
+                display: none;
+            }
+
+            /* Hover  Focus states for a button-like feel */
+            .custom-date-button:hover {
+                background-color: #dee2e6;
+            }
+
+            .custom-date-button:focus {
+                outline: none;
+                box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.25);
+            }
+        </style>
+        <div class="">
+            <div>
+                <center>
+                    <h1 style="margin:20px;">
+                        Success Packs</h1>
+                </center>
+            </div>
+            <t t-name="my_module.FilterSection">
+                <!-- Ensure Bootstrap CSS is loaded in your Odoo environment -->
+                <!-- Filter Row Container -->
+                <div class="d-flex flex-wrap p-3"
+                     style="gap: 29px !important;background-color: #e9ecef; border-radius: 5px;">
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text" style="color:black;">
+                                Start Date<i class="bi bi-calendar-date"/>
+                            </span>
+                            <input type="date" id="start_date" class="form-control custom-date-button"
+                                   t-on-change="(e) => this.updateSuccessByStartDate(e)"/>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text" style="color:black;">
+                                End Date<i class="bi bi-calendar-date"/>
+                            </span>
+                            <input type="date" id="end_date" class="form-control custom-date-button"
+                                   t-on-change="(e) => this.updateSuccessEndDate(e)"/>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <t t-if="state.is_admin">
+                            <select id="company_select_task" class="form-select select-button-style"
+                                    t-on-change="(e) => this.FilterCompanytasks(e)">
+                                <option value="0" selected="1">Company: All</option>
+                                <t t-foreach="state.companies" t-as="company" t-key="company.id">
+                                    <option t-att-value="company.id" t-esc="company.name"
+                                            t-att-selected="company.id == state.selectedCompanyId"/>
+                                </t>
+                            </select>
+                        </t>
+                        <t t-else="">
+                            <select id="company_select_task" class="form-select select-button-style"
+                                    t-on-input="(e) => this.FilterCompanytasks(e)">
+                                <t t-foreach="state.companies" t-as="company" t-key="company.id">
+                                    <option t-att-value="company.id" t-esc="company.name"
+                                            t-att-selected="company.id == state.selectedCompanyId"/>
+                                </t>
+                            </select>
+                        </t>
+                    </div>
+
+                    <div class="col-md-1">
+                        <select id="success_select_task" class="form-select select-button-style"
+                                t-on-change="(e) => this.updatePackFilter(e)">
+                            <option value="0" selected="1">Success Pack: All</option>
+                            <t t-foreach="state.packages" t-as="pack" t-key="pack.id">
+                                <option t-att-value="pack.id" t-esc="pack.name"
+                                        t-att-selected="pack.id == state.selectedPackId"/>
+                            </t>
+                        </select>
+                    </div>
+
+                    <div class="col-md-1">
+                        <select id="project_select_task" class="form-select select-button-style"
+                                t-on-change="(e) => this.updateProjectFilter(e)">
+                            <option value="0" selected="1">Project: All</option>
+                            <t t-foreach="state.projects" t-as="project" t-key="project.id">
+                                <option t-att-value="project.id" t-esc="project.name"
+                                        t-att-selected="project.id == state.selectedProjectId"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <select id="customer_select" class="form-select select-button-style"
+                                t-on-change="(e) => this.updateCustomerFilter(e)">
+                            <option value="0" selected="1">Customer: All</option>
+                            <t t-foreach="state.customers" t-as="customer" t-key="customer.id">
+                                <option t-att-value="customer.id" t-esc="customer.name"
+                                        t-att-selected="customer.id == state.selectedCustomerId"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <select id="status_select" class="form-select select-button-style"
+                                t-on-change="(e) => this.updateStatusFilter(e)">
+                            <option value="" selected="1">Status: All</option>
+                            <t t-foreach="state.status" t-as="stat" t-key="stat">
+                                 <option t-att-value="stat" t-esc="stat"
+                                         t-att-selected="stat == state.selectedStatus"/>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+            </t>
+
+            <div style="margin: 50px;">
+                <table class="table table-bordered" style="border:1px solid; margin-top: 10px;">
+                    <thead>
+                        <tr style="background-color: #243742; color: white; height: 50px;">
+                            <th class="text-left">Success Pack</th>
+                            <th class="text-left">Project</th>
+                            <th class="text-left">Client</th>
+                            <th class="text-left">Start</th>
+                            <th class="text-center">End</th>
+                            <th class="text-center">Estimated Hours</th>
+                            <th class="text-center">Worked Hours</th>
+<!--                            <th class="text-center">Utilization</th>-->
+                            <th class="text-center">Status</th>
+                            <th class="text-center"/>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="state.filteredResult" t-as="o" t-key="o.id">
+                            <t t-if="o.utilization == 'Over Utilized'">
+                                <td colspan="1" style="color:red;text-align:left;cursor: pointer;">
+                                <strong>
+                                    <t t-esc="o.name"/>
+                                </strong>
+                            </td>
+                                <td colspan="1" style="color:red;text-align:left;cursor: pointer;">
+                                <strong>
+                                    <t t-esc="o.project_name"/>
+                                </strong>
+                            </td>
+                                <td colspan="1" style="color:red;text-align:left;cursor: pointer;">
+                                <strong>
+                                    <t t-esc="o.customer_name"/>
+                                </strong>
+                            </td>
+                                <td colspan="1" style="color:red;text-align:left;cursor: pointer;">
+                                <t t-esc="o.start_date"/>
+                            </td>
+                                <td colspan="1" style="color:red;text-align:center;cursor: pointer;">
+                                <t t-esc="o.end_date"/>
+                            </td>
+                                <td colspan="1" style="color:red;text-align:center;cursor: pointer;">
+                                <t t-esc="o.estimated_hours"/>
+                            </td>
+                                <td colspan="1" style="color:red;text-align:center;cursor: pointer;">
+                                <t t-esc="o.worked_hours"/>
+                            </td>
+<!--                                <td colspan="1" style="color:red;text-align:center;cursor: pointer;">-->
+<!--                                <t t-esc="o.utilization"/>-->
+<!--                            </td>-->
+                                <td colspan="1" style="color:red;text-align:center;cursor: pointer;">
+                                <t t-esc="o.status"/>
+                            </td>
+                                <td colspan="1" style="text-align:center;">
+                                <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
+                                    <button class="btn btn-primary btn-sm"
+                                            style="padding: 5px 10px; font-size: 12px; height: 30px; width: 125px;"
+                                            t-on-click="(e) => this.onViewHours(e, o)">
+                                        View Timesheets
+                                    </button>
+                                    <button class="btn btn-sm"
+                                            t-on-click="(e) => this.onDownloadTimesheet(e, o)" title="Print Timesheet">
+                                        <i class="fa fa-download" aria-hidden="true"/>
+                                    </button>
+                                </div>
+                            </td>
+
+                            </t>
+                            <t t-elif="o.utilization == 'Normal'">
+                                <td colspan="1" style="color:green;text-align:left;cursor: pointer;">
+                                <strong>
+                                    <t t-esc="o.name"/>
+                                </strong>
+                            </td>
+                                <td colspan="1" style="color:green;text-align:left;cursor: pointer;">
+                                <strong>
+                                    <t t-esc="o.project_name"/>
+                                </strong>
+                            </td>
+                                <td colspan="1" style="color:green;text-align:left;cursor: pointer;">
+                                <strong>
+                                    <t t-esc="o.customer_name"/>
+                                </strong>
+                            </td>
+                                <td colspan="1" style="color:green;text-align:left;cursor: pointer;">
+                                <t t-esc="o.start_date"/>
+                            </td>
+                                <td colspan="1" style="color:green;text-align:center;cursor: pointer;">
+                                <t t-esc="o.end_date"/>
+                            </td>
+                                <td colspan="1" style="color:green;text-align:center;cursor: pointer;">
+                                <t t-esc="o.estimated_hours"/>
+                            </td>
+                                <td colspan="1" style="color:green;text-align:center;cursor: pointer;">
+                                <t t-esc="o.worked_hours"/>
+                            </td>
+<!--                                <td colspan="1" style="color:green;text-align:center;cursor: pointer;">-->
+<!--                                <t t-esc="o.utilization"/>-->
+<!--                            </td>-->
+                                <td colspan="1" style="color:green;text-align:center;cursor: pointer;">
+                                <t t-esc="o.status"/>
+                            </td>
+                                <td colspan="1" style="text-align:center;">
+                                <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
+                                    <button class="btn btn-primary btn-sm"
+                                            style="padding: 5px 10px; font-size: 12px; height: 30px; width: 125px;"
+                                            t-on-click="(e) => this.onViewHours(e, o)">
+                                        View Timesheets
+                                    </button>
+                                    <button class="btn btn-sm"
+                                            t-on-click="(e) => this.onDownloadTimesheet(e, o)" title="Print Timesheet">
+                                        <i class="fa fa-download" aria-hidden="true"/>
+                                    </button>
+                                </div>
+                            </td>
+                            </t>
+                            <t t-else="">
+                                <td colspan="1" style="text-align:left;cursor: pointer;">
+                                <strong>
+                                    <t t-esc="o.name"/>
+                                </strong>
+                            </td>
+                                <td colspan="1" style="text-align:left;cursor: pointer;">
+                                <strong>
+                                    <t t-esc="o.project_name"/>
+                                </strong>
+                            </td>
+                                <td colspan="1" style="text-align:left;cursor: pointer;">
+                                <strong>
+                                    <t t-esc="o.customer_name"/>
+                                </strong>
+                            </td>
+                                <td colspan="1" style="text-align:left;cursor: pointer;">
+                                <t t-esc="o.start_date"/>
+                            </td>
+                                <td colspan="1" style="text-align:center;cursor: pointer;">
+                                <t t-esc="o.end_date"/>
+                            </td>
+                                <td colspan="1" style="text-align:center;cursor: pointer;">
+                                <t t-esc="o.estimated_hours"/>
+                            </td>
+                                <td colspan="1" style="text-align:center;cursor: pointer;">
+                                <t t-esc="o.worked_hours"/>
+                            </td>
+<!--                                <td colspan="1" style="text-align:center;cursor: pointer;">-->
+<!--                                <t t-esc="o.utilization"/>-->
+<!--                            </td>-->
+                                <td colspan="1" style="text-align:center;cursor: pointer;">
+                                <t t-esc="o.status"/>
+                            </td>
+                                <td colspan="1" style="text-align:center;">
+                                <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
+                                    <button class="btn btn-primary btn-sm"
+                                            style="padding: 5px 10px; font-size: 12px; height: 30px; width: 125px;"
+                                            t-on-click="(e) => this.onViewHours(e, o)">
+                                        View Timesheets
+                                    </button>
+                                    <button class="btn btn-sm"
+                                            t-on-click="(e) => this.onDownloadTimesheet(e, o)" title="Print Timesheet">
+                                        <i class="fa fa-download" aria-hidden="true"/>
+                                    </button>
+                                </div>
+                            </td>
+                            </t>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>

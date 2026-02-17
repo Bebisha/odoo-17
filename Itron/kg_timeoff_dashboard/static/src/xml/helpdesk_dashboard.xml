@@ -1,0 +1,108 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="HelpdeskDashboard">
+        <div class="">
+            <div>
+                <center>
+                    <h1 style="margin:20px;">
+                    Helpdesk Dashboard</h1>
+                </center>
+            </div>
+            <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; margin-left: 120px;">
+                    <label for="company_select"
+                           style="font-weight: bold; font-size: 15px; color: #333; margin-right: 10px;">
+                        Company:
+                    </label>
+                    <t t-if="state.is_admin or state.is_heldesk_manager">
+                    <select id="company_select_task"
+                            style="padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; width: 300px; transition: all 0.3s ease;"
+                            t-on-change="(e) => this.FilterCompanytasks(e)">
+                        <option value="" selected="1">All Company</option>
+                        <t t-foreach="state.companies" t-as="company" t-key="company.id">
+                            <option t-att-value="company.id" t-esc="company.name" value="request.env.user.company.id"
+                                    t-att-selected="company.id == state.selectedCompanyId"/>
+                        </t>
+                    </select>
+                    </t>
+                    <t t-else="">
+                        <select id="company_select_task"
+                                style="padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; width: 300px; transition: all 0.3s ease;"
+                                t-on-input="(e) => this.FilterCompanytasks(e)">
+<!--                        <option value="" selected="1">All Company</option>-->
+                            <t t-foreach="state.companies" t-as="company" t-key="company.id">
+                            <option t-att-value="company.id" t-esc="company.name"
+                                    t-att-selected="company.id == state.selectedCompanyId"/>
+                        </t>
+                    </select>
+                    </t>
+                </div>
+            </div>
+
+            <div style="margin: 100px;">
+
+                <table class="table table-bordered" style="border:1px solid; margin-top: 10px;">
+                    <thead>
+
+                        <tr style="background-color: #243742; color: white; height: 50px;">
+                            <th class="text-left">Assignee User</th>
+                            <th class="text-left">Company</th>
+                            <th class="text-center">OPEN</th>
+                            <th class="text-center">IN PROGRESS</th>
+                            <th class="text-center">HOLD</th>
+                            <th class="text-center">CR</th>
+                            <th class="text-center">RETURNED</th>
+                            <th class="text-center">UAT</th>
+                            <th class="text-center">CLOSED</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="state.filteredResult" t-as="o" t-key="o.id">
+                                <td colspan="1" style="text-align:left;cursor: pointer;"
+                                >
+                                    <strong><t t-esc="o.name"/></strong>
+                                </td>
+                            <td colspan="1" style="text-align:left;cursor: pointer;"
+                            >
+                                    <t t-esc="o.company"/>
+                                </td>
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_open(e, o.id)">
+                                    <t t-esc="o.open"/>
+                                </td>
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_inprogress(e, o.id)">
+                                    <t t-esc="o.inprogress"/>
+                                </td>
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_held(e, o.id)">
+                                    <t t-esc="o.held"/>
+                                </td>
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_cr(e, o.id)">
+                                    <t t-esc="o.cr"/>
+                                </td>
+
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_returned(e, o.id)">
+                                    <t t-esc="o.returned"/>
+                                </td>
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_uat(e, o.id)">
+                                    <t t-esc="o.uat"/>
+                                </td>
+
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_closed(e, o.id)">
+                                    <t t-esc="o.closed"/>
+                                </td>
+
+                                                                     </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </t>
+
+</templates>

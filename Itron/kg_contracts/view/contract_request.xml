@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_project_contract_request" model="ir.ui.view">
+        <field name="name">project.contract.request.form</field>
+        <field name="model">project.contract.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_approve" class="oe_highlight" type="object" string="Start"
+                            invisible="state != 'draft'"/>
+                    <button name="create_invoice" class="oe_highlight" type="object"
+                            string="Create and View Invoice"
+                            invisible="(state != 'approve') or (provision_contracts == 'subscription')"/>
+                    <button name="create_subscription" class="oe_highlight" type="object"
+                            string="Create and View Subscription"
+                            invisible="state != 'approve' or (provision_contracts == 'invoice')"/>
+
+                    <button name="button_reject" type="object" string="Cancel"
+                            invisible="state == 'cancel'"
+                    />
+                    <button name="button_extend" class="oe_highlight" type="object" string="Extend"
+                            invisible="state not in  ('invoice','subscription')"/>
+                    <!--                     <button name="complete_button" class="oe_highlight" type="object"-->
+                    <!--                            string="Complete"-->
+                    <!--                             invisible="state in ['draft', 'complete',]"/>-->
+                    <field name="state" widget="statusbar" statusbar_visible="draft" invisible="1"/>
+
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_invoice" string="Invoice" type="object" icon="fa-file-o"
+                                invisible="subscription_id != False or state not in ['subscription','paid','partial']"
+                        />
+                        <button name="view_subs" string="Subscriptions" type="object" icon="fa-file-o"
+                                invisible="subscription_id == False or state not in ['subscription','paid','partial']"
+                        />
+                        <field name="subscription_id" invisible="1"/>
+
+                        <button name="get_extended_contracts" type="object" class="oe_stat_button"
+                                icon="fa-solid fa-bars" invisible="contact_count == 0">
+                            <div class="o_stat_info">
+                                <field name="contact_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Contracts</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+
+                    <group string="Contract Details">
+
+                        <group>
+
+                            <field name="partner_id" readonly="state != 'draft'"/>
+                            <field name="po_no" invisible="0"/>
+
+                            <field name="contract_type" readonly="state != 'draft'"/>
+                            <field name="date_contract"/>
+                            <field name="amc_bool" invisible="1"/>
+                            <field name="engagement_id" readonly="state != 'draft'" invisible="1"/>
+                            <field name="provision_contracts"/>
+                            <field name="plan_id" invisible="provision_contracts == 'invoice'"/>
+                            <field name="recurring_id"/>
+                            <field name="date_start"/>
+                            <field name="date_end" force_save="1"/>
+                            <field name="context_state" force_save="1" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="project_id"
+                                   context="{'default_is_show': True,'default_contract_type':context_state}"/>
+                            <field name="resource_id" widget="many2many_tags"/>
+                            <field name="industry" invisible="1"/>
+                            <field name="parent_id" invisible="1"/>
+                            <field name="date_sign" invisible="1"/>
+
+                            <field name="company_id" invisible="1"/>
+                            <field name="total_amount"/>
+
+                            <field name="currency_id"/>
+                            <field name="payment_term_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Terms And Conditions">
+                            <field name="terms" placeholder="Terms And Conditions.."/>
+                        </page>
+                        <page string="SLA">
+                            <group>
+                                <group>
+                                    <field name="level1" placeholder="eg:Version details"/>
+                                    <field name="level2"
+                                           placeholder="eg:Document change history, including last reviewed date and next scheduled review"/>
+                                    <field name="level3" placeholder="eg:Document approvals"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Attachments">
+                            <field name="attach_ids" widget="many2many_binary" class="oe_inline"/>
+                        </page>
+                         <page string="Other Info">
+                            <group>
+                                <field name="company_id" invisible="0"/>
+
+                                <field name="allowed_company_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_project_contract_request_tree" model="ir.ui.view">
+        <field name="name">project.contract.request.tree</field>
+        <field name="model">project.contract.request</field>
+        <field name="arch" type="xml">
+            <tree default_order="name desc">
+                <field name="name" string="Request No" optional="hide"/>
+                <field name="po_no" string="Contract No"/>
+                <field name="partner_id"/>
+                <field name="contract_type"/>
+                <field name="project_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="engagement_id"/>
+                <field name="resource_id" widget="many2many_tags"/>
+                <field name="state" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="contract_request_model_view_search" model="ir.ui.view">
+        <field name="name">contract.request.model.search</field>
+        <field name="model">project.contract.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="project_id"/>
+                <field name="partner_id"/>
+                <field name="contract_type"/>
+                <group string="Group By">
+                    <filter name="groupby_project" context="{'group_by' : 'project_id'}" string="Project"/>
+                    <filter name="groupby_customer" context="{'group_by' : 'partner_id'}" string="Customer"/>
+                    <filter name="groupby_contract_type" context="{'group_by' : 'contract_type'}"
+                            string="Contract Type"/>
+                    <filter name="groupby_contract_periode" context="{'group_by' : 'engagement_id'}"
+                            string="Contract Period"/>
+                    <filter name="groupby_start_date" context="{'group_by' : 'date_start'}" string="Start Date"/>
+                    <filter name="groupby_end_date" context="{'group_by' : 'date_end'}" string="End Date"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_project_contract_request_amc" model="ir.ui.view">
+        <field name="name">project.contract.request.amc.form</field>
+        <field name="model">project.contract.request.amc</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_approve" class="oe_highlight" type="object" string="Start"
+                            invisible="state != 'draft'" />
+                    <button name="create_invoice" class="oe_highlight" type="object"
+                            string="Create and View Invoice"
+                            invisible="(state != 'approve') or (provision_contracts == 'subscription')"
+                    />
+                    <button name="create_subscription" class="oe_highlight" type="object"
+                            string="Create and View Subscription"
+                            invisible="(state != 'approve') or (provision_contracts == 'invoice')"/>
+
+                    <button name="button_reject" type="object" string="Cancel"
+                            invisible="1"
+                    />
+                    <button name="button_extend" class="oe_highlight" type="object" string="Extend"
+                            invisible="state not in  ('invoice','subscription')"/>
+                    <!--                    <button name="complete_button" class="oe_highlight" type="object"-->
+                    <!--                            string="Complete"-->
+                    <!--                           invisible="state in ['draft', 'complete',]"/>-->
+
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft" invisible="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_invoice" string="Invoice" type="object" icon="fa-file-o"
+                                invisible="state != 'invoice'"
+                        />
+                        <field name="subscription_id" invisible="1"/>
+                        <button name="view_subs" string="Subscriptions" type="object" icon="fa-file-o"
+                                invisible="subscription_id == False or state not in ['subscription','paid','partial']"
+                        />
+
+                        <button name="get_extended_contracts" type="object" class="oe_stat_button"
+                                icon="fa-solid fa-bars" invisible="contact_count == 0">
+                            <div class="o_stat_info">
+                                <field name="contact_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Contracts</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group string="Contract Details">
+                        <group>
+                            <field name="partner_id" readonly="state != 'draft'"/>
+                            <field name="contract_type" invisible="1"/>
+                            <field name="po_no"/>
+
+                            <field name="date_contract"/>
+                            <field name="amc_bool" invisible="1"/>
+                            <field name="engagement_id" readonly="state != 'draft'" invisible="1"/>
+                            <field name="recurring_id"/>
+
+                        </group>
+                        <group>
+                            <field name="date_start" readonly="state != 'draft'"/>
+                            <field name="date_end" force_save="1"/>
+
+                            <field name="project_id" context="{'default_is_show': True,'default_contract_type':'amc'}"/>
+                            <field name="resource_id" widget="many2many_tags"/>
+
+                            <field name="provision_contracts"/>
+                            <field name="plan_id" invisible="provision_contracts == 'invoice'"/>
+                            <field name="industry" invisible="1"/>
+                            <field name="parent_id" invisible="1"/>
+                            <field name="date_sign" invisible="1"/>
+
+                            <field name="total_amount"/>
+                            <field name="currency_id"/>
+                            <field name="payment_term_id"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Terms And Conditions">
+                            <field name="terms" placeholder="Terms And Conditions.."/>
+                        </page>
+                        <page string="SLA" invisible="1">
+                            <group>
+                                <group>
+                                    <field name="level1" placeholder="eg:Version details"/>
+                                    <field name="level2"
+                                           placeholder="eg:Document change history, including last reviewed date and next scheduled review"/>
+                                    <field name="level3" placeholder="eg:Document approvals"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Attachments">
+                            <field name="attach_amc_ids" widget="many2many_binary"
+                                   class="oe_inline"/>
+                        </page>
+                        <page string="Other Info">
+                            <group>
+                                <field name="company_id" invisible="0"/>
+
+                                <field name="allowed_company_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_project_contract_request_amc_tree" model="ir.ui.view">
+        <field name="name">project.contract.request.amc.tree</field>
+        <field name="model">project.contract.request.amc</field>
+        <field name="arch" type="xml">
+            <tree default_order="name desc">
+                <field name="name" string="Request No" optional="hide"/>
+                <field name="po_no" string="Contract No"/>
+                <field name="partner_id"/>
+                <field name="contract_type" column_invisible="1"/>
+                <field name="project_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="engagement_id" column_invisible="1"/>
+                <field name="state" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="contract_request_amc_model_view_search" model="ir.ui.view">
+        <field name="name">contract.request.model.search</field>
+        <field name="model">project.contract.request.amc</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="project_id"/>
+                <field name="partner_id"/>
+                <group string="Group By">
+                    <filter name="groupby_project" context="{'group_by' : 'project_id'}" string="Project"/>
+                    <filter name="groupby_customer" context="{'group_by' : 'partner_id'}" string="Customer"/>
+
+                    <filter name="groupby_start_date" context="{'group_by' : 'date_start'}" string="Start Date"/>
+                    <filter name="groupby_end_date" context="{'group_by' : 'date_end'}" string="End Date"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_pro_contract_req" model="ir.actions.act_window">
+        <field name="name">Onsite/Offshore</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.contract.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+    <record id="action_pro_contract_req_amc" model="ir.actions.act_window">
+        <field name="name">AMC</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.contract.request.amc</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+    <menuitem id="menu_pro_request_contract" parent="project.menu_main_pm" name="Contract" sequence="82"/>
+    <menuitem id="menu_pro_request_contract_offshore" action="action_pro_contract_req"
+              parent="menu_pro_request_contract" name="Onsite/Offshore" sequence="1"/>
+    <menuitem id="menu_pro_request_contract_amc" action="action_pro_contract_req_amc"
+              parent="menu_pro_request_contract" name="AMC" sequence="2"/>
+</odoo>

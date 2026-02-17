@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_estimations" model="ir.actions.report">
+        <field name="name">Excel Estimation Report</field>
+        <field name="model">kg.crm.estimation</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">kg_crm.report_estimation_xlsx</field>
+        <field name="binding_model_id" ref="kg_crm.model_kg_crm_estimation"/>
+        <field name="report_file">kg_crm.kg_crm_estimation</field>
+    </record>
+</odoo>

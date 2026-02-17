@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <record id="action_contract_order_dashboard" model="ir.actions.client">
+        <field name="name">Contract Order Dashboard</field>
+        <field name="tag">kg_contract_order_dashboard_tag</field>
+    </record>
+
+    <menuitem name="Contract Orders" id="contract_orders_dashboard_menu"
+              parent="kg_timeoff_dashboard.menu_Contract_dashboard_root"
+              groups="hr_contract.group_hr_contract_manager"
+              action="action_contract_order_dashboard" sequence="4"/>
+    <!--              groups="kg_itron_timesheet.group_project_administrator"-->
+
+</odoo>

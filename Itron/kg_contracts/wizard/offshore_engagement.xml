@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <record id="kg_offshore_engagement_report_action" model="ir.actions.act_window">
+            <field name="name">Offshore Engagement</field>
+            <field name="res_model">project.offshore.engagement.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="kg_menu_offshore_engagement_report"
+                  name="Offshore Engagement Report"
+                  action="kg_offshore_engagement_report_action"
+                  parent="project.menu_project_report"/>
+
+        <record id="project_offshore_engagement_wizard_view" model="ir.ui.view">
+            <field name="name">Offshore Engagement Wizard</field>
+            <field name="model">project.offshore.engagement.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <footer>
+                        <button
+                                name="print_excel"
+                                string="Report"
+                                type="object"/>
+
+                        <button string="CANCEL" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

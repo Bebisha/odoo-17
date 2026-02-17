@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_milestone_line_document">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <div class="row mt32 mb32">
+                    <div class="col-6 text-left">
+                        <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
+                             style="max-height: 70px; max-width: 100px;" alt="Logo"/>
+                    </div>
+                    <div class="col-6 text-right">
+                        <img t-if="doc.name.project_logo" t-att-src="image_data_uri(doc.name.project_logo)"
+                             style="max-height: 70px; max-width: 100px;" alt="ProjLogo"/>
+                    </div>
+                </div>
+                <hr/>
+                <div class="oe_structure"/>
+                <h2>
+                    <center>
+                        <span>Project Timeline</span>
+                    </center>
+                </h2>
+                <br/>
+                <div class="row mt32 mb32" id="informations">
+                    <div t-if="doc.name" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Project:
+                            <span class="m-0" t-field="doc.name"/>
+                        </strong>
+                    </div>
+                    <div t-if="doc.start_date" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Project Start Date:
+                            <span class="m-0" t-field="doc.start_date"/>
+                        </strong>
+
+                    </div>
+                </div>
+                <br/>
+                <table class="table table-sm o_main_table">
+                    <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                    <thead style="display: table-row-group">
+                        <tr>
+                            <th name="th_description" class="text-left">Description</th>
+                            <th name="th_days">Days</th>
+                            <th name="th_start_days">Start Date</th>
+                            <th name="th_end_days">End Date</th>
+                            <th name="th_status">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="kg_project_milestone_tbody">
+                        <t t-foreach="doc.milestone_line_ids.sorted(key=lambda a:(a.widget_seq))" t-as="line">
+                            <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else ''">
+                                <t t-if="not line.display_type">
+                                    <td>
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.days"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.line_start_date"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.line_end_date"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="line.state_1 in ['inprogress_b','open']">
+                                            <span style="color:blue;" t-field="line.state_1"/>
+                                        </t>
+                                        <t t-if="line.state_1 in ['inprogress_r','completed_r']">
+                                            <span style="color:red;" t-field="line.state_1"/>
+                                        </t>
+                                        <t t-if="line.state_1 in ['completed_g']">
+                                            <span style="color:green;" t-field="line.state_1"/>
+                                        </t>
+                                        <t t-if="line.state_1 in ['inprogress_o']">
+                                            <span style="color:orange;" t-field="line.state_1"/>
+                                        </t>
+                                    </td>
+                                </t>
+                                <t t-if="line.display_type == 'line_section'">
+                                    <td name="td_section_line" colspan="99">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_milestone_line">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="kg_project_milestone.report_milestone_line_document"/>
+            </t>
+        </t>
+    </template>
+</odoo>

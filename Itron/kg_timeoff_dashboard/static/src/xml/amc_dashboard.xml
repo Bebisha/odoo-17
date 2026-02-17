@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="AMCDashboard">
+        <div class="dashboard-container"
+             style="padding: 20px; background-color: #f9f9f9; font-family: Arial, sans-serif;">
+            <center>
+                <h1 style="margin-bottom: 20px; color: #2c3e50; font-weight: bold;">
+                    AMC Dashboard
+                </h1>
+            </center>
+            <t t-name="amc_module.FilterSection">
+                <div class="d-flex flex-wrap p-3"
+                     style="gap: 29px !important;background-color: #e9ecef; border-radius: 5px;margin-bottom:20px;">
+                    <div class="col-md-1" style=" min-width: 200px;">
+                        <select id="customer_select" class="form-select select-button-style"
+                                t-on-change="(e) => this.updateCustomerFilter(e)">
+                            <option value="0" selected="1">Customer: All</option>
+                            <t t-foreach="state.customerss" t-as="customer" t-key="customer.id">
+                                <option t-att-value="customer.id" t-esc="customer.name"
+                                        t-att-selected="customer.id == state.selectedCustomerId"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-md-1" style=" min-width: 200px;">
+                        <select id="status_val_select" class="form-select select-button-style"
+                                t-on-change="(e) => this.updateStatusFilter(e)">
+<!--                            <option value="">Status: All</option>-->
+                              <option value="" t-att-selected="state.selectedStatusId === ''">Status: All</option>
+                            <t t-foreach="state.StatusVals" t-as="type" t-key="type">
+<!--                                <option t-att-value="type[0]" t-esc="type[1]"-->
+<!--                                        t-att-selected="type[0] == state.selectedStatusId"/>-->
+                                <option t-att-value="type[0]" t-att-selected="type[0] === state.selectedStatusId" t-esc="type[1]"/>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+            </t>
+
+            <div id="dashboard-content"
+                 style="background-color: #ffffff; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                <h1 style="margin-bottom: 20px; color: #2c3e50;font-size:20px;">
+                    AMC
+                </h1>
+                <table class="table table-hover table-striped"
+                       style="width: 100%; border-collapse: collapse; text-align: center;">
+                    <thead style="background-color:#2c3e50; color: #fff;">
+                        <tr>
+                            <!--                            <th style="padding: 12px; font-size: 16px;">Project</th>-->
+                            <th style="padding: 12px; font-size: 16px;">Customer</th>
+                            <th style="padding: 12px; font-size: 16px;">Description</th>
+                            <th style="padding: 12px; font-size: 16px;">Start Date</th>
+                            <th style="padding: 12px; font-size: 16px;">End Date</th>
+                            <th style="padding: 12px; font-size: 16px;">Planned Hrs</th>
+                            <th style="padding: 12px; font-size: 16px;">Spent Hrs</th>
+                            <th style="padding: 12px; font-size: 16px;">Contract Type</th>
+                            <th style="padding: 12px; font-size: 16px;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="state.amc_contracts" t-as="amc" t-key="amc.id">
+                            <tr t-on-click="(e) => this.tot_amc_contracts(e, amc.id)">
+                                <!--                                <td t-esc="amc.project_id"/>-->
+                                <td t-esc="amc.customer_name"/>
+                                <td t-esc="amc.description"/>
+                                <td t-esc="amc.date_start"/>
+                                <td t-esc="amc.date_end"/>
+                                <td t-esc="amc.planned_hrs"/>
+                                <td t-esc="amc.spent_hrs"/>
+                                <td t-esc="amc.contract_type"/>
+<!--                                <t t-set="rebion_status_label" t-value="{ 'pending': 'Hold', 'done': 'Active' }"/>-->
+                                <td t-esc="amc.rebion_status"/>
+<!--                                <td t-esc="rebion_status_label[amc.rebion_status]"/>-->
+                            </tr>
+                        </t>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>

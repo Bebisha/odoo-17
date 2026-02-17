@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_helpdesk_sla,helpdesk_sla,model_helpdesk_sla,,1,1,1,1
+access_helpdesk_ticket_type,helpdesk_ticket_type,model_helpdesk_ticket_type,,1,1,1,1
+access_helpdesk_sla_status_internal_user,helpdesk.sla.status,model_helpdesk_sla_status,base.group_user,1,0,0,0
+access_helpdesk_sla_report_analysis,access_helpdesk_sla_report_analysis,model_helpdesk_sla_report_analysis,base.group_user,1,1,1,1
+
+
+
+
+

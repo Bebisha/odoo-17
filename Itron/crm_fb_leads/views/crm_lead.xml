@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2020 - Today TechKhedut.
+    Part of TechKhedut. See LICENSE file for full copyright and licensing details.-->
+<odoo>
+    <data>
+        <record id="odoo_fb_lead_form_view_inherit" model="ir.ui.view">
+			<field name="name">odoo.fb.lead.form.view.inherit</field>
+			<field name="model">crm.lead</field>
+			<field name="inherit_id" ref="crm.crm_lead_view_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//notebook/page[@name='lead generation']" position="after">
+					<page name="facebook_lead_details" string="Facebook Lead Details" >
+						<group>
+							<field name="fb_page_id" string="Facebook Page ID" />
+							<field name="lead_form_id" string="Lead Form ID" />
+							<field name="fb_lead_id" string="Lead ID" />
+						</group>
+					</page>
+				</xpath>
+			</field>
+		</record>
+         <record id="odoo_fb_lead_form_view_lead_mgmt_inherit" model="ir.ui.view">
+			<field name="name">odoo.fb.lead.form.view.lead.mgmt.inherit</field>
+			<field name="model">crm.lead</field>
+			<field name="inherit_id" ref="crm.crm_lead_view_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//notebook/page[@name='lead generation']" position="after">
+					<page name="facebook_lead_details" string="Facebook Lead Details" >
+						<group>
+							<field name="fb_page_id" string="Facebook Page ID" />
+							<field name="lead_form_id" string="Lead Form ID" />
+							<field name="fb_lead_id" string="Lead ID" />
+						</group>
+					</page>
+				</xpath>
+			</field>
+		</record>
+    </data>
+</odoo>

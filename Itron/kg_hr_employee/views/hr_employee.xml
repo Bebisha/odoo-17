@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='job_title']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='category_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='coach_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//h2" position="before">
+                    <field name="employee_no" invisible="1"/>
+                </xpath>
+<xpath expr="//field[@name='parent_id']" position="before">
+                    <field name="project_team_id" required="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='birthday']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='work_location_id']" position="after">
+                    <field name="date_joining" required="1"/>
+                </xpath>
+                <xpath expr="//h2" position="before">
+                    <field name="employee_no" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='job_title']" position="after">
+                    <group name="employee_id">
+                        <label for="employee_id" string="Employee Id"/>
+                        <div class="o_row mw-50" name="employee_id">
+                            <field name="employee_id" class="oe_inline o_hr_narrow_field" nolabel="1"/>
+                        </div>
+
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='country_id']" position="after">
+                    <field name="country_code_ssnid" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="before">
+                    <field name="project_team_id"/>
+                </xpath>
+
+                <xpath expr="//field[@name='ssnid']" position="replace">
+                    <field name="ssnid" string="Aadhar No." invisible="country_code_ssnid != 'IN'"/>
+                    <field name="ssnid" string="SSN No." invisible="country_code_ssnid != 'US'"/>
+                    <field name="ssnid" string="Emirates ID" invisible="country_code_ssnid != 'AE'"/>
+                    <field name="ssnid" string="Oman ID No" invisible="country_code_ssnid != 'OM'"/>
+                    <field name="ssnid" string="CPR No." invisible="country_code_ssnid != 'BH'"/>
+                </xpath>
+                <xpath expr="//label[@for='private_street']" position="replace">
+                    <label for="private_street" string="Home Country Address"
+                           invisible="country_code_ssnid == 'IN'"/>
+                    <label for="private_street" string="Private Address"
+                           invisible="country_code_ssnid != 'IN'"/>
+                </xpath>
+                <xpath expr="//group[@name='managers']" position="inside">
+                    <field name="early_late_approve_ids" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//group[@name='identification_group']" position="inside">
+                    <field name="hr_manager_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="res_company_form_inherit" model="ir.ui.view">
+            <field name="name">res.company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_info']" position="after">
+                    <page string="Configuration" name="kg_conf">
+                        <group string="Employee">
+                            <group>
+                                <field name="employee_sequence_id"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

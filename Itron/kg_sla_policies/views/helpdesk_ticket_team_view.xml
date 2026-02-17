@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+
+    <record id="helpdesk_team_inherit_for_settings" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.team.form.inherit</field>
+        <field name="model">helpdesk.ticket.team</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_team_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='members']" position="after">
+                <page name="sla_settings" string="Settings">
+                    <h3>Performance</h3>
+                    <setting id="sla"
+                             help="Make sure tickets are handled on time"
+                             documentation="/applications/services/helpdesk/overview/sla.html">
+                        <field name="use_sla"/>
+                        <div class="mt16" invisible="not use_sla">
+                            <label for="resource_calendar_id"/>
+                            <field name="resource_calendar_id" required="use_sla"/>
+                        </div>
+                    </setting>
+                </page>
+            </xpath>
+
+            <!--            <xpath expr="//group[@name='col_left']" position="attributes">-->
+            <!--                <attribute name="colspan">5</attribute>-->
+            <!--            </xpath>-->
+            <!--            <xpath expr="//sheet/widget[@name='web_ribbon']" position="after">-->
+            <!--                <widget name="web_ribbon" title="Refused" bg_color="bg-danger" invisible="state != 'refuse' or not id"/>-->
+            <!--                <widget name="web_ribbon" title="Approved" bg_color="bg-success" invisible="state != 'validate' or not id"/>-->
+            <!--            </xpath>-->
+        </field>
+    </record>
+</odoo>

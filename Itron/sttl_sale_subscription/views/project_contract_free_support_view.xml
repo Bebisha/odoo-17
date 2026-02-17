@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_project_contract_request_free_support" model="ir.ui.view">
+        <field name="name">project.contract.request.free.support.form</field>
+        <field name="model">project.contract.request.free.support</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="set_to_hold" string="Hold"
+                            type="object" class="oe_highlight" data-hotkey="w"
+                            invisible="state not in ['draft', 'active']"/>
+                    <button name="set_to_draft" string="Reset"
+                            type="object" class="oe_highlight" data-hotkey="w"
+                            invisible="state != 'hold'"/>
+                    <field name="state" widget="statusbar" invisible="1"/>
+                    <field name="ribbon_status" widget="statusbar" invisible="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box">
+                        <widget name="web_ribbon" title="Draft" bg_color="bg-info"
+                                invisible="ribbon_status != 'draft'"/>
+                        <widget name="web_ribbon" title="Active" bg_color="bg-success"
+                                invisible="ribbon_status != 'active' "/>
+                        <widget name="web_ribbon" title="Hold" bg_color="bg-warning"
+                                invisible="ribbon_status != 'hold' "/>
+                        <widget name="web_ribbon" title="Expired" bg_color="bg-danger"
+                                invisible="ribbon_status != 'expired' "/>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group string="Contract Details">
+                        <group>
+                            <field name="partner_id" readonly="state == 'expired'"/>
+                            <field name="po_no" invisible="0"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="sale_id"/>
+                        </group>
+                        <group>
+                            <field name="project_id" context="{'default_is_show': True}"/>
+                            <field name="planned_days"/>
+                            <field name="contract_type" readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <group>
+                            <field name="description" string=""/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Other Info">
+                            <group>
+                                <field name="company_id" />
+                                <field name="allowed_company_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_project_contract_free_support_request_tree" model="ir.ui.view">
+        <field name="name">project.contract.request.free.support.tree</field>
+        <field name="model">project.contract.request.free.support</field>
+        <field name="arch" type="xml">
+            <tree default_order="name desc">
+                <field name="name" string="Request No" optional="hide"/>
+                <field name="po_no" string="Contract No"/>
+                <field name="partner_id"/>
+                <field name="contract_type"/>
+                <field name="project_id"/>
+                <field name="planned_days"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="contract_request_free_support_model_view_search" model="ir.ui.view">
+        <field name="name">project.contract.request.free.support.search</field>
+        <field name="model">project.contract.request.free.support</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="project_id"/>
+                <field name="partner_id"/>
+                <field name="contract_type"/>
+                <group string="Group By">
+                    <filter name="groupby_project" context="{'group_by' : 'project_id'}" string="Project"/>
+                    <filter name="groupby_customer" context="{'group_by' : 'partner_id'}" string="Customer"/>
+                    <filter name="groupby_contract_type" context="{'group_by' : 'contract_type'}"
+                            string="Contract Type"/>
+                    <filter name="groupby_start_date" context="{'group_by' : 'date_start'}" string="Start Date"/>
+                    <filter name="groupby_end_date" context="{'group_by' : 'date_end'}" string="End Date"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

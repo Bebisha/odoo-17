@@ -1,0 +1,114 @@
+<odoo>
+    <data>
+
+        <record id="daily_task_assign_wizard_view_form" model="ir.ui.view">
+            <field name="name">daily.task.assign.wizard.view.form</field>
+            <field name="model">daily.task.assign</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="team_id" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="assignee_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="employee_ids" invisible="1"/>
+                            </group>
+                        </group>
+
+                        <separator string="Today's Tasks"/>
+                        <field name="today_task_line_ids">
+                            <tree string="Today's Tasks" editable="False" create="false" delete="false">
+                                <field name="wizard_id" column_invisible="1"/>
+                                <field name="task_id" column_invisible="1"/>
+                                <field name="project_id"/>
+                                <field name="task_name"/>
+                                <field name="start_date"/>
+                                <field name="deadline"/>
+                                <field name="state" optional="hide"/>
+                                <field name="criticality"/>
+                                <field name="task_type"/>
+                                <field name="planned_hrs" sum="Total Planned Hrs" widget="float_time"/>
+                                <field name="spent_hrs" sum="Total Hrs Spent" widget="float_time"/>
+                                <field name="remaining_hrs" sum="Total Rem.Hrs" widget="float_time"/>
+                            </tree>
+                        </field>
+                        <separator string="Overdue Tasks"/>
+                        <field name="overdue_task_line_ids">
+                            <tree string="Overdue Tasks" editable="False" create="false" delete="false">
+                                <field name="wizard_id" column_invisible="1"/>
+                                <field name="task_id" column_invisible="1"/>
+                                <field name="project_id"/>
+                                <field name="task_name"/>
+                                <field name="start_date"/>
+                                <field name="deadline"/>
+                                <field name="state" optional="hide"/>
+                                <field name="criticality"/>
+                                <field name="task_type"/>
+                                <field name="planned_hrs" sum="Total Planned Hrs" widget="float_time"/>
+                                <field name="spent_hrs" sum="Total Hrs Spent" widget="float_time"/>
+                                <field name="add_to" widget="boolean_toggle" invisible="1" />
+                            </tree>
+                        </field>
+                        <separator string="Pending Tasks"/>
+                        <field name="pending_task_line_ids">
+                            <tree string="Pending Tasks" editable="False" create="false" delete="false">
+                                <field name="wizard_id" column_invisible="1"/>
+                                <field name="task_id" column_invisible="1"/>
+                                <field name="project_id"/>
+                                <field name="task_name"/>
+                                <field name="start_date"/>
+                                <field name="deadline"/>
+                                <field name="state" optional="hide"/>
+                                <field name="criticality"/>
+                                <field name="task_type"/>
+                                <field name="planned_hrs" sum="Total Planned Hrs" widget="float_time"/>
+                                <field name="spent_hrs" sum="Total Hrs Spent" widget="float_time"/>
+                                <field name="add_to" widget="boolean_toggle" invisible="1"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <footer>
+                        <button name="action_add_today" icon="fa-tasks" type="object" class="oe_highlight" string="Assign Today"/>
+                        <button string="Close" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_daily_task_assign" model="ir.actions.act_window">
+            <field name="name">Daily Task Analysis</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">daily.task.assign</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_daily_task_assign"
+                action="action_daily_task_assign"
+                name="Daily Task Assign"
+                parent="project.menu_main_pm"
+                sequence="5"/>
+
+
+
+        <record id="kg_edit_project_project_view_form_inherit" model="ir.ui.view">
+            <field name="name">project.project.view.form.kg_edit.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='settings']" position="inside">
+                    <group>
+                        <field name="is_resource_pool_project" string="Is Resource Pool"/>
+                        <field name="is_engagement_project" string="Is Engagement Project"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

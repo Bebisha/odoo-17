@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--        Create an action for printing pdf report-->
+    <record id="paperformat_timesheet_report" model="report.paperformat">
+        <field name="name">Timesheet Report Paper</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Create an action for printing PDF report -->
+    <record id="action_report_print_timesheets" model="ir.actions.report">
+        <field name="name">Timesheet Report</field>
+        <field name="model">timesheet.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_itron_timesheet.report_timesheet_employee</field>
+        <field name="print_report_name">'Timesheet Report - %s' % (object.user_id.name)</field>
+        <field name="paperformat_id" ref="paperformat_timesheet_report"/>
+    </record>
+
+</odoo>

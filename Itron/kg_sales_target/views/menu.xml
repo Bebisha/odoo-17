@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <menuitem id="menu_parent_kg_sales_tracker"
+              name="Sales Tracker"
+              groups="kg_sales_target.kg_sales_tracker_group_user"
+              web_icon="kg_sales_target,static/description/icon.png"
+              sequence="2"/>
+    <menuitem id="menu_sales_target"
+              name="Sales Target"
+              parent="kg_sales_target.menu_parent_kg_sales_tracker"
+              action="kg_sales_target.kg_sales_target_action"
+              sequence="1"/>
+    <menuitem id="menu_sales_tracker"
+              name="Sales Tracker Analysis"
+              parent="kg_sales_target.menu_parent_kg_sales_tracker"
+              action="kg_sales_target.all_kg_sales_tracker_action"
+              sequence="2"/>
+
+    <menuitem id="menu_tracker_config"
+              name="Configuration"
+              groups="kg_sales_target.kg_sales_tracker_group_admin"
+              parent="kg_sales_target.menu_parent_kg_sales_tracker"
+              action="kg_sales_target.all_kg_sales_tracker_action"
+              sequence="3"/>
+    <menuitem id="menu_revenue_head"
+              name="Revenue Head"
+              parent="kg_sales_target.menu_tracker_config"
+              action="kg_sales_target.kg_revenue_head_action"
+              sequence="1"/>
+
+</odoo>
+

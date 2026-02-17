@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_project_task_details_tree" model="ir.ui.view">
+        <field name="name">project.task.tree</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <tree string="Project Task Record">
+                <field name="name" string="Task"/>
+                <field name="project_id"/>
+                <field name="user_ids" widget="many2many_tags"/>
+                <field name="task_type"/>
+                <field name="criticality"/>
+                <field name="date_start"/>
+                <field name="date_deadline" widget="remaining_days"/>
+                <field name="effective_hours"/>
+                <field name="stage_id"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

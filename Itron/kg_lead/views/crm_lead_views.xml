@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_crm_lead_filter_cr" model="ir.ui.view">
+        <field name="name">cr.crm.lead.search.custom</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='saleschannel']" position="after">
+                <filter string="Change Request" name="groupby_change_request" domain="[]"
+                        context="{'group_by':'is_change_req'}"/>
+            </xpath>
+
+        </field>
+    </record>
+    <record id="view_crm_case_opportunities_lead_filter_cr" model="ir.ui.view">
+        <field name="name">cr.crm.lead.case_opportunities.search.custom</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='saleschannel']" position="after">
+                <filter string="Change Request" name="groupby_change_request" domain="[]"
+                        context="{'group_by':'is_change_req'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="custom_crm_case_kanban_view_leads_cr" model="ir.ui.view">
+        <field name="name">custom.crm.lead.kanban.lead.cr</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+            <xpath expr="//templates" position="before">
+                <field name="is_change_req" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="before">
+                <t t-if="record.is_change_req.raw_value">
+                    <div class="d-inline-block mt-1">
+                        <span style="background-color: #865979; color: white; padding: 2px 8px; border-radius: 10px; font-size: 12px;">
+                            Change Request
+                        </span>
+                    </div>
+                    <br/>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

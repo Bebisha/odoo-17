@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.actions.client" id="action_free_support_dashboard">
+        <field name="name">Free Support</field>
+        <field name="tag">free_support_dashboard_tag</field>
+    </record>
+
+    <menuitem action="action_free_support_dashboard"
+              name="Free Support"
+              id="free_support_dashboard_menu"
+              parent="kg_timeoff_dashboard.menu_Contract_dashboard_root"
+              sequence="5"/>
+<!--             groups="hr_contract.group_hr_contract_manager"-->
+
+</odoo>

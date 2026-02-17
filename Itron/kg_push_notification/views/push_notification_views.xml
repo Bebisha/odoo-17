@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="all_push_notification_tree" model="ir.ui.view">
+            <field name="model">push.notification</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="user_id"/>
+                    <field name="message_title"/>
+                    <field name="res_model_name"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="all_push_notification_form_view" model="ir.ui.view">
+            <field name="model">push.notification</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="status" widget="statusbar" statusbar_visible="draft,confirm" string="Status"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="message_title"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="device_id"/>
+                            </group>
+                            <group>
+                                <field name="res_model_name"/>
+                                <field name="res_model_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="body" string="Body">
+                                <field name="message_body" placeholder="Message Body"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="all_push_notification_action" model="ir.actions.act_window">
+            <field name="name">Push Notifications</field>
+            <field name="res_model">push.notification</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!--        <record id="send_push_notification_action" model="ir.actions.server">-->
+<!--            <field name="name">Send Push Notification</field>-->
+<!--            <field name="model_id" ref="kg_push_notification.model_push_notification"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">-->
+<!--                action = model.push_notification()-->
+<!--            </field>-->
+<!--        </record>-->
+        <menuitem id="push_notification_main_menu" name="Push Notification" action="all_push_notification_action"/>
+
+        <menuitem id="all_notification_menu" name="Notifications" parent="push_notification_main_menu"
+                  action="all_push_notification_action"/>
+        <menuitem id="send_push_notification_menu" name="Send" parent="push_notification_main_menu"
+                  action="send_push_notification_action"/>
+    </data>
+</odoo>

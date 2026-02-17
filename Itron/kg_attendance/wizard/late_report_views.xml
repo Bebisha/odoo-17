@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="late_arrival_tree">
+        <field name="name">late.arrival.tree</field>
+        <field name="model">early.late.request</field>
+        <field name="arch" type="xml">
+            <tree string="Late Arrival" default_order="name">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="type"/>
+                <field name="effective_date"/>
+                <field name="time_string" string="Time In"/>
+                <field name="late_hrs"/>
+                <!--                <field name="state"/>-->
+                <field name="company_name"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action for the Late Report Wizard -->
+    <record id="action_late_arrival_report" model="ir.actions.act_window">
+        <field name="name">Late Arrival Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">early.late.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type','=', 'late_arrival')]</field>
+        <field name="context">{'search_default_employee':1}</field>
+        <field name="view_id" ref="kg_attendance.late_arrival_tree"/>
+
+    </record>
+
+    <!-- Menu item for the Late Report Wizard -->
+    <menuitem id="kg_attendance_menu_requests" parent="hr_attendance.menu_hr_attendance_root" sequence="11"
+              name="Requests"/>
+    <menuitem id="menu_late_arrival_reports_action"
+              action="action_late_arrival_report"
+              parent="kg_attendance_menu_requests"
+              name="Late Arrival Report"
+              sequence="2"/>
+
+    <record model="ir.ui.view" id="early_departure_tree">
+        <field name="name">early.departure.tree</field>
+        <field name="model">early.late.request</field>
+        <field name="arch" type="xml">
+            <tree string="Late Arrival" default_order="name">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="type"/>
+                <field name="effective_date"/>
+                <field name="time_string" string="Time Out"/>
+                <field name="early_hrs"/>
+                <field name="company_name"/>
+                <!--                <field name="state"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="cheque_leaf_company_rule" model="ir.rule">
+        <field name="name">Early Departure / Late Arrival Multi-Company Rule</field>
+        <field name="model_id" ref="model_early_late_request"/>
+        <field name="domain_force">['|', ('company_name', '=', False), ('company_name', 'in', company_ids)]</field>
+    </record>
+    <record id="action_early_departure_report" model="ir.actions.act_window">
+        <field name="name">Early Departure Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">early.late.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type','=', 'early_departure')]</field>
+        <field name="context">{'search_default_employee':1}</field>
+        <field name="view_id" ref="kg_attendance.early_departure_tree"/>
+    </record>
+
+    <menuitem id="menu_early_departure_reports_action"
+              action="action_early_departure_report"
+              parent="kg_attendance_menu_requests"
+              name="Early Departure Report"
+              sequence="1"/>
+</odoo>

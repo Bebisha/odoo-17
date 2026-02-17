@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="index_job_portal" name="Job Portal">
+        <t t-call="website.layout">
+            <style>
+                /* Mobile responsiveness */
+                @media (max-width: 768px) {
+                .job-openings-container {
+                width: 100%;
+                padding: 0 10px;
+                }
+                .job-openings-title {
+                font-size: 32px;
+                }
+                .job-row {
+                display: flex;
+                flex-direction: column;
+                border-bottom: 1px solid lightgray;
+                padding: 10px 0;
+                }
+                .job-name, .job-location, .job-details {
+                font-size: 16px;
+                text-align: center;
+                }
+                .job-details a {
+                font-size: 16px;
+                text-decoration: none;
+                }
+                }
+            </style>
+
+            <!-- Snippet area -->
+            <div class="oe_structure" id="oe_structure_hr_recruitment_index_top_id"/>
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-light border-top shadow-sm d-print-none w-100 o_colored_level">
+                <div class="container">
+                    <div class="d-flex flex-column flex-md-row flex-md-wrap flex-lg-nowrap align-items-center justify-content-between w-100">
+                        <!-- Title -->
+                        <span class="navbar-brand h5 my-0 me-sm-auto">Our Job Offers</span>
+                        <!-- Customizations -->
+                        <t t-call="website_hr_recruitment.topbar_customizations"/>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Content -->
+            <div class="container oe_website_jobs">
+                <div class="row pt48 pb16">
+                    <div class="d-none" id="jobs_grid_left_id"/>
+                    <div class="col-lg" id="jobs_grid_id">
+                        <div class="row flex-column">
+                            <t t-if="not jobs">
+                                <div class="col">
+                                    <div t-if="search" class="alert alert-warning text-center" role="alert">
+                                        No results found for '<span t-out="search"/>'.
+                                    </div>
+                                    <div class="alert alert-info text-center text-muted"
+                                         groups="hr_recruitment.group_hr_recruitment_manager">
+                                        Create new job pages from the
+                                        <strong>+
+                                            <i>New</i>
+                                        </strong>
+                                        top-right button.
+                                    </div>
+                                    <div class="col-lg-12 text-center pt24">
+                                        <p class="h5 fw-light text-muted pb24">
+                                            There are currently no open job opportunities,
+                                            <br class="mb-2"/>
+                                            but feel free to <span class="fw-bold">contact us</span> for a spontaneous
+                                            application.
+                                        </p>
+                                        <img class="img-fluid o_we_custom_image pb24"
+                                             src="/website_hr_recruitment/static/src/img/job_not_found.svg"
+                                             style="width: 50% !important;" alt="Job not found"/>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-elif="search and original_search">
+                                <div class="col">
+                                    <div class="alert alert-info text-center" role="alert">
+                                        No results found for '<span t-out="original_search"/>'. Showing results for '
+                                        <span t-out="search"/>'.
+                                        <t t-set="search" t-value="original_search"/>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <t t-if="job_id">
+                <div class="job-openings-container" style="width: 75%; margin: 0 auto; text-align: left;">
+                    <h1 class="job-openings-title" style="text-align: center; margin-bottom: 50px; font-size: 48px;">
+                        Job Openings
+                        <span class="job-openings-underline"
+                              style="display: block; width: 70px; height: 4px; background-color: red; margin: 20px auto;"></span>
+                    </h1>
+                    <table class="job-openings-table" style="width: 100%; margin: 0 auto; border-collapse: collapse;">
+                        <t t-foreach="job_id" t-as="job">
+                            <tr class="job-row" style="width: 100%; border-bottom: 1px solid lightgray;">
+                                <!-- Job Name -->
+                                <td class="job-name" style="padding: 25px 20px; font-size: 24px; font-weight: bold;">
+                                    <t t-esc="job.name"/>
+                                    <t t-if="job.job_code">
+                                        <div style="color: gray; font-size: 18px; margin-top: 10px;">
+                                            JOB ID:
+                                            <t t-esc="job.job_code"/>
+                                            JOB LOCATION
+                                            <t t-esc="job.sudo().address_id.state_id.name"/>
+                                        </div>
+                                    </t>
+                                </td>
+                                <!-- Job Location -->
+                                <td class="job-location"
+                                    style="padding: 25px 20px; text-align: left; color: gray; font-size: 18px;">
+                                    <t t-if="job.address_id">
+                                        <t t-if="job.address_id.street">
+                                            <t t-esc="job.address_id.street"/>
+                                            <br/>
+                                        </t>
+
+                                        <t t-if="job.address_id.street2">
+                                            <t t-esc="job.address_id.street2"/>
+                                            <br/>
+                                        </t>
+
+                                        <t t-if="job.address_id.city">
+                                            <t t-esc="job.address_id.city"/>
+                                            ,
+                                        </t>
+                                        <t t-if="job.address_id.state_id">
+                                            <t t-esc="job.sudo().address_id.state_id.name"/>
+                                            ,
+                                        </t>
+                                        <t t-if="job.address_id.zip">
+                                            <t t-esc="job.address_id.zip"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="job.address_id.country_id">
+                                            <t t-esc="job.address_id.country_id.name"/>
+                                        </t>
+                                    </t>
+                                </td>
+
+                                <!--                                View Details Button-->
+                                <td class="job-details" style="padding: 25px 20px; text-align: center;">
+                                    <a t-attf-href="/job_portal/#{ slug(job) }"
+                                       draggable="false" style="color: red; text-decoration: none; font-size: 18px;">
+                                        <i class="fa fa-share-square" style="margin-right: 8px;"></i>
+                                        View details &amp; Apply
+                                    </a>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Job Detail -->
+    <template id="job_detail" name="Job Detail" track="1">
+        <t t-call="website.layout">
+            <!-- Topbar -->
+            <nav class="navbar navbar-light border-top shadow-sm d-print-none">
+                <div class="container">
+                    <div class="d-flex flex-column flex-md-row flex-md-wrap flex-lg-nowrap justify-content-between w-100">
+                        <!-- Title -->
+                        <span class="navbar-brand h4 my-0 me-auto">
+                            <a t-attf-href="/job_portal">
+                                <i class="fa fa-long-arrow-left text-primary me-2"/>All Jobs
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                <div class="d-flex flex-column flex-md-row flex-md-wrap flex-lg-nowrap w-100">
+                    <div>
+                        <h2 style="margin-top: 30px; margin-bottom: 5px;">
+                            <t t-esc="job.name"/>
+                        </h2>
+                        <t t-if="job.job_code">
+                            <div style="color: gray; font-size: 18px; margin-bottom: 70px;">
+                                <span>JOB ID :</span>
+                                <t t-esc="job.job_code"/>
+                                <br/>
+                                <span>JOB LOCATION :</span>
+                                <t t-esc="job.sudo().address_id.state_id.name"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+
+                <table style="width: 100%; font-size: 20px; line-height: 1.6; border-spacing: 10px;">
+                    <t t-if="job.description">
+
+                        <tr>
+                            <td style="font-weight: bold; vertical-align: top; width: 20%; padding-bottom: 20px;">
+                                Overview
+                            </td>
+                            <td style="width: 80%; color: #6e6e6e; padding-bottom: 20px;">
+                                <t t-esc="job.description"/>
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-if="job.job_rules or job.job_requirements">
+
+                        <tr>
+                            <td style="font-weight: bold; vertical-align: top; width: 20%; padding-bottom: 20px;">
+                                Position Summary
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-if="job.job_rules">
+
+                        <tr>
+                            <td style="font-weight: bold; vertical-align: top; width: 20%; padding-bottom: 20px;">
+                                Responsibilities
+                            </td>
+                            <td style="width: 80%; color: #6e6e6e; padding-bottom: 20px;">
+                                <t t-esc="job.job_rules"/>
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-if="job.job_requirements">
+
+                        <tr>
+                            <td style="font-weight: bold; vertical-align: top; width: 20%; padding-bottom: 20px;">
+                                Requirements
+                            </td>
+                            <td style="width: 80%; color: #6e6e6e; padding-bottom: 20px;">
+                                <t t-esc="job.job_requirements"/>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+
+                <div class="oe_structure">
+                    <section class="o_job_bottom_bar mt24 mb48">
+                        <div class="text-center">
+                            <a role="button" t-attf-href="/job_portal/job_apply/#{job.id}"
+                               class="btn btn-primary btn-lg">Apply
+                                Now!
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- job apply   -->
+    <template id="job_apply">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Apply Job</t>
+
+            <div id="wrap" class="container">
+                <nav aria-label="breadcrumb" class="mt-5">
+                    <ol class="breadcrumb ps-0 mb-0 pb-1">
+                        <li class="breadcrumb-item">
+                            <a href="/job_detail" class="text-secondary fw-bold">Jobs</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <a t-attf-href="/job_portal/job_detail/#{slug(job)}">
+                                <span t-field="job.name"/>
+                            </a>
+                        </li>
+                    </ol>
+                </nav>
+                <h1 class="mb-4">
+                    Job Application Form
+                </h1>
+                <span class="hidden" data-for="hr_recruitment_form"
+                      t-att-data-values="{'department_id': job and job.department_id.id or '', 'job_id': job and job.id or ''}"/>
+                <div id="jobs_section" class="container">
+                    <div class="row">
+                        <section id="forms" class="col-12 col-md-9 s_website_form" data-vcss="001"
+                                 data-snippet="s_website_form">
+                            <div class="container">
+                                <form id="hr_recruitment_form" action="/website/form/" method="post"
+                                      enctype="multipart/form-data" class="o_mark_required row"
+                                      data-mark="*" data-model_name="hr.applicant"
+                                      data-success-mode="redirect" data-success-page="/job-thank-you"
+                                      hide-change-model="true">
+                                    <div class="s_website_form_rows row s_col_no_bgcolor">
+                                        <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="recruitment1">
+                                                    <span class="s_website_form_label_content">Your Name</span>
+                                                    <span class="s_website_form_mark">*</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="recruitment1" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="partner_name" required=""
+                                                           data-fill-with="name"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required"
+                                             data-type="email" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="recruitment2">
+                                                    <span class="s_website_form_label_content">Your Email</span>
+                                                    <span class="s_website_form_mark">*</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="recruitment2" type="email"
+                                                           class="form-control s_website_form_input"
+                                                           name="email_from" required=""
+                                                           data-fill-with="email"/>
+                                                    <div class="alert alert-warning mt-2" id="email-message"
+                                                         style="display:none;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="recruitment3">
+                                                    <span class="s_website_form_label_content">Your Phone Number</span>
+                                                    <span class="s_website_form_mark">*</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="recruitment3" type="tel"
+                                                           class="form-control s_website_form_input"
+                                                           name="partner_phone" required=""
+                                                           data-fill-with="phone"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="recruitment4">
+                                                    <span class="s_website_form_label_content">LinkedIn Profile</span>
+                                                </label>
+                                                <div class="col-sm" style="position: relative">
+                                                    <i class="fa fa-linkedin fa-2x m-1 o_linkedin_icon"
+                                                       style="max-height: 37px;"></i>
+                                                    <input id="recruitment4" type="text"
+                                                           class="form-control s_website_form_input pl64"
+                                                           placeholder="e.g. https://www.linkedin.com/in/fpodoo/"
+                                                           style="padding-left: 40px"
+                                                           name="linkedin_profile"
+                                                           data-fill-with="linkedin_profile"/>
+                                                    <div class="alert alert-warning mt-2" id="linkedin-message"
+                                                         style="display:none;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_custom"
+                                             data-type="binary" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="recruitment6">
+                                                    <span class="s_website_form_label_content">Resume</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="recruitment6" type="file"
+                                                           class="form-control s_website_form_input o_resume_input"
+                                                           name="Resume"/>
+                                                    <span class="text-muted small">Provide either a resume file or a
+                                                        linkedin profile
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-0 py-2 s_website_form_field"
+                                             data-type="text" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="recruitment5">
+                                                    <span class="s_website_form_label_content">Short Introduction</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <textarea id="recruitment5"
+                                                              class="form-control s_website_form_input"
+                                                              placeholder="Optional introduction, or any question you might have about the job…"
+                                                              name="description" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_dnone">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="recruitment7">
+                                                    <span class="s_website_form_label_content">Job</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="recruitment7" type="hidden"
+                                                           class="form-control s_website_form_input"
+                                                           name="job_id"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-0 py-2 s_website_form_field s_website_form_dnone">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="recruitment8">
+                                                    <span class="s_website_form_label_content">Department</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="recruitment8" type="hidden"
+                                                           class="form-control s_website_form_input"
+                                                           name="department_id"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 s_website_form_submit mb64" data-name="Submit Button">
+                                            <div style="width: 200px" class="s_website_form_label"/>
+                                            <a href="#" role="button" class="btn btn-primary btn-lg s_website_form_send"
+                                               id="apply-btn">Submit
+                                            </a>
+                                            <span id="s_website_form_result"></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                        <section class="col-12 col-md-3 ps-5">
+                            <a role="button" t-attf-href="/jobs/#{slug(job)}"
+                               class="btn btn-outline-primary btn-lg mb16 o_apply_description_link">
+                                <i class="oi oi-arrow-left"></i>
+                                Job Description
+                            </a>
+                            <div t-if="job.name" class="d-flex flex-column align-items-baseline">
+                                <span class="text-muted small">Job</span>
+                                <h6 t-field="job.name"/>
+                            </div>
+                            <div class="d-flex flex-column align-items-baseline">
+                                <span class="text-muted small">Location</span>
+                                <h6 t-if="job.address_id" t-field="job.address_id" t-options='{
+                                "widget": "contact",
+                                "fields": ["city"],
+                                "no_tag_br": True,
+                                "no_marker": True
+                            }'/>
+                                <h6 t-else="">Remote</h6>
+                            </div>
+                            <div t-if="job.department_id" class="d-flex flex-column align-items-baseline">
+                                <span class="text-muted small">Department</span>
+                                <h6 t-field="job.department_id"/>
+                            </div>
+                            <div t-if="job.contract_type_id" class="d-flex flex-column align-items-baseline">
+                                <span class="text-muted small">Employment Type</span>
+                                <h6 t-field="job.contract_type_id"/>
+                            </div>
+                            <hr t-if="job.job_details" class="w-50 my-3"/>
+                            <div t-field="job.job_details"/>
+                        </section>
+                    </div>
+                </div>
+                <div class="oe_structure mt-2"/>
+            </div>
+        </t>
+    </template>
+
+    <!-- Remove Header/Footer-->
+    <record id="thankyou" model="website.page">
+        <field name="url">/job-thank-you</field>
+        <field name="is_published">True</field>
+        <field name="website_indexed" eval="False"/>
+        <field name="name">Thank you (Recruitment)</field>
+        <field name="type">qweb</field>
+        <field name="key">website_hr_recruitment.thankyou</field>
+        <field name="arch" type="xml">
+            <t name="Thank you (Recruitment)" t-name="website_hr_recruitment.thankyou">
+                <t t-if="request.session.get('form_builder_model_model', '') == 'hr.applicant'">
+                    <t t-set="job_sudo" t-value="request.website._website_form_last_record().sudo().job_id"/>
+                </t>
+                <t t-call="website.layout">
+                    <style>header{display:none !important;} footer{display:none !important;}</style>
+                    <div id="wrap">
+                        <div class="oe_structure"/>
+                        <div id="jobs_thankyou" class="container">
+                            <div class="row pt24 pb24">
+                                <div class="col pt24 pb24 text-center">
+                                    <h1 class="fw-bolder">Congratulations!</h1>
+                                    <p class="fw-light pb24">
+                                        Your application has been posted successfully,
+                                        <br class="mb-2"/>
+                                        We usually respond within 3 days...
+                                    </p>
+                                    <img class="img-fluid o_we_custom_image"
+                                         t-attf-style="width:{{ '50%' if (job_sudo and job_sudo.user_id) else '25%' }} !important;"
+                                         src="/website_hr_recruitment/static/src/img/job_congratulations.svg"
+                                         alt="Congratulations!"/>
+                                    <div class="row" id="o_recruitment_thank_cta">
+                                        <div class="col-lg-12 text-center mt32 mb48">
+                                            <p>
+                                                <span class="h5 fw-light">In the meantime,</span>
+                                                <br/>
+                                                <span class="h3 mt8 mb32 fw-bold">Take a look around our website:</span>
+                                            </p>
+                                            <a role="button" href="/" class="btn btn-primary btn-lg">Home</a>
+                                            <a role="button" href="/" class="btn btn-primary btn-lg ms-3">About Us</a>
+                                            <a role="button" href="/" class="btn btn-primary btn-lg ms-3">Products</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- HR Recruiter Block -->
+                                <t t-if="job_sudo and job_sudo.user_id">
+                                    <div class="col-lg-4 align-self-center ps-4 o_cc o_cc2 rounded">
+                                        <section class="s_text_block pt24" data-snippet="s_text_block" data-name="Text">
+                                            <div class="container">
+                                                <p class="text-center mb-0 fs-3 lead">Your <b>contact</b> information
+                                                    is:
+                                                </p>
+                                            </div>
+                                        </section>
+                                        <section class="s_company_team pt12" data-snippet="s_company_team"
+                                                 data-name="Team">
+                                            <div class="container-fluid">
+                                                <div class="row justify-content-center">
+                                                    <div class="o_jobs_hr_recruiter col-10 o_cc o_cc1 mt24 p-4 border border-primary rounded shadow">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-lg-5 pb16 o_not_editable">
+                                                                <img t-att-src="image_data_uri(job_sudo.user_id.avatar_256)"
+                                                                     class="img-fluid" loading="lazy"/>
+                                                            </div>
+                                                            <div class="col-lg-7 px-1">
+                                                                <h2 class="o_default_snippet_text text-truncate"
+                                                                    t-field="job_sudo.user_id.name"/>
+                                                                <p class="fw-light text-truncate"
+                                                                   t-field="job_sudo.user_id.job_title"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <ul class="list-unstyled mb-0">
+                                                                <li t-if="job_sudo.user_id.work_phone">
+                                                                    <i class="fa fa-phone fa-fw me-2"></i>
+                                                                    <span class="o_force_ltr"
+                                                                          t-field="job_sudo.user_id.work_phone"/>
+                                                                </li>
+                                                                <li class="d-inline-flex align-items-baseline">
+                                                                    <i class="fa fa-envelope fa-fw me-2"></i>
+                                                                    <span>
+                                                                        <a class="text-break"
+                                                                           t-attf-href="mailto:#{job_sudo.user_id.email}"
+                                                                           t-field="job_sudo.user_id.email"/>
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section class="s_text_block pt24" data-snippet="s_text_block" data-name="Text">
+                                            <div class="container">
+                                                <p class="lead alert px-0">
+                                                    I usually <strong>answer applications within 3 days</strong>.
+                                                    <br/>
+                                                    <br/>
+                                                    The next step is either a call or a meeting in our offices.
+                                                    <br/>
+                                                    <br/>
+                                                    Feel free to <strong>contact me if you want a faster
+                                                    feedback
+                                                </strong> or if you don't get news from me
+                                                    quickly enough.
+                                                </p>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+</odoo>

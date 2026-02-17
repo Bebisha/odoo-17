@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- inherited mail.activity.schedule  -->
+    <record id="mail_activity_schedule_inherited_view_form_id" model="ir.ui.view">
+        <field name="name">mail.activity.schedule.inherit</field>
+        <field name="model">mail.activity.schedule</field>
+        <field name="inherit_id" ref="mail.mail_activity_schedule_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='activity_type_id']" position="before">
+                <field name="helpdesk_id" force_save="1"
+                       invisible="not context.get('from_helpdesk_button') or not helpdesk_id"/>
+            </xpath>
+            <xpath expr="//field[@name='activity_user_id']" position="before">
+                <field name="planned_hours" force_save="1"
+                       invisible="not context.get('from_helpdesk_button')"/>
+            </xpath>
+            <xpath expr="//footer/button[@name='action_schedule_activities']" position="attributes">
+                <attribute name="invisible">context.get('from_helpdesk_button')</attribute>
+            </xpath>
+            <xpath expr="//footer/button[@name='action_schedule_activities_done']" position="attributes">
+                <attribute name="invisible">context.get('from_helpdesk_button')</attribute>
+            </xpath>
+            <xpath expr="//footer/button[@name='action_schedule_activities_done_and_schedule']" position="attributes">
+                <attribute name="invisible">context.get('from_helpdesk_button')</attribute>
+            </xpath>
+            <xpath expr="//footer/button[@name='action_schedule_activities_done_and_schedule']" position="attributes">
+                <attribute name="invisible">context.get('from_helpdesk_button')</attribute>
+            </xpath>
+            <xpath expr="//footer/button[@name='action_schedule_activities']" position="before">
+                <button name="action_schedule_activities" string="Create" type="object" class="btn-primary"
+                        invisible="not context.get('from_helpdesk_button') or has_error" data-hotkey="q"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

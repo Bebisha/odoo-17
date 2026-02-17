@@ -1,0 +1,111 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_resourse_task_tree">
+            <field name="name">res.task.status.tree</field>
+            <field name="model">res.task.status</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="over_due ==1" decoration-success="today==1">
+                    <field name="project_id"/>
+                    <field name="task_id"/>
+                    <field name="user_id"/>
+                    <field name="open" column_invisible="1"/>
+                    <field name="over_due" column_invisible="1"/>
+                    <field name="fixed" column_invisible="1"/>
+                    <field name="held" column_invisible="1"/>
+                    <field name="closed" column_invisible="1"/>
+                    <field name="today" column_invisible="1"/>
+                    <field name="task_type"/>
+                    <field name="date_start"/>
+                    <field name="date_deadline"/>
+                    <field name="criticality"/>
+                    <field name="milestone_id"/>
+                    <field name="stage"/>
+                    <field name="team_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_resourse_status_pivot" model="ir.ui.view">
+            <field name="name">res.task.status</field>
+            <field name="model">res.task.status</field>
+            <field name="arch" type="xml">
+                <pivot string="Sales Analysis" sample="1">
+                    <field name="user_id" type="row"/>
+                    <field name="task_id" type="row"/>
+                    <field name="open" type="measure"/>
+                    <field name="today" type="measure"/>
+                    <field name="over_due" type="measure"/>
+                    <field name="pending_tot" type="measure" string="Pending"/>
+                    <field name="fixed" type="measure"/>
+                    <field name="held" type="measure"/>
+                    <field name="total" type="measure"/>
+                </pivot>
+
+            </field>
+        </record>
+
+        <!--        <record model="ir.ui.view" id="view_project_milestone_status_view_form">-->
+        <!--            <field name="name">res.task.status.form</field>-->
+        <!--            <field name="model">res.task.status</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <form>-->
+        <!--                    <field name="timeline_line_id" invisible="1"/>-->
+        <!--                    <field name="project_id"/>-->
+        <!--                    <field name="milestone_id"/>-->
+        <!--                    <field name="line_start_date"/>-->
+        <!--                    <field name="line_end_date"/>-->
+        <!--                </form>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="view_project_resourse_status_search" model="ir.ui.view">
+            <field name="name">res.task.status.filter</field>
+            <field name="model">res.task.status</field>
+            <field name="arch" type="xml">
+                <search string="Resourse Status">
+                    <field name="project_id"/>
+                    <field name="user_id" string="Assignee"/>
+                    <field name="team_id" />
+<!--                    <field name="domain">[('user_id', '=', user.id)]</field>-->
+                    <group expand="1" string="Group By...">
+                        <filter string="Team" name="groupby_team_id" domain="[]"
+                                context="{'group_by': 'team_id'}"/>
+                        <filter string="Assignee" name="groupby_usr" domain="[]"
+                                context="{'group_by': 'user_id'}"/>
+                        <filter string="Project" name="groupby_project_id" domain="[]"
+                                context="{'group_by': 'project_id'}"/>
+                        <filter string="Task" name="groupby_task_id" domain="[]"
+                                context="{'group_by': 'task_id'}"/>
+
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--        <record id="action_res.task.status" model="ir.actions.act_window">-->
+        <!--            <field name="name">Task View</field>-->
+        <!--            <field name="type">ir.actions.act_window</field>-->
+        <!--            <field name="res_model">res.task.status</field>-->
+        <!--            <field name="context">{'search_default_groupby_team_id':1,'search_default_groupby_usr': 1,}</field>-->
+        <!--            <field name="view_mode">pivot,tree</field>-->
+        <!--            <field name="target">current</field>-->
+        <!--        </record>-->
+
+        <record id="action_ress_task_report" model="ir.actions.server">
+            <field name="name">Task View</field>
+            <field name="model_id" ref="project_task_analysis.model_res_task_status"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.load_task_details()
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_ress_task_report"
+                action="action_ress_task_report"
+                name="Task Report"
+                parent="project.menu_main_pm"
+                sequence="5"/>
+    </data>
+</odoo>

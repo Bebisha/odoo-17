@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Inheriting Helpdesk Management XML to Customize -->
+    <record id="helpdesk_ticket_view_form_inherit_id" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_open_task" class="oe_stat_button" icon="fa-file"
+                            context="{'create': False}" type="object" string="Task's" invisible="not tasks_ids">
+                        <field name="task_count" widget="statinfo" string="Task's"/>
+                    </button>
+                    <button name="action_open_activity" class="oe_stat_button" icon="fa-file"
+                            context="{'create': False}" type="object" string="Activities"
+                            invisible="activity_count == 0">
+                        <field name="activity_count" widget="statinfo" string="Activities"/>
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="//button[@name='assign_to_me']" position="after">
+                <button name="action_create_task" type="object" string="Create Task" class="btn-primary"/>
+                <button name="action_create_activity" type="object" string="Create Activity" class="btn-primary"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_email']" position="after">
+                <field name="project_id" force_save="1" readonly="tasks_ids"/>
+                <field name="pack_project_id" force_save="1" readonly="tasks_ids" invisible="not project_id" domain="[('partner_id', '=', partner_id)]" options="{'no_create': True}"/>
+                <field name="task_tags" force_save="1" widget="many2many_tags" invisible="1"/>
+                <field name="tasks_ids" widget="many2many_tags" force_save="1" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='data_collection']" position="after">
+                <field name="allocated_hours" widget="float_time"/>
+                <field name="hours_spent" force_save="1" widget="float_time"/>
+                <!--                <field name="milestone_id" force_save="1"/>-->
+                <!--                <field name="task_start_date" force_save="1"/>-->
+                <!--                <field name="task_deadline" force_save="1"/>-->
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Inheriting Helpdesk Management Stages XML to Customize -->
+    <record id="helpdesk_ticket_stage_view_form_inherit_id" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.stage.form.inherit</field>
+        <field name="model">helpdesk.ticket.stage</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_ticket_stage_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='unattended']" position="after">
+                <field name="in_progress" force_save="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inheriting Helpdesk Management Teams XML to Customize -->
+    <record id="helpdesk_ticket_team_view_form_inherit_id" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.team.form.inherit</field>
+        <field name="model">helpdesk.ticket.team</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_team_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="is_odoo"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="helpdesk_tickettree_vieww_inherit_id" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.tree.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <field name="hours_spent" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

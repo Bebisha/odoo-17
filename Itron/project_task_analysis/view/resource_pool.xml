@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_resource_pool_pivot" model="ir.ui.view">
+            <field name="name">project.resource.pool.pivot</field>
+            <field name="model">project.resource.pool</field>
+            <field name="arch" type="xml">
+                <pivot sample="1">
+
+                    <field name="date_end"/>
+                    <field name="state" type="row"/>
+                    <field name="name" type="col"/>
+                    <field name="date_start" type="col"/>
+                    <field name="users_id" type="row"/>
+                    <field name="project_id" type="row"/>
+
+                </pivot>
+            </field>
+        </record>
+        <record id="view_resource_pool_gantt" model="ir.ui.view">
+            <field name="name">project.resource.pool.gantt</field>
+            <field name="model">project.resource.pool</field>
+            <field name="arch" type="xml">
+                <gantt date_start="date_start" date_stop="date_end" default_group_by="project_id" color="id">
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="name"/>
+                    <field name="users_id"/>
+                    <field name="project_id"/>
+                    <field name="state_display"/>
+                    <templates>
+                        <div t-name="gantt-popover" class="container-fluid">
+                            <ul>
+                                <li>
+                                    <strong>Name:</strong>
+                                    <t t-esc="name"/>
+                                </li>
+                                <li>
+                                    <strong>Requester :</strong>
+                                    <t t-esc="users_id"/>
+                                </li>
+                                <li>
+                                    <strong>Project :</strong>
+                                    <t t-esc="project_id"/>
+                                </li>
+                                <li>
+                                    <strong>State :</strong>
+                                    <t t-esc="state_display"/>
+                                </li>
+                                <!--                                    <li><strong>Start Date : </strong><t t-esc="date_start"/></li>-->
+                                <!--                                    <li><strong>End Date : </strong><t t-esc="date_end"/></li>-->
+                            </ul>
+
+                        </div>
+                    </templates>
+                </gantt>
+            </field>
+        </record>
+
+        <record id="view_resource_pool_kanban" model="ir.ui.view">
+            <field name="name">project.resource.pool.kanban</field>
+            <field name="model">project.resource.pool</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_modules_kanban">
+                    <field name="name"/>
+                    <field name="users_id"/>
+                    <field name="project_id"/>
+                    <field name="user_ids" widget="many2many_tags"/>
+                    <field name="date_end"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click o_kanban_card"
+                                 t-att-style="'background-color: ' + (record.color ? record.color : '#fff')">
+                                <div class="o_kanban_card_header">
+                                    <h3>
+                                        <field name="name" class="o_kanban_card_title"/>
+                                    </h3>
+                                </div>
+                                <div class="o_kanban_card_body">
+                                    <div class="o_kanban_card_item">
+                                        <i class="fa fa-user"/>
+                                        <field name="users_id"/>
+                                    </div>
+                                    <div class="o_kanban_card_item">
+                                        <i class="fa-solid fa-diagram-project"/>
+                                        <field name="project_id"/>
+                                    </div>
+                                    <div class="o_kanban_card_item">
+                                        <i class="fa fa-users"/>
+                                        <field name="user_ids" widget="many2many_tags"/>
+                                    </div>
+                                    <div class="o_kanban_card_item">
+                                        <i class="fa fa-calendar"/>
+                                        <field name="date_end"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_project_resource_pool" model="ir.ui.view">
+            <field name="name">project.resource.pool.form</field>
+            <field name="model">project.resource.pool</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="request_send" class="oe_highlight" type="object" string="Send Request"
+                                invisible="state != 'confirm'" groups="project_task_analysis.resource_approval_access"/>
+                        <button name="button_confirm" class="oe_highlight" type="object" string="Confirm"
+                                invisible="state != 'draft'" groups="project_task_analysis.resource_approval_access"/>
+                        <button name="button_approve" class="oe_highlight" type="object" string="Approve"
+                                invisible="state not in ['send','discuss']"
+                                groups="project_task_analysis.resource_approval_access"/>
+                        <!--                                attrs="{'invisible':[('state', 'not in', ['send','discuss'])]}"/>-->
+                        <button name="button_reject" class="oe_highlight" type="object" string="Reject"
+                                invisible="state not in ['send','discuss']"
+                                groups="project_task_analysis.resource_approval_access"/>
+                        <!--                                attrs="{'invisible':[('state', 'not in', ['send','discuss'])]}"/>-->
+                        <button name="button_discuss" class="oe_highlight" type="object" string="Discuss"
+                                invisible="state != 'send'" groups="project_task_analysis.resource_approval_access"/>
+                        <!--                                attrs="{'invisible':[('state','!=','send')]}"/>-->
+                        <button name="button_extend" class="oe_highlight" type="object" string="Extend"
+                                invisible="state != 'approve'" groups="project_task_analysis.resource_approval_access"/>
+                        <!--                                attrs="{'invisible':[('state','!=','approve')]}"/>-->
+                        <button name="request_again" class="oe_highlight" type="object" string="Request Again"
+                                invisible="state != 'reject'" groups="project_task_analysis.resource_approval_access"/>
+                        <!--                                attrs="{'invisible':[('state','!=','reject')]}"/>-->
+                        <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                    </header>
+                    <div class="alert alert-info text-center o_form_header" role="alert" invisible="extend_ == False">
+                        <!--                         attrs="{'invisible': [('extend_', '=', False)]}">-->
+                        <!--                          <a class="close" data-dismiss="alert" href="#">x</a>-->
+                        <div>
+                            <strong>This is an extended request for</strong>
+                            <field name="user_ids" required="0" readonly="1"/>
+                        </div>
+
+                    </div>
+                    <sheet>
+
+
+                        <div class="oe_button_box" name="button_box">
+                            <button name="show_task" type="object"
+                                    class="oe_stat_button" icon="fa-solid fa-bars" invisible="task_count == 0">
+                                <!--                                    attrs="{'invisible':[('task_count','==',0)]}">-->
+                                <div class="o_stat_info">
+                                    <field name="task_count" class="o_stat_value"/>
+                                    <span class="o_stat_text">Tasks</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <button name="view_resource_pool" type="object" string="View Resource Pool"
+                                style="float: right;color: #971010;"/>
+
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+
+                        </div>
+                        <group>
+                            <group>
+                                <field name="users_id"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="created_date"/>
+                                <field name="engagement_model"/>
+                                <field name="period"/>
+                                <field name="extend_count" invisible="1"/>
+                                <field name="res_user_ids" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="project_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="extend_" invisible="1"/>
+                                <field name="user_ids" widget="many2many_tags"/>
+                                <field name="milestone_id" domain="[('project_id', '=', project_id)]" invisible="1"/>
+                                <field name="planned_hrs" widget="float_time"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Task Lines">
+                                <field name="task_ids">
+                                    <tree editable="bottom">
+                                        <field name="description"/>
+                                        <field name="task_description"/>
+                                        <field name="milestone_id" domain="[('project_id', '=', parent.project_id)]"/>
+                                        <field name="time_line_id" domain="[('milestone_id', '=', milestone_id)]"/>
+                                        <field name="resource_id" domain="[('id', 'in', parent.user_ids)]"/>
+                                        <field name="mdlname_id" options="{'no_create':True}"/>
+                                        <field name="task_type"/>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="ext_bool" column_invisible="True"/>
+                                        <field name="planned_hrs" sum="Total" widget="float_time"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Important Notes">
+                                <field name="description"
+                                       placeholder="eg:This is a special request for approval. We need this resource ASAP."/>
+                            </page>
+                            <page string="Reject Reason" invisible="state != 'reject'">
+                                <!--                                  attrs="{'invisible':[('state','!=','reject')]}">-->
+                                <field name="reject_res" string="Reject Reason"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+
+        </record>
+
+        <record id="view_project_resource_request_tree" model="ir.ui.view">
+            <field name="name">project.resource.pool.tree</field>
+            <field name="model">project.resource.pool</field>
+            <field name="arch" type="xml">
+                <tree default_order="name desc">
+                    <field name="name"/>
+                    <field name="users_id"/>
+                    <field name="project_id"/>
+                    <field name="user_ids" widget="many2many_tags"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="engagement_model"/>
+                    <field name="period"/>
+                    <field name="state" widget="badge"
+                           decoration-success="state == 'approve'"
+                           decoration-danger="state == 'reject'"
+                           decoration-info="state in( 'send','discuss')"
+                           decoration-warning="state == 'draft'"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id='resource_pool_model_view_search' model='ir.ui.view'>
+            <field name="name">project.resource.pool.search</field>
+            <field name="model">project.resource.pool</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="project_id"/>
+                    <field name="users_id"/>
+                    <field name="name"/>
+                    <field name="user_ids"/>
+                    <field name="created_date"/>
+                    <field name="date_start"/>
+                    <group string="Group By">
+                        <filter name="groupby_employee" context="{'group_by' : 'users_id'}" string="Employee"/>
+                        <filter name="groupby_project_id" context="{'group_by' : 'project_id'}" string="Project"/>
+                        <filter name="groupby_start_date" context="{'group_by' : 'date_start'}" string="Start Date"/>
+                        <filter name="groupby_end_date" context="{'group_by' : 'date_end'}" string="End Date"/>
+                        <filter name="groupby_state" context="{'group_by' : 'state'}" string="Status"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_pro_request_pool" model="ir.actions.act_window">
+            <field name="name">Resource Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.resource.pool</field>
+            <field name="view_mode">tree,form,gantt,kanban,pivot</field>
+            <!--            <field name="target">current</field>-->
+        </record>
+
+
+        <menuitem
+                id="menu_pro_request_pool"
+
+                parent="project.menu_main_pm"
+                name="Request"
+                sequence="80"/>
+
+        <menuitem
+                id="menu_pro_resource_pool"
+                action="action_pro_request_pool"
+
+                parent="menu_pro_request_pool"
+                name="Resource Request"
+                sequence="1"
+                groups="project_task_analysis.resource_approval_access"
+        />
+
+        <record id="view_resource_pool_action" model="ir.actions.server">
+            <field name="name">View Resource Pool</field>
+            <field name="model_id" ref="project_task_analysis.model_project_resource_pool"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.view_resource_pool()
+            </field>
+        </record>
+
+
+        <menuitem
+                id="menu_view_resource_pool"
+                action="view_resource_pool_action"
+                parent="menu_pro_request_pool"
+                name="View Allocations"
+                sequence="2"
+                groups="project_task_analysis.resource_approval_access"
+        />
+
+        <record model="ir.ui.view" id="project_tag_inherit_form_view_id">
+            <field name="name">Project Tags</field>
+            <field name="model">project.tags</field>
+            <field name="inherit_id" ref="project.project_tags_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="is_module"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="action_pro_my_request_pool" model="ir.actions.act_window">
+            <field name="name">My Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.resource.pool</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|',('user_ids','in',uid),('users_id','=',uid)]</field>
+            <field name="context">{'create': False}</field>
+        </record>
+
+        <menuitem
+                id="menu_pro_my_request_pool"
+                action="action_pro_my_request_pool"
+                parent="menu_pro_request_pool"
+                name="My Request"
+                sequence="90"/>
+
+    </data>
+</odoo>

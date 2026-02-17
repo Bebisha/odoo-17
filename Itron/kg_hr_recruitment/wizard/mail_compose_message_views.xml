@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Inheriting the mail compose wizard  form view to add fields -->
+    <record id="mail_compose_message_inherit_view_id" model="ir.ui.view">
+        <field name="name">mail.compose.message Form</field>
+        <field name="model">mail.compose.message</field>
+        <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+        <field name="arch" type="xml">
+            <!-- Hide the group div for hr.applicant -->
+            <xpath expr="//label[@for='partner_ids']" position="attributes">
+                <attribute name="invisible">context.get('default_model') == 'hr.applicant'</attribute>
+            </xpath>
+            <xpath expr="//group/div" position="attributes">
+                <attribute name="invisible">context.get('default_model') == 'hr.applicant'</attribute>
+            </xpath>
+            <!-- show the group div for hr.applicant -->
+            <xpath expr="//field[@name='subject']" position="before">
+                <label for="email_to" string="Recipients"
+                       invisible="context.get('default_model') != 'hr.applicant' or composition_mode != 'comment' or subtype_is_log"/>
+                <div groups="base.group_user"
+                     invisible="context.get('default_model') != 'hr.applicant' or composition_mode != 'comment' or subtype_is_log">
+                    <field name="email_to" placeholder="Add email to notify..."/>
+                </div>
+                <field name="email_cc_ids" widget="many2many_tags"
+                       invisible="context.get('default_model') != 'hr.applicant'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

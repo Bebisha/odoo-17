@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="module_helpdesk_category">
+            <field name="name">Helpdesk</field>
+            <field name="description">Helps you handle your helpdesk security.</field>
+            <field name="sequence">9</field>
+        </record>
+    </data>
+    <data noupdate="0">
+        <!--Email template -->
+
+
+        <record id="assignment_email_template" model="mail.template">
+            <field name="name">Helpdesk Ticket Assigned Notification Email</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <field name="partner_to">{{ object.user_id.partner_id.id }}</field>
+            <field name="subject">Ticket Reference (Ref {{ object.number or 'n/a' }}) submitted successfully</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <strong t-esc="object.user_id.partner_id.parent_id.name or object.user_id.partner_id.name"/>
+                        <br/>
+                        <br/>
+                        Ticket assigned to you.
+                        <br/>
+                        <br/>
+                        Your ticket tracking number is<strong t-esc="object.number or ''"/>. Kindly resolve it as soon
+                        as
+                        possible.
+                        <br/>
+                        <b>Subject :</b>
+                        <strong t-esc="object.name or ''"/>.
+                        <br/>
+                        <b>Category :</b>
+                        <strong t-esc="object.category_id.name or ''"/>.
+                        <br/>
+                        <b>Application :</b>
+                        <strong t-esc="object.application_id.name or ''"/>.
+                        <br/>
+                        <br/>
+                        Sincerely,
+                        <br/>
+                        <br/>
+                        KG Support Team
+                    </p>
+                </div>
+            </field>
+        </record>
+
+
+        <record id="closed_ticket_template" model="mail.template">
+            <field name="name">Helpdesk Ticket Closed Notification Email</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="subject">Ticket Reference (Ref {{ object.number or 'n/a' }}) closed successfully</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <strong t-esc="object.partner_id.parent_id.name or object.partner_id.name"/>
+                        <br/>
+                        <br/>
+                        We just want to let you know that the support request
+                        <strong t-esc="object.number or ''"/>
+                        is resolved.
+                        <br/>
+                        <br/>
+                        Please let us know if you have additional questions or concerns. We’re here to help!
+                        Thank you for being a valuable customer.
+                        <br/>
+                        <br/>
+                        Sincerely,
+                        <br/>
+                        <br/>
+                        KG Support Team
+                    </p>
+                </div>
+            </field>
+        </record>
+
+
+        <record id="changed_stage_template" model="mail.template">
+            <field name="name">Helpdesk Ticket Stage Change Notification Email</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="subject">Ticket Reference (Ref {{ object.number or 'n/a' }}) moved to {{ object.stage_id.name
+                or 'n/a' }}
+            </field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <strong t-esc="object.partner_id.parent_id.name or object.partner_id.name"/>
+                        <br/>
+                        <br/>
+                        Thanks so much for reaching out!
+                        <br/>
+                        <br/>
+                        We’ve received your
+                        <strong t-esc="object.category_id.name or ''"/>
+                        request, and we just want to let you know that we’re working on it.
+                        You’ll hear back from us soon.The ticket reference is
+                        <strong t-esc="object.number or ''"/>
+                        <br/>
+                        <br/>
+                        Please let us know if you have additional questions or concerns. We’re here to help!
+                        Thank you for being a valuable customer.
+                        <br/>
+                        <br/>
+                        Sincerely,
+                        <br/>
+                        <br/>
+                        KG Support Team
+                    </p>
+                </div>
+            </field>
+        </record>
+
+
+        <record id="new_ticket_template" model="mail.template">
+            <field name="name">Helpdesk Ticket Created Notification Email</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="subject">Ticket Reference (Ref {{ object.number or 'n/a' }}) submitted successfully</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <strong t-esc="object.partner_id.parent_id.name or object.partner_id.name"/>
+                        <br/>
+                        <br/>
+                        Thank you for sending your request.
+                        <br/>
+                        <br/>
+                        Your ticket tracking number is<strong t-esc="object.number or ''"/>. Our team is working on
+                        resolving
+                        your issue and you will receive an email notification as soon as it gets resolved.We appreciate
+                        your patience.
+                        <br/>
+                        <b>Subject :</b>
+                        <strong t-esc="object.name or ''"/>.
+                        <br/>
+                        <b>Category :</b>
+                        <strong t-esc="object.category_id.name or ''"/>.
+                        <br/>
+                        <b>Application :</b>
+                        <strong t-esc="object.application_id.name or ''"/>.
+                        <br/>
+                        <br/>
+                        If you have any further questions or concerns, please let us know.
+                        Thank you for being a valuable customer.
+                        <br/>
+                        <br/>
+                        Sincerely,
+                        <br/>
+                        <br/>
+                        KG Support Team
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <record id="new_ticket_template_users" model="mail.template">
+            <field name="name">Helpdesk Ticket Created Notification Email to Helpdesk Users</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <field name="partner_to"></field>
+            <field name="subject">Ticket Reference (Ref {{ object.number or 'n/a' }}) submitted successfully</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear Team,
+                        <br/>
+                        <br/>
+                        You have received a new ticket from
+				<strong t-esc="object.partner_id.parent_id.name or object.partner_id.name"/>.
+
+                        <br/>
+                        <br/>
+                        Your ticket number is <strong t-esc="object.number or ''"/>. Kindly review this issue at your
+                        earliest convenience.
+                        <br/>
+                        <b>Subject :</b>
+                        <strong t-esc="object.name or ''"/>.
+                        <br/>
+                        <b>Category :</b>
+                        <strong t-esc="object.category_id.name or ''"/>.
+                        <br/>
+
+                        <br/>
+                        Sincerely,
+                        <br/>
+                        <br/>
+                        KG Support Team
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <record id="rejected_ticket_template_users_id" model="mail.template">
+            <field name="name">Helpdesk Ticket Rejected Notification Email to Helpdesk Users</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <field name="partner_to"></field>
+            <field name="subject">Ticket Reference (Ref {{ object.number or 'n/a' }}) rejected</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <strong t-esc="object.partner_id.parent_id.name or object.partner_id.name"/>
+                        <br/>
+                        <br/>
+                        Your ticket number <strong t-esc="object.number or ''"/> has been rejected for the following reason.
+                        <br/>
+                        <span t-esc="object.reject_reason"/>
+
+                        <br/>
+                        <br/>
+                        Sincerely,
+                        <br/>
+                        <br/>
+                        KG Support Team
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <record id="new_ticket__transfer_template" model="mail.template">
+            <field name="name">Helpdesk Ticket Stage Change Notification Email</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="subject">Ticket Reference (Ref {{ object.number or 'n/a' }}) Changed The Stage</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <strong t-esc="object.partner_id.parent_id.name or object.partner_id.name"/>
+                        <br/>
+                        <br/>
+                        Thank you for sending your request.
+                        <br/>
+                        <br/>
+                        Your ticket tracking number is
+                        <strong t-esc="object.number or ''"/>
+
+                        <t t-if="object.stage_id.name == 'Data Request'">
+                            we are requesting more data about this ticket
+                        </t>
+                        <t t-if="object.stage_id.name == 'Configuration Completed'">
+                            the configuration is completed
+                        </t>
+                        <t t-if="object.stage_id.name == 'Go Live'">
+                            set to go live!!!
+                        </t>
+                        <t t-else="">
+                            stage is changed
+                        </t>
+
+                        <br/>
+                        <b>Subject :</b>
+                        <strong t-esc="object.name or ''"/>.
+                        <br/>
+                        <b>Category :</b>
+                        <strong t-esc="object.category_id.name or ''"/>.
+                        <br/>
+                        <b>Application :</b>
+                        <strong t-esc="object.application_id.name or ''"/>.
+                        <br/>
+                        <br/>
+                        If you have any further questions or concerns, please let us know.
+                        Thank you for being a valuable customer.
+                        <br/>
+                        <br/>
+                        Sincerely,
+                        <br/>
+                        <br/>
+                        KG Support Team
+                    </p>
+                </div>
+            </field>
+        </record>
+
+
+        <record id="new_ticket_data_request_template" model="mail.template">
+            <field name="name">Helpdesk Ticket Stage Change To Data Request</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <!--            <field name="email_to">vishnu.klystron@gmail.com</field>-->
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="subject">Ticket Reference (Ref {{ object.number or 'n/a' }}) Requesting More Data</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <strong t-esc="object.partner_id.parent_id.name or object.partner_id.name"/>
+                        <br/>
+                        <br/>
+                        Thank you for sending your request.
+                        <br/>
+                        <br/>
+                        Your ticket tracking number is
+                        <strong t-esc="object.number or ''"/>
+                        we are requesting more data about this ticket
+                        <br/>
+                        <b>Subject :</b>
+                        <strong t-esc="object.name or ''"/>.
+                        <br/>
+                        <b>Category :</b>
+                        <strong t-esc="object.category_id.name or ''"/>.
+                        <br/>
+                        <b>Application :</b>
+                        <strong t-esc="object.application_id.name or ''"/>.
+                        <br/>
+                        <br/>
+                        If you have any further questions or concerns, please let us know.
+                        Thank you for being a valuable customer.
+                        <br/>
+                        <br/>
+                        Sincerely,
+                        <br/>
+                        <br/>
+                        KG Support Team
+                    </p>
+                </div>
+            </field>
+        </record>
+        <record id="new_ticket_configuration_complete_template" model="mail.template">
+            <field name="name">Helpdesk Ticket Configuration is Completed</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="subject">Ticket Reference (Ref {{ object.number or 'n/a' }}) Configuration is Completed</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <strong t-esc="object.partner_id.parent_id.name or object.partner_id.name"/>
+                        <br/>
+                        <br/>
+                        Thank you for sending your request.
+                        <br/>
+                        <br/>
+                        Your ticket tracking number is
+                        <strong t-esc="object.number or ''"/>
+                        The Configuration is completed
+                        <br/>
+                        <b>Subject :</b>
+                        <strong t-esc="object.name or ''"/>.
+                        <br/>
+                        <b>Category :</b>
+                        <strong t-esc="object.category_id.name or ''"/>.
+                        <br/>
+                        <b>Application :</b>
+                        <strong t-esc="object.application_id.name or ''"/>.
+                        <br/>
+                        <br/>
+                        If you have any further questions or concerns, please let us know.
+                        Thank you for being a valuable customer.
+                        <br/>
+                        <br/>
+                        Sincerely,
+                        <br/>
+                        <br/>
+                        KG Support Team
+                    </p>
+                </div>
+            </field>
+        </record>
+        <record id="new_ticket_go_live_template" model="mail.template">
+            <field name="name">Helpdesk Ticket Ready To Go Live</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="subject">Ticket Reference (Ref {{ object.number or 'n/a' }}) Ready To Go Live</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <strong t-esc="object.partner_id.parent_id.name or object.partner_id.name"/>
+                        <br/>
+                        <br/>
+                        Thank you for sending your request.
+                        <br/>
+                        <br/>
+                        Your ticket tracking number is
+                        <strong t-esc="object.number or ''"/>
+                        All Set To Go Live!!!
+                        <br/>
+                        <b>Subject :</b>
+                        <strong t-esc="object.name or ''"/>.
+                        <br/>
+                        <b>Category :</b>
+                        <strong t-esc="object.category_id.name or ''"/>.
+                        <br/>
+                        <b>Application :</b>
+                        <strong t-esc="object.application_id.name or ''"/>.
+                        <br/>
+                        <br/>
+                        If you have any further questions or concerns, please let us know.
+                        Thank you for being a valuable customer.
+                        <br/>
+                        <br/>
+                        Sincerely,
+                        <br/>
+                        <br/>
+                        KG Support Team
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_template_data_request" model="mail.template">
+            <field name="name">Additional Information Notification</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <field name="partner_to">{{object.partner_id.id }}</field>
+            <field name="subject">Returned for Additional Information for Ticket: (Ref {{ object.number or 'n/a' }})
+            </field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p>Dear,
+                        <strong t-esc="object.partner_id.parent_id.name or object.partner_id.name"/>
+                        <br/>
+                        <br/>
+                        We are reaching out to request additional information needed for your ticket:
+                        <strong t-esc="object.name or ''"/>
+                        (Ref:<strong t-esc="object.number or 'n/a'"/>).
+                        <br/>
+                        <br/>
+                        <strong>Data needed:</strong>
+                        <br/>
+                        <t t-esc="object.return_reason or 'n/a'"/>
+                        <strong>Description:</strong>
+                        <br/>
+                        <t t-esc="object.description or 'n/a'"/>
+                        <br/>
+
+                        Kindly review the ticket and provide the required information at your earliest convenience.
+                        <br/>
+                        <br/>
+                        If you have any questions or need further clarification, please feel free to contact us.
+                        <br/>
+                        <br/>
+                        Thank you for your cooperation.
+                        <br/>
+                        <br/>
+                        Sincerely,
+                        <br/>
+                        <br/>
+                        KG Support Team
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <!-- Sequence -->
+        <record id="helpdesk_ticket_sequence" model="ir.sequence">
+            <field name="name">Helpdesk Ticket Sequence</field>
+            <field name="code">helpdesk.ticket.sequence</field>
+            <field name="prefix">HT</field>
+            <field name="padding">5</field>
+            <field name="company_id"/>
+        </record>
+
+        <!-- Sequence -->
+        <!--        <record id="helpdesk_ticket_sequence" model="ir.sequence">-->
+        <!--            <field name="name">Helpdesk Ticket Sequence</field>-->
+        <!--            <field name="code">helpdesk.ticket.sequence</field>-->
+        <!--            <field name="prefix">HT</field>-->
+        <!--            <field name="padding">5</field>-->
+        <!--            <field name="company_id"/>-->
+        <!--        </record>-->
+        <!-- Stages -->
+        <!--        <record id="helpdesk_ticket_stage_new" model="helpdesk.ticket.stage">-->
+        <!--            <field name="sequence">1</field>-->
+        <!--            <field name="name">New</field>-->
+        <!--            <field name="unattended">True</field>-->
+        <!--            <field name="closed">False</field>-->
+        <!--            <field name="mail_template_id" ref="helpdesk_mgmt.new_ticket_template"/>-->
+        <!--            <field name="company_id"/>-->
+        <!--        </record>-->
+        <!--        <record id="helpdesk_ticket_stage_in_progress" model="helpdesk.ticket.stage">-->
+        <!--            <field name="sequence">2</field>-->
+        <!--            <field name="name">In Progress</field>-->
+        <!--            <field name="unattended">False</field>-->
+        <!--            <field name="closed">False</field>-->
+        <!--            <field name="company_id"/>-->
+        <!--        </record>-->
+        <!--        <record id="helpdesk_ticket_stage_awaiting" model="helpdesk.ticket.stage">-->
+        <!--            <field name="sequence">3</field>-->
+        <!--            <field name="name">Awaiting</field>-->
+        <!--            <field name="unattended">False</field>-->
+        <!--            <field name="closed">False</field>-->
+        <!--            <field name="company_id"/>-->
+        <!--        </record>-->
+        <!--        <record id="helpdesk_ticket_stage_done" model="helpdesk.ticket.stage">-->
+        <!--            <field name="sequence">4</field>-->
+        <!--            <field name="name">Done</field>-->
+        <!--            <field name="unattended">False</field>-->
+        <!--            <field name="closed">True</field>-->
+        <!--            <field name="fold">True</field>-->
+        <!--            <field name="mail_template_id" ref="helpdesk_mgmt.closed_ticket_template"/>-->
+        <!--            <field name="company_id"/>-->
+        <!--        </record>-->
+        <record id="helpdesk_ticket_stage_cancelled" model="helpdesk.ticket.stage">
+            <field name="sequence">5</field>
+            <field name="name">Cancelled</field>
+            <field name="unattended">False</field>
+            <field name="closed">True</field>
+            <field name="fold">True</field>
+            <field name="company_id"/>
+        </record>
+
+        <record id="helpdesk_ticket_stage_rejected_id" model="helpdesk.ticket.stage">
+            <field name="sequence">6</field>
+            <field name="name">Rejected</field>
+            <field name="unattended">False</field>
+            <field name="mail_template_id" ref="helpdesk_mgmt.rejected_ticket_template_users_id"/>
+            <field name="fold">True</field>
+            <field name="company_id"/>
+        </record>
+
+        <!-- Channels -->
+        <record id="helpdesk_ticket_channel_web" model="helpdesk.ticket.channel">
+            <field name="name">Web</field>
+        </record>
+        <record id="helpdesk_ticket_channel_email" model="helpdesk.ticket.channel">
+            <field name="name">Email</field>
+        </record>
+        <record id="helpdesk_ticket_channel_phone" model="helpdesk.ticket.channel">
+            <field name="name">Phone</field>
+        </record>
+        <record id="helpdesk_ticket_channel_other" model="helpdesk.ticket.channel">
+            <field name="name">Other</field>
+        </record>
+        <!--default alias for leads-->
+        <record id="mail_alias_lead_info_helpdesk" model="mail.alias">
+            <field name="alias_name">help</field>
+            <field name="alias_model_id" ref="model_helpdesk_ticket"/>
+            <field name="alias_user_id" ref="base.user_admin"/>
+            <field name="alias_parent_model_id" ref="model_helpdesk_ticket_team"/>
+        </record>
+
+
+        <!--        ASB Customer Onboard Stages-->
+
+        <!--        <record id="helpdesk_ticket_stage_request" model="helpdesk.ticket.stage">-->
+        <!--            <field name="sequence">7</field>-->
+        <!--            <field name="name">Data Request</field>-->
+        <!--            <field name="unattended">True</field>-->
+        <!--            <field name="closed">False</field>-->
+        <!--&lt;!&ndash;            <field name="mail_template_id" ref="helpdesk_mgmt.new_ticket_template" />&ndash;&gt;-->
+        <!--            <field name="company_id" />-->
+        <!--        </record>-->
+
+
+        <record id="helpdesk_ticket_stage_attained" model="helpdesk.ticket.stage">
+            <field name="sequence">7</field>
+            <field name="name">Returned</field>
+            <field name="is_email">True</field>
+            <field name="unattended">True</field>
+            <field name="closed">False</field>
+            <field name="mail_template_id" ref="helpdesk_mgmt.email_template_data_request"/>
+            <field name="company_id"/>
+        </record>
+
+
+    </data>
+</odoo>

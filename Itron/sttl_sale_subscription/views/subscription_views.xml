@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sttl_subscription_search_view" model="ir.ui.view">
+        <field name="name">Contract</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="subscription_status"/>
+            </xpath>
+            <xpath expr="//filter[@name='salesperson']" position="after">
+                <filter name="subscription_state" string="status" context="{'group_by': 'subscription_status'}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="kg_contract_tree" model="ir.ui.view">
+        <field name="name">sale.order.contract.view.tree</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <tree string="Contracts">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="kg_lpo"/>
+                <field name="amount_total"/>
+                <field name="amount_paid" column_invisible="1"/>
+                <field name="kg_total_received" string="Amount Paid"/>
+                <field name="next_invoice_date"/>
+
+                <!--                    <field name="invoice_status"/>-->
+                <field name="current_invoice_status" widget="badge" options="{'class': 'o_status_tag'}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sttl_subscription_action" model="ir.actions.act_window">
+        <field name="name">Contract</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('recurrance_id', '!=', False)]</field>
+        <field name="search_view_id" ref="sttl_subscription_search_view"/>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('kg_contract_tree')})]"/>
+        <field name="context">{'default_sale_type': 'contract'}</field>
+    </record>
+
+
+    <!-- model.name action window -->
+    <record id="sttl_subscription_quote_action" model="ir.actions.act_window">
+        <field name="name">Quotations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state','=','draft'),('sale_type', '=', 'contract')]</field>
+    </record>
+
+    <record model="ir.ui.view" id="subscription_so_line_pivot">
+        <field name="name">sale.order.line.</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Contract Lines">
+                <field name="order_id" type="row"/>
+                <field name="product_id" type="col"/>
+                <!-- <field name="subscription_status" type="measure"/> -->
+                <field name="product_uom_qty" invisible="1"/>
+                <field name="customer_lead" invisible="1"/>
+                <!-- <field name="qty_delivered_manual" invisible="1"/> -->
+                <field name="discount" invisible="1"/>
+                <field name="qty_delivered" invisible="1"/>
+                <field name="qty_invoiced" invisible="1"/>
+                <field name="prev_added_qty" invisible="1"/>
+                <field name="sequence" invisible="1"/>
+                <field name="price_subtotal" invisible="1"/>
+                <field name="price_tax" invisible="1"/>
+                <field name="price_reduce_taxexcl" invisible="1"/>
+                <field name="price_reduce_taxinc" invisible="1"/>
+                <!-- <field name="price_reduce" invisible="1"/> -->
+                <field name="qty_to_invoice" invisible="1"/>
+                <!-- <field name="price_total" invisible="1"/> -->
+                <field name="price_unit" invisible="1"/>
+                <field name="untaxed_amount_to_invoice" invisible="1"/>
+                <field name="untaxed_amount_invoiced" invisible="1"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- subscription_pivot_action action window -->
+    <record id="subscription_so_line_pivot_action" model="ir.actions.act_window">
+        <field name="name">subscription</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.line</field>
+        <field name="view_mode">pivot</field>
+        <field name="domain">[('order_id.recurrance_id', '!=', False)]</field>
+        <field name="view_id" ref="subscription_so_line_pivot"/>
+    </record>
+
+    <record id="kg_subsription_res_partmer_action" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[
+            ('sale_order_ids.sale_type', '=', 'contract')
+            ]
+        </field>
+    </record>
+
+    <menuitem id="sttl_subscription_menu_act" name="Contract" sequence="40"
+              web_icon="sttl_sale_subscription,static/description/icon.png"/>
+    <menuitem id="sttl_subscription_submenu_act" parent="sttl_subscription_menu_act" name="Contract" sequence="1"/>
+    <menuitem id="sttl_subscription_submenu1_act1" parent="sttl_subscription_submenu_act" name="Contract"
+              action="sttl_subscription_action" sequence="1"/>
+    <!--    <menuitem id="quotations_menu_act" name="Quotations" parent="sttl_subscription_submenu_act"-->
+    <!--              action="sttl_subscription_quote_action" sequence="2"/>-->
+    <menuitem id="menu_kg_customers"
+              name="Customers"
+              parent="sttl_subscription_submenu_act"
+              action="kg_subsription_res_partmer_action"
+              sequence="3"/>
+    <menuitem id="sttl_subscription_config_menu_act" name="Configuration" parent="sttl_subscription_menu_act"
+              sequence="5"/>
+
+    <menuitem id="subscription_reporting_menu_act" name="Reporting" parent="sttl_subscription_menu_act" sequence="4"/>
+    <menuitem id="subscription_reporting_submenu_act" name="Reporting" parent="subscription_reporting_menu_act"
+              action="subscription_so_line_pivot_action" sequence="4"/>
+
+</odoo>

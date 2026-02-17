@@ -1,0 +1,397 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+
+    <record id="kg_project_timeline_tree" model="ir.ui.view">
+        <field name="name">kg.project.timeline.tree</field>
+        <field name="model">kg.project.timeline</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="company_id"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'"
+                       decoration-warning="state == 'in_progress'" decoration-success="state == 'completed'"
+                       decoration-danger="state == 'cancel'"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--    <record id="kg_project_timeline_search_new" model="ir.ui.view">-->
+    <!--        <field name="name">kg.project.timeline.new.search</field>-->
+    <!--        <field name="model">kg.project.timeline</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <search>-->
+    <!--                <field name="name"/>-->
+    <!--                <field name="start_date"/>-->
+    <!--                <field name="company_id"/>-->
+    <!--                <field name="state"/>-->
+    <!--                <filter string="Draft" domain="[('state','=','draft')]"/>-->
+    <!--                <filter string="In Progress" domain="[('state','=','in_progress')]"/>-->
+    <!--                <filter string="Completed" domain="[('state','=','completed')]"/>-->
+    <!--                <filter string="Cancelled" domain="[('state','=','cancel')]"/>-->
+    <!--            </search>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+
+    <record id="kg_project_stages_group" model="ir.ui.view">
+        <field name="name">project.task.tree.kg</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date_deadline"/>
+                <field name="stage_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Timeline tree view  -->
+    <record id="kg_time_line_tree_view_id" model="ir.ui.view">
+        <field name="name">TimeLine.Tree.View</field>
+        <field name="model">timeline.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="widget_seq" widget="handle"/>
+                <field name="sequence" string="Sequence"/>
+
+                <field name="name" widget="section_and_note_text" optional="show"
+                       readonly="state == 'completed'"/>
+                <field name="milestone_id" domain="[('project_id','=',parent.name)]"
+                       context="{'default_project_id' : parent.name}"
+                       readonly="state == 'completed'"/>
+                <field name="display_type" force_save="1" column_invisible="1"/>
+                <field name="description" column_invisible="1"
+                       readonly="state == 'completed'"/>
+                <field name="days" readonly="state == 'completed'" sum="Total"/>
+                <field name="line_start_date" readonly="state =='completed'"
+                       options='{"datepicker": {"daysOfWeekDisabled": [6]}}'/>
+                <field name="line_end_date" readonly="state == 'completed'"
+                       options='{"datepicker": {"daysOfWeekDisabled": [6]}}'/>
+                <!--                <field name="completed_date" readonly="state == 'completed'"-->
+                <!--                       options='{"datepicker": {"daysOfWeekDisabled": [6]}}'-->
+                <!--                       optional="hide"/>-->
+                <field name="remark" optional="hide"/>
+                <field name="overlap" widget="toggle_button"/>
+                <field name="is_sub_task" optional="hide"/>
+                <field name="user_ids" optional="hide" widget="many2many_tags" invisible="1"/>
+                <!--                <field name="done_date" column_invisible="1"/>-->
+                <field name="done_date" optional="hide" readonly="state == 'completed'"/>
+                <field name="state_1" widget="badge"
+                       decoration-info="state_1 in ('inprogress_b','open')"
+                       decoration-danger="state_1 in ('inprogress_r','completed_r')"
+                       decoration-success="state_1 == 'completed_g'"
+                       decoration-warning="state_1 == 'inprogress_o'"
+                />
+                <field name="state" column_invisible="1"/>
+                <button title="Done" name="done_click" type="object" class="fa fa-check"
+                        invisible="state =='completed'"/>
+                <button title="Reset" name="reset_click" type="object" class="fa fa-reply"
+                        invisible="state != 'completed'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- adding filters in tree view-->
+    <record id="timeline_line_filters_id" model="ir.ui.view">
+        <field name="name">timeline line filters</field>
+        <field name="model">timeline.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="state_1"/>
+                <filter string="Open" name="my_open" domain="[('state_1', '=', 'open')]"/>
+                <filter string="In progress" name="my_inprogress"
+                        domain="[('state_1', 'in', ['inprogress_b', 'inprogress_o', 'inprogress_r'])]"/>
+                <filter string="Completed" name="my_completed"
+                        domain="[('state_1', 'in', ['completed_g', 'completed_r'])]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="kg_project_timeline_form" model="ir.ui.view">
+        <field name="name">kg.project.timeline.form</field>
+        <field name="model">kg.project.timeline</field>
+        <field name="arch" type="xml">
+            <form string="Project Timeline">
+                <header>
+                    <button string="In progress" name="button_in_progress" type="object" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button string="Completed" name="button_completed" type="object" class="oe_highlight"
+                            invisible="state != 'in_progress'"/>
+                    <button string="Compute" name="button_compute" type="object" class="oe_highlight"
+                            invisible="state not in('draft','in_progress')"/>
+                    <button name="create_revision" invisible="state not in('draft','in_progress')"
+                            string="Create New Revision" type="object"/>
+                    <button name="sort_order_lines"
+                            string="Auto Sequence "
+                            groups="kg_project_milestone.timeline_user_access"
+                            type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                                name="action_view_revisions"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file-archive-o"
+                                invisible="has_old_revisions == False or revision_count == '0'"
+                        >
+
+                            <field
+                                    name="revision_count"
+                                    widget="statinfo"
+                                    string="Prev. revisions"
+                            />
+                        </button>
+                        <!--                        <button name="action_view_tasks" type="object" class="oe_stat_button">-->
+                        <!--                            <field name="task_count" widget="statinfo"/>-->
+                        <!--                        </button>-->
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" options="{'no_create': True, 'no_create_edit': True}"
+                                   readonly="state == 'completed'"/>
+                            <field name="company_id"/>
+                            <field name="week_start" required="1"/>
+                            <field name="has_old_revisions" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="start_date"
+                                   readonly="state == 'completed'"
+                                   options='{"datepicker": {"daysOfWeekDisabled": [0, 6]}}'/>
+                            <field name="current_revision_id"
+                                   invisible="current_revision_id == False"/>
+                            <field name="assignees_list" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Milestone Lines" name="milestone_lines">
+                            <field name="milestone_line_ids" widget="section_and_note_one2many" mode="tree"
+                                   readonly="state == 'completed'" context="{'default_my_id': active_id}">
+                                <tree string="Milestone Lines" editable="bottom">
+                                    <control>
+                                        <create name="add_line_control" string="Add a Line"/>
+                                        <create name="add_section_control" string="Add a section"
+                                                context="{'default_display_type': 'line_section'}"/>
+                                    </control>
+
+                                    <field name="widget_seq" widget="handle"/>
+                                    <field name="sequence" string="Sequence" column_invisible="1"/>
+
+                                    <!--                                    <button title="Refresh" name="refresh_click" type="object" class="fa fa-refresh"-->
+                                    <!--                                            invisible="state =='completed'"/>-->
+                                    <field name="name" string="Activity" widget="section_and_note_text" optional="show"
+                                           readonly="state == 'completed'"/>
+                                    <field name="milestone_id" domain="[('project_id','=',parent.name)]"
+                                           context="{'default_project_id' : parent.name}"
+                                           readonly="state == 'completed'"/>
+
+                                    <field name="display_type" force_save="1" column_invisible="1"/>
+                                    <field name="description" column_invisible="1"
+                                           readonly="state == 'completed'"/>
+                                    <field name="days" readonly="state == 'completed'" sum="Total"/>
+                                    <field name="line_start_date" readonly="state =='completed'"
+                                           options='{"datepicker": {"daysOfWeekDisabled": [6]}}'/><!-- options='{"datepicker": {"daysOfWeekDisabled": [0, 6]}}'-->
+                                    <field name="line_end_date" readonly="state == 'completed'"
+                                           options='{"datepicker": {"daysOfWeekDisabled": [6]}}'/><!-- options='{"datepicker": {"daysOfWeekDisabled": [0, 6]}}'-->
+                                    <!--                                    <field name="completed_date" readonly="state == 'completed'"-->
+                                    <!--                                           options='{"datepicker": {"daysOfWeekDisabled": [6]}}'-->
+                                    <!--                                           optional="hide"/>-->
+                                    <field name="days_spent_hrs" readonly="1"/>
+                                    <field name="remark" optional="hide"/>
+                                    <field name="overlap" widget="toggle_button"/>
+                                    <field name="project_rel_id" optional="hide"/>
+
+                                    <field name="is_sub_task" optional="hide"/>
+                                    <field name="user_ids" optional="hide" widget="many2many_tags" invisible="1"/>
+                                    <!--                                    <field name="done_date" column_invisible="1"/>-->
+                                    <field name="done_date" optional="hide" readonly="state == 'completed'"/>
+                                    <field name="state_1" widget="badge"
+                                           decoration-info="state_1 in ('inprogress_b','open')"
+                                           decoration-danger="state_1 in ('inprogress_r','completed_r')"
+                                           decoration-success="state_1 == 'completed_g'"
+                                           decoration-warning="state_1 == 'inprogress_o'"
+                                    />
+                                    <field name="state" column_invisible="1"/>
+                                    <button title="Done" name="done_click" type="object" class="fa fa-check"
+                                            invisible="state =='completed'"/>
+                                    <!--                                                attrs="{'invisible': [('state','=','completed')]}"/>-->
+                                    <button title="Reset" name="reset_click" type="object" class="fa fa-reply"
+                                            invisible="state != 'completed'"/>
+                                    <!--                                    <button string="Project Update"  type="object"  name="create_project_update" class="btn-primary"-->
+                                    <!--                                            />-->
+                                    <button string="Task" name="view_tasks" type="object" class="btn-primary"
+                                    />
+                                    <button string="Updates" type="object" name="view_created_updates"
+                                            class="btn-primary"
+                                    />
+
+                                    <!--                                                attrs="{'invisible': [('state','!=','completed')]}"/>-->
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Timeline" name="milestone_lines_sec"
+                              groups="kg_project_milestone.timeline_user_access">
+                            <div class="o_kg_project_timeline_tree_class">
+
+                                <field name="milestone_line_sec_ids" widget="section_and_note_one2many" mode="tree"
+                                       readonly="state == 'completed'"
+                                       context="{'default_my_id': active_id}">
+                                    <!--                                      attrs="{'readonly': [('state','=', 'completed')]}"-->
+                                    <tree decoration-bf="is_section == True" string="Milestone Lines"
+                                          editable="bottom">
+                                        <control>
+                                            <create name="add_line_control" string="Add a Line"/>
+                                        </control>
+                                        <field name="widget_seq" widget="handle"/>
+                                        <field name="sequence" column_invisible="1"/>
+                                        <button title="Refresh" name="refresh_click" type="object"
+                                                readonly="state == 'completed'" invisible="is_section == True"
+                                                class="fa fa-refresh"/>
+                                        <!--                                                attrs="{'invisible': [('state','=','completed')],'invisible': [('is_section','=',True)]}"/>-->
+                                        <field name="name" widget="section_and_note_text" optional="show"
+                                               readonly="state == 'completed'"/>
+                                        <!--                                               attrs="{'readonly': [('state','=','completed')]}"/>-->
+                                        <field name="milestone_id" domain="[('project_id','=',parent.name)]"
+                                               context="{'default_project_id' : parent.name}"
+                                               readonly="state == 'completed'" invisible="is_section == True"/>
+                                        <!--                                               attrs="{'readonly': [('state','=','completed')],'invisible': [('is_section','=',True)]}"/>-->
+                                        <field name="display_type" force_save="1" column_invisible="1"/>
+                                        <field name="is_sunday" column_invisible="1"/>
+                                        <field name="is_sunday_end" column_invisible="1"/>
+                                        <field name="description" column_invisible="1" readonly="state == 'completed'"/>
+                                        <!--                                               attrs="{'readonly': [('state','=','completed')],'invisible': [('is_section','=',True)]}"/>-->
+                                        <field name="days" readonly="state == 'completed'" sum="Total"/>
+                                        <!--                                               attrs="{'readonly': [('state','=','completed')],'invisible': [('is_section','=',True)]}"/>-->
+                                        <field name="line_start_date"
+                                               options='{"datepicker": {"daysOfWeekDisabled": [6]}}'
+                                               readonly="state == 'completed'"
+                                               decoration-danger="is_sunday == True"/><!-- options='{"datepicker": {"daysOfWeekDisabled": [0, 6]}}'-->
+                                        <!--                                        attrs="{'readonly': [('state','=','completed')]}"-->
+                                        <field name="line_end_date"
+                                               options='{"datepicker": {"daysOfWeekDisabled": [6]}}'
+                                               readonly="state == 'completed'"
+                                               decoration-danger="is_sunday_end == True"/><!-- options='{"datepicker": {"daysOfWeekDisabled": [0, 6]}}'-->
+                                        <!--                                                                                       attrs="{'readonly': [('state','=','completed')]}"-->
+
+                                        <!--                                        <field name="completed_date"-->
+                                        <!--                                               options='{"datepicker": {"daysOfWeekDisabled": [6]}}'-->
+                                        <!--                                               optional="hide"-->
+                                        <!--                                               invisible="is_section == True" readonly="state == 'completed'"/>-->
+                                        <!--                             attrs="{'readonly': [('state','=','completed')],'invisible': [('is_section','=',True)]}"-->
+
+                                        <field name="overlap" widget="toggle_button"
+                                               invisible="is_section == True"/>
+                                        <!--                                               attrs="{'invisible': [('is_section','=',True)]}"/>-->
+                                        <field name="is_section" optional="hide"/>
+                                        <button title="Add Sub" name="create_subsequence_call" type="object"
+                                                class="fa fa-plus"/>
+                                        <field name="state_1" widget="badge"
+                                               decoration-info="state_1 in ('inprogress_b','open')"
+                                               decoration-danger="state_1 in ('inprogress_r','completed_r')"
+                                               decoration-success="state_1 == 'completed_g'"
+                                               decoration-warning="state_1 == 'inprogress_o'"
+                                               invisible="is_section == True"
+                                        />
+                                        <!--                                                                                       attrs="{'invisible': [('is_section','=',True)]}"-->
+
+                                        <field name="state" column_invisible="1"/>
+                                        <field name="is_sub_task" optional="hide"/>
+                                        <field name="user_ids" optional="hide" widget="many2many_tags"
+                                               invisible="1"/>
+                                        <button title="Done" name="done_click" type="object" class="fa fa-check"
+                                                invisible="state == 'completed' or is_section == True"/>
+                                        <!--                                                attrs="{'invisible': ['|', ('state', '=', 'completed'), ('is_section', '=', True)]}"-->
+                                        <button title="Reset" name="reset_click" type="object" class="fa fa-reply"
+                                                invisible="state != 'completed' or is_section == True"/>
+                                        <!--                                                attrs="{'invisible': ['|', ('state', '!=', 'completed'), ('is_section', '=', True)]}"/>-->
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="Other Info">
+                            <group>
+                                <group>
+                                    <field name="add_remark"/>
+                                    <field name="allowed_company_ids" widget="many2many_tags"/>
+
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+                    <button name="action_view_filter_lines" class="btn btn-primary" type="object"
+                            string="View Lines"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_project_timeline_filter" model="ir.ui.view">
+        <field name="name">kg.project.timeline.search</field>
+        <field name="model">kg.project.timeline</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <!--                <field name="start_date"/>-->
+                <field name="company_id"/>
+                <field name="state"/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('state','=','in_progress')]"/>
+                <filter string="Completed" name="complete" domain="[('state','=','completed')]"/>
+                <filter string="Cancelled" name="cancel" domain="[('state','=','cancel')]"/>
+                <!--            </search>-->
+                <group expand="1" string="Group By">
+                    <filter string="Project" name="group_by_project" context="{'group_by': 'name'}"/>
+                    <filter string="Company" name="group_by_company" context="{'group_by': 'company_id'}"/>
+                    <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="kg_project_timeline_menu_action" model="ir.actions.act_window">
+        <field name="name">Project Timelines</field>
+        <field name="res_model">kg.project.timeline</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Project Timelines"
+              groups="project.group_project_manager"
+              parent="project.menu_main_pm"
+              id="kg_project_timeline_menu"
+              action="kg_project_timeline_menu_action"
+              sequence="99"/>
+
+    <record id="action_set_milestone_ids" model="ir.actions.server">
+        <field name="name">Update Timeline</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_kg_project_timeline"/>
+        <field name="binding_model_id" ref="model_kg_project_timeline"/>
+        <field name="groups_id" eval="[(4, ref('kg_project_milestone.timeline_user_access'))]"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records :
+            action = records.update_time_line()
+        </field>
+    </record>
+<!--    <record id="action_upload_milestone_ids" model="ir.actions.server">-->
+<!--        <field name="name">Upload Milestone Line</field>-->
+<!--        <field name="type">ir.actions.server</field>-->
+<!--        <field name="model_id" ref="model_kg_project_timeline"/>-->
+<!--        <field name="binding_model_id" ref="model_kg_project_timeline"/>-->
+<!--        <field name="groups_id" eval="[(4, ref('kg_project_milestone.timeline_user_access'))]"/>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="code">-->
+<!--            if records :-->
+<!--            action = records.upload_milestone_line()-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>

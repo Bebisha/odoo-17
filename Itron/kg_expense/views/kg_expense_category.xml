@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="kg_expense_category_tree" model="ir.ui.view">
+        <field name="model">kg.expense.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="internal_ref"/>
+                <field name="category_name"/>
+                <field name="company_id"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="kg_expense_category_form_view" model="ir.ui.view">
+        <field name="model">kg.expense.category</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <sheet>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="category_name"/>
+                        <h1>
+                            <field name="category_name" placeholder="e.g. Lunch"/>
+                        </h1>
+                    </div>
+                    <group name="product_details">
+                        <group string="General Information">
+                            <field name="internal_ref"/>
+                            <field name="company_id"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page name="note" string="Note">
+                            <field name="note" placeholder="Type an internal note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="kg_expense_category_action" model="ir.actions.act_window">
+        <field name="name">Category</field>
+        <field name="res_model">kg.expense.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

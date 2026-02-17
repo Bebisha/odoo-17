@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_amc_dashboard_id" model="ir.actions.client">
+        <field name="name">AMC Dashboard</field>
+        <field name="tag">kg_amc_dashboard</field>
+    </record>
+    <record id="action_contract_dashboard_id" model="ir.actions.client">
+        <field name="name">Onsite/Offshore Dashboard</field>
+        <field name="tag">kg_contract_dashboard</field>
+    </record>
+</odoo>

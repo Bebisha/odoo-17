@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+    <record id="all_approval_access" model="res.groups">
+        <field name="name">All Approver</field>
+        <field name="comment">Final Approver/Notification Receiver for approvals</field>
+    </record>
+    <!-- Rule for Employees: Access to Their Own Records -->
+    <record id="rule_early_late_request_employee" model="ir.rule">
+        <field name="name">Employee Access to Own Requests</field>
+        <field name="model_id" ref="model_early_late_request"/>
+        <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Rule for Admin: Access to All Records -->
+    <record id="rule_early_late_request_admin" model="ir.rule">
+        <field name="name">Administrator Access to All Requests</field>
+        <field name="model_id" ref="model_early_late_request"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <!-- Rule for Time-Off Manager: Access to All Records -->
+    <record id="rule_early_late_request_timeoff_manager" model="ir.rule">
+        <field name="name">Timeoff Manager Access to All Requests</field>
+        <field name="model_id" ref="model_early_late_request"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('hr_holidays.group_hr_holidays_manager'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+</data>
+</odoo>

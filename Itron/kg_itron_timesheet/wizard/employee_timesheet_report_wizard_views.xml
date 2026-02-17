@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="employee_timesheet_report_wizard_form_id" model="ir.ui.view">
+        <field name="name">employee.timesheet.report.wizard.form</field>
+        <field name="model">employee.timesheet.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Employee Timesheet Report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="employee_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="View" name="action_view_timesheet" type="object" class="btn-primary"/>
+                    <button string="Cancel" name="cancel" type="object" special="cancel" class="btn-cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_timesheet_report_wizard_action_id" model="ir.actions.act_window">
+        <field name="name">Employee Timesheet Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.timesheet.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <menuitem id="employee_timesheet_report_wizard_menu_id"
+              name="Employee Timesheet Report Date"
+              parent="hr_timesheet.menu_timesheets_reports"
+              action="employee_timesheet_report_wizard_action_id"
+              sequence="11"/>
+</odoo>

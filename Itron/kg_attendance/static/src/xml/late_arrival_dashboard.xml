@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Template for the Advanced Dashboard -->
+<templates id="template_late_coming" xml:space="preserve">
+    <t t-name="late_coming_dashboard">
+        <div style="font-family: 'Arial', sans-serif; background-color: #f5f5f5; padding: 30px; border-radius: 10px;margin: 0 auto;">
+            <!-- Header without background color and simplified font style -->
+            <h1 style="text-align: center; color: #333; font-size: 36px; margin-bottom: 30px; padding: 15px 0;">
+                <span style="font-weight: normal;">Today's Late Comers</span>
+            </h1>
+
+            <!--            &lt;!&ndash; Company Selection Dropdown on the same line &ndash;&gt;-->
+            <!--            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 30px;">-->
+            <!--                <label for="company_select" style="font-weight: bold; font-size: 18px; color: #333; margin-right: 10px;">-->
+            <!--                    Select Company:-->
+            <!--                </label>-->
+            <!--                <select id="company_select" style="padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; width: 220px; transition: all 0.3s ease;">-->
+            <!--                    <t t-foreach="state.companies" t-as="company" t-key="company.id">-->
+            <!--                        <option t-att-value="company.id" t-esc="company.name" t-att-selected="company.id == state.selectedCompanyId"/>-->
+            <!--                    </t>-->
+            <!--                </select>-->
+            <!--            </div>-->
+
+            <!-- Table Section -->
+            <table style="width: 100%; margin-top: 30px; border-collapse: collapse; text-align: center; font-size: 16px; border-radius: 10px; overflow: hidden; border: 1px solid #ddd;">
+                <thead style="background-color: black; color: white; text-transform: uppercase; font-weight: bold;">
+                    <tr>
+                        <th style="padding: 15px;width: 20%; ">Employee</th>
+                        <th style="padding: 15px; width: 20%;">Late By</th>
+                        <th style="padding: 15px; width: 20%;">Time of Arrival</th>
+                        <th style="padding: 15px; width: 20%;">Weekly Late Hours</th>
+                        <th id="late-header" style="padding: 15px; width: 20%;">Monthly Late Hours</th>
+                    </tr>
+                </thead>
+
+                <!--                <script>-->
+                <!--                    const currentDate = new Date();-->
+
+                <!--                    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];-->
+
+                <!--                    const currentMonth = months[currentDate.getMonth()];-->
+
+                <!--                    document.getElementById("late-header").innerHTML = Total Late(${currentMonth});-->
+                <!--                </script>-->
+                <tbody>
+                    <!-- Dynamic rows for filtered employees -->
+<!--                        <t t-if="state.filteredEmployee and state.filteredEmployee.length>0">-->
+                    <t t-foreach="state.filteredEmployees" t-as="employee" t-key="employee.id">
+                        <tr style="background-color: #fff; border-bottom: 1px solid #ddd; transition: background-color 0.3s ease;">
+                            <td style="padding: 12px; color: #333; font-weight: bold;"
+                                t-on-click="(e) => this.tot_late(e, employee.id)">
+<!--                                <a t-att-href="'/update_is_show_back?record_id=' + employee.id + '&amp;model_name=early.late.request'"-->
+                                <!--                                   style="color: #007bff; text-decoration: none;">-->
+                                <t t-esc="employee.name"/>
+                                <!--                                </a>-->
+                            </td>
+
+                            <td style="padding: 12px; color: #f44336;"
+                                t-on-click="(e) => this.current_late(e, employee.id)">
+<!--                                <a t-att-href="'/update_is_show_back?record_id=' + employee.id + '&amp;model_name=early.late.request'"-->
+                                <!--                                   style="color: #f44336; text-decoration: none;">-->
+                                <t t-esc="employee.late_by"/>
+                                <!--                                </a>-->
+                            </td>
+                            <td style="padding: 12px; color: #333;"
+                                t-on-click="(e) => this.current_late(e, employee.id)">
+<!--                            <a t-att-href="'/update_is_show_back?record_id=' + employee.id + '&amp;model_name=early.late.request'"-->
+                                <!--                               style="color: #f44336; text-decoration: none;">-->
+                                <t t-esc="employee.arrival_time"/>
+                                <!--                            </a>-->
+                        </td>
+                            <td style="padding: 12px; color: #333;"
+                                t-on-click="(e) => this.weekly_late(e, employee.id)">
+
+                                <t t-esc="employee.week_late"/>
+                        </td>
+                            <td style="padding: 12px; color: #333;" t-on-click="(e) => this.tot_late(e, employee.id)">
+<!--                            <a t-att-href="'/portal/early_late_request_tree_view?employee_id=' + employee.employee_id"-->
+                                <!--                               style="color: #007bff; text-decoration: none;">-->
+                                <t t-esc="employee.monthly_late"/>
+                                <!--                            </a>-->
+                        </td>
+
+                        </tr>
+                    </t>
+<!--                </t>-->
+<!--                    <t t-else="">-->
+<!--                       <td> No Employee came Late.</td>-->
+<!--                    </t>-->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Hover Effects and Animations for Table Rows -->
+        <style>
+            table tbody tr:hover {
+                background-color: #f3e5f5;
+                cursor: pointer;
+            }
+            select:focus {
+                outline: none;
+                border: 1px solid #6a1b9a;
+                box-shadow: 0 0 5px rgba(106, 27, 154, 0.5);
+            }
+        </style>
+    </t>
+</templates>

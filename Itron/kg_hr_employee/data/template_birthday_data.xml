@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="email_birthday_wishes_employee_template_" model="mail.template">
+            <field name="name">Birthday Wishes Template</field>
+            <field name="subject">Birthday Wishes {{object.name}}</field>
+            <field name="email_from">${user.email|safe}</field>
+            <field name="email_to">{{object.work_email}}</field>
+            <field name="model_id" ref="kg_hr_employee.model_hr_employee"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <p>Dear <t t-out="  object.name or ''"/>,
+                <p>Happy Birthday..!</p>
+                <p>May your day be filled with joy and your year ahead be full of happiness and success.</p>
+               <p>Sending you smiles and good vibes for every moment of your special day. Enjoy every second of it!</p>
+                <p style="font-size: 15px;">
+                <p style="text-align: left;">
+            <img src="/kg_hr_employee/static/src/description/Happy Birthday.gif" style="width: 50%;"/>
+        </p>
+                <br></br>
+                Warm Wishes from,
+                <br/>
+                <strong>Klystron Global</strong>
+                </p>
+            ]]>
+            </field>
+        </record>
+
+        <record id="email_work_anniversary_notification_template" model="mail.template">
+            <field name="name">Work Anniversary Wishes Template</field>
+            <field name="subject">Work Anniversary Wishes ${object.name}</field>
+            <field name="email_from">${user.work_email|safe}</field>
+            <field name="email_to">${object.work_email|safe}</field>
+            <field name="model_id" ref="kg_hr_employee.model_hr_employee"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html">
+                <![CDATA[
+                <p>Dear ${object.name},</p>
+                <p>Date: ${object.first_contract_date}</p>
+                <p>Congratulations on your work anniversary..!</p>
+                <p>We appreciate your energy, your kindness, and all the work you do, but most of all, we just appreciate you!<br/>Hope you have a great Year Ahead. Stay Happy.Your Family at <strong>${user.company_id.name}</strong></p>
+                <p style="font-size: 12px;">
+                <br></br>
+                Wishes From : <strong>${user.company_id.name}</strong>
+                </p>
+            ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

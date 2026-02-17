@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <record id="cron_weekly_late_arrival_report" model="ir.cron">
+            <field name="name">Weekly Late Arrival Report</field>
+            <field name="model_id" ref="model_early_late_request"/>
+            <field name="state">code</field>
+            <field name="code">model.send_weekly_late_arrival_report()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">weeks</field>
+            <!--            <field name="nextcall">2024-12-16 14:00:00</field>-->
+            <field name="numbercall">-1</field>
+        </record>
+        <record id="ir_cron_auto_approve_late_requests" model="ir.cron">
+            <field name="name">Auto Approve Late Requests</field>
+            <field name="model_id" ref="model_early_late_request"/>
+            <field name="state">code</field>
+            <field name="code">model.auto_approve_late_requests()</field>
+            <field name="interval_number">1</field>
+            <field name="numbercall">-1</field>
+            <field name="interval_type">minutes</field>
+            <field name="active">True</field>
+        </record>
+        <record id="cron_monthly_late_arrival_report" model="ir.cron">
+            <field name="name">Monthly Late Arrival Report</field>
+            <field name="model_id" ref="model_early_late_request"/>
+            <field name="state">code</field>
+            <field name="code">model.monthly_late_arrival_report()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+        </record>
+    </data>
+</odoo>

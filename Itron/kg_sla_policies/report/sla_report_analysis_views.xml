@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="helpdesk_sla_report_analysis_view_pivots" model="ir.ui.view">
+        <field name="name">helpdesk.sla.report.analysis.pivot</field>
+        <field name="model">helpdesk.sla.report.analysis</field>
+        <field name="arch" type="xml">
+            <pivot string="SLA Status Analysis" sample="1">
+                <field name="team_id" type="row"/>
+                <field name="sla_ids" type="row"/>
+                <field name="sla_status_failed"/>
+                <field name="sla_status" type="col"/>
+                <field name="ticket_close_hours" widget="float_time"/>
+                <field name="ticket_assignation_hours" widget="float_time"/>
+                <field name="sla_exceeded_hours" widget="float_time"/>
+            </pivot>
+        </field>
+    </record>
+
+<!--    <record id="sis_helpdesk_sla_report_analysis_action" model="ir.actions.act_window">-->
+<!--        <field name="name">SLA Status Analysis</field>-->
+<!--        <field name="res_model">helpdesk.sla.report.analysis</field>-->
+<!--        <field name="view_mode">tree,pivot</field>-->
+<!--    </record>-->
+
+     <record id="server_helpdesk_sla_report_analysis_action" model="ir.actions.server">
+        <field name="name">SLA Status Analysis</field>
+        <field name="model_id" ref="kg_sla_policies.model_helpdesk_sla_report_analysis"/>
+        <field name="state">code</field>
+        <field name="code">action = model.load_sla_ticket_details()</field>
+    </record>
+
+    <menuitem
+            id="helpdesk_ticket_report_menu_sla_analysis1"
+            name="SLA Status Analysis"
+            action="server_helpdesk_sla_report_analysis_action"
+            parent="helpdesk_mgmt.helpdesk_ticket_reporting_menu"
+            sequence="23"/>
+</odoo>

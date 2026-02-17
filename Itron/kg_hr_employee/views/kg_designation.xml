@@ -1,0 +1,101 @@
+<odoo>
+    <record id="hr_employee_public_form_inherit_hide_job" model="ir.ui.view">
+        <field name="name">hr.employee.public.form.inherit.hide.job</field>
+        <field name="model">hr.employee.public</field>
+        <field name="inherit_id" ref="hr.hr_employee_public_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="after">
+                <field name="designation_id" required="True"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_employee_form_inherit_hide_job" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.hide.job</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='project_team_id']" position="after">
+                <field name="designation_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_contract_form_inherit_hide_job" model="ir.ui.view">
+        <field name="name">hr.contract.form.inherit.hide.job</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+              <xpath expr="//field[@name='job_id'][@groups='!hr_contract.group_hr_contract_manager']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='job_id'][@groups='hr_contract.group_hr_contract_manager']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+            <xpath expr="//field[@name='type_id']" position="after">
+                <field name="designation_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_designation_form" model="ir.ui.view">
+        <field name="name">hr.designation.form</field>
+        <field name="model">hr.designation</field>
+        <field name="arch" type="xml">
+            <form string="Designation">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_designation_tree" model="ir.ui.view">
+        <field name="name">hr.designation.tree</field>
+        <field name="model">hr.designation</field>
+        <field name="arch" type="xml">
+            <tree string="Designation">
+                <field name="name"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="hr_employee_kanban_inherit_hide_job" model="ir.ui.view">
+        <field name="name">hr.employee.kanban.inherit.hide.job</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//span[@t-if='record.job_title.raw_value']" position="replace">
+                <span t-if="record.designation_id.raw_value" class="o_kanban_record_subtitle">
+                    <field name="designation_id"/>
+                </span>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_hr_designation" model="ir.actions.act_window">
+        <field name="name">Designation</field>
+        <field name="res_model">hr.designation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_designation"
+              name="Designation"
+              parent="hr.menu_config_employee"
+              action="action_hr_designation"/>
+</odoo>

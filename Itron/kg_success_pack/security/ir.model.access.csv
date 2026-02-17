@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pack_projects,pack_projects,model_pack_projects,base.group_user,1,1,1,1
+access_kg_success_pack,kg.success.pack,model_kg_success_pack,base.group_user,1,1,1,1
+access_kg_success_pack_line,kg.success.pack.line,model_kg_success_pack_line,base.group_user,1,1,1,1
+access_pack_timesheet,pack.timesheet,model_pack_timesheet,base.group_user,1,1,1,1

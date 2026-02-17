@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="pack_projects_view_form" model="ir.ui.view">
+        <field name="name">pack.projects.view.form</field>
+        <field name="model">pack.projects</field>
+        <field name="arch" type="xml">
+            <form string="Pack Projects">
+                <header>
+                    <button name="action_start_project" type="object" class="btn-primary" string="Start"
+                            invisible="stages != 'draft'"/>
+                    <button name="action_create_task" type="object" class="btn-primary" string="Create Task"
+                            invisible="stages in ['draft','closed']"/>
+                    <button name="hold_button" type="object" class="btn-primary" string="Hold"
+                            invisible="stages != 'in_progress'"/>
+                    <button name="closed_button" type="object" class="btn-primary" string="Close"
+                            invisible="stages in  ['draft','closed']"/>
+                    <button
+                            string="View Timesheet"
+                            class="oe_highlight"
+                            name="action_view_timesheet" type="object" invisible="stages == 'draft'">
+                    </button>
+                    <button name="action_print_pdf"
+                            type="object"
+                            class="oe_highlight"
+                            string="Print Timesheet" invisible="stages == 'draft'"/>
+                    <field name="stages" widget="statusbar" options="{'clickable': '1'}"/>
+
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" string="Tasks" type="object" name="action_get_tasks"
+                                icon="fa-calendar" invisible="not task_ids">
+                            <field string="Tasks" name="task_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="success_pack_id"/>
+                            <field name="order_date"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="task_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="success_pack_count" invisible="1"/>
+                            <field name="start_date"/>
+                            <field name="end_date" force_save="1"/>
+                            <field name="estimated_hours" widget="float_time"/>
+                            <field name="worked_hours" widget="float_time"/>
+                            <field name="remaining_hours" widget="float_time"/>
+                            <field name="pm_id"/>
+                            <field name="lead_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Success Packages" name="success_pack_line_ids" invisible="1">
+
+                            <field name="success_pack_line_ids">
+                                <tree name="success_pack_line_ids" editable="bottom"
+                                      decoration-success="utilization == 'normal'"
+                                      decoration-danger="utilization == 'over_utilized'">
+                                    <field name="name"/>
+                                    <field name="success_pack_id"/>
+                                    <field name="project_id" column_invisible="1"/>
+                                    <field name="order_date"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="estimated_hours" widget="float_time"/>
+                                    <field name="worked_hours" widget="float_time"/>
+                                    <field name="utilization" column_invisible="1"/>
+                                    <field name="status"/>
+                                    <field name="active_pack" column_invisible="1"/>
+                                    <!--                                    <button name="toggle_active"-->
+                                    <!--                                            type="object"-->
+                                    <!--                                            string="Activate"-->
+                                    <!--                                            icon="fa-toggle-on"-->
+                                    <!--                                            invisible="active_pack == True"-->
+                                    <!--                                            class="oe_highlight"-->
+                                    <!--                                    />-->
+                                    <!--                                    <button-->
+                                    <!--                                            name="toggle_active"-->
+                                    <!--                                            type="object"-->
+                                    <!--                                            string="Deactivate"-->
+                                    <!--                                            icon="fa-toggle-off"-->
+                                    <!--                                            invisible="active_pack == False"-->
+                                    <!--                                    />-->
+                                    <button
+                                            string="View Timesheet"
+                                            class="oe_highlight"
+                                            name="action_view_timesheet" type="object">
+                                    </button>
+                                    <button name="action_view_hours"
+                                            type="object"
+                                            class="oe_highlight"
+                                            string="Print Timesheet"/>
+
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="pack_projects_view_tree" model="ir.ui.view">
+        <field name="name">pack.projects.view.tree</field>
+        <field name="model">pack.projects</field>
+        <field name="arch" type="xml">
+            <tree string="Pack Projects">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="estimated_hours" widget="float_time"/>
+                <field name="worked_hours" widget="float_time"/>
+                <field name="remaining_hours" widget="float_time"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Kanban view -->
+    <record id="pack_projects_kanban_view" model="ir.ui.view">
+        <field name="name">pack.projects.kanban</field>
+        <field name="model">pack.projects</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_kanban_dashboard">
+                <field name="name"/>
+                <field name="task_count"/>
+                <field name="success_pack_count"/>
+                <field name="estimated_hours" widget="float_time"/>
+                <field name="remaining_hours" widget="float_time"/>
+                <field name="remaining_hours_kanban"/>
+                <field name="worked_hours_kanban"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_card p-2 d-flex flex-column justify-content-between">
+
+                            <!-- Header (Top Left) -->
+                            <a class="o_project_kanban_box" name="action_get_packs" type="object">
+                                <div class="o_kanban_primary_left mb-5">
+                                    <h3 class="fw-bold fs-4 mb-0">
+                                        <t t-esc="record.name.value"/>
+                                    </h3>
+                                </div>
+                            </a>
+
+                            <div class="mt-auto d-flex justify-content-between align-items-end flex-wrap">
+
+                                <!-- Left Section: Tasks and Timesheet -->
+                                <div class="d-flex flex-column ms-2">
+                                    <a class="o_project_kanban_box mb-1" name="action_get_tasks" type="object">
+                                        <div>
+                                            <strong>
+                                                <span class="o_value">
+                                                    <t t-esc="record.task_count.value.split('.')[0]"/>
+                                                </span>
+                                                <span class="o_label ms-1">Tasks</span>
+                                            </strong>
+                                        </div>
+                                    </a>
+                                    <a class="o_project_kanban_box" name="action_view_timesheet" type="object">
+                                        <div>
+                                            <strong>
+                                                <span class="o_label">View Timesheet</span>
+                                            </strong>
+                                        </div>
+                                    </a>
+                                    <a class="o_project_kanban_box" name="action_print_pdf" type="object">
+                                        <div>
+                                            <strong>
+                                                <span class="o_label">Print Timesheet</span>
+                                            </strong>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <!-- Right Section: Packs and Print -->
+                                <div class="d-flex flex-column text-end me-2">
+                                    <a class="o_project_kanban_box mb-1">
+                                        <div>
+                                            <strong>
+                                                <span class="o_label ms-1">Package:</span>
+
+                                                <span class="o_value">
+                                                    <t t-esc="record.estimated_hours.value"/>
+                                                </span>
+                                            </strong>
+                                        </div>
+                                    </a>
+                                    <a class="o_project_kanban_box mb-1">
+                                        <div>
+                                            <strong>
+                                                <span class="o_label ms-1">Worked Hrs:</span>
+
+                                                <span class="o_value">
+                                                    <t t-esc="record.worked_hours_kanban.value" />
+                                                </span>
+                                            </strong>
+                                        </div>
+                                    </a>
+                                    <a class="o_project_kanban_box mb-1">
+                                        <div>
+                                            <strong>
+                                                <span class="o_label ms-1">Remaining Hrs:</span>
+
+                                                <span class="o_value">
+                                                    <t t-esc="record.remaining_hours_kanban.value" />
+                                                </span>
+                                            </strong>
+                                        </div>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="pack_projects_action" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pack.projects</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'create':False }</field>
+
+    </record>
+    <menuitem id="menu_pack_projects_menu"
+              name="Projects"
+              parent="menu_kg_success_pack_projects_menu"
+              action="pack_projects_action"
+              groups="kg_success_pack.kg_success_pack_group_user"
+              sequence="1"/>
+
+
+</odoo>
+

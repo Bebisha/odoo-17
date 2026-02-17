@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2020 - Today Techkhedut.
+    Part of Techkhedut. See LICENSE file for full copyright and licensing details.-->
+<odoo>
+    <!-- Default Fields Mapping Tree View -->
+    <record id="view_fb_lead_form_default_mapping_tree" model="ir.ui.view">
+        <field name="name">lead.form.default.mapping.tree</field>
+        <field name="model">lead.form.default.mapping</field>
+        <field name="arch" type="xml">
+            <tree string="Default fields mapping">
+                <field name="lead_field"/>
+                <field name="odoo_field"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Field Mapping  Form View -->
+    <record id="view_fb_lead_form_default_mapping_form" model="ir.ui.view">
+        <field name="name">lead.form.default.mapping.view</field>
+        <field name="model">lead.form.default.mapping</field>
+        <field name="arch" type="xml">
+            <form string="Default fields mapping">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="lead_field" />
+                        </group>
+                        <group>
+                            <field name="odoo_field" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Field Mapping Action -->
+    <record id="action_fb_lead_form_default_mapping" model="ir.actions.act_window">
+        <field name="name">Default Fields Mapping</field>
+        <field name="res_model">lead.form.default.mapping</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Field Mapping  Menu -->
+    <menuitem action="action_fb_lead_form_default_mapping"
+              id="sub_menu_fb_default_lead_mapping"
+              name="Fields Mapping"
+              parent="main_menu_fb_configuration" sequence="4"/>
+</odoo>

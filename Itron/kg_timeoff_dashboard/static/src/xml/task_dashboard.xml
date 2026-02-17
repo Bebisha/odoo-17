@@ -1,0 +1,204 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="TaskDashboard">
+        <div class="">
+            <div>
+                <center>
+                    <h1 style="margin:20px;">
+                    Task Dashboard</h1>
+                </center>
+            </div>
+            <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; margin-left: 100px;">
+                    <label for="company_select"
+                           style="font-weight: bold; font-size: 16px; color: #333; margin-right: 10px;">
+                        Company:
+                    </label>
+                    <t t-if="state.is_admin">
+                    <select id="company_select_task"
+                            style="padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 15px; width: 300px; transition: all 0.3s ease;"
+                            t-on-change="(e) => this.FilterCompanytasks(e)">
+                        <option value="" selected="1">All Company</option>
+                        <t t-foreach="state.companies" t-as="company" t-key="company.id">
+                            <option t-att-value="company.id" t-esc="company.name" value="request.env.user.company.id"
+                                    t-att-selected="state.selectedCompanyId == company.id"/>
+                        </t>
+                    </select>
+                    </t>
+                    <t t-else="">
+                        <select id="company_select_task"
+                            style="padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 15px; width: 300px; transition: all 0.3s ease;"
+                            t-on-input="(e) => this.FilterCompanytasks(e)">
+<!--                        <option value="" selected="1">All Company</option>-->
+                        <t t-foreach="state.companies" t-as="company" t-key="company.id">
+                            <option t-att-value="company.id" t-esc="company.name"
+                                    t-att-selected="state.selectedCompanyId == company.id"
+                                    />
+                        </t>
+                    </select>
+                    </t>
+                </div>
+            </div>
+
+            <div style="margin: 100px;margin-top:10px;margin-bottom:20px;">
+                <table class="table table-bordered" style="border:1px solid">
+                    <thead>
+                        <tr style="background-color: #2d4e66; color: white;" class="text-center">
+                            <th colspan="8">Task Summary Report</th>
+                        </tr>
+                        <tr style="background-color: #496a82; color: white;">
+                                <th class="text-left">Name</th>
+                            <th class="text-left">Company</th>
+                            <th class="text-center">Open</th>
+                            <th class="text-center">Today</th>
+                            <th class="text-center">Over Due</th>
+                            <th class="text-center">Pending</th>
+                            <th class="text-center">Fixed</th>
+                            <th class="text-center">Held</th>
+                            <!--                            <th class="text-center">Total</th>-->
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="state.filteredResult" t-as="o" t-key="o.id">
+                                <td colspan="1" style="text-align:left;cursor: pointer;"
+                                    t-on-click="(e) => this.tot_assignee(e, o.id)">
+                                   <strong> <t t-esc="o.name"/></strong>
+                                </td>
+                            <td colspan="1" style="text-align:left;cursor: pointer;"
+                            >
+                                   <strong> <t t-esc="o.company"/></strong>
+                                </td>
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_open(e, o.id)">
+                                    <t t-esc="o.open"/>
+                                </td>
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_today(e, o.id)">
+                                    <t t-esc="o.today"/>
+                                </td>
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_overdue(e, o.id)">
+                                    <t t-esc="o.overdue"/>
+                                </td>
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_pending(e, o.id)">
+                                    <t t-esc="o.pending"/>
+                                </td>
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_fixed(e, o.id)">
+                                    <t t-esc="o.fixed"/>
+                                </td>
+                            <td colspan="1" style="text-align:center;cursor: pointer;"
+                                t-on-click="(e) => this.tot_held(e, o.id)">
+                                    <t t-esc="o.held"/>
+                                </td>
+                            </tr>
+
+
+                    </tbody>
+                </table>
+                <style>table tr:hover {
+            background-color: #d3d3d3;
+        }</style>
+
+                <div style="display: table; width: 100%;">
+                    <div style="display: table-row;">
+                        <div style="display: table-cell; width: 60%; padding-right: 10px; vertical-align: top;">
+                        <table class="table table-bordered" style="border:1px solid; width: 100%;">
+                            <thead>
+                                <tr style="background-color: #496f73; color: white;height:50px;" class="text-center">
+                                    <th colspan="3">Task Overdue</th>
+                                </tr>
+                                <tr style="background-color: #7abbc2; color: white;height:50px;">
+                                    <th class="text-left">Name</th>
+                                    <th class="text-left">Company</th>
+                                    <th class="text-center">Task Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="state.filteredoverdue and state.filteredoverdue.length>0">
+                                    <tr t-foreach="state.filteredoverdue" t-as="ov" t-key="ov.id">
+                                        <td style="text-align:left;cursor: pointer;height:50px;">
+                                            <strong><t t-esc="ov.name"/></strong>
+                                        </td>
+                                        <td style="text-align:left;cursor: pointer;height:50px;">
+                                            <strong><t t-esc="ov.company"/></strong>
+                                        </td>
+                                        <td style="text-align:center;cursor: pointer;height:50px;"
+                                            t-on-click="(e) => this.tota_overdue(e, ov.id)">
+                                            <t t-esc="ov.overdue"/>
+                                        </td>
+                                    </tr>
+
+                                    <t t-if="state.filteredoverdue.length &lt; state.filteredno_task.length">
+                                        <tr t-foreach="(new Array(state.filteredno_task.length - state.filteredoverdue.length)).fill('')" t-as="i" t-key="i_index">
+                                            <td style="text-align:left;height:50px;"></td>
+                                            <td style="text-align:left;height:50px;"></td>
+                                            <td style="text-align:center;height:50px;"></td>
+                                        </tr>
+                                    </t>
+
+                                </t>
+                                <t t-else="">
+                                    <tr>
+                                        <td align="center" style="height:50px;"
+                                            colspan="3">There is no employee with Overdue tasks</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                                    <!-- Second Table (No Task) -->
+                    <div style="display: table-cell; width: 40%; padding-left: 10px; vertical-align: top;">
+                        <table class="table table-bordered" style="border:1px solid; width: 100%;">
+                            <thead>
+                                <tr style="background-color: #253d66; color: white; height: 50px;" class="text-center">
+                                    <th colspan="3">No Task Today</th>
+                                </tr>
+                                <tr style="background-color: #36578f; color: white; height: 50px;">
+                                    <th class="text-left">Name</th>
+                                    <th class="text-left">Company</th>
+<!--                                    <th class="text-center">Task Count</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="state.filteredno_task and state.filteredno_task.length > 0">
+                                    <tr t-foreach="state.filteredno_task" t-as="n" t-key="n.id">
+                                        <td style="text-align:left; cursor: pointer; height:50px;">
+                                            <strong><t t-esc="n.name"/></strong>
+                                        </td>
+                                        <td style="text-align:left; cursor: pointer; height:50px;">
+                                            <strong><t t-esc="n.company"/></strong>
+                                        </td>
+<!--                                        <td style="text-align:center; cursor: pointer; height:50px;">-->
+<!--                                            <t t-esc="n.task_count or '0'"/>-->
+<!--                                        </td>-->
+                                    </tr>
+                                       <t t-if="state.filteredno_task.length &lt; state.filteredoverdue.length">
+                                        <tr t-foreach="(new Array(state.filteredoverdue.length - state.filteredno_task.length)).fill('')" t-as="i" t-key="i_index">
+                                            <td style="text-align:left;height:50px;"></td>
+                                            <td style="text-align:left;height:50px;"></td>
+<!--                                            <td style="text-align:center;height:50px;"></td>-->
+                                        </tr>
+                                    </t>
+
+                                </t>
+                                <t t-else="">
+                                    <tr>
+                                        <td align="center" style="height:50px;" colspan="3">There is no employee without tasks</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+            </div>
+
+
+
+            </div>
+        </div>
+
+    </t>
+
+</templates>

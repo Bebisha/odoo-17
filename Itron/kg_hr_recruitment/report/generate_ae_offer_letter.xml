@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Template for Applicant Offer Letter for the AE Country. -->
+    <template id="generate_ae_company_offer_letter_id">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="header">
+                    <div class="col-xs-12" style="line-height:10pt;">
+                        <div class="col-xs-7" style="float: left">
+                            <t t-if="o.company_id.logo">
+                                <img t-attf-src="data:image/*;base64,{{o.company_id.logo}}" height="80px"
+                                     width="200px"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="text-align: left;">
+                            </td>
+                            <t t-if="o.offer_letter_date">
+                                <td style="text-align: right;">
+                                    <span>Date :</span>
+                                    <t t-esc="o.offer_letter_date and o.offer_letter_date.strftime('%d/%m/%Y')"/>
+                                </td>
+                            </t>
+                        </tr>
+
+                        <!-- Address section -->
+                        <t t-if="o.street">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <t t-esc="o.street"/>,
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.street2">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <t t-esc="o.street2"/>,
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.city or o.state_id or o.zip">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <t t-if="o.city">
+                                        <t t-esc="o.city"/>,
+                                    </t>
+                                    <t t-if="o.state_id">
+                                        <t t-esc="o.state_id.name"/>,
+                                    </t>
+                                    <t t-if="o.zip">
+                                        <t t-esc="o.zip"/>,
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.country_id">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <t t-esc="o.country_id.name"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.applicant_passport_no">
+                            <tr>
+                                <td style="text-align: left; padding-top: 20px;">
+                                    <span>Passport No:</span>
+                                    <t t-esc="o.applicant_passport_no"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.email_from">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <span>Email :</span>
+                                    <t t-esc="o.email_from"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.partner_phone">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <span>Mobile :</span>
+                                    <t t-esc="o.partner_phone"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+
+                    <!-- Offer Letter Content -->
+                    <div style="margin-top: 20px; line-height: 1.5;">
+                        <strong>
+                            <p style="text-align: justify;">Dear
+                                <t t-esc="o.partner_name"/>,
+                            </p>
+                        </strong>
+                        <p style="text-align: justify;">
+                            On behalf of
+                            <t t-esc="o.company_id.name"/>
+                            , we are pleased to extend an offer of employment to you as
+                            <t t-esc="o.job_id.name"/>
+                            based out of our
+                            <t t-esc="o.office_location"/>,
+                            reporting to
+                            <t t-esc="o.reporting_to"/>.
+                            Your start date will be on
+                            <t t-esc="o.applicant_start_date and o.applicant_start_date.strftime('%d/%m/%Y')"/>
+                            .
+                        </p>
+                        <p style="text-align: justify;">
+                            As a full-time employee you will receive a monthly compensation of
+                            <strong>
+                                <t t-esc="o.company_id.currency_id.name"/>
+                                <t t-esc="'{:,}'.format(int(o.salary_proposed))"/>
+                                /-
+                            </strong>
+                            (
+                            <t t-esc="o.company_id.currency_id.amount_to_text(o.salary_proposed).replace('Euro', 'Dirham')"/>
+                            )
+                        </p>
+                        <p style="text-align: justify;">
+                            Please note that this offer is contingent upon successful completion of a pre-employment
+                            background investigation. Information regarding the background check will be provided upon
+                            acceptance of this offer. This offer is also contingent upon successful attainment of the
+                            appropriate paperwork required to work in the
+                            <t t-esc="o.company_id.country_id.name"/>.
+                        </p>
+
+                        <p style="text-align: justify;">
+                            If you require any further information relative to this offer, please call me at (
+                            <t t-esc="o.office_phone"/>) or email me at
+                            <t t-esc="o.office_email"/>.
+                        </p>
+
+                        <p style="text-align: justify;">
+                            To confirm your acceptance of this position and its contingencies, please sign this offer
+                            letter
+                            and return by e-mail within 24 hours of receiving. Upon receipt of your signed letter, a new
+                            hire
+                            orientation package will be sent to you.
+                        </p>
+                        <p style="text-align: justify;">
+                            We look forward to you joining the Klystron team!
+                        </p>
+                        <p style="text-align: left; margin-top: 30px;">
+                            Sincerely,
+                            <br/>
+                        </p>
+                        <p style="text-align: left; margin-top: 30px;">
+                            Human Resources
+                            <br/>
+                        </p>
+                        <p style="margin-top: 40px;  padding-top: 20px;">
+                            I accept the offer and acknowledge the contingencies stated above. I understand
+                            Klystron is an 'at will' employer, meaning that neither this offer, nor my acceptance,
+                            establishes a contractual relationship for any fixed period of time. The effective
+                            date of employment will be confirmed upon acceptance of this offer.
+                        </p>
+
+                        <table style="width: 100%; margin-top: 40px; border-collapse: collapse;">
+                            <tr>
+                                <td style="width: 45%; text-align: center; padding: 10px 0;">
+                                    _______________________
+                                    <div style="text-align: center; padding-top: 10px;">
+                                        <t t-esc="o.partner_name"/>
+                                    </div>
+                                </td>
+                                <td style="width: 10%;"></td>
+                                <td style="width: 45%; text-align: center; padding: 10px 0;">
+                                    _______________________
+                                    <div style="text-align: center; padding-top: 10px;">Date</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="footer">
+                    <hr/>
+                    <div class="text-center">
+                        <div class="col-xs-12" align="center" style="line-height:10px;">
+                            Suite #<span t-field="o.company_id.street"/>,<span
+                                t-field="o.company_id.street2"/>,<span t-field="o.company_id.city"/>,
+                            PO Box #<span t-field="o.company_id.zip"/>,
+                            <span t-field="o.company_id.state_id.name"/>
+                        </div>
+                        <div class="col-xs-12" align="center" style="line-height:10px;">
+                            <span style="color:#900C3F;">
+                                <i class="fa fa-share-alt"/>
+                            </span>
+                            :
+                            <span t-field="o.company_id.website"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

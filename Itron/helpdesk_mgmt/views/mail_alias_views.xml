@@ -1,0 +1,12 @@
+<odoo>
+    <record id="mail_alias_view_form_inherit" model="ir.ui.view">
+        <field name="name">mail.alias.form.inherit</field>
+        <field name="model">mail.alias</field>
+        <field name="inherit_id" ref="mail.mail_alias_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='alias_contact']" position="after">
+                <field name="alias_user_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

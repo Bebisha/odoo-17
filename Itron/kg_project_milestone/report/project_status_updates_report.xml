@@ -1,0 +1,88 @@
+<odoo>
+    <data>
+        <template id="project_updates_tem_id">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <style>
+                        .table-borderless td,
+                        .table-borderless th {
+                        border: 0;
+                        }
+                    </style>
+                    <div class="header">
+                        <table class='table table-borderless table-condensed table-hover'>
+                            <tr width="100%">
+                                <td width="100%" align="center" style="font-size:30px;">
+                                    <b>
+                                        <span>
+                                            PROJECT UPDATES
+                                        </span>
+                                    </b>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" align="left">
+                                    <b>
+                                        <span>
+                                            Date :
+                                        </span>
+                                    </b>
+                                    <span t-esc="date_from" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    <span>-</span>
+                                    <span t-esc="date_to" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <t t-foreach="values" t-as="data">
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                            <tr width="100%" style="font-size:20px;color:#993333;">
+                                <td width="100%" colspan="4" align="left">
+                                    <b>
+                                        <span t-esc="data['project_name']"/>
+                                    </b>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;border-bottom:1px solid #484848;border-top:1px solid #484848;border-right:1px solid #484848;border-left:1px solid #484848;">
+                            <tr width="100%"
+                                style="font-size:15px;border-bottom:1px solid #484848;border-top:1px solid #484848;border-right:1px solid #484848;border-left:1px solid #484848;"
+                                align="center">
+                                <td width="25%" style="border-right:1px solid #484848;background-color:#bfbfbf;">
+                                    <b>Subject</b>
+                                </td>
+                                <td width="10%" style="border-right:1px solid #484848;background-color:#bfbfbf;">
+                                    <b>Date</b>
+                                </td>
+                                <td width="15%" style="border-right:1px solid #484848;background-color:#bfbfbf;">
+                                    <b>Status</b>
+                                </td>
+                                <td width="50%" style="border-right:1px solid #484848;background-color:#bfbfbf;">
+                                    <b>Detailed Update</b>
+                                </td>
+                            </tr>
+                            <t t-foreach="data['lines']" t-as="line">
+                                <tr width="100%"
+                                    style="font-size:13px;border-bottom:1px solid #484848;border-top:1px solid #484848;border-right:1px solid #484848;border-left:1px solid #484848;">
+                                    <td width="25%" style="border-right:1px solid #484848;">
+                                        <span t-esc="line['update']"/>
+                                    </td>
+                                    <td width="10%" style="border-right:1px solid #484848;">
+                                        <span t-esc="line['date']"
+                                              t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </td>
+                                    <td width="15%" style="border-right:1px solid #484848;">
+                                        <span t-esc="line['status']"/>
+                                    </td>
+                                    <td width="50%" style="border-right:1px solid #484848;">
+                                        <span t-raw="line['detailed_update']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

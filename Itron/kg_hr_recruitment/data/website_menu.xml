@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Custom action for website job portal job form -->
+        <record id="menu_job_portal_website_id" model="website.menu">
+            <field name="name">Jobs</field>
+            <field name="url">/job_portal</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">90</field>
+        </record>
+    </data>
+</odoo>

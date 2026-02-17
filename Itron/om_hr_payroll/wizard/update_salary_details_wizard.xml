@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  update.salary.details form view -->
+    <record id="update_salary_details_form_view_id" model="ir.ui.view">
+        <field name="name">update salary details</field>
+        <field name="model">update.salary.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="contract_id" invisible="1"/>
+                        <field name="wage"/>
+                        <field name="hra"/>
+                        <field name="utility_exp_allowance"/>
+
+                    </group>
+                    <group>
+                        <field name="telephone_expense"/>
+                        <field name="transport_allowance"/>
+                        <field name="salary_rev_date"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_update_salary" string="Update Salary" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" type="object"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

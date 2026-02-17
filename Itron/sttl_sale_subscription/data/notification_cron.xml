@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_sale_subscription_notification" model="ir.cron">
+        <field name="name">Sale Subscription Renewal Notification</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="code">model.send_notification()</field>
+        <field name="state">code</field>
+    </record>
+
+    <record id="ir_cron_amc_spent_time_notification" model="ir.cron">
+        <field name="name">AMC Contracts Monthly Report</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="nextcall" eval="(DateTime.now() + relativedelta(day=1, months=1)).strftime('%Y-%m-%d 04:00:00')"/>
+        <field name="model_id" ref="model_project_contract_request_amc"/>
+        <field name="code">model.cron_send_monthly_amc_spent_time()</field>
+        <field name="state">code</field>
+    </record>
+    <!--    <record id="ir_cron_invoice_post_notification" model="ir.cron">-->
+    <!--        <field name="name">Invoice Post Renewal Notification</field>-->
+    <!--        <field name="interval_number">1</field>-->
+    <!--        <field name="interval_type">days</field>-->
+    <!--        <field name="numbercall">-1</field>-->
+    <!--        <field name="model_id" ref="model_sale_order"/>-->
+    <!--        <field name="code">model.send_invoice_post_notification()</field>-->
+    <!--        <field name="state">code</field>-->
+    <!--    </record>-->
+
+    <record id="crone_action_to_change_free_support_state" model="ir.cron">
+        <field name="name">Contract State Changing Cron Free Support</field>
+        <field name="model_id" ref="model_project_contract_request_free_support"/>
+        <field name="code">model.cron_action_contract_state()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+</odoo>

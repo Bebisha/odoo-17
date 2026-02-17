@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Action Offer Letter Report -->
+    <record id="action_offer_letter_id" model="ir.actions.report">
+        <field name="name">Provisional Offer Letter</field>
+        <field name="model">hr.applicant</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_hr_recruitment.generate_offer_letter_id</field>
+        <field name="report_file">kg_hr_recruitment.generate_offer_letter_id</field>
+    </record>
+
+    <!-- Action Final Offer Letter Report -->
+    <record id="action_final_offer_letter_id" model="ir.actions.report">
+        <field name="name">Final Offer Letter</field>
+        <field name="model">hr.applicant</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_hr_recruitment.generate_final_offer_letter_id</field>
+        <field name="report_file">kg_hr_recruitment.generate_final_offer_letter_id</field>
+    </record>
+
+    <!-- Action AE Offer Letter Report -->
+    <record id="action_ae_offer_letter_id" model="ir.actions.report">
+        <field name="name">AE Provisional Offer Letter</field>
+        <field name="model">hr.applicant</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_hr_recruitment.generate_ae_company_offer_letter_id</field>
+        <field name="report_file">kg_hr_recruitment.generate_ae_company_offer_letter_id</field>
+    </record>
+
+    <!-- Action AE Final Offer Letter Report -->
+    <record id="action_final_ae_offer_letter_id" model="ir.actions.report">
+        <field name="name">AE Final Offer Letter</field>
+        <field name="model">hr.applicant</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_hr_recruitment.generate_ae_final_offer_letter_id</field>
+        <field name="report_file">kg_hr_recruitment.generate_ae_final_offer_letter_id</field>
+    </record>
+</odoo>

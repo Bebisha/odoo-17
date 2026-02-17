@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="kg.revenue.head" id="kiosk_kg_revenue_head">
+        <field name="name">Kiosk</field>
+    </record>
+    <record model="kg.revenue.head" id="odoo_kg_revenue_head">
+        <field name="name">Odoo</field>
+    </record>
+    <record model="kg.revenue.head" id="saas_kg_revenue_head">
+        <field name="name">SAAS</field>
+    </record>
+    <record model="kg.revenue.head" id="taas_kg_revenue_head">
+        <field name="name">TAAS</field>
+    </record>
+    <record model="kg.revenue.head" id="ai_kg_revenue_head">
+        <field name="name">AI</field>
+    </record>
+</odoo>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="kg_lead_view_form" model="ir.ui.view">
+        <field name="name">kg.lead.view.form</field>
+        <field name="model">kg.lead</field>
+        <field name="arch" type="xml">
+            <form string="Leads">
+                <header>
+                    <button name="action_create_lead" type="object"
+                            string="Create Lead" class="oe_highlight" invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_leads" type="object" string="Lead" icon="fa-archive" class="oe_stat_button" groups="kg_lead.kg_lead_group_manager">
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g.Product Pricing" readonly="state not in ('draft')"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="priority" widget="priority_switch" class="me-3"/>
+                            <field name="date" readonly="state not in ('draft')"/>
+                            <field name="partner_id" readonly="state not in ('draft')"/>
+                        </group>
+                        <group>
+                            <field name="lead_interest_id" readonly="state not in ('draft')"/>
+                            <field name="source_id"/>
+                            <field name="total_effort" widget="float_time" readonly="state not in ('draft')"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" readonly="state not in ('draft')"/>
+                        </page>
+                        <page string="Attachments">
+                            <field name="updated_attachments" invisible="1"/>
+                            <field name="lead_id" invisible="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+    <record id="view_material_request_search" model="ir.ui.view">
+        <field name="name">material.request.search</field>
+        <field name="model">kg.lead</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Name"/>
+                <field name="partner_id" string="Customer"/>
+<!--                <field name="user_id" string="Salesperson"/>-->
+                <field name="company_id" string="Company"/>
+                <group expand="1" string="Group By">
+                    <filter string="Customer" name="customer" context="{'group_by': 'partner_id'}"/>
+<!--                    <filter string="Salesperson" name="user_id" context="{'group_by': 'user_id'}"/>-->
+                    <filter string="Company" name="company_id" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="kg_lead_view_tree" model="ir.ui.view">
+        <field name="name">kg.lead.view.form.tree</field>
+        <field name="model">kg.lead</field>
+        <field name="arch" type="xml">
+            <tree string="Leads">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date"/>
+                <field name="create_uid"/>
+<!--                <field name="user_id"/>-->
+                <field name="lead_interest_id"/>
+                <field name="source_id"/>
+                <field name="company_id"/>
+                <field name="state" widget='badge' decoration-info="state in ('draft')" decoration-success="state in ('lead_created')"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="my_kg_lead_action" model="ir.actions.act_window">
+        <field name="name">My Leads</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kg.lead</field>
+        <field name="domain">[('create_uid', '=', uid)]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="all_kg_lead_action" model="ir.actions.act_window">
+        <field name="name">All Leads</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kg.lead</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_parent_kg_lead"
+              name="Leads"
+              groups="kg_lead.kg_lead_group_user"
+              web_icon="kg_lead,static/description/icon.png"
+              sequence="2"/>
+    <menuitem id="menu_my_leads"
+              name="My Leads"
+              groups="kg_lead.kg_lead_group_user"
+              parent="kg_lead.menu_parent_kg_lead"
+              action="kg_lead.my_kg_lead_action"
+              sequence="1"/>
+    <menuitem id="menu_all_leads"
+              name="All Leads"
+              groups="kg_lead.kg_lead_group_manager"
+              parent="kg_lead.menu_parent_kg_lead"
+              action="kg_lead.all_kg_lead_action"
+              sequence="2"/>
+
+</odoo>
+

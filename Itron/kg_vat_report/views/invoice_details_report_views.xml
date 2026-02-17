@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <!-- wizard view -->
+        <record id="paid_invoice_detail_wizard_view" model="ir.ui.view">
+            <field name="name">Paid Invoice Details</field>
+            <field name="model">paid.invoice.detail.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Paid Invoice Details">
+                    <group>
+                        <group name="date_from">
+                            <field name="date_from" required="1"/>
+                        </group>
+                        <group name="date_to">
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="print_xlsx" string="Excel" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+	 <record id="paid_invoice_detail_action" model="ir.actions.act_window">
+		<field name="name">Paid Invoice Details</field>
+		<field name="res_model">paid.invoice.detail.wizard</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+
+
+	  <menuitem id="menu_paid_invoice_detail"
+		name="Paid Invoice Details"
+		action="paid_invoice_detail_action"
+		parent="account.menu_finance_entries"
+		sequence="3"/>
+    </data>
+</odoo>

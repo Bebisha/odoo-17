@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="RequestDashboard">
+        <div class="dashboard-container">
+            <style>
+                .dashboard-container {
+                font-family: Arial, sans-serif;
+                background-color: #f9f9f9;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                max-width: 90%;
+                margin: auto;
+                }
+                h1 {
+                font-size: 2.2em;
+                color: #34495e;
+                font-weight: bold;
+                }
+                #dashboard-content {
+                margin-top: 1px;
+                }
+                table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: #fff;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                }
+                table thead {
+                background-color: #2c3e50;
+                color: #ecf0f1;
+                }
+                table thead th {
+                padding: 12px;
+                text-align: left;
+                font-weight: 600;
+                }
+                table tbody tr {
+                border-bottom: 1px solid #dcdde1;
+                }
+                table tbody tr:nth-child(even) {
+                background-color: #f5f5f5;
+                }
+                table tbody tr:hover {
+                background-color: #ecf0f1;
+                }
+                table td {
+                padding: 10px;
+                color: #2c3e50;
+                vertical-align: middle;
+                }
+                table td t-esc {
+                font-weight: bold;
+                }
+                .table-responsive {
+                overflow-x: auto;
+                }
+                .center {
+                text-align: center;
+                }
+                .filter-container {
+                display: flex;
+                align-items: center;
+                gap: 1px;
+                margin-bottom: 5px;
+                max-height:80px
+                font-family: Arial, sans-serif;
+                }
+
+                .filter-container label {
+                font-weight: 600;
+                font-size: 16px;
+                color: #444;
+                }
+
+                #company-select {
+                width: 220px;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                padding: 8px 12px;
+                font-size: 14px;
+                color: #555;
+                background-color: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+                }
+
+                #company-select:hover {
+                border-color: #f9f9f9;
+                background-color: #f8f9fa;
+                }
+
+                #company-select:focus {
+                border-color: #f9f9f9;
+                outline: none;
+                box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+                }
+
+
+                #company-select option {
+                font-size: 14px;
+                padding: 5px;
+                }
+
+                @media (max-width: 600px) {
+                .filter-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                }
+
+                #company-select {
+                width: 100%;
+                }
+            </style>
+            <center>
+                <h1 style="margin-bottom: 20px; color: #2c3e50; font-weight: bold;">
+                    Resource Request Dashboard
+                </h1>
+            </center>
+            <t t-name="requestFilterSection">
+                <div class="d-flex flex-nowrap p-3"
+                     style="gap: 29px !important; background-color: #e9ecef; border-radius: 5px; margin-bottom: 2px; min-width: max-content;max-height:80px">
+                    <div class="filter-container">
+                        <label for="company-select">Choose Company:</label>
+                        <select id="company-select" t-on-change="onCompanyChange">
+                            <option value="">All Companies</option>
+                            <t t-foreach="state.companies" t-as="company" t-key="company.id">
+                                <option t-att-value="company.id" t-esc="company.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="filter-container">
+                        <label for="company-select">Date :</label>
+                        <select id="company-select" t-on-change="onDateChange">
+                            <option value="today">Today</option>
+                            <option value="this_week">This Week</option>
+                            <option value="this_month">This Month</option>
+                        </select>
+                    </div>
+                    <div class="filter-container">
+                        <label for="company-select">Status :</label>
+                        <select id="company-select"
+                                t-on-change="(e) => this.updateStatusFilter(e)">
+                            <option value="">Status: All</option>
+                            <t t-foreach="state.StatusVals" t-as="sts" t-key="type">
+                                <option t-att-value="sts[0]" t-esc="sts[1]"
+                                        t-att-selected="sts[0] == state.selectedStatusId"/>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+            </t>
+            <br/>
+            <div id="dashboard-content"
+                 style="background-color: #ffffff; border-radius: 8px; padding: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                <table class="table table-hover table-striped"
+                       style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead style="background-color: #2c3e50; color: #fff; text-align: left;">
+                        <tr style="height: 50px;">
+                            <th style="padding: 8px; font-size: 14px; width: 110px; white-space: nowrap;">Ref No.</th>
+                            <th style="padding: 8px; font-size: 14px; width: 120px;">Requester</th>
+                            <th style="padding: 8px; font-size: 14px; width: 130px;">Project</th>
+                            <th style="padding: 8px; font-size: 14px; width: 120px;">Assignee</th>
+                            <th style="padding: 8px; font-size: 14px; width: 110px;">Start Date</th>
+                            <th style="padding: 8px; font-size: 14px; width: 110px;">End Date</th>
+                            <th style="padding: 8px; font-size: 14px; width: 120px;">Company</th>
+                            <th style="padding: 8px; font-size: 14px; width: 100px;">Status</th>
+                            <th style="padding: 8px; font-size: 14px; width: 120px; text-align: center;">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <t t-foreach="state.result" t-as="row" t-key="row_index" t-enumerate="row_index">
+                            <tr t-on-click="(e) => this.onRefNoClicknw(e, row.id)">
+                                <td style="text-align: left;">
+                                    <t t-esc="row.ref_no"/>
+                                </td>
+                                <td style="text-align: left;">
+                                    <t t-esc="row.requester"/>
+                                </td>
+                                <td style="text-align: left;">
+                                    <t t-esc="row.project"/>
+                                </td>
+                                <td style="text-align: left;">
+                                    <t t-esc="row.assignee"/>
+                                </td>
+                                <td style="text-align: left;">
+                                    <t t-esc="row.start_date"/>
+                                </td>
+                                <td style="text-align: left;">
+                                    <t t-esc="row.end_date"/>
+                                </td>
+                                <td style="text-align: left;">
+                                    <t t-esc="row.company"/>
+                                </td>
+                                <td style="text-align: left;">
+                                    <t t-esc="row.status"/>
+                                </td>
+                                <td style="text-align: center;">
+                                    <t t-if="row.status != 'Approved' and row.status != 'Rejected'">
+                                        <div class="btn-group"
+                                             style="gap: 5px;">
+                                            <button class="btn btn-outline-success fw-semibold px-2 py-1 rounded-pill"
+                                                    t-on-click="(e) => this.approveRequestResource(e, row.id)"
+                                                    style="display: flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 17px;">
+                                                ✔ Approve
+                                            </button>
+                                            <button class="btn btn-outline-danger fw-semibold px-2 py-1 rounded-pill"
+                                                    t-on-click="(e) => this.rejectRequestResource(e, row.id)"
+                                                    style="display: flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 17px;">
+                                                ✖ Reject
+                                            </button>
+                                        </div>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>

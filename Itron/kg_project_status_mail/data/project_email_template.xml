@@ -1,0 +1,179 @@
+<odoo>
+    <data>
+        <record id="project_status_mail_template" model="mail.template">
+            <field name="name">Project Status Email(Timesheet and Tasks)</field>
+            <field name="subject">Project Status Report - Timesheet and Tasks</field>
+            <field name="model_id" ref="kg_project_status_mail.model_project_status_config"/>
+            <field name="email_from">k-mail@klystronglobal.com</field>
+            <!--      <field name="email_to">${object.get_user_email_dtls()}</field>-->
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+
+                <h3 style="color:#408a88" align="center">Project Status Report</h3>
+                <p>
+
+                    <table border="1">
+                        <tr>
+                            <th colspan="6" style="background-color: #714b67;color: white;" class="text-center">
+                                Yesterdays Timesheet
+                            </th>
+                        </tr>
+                        <tr style="background-color: #714b67;color: white;">
+                            <th class="text-center">SI.NO</th>
+                            <th class="text-center">Resource</th>
+                            <th class="text-center">Project</th>
+                            <th class="text-center">Task</th>
+                            <th class="text-center">Description</th>
+                            <th class="text-center">Hours Spend</th>
+                        </tr>
+                        <t t-set="all_resrcs_dicts" t-value="object.get_merged_time_sheet_dtls()"/>
+                        <t t-foreach="all_resrcs_dicts" t-as="each_resrcs">
+                            <tr style="background-color:#ede4e4">
+                                <t t-set="row_no" t-value="each_resrcs_value['row_count']+1"/>
+                                <td t-att-rowspan="row_no">
+                                    <t t-esc="each_resrcs_value['sl_no']"/>
+                                </td>
+                                <td t-att-rowspan="row_no">
+                                    <t t-esc="each_resrcs_value['resource_name']"/>
+                                </td>
+                            </tr>
+                            <tr t-foreach="each_resrcs_value['details']" t-as="detail" style="background-color:#ede4e4">
+                                <td>
+                                    <t t-esc="detail['project']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="detail['task']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="detail['description']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="detail['duration']" t-options="{'widget': 'float_time'}"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                    <br/>
+                    <br/>
+
+
+<!--                    <table border="1">-->
+<!--                        <tr>-->
+<!--                            <th colspan="6" style="background-color: #714b67;color: white;" class="text-center">-->
+<!--                                Yesterdays Timesheet-->
+<!--                            </th>-->
+<!--                        </tr>-->
+<!--                        <tr style="background-color: #714b67;color: white;">-->
+<!--                            <th class="text-center">SI.NO</th>-->
+<!--                            <th class="text-center">Resource</th>-->
+<!--                            <th class="text-center">Project</th>-->
+<!--                            <th class="text-center">Task</th>-->
+<!--                            <th class="text-center">Description</th>-->
+<!--                            <th class="text-center">Hours Spend</th>-->
+<!--                        </tr>-->
+<!--                        <t t-foreach="object.get_time_sheet_dtls()" t-as="tm">-->
+<!--                            <tr style="background-color:#ede4e4">-->
+<!--                                <td>-->
+<!--                                    <t t-esc="tm['si']"/>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <t t-esc="tm['resource']"/>-->
+<!--                                    <br/>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <t t-esc="tm['project']"/>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <t t-esc="tm['task']"/>-->
+<!--                                    <br/>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <t t-esc="tm['description']"/>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <t t-esc="tm['duration']" t-options="{'widget': 'float_time'}"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </t>-->
+<!--                    </table>-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+
+<!--                    <table border="1">-->
+<!--                        <tr>-->
+<!--                            <th colspan="5" style="background-color: #714b67;color: white;" class="text-center">Pending-->
+<!--                                Task Status-->
+<!--                            </th>-->
+<!--                        </tr>-->
+<!--                        <tr style="background-color: #714b67;color: white;">-->
+<!--                            <th class="text-center">SI.NO</th>-->
+<!--                            <th class="text-center">Resource</th>-->
+<!--                            <th class="text-center">Project</th>-->
+<!--                            <th class="text-center">Task</th>-->
+<!--                            <th class="text-center">Deadline</th>-->
+<!--                        </tr>-->
+<!--                        <t t-foreach="object.get_project_dtls()" t-as="ta">-->
+<!--                            <tr style="background-color:#ede4e4">-->
+<!--                                <td>-->
+<!--                                    <t t-esc="ta['si']"/>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <t t-esc="ta['resource']"/>-->
+<!--                                    <br/>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <t t-esc="ta['project']"/>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <t t-esc="ta['task']"/>-->
+<!--                                    <br/>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <t t-esc="ta['dead_line']"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </t>-->
+<!--                    </table>-->
+
+                    <table border="1">
+                        <tr>
+                            <th colspan="5" style="background-color: #714b67;color: white;" class="text-center">Pending
+                                Task Status
+                            </th>
+                        </tr>
+                        <tr style="background-color: #714b67;color: white;">
+                            <th class="text-center">SI.NO</th>
+                            <th class="text-center">Project</th>
+                            <th class="text-center">Resource</th>
+                            <th class="text-center">Task</th>
+                            <th class="text-center">Deadline</th>
+                        </tr>
+                        <t t-set="all_proj_dicts" t-value="object.get_merged_project_task_status()"/>
+                        <t t-foreach="all_proj_dicts" t-as="each_proj">
+                            <tr style="background-color:#ede4e4">
+                                <t t-set="row_no" t-value="each_proj_value['row_count']+1"/>
+                                <td t-att-rowspan="row_no">
+                                    <t t-esc="each_proj_value['sl_no']"/>
+                                </td>
+                                <td t-att-rowspan="row_no">
+                                    <t t-esc="each_proj_value['project_name']"/>
+                                </td>
+                            </tr>
+                            <tr t-foreach="each_proj_value['details']" t-as="detail" style="background-color:#ede4e4">
+                                <td>
+                                    <t t-esc="detail['resource']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="detail['task']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="detail['dead_line']"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

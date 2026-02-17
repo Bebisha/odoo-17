@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo auto_sequence="1">
+    <record id="tax_report_bh" model="account.report">
+        <field name="name">VAT Report</field>
+        <field name="root_report_id" ref="account.generic_tax_report"/>
+        <field name="country_id" ref="base.bh"/>
+        <field name="filter_fiscal_position" eval="True"/>
+        <field name="availability_condition">country</field>
+        <field name="column_ids">
+            <record id="tax_report_vat_taxable_base_bh" model="account.report.column">
+                <field name="name">Taxable Base</field>
+                <field name="expression_label">net</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record id="tax_report_vat_tax_bh" model="account.report.column">
+                <field name="name">Vat Due</field>
+                <field name="expression_label">tax</field>
+                <field name="figure_type">monetary</field>
+            </record>
+        </field>
+        <field name="line_ids">
+            <record id="tax_report_line_vat_sales_in_bahrain" model="account.report.line">
+                <field name="name">Vat on Sales</field>
+                <field name="hierarchy_level">0</field>
+                <field name="children_ids">
+                    <record id="tax_report_line_bh_1" model="account.report.line">
+                        <field name="name">1(a). Standard Rated Sales at 10%</field>
+                        <field name="code">1a</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_1_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">b. Bahrain(Base)</field>
+                            </record>
+                            <record id="tax_report_line_bh_1_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">b. Bahrain(Tax)</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_1b" model="account.report.line">
+                        <field name="name">1(b). Standard Rated Sales at 5%</field>
+                        <field name="code">1b</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_1b_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                            <record id="tax_report_line_bh_1b_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_2" model="account.report.line">
+                        <field name="name">2. Sales to registered VAT payers in other GCC states
+                        </field>
+                        <field name="code">2</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_2_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                            <record id="tax_report_line_bh_2_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_3" model="account.report.line">
+                        <field name="name">3. Sales subject to domestic reverse charge provisions</field>
+                        <field name="code">3</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_3_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                            <record id="tax_report_line_bh_3_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_4" model="account.report.line">
+                        <field name="name">4. Zero Rated Domestic Sales</field>
+                        <field name="code">4</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_4_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">4. Zero rated supplies (Base)</field>
+                            </record>
+                            <record id="tax_report_line_bh_4_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_5" model="account.report.line">
+                        <field name="name">5. Exports</field>
+                        <field name="code">5</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_5_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">3(a) Exports (Base)</field>
+                            </record>
+                            <record id="tax_report_line_bh_5_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">3(a) Exports (Tax)</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_6" model="account.report.line">
+                        <field name="name">6. Exempt Sales</field>
+                        <field name="code">6</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_6_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">5. Exempt supplies (Base)</field>
+                            </record>
+                            <record id="tax_report_line_bh_6_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">5. Exempt supplies (Tax)</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_8" model="account.report.line">
+                        <field name="name">7. Total Sales</field>
+                        <field name="code">7</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_8_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">1a.net + 1b.net + 3.net + 4.net + 5.net + 6.net</field>
+                            </record>
+                            <record id="tax_report_line_bh_8_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">1a.tax + 1b.tax + 3.tax + 4.tax + 5.tax + 6.tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+            <record id="tax_report_line_vat_purchase_in_bahrain" model="account.report.line">
+                <field name="name">Vat on Purchases</field>
+                <field name="hierarchy_level">0</field>
+                <field name="children_ids">
+                    <record id="tax_report_line_bh_9" model="account.report.line">
+                        <field name="name">8(a). Standard Rated Domestic Purchases at 10%</field>
+                        <field name="code">8a</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_9_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">10. Standard rated expenses (Base)</field>
+                            </record>
+                            <record id="tax_report_line_bh_9_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">10. Standard rated expenses (Tax)</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_9b" model="account.report.line">
+                        <field name="name">8(b). Standard Rated Domestic Purchases at 5%</field>
+                        <field name="code">8b</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_9b_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                            <record id="tax_report_line_bh_9b_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_10" model="account.report.line">
+                        <field name="name">9(a). Import Subject to VAT Paid at Customs at 10%</field>
+                        <field name="code">9a</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_10_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">9a.tax / 0.10</field>
+                            </record>
+                            <record id="tax_report_line_bh_10_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">8. Taxable Imports 15% Paid to Customs (Tax)</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_10b" model="account.report.line">
+                        <field name="name">9(b). Import Subject to VAT Paid at Customs at 5%</field>
+                        <field name="code">9b</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_10b_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">9b.tax / 0.10</field>
+                            </record>
+                            <record id="tax_report_line_bh_10b_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_11" model="account.report.line">
+                        <field name="name">10. Import Subject to deferral at customs</field>
+                        <field name="code">10</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_11_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                            <record id="tax_report_line_bh_11_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_12" model="account.report.line">
+                        <field name="name">11(a). Import Subject to VAT accounted for through reverse charge mechanism
+                            at 10%
+                        </field>
+                        <field name="code">11a</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_12_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">3. Supplies subject to reverse charge provisions (Base)</field>
+                            </record>
+                            <record id="tax_report_line_bh_12_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">3. Supplies subject to reverse charge provisions (Tax)</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_12b" model="account.report.line">
+                        <field name="name">11(b). Import Subject to VAT accounted for through reverse charge mechanism
+                            at 5%
+                        </field>
+                        <field name="code">11b</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_12b_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                            <record id="tax_report_line_bh_12b_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_13" model="account.report.line">
+                        <field name="name">12. Purchase Subject to Domestic reverse charge mechanism</field>
+                        <field name="code">12</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_13_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                            <record id="tax_report_line_bh_13_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_14" model="account.report.line">
+                        <field name="name">13. Purchases from non-registered suppliers, zero-rated/exempt purchases
+                        </field>
+                        <field name="code">13</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_14_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">10. Zero Rated Purchases (Base)</field>
+                            </record>
+                            <record id="tax_report_line_bh_14_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_15" model="account.report.line">
+                        <field name="name">14. Total Purchases</field>
+                        <field name="code">14</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_15_base_tag" model="account.report.expression">
+                                <field name="label">net</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">8a.net + 8b.net + 9a.net + 9b.net + 10.net + 11a.net + 11b.net +
+                                    12.net + 13.net
+                                </field>
+                            </record>
+                            <record id="tax_report_line_bh_15_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">8a.tax + 8b.tax + 9a.tax + 9b.tax + 10.tax + 11a.tax + 11b.tax +
+                                    12.tax + 13.tax
+                                </field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+            <record id="tax_report_bah_line_net_vat_due" model="account.report.line">
+                <field name="name"></field>
+<!--                <field name="code">18</field>-->
+<!--                <field name="expression_ids">-->
+<!--                    <record id="tax_report_line_bh_net_value_due_tax_tag" model="account.report.expression">-->
+<!--                        <field name="label">tax</field>-->
+<!--                        <field name="engine">aggregation</field>-->
+<!--                        <field name="formula">7.tax - 14.tax</field>-->
+<!--                    </record>-->
+<!--                </field>-->
+                <field name="hierarchy_level">0</field>
+<!--                <field name="show_total" eval="False"/>-->
+                <field name="children_ids">
+                    <record id="tax_report_line_bh_total_value_due_tax_period_19" model="account.report.line">
+                        <field name="name">15. Total VAT Due For Current Period</field>
+                        <field name="code">19</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_total_value_due_tax_tag_19" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">7.tax - 14.tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_total_value_due_tax_period" model="account.report.line">
+                        <field name="name">16. Corrections from previous period</field>
+                        <field name="code">15</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_total_value_due_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_total_bh_value_recoverable_tax_period" model="account.report.line">
+                        <field name="name">17. Vat credit carried forward from previous periods</field>
+                        <field name="code">16</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_value_recoverable_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula"></field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="tax_report_line_bh_net_vat_due_period" model="account.report.line">
+                        <field name="name">18. Net VAT due (or reclaimed)</field>
+                        <field name="code">17</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_bh_net_vat_due_tax_tag" model="account.report.expression">
+                                <field name="label">tax</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula"> 15.tax + 16.tax + 19.tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+        </field>
+    </record>
+</odoo>

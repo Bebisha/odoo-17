@@ -1,0 +1,11 @@
+<odoo>
+    <data noupdate="0">
+        <record id="seq_crm_estimation" model="ir.sequence">
+            <field name="name">Estimation</field>
+            <field name="code">kg.early.req</field>
+            <field name="prefix">ER/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

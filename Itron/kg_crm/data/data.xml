@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="kg_crm_modules_1" model="crm.modules">
+        <field name="name">CRM</field>
+    </record>
+    <record id="kg_crm_modules_2" model="crm.modules">
+        <field name="name">Sales</field>
+    </record>
+    <record id="kg_crm_modules_3" model="crm.modules">
+        <field name="name">Purchase</field>
+    </record>
+    <record id="kg_crm_modules_4" model="crm.modules">
+        <field name="name">Inventory</field>
+    </record>
+    <record id="kg_crm_modules_5" model="crm.modules">
+        <field name="name">Accounting</field>
+    </record>
+    <record id="kg_crm_modules_6" model="crm.modules">
+        <field name="name">Human Resourses</field>
+    </record>
+    <record id="kg_crm_modules_7" model="crm.modules">
+        <field name="name">Timeoff</field>
+    </record>
+    <record id="kg_crm_modules_8" model="crm.modules">
+        <field name="name">Website</field>
+    </record>
+    <record id="kg_crm_modules_9" model="crm.modules">
+        <field name="name">Portal</field>
+    </record>
+    <record id="kg_crm_modules_10" model="crm.modules">
+        <field name="name">Rental Management</field>
+    </record>
+    <record id="kg_crm_modules_11" model="crm.modules">
+        <field name="name">Fleet</field>
+    </record>
+    <record id="kg_crm_modules_12" model="crm.modules">
+        <field name="name">Project</field>
+    </record>
+    <record id="kg_crm_modules_13" model="crm.modules">
+        <field name="name">Timesheet</field>
+    </record>
+
+    <record id="kg_qualifications_1" model="kg.qualifications">
+        <field name="name">Strong Relation</field>
+    </record>
+    <record id="kg_qualifications_2" model="kg.qualifications">
+        <field name="name">Weak Relation</field>
+    </record>
+    <record id="kg_qualifications_3" model="kg.qualifications">
+        <field name="name">Within Budget</field>
+    </record>
+    <record id="kg_qualifications_4" model="kg.qualifications">
+        <field name="name">Out of Budget</field>
+    </record>
+    <record id="kg_qualifications_5" model="kg.qualifications">
+        <field name="name">PoC/Smart Budget</field>
+    </record>
+    <record id="kg_qualifications_6" model="kg.qualifications">
+        <field name="name">PoC/Smart Budget not available</field>
+    </record>
+    <record id="kg_qualifications_7" model="kg.qualifications">
+        <field name="name">Closure date in control</field>
+    </record>
+    <record id="kg_qualifications_8" model="kg.qualifications">
+        <field name="name">Closure date not in control</field>
+    </record>
+    <record id="kg_qualifications_9" model="kg.qualifications">
+        <field name="name">Strong Reference</field>
+    </record>
+    <record id="kg_qualifications_10" model="kg.qualifications">
+        <field name="name">Customer requirement can be managed</field>
+    </record>
+    <record id="kg_qualifications_11" model="kg.qualifications">
+        <field name="name">Customer requirement cannot be managed</field>
+    </record>
+    <record id="kg_qualifications_12" model="kg.qualifications">
+        <field name="name">Advisory</field>
+    </record>
+
+    <record id="kg_activity_11" model="kg.activity">
+        <field name="name">Meeting</field>
+    </record>
+    <record id="kg_activity_22" model="kg.activity">
+        <field name="name">Demo</field>
+    </record>
+    <record id="kg_activity_33" model="kg.activity">
+        <field name="name">Proposal</field>
+    </record>
+    <record id="kg_activity_44" model="kg.activity">
+        <field name="name">PO Waiting</field>
+    </record>
+    <record id="kg_activity_55" model="kg.activity">
+        <field name="name">Negotiation</field>
+    </record>
+
+    <record id="product_product_sales" model="product.product">
+            <field name="name">Sales</field>
+            <field name="type">service</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+        <record id="product_product_purchase" model="product.product">
+            <field name="name">Purchase</field>
+            <field name="type">service</field>
+            <field name="sale_ok">False</field>
+            <field name="purchase_ok">True</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+        <record id="product_product_uat" model="product.product">
+            <field name="name">UAT</field>
+            <field name="type">service</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+        <record id="product_product_reqrmnt_anlsis" model="product.product">
+            <field name="name">Requirement Analysis</field>
+            <field name="type">service</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+</odoo>

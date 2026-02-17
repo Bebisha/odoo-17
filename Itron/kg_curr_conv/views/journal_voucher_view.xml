@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.rule" id="journal_voucher_comp_rule">
+        <field name="name">Journal Voucher multi-company</field>
+        <field name="model_id" ref="model_journal_voucher"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+
+    <record id="jornal_voucher_form_view" model="ir.ui.view">
+        <field name="name">journal.voucher.form.view</field>
+        <field name="model">journal.voucher</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,post"/>
+                    <button name="button_post" type="object" string="Post" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="cancel" type="object" string="Cancel" invisible="state not in '(draft,post)'"/>
+                    <button name="reset" type="object" string="Reset" invisible="state != 'cancel'"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="journal_id" required="1"
+                                   readonly="state in ('post','cancel')"
+                                   domain="[('company_id','=',company_id)]"/>
+
+                            <field name="company_id" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="journal_type" invisible="1"/>
+                            <field name="payment_type" invisible="journal_type != 'bank'"/>
+                            <field name="pdc_date" invisible="payment_type != 'pdc'" required="payment_type == 'pdc'"/>
+                            <field name="pdc_cleared" invisible="payment_type != 'pdc'"/>
+                            <field name="cheq_no" readonly="state in ('post','cancel')"/>
+                            <field name="recipt_payment"/>
+                            <field name="received_from" invisible="recipt_payment == 'payment'"/>
+                            <field name="paid_to" invisible="recipt_payment == 'receipt'"/>
+                            <field name="heading" invisible="1"/>
+                            <field name="reference"/>
+
+                        </group>
+                        <group>
+                            <field name="date" readonly="state in ('post','cancel')"/>
+                            <field name="account_id" required="1"
+                                   readonly="state in ('post','cancel')"
+                            />
+
+                            <field name="move_id"/>
+                            <field name="import_vat"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Operations">
+                            <field name="line_id" readonly="state in ('post','cancel')">
+                                <tree editable="bottom">
+                                    <field name="account_id" required="1"/>
+                                    <field name="partner_id"/>
+                                    <field name="label" required="1"/>
+                                    <field name="debit" invisible="1"/>
+                                    <field name="credit" invisible="1"/>
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="amount"/>
+                                    <field name="tag_ids" widget="many2many_tags"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="account_id"/>
+                                            <field name="label"/>
+                                        </group>
+                                        <group>
+                                            <field name="partner_id"/>
+                                            <field name="amount"/>
+                                            <field name="tag_ids"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="amount" nolabel="1" class="oe_subtotal_footer_separator"
+                                           widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+                        </page>
+
+                        <page string="Invoice Details" invisible="country_code != 'IN'">
+                            <group>
+                                <field name="inv_number" readonly="state in ('post','cancel')"/>
+                                <field name="invoice_date" readonly="state in ('post','cancel')"/>
+                                <field name="due_date" readonly="state in ('post','cancel')"/>
+                                <field name="country_code" invisible="1"/>
+                            </group>
+
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+
+        </field>
+
+    </record>
+    <record model='ir.ui.view' id='journal_voucher_tree_view'>
+        <field name="name">journal.voucher.tree.view</field>
+        <field name="model">journal.voucher</field>
+        <field name="arch" type="xml">
+            <tree default_order="date desc">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="move_id"/>
+                <field name="account_id"/>
+                <field name="journal_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_journal_voucher" model="ir.actions.act_window">
+        <field name="name">Journal Voucher</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">journal.voucher</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="kg_curr_conv.journal_voucher_tree_view"/>
+    </record>
+
+    <record id="action_bank_voucher" model="ir.actions.act_window">
+        <field name="name">Bank Voucher</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">journal.voucher</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('journal_type','=','bank')]</field>
+        <field name="view_id" ref="kg_curr_conv.journal_voucher_tree_view"/>
+    </record>
+
+
+    <menuitem action="action_journal_voucher" name="Journal Voucher" id="menu_journal_voucher"
+              parent="account.menu_finance_entries_accounting_miscellaneous"/>
+
+</odoo>

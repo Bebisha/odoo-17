@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_project_form_inherit" model="ir.ui.view">
+            <field name="name">project.project.form.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='extra_settings']" position="inside">
+                    <field name="project_team_user_ids" widget="many2many_tags"/>
+                    <field name="type_ids" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//group[@name='extra_settings']" position="inside">
+                    <field name="company_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_task_form_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="milestone_ids" required="1" options="{'no_create_edit': True, 'no_create': True}" domain="[('project_id','=',project_id)]"/>
+                    <field name="time_line_id"  options="{'no_create_edit': True, 'no_create': True}" domain="[('id','in',time_line_ids)]" invisible="milestone_ids == False"/>
+
+                    <field name="time_line_ids"   invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

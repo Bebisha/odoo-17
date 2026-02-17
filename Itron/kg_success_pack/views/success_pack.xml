@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="kg_success_pack_view_form" model="ir.ui.view">
+        <field name="name">kg.success.pack.view.form</field>
+        <field name="model">kg.success.pack</field>
+        <field name="arch" type="xml">
+            <form string="Success Pack">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="hours"/>
+                            <field name="product_id" invisible="id == False"/>
+                            <field name="amount"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Success Packages" name="material_line_ids" invisible="1">
+                            <field name="success_pack_line_ids">
+                                <tree name="success_pack_line_ids" editable="bottom"
+                                      decoration-success="utilization == 'normal'"
+                                      decoration-danger="utilization == 'over_utilized'">
+                                    <field name="name"/>
+                                    <field name="success_pack_id" column_invisible="1"/>
+                                    <field name="pack_project_id" column_invisible="1"/>
+                                    <field name="partner_id"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="estimated_hours" widget="float_time"/>
+                                    <field name="worked_hours" widget="float_time"/>
+                                    <field name="utilization" column_invisible="1"/>
+                                    <field name="status"/>
+                                    <field name="active_pack" column_invisible="1"/>
+                                    <!--                                    <button-->
+                                    <!--                                            name="toggle_active"-->
+                                    <!--                                            type="object"-->
+                                    <!--                                            string="Activate"-->
+                                    <!--                                            icon="fa-toggle-on"-->
+                                    <!--                                            invisible="active_pack == True"-->
+                                    <!--                                            class="oe_highlight"-->
+                                    <!--                                    />-->
+                                    <!--                                    <button-->
+                                    <!--                                            name="toggle_active"-->
+                                    <!--                                            type="object"-->
+                                    <!--                                            string="Deactivate"-->
+                                    <!--                                            icon="fa-toggle-off"-->
+                                    <!--                                            invisible="active_pack == False"-->
+                                    <!--                                    />-->
+                                    <button
+                                            string="View Timesheet"
+                                            class="oe_highlight"
+                                            name="action_view_timesheet" type="object">
+                                    </button>
+                                    <button name="action_print_pdf"
+                                            type="object"
+                                            class="oe_highlight"
+                                            string="Print Timesheet"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="kg_success_pack_view_tree" model="ir.ui.view">
+        <field name="name">kg.success.pack.view.form.tree</field>
+        <field name="model">kg.success.pack</field>
+        <field name="arch" type="xml">
+            <tree string="Success Pack">
+                <field name="name"/>
+                <field name="hours" widget="float_time"/>
+            </tree>
+        </field>
+    </record>
+    <record id="kg_success_pack_line_view_tree" model="ir.ui.view">
+        <field name="name">kg.success.pack.line.view.form.tree</field>
+        <field name="model">kg.success.pack.line</field>
+        <field name="arch" type="xml">
+            <tree name="success_pack_line_ids"
+                  decoration-success="utilization == 'normal'"
+                  decoration-danger="utilization == 'over_utilized'">
+                <field name="name"/>
+                <field name="success_pack_id"/>
+                <field name="pack_project_id" column_invisible="1"/>
+                <field name="partner_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="estimated_hours" widget="float_time"/>
+                <field name="worked_hours" widget="float_time"/>
+                <field name="remaining_hours" widget="float_time"/>
+                <field name="utilization" column_invisible="1"/>
+                <field name="status"/>
+                <field name="active_pack" column_invisible="1"/>
+                <!--                <button-->
+                <!--                        name="toggle_active"-->
+                <!--                        type="object"-->
+                <!--                        string="Activate"-->
+                <!--                        icon="fa-toggle-on"-->
+                <!--                        invisible="active_pack == True"-->
+                <!--                        class="oe_highlight"-->
+                <!--                />-->
+                <!--                <button-->
+                <!--                        name="toggle_active"-->
+                <!--                        type="object"-->
+                <!--                        string="Deactivate"-->
+                <!--                        icon="fa-toggle-off"-->
+                <!--                        invisible="active_pack == False"-->
+                <!--                />-->
+                <button
+                        string="View Timesheet"
+                        class="oe_highlight"
+                        name="action_view_timesheet" type="object">
+                </button>
+                <button name="action_print_pdf"
+                        type="object"
+                        class="oe_highlight"
+                        string="Print Timesheet"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="kg_success_pack_line_view_form" model="ir.ui.view">
+        <field name="name">kg.success.pack.line.view.form.form</field>
+        <field name="model">kg.success.pack.line</field>
+        <field name="arch" type="xml">
+
+            <form string="Orders">
+                <header>
+                    <button
+                            string="View Timesheet"
+                            class="oe_highlight"
+                            name="action_view_timesheet" type="object"
+                            invisible="pack_project_id != False">
+
+                    </button>
+                    <button name="action_print_pdf"
+                            type="object"
+                            class="oe_highlight"
+                            string="Print Timesheet"
+                            invisible="pack_project_id != False"/>
+                    <button name="confirm_action" string="Confirm" class="btn-primary" type="object"
+                            invisible="status != 'not_started'"/>
+                    <button name="create_project_button" string="Create Project" class="btn-primary" type="object"
+                            invisible="pack_project_id != False or status != 'confirm'"/>
+
+
+                    <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+
+                        <field name="partner_id" readonly="is_readonly == True" required="True"/>
+                        <field name="phone"/>
+                        <field name="email"/>
+                        <field name="date"/>
+                    </group>
+                    <group>
+
+
+                        <group string="Pack Details">
+
+                            <field name="success_pack_id"/>
+                            <field name="order_date"/>
+                            <field name="payment_date"/>
+                            <field name="is_readonly" invisible="True"/>
+                        </group>
+                        <group string="Project Details" invisible="status != 'confirm'">
+                            <field name="pm_id"/>
+                            <field name="pack_project_id" invisible="pack_project_id == False"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+
+    <record id="kg_success_pack_line_action" model="ir.actions.act_window">
+        <field name="name">Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kg.success.pack.line</field>
+        <field name="view_mode">tree,form</field>
+
+    </record>
+
+    <record id="kg_success_pack_res_partmer_action" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('sale_line_ids', '!=', False)]</field>
+
+    </record>
+    <record id="action_success_pack_sale_orders" model="ir.actions.act_window">
+        <field name="name">Orders</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+       <field name="view_ids"
+               eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('kg_success_pack_order_view_tree')})]"/>
+        <field name="domain">[('success_pack', '=', True)]</field>
+        <field name="context">{'create':False,'default_success_pack': True}</field>
+    </record>
+
+<!--    <record id="success_pack_timesheet_view" model="ir.actions.act_window">-->
+<!--        <field name="name">Timesheets</field>-->
+<!--        <field name="res_model">account.analytic.line</field>-->
+<!--        <field name="domain">[('task_id.success_pack_id', '!=', False)]</field>-->
+<!--        <field name="view_mode">tree</field>-->
+<!--        <field name="view_ids"-->
+<!--               eval="[(5, 0, 0),-->
+<!--                          (0, 0, {'view_mode': 'tree', 'view_id': ref('success_pack_hr_timesheet_line_tree')})]"/>-->
+<!--        <field name="context" eval="{'default_project_id': ref('kg_success_pack.success_pack_project_projects')}"/>-->
+<!--    </record>-->
+
+
+<!--    <record id="success_pack_task_view" model="ir.actions.act_window">-->
+<!--        <field name="name">Tasks</field>-->
+<!--        <field name="res_model">project.task</field>-->
+<!--        <field name="domain">[('success_pack_id', '!=', False)]</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        <field name="view_ids"-->
+<!--               eval="[(5, 0, 0),-->
+<!--        (0, 0, {'view_mode': 'tree', 'view_id': ref('kg_success_pack.success_pack_task_tree')}),-->
+<!--                (0, 0, {'view_mode': 'form', 'view_id': ref('kg_success_pack.success_pack_task_form')})]"/>-->
+<!--        <field name="context"-->
+<!--               eval="{'create':False,'default_project_id': ref('kg_success_pack.success_pack_project_projects')}"/>-->
+<!--    </record>-->
+
+    <menuitem id="menu_kg_success_pack_menu"
+              name="Orders"
+              parent="menu_kg_success_packs"
+              action="kg_success_pack_action"
+              groups="kg_success_pack.kg_success_pack_group_user"
+              sequence="2"/>
+
+    <menuitem id="menu_kg_success_pack"
+              name="Packages"
+              parent="menu_kg_success_pack_configuration_menu"
+              action="kg_success_pack_action"
+              groups="kg_success_pack.kg_success_pack_group_user"
+              sequence="1"/>
+
+<!--    <menuitem id="menu_kg_success_pack_line"-->
+<!--              name="Orders To Hide"-->
+<!--              parent="menu_kg_success_pack_menu"-->
+<!--              action="kg_success_pack_line_action"-->
+<!--              groups="kg_success_pack.kg_success_pack_group_user"-->
+<!--              sequence="2"/>-->
+
+    <menuitem id="menu_kg_success_pack_sale_order"
+              name="Orders"
+              parent="menu_kg_success_pack_menu"
+              action="action_success_pack_sale_orders"
+              groups="kg_success_pack.kg_success_pack_group_user"
+              sequence="2"/>
+
+    <menuitem id="menu_kg_customers_line"
+              name="Customers"
+              parent="menu_kg_success_pack_menu"
+              action="kg_success_pack_res_partmer_action"
+              groups="kg_success_pack.kg_success_pack_group_user"
+              sequence="3"/>
+
+</odoo>
+

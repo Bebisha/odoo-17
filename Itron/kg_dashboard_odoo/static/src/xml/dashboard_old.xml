@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="KgDashboard">
+        <div class="oh_dashboards" style="margin-top: 20px;">
+            <div class="container-fluid o_pj_dashboard">
+                <t t-call="KgDashboardProject"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="KgDashboardProject">
+        <div class="row main-section" style="margin-left: 10px;margin-right: 10px;margin-top: 10px;border: 1px solid black">
+            <div class="inner_select" style="display: flex;width:100%;">
+                <div class="card" style="width:100%">
+                    <div class="card-header"
+                         style=" padding: 17px 1.5rem !important;text-align:center;background-color: #004589 !important;">
+                        <h3 class="custom-h3 card-title" style="color:white;">
+                            <b>PROJECT TASK ANALYSIS</b>
+                        </h3>
+                    </div>
+<!--                    <div class="card-body p-0" style="overflow-y: auto; " id="project_id">-->
+<!--                        <table class="table">-->
+<!--                            <thead class="font-weight-bold" id="task_table_thead" style="background-color: #756f6f; !important;color: white;">-->
+<!--                            </thead>-->
+<!--                            <tbody class="users-list clearfix" id="odoo_project_details" style="color:black;">-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

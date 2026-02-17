@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--  Kanban-->
+    <record id="view_project_kanban_inherit" model="ir.ui.view">
+        <field name="name">project.project.kanban.inherited.button.details</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <a type="open">
+                                <span class="o_label">
+                                    <span class="fa fa-info-circle"/>
+                                    Project
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col-6" role="menuitem">
+                            <a name="action_view_milestone" type="object">Milestones</a>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="project_tree_btn_inherit" model="ir.ui.view">
+        <field name="name">project.project.tree.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <button name="view_project_update" type="object" class="btn btn-primary" string="Status Updates"
+                        groups="project.group_project_manager"/>
+            </xpath>
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="activity_ids" widget="list_activity"/>
+            </xpath>
+            <xpath expr="//field[@name='date_start']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="task_type_edit_inherit" model="ir.ui.view">
+        <field name="name">project.task.type.form.inherit</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_edit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="company_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_update_view_form_inherit_itron" model="ir.ui.view">
+        <field name="name">project.update.form.inherit</field>
+        <field name="model">project.update</field>
+        <field name="inherit_id" ref="project.project_update_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='progress']" position="after">
+                <field name="milestone_id"  options="{'no_create_edit': True, 'no_create': True}" domain="[('project_id','=',project_id)]"/>
+                    <field name="time_line_id"  options="{'no_create_edit': True, 'no_create': True}" domain="[('milestone_id','=',milestone_id)]" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_project_view_form_simplified_inherit" model="ir.ui.view">
+        <field name="name">project.project.view.form.simplified</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.project_project_view_form_simplified"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="partner_id"/>
+                <field name="company_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="edit_project_inherit" model="ir.ui.view">
+        <field name="name">project.project.view.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="project_team_id" required="1"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_title']" position="before">
+                <field name="project_logo" widget="image" class="oe_avatar"/>
+            </xpath>
+            <xpath expr="//field[@name='date_start']" position="after">
+                <field name="project_active"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_filter_inherit_projects" model="ir.ui.view">
+        <field name="name">project.project.view.inherit.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter"/>
+        <field name="arch" type="xml">
+            <filter name="late_milestones" position="before">
+                <filter string="Running Project" name="project_active" domain="[('project_active', '=', True)]"/>
+            </filter>
+        </field>
+    </record>
+
+
+</odoo>

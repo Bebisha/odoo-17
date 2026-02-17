@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_leave_form_inherited" model="ir.ui.view">
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                        <field name="timezone"/>
+                        <field name="utc_time"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_attendance_form_inherited" model="ir.ui.view">
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+            <field name="arch" type="xml">
+               <field name="in_ip_address" position="attributes">
+            <attribute name="invisible">in_mode=='manual' or in_mode=='app'</attribute>
+        </field>
+
+        <field name="in_browser" position="attributes">
+            <attribute name="invisible">in_mode=='manual' or in_mode=='app'</attribute>
+        </field>
+        <xpath expr="//field[@name='in_country_name']/ancestor::group[1]" position="attributes">
+            <attribute name="invisible">in_mode == 'manual' or in_mode == 'app'</attribute>
+        </xpath>
+                 <field name="out_ip_address" position="attributes">
+            <attribute name="invisible">out_mode=='manual' or out_mode=='app'</attribute>
+        </field>
+
+        <field name="out_browser" position="attributes">
+            <attribute name="invisible">out_mode=='manual' or out_mode=='app'</attribute>
+        </field>
+        <xpath expr="//field[@name='out_country_name']/ancestor::group[1]" position="attributes">
+            <attribute name="invisible">out_mode == 'manual' or out_mode == 'app'</attribute>
+        </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="view_early_late_request_form_inherit" model="ir.ui.view">
+            <field name="model">early.late.request</field>
+            <field name="inherit_id" ref="kg_attendance.view_early_late_request_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                        <field name="is_app" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

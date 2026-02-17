@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_flight_allowance_lines_id,access_flight_allowance_lines,model_flight_allowance_lines,,1,1,1,1
+access_hr_designation_admin,access.hr.designation.admin,model_hr_designation,base.group_system,1,1,1,1
+access_hr_designation_approver,access.hr.designation.approver,model_hr_designation,kg_attendance.all_approval_access,1,1,1,1
+access_hr_designation_user_readonly,access.hr_designation.user.readonly,model_hr_designation,base.group_user,1,0,0,0

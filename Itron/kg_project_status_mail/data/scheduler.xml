@@ -1,0 +1,38 @@
+<odoo>
+
+    <!-- This scheduler will work every 24hrs -->
+    <record id="project_task_mail_scheduler" model="ir.cron">
+        <field name="name">Project Status Email(Timesheet and Tasks)</field>
+        <field name="active" eval="True"/>
+        <field name="state" eval="'code'"/>
+        <field name="priority" eval="5"/>
+        <field name="interval_number">24</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="kg_project_status_mail.model_project_status_config"/>
+        <field name="code" eval="'model.get_mail_template()'"/>
+    </record>
+
+    <record id="project_project_amc_expiry_scheduler" model="ir.cron">
+        <field name="name">Project:AMC Expiry</field>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="kg_project_status_mail.model_project_project"/>
+        <field name="code">model.amc_expiry_notification()</field>
+        <field name="priority">10</field>
+    </record>
+
+    <record id="cron_project_details" model="ir.cron">
+        <field name="name">Project Details PDF</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_project_status_config"/>
+        <field name="code">model.action_send_project_details()</field>
+        <field name="state">code</field>
+    </record>
+
+</odoo>

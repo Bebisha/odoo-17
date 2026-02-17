@@ -1,0 +1,75 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="KgDashboard">
+            <div class="oh_dashboards" style="margin-top: 20px;">
+                <div class="container-fluid o_pj_dashboard">
+                     <t t-call="KgDashboardProject"/>
+                </div>
+            </div>
+    </t>
+    <t t-name="KgDashboardProject">
+<!--        <div class="row main-section"-->
+<!--             style="margin-left: 10px;margin-right: 10px;margin-top: 10px;border: 1px solid black">-->
+            <div class="inner_select" style="display: flex;width:100%; border: 1px solid black">
+                <div class="card" style="width:100%">
+                    <div class="card-header"
+                         style=" padding: 17px 1.5rem !important;text-align:center;background-color: #004589 !important;">
+                        <h3 class="custom-h3 card-title" style="color:white;">
+                            <b>PROJECT TASK ANALYSIS</b>
+                        </h3>
+
+                    </div>
+                            <div class="card-body p-0" style="overflow-y: auto; " id="project_id">
+                                <table class="table">
+                                    <thead class="font-weight-bold" id="task_table_thead" style="background-color:  #756f6f; !important;color: white;">
+                                    </thead>
+                                    <tbody class="users-list clearfix" id="odoo_project_details" style="color:black;">
+                                    </tbody>
+                                </table>
+                            </div>
+                    <table class="table">
+                        <thead id="task_table_thead" style="background-color: #756f6f !important; color: white !important;">
+                            <tr>
+                                <th colspan="1" style="text-align:center"><b>ASSIGNEE</b></th>
+                                <th colspan="1" style="text-align:center"><b>OPEN</b></th>
+                                <th colspan="1" style="text-align:center"><b>TODAY</b></th>
+                                <th colspan="1" style="text-align:center"><b>OVER DUE</b></th>
+                                <th colspan="1" style="text-align:center"><b>PENDING TOTAL</b></th>
+                                <th colspan="1" style="text-align:center"><b>FIXED</b></th>
+                                <th colspan="1" style="text-align:center"><b>HELD</b></th>
+                                <th colspan="1" style="text-align:center"><b>TOTAL</b></th>
+                            </tr>
+                        </thead>
+                        <tbody id="odoo_project_details" class="users-list clearfix" style="color:black;">
+                            <tr t-foreach="state.result" t-as="o" t-key="o.id">
+                                <td colspan="1" style="text-align:center;cursor: pointer;" t-on-click="(e) => this.tot_assignee(e, o.id)">
+                                    <t t-esc="o.name"/>
+                                </td>
+                                <td colspan="1" style="text-align:center;cursor: pointer;" t-on-click="(e) => this.tot_open(e, o.id)">
+                                    <t t-esc="o.open"/>
+                                </td>
+                                <td colspan="1" style="text-align:center;cursor: pointer;" t-on-click="(e) => this.tot_today(e, o.id)">
+                                    <t t-esc="o.today"/>
+                                </td>
+                                <td colspan="1" style="text-align:center;cursor: pointer;" t-on-click="(e) => this.tot_overdue(e, o.id)">
+                                    <t t-esc="o.overdue"/>
+                                </td>
+                                <td colspan="1" style="text-align:center;cursor: pointer;" t-on-click="(e) => this.tot_pending(e, o.id)">
+                                    <t t-esc="o.pending"/>
+                                </td>
+                                <td colspan="1" style="text-align:center;cursor: pointer;" t-on-click="(e) => this.tot_fixed(e, o.id)">
+                                    <t t-esc="o.fixed"/>
+                                </td>
+                                <td colspan="1" style="text-align:center;cursor: pointer;" t-on-click="(e) => this.tot_held(e, o.id)">
+                                    <t t-esc="o.held"/>
+                                </td>
+                                <td colspan="1" style="text-align:center;cursor: pointer;" t-on-click="(e) => this.tot_tasks(e, o.id)">
+                                    <t t-esc="o.total"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+<!--        </div>-->
+    </t>
+</templates>

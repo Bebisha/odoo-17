@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+
+    <record id="helpdesk_sla_view_tree" model="ir.ui.view">
+        <field name="name">helpdesk.sla.tree</field>
+        <field name="model">helpdesk.sla</field>
+        <field name="arch" type="xml">
+            <tree string="SLA Policies" multi_edit="1" sample="1" default_order="team_id">
+                <field name="name"/>
+                <field name="team_id"/>
+                <field name="priority"/>
+                <field name="tag_ids" widget="many2many_tags" optional="hide"/>
+                <field name="partner_ids" widget="many2many_tags" optional="hide"/>
+                <field name="time"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="helpdesk_sla_view_search" model="ir.ui.view">
+        <field name="name">helpdesk.sla.search</field>
+        <field name="model">helpdesk.sla</field>
+        <field name="arch" type="xml">
+            <search string="SLA Policies">
+                <field name="name"/>
+                <field name="team_id"/>
+                <field name="priority"/>
+                <field name="tag_ids"/>
+                <field name="partner_ids"/>
+                <field name="time"/>
+                <group expand="0" string="Group By">
+                    <filter string="Helpdesk Team" name="team" context="{'group_by':'team_id'}"/>
+                    <filter string="Company" name="company" context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="helpdesk_sla_view_form" model="ir.ui.view">
+        <field name="name">helpdesk.sla.form</field>
+        <field name="model">helpdesk.sla</field>
+        <field name="arch" type="xml">
+            <form string="SLA Policy">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_open_helpdesk_ticket"
+                                icon="fa-life-ring">
+                            <field name="ticket_count" widget="statinfo" string="Tickets"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. Close urgent tickets within 36 hours"/>
+                        </h1>
+                    </div>
+                    <field name="description" placeholder="Description of the policy..."/>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <separator colspan="2" string="Criteria" class="mt32"/>
+                            <div class="text-muted mb32" colspan="2">This SLA Policy will apply to tickets matching ALL
+                                of the following criteria:
+                            </div>
+                            <field name="team_id"/>
+                            <field name="type_ids" widget="many2many_tags"/>
+                            <field name="tag_ids" widget="many2many_tags"/>
+                            <field name="priority"/>
+                            <field name="response_time"/>
+
+                            <field name="partner_ids" widget="many2many_tags"/>
+
+                            <separator colspan="2" string="Target" class="mt32"/>
+                            <field name="stage_id" string="Reach Stage"/>
+                            <label for="time"/>
+                            <div class="o_row">
+                                <field name="time" widget="float_time" class="oe_inline"/>
+                                <span class="o_field_widget o_readonly_modifier">Working Hours</span>
+                            </div>
+                            <field name="exclude_stage_ids" string="Excluding Stage"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="helpdesk_sla_policies_action" model="ir.actions.act_window">
+        <field name="name">SLA Policies</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">helpdesk.sla</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            id="helpdesk_sla_policies_menu"
+            name="SLA Policies"
+            parent="helpdesk_mgmt.helpdesk_ticket_config_main_menu"
+            action="helpdesk_sla_policies_action"
+            sequence="11"
+    />
+</odoo>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_project_contract_request_inherit" model="ir.ui.view">
+        <field name="name">project.contract.request.form</field>
+        <field name="model">project.contract.request</field>
+        <field name="inherit_id" ref="kg_contracts.view_project_contract_request"/>
+        <field name="arch" type="xml">
+            <!--            <field name="sale_id"/>-->
+            <field name="recurring_id" position="before">
+                <field name="contract_type" readonly="True"/>
+                <field name="sale_id" readonly="True"/>
+                <field name="rebion_status" readonly="True" invisible="1"/>
+                <field name="recurrance_id" readonly="True"/>
+
+            </field>
+            <xpath expr="//div[@class='oe_button_box']" position="after">
+
+                <widget name="web_ribbon" title="Inactive" bg_color="bg-danger"
+                        invisible="rebion_status != 'pending'"/>
+                <widget name="web_ribbon" title="Active" bg_color="bg-success"
+                        invisible="rebion_status != 'done' "/>
+                <widget name="web_ribbon" title="Completed" bg_color="bg-info"
+                        invisible="rebion_status != 'completed' "/>
+                <widget name="web_ribbon" title="Expired" bg_color="bg-info"
+                        invisible="rebion_status != 'expire' "/>
+            </xpath>
+
+            <xpath expr="//field[@name='total_amount']" position="attributes">
+                <attribute name="required">False</attribute>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!--            <xpath expr="//field[@name='date_start']" position="attributes">-->
+            <!--                <attribute name="invisible">1</attribute>-->
+            <!--            </xpath>-->
+            <xpath expr="//button[@name='create_subscription']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='plan_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='currency_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='recurring_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='provision_contracts']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='contract_type']" position="after">
+                <field name="planned_hrs" readonly="False"/>
+            </xpath>
+            <xpath expr="//page[1]" position="before">
+                <page string="Engagement Period" name="engagement_period">
+                    <field name="engagement_period_ids">
+                        <tree editable="bottom">
+                            <field name="invoice_id" string="Invoice" readonly="True"/>
+                            <field name="invoice_date" readonly="True"/>
+                            <field name="invoice_end_date" readonly="True"/>
+                            <field name="invoice_state" readonly="True"/>
+                            <field name="payment_state" readonly="True"/>
+                            <field name="rebion_pending" readonly="True" column_invisible="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_project_contract_request_tree_inherit" model="ir.ui.view">
+        <field name="name">project.contract.request.form</field>
+        <field name="model">project.contract.request</field>
+        <field name="inherit_id" ref="kg_contracts.view_project_contract_request_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='engagement_id']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='resource_id']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_end']" position="after">
+                <field name="rebion_status" string="Status"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_project_contract_request_amc_inherit" model="ir.ui.view">
+        <field name="name">project.contract.request.form.amc</field>
+        <field name="model">project.contract.request.amc</field>
+        <field name="inherit_id" ref="kg_contracts.view_project_contract_request_amc"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_button_box']" position="after">
+
+                <widget name="web_ribbon" title="Inactive" bg_color="bg-danger"
+                        invisible="rebion_status != 'pending'"/>
+                <widget name="web_ribbon" title="Active" bg_color="bg-success"
+                        invisible="rebion_status != 'done' "/>
+                <widget name="web_ribbon" title="Completed" bg_color="bg-info"
+                        invisible="rebion_status != 'completed' "/>
+                <widget name="web_ribbon" title="Expired" bg_color="bg-info"
+                        invisible="rebion_status != 'expire' "/>
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button name="view_tasks_amc"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-tasks"
+                        invisible="task_count == 0"
+                >
+                    <div class="o_stat_info">
+                        <field name="task_count"/>
+                        <span class="o_stat_text">Tasks</span>
+                    </div>
+                </button>
+                <button name="view_timesheet_amc"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-clock-o"
+                        invisible="timesheet_count == 0"
+                >
+                    <div class="o_stat_info">
+                        <field name="timesheet_count"/>
+                        <span class="o_stat_text">Timesheets</span>
+                    </div>
+                </button>
+            </xpath>
+
+            <field name="recurring_id" position="before">
+                <field name="sale_id" readonly="True"/>
+                <field name="rebion_status" readonly="True" invisible="1"/>
+                <field name="planned_hrs" widget="float_time" readonly="False" invisible="contract_type != 'amc'"/>
+                <field name="support_hrs" widget="float_time" readonly="False" invisible="contract_type != 'amc'"/>
+                <field name="enhancement_hrs" widget="float_time" readonly="False" invisible="contract_type != 'amc'"/>
+                <field name="spent_hrs" widget="float_time" invisible="contract_type != 'amc'"/>
+                <field name="support_spent_hrs" widget="float_time" invisible="contract_type != 'amc'"/>
+                <field name="enhancement_spent_hrs" widget="float_time" invisible="contract_type != 'amc'"/>
+                <field name="spent_hrs_time" invisible="1"/>
+                <field name="restrict_ticket" />
+
+            </field>
+
+            <xpath expr="//field[@name='provision_contracts']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='resource_id']" position="after">
+                <field name="description" invisible="0"/>
+            </xpath>
+            <xpath expr="//field[@name='currency_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='plan_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='total_amount']" position="attributes">
+                <attribute name="required">False</attribute>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!--            <xpath expr="//field[@name='date_start']" position="attributes">-->
+            <!--                <attribute name="invisible">1</attribute>-->
+            <!--            </xpath>-->
+            <!--            <xpath expr="//field[@name='date_end']" position="attributes">-->
+            <!--                <attribute name="invisible">1</attribute>-->
+            <!--            </xpath>-->
+            <xpath expr="//field[@name='recurring_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='create_subscription']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[1]" position="before">
+                <page string="Engagement Period" name="engagement_period">
+                    <field name="engagement_period_ids">
+                        <tree editable="bottom">
+                            <field name="invoice_id" string="Invoice" readonly="True"/>
+                            <field name="invoice_date" readonly="True"/>
+                            <field name="invoice_end_date" readonly="True"/>
+                            <field name="period_start_date" readonly="True"/>
+                            <field name="period_end_date" readonly="True"/>
+                            <field name="planned_hours" readonly="True"/>
+                            <field name="invoice_state" readonly="True"/>
+                            <field name="payment_state" readonly="True"/>
+                            <field name="rebion_pending" readonly="True" column_invisible="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_contract_request_amc_tree_inherit" model="ir.ui.view">
+        <field name="name">project.contract.request.form</field>
+        <field name="model">project.contract.request.amc</field>
+        <field name="inherit_id" ref="kg_contracts.view_project_contract_request_amc_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_end']" position="after">
+                <field name="planned_hrs" string="Total Hrs"/>
+                <field name="spent_hrs" string="Spent Hrs"/>
+                <field name="rebion_status" string="Status"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="kg_sales_tracker_view_form" model="ir.ui.view">
+        <field name="name">kg.sales.tracker.view.form</field>
+        <field name="model">kg.sales.tracker</field>
+        <field name="arch" type="xml">
+            <form string="Sales Tracker Analysis">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="report_type" widget="radio"/>
+                        </group>
+                    </group>
+
+
+                    <group>
+                        <group groups="kg_sales_target.kg_sales_tracker_group_manager">
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <label for="month" string="Period"/>
+                            <div class="o_row">
+                                <field name="month" invisible="report_type == 'yearly'" required="report_type == 'monthly'"/>
+                                <field name="year"/>
+                            </div>
+                            <field name="start_date" invisible="1"/>
+                            <field name="end_date" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="View" name="action_view_analysis" type="object" class="btn-primary"/>
+                    <button string="Cancel" name="cancel" type="object" special="cancel" class="btn-cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="kg_sales_tracker_lines_monthly_view_tree" model="ir.ui.view">
+        <field name="name">kg.sales.tracker.lines.view.form.tree.monthly</field>
+        <field name="model">kg.sales.tracker.lines</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Tracker Analysis" decoration-danger="target &lt; total_target" editable="bottom">
+                <field name="date"/>
+                <field name="user_id"/>
+                <field name="stage"/>
+                <field name="count"/>
+                <field name="expected_revenue"/>
+                <field name="target"/>
+                <field name="total_target"/>
+                <field name="achieved_target_per" widget="percentage"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="lead_ids"/>
+                <button string="View Leads" name="view_leads" type="object" class="btn-primary"/>
+            </tree>
+        </field>
+    </record>
+    <record id="kg_sales_tracker_lines_weekly_view_tree" model="ir.ui.view">
+        <field name="name">kg.sales.tracker.lines.view.form.tree.weekly</field>
+        <field name="model">kg.sales.tracker.lines</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Tracker Analysis" decoration-danger="target &lt; total_target" editable="bottom" edit="0" create="0">
+                <field name="date"/>
+                <field name="user_id"/>
+                <field name="stage"/>
+                <field name="expected_revenue"/>
+                <field name="total_target"/>
+                <field name="target"/>
+                <field name="achieved_target_per" widget="percentage"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="lead_ids"/>
+                <button string="View Leads" name="view_leads" type="object" class="btn-primary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="kg_sales_tracker_lines_monthly_view_pivot" model="ir.ui.view">
+        <field name="name">kg.sales.tracker.lines.view.pivot.monthly</field>
+        <field name="model">kg.sales.tracker.lines</field>
+        <field name="arch" type="xml">
+            <pivot string="Sales Tracker Lines" sample="1">
+                <field name="user_id" type="row"/>
+                <field name="date" interval="month"/>
+                <field name="count" type="measure"/>
+                <field name="y2m_lead_target" type="measure"/>
+                <field name="proposal_achieved" type="measure" />
+                <field name="y2m_proposal_target" type="measure"/>
+                <field name="expected_revenue" type="measure"/>
+                <field name="y2m_target" type="measure"/>
+                <field name="tot_current_target" type="measure"/>
+                <field name="y2m_target_per" widget="percentage" type="measure"/>
+                <field name="total_target" type="measure"/>
+                <field name="target" type="measure"/>
+                <field name="achieved_target_per" type="measure" widget="percentage"/>
+                <field name="currency_id" invisible="1"/>
+            </pivot>
+        </field>
+    </record>
+
+
+    <record id="kg_sales_tracker_lines_weekly_view_pivot" model="ir.ui.view">
+        <field name="name">kg.sales.tracker.lines.view.pivot.weekly</field>
+        <field name="model">kg.sales.tracker.lines</field>
+        <field name="arch" type="xml">
+            <pivot string="Sales Tracker Analysis" sample="1">
+                <field name="user_id" type="row"/>
+                <field name="date" interval="week"/>
+                <field name="monthly_leads" type="measure"/>
+                <field name="monthly_leads_target" type="measure"/>
+                <field name="proposal_achieved" type="measure" />
+                <field name="monthly_proposal_target" type="measure"/>
+                <field name="expected_revenue" type="measure"/>
+                <field name="target" type="measure"/>
+                <field name="total_target" type="measure"/>
+                <field name="achieved_target_per" type="measure" widget="percentage"/>
+                <field name="currency_id" invisible="1"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="all_kg_sales_tracker_action" model="ir.actions.act_window">
+        <field name="name">Sales Tracker Analysis</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kg.sales.tracker</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
+

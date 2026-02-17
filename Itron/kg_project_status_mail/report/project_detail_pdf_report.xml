@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_project_details_report" model="ir.actions.report">
+            <field name="name">Project-Task Status</field>
+            <field name="model">project.status.config</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_project_status_mail.report_project_details</field>
+            <field name="report_file">kg_project_status_mail.report_project_details</field>
+        </record>
+    </data>
+</odoo>

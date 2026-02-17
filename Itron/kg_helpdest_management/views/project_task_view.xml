@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Inheriting Project Task XML to Customize -->
+    <record id="project_task_view_form_inherit_id" model="ir.ui.view">
+        <field name="name">project.task.form.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_ticket" class="oe_stat_button" icon="fa-file"
+                        context="{'create': False}" type="object" string="Ticket's" invisible="not ticket_id">
+                    <field name="ticket_count" widget="statinfo" string="Ticket's"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="ticket_id" force_save="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

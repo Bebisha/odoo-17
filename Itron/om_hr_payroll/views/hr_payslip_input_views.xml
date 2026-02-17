@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_payslip_input_type_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.input.type.tree</field>
+            <field name="model">hr.payslip.input.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="struct_ids" widget="many2many_tags"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_payslip_input_type_form" model="ir.ui.view">
+            <field name="name">hr.payslip.input.type.form</field>
+            <field name="model">hr.payslip.input.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="country_id"/>
+                            <field name="struct_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+
+                        </group>
+
+
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_hr_payslip_input_type_form" model="ir.actions.act_window">
+            <field name="name">Other Input Types</field>
+            <field name="res_model">hr.payslip.input.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_hr_input_type"
+                  action="action_hr_payslip_input_type_form"
+                  parent="menu_hr_payroll_configuration"
+                  sequence="95"/>
+
+
+    </data>
+
+</odoo>

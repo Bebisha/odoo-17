@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="kg_expense_tree" model="ir.ui.view">
+        <field name="model">kg.expense</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="expense_date"/>
+                <field name="number"/>
+
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="state"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="kg_expense_form_view" model="ir.ui.view">
+        <field name="model">kg.expense</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit" type="object" string="Submit" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="Approve" class="btn-primary" invisible="state != 'waiting'"/>
+                    <button name="action_reject" type="object" string="Reject" class="btn-primary" invisible="state != 'waiting'"/>
+                    <button name="action_cancel" type="object" string="cancel" class="btn-primary" invisible="state != 'waiting'"/>
+
+                    <field name="state" widget="statusbar" string="Status"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1 class="oe_title">
+                            <field name="number"/>
+                        </h1>
+                        <h2 class="o_row">
+                            <field name="name" placeholder="e.g. Lunch with Customer" required="1"/>
+                        </h2>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="expense_date"/>
+                            <field name="employee_id" widget="many2one_avatar"/>
+
+                        </group>
+                        <group>
+                            <field name="total" widget='monetary'
+                                   options="{'currency_field': 'currency_id'}"/>
+
+                            <field name="currency_id"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Line">
+                            <field name="expense_line_ids">
+                                <tree editable="bottom">
+                                    <field name="category_id"/>
+                                    <field name="cost"/>
+                                    <field name="attachment_ids" widget="many2many_binary"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.rule" id="kg_expense_rule">
+        <field name="name">Kg Expense</field>
+        <field name="model_id" ref="model_kg_expense"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="kg_expense_action" model="ir.actions.act_window">
+        <field name="name">My Expense</field>
+        <field name="res_model">kg.expense</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="kg_expense_main_menu" name="Expense"/>
+    <menuitem id="kg_expense_first_menu" name="My Expense" parent="kg_expense_main_menu" action="kg_expense_action"/>
+    <menuitem id="kg_expense_second_menu" name="Configuration" parent="kg_expense_main_menu"/>
+    <menuitem id="category_master_menu" name="Category" action="kg_expense_category_action"
+              parent="kg_expense_second_menu"/>
+
+</odoo>

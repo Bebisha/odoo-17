@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <record id="action_contract_amc" model="ir.actions.act_window">
+        <field name="name">AMC</field>
+        <field name="res_model">project.contract.request.amc</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('contract_type', '=', 'amc')]</field>
+        <field name="context">{'create':False}</field>
+    </record>
+    <record id="action_contract_onsite" model="ir.actions.act_window">
+        <field name="name">Onsite</field>
+        <field name="res_model">project.contract.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('contract_type', '=', 'onsite')]</field>
+        <field name="context">{'create':False}</field>
+    </record>
+    <record id="action_contract_offshore" model="ir.actions.act_window">
+        <field name="name">Offshore</field>
+        <field name="res_model">project.contract.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('contract_type', '=', 'offshore')]</field>
+        <field name="context">{'create':False}</field>
+    </record>
+    <record id="action_subscription_amc_sale_orders" model="ir.actions.act_window">
+        <field name="name">AMC Orders</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                                  (0, 0, {'view_mode': 'tree', 'view_id': ref('kg_contract_tree')})]"/>
+        <field name="domain">[('project_type', '=', 'amc'),('sale_type', '=', 'contract')]</field>
+        <field name="context">{'create':False,'default_amc': True}</field>
+    </record>
+    <record id="action_contract_onsite" model="ir.actions.act_window">
+        <field name="name">Onsite</field>
+        <field name="res_model">project.contract.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('contract_type', '=', 'onsite')]</field>
+        <field name="context">{'create':False}</field>
+    </record>
+
+    <record id="action_subscription_onsite_sale_orders" model="ir.actions.act_window">
+        <field name="name">Onsite Orders</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                                  (0, 0, {'view_mode': 'tree', 'view_id': ref('kg_contract_tree')})]"/>
+        <field name="domain">[('project_type', '=', 'onsite'),('sale_type', '=', 'contract')]</field>
+        <field name="context">{'create':False,'default_onsite': True}</field>
+    </record>
+    <record id="action_subscription_offshore_sale_orders" model="ir.actions.act_window">
+        <field name="name">Offshore Orders</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                                  (0, 0, {'view_mode': 'tree', 'view_id': ref('kg_contract_tree')})]"/>
+        <field name="domain">[('project_type', '=', 'offshore'),('sale_type', '=', 'contract')]</field>
+        <field name="context">{'create':False,'default_onsite': True}</field>
+    </record>
+
+    <record id="action_contract_free_support" model="ir.actions.act_window">
+        <field name="name">Free Support</field>
+        <field name="res_model">project.contract.request.free.support</field>
+        <field name="view_mode">tree,form</field>
+<!--        <field name="context">{'create':False}</field>-->
+    </record>
+
+    <menuitem id="menu_subscription_contract_order"
+              name="Contract Orders"
+              parent="sttl_sale_subscription.sttl_subscription_menu_act"
+              sequence="3"/>
+
+    <menuitem id="menu_subscription_amc_order"
+              name="AMC Orders"
+              parent="sttl_sale_subscription.menu_subscription_contract_order"
+              action="action_subscription_amc_sale_orders"
+              sequence="2"/>
+
+    <menuitem id="menu_subscription_onsite_order"
+              name="Onsite Orders"
+              parent="sttl_sale_subscription.menu_subscription_contract_order"
+              action="action_subscription_onsite_sale_orders"
+              sequence="2"/>
+    <menuitem id="menu_subscription_offshore_order"
+              name="Offshore Orders"
+              parent="sttl_sale_subscription.menu_subscription_contract_order"
+              action="action_subscription_offshore_sale_orders"
+              sequence="3"/>
+
+    <menuitem id="menu_subscription_contract_project_order"
+              name="Contract Projects"
+              parent="sttl_sale_subscription.sttl_subscription_menu_act"
+              sequence="3"/>
+
+    <menuitem id="menu_subscription_contract_project_order_amc"
+              name="AMC Projects"
+              action="action_contract_amc"
+              parent="sttl_sale_subscription.menu_subscription_contract_project_order"
+              sequence="1"/>
+    <menuitem id="menu_subscription_contract_project_order_onsite"
+              name="Onsite Projects"
+              action="action_contract_onsite"
+              parent="sttl_sale_subscription.menu_subscription_contract_project_order"
+              sequence="2"/>
+    <menuitem id="menu_subscription_contract_project_order_offshore"
+              name="Offshore Projects"
+              action="action_contract_offshore"
+              parent="sttl_sale_subscription.menu_subscription_contract_project_order"
+              sequence="3"/>
+    <menuitem id="menu_subscription_contract_project_order_free_support"
+              name="Free Support Projects"
+              action="action_contract_free_support"
+              parent="sttl_sale_subscription.menu_subscription_contract_project_order"
+              sequence="4"/>
+
+    <menuitem id="menu_pro_request_contract_free_supp" action="action_contract_free_support"
+              parent="kg_contracts.menu_pro_request_contract" name="Free Support" sequence="3"/>
+
+</odoo>

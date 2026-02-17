@@ -1,0 +1,20 @@
+<odoo>
+    <record id="lead_interest_tree_view" model="ir.ui.view">
+        <field name="name">lead.interest.tree.view</field>
+        <field name="model">lead.interest</field>
+        <field name="arch" type="xml">
+            <tree string="Lead Interest" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_lead_interest" model="ir.actions.act_window">
+        <field name="name">Lead Interest</field>
+        <field name="res_model">lead.interest</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem id="menu_lead_interest" name="Lead Interest"
+              parent="crm.crm_menu_config"
+              action="action_lead_interest"/>
+</odoo>

@@ -1,0 +1,383 @@
+<templates id="template_late_coming_waiting" xml:space="preserve">
+    <t t-name="late_coming_approval_dashboard">
+        <div style="font-family: 'Arial', sans-serif; background-color: #f5f5f5; padding: 30px; border-radius: 10px;margin: 0 auto;">
+            <h2 style="text-align: center; margin-top: 20px; color: black; font-size: 24px;">Waiting Approvals</h2>
+            <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; margin-left: 100px;">
+                    <label for="company_select"
+                           style="font-weight: bold; font-size: 18px; color: #333; margin-right: 10px;">
+                        Company:
+                    </label>
+                    <select id="company_select"
+                            style="padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; width: 300px; transition: all 0.3s ease;"
+                            t-on-change="(e) => this.FilterCompany(e)">
+                        <option value="" selected="1">All Company</option>
+                        <t t-foreach="state.companies" t-as="company" t-key="company.id">
+                            <option t-att-value="company.id" t-esc="company.name"
+                                    t-att-selected="company.id == state.selectedCompanyId"/>
+                        </t>
+                    </select>
+                </div>
+            </div>
+
+
+            <!-- Table Section -->
+            <h2 style="text-align: center; margin-top: 20px; color: black; font-size: 24px;">Late Arrival</h2>
+            <table style="width: 100%; margin-top: 30px; border-collapse: collapse; text-align: center; font-size: 16px; border-radius: 10px; overflow: hidden; border: 1px solid #ddd;">
+    <thead style="background-color: #243742; color: white; text-transform: uppercase; font-weight: bold;">
+        <tr>
+            <th style="padding: 10px;width: 10%;">Employee</th>
+            <th style="padding: 10px;width: 10%;">Company</th>
+            <th style="padding: 10px; width: 10%;">Date</th>
+            <th style="padding: 10px; width: 10%;">Late By</th>
+            <th style="padding: 10px; width: 10%;">Time of Arrival</th>
+            <th style="padding: 10px; width: 10%;">Weekly Late Hrs</th>
+            <th style="padding: 10px; width: 10%;">Monthly Late Hrs</th>
+            <th style="padding: 10px; width: 10%;">Reason</th>
+            <th style="padding: 10px; width: 10%;">Actions</th>
+        </tr>
+    </thead>
+                <tbody>
+        <t t-if="state.filteredEmployees.length === 0">
+            <tr>
+                <td colspan="8" style="padding: 12px; color: #333; text-align: center;">
+                    No Late Arrival requests to Approve
+                </td>
+            </tr>
+        </t>
+                    <t t-else="">
+            <t t-foreach="state.filteredEmployees" t-as="employee" t-key="employee.id">
+                <tr style="background-color: #fff; border-bottom: 1px solid #ddd; transition: background-color 0.3s ease;">
+                    <td style="padding: 12px; color: #333; font-weight: bold;text-align:center;"
+                        t-on-click="(e) => this.tot_late(e, employee.id)">
+                        <t t-esc="employee.name"/>
+                    </td>
+                    <td style="padding: 12px; color: #333; font-weight: bold;text-align:center;"
+                        t-on-click="(e) => this.tot_late(e, employee.id)">
+                        <t t-esc="employee.company_name"/>
+                    </td>
+                    <td style="padding: 12px; color: #333;"
+                        t-on-click="(e) => this.current_late(e, employee.id)">
+                        <t t-esc="employee.date"/>
+                    </td>
+                    <td style="padding: 12px; color: #f44336;"
+                        t-on-click="(e) => this.current_late(e, employee.id)">
+                        <t t-esc="employee.late_by"/>
+                    </td>
+                    <td style="padding: 12px; color: #333;"
+                        t-on-click="(e) => this.current_late(e, employee.id)">
+                        <t t-esc="employee.arrival_time"/>
+                    </td>
+                    <td style="padding: 12px; color: #333;"
+                        t-on-click="(e) => this.weekly_late(e, employee.id)">
+                        <t t-esc="employee.week_late"/>
+                    </td>
+                    <td style="padding: 12px; color: #333;"
+                        t-on-click="(e) => this.tot_late(e, employee.id)">
+                        <t t-esc="employee.monthly_late"/>
+                    </td>
+                    <td style="position: relative;">
+                                    <i class="fa fa-info-circle reason-tooltip-icon"
+                                       style="cursor: pointer; font-size: 16px; color: #007bff;">
+                                    </i>
+                        <div class="reason-tooltip">
+                                        <t t-esc="employee.reason"/>
+                                    </div>
+                                </td>
+
+                    <style>
+                                    .reason-tooltip {
+                                    visibility: hidden;
+                                    background-color: #ADD8E6;
+                                    color: black;
+                                    text-align: center;
+                                    padding: 10px 12px ;
+                                    border-radius: 5px;
+                                    position: absolute;
+                                    bottom: 12%;
+                                    left: 50%;
+                                    transform: translateX(-50%);
+                                    white-space: nowrap;
+                                    font-size: 16px;
+                                    z-index: 1000; /* Ensures it appears above other elements */
+                                    opacity: 0;
+                                    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+                                    }
+
+                                    /* Make the tooltip appear when hovering over the entire td */
+                                    td:hover .reason-tooltip {
+                                    visibility: visible;
+                                    opacity: 1;
+                                    }
+                                </style>
+                    <td style="padding: 12px; color: #333;">
+                        <div class="btn-group" style="gap: 5px;">
+                            <button class="btn btn-outline-success fw-semibold px-2 py-1 rounded-pill"
+                                    t-on-click="(e) => this.approveRequest(e, employee.id)"
+                                    style="display: flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 17px;">
+                                ✔ Approve
+                            </button>
+                            <button class="btn btn-outline-danger fw-semibold px-2 py-1 rounded-pill"
+                                    t-on-click="(e) => this.rejectRequest(e, employee.id)"
+                                    style="display: flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 17px;">
+                                ✖ Reject
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </t>
+        </t>
+    </tbody>
+</table>
+
+            <!--            <table style="width: 100%; margin-top: 30px; border-collapse: collapse; text-align: center; font-size: 16px; border-radius: 10px; overflow: hidden; border: 1px solid #ddd;">-->
+            <!--        <thead style="background-color: #243742; color: white; text-transform: uppercase; font-weight: bold;">-->
+            <!--            <tr>-->
+            <!--                <th style="padding: 10px;width: 10%;">Employee</th>-->
+            <!--                <th style="padding: 10px;width: 10%;">Company</th>-->
+            <!--                <th style="padding: 10px; width: 10%;">Date</th>-->
+            <!--                <th style="padding: 10px; width: 10%;">Late By</th>-->
+            <!--                <th style="padding: 10px; width: 10%;">Time of Arrival</th>-->
+            <!--                <th style="padding: 10px; width: 10%;">Weekly Late Hrs</th>-->
+            <!--                <th style="padding: 10px; width: 10%;">Monthly Late Hrs</th>-->
+            <!--                <th style="padding: 10px; width: 10%;">Reason</th>-->
+            <!--                <th style="padding: 10px; width: 10%;">Actions</th>-->
+            <!--            </tr>-->
+            <!--        </thead>-->
+            <!--                <tbody>-->
+            <!--        <t t-if="state.filteredEmployees.length === 0">-->
+            <!--            <tr>-->
+            <!--                <td colspan="8" style="padding: 12px; color: #333; text-align: center;">-->
+            <!--                    No Late Arrival requests to Approve-->
+            <!--                </td>-->
+            <!--            </tr>-->
+            <!--        </t>-->
+            <!--                    <t t-else="">-->
+            <!--            <t t-foreach="state.filteredEmployees" t-as="employee" t-key="employee.id">-->
+            <!--                <tr style="background-color: #fff; border-bottom: 1px solid #ddd; transition: background-color 0.3s ease;">-->
+            <!--                    <td style="padding: 12px; color: #333; font-weight: bold;text-align:center;"-->
+            <!--                        t-on-click="(e) => this.tot_late(e, employee.id)">-->
+            <!--                        <t t-esc="employee.name"/>-->
+            <!--                    </td>-->
+            <!--                    <td style="padding: 12px; color: #333; font-weight: bold;text-align:center;"-->
+            <!--                        t-on-click="(e) => this.tot_late(e, employee.id)">-->
+            <!--                        <t t-esc="employee.company_name"/>-->
+            <!--                    </td>-->
+            <!--                    <td style="padding: 12px; color: #333;"-->
+            <!--                        t-on-click="(e) => this.current_late(e, employee.id)">-->
+            <!--                        <t t-esc="employee.date"/>-->
+            <!--                    </td>-->
+            <!--                    <td style="padding: 12px; color: #f44336;"-->
+            <!--                        t-on-click="(e) => this.current_late(e, employee.id)">-->
+            <!--                        <t t-esc="employee.late_by"/>-->
+            <!--                    </td>-->
+            <!--                    <td style="padding: 12px; color: #333;"-->
+            <!--                        t-on-click="(e) => this.current_late(e, employee.id)">-->
+            <!--                        <t t-esc="employee.arrival_time"/>-->
+            <!--                    </td>-->
+            <!--                    <td style="padding: 12px; color: #333;"-->
+            <!--                        t-on-click="(e) => this.weekly_late(e, employee.id)">-->
+            <!--                        <t t-esc="employee.week_late"/>-->
+            <!--                    </td>-->
+            <!--                    <td style="padding: 12px; color: #333;"-->
+            <!--                        t-on-click="(e) => this.tot_late(e, employee.id)">-->
+            <!--                        <t t-esc="employee.monthly_late"/>-->
+            <!--                    </td>-->
+            <!--                    <td style="position: relative;">-->
+            <!--                                    <i class="fa fa-info-circle reason-tooltip-icon"-->
+            <!--                                       style="cursor: pointer; font-size: 16px; color: #007bff;">-->
+            <!--                                    </i>-->
+            <!--                        <div class="reason-tooltip">-->
+            <!--                                        <t t-esc="employee.reason"/>-->
+            <!--                                    </div>-->
+            <!--                                </td>-->
+
+            <!--                    <style>-->
+            <!--                                    .reason-tooltip {-->
+            <!--                                    visibility: hidden;-->
+            <!--                                    background-color: light grey;-->
+            <!--                                    color: black;-->
+            <!--                                    text-align: center;-->
+            <!--                                    padding:  10px 12px ;-->
+            <!--                                    border-radius: 5px;-->
+            <!--                                    position: absolute;-->
+            <!--                                    bottom: 150%;-->
+            <!--                                    left: 50%;-->
+            <!--                                    transform: translateX(-50%);-->
+            <!--                                    white-space: nowrap;-->
+            <!--                                    font-size: 16px;-->
+            <!--                                    z-index: 1000; /* Ensures it appears above other elements */-->
+            <!--                                    opacity: 0;-->
+            <!--                                    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;-->
+            <!--                                    }-->
+
+            <!--                                    .reason-tooltip-icon:hover + .reason-tooltip {-->
+            <!--                                    visibility: visible;-->
+            <!--                                    opacity: 1;-->
+            <!--                                    }-->
+            <!--                                </style>-->
+            <!--                    <td style="padding: 12px; color: #333;">-->
+            <!--                        <div class="btn-group"-->
+            <!--                             style="gap: 5px;">-->
+            <!--                            <button class="btn btn-outline-success fw-semibold px-2 py-1 rounded-pill"-->
+            <!--                                    t-on-click="(e) => this.approveRequest(e, employee.id)"-->
+            <!--                                    style="display: flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 17px;">-->
+            <!--                                ✔ Approve-->
+            <!--                            </button>-->
+            <!--                            <button class="btn btn-outline-danger fw-semibold px-2 py-1 rounded-pill"-->
+            <!--                                    t-on-click="(e) => this.rejectRequest(e, employee.id)"-->
+            <!--                                    style="display: flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 17px;">-->
+            <!--                                ✖ Reject-->
+            <!--                            </button>-->
+            <!--                        </div>-->
+            <!--                    </td>-->
+            <!--                </tr>-->
+            <!--            </t>-->
+            <!--        </t>-->
+            <!--    </tbody>-->
+            <!--    </table>-->
+
+            <!-- Add spacing between the two tables -->
+            <div style="height: 50px;"></div>
+            <t t-if="state.filteredEmployeesEarly.length === 0">
+            <tr>
+                <td colspan="8" style="padding: 12px; color: #333; text-align: center;">
+                </td>
+            </tr>
+        </t>
+            <t t-else="">
+
+    <h2 style="text-align: center; margin-top: 20px; color: black; font-size: 24px;">Early Departure</h2>
+                <table style="width: 100%; margin-top: 30px; border-collapse: collapse; text-align: center; font-size: 16px; border-radius: 10px; overflow: hidden; border: 1px solid #ddd;">
+        <thead style="background-color: #243742; color: white; text-transform: uppercase; font-weight: bold;">
+            <tr>
+                <th style="padding: 10px;width: 10%;">Employee</th>
+                <th style="padding: 10px;width: 10%;">Company</th>
+                <th style="padding: 10px; width: 10%;">Date</th>
+                <th style="padding: 10px; width: 10%;">Early By</th>
+                <th style="padding: 10px; width: 10%;">Time of Dep</th>
+                <th style="padding: 10px; width: 10%;">Weekly Early Hrs</th>
+                <th style="padding: 10px; width: 10%;">Monthly Early Hrs</th>
+                <th style="padding: 10px; width: 10%;">Reason</th>
+                <th style="padding: 10px; width: 10%;">Actions</th>
+            </tr>
+        </thead>
+                    <tbody>
+
+        <t t-foreach="state.filteredEmployeesEarly" t-as="employee" t-key="employee.id">
+            <tr style="background-color: #fff; border-bottom: 1px solid #ddd; transition: background-color 0.3s ease;">
+                <td style="padding: 12px; color: #333; font-weight: bold;text-align:center;"
+                    t-on-click="(e) => this.tot_late(e, employee.id)">
+                    <t t-esc="employee.name"/>
+                </td>
+                <td style="padding: 12px; color: #333; font-weight: bold;text-align:center;"
+                    t-on-click="(e) => this.tot_late(e, employee.id)">
+                    <t t-esc="employee.company_name"/>
+                </td>
+                <td style="padding: 12px; color: #333;"
+                    t-on-click="(e) => this.current_late(e, employee.id)">
+                    <t t-esc="employee.date"/>
+                </td>
+                <td style="padding: 12px; color: #f44336;"
+                    t-on-click="(e) => this.current_late(e, employee.id)">
+                    <t t-esc="employee.late_by"/>
+                </td>
+                <td style="padding: 12px; color: #333;"
+                    t-on-click="(e) => this.current_late(e, employee.id)">
+                    <t t-esc="employee.arrival_time"/>
+                </td>
+                <td style="padding: 12px; color: #333;"
+                    t-on-click="(e) => this.weekly_late(e, employee.id)">
+                    <t t-esc="employee.week_late"/>
+                </td>
+                <td style="padding: 12px; color: #333;"
+                    t-on-click="(e) => this.tot_late(e, employee.id)">
+                    <t t-esc="employee.monthly_late"/>
+                </td>
+                <td style="position: relative;">
+                                    <i class="fa fa-info-circle reason-tooltip-icon"
+                                       style="cursor: pointer; font-size: 16px; color: #007bff;">
+                                    </i>
+                    <div class="reason-tooltip">
+                                        <t t-esc="employee.reason"/>
+                                    </div>
+                                </td>
+
+                <style>
+                                    .reason-tooltip {
+                                    visibility: hidden;
+                                    background-color: #ADD8E6;
+                                    color: black;
+                                    text-align: center;
+                                    padding: 10px 12px ;
+                                    border-radius: 5px;
+                                    position: absolute;
+                                    bottom: 12%;
+                                    left: 50%;
+                                    transform: translateX(-50%);
+                                    white-space: nowrap;
+                                    font-size: 16px;
+                                    z-index: 1000; /* Ensures it appears above other elements */
+                                    opacity: 0;
+                                    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+                                    }
+
+                                    /* Make the tooltip appear when hovering over the entire td */
+                                    td:hover .reason-tooltip {
+                                    visibility: visible;
+                                    opacity: 1;
+                                    }
+                                </style>
+                <td style="padding: 12px; color: #333;">
+                        <div class="btn-group"
+                             style="gap: 5px;">
+                            <button class="btn btn-outline-success fw-semibold px-2 py-1 rounded-pill"
+                                    t-on-click="(e) => this.approveRequest(e, employee.id)"
+                                    style="display: flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 17px;">
+                                ✔ Approve
+                            </button>
+                            <button class="btn btn-outline-danger fw-semibold px-2 py-1 rounded-pill"
+                                    t-on-click="(e) => this.rejectRequest(e, employee.id)"
+                                    style="display: flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 17px;">
+                                ✖ Reject
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </t>
+        </tbody>
+    </table>
+    </t>
+
+
+    </div>
+
+        <style>
+            table tbody tr:hover {
+                background-color: #f3e5f5;
+                cursor: pointer;
+            }
+            select:focus {
+                outline: none;
+                border: 1px solid #6a1b9a;
+                box-shadow: 0 0 5px rgba(106, 27, 154, 0.5);
+            }
+
+        .approve-button {
+            background-color: #4caf50; /* Initial green */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease; /* Smooth hover animation */
+        }
+
+        .approve-button:hover {
+            background-color: #45a049; /* Darker green */
+        }
+        </style>
+
+    </t>
+</templates>

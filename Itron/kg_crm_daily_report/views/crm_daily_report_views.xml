@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="group_show_all_daily_reports" model="res.groups">
+        <field name="name">Show All Daily Reports</field>
+        <field name="comment">Show all daily reports</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="group_show_daily_update_lines" model="res.groups">
+        <field name="name">Show Daily Update Lines</field>
+        <field name="comment">Show daily update lines</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="lead_rule_personal_lead" model="ir.rule">
+        <field name="name">Personal Daily Report</field>
+        <field ref="model_crm_daily_report" name="model_id"/>
+        <field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
+    </record>
+
+    <record id="daily_report_rule_company_lead" model="ir.rule">
+        <field name="name">Company Based Daily Report</field>
+        <field ref="model_crm_daily_report" name="model_id"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+
+    <record id="admin_lead_rule_personal_lead" model="ir.rule">
+        <field name="name">Admin:Personal Daily Report</field>
+        <field ref="model_crm_daily_report" name="model_id"/>
+        <field name="groups" eval="[(4, ref('kg_crm_daily_report.group_show_all_daily_reports'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="crm_daily_report_tree_views" model="ir.ui.view">
+        <field name="name">crm.daily.report.tree.view</field>
+        <field name="model">crm.daily.report</field>
+        <field name="arch" type="xml">
+            <tree string="Daily Report" name="daily_report">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="date"/>
+                <field name="company_id"/>
+                <field name="status" decoration-info="status == 'draft'" decoration-success="status == 'sent'"
+                       widget="badge"/>
+            </tree>
+        </field>
+    </record>
+    <record id="crm_daily_report_form_view" model="ir.ui.view">
+        <field name="name">crm.daily.report.form.view</field>
+        <field name="model">crm.daily.report</field>
+        <field name="arch" type="xml">
+            <form string="Daily Report" editable="bottom">
+                <header>
+                    <button name="compute_activity_count" class="oe_highlight" type="object" string="Update Count"
+                            invisible="status != 'draft'"/>
+                    <button name="action_send_report" class="oe_highlight" type="object" string="Send Report"
+                            invisible="status != 'draft'"/>
+
+                    <button name="reset_draft" class="oe_highlight" type="object" string="Reset Draft"
+                            invisible="status != 'sent'"/>
+
+                    <field name="status" widget="statusbar" statusbar_visible="draft"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_lead_activities" string="Activities" type="object" class="oe_stat_button"
+                                icon="fa-list"/>
+                    </div>
+
+                    <div class="oe_title" name="title">
+                        <h2>
+                            <field name="name" style="width:130%;" required="1" placeholder="Name"
+                                   force_save="1"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id" readonly="status != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="lead_activity_ids" invisible="1"/>
+                            <field name="company_id"/>
+                            <field name="date" readonly="status != 'draft'"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Activities">
+                            <field name="report_line_ids" readonly="status != 'draft'">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="count"/>
+                                    <field name="description"/>
+                                    <field name="next_activity"/>
+                                </tree>
+                            </field>
+
+                            <separator string="LEAD STATISTICS"/>
+                            <field name="lead_statistics"/>
+
+                        </page>
+                        <page string="Daily Updates" groups="kg_crm_daily_report.group_show_daily_update_lines">
+                            <field name="daily_update_line_ids">
+                                <tree editable="bottom">
+                                    <field name="progress_updates"/>
+                                    <field name="action_items"/>
+                                    <field name="road_blocks"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Other Info">
+                            <field name="notes" readonly ="status != 'draft'"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_crm_daily_report" model="ir.actions.act_window">
+        <field name="name">Daily Report</field>
+        <field name="res_model">crm.daily.report</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_crm_daily_report"
+              name="Daily Report"
+              parent="crm.crm_menu_report"
+              action="action_crm_daily_report"/>
+
+</odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="module_sales_tracker" model="ir.module.category">
+            <field name="name">Sales Tracker</field>
+            <field name="sequence">17</field>
+        </record>
+
+        <record id='kg_sales_tracker_group_user' model='res.groups'>
+            <field name='name'>User</field>
+            <field name="category_id" ref="kg_sales_target.module_sales_tracker"/>
+        </record>
+
+        <record id="kg_sales_tracker_group_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="kg_sales_target.module_sales_tracker"/>
+            <field name="implied_ids" eval="[(4, ref('kg_sales_target.kg_sales_tracker_group_user'))]"/>
+        </record>
+
+        <record id="kg_sales_tracker_group_admin" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="kg_sales_target.module_sales_tracker"/>
+            <field name="implied_ids" eval="[(4, ref('kg_sales_target.kg_sales_tracker_group_manager'))]"/>
+        </record>
+
+        <record id="sales_tracker_company_rule" model="ir.rule">
+            <field name="name">Sales Tracker Multi-Company Rule</field>
+            <field name="model_id" ref="model_kg_sales_tracker"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="sales_tracker_lines_company_rule" model="ir.rule">
+            <field name="name">Sales Tracker Lines Multi-Company Rule</field>
+            <field name="model_id" ref="model_kg_sales_tracker_lines"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="sales_target_company_rule_manager" model="ir.rule">
+            <field name="name">Sales Target Manager Multi-Company Rule</field>
+            <field name="model_id" ref="model_kg_sales_target"/>
+            <field name="groups" eval="[(4, ref('kg_sales_target.kg_sales_tracker_group_manager'))]"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="sales_target_company_rule_user" model="ir.rule">
+            <field name="name">Sales Target User Rule</field>
+            <field name="model_id" ref="model_kg_sales_target"/>
+            <field name="groups" eval="[(4, ref('kg_sales_target.kg_sales_tracker_group_user'))]"/>
+            <field name="domain_force">[('user_id', '=', user.id), '|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="revenue_head_company_rule" model="ir.rule">
+            <field name="name">Revenue Head Multi-Company Rule</field>
+            <field name="model_id" ref="model_kg_revenue_head"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="revenue_head_lines_company_rule" model="ir.rule">
+            <field name="name">Revenue Head Lines Multi-Company Rule</field>
+            <field name="model_id" ref="model_revenue_head_lines"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,1251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Template for Applicant Offer Letter for the AE Country. -->
+    <template id="generate_ae_final_offer_letter_id">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="header">
+                    <div class="col-xs-12" style="line-height:10pt;">
+                        <div class="col-xs-7" style="float: left">
+                            <t t-if="o.company_id.logo">
+                                <img t-attf-src="data:image/*;base64,{{o.company_id.logo}}" height="80px"
+                                     width="200px"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+                        <h3 style="text-align: center;">OFFER LETTER</h3>
+                    </div>
+
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="text-align: left;">
+                                <span>Ref No :</span>
+                                <t t-esc="o.sequence"/>
+                            </td>
+                            <t t-if="o.offer_letter_date">
+                                <td style="text-align: right;">
+                                    <span>Date :</span>
+                                    <t t-esc="o.offer_letter_date and o.offer_letter_date.strftime('%d/%m/%Y')"/>
+                                </td>
+                            </t>
+                        </tr>
+
+                        <!-- Address section -->
+                        <tr>
+                            <td style="text-align: left; padding-top: 20px;">
+                                <span>To</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left;">
+                                <span>Mr / Mrs.</span>
+                                <t t-esc="o.partner_name"/>
+                            </td>
+                        </tr>
+                        <t t-if="o.street">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <t t-esc="o.street"/>,
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.street2">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <t t-esc="o.street2"/>,
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.city or o.state_id or o.zip">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <t t-if="o.city">
+                                        <t t-esc="o.city"/>,
+                                    </t>
+                                    <t t-if="o.state_id">
+                                        <t t-esc="o.state_id.name"/>,
+                                    </t>
+                                    <t t-if="o.zip">
+                                        <t t-esc="o.zip"/>,
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.country_id">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <t t-esc="o.country_id.name"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.applicant_passport_no">
+                            <tr>
+                                <td style="text-align: left; padding-top: 20px;">
+                                    <span>Passport:</span>
+                                    <t t-esc="o.applicant_passport_no"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.partner_phone">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <span>Phone:</span>
+                                    <t t-esc="o.partner_phone"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="o.email_from">
+                            <tr>
+                                <td style="text-align: left;">
+                                    <span>Email :</span>
+                                    <t t-esc="o.email_from"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+
+                    <!-- Offer Letter Content -->
+                    <div style="margin-top: 20px; line-height: 1.5;">
+                        <strong>
+                            <p style="text-align: justify;  margin-bottom: 20px;">Dear Mr / Mrs.
+                                <t t-esc="o.partner_name"/>,
+                            </p>
+                        </strong>
+                        <p style="text-align: justify; margin-bottom: 20px;">
+                            We are pleased to appoint you as
+                            <strong>
+                                <t t-esc="o.job_id.name"></t>
+                            </strong>
+                            at
+                            <t t-esc="o.company_id.name"/>
+                            ,
+                            Office#,<span t-field="o.company_id.street"/>,<span
+                                t-field="o.company_id.street2"/>,
+                            <span t-field="o.company_id.city"/>,
+                            <span t-field="o.company_id.state_id.name"/>
+                            ,
+                            <span t-field="o.company_id.country_id.name"/>
+                            <span t-field="o.company_id.zip"/>.
+                            This appointment shall take effect from
+                            <t t-esc="o.applicant_start_date"/>.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px;">
+                            <strong>Job Responsibilities</strong>
+                        </p>
+
+                        <p style="text-align: justify margin-bottom: 20px;">
+                            The below list includes a brief description of the responsibilities you are expected to
+                            deliver in your role as
+                            an
+                            <t t-esc="o.job_id.name"/>
+                        </p>
+                        <p style="text-align: justify; margin-bottom: 20px;">
+                            <t t-esc="o.roles"/>
+                        </p>
+                        <p style="text-align: justify; margin-bottom: 20px;">
+                            Please sign and return to us copy of this letter and the Contract of Employment appended
+                            herewith as
+                            your acceptance of the terms and conditions of your employment with us for our reference and
+                            records.
+                        </p>
+                        <p style="text-align: justify; margin-bottom: 20px;">
+                            We take this opportunity to welcome you on board and look forward to a mutually rewarding
+                            association.
+                        </p>
+                        <table style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+                            <tr>
+                                <td style="text-align: left; padding: 10px;">
+                                    <p>Yours Sincerely,</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; padding: 10px;">
+                                    <p>For
+                                        <t t-esc="o.company_id.name"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; padding: 10px; padding-top: 40px;">
+                                    <p>Aji Bhaskar</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; padding: 10px;">
+                                    <p>Managing Director</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="page-break-before: always;"></div>
+                    <div>
+                        <h3 style="text-align: center; margin-bottom: 20px;">CONTRACT OF EMPLOYMENT</h3>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            Dear Mr.<t t-esc="o.partner_name"/>,
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            We are pleased to appoint you as
+                            <strong>
+                                <t t-esc="o.job_id.name"/>
+                            </strong>
+                            at
+                            <t t-esc="o.company_id.name"/>,
+                            Office#<span t-field="o.company_id.street"/>,
+                            <span t-field="o.company_id.city"/>,
+                            <span t-field="o.company_id.country_id.name"/>.
+                            This appointment shall take effect from<t t-esc="o.applicant_start_date"/>.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            The terms of your appointment are as follows:
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>1. Job Title:</strong>
+                            <t t-esc="o.job_id.name"/>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>2. Place of Work:</strong>
+                            <span style="display: block; margin-top: 10px;">
+                                While at present you are posted at
+                                <strong>
+                                    <t t-esc="o.company_id.name"/>
+                                    Office#,
+                                    <span t-field="o.company_id.street"/>,
+                                    <span t-field="o.company_id.city"/>,
+                                    <span t-field="o.company_id.country_id.name"/>
+                                </strong>
+                                ,
+                                on the express condition that you may be liable, at the discretion of the Management, to
+                                be transferred
+                                from one section/department to another or from one place or establishment or branch of
+                                the company to
+                                another in any part of the UAE or abroad, or to any office that may be set-up later on
+                                which may be owned
+                                by the Management or in which the Management may have an interest. Upon such transfer,
+                                the rules and
+                                regulations of such departments, establishment, or branch where you are transferred will
+                                apply to you,
+                                as applicable to the staff of your category.
+                            </span>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>3. Work Hours:</strong>
+                            <span style="display: block; margin-top: 10px;">
+                                Regular office hours are from 9:00 a.m. to 6:00 p.m., Sunday through Thursday, with a
+                                break of one hour
+                                for lunch and snacks. To cater to the demands of your role, you may exercise discretion
+                                in planning your week
+                                by extending your working hours. Similarly, if the urgency of business or the completion
+                                of any project
+                                deadlines requires the investment of extra time and energy, you should be willing to
+                                work on Saturdays as well.
+                            </span>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            In the event where, at the discretion of the Management, you are assigned to be part of any
+                            Global Projects,
+                            you shall be required to work closely with the Onsite team to meet the Project deadlines and
+                            deliverable
+                            milestones. In such circumstances, the working days and hours shall be in accordance with
+                            the onsite Project team,
+                            and Friday and Saturday shall be weekend holidays.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>4. Contract Duration:</strong>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            The employment shall be on a permanent basis, and contract termination will be subject to
+                            three months' notice in
+                            writing either by the employee or one month's notice by the Company. In case of termination,
+                            you will be given an
+                            Air ticket to your place of hire, if the place of hire is other than the UAE.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>5. Remuneration and Other Benefits:</strong>
+                        </p>
+
+                        <p style="text-align: justify; line-height: 1.6;">
+                            The Company will pay you a consolidated pay of
+                            <t t-esc="o.company_id.currency_id.name"/>
+                            <t t-esc="o.salary_total" t-options='{"widget": "float", "precision": 0}'/>
+                            /-
+                            (
+                            <t t-esc="o.company_id.currency_id.amount_to_text(o.salary_proposed).replace('Euro', 'Dirham')"/>
+                            )
+                            per month in consideration of your services, including the benefits as prescribed under law.
+                        </p>
+                    </div>
+
+                    <div style="page-break-before: always;"></div>
+                    <div>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            Your salary split is as follows. Amount in<t t-esc="o.company_id.currency_id.name"/>:
+                        </p>
+
+                        <table style="width: 50%; border-collapse: collapse;" border="1">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left; padding: 4px;">Description</th>
+                                    <th style="text-align: right; padding: 4px;">Amount
+                                        <t t-esc="o.company_id.currency_id.name"/>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 4px;">Basic Pay</td>
+                                    <td style="text-align: right; padding: 4px;">
+                                        <t t-esc="o.basic_salary" t-options='{"widget": "float", "precision": 0}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 4px;">House Rent Allowance</td>
+                                    <td style="text-align: right; padding: 4px;">
+                                        <t t-esc="o.hra" t-options='{"widget": "float", "precision": 0}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 4px;">Transport Allowance</td>
+                                    <td style="text-align: right; padding: 4px;">
+                                        <t t-esc="o.allowances" t-options='{"widget": "float", "precision": 0}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 4px;">Utility Expenses Allowance</td>
+                                    <td style="text-align: right; padding: 4px;">
+                                        <t t-esc="o.utility_expenses_allowance"
+                                           t-options='{"widget": "float", "precision": 0}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 4px;">Telephone Allowance</td>
+                                    <td style="text-align: right; padding: 4px;">
+                                        <t t-esc="o.telephone_allowance"
+                                           t-options='{"widget": "float", "precision": 0}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 4px; font-weight: bold;">Total</td>
+                                    <td style="text-align: right; padding: 4px; font-weight: bold;">
+                                        <t t-esc="o.salary_total" t-options='{"widget": "float", "precision": 0}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            Amount in words: (
+                            <t
+                                    t-esc="o.company_id.currency_id.amount_to_text(o.salary_total).replace('Euro', 'Dirham')"/>
+                            )
+                        </p>
+
+                        <br/>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>6. Medical:</strong>
+                            Medical Insurance for self will be provided by the Company as per the policy.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>7. Leave Travel:</strong>
+                            The Company will provide AED 1,250/- towards return economy class air passage for self at
+                            the end of the contract (eligible after completion of one year of continuous service) if you
+                            are not a native of UAE.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>8. Assessment:</strong>
+                            Performance Appraisals will be done at the end of each financial year for rewards and
+                            compensation. Anyone who joins the company six months prior to the financial year-end shall
+                            be eligible for such appraisals.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>9. Leave Entitlements:</strong>
+                        </p>
+
+                        <ul style="margin-bottom: 20px;">
+                            <li style="margin-bottom: 10px;line-height: 1.6;">
+                                <strong>Annual Leave:</strong>
+                                30 days annual leave will be accrued from the date of joining on a pro-rata basis.
+                                Annual leave can be availed only after six months of joining. Annual leave can be taken
+                                up to a maximum of 30 days at a time.
+                            </li>
+                            <li style="margin-bottom: 10px;line-height: 1.6;">
+                                <strong>Sick Leave:</strong>
+                                You are entitled to a Sick Leave as per UAE Labor Law. Sick leave is subject to approval
+                                based on evidence of treatment submitted. If the evidence submitted is not satisfactory,
+                                Management has the discretion to approve or reject the sick leave. If the sick leave is
+                                rejected, it will be adjusted against the annual leave. In such cases, if there is no
+                                balance in Annual Leave accrued, the sick leave submitted will be treated as leave
+                                without payment.
+                            </li>
+                            <li style="margin-bottom: 10px;line-height: 1.6;">
+                                <strong>Maternity Leave:</strong>
+                                45 days of paid leave and 15 days of half-pay leave will be available for eligible
+                                associates or what is prescribed under UAE Labor Law for Private Sector employees will
+                                be extended.
+                            </li>
+                            <li style="margin-bottom: 10px;line-height: 1.6;">
+                                <strong>Paternity Leave:</strong>
+                                5 days of paid maternity leave will be extended for eligible associates.
+                            </li>
+                            <li style="margin-bottom: 10px;line-height: 1.6;">
+                                <strong>Public Holidays:</strong>
+                                Public holidays declared for the private sector by the Government of UAE will be
+                                extended to our associates.
+                            </li>
+                        </ul>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            The sanction of any kind of leave, other than the above, shall depend exclusively upon the
+                            urgency and exigencies of work and such sanction shall be granted or withheld at the sole
+                            discretion of the Management. For getting such leave or for an extension of the leave
+                            granted, you shall be required to seek written permission in advance and before the
+                            commencement/expiry of the leave, from the Management in charge, by submitting an
+                            application stating the reasons therefore and your address during the leave period.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            The employee shall apply for any leave only through the Leave Portal in the HRM System and
+                            only the leave as may be approved by the Management shall be deemed as validly granted. If
+                            at any time the reasons given by you for availing such leave are found to be false, you will
+                            be liable for dismissal from the services of the company. It is mandatory that Management
+                            approval is obtained prior to availing any leave in cases other than sick leave. Line
+                            manager should be informed about any sick leave, if required. Failure to obtain prior
+                            approval through the HRM System and any absence thereto shall be deemed as unauthorized
+                            absence and treated as Loss of Pay. All sick leave applications shall be submitted along
+                            with Medical Certificate issued by an authorized Medical Practitioner approved by the
+                            Ministry of Health. Compensatory leave is at the discretion of the Management and it must be
+                            approved prior to the availing of such leave.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>10. Secrecy:</strong>
+                            <span style="display: block; margin-top: 10px;">
+
+                                You are expected to maintain utmost secrecy with respect to the affairs of the company
+                                and
+                                shall be bound to maintain the confidentiality of any information, whether written or
+                                oral,
+                                which relates to the internal businesses or financial affairs, know-how, inventions or
+                                any
+                                client, agent, contractor or vendor. You shall not disclose the identities of clients,
+                                executives and/ or other sensitive information to anyone outside Klystron Global. This
+                                includes financial and other sensitive information of any of the company’s clients that
+                                you
+                                may have access to by virtue of your employment with Klystron Global. Breach of this
+                                provision shall be treated as a gross violation of the terms herein and upon violation,
+                                your
+                                services shall be liable to be terminated forthwith.
+                            </span>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>11. Other Rules &amp; Regulations:</strong>
+                            <span style="display: block; margin-top: 10px;">
+                                <strong>Code of Conduct:</strong>
+                                During your employment with Klystron, you are required to follow a code of conduct in
+                                keeping with our business requirements and company philosophy. This includes appropriate
+                                dress code, use of proper language (written, verbal and non-verbal), email,
+                                telephone/cell
+                                phone etiquette and decorum to be always observed in the office and with clients. During
+                                office hours, you are expected to devote your whole-hearted time and attention to the
+                                business needs of the organization and agree not to pursue or conduct any personal
+                                business.
+                            </span>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            The employer expects all employees to always maintain the highest standard of professional
+                            conduct and the following leads to misconduct during employment.
+                        </p>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>
+                                Misconduct:
+                            </strong>
+                        </p>
+
+                        <ul style="margin-bottom: 20px;">
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Irregular attendance of repeated or
+                                excessive absence,
+                                tardiness or early departure /late coming without approval.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Unreported or unapproved absence
+                                (including overstay of
+                                leave) for more than five consecutive days or deviation from assigned and accepted
+                                schedule for more than five days.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Falsification or manipulation in
+                                background verification
+                                process or employment records, employment information or other records prior to or after
+                                joining the employer.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Neglect of normal duties and functions
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Practice such as reading personal
+                                materials during work
+                                time.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Continues discharge of work function that
+                                do not meet the
+                                standards reasonably expected.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Breach of confidentiality provisions</li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Installing, downloading, copying, or
+                                duplicating any
+                                unauthorized or unlicensed software or programs, games, or attachments on any computer
+                                system of the employer
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Engaging in illegal activities</li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Workplace violence including threats of
+                                physical violence
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Causing damage to the property of the
+                                employer, any
+                                Klystron clients, or their respective personnel
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Theft of any property belonging to
+                                another, the employer or
+                                their respective personnel, clients, or visitors
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Corruption, fraud, or misappropriation of
+                                funds
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Failure to comply with policies,
+                                guidelines, rules, and
+                                regulations of the employer
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Excessive personal use of the employer’s
+                                telephone, fax, or
+                                computer systems
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Any act prejudicial to or in conflict
+                                with the interests of
+                                the employer
+                            </li>
+                        </ul>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>Conflict of Interest:</strong>
+                            <span style="display: block; margin-top: 10px;">
+                                Your position with the company calls for whole time employment and you will devote
+                                yourself
+                                exclusively
+                                to attend to the business requirements of the company. You will not take up any other
+                                work
+                                for
+                                remuneration (part time or otherwise) or work on an advisory capacity or be interested
+                                directly or
+                                indirectly (except as a shareholder) in any other trade or business that competes with
+                                Klystron directly or
+                                indirectly, during your employment with the company, without the prior written
+                                permission
+                                from the company.
+                            </span>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>Use of Resources/ Assets:</strong>
+                            You shall use the company’s resources/assets only for official purposes.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>12. Duties and Obligations</strong>
+                        </p>
+
+                        <ul style="margin-bottom: 20px;">
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall conduct yourself with utmost
+                                decorum and shall
+                                efficiently and honestly discharge and perform all duties and functions related to your
+                                employment as also such duties as you may be required to perform by the company from
+                                time to time, consistent with your employment in relation to the business of the
+                                company.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Your duty hours shall be fixed by the
+                                Management from time
+                                to time according to the needs and exigencies of work and these are liable to be changed
+                                by the Management from time to time for which you shall have no objection.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall have no objection to work in
+                                any shift, whether
+                                day or night, as and when required to do so by the Management.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You may be posted from one client to
+                                another from time to
+                                time as may be required by the needs/exigencies of the company’s business. You may also
+                                be expected to serve on the premises of some of our clients. During your presence in the
+                                premises of any of our clients, you are expected to be most cordial. Any misbehavior on
+                                your part with any of our clients or their employees shall be considered as gross
+                                misconduct on your part leading to severe disciplinary action and/or summary dismissal
+                                as may be warranted by the circumstances of the case.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">If under any circumstances, you have your
+                                own reservations
+                                to obey any order, it shall be obligatory upon you to first obey that order, and then
+                                thereafter represent your grievances to the Management.as the case may be. But no
+                                representation shall be entertained unless you have first carried out the
+                                orders given to you.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall not refuse to accept any
+                                communication delivered to you by hand by or on behalf of the Management. Such refusal
+                                on your part shall be considered as misconduct and lead to disciplinary action as may be
+                                warranted by the circumstances of the case.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Any order or notice pasted on the Notice
+                                Board of the company by the Management shall be deemed to have been personally served on
+                                you.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall never go on strike or
+                                stage/demonstration without giving 14 (fourteen) days’ advance notice and without
+                                placing your grievances, if any, before the Management and without first exhausting all
+                                the constitutional means and remedies available to you under the law. In any case,
+                                before raising any Industrial Dispute you shall first inform the HR department or person
+                                in charge of the HR and attempt to settle such dispute, if any, by mutual negotiations
+                                and/or arbitration.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">When you are accused of any misconduct
+                                you are liable to be suspended from service pending enquiry against you. An order of
+                                suspension will be communicated to you or pasted on the Notice Board of the Company.
+                                During the period of suspension, you shall be paid subsistence allowance as per law. In
+                                case the charges are proved against you, you shall be dismissed from the services of the
+                                company and such dismissal shall be deemed to have taken effect retrospectively from the
+                                date of suspension. But in case you are exonerated from the charges you will be treated
+                                as on duty.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You should inform the company at once of
+                                any act of dishonesty and/or action prejudicial to the interest of the company on the
+                                part of any person, which may come to your knowledge.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Your service conditions shall be governed
+                                by this contract as also by the company’s Standing Orders, Rules and Regulations which
+                                are in force for the time being or as may be framed from time to time according to law.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall work under the supervision and
+                                guidance of your superior officers and under the directions of the Management given to
+                                you from time to time. You shall work conscientiously and diligently to the entire
+                                satisfaction of the Management of the company and to carry out the instructions of your
+                                superior or other superior officers in connection with the work allotted or assigned to
+                                you from time to time to the best of your skill and ability.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall be punctual and regular in the
+                                attendance of your duties and shall not absent yourself without prior permission of the
+                                Management. If you remain absent for any consecutive or continuous period of eight days
+                                or overstay for eight days after expiry of the sanctioned leave period, without
+                                permission or leave duty granted by the Management, it shall be deemed that you have
+                                voluntarily abandoned or resigned your services and accordingly your services shall
+                                automatically stand terminated and the lien on your appointment shall be deemed as lost
+                                after the expiry of the period of such unauthorized absence or overstay as the case may
+                                be.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall attend to work on close or
+                                off-days, and/or work overtime, as and when necessary due to urgency or exigencies of
+                                work in the opinion of your team lead or in the opinion of the Management.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall not, without previous written
+                                permission of the Company, carry on any business or enter for any part of your time, in
+                                any capacity the services of, or be employed by any other firm, company or person, you
+                                shall devote the whole of your time and attention exclusively to your duties to promote
+                                the interest and business of the company and shall not utilize or divulge to any other
+                                person or persons,
+                                firm or company, any of the company’s trade secret, knowledge or confidential affairs.
+                            </li>
+                        </ul>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>13. Termination</strong>
+                        </p>
+
+                        <ul style="margin-bottom: 20px;">
+                            <li style="margin-bottom: 10px; line-height: 1.6;">During the period of contract the company
+                                will be at liberty to terminate your employment at any time without assigning any reason
+                                whatsoever by giving 30 days’ written notice in that behalf or by paying a sum
+                                equivalent to 30 days’ salary and upon the expiration of such notice (whether the same
+                                will expire at the end of the month of service or at any other time whatsoever) or upon
+                                such payment being made by the company, as the case may be, your employment with the
+                                company shall cease forthwith and such termination shall be treated as discharge
+                                simpliciter.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall be at liberty to resign from
+                                the employment of the Company by giving 90 days’ prior written notice in that behalf. In
+                                the event of your leaving the employment of the company without giving notice as
+                                aforesaid, subject to the discretion of management, you shall be liable to forfeit a sum
+                                equivalent to 90 days’ salary, as the case may be, in lieu of such notice. Where the
+                                employee concerned, who opts to resign, is under any obligation to fulfill any
+                                responsibility undertaken to be delivered to any client within a definite timeline, the
+                                employee concerned who proposes to resign shall ensure that the notice to quit shall not
+                                affect such delivery timelines. In such cases, the acceptance of the notice to quit
+                                shall be considered appropriately, without causing any delay to the project delivery
+                                timelines agreed with the client.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Provided however, you shall, upon opting
+                                to leave the employment of the Company before completion of the initial contractual
+                                period of two years, desist from engaging in any service similar to the job you have
+                                been discharging under the services of the Company for a continuous period of two years
+                                with any of the Company’s competitors in the market. If a violation of the non-compete
+                                clause specified above is identified or comes to the knowledge of the Company, you shall
+                                be liable to pay such amount as may be equal to the undischarged period of the Contract
+                                with this Company.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Without prejudice to any of the rights
+                                and remedies which the company may have against you, the company will be entitled to
+                                terminate your employment forthwith without giving any notice whatsoever or payment in
+                                lieu thereof or without any compensation or benefits in case of any act of disobedience,
+                                acts subversive of discipline, insubordination, incivility, insobriety, dishonesty,
+                                irregular attendance or other serious misconduct or negligence on your part or
+                                incompetence in the discharge of your duty, or the breach by you of any of the terms of
+                                your employment or if you become bankrupt or are adjudged insolvent or on your
+                                compromising with your creditors. For this purpose, the company’s opinion as to whether
+                                any of the events mentioned therein has occurred will be final and binding on you and
+                                you will not be entitled to question the same on any ground whatsoever.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Notice period mentioned in this contract
+                                will not be valid if this service contract is terminated by the Employer within the
+                                Probation period.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Salary will be held during the notice
+                                period and released on the last working day after successfully completing the relieving
+                                formalities.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">In the event of employee resigning within
+                                180 days of receiving an increment or promotion, such
+                                Increase in compensation from the date of increase will be deducted from the final
+                                settlement.
+
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">
+                                In the event of employee resigning within 12 months of processing visa or renewal of an
+                                existing visa,
+                                the expenses incurred in onboarding will be deducted, up to a maximum of
+                                <t t-esc="o.company_id.currency_id.name"/>
+                                6,000/-
+                                (UAE Dirhams
+                                Six Thousand only) from your final settlement.
+                            </li>
+                        </ul>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>14. Service of Notice:</strong>
+                            <span style="display: block; margin-top: 10px;">
+                                All notices under this Agreement will be in writing or by e-mail and in proving service
+                                thereof it will be sufficient to show that such notice was properly addressed and
+                                posted.
+                            </span>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>15. Additional Rules and Regulations:</strong>
+                        </p>
+
+                        <ul style="margin-bottom: 20px;">
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall be responsible for the
+                                safekeeping and return, in good condition and order, of all the Company’s records and
+                                property which may be or which may come in your use, custody or charge, or possession.
+                                In case of any damage or loss caused to any such record or property etc. due to your
+                                negligence, you will be liable to fully indemnify or compensate the Company for such
+                                damage or loss suffered as determined by the Management.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall keep the Company informed in
+                                writing within three days of any change in your residential address. Your last address
+                                as notified to the company shall be deemed to be the correct one for the purpose of
+                                communicating to you by the company.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">The increment in your salary shall be
+                                dependent and based on your actual and regular performance of duty with efficiency,
+                                punctuality, discipline and to the satisfaction of the Management. Your increment will
+                                be withheld in case your performance of work is found unsatisfactory to the Management.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">Your promotion (or demotion) shall be
+                                decided by the Management at its discretion, which will depend mainly upon your
+                                efficient, regular, and satisfactory attendance and performance of your work and
+                                services to the Company, maintenance of discipline and good behavior and your loyalty to
+                                the Company.
+                            </li>
+                            <li style="margin-bottom: 10px; line-height: 1.6;">You shall retire from the services of the
+                                company automatically without any notice on your attaining the age of 58 years or
+                                earlier if you are found medically unfit.
+                            </li>
+                        </ul>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            In addition to the terms and conditions of employment herein above mentioned, you shall also
+                            observe, comply with, and be bound by any rules, regulations, and procedures which the
+                            company may from time to time separately frame for observance and compliance by its officers
+                            and which are communicated by the company to you in writing.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            The Company shall have the right to add, alter, modify, or abrogate from time to time any
+                            term(s) of the contract of employment, including remuneration and perquisites, which shall
+                            be communicated to you either by individual letter or by a circular.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            This appointment letter is being sent to you in duplicate for your acceptance. If the terms
+                            and conditions contained in this letter are acceptable to you, you are requested to send
+                            back to us the duplicate copy after putting your signature thereon signifying your
+                            acceptance thereof as “Understood and Accepted” at the foot of each page of this appointment
+                            letter.
+                        </p>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            Please note that once accepted you are bound by all the above terms and conditions of the
+                            contract.
+                        </p>
+
+                        <table style="width: 100%; border: none; margin-top: 20px;">
+                            <tr>
+                                <td style="text-align: left; width: 50%; line-height: 1.6;">
+                                    Yours sincerely,
+                                </td>
+                                <td style="text-align: left; width: 50%; line-height: 1.6;">
+                                    I accept all the aforesaid terms and will join on:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; width: 50%; line-height: 1.6;">
+                                    <strong>
+                                        For
+                                        <t t-esc="o.company_id.name"/>
+                                    </strong>
+                                </td>
+                                <td style="text-align: left; width: 50%; line-height: 1.6;">
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; line-height: 1.6;">
+
+                                </td>
+                                <td style="text-align: left; line-height: 1.6;">
+                                    <strong>
+                                        Name: Mr.
+                                        <t t-esc="o.partner_name"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr></tr>
+                            <tr>
+                                <td style="text-align: left; line-height: 1.6;margin-top:20px;">
+                                    <strong>
+                                        <span>Aji Bhaskar</span>
+                                    </strong>
+
+                                </td>
+                                <td style="text-align: left; line-height: 1.6;margin-top:20px;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; line-height: 1.6;margin-top:20px;">
+                                    <strong>
+                                        <span>Managing Director</span>
+                                    </strong>
+
+                                </td>
+                                <td style="text-align: left; line-height: 1.6;margin-top:20px;">
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; line-height: 1.6;">
+                                </td>
+                                <td style="text-align: left; line-height: 1.6;">
+                                    Signature:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; line-height: 1.6;">
+                                </td>
+                                <td style="text-align: left; line-height: 1.6;">
+                                    Place:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; line-height: 1.6;">
+                                </td>
+                                <td style="text-align: left; line-height: 1.6;">
+                                    Date:
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!--  Page Break  -->
+                    <div style="page-break-before: always;"></div>
+                    <div>
+                        <h3 style="text-align: center; margin-bottom: 20px;">UNDERTAKING FOR NON-COMPETITION,
+                            NON-SOLICITATION AND NON-DISCLOSURE OF CONFIDENTIAL
+                            INFORMATION ("Undertaking")
+                        </h3>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            On this date I, Mr.
+                            <t t-esc="o.partner_name"/>
+                            undersigned employed by
+                            <t t-esc="o.company_id.name"/>
+                            (the 'Employer') in
+                            accordance with the attached employment contract dated ("Employment Contract") acknowledge
+                            that
+                            during my employment with the Employer, I hereby undertake:
+                        </p>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>1. Confidentiality:</strong>
+                            I acknowledge by virtue of my employment, I will acquire and be exposed to, have access to,
+                            make use of and/or create confidential information. Therefore, I agree to hold in trust and
+                            confidence all such confidential information. I will neither disclose any such confidential
+                            information to anyone outside Klystron Global without the prior approval of an authorized
+                            signatory, except as required by any authorized duties for the employer, nor use any such
+                            confidential information for any purpose other than for the benefit of Klystron Global. I
+                            agree that during my employment, I shall not use or disclose any confidential information or
+                            intellectual property of any former employer or other person or entity without the prior
+                            written authorization if such employer, person or entity and the prior written consent of an
+                            Authorized Signatory.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>2. Authorized to access systems and electronic communication and use of Klystron
+                                property:
+                            </strong>
+                            I understand that while employed with Klystron Global, I will use and have access to the
+                            systems, I also acknowledge that Klystron Global has the right at any time to access,
+                            retrieve, delete, monitor, examine, use and/or disclose my electronic communications and
+                            information from me and the content, without notice to me, and that such electronic
+                            communication are considered part of a Klystron Global business and client records and are
+                            not to be considered private or personal to me or any other personnel. I further acknowledge
+                            that this right extends to electronic communications transmitted for either a business or
+                            personal purpose. I agree that I am authorized to access the systems only for the approved
+                            business purposes and occasional personal use if such use does not interfere with my work
+                            responsibilities and other required business activities, business operation, or systems
+                            performance. However, I also acknowledge that such occasional personal use does not create
+                            an expectation of privacy as to any of my personal electronic communication. I am not
+                            authorized to download confidential information or other information to removable media such
+                            as CD-ROM, disk, USB other than as authorized for furthering the business objectives of
+                            Klystron Global. I hold myself responsible for the safe keeping and return in good condition
+                            of property that may be in my use, custody, care, or charge. For the loss of any Klystron
+                            Global property in my possession or custody or which I have been assigned responsibility,
+                            the employer will have a right to assess on its own basis and recover from me, the damage in
+                            respect of such material (out of amount due to me or otherwise) and to take such other legal
+                            actions as it deems appropriate including termination of my employment without notice or
+                            payment in lieu thereof in the event of my failure to account for such material or property
+                            to its satisfaction. Any breach on the above will be treated as criminal offense and would
+                            lead to penal or disciplinary action.
+                        </p>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>1. Confidentiality:</strong>
+                            <span style="display: block; margin-top: 10px;">
+                                I acknowledge by virtue of my employment, I will acquire and be exposed to, have access
+                                to, make use of and/or create confidential information. Therefore, I agree to hold in
+                                trust and confidence all such confidential information. I will neither disclose any such
+                                confidential information to anyone outside Klystron Global without the prior approval of
+                                an authorized signatory, except as required by any authorized duties for the employer,
+                                nor use any such confidential information for any purpose other than for the benefit of
+                                Klystron Global. I agree that during my employment, I shall not use or disclose any
+                                confidential information or intellectual property of any former employer or other person
+                                or entity without the prior written authorization if such employer, person or entity and
+                                the prior written consent of an Authorized Signatory.
+                            </span>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>2. Authorized to access systems and electronic communication and use of Klystron
+                                property:
+                            </strong>
+                            <span style="display: block; margin-top: 10px;">
+                                I understand that while employed with Klystron Global, I will use and have access to the
+                                systems, I also acknowledge that Klystron Global has the right at any time to access,
+                                retrieve delete, monitor, examine, use and or disclose my electronic communications and
+                                information from me and the content, without notice to me, and that such electronic
+                                communication are considered part of a Klystron Global business and client records and
+                                are not to be considered private or personal to me or any other personnel. I further
+                                acknowledge that this right extends to electronic communications transmitted for either
+                                a business or personal purpose.
+                                I agree that I am authorized to access the systems only for the approved business
+                                purposes and occasional personal use if such use does not interfere with my work
+                                responsibilities and other required business activities, business operation, or systems
+                                performance. However, I also acknowledge that such occasional personal use does not
+                                create an expectation of privacy as to any of my personal electronic communication. I am
+                                not authorized to download confidential information or other information to removable
+                                media such as CD ROM, disk, USB other than as authorized for furthering the business
+                                objectives of Klystron Global. I hold myself responsible for the safe keeping and return
+                                in good condition of property that may be in my use, custody, care, or charge. For the
+                                loss of any Klystron Global property in my possession or custody or which I have been
+                                assigned responsibility, the employer will have a right to assess on its own basis and
+                                recover from me, the damage in respect of such material (out of amount due to me or
+                                otherwise) and to take such other legal actions as it deems appropriate including
+                                termination of my employment without notice or payment in lieu thereof in the event of
+                                my failure to account for such material or property to its satisfaction. Any breach on
+                                the above will be treated as a criminal offence and would lead to penal or disciplinary
+                                action.
+                            </span>
+                        </p>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>3. Ownership of work:</strong>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li style="text-align: justify; margin-bottom: 10px; line-height: 1.6;">
+                                    <strong>a)</strong>
+                                    I agree that the employer owns all rights, title, and interest in and to all
+                                    works.
+                                </li>
+                                <li style="text-align: justify; margin-bottom: 10px; line-height: 1.6;">
+                                    <strong>b)</strong>
+                                    I agree that all works are deemed works made for hire under UAE copyright or
+                                    applicable laws or equivalent laws of any applicable foreign jurisdiction, and all
+                                    intellectual property rights therein vest automatically in the employer upon
+                                    creation of works. I agree that to the extent any work is held not to be a work made
+                                    for hire, I hereby irrevocably assign all intellectual property rights in the work
+                                    to the employer, notwithstanding anything contained in the UAE copyright act.
+                                </li>
+                                <li style="text-align: justify; margin-bottom: 10px; line-height: 1.6;">
+                                    <strong>c)</strong>
+                                    I agree that such assignments shall continue to be in force for perpetuity
+                                    irrespective of whether the employer exercises its right as the assignee for any
+                                    period.
+                                </li>
+                                <li style="text-align: justify; margin-bottom: 10px; line-height: 1.6;">
+                                    <strong>d)</strong>
+                                    I will at all times even after termination of my employment, do whatever the
+                                    employer reasonably requests of me at the employer's expense to document the
+                                    assignment of any works to the employer or to assist the employer in pursuing,
+                                    renewing, extending, or assigning any intellectual property rights, and otherwise
+                                    perfecting, protecting, and enforcing said intellectual property rights in any
+                                    works. I agree that as between me and the employer, the employer shall be the sole
+                                    author, inventor, and owner of all such works and intellectual property rights
+                                    therein throughout the world, and that the employer shall have the sole right to
+                                    seek copyright registration, patents, or trademark registration, including all
+                                    extensions and renewals thereof.
+                                </li>
+                                <li style="text-align: justify; margin-bottom: 10px; line-height: 1.6;">
+                                    <strong>e)</strong>
+                                    I agree to keep and maintain adequate and current records (in the form of notes,
+                                    sketches or drawings and in any other form that may be required by the employer) of
+                                    all the works developed by me during the period of employment with the employer,
+                                    which records shall be available and always remain the sole property of the
+                                    employer.
+                                </li>
+                            </ul>
+                        </p>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>4. Transition of work and cooperation:</strong>
+                            <span style="display: block; margin-top: 10px;">
+                                Upon termination of my employment for any reason, I will cooperate with Klystron Global
+                                in all matters relating to the completion of pending work and its orderly transfer. I
+                                will also cooperate fully with Klystron Global in connection with any threat of or
+                                actual legal proceeding against Klystron Global or any client, customer, or licenser of
+                                Klystron Global arising out of any matter with or of which I had contact or knowledge
+                                during my employment.
+                            </span>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>5. Conflict of Interest:</strong>
+                            <span style="display: block; margin-top: 10px;">
+                                During the period of my employment, I will not directly or indirectly participate in or
+                                in any way render services or assistance to any business that is or may be competitive
+                                with Klystron Global, whether or not for compensation, which might result in or create
+                                the appearance of using my position for private gain or other than for the benefit of
+                                Klystron Global. I shall use the company’s resources only for official purposes.
+                            </span>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <span style="display: block; margin-top: 10px;">
+                                <strong>6.</strong>
+                                I accept and agree to abide by all the aforesaid terms and conditions as well as the
+                                Code of Conduct, organizational policies, and the Circulars issued or may be issued by
+                                the Company from time to time.
+                            </span>
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>7.</strong>
+                            I also agree
+                        </p>
+
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li style="text-align: justify; margin-bottom: 10px; line-height: 1.6;">
+                                <strong>a)</strong>
+                                To refrain from being employed, engaged, concerned, or interested in any organization
+                                directly or indirectly competing with the Employer in the practice of Technology
+                                services and solutions within Oman or UAE for a period of 12 months (not exceeding 12
+                                calendar months) following the expiration or termination of the Employment Contract.
+                            </li>
+                            <li style="text-align: justify; margin-bottom: 10px; line-height: 1.6;">
+                                <strong>b)</strong>
+                                To refrain from directly or indirectly soliciting business from, or attempting to sell,
+                                license or provide the same or similar products or services as are provided to any
+                                customer or client of the Employer for...
+                            </li>
+                            <li style="text-align: justify; margin-bottom: 10px; line-height: 1.6;">
+                                <strong>c)</strong>
+                                To refrain from directly or indirectly soliciting, inducing, or attempting to induce or
+                                solicit any other employee of the Employer to terminate his/her employment with the
+                                Employer for a period of 12 months (not exceeding 12 calendar months) following the
+                                expiration or termination of the Employment Contract.
+                            </li>
+                            <li style="text-align: justify; margin-bottom: 10px; line-height: 1.6;">
+                                <strong>d)</strong>
+                                To respect the Employer’s confidential information (whether or not recorded in
+                                documentary form, or stored on any magnetic or optical disk or memory) relating to the
+                                Employer’s business, including but not limited to its products/services, customers,
+                                clients, price lists, suppliers, finances, patents, trademarks and trade secrets, and
+                                not (either during the course of my employment with the Employer or at any time after
+                                its termination) to use for my own purposes or those of any third party, disclose or
+                                communicate (or facilitate the disclosure or communication) to any person, company or
+                                organization, any confidential information acquired or discovered during the course of
+                                my employment with the Employer.
+                            </li>
+                        </ul>
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>8.</strong>
+                            I acknowledge that the restrictions set out above are necessary to protect the Employer's
+                            business interests, confidential information, customer connections, goodwill, and stability
+                            of the workforce.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>9.</strong>
+                            If I breach any provision(s) of this Undertaking, I agree to pay the Employer damages
+                            equivalent to my monthly remuneration for each month or part of a month that I am in breach
+                            as compensation for the damages that will be sustained by the Employer because of the
+                            breach.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>10.</strong>
+                            I agree that this Undertaking shall be governed by the laws of the United Arab Emirates, and
+                            any dispute or claim arising out of or in connection to this Undertaking or breach thereof
+                            shall be subject to the exclusive jurisdiction of Courts in UAE.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>11.</strong>
+                            Each of the restrictions in this Undertaking is intended to be separate and severable and if
+                            any of the restrictions shall be adjudged void or ineffective for whatever reason but would
+                            be adjudged to be valid and effective if part of the wording were reduced in scope or
+                            deleted, the said restrictions shall apply with such modifications as may be necessary to
+                            make them valid and effective.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>12.</strong>
+                            I agree that if I receive an offer from any third party to be involved in a business concern
+                            in any capacity either during my employment with the Employer or prior to the expiry of the
+                            restrictions set out above, I will provide the terms of this Undertaking to the person
+                            making the offer.
+                        </p>
+
+                        <p style="text-align: justify; margin-bottom: 20px; line-height: 1.6;">
+                            <strong>13.</strong>
+                            This Undertaking must be executed by the parties in accordance with any execution
+                            formalities required and/or permitted by the UAE Chamber of Commerce and Industries from
+                            time to time and may be executed in any number of counterparts, each of which, when executed
+                            and delivered, shall be an original, and all the counterparts together shall constitute one
+                            and the same instrument.
+                        </p>
+
+                        <table style="width: 100%; margin-top: 40px; border-collapse: collapse;">
+                            <tr>
+                                <td style="text-align: left; width: 45%; line-height: 1.6;">
+                                    -----------------------------
+                                </td>
+                                <td style="width: 15%;"></td>
+                                <td style="text-align: left; width: 40%; line-height: 1.6;">
+                                    ----------------------------
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; width: 45%; line-height: 1.6;">
+                                    Employee Signature
+                                </td>
+                                <td style="width: 10%;"></td>
+                                <td style="text-align: left; width: 45%; line-height: 1.6;">
+                                    Employee Signature
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; line-height: 1.6;">
+                                    Mr.
+                                    <t t-esc="o.partner_name"/>
+                                </td>
+                                <td style="width: 10%;"></td>
+                                <td style="text-align: left; line-height: 1.6;">
+                                    <t t-esc="o.company_id.name"/>
+                                </td>
+                            </tr>
+                            <t t-if="o.street">
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <t t-esc="o.street"/>,
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td style="text-align: left;">
+                                    <t t-if="o.street2">
+                                        <t t-esc="o.street2"/>,
+                                    </t>
+                                </td>
+                                <td style="width: 10%;"></td>
+                                <td style="text-align: left;">
+                                    Date
+                                </td>
+                            </tr>
+                            <t t-if="o.city or o.state_id or o.zip">
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <t t-if="o.city">
+                                            <t t-esc="o.city"/>,
+                                        </t>
+                                        <t t-if="o.state_id">
+                                            <t t-esc="o.state_id.name"/>,
+                                        </t>
+                                        <t t-if="o.zip">
+                                            <t t-esc="o.zip"/>,
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="o.country_id">
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <t t-esc="o.country_id.name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </div>
+
+                <!--  Footer -->
+                <div class="footer">
+                    <hr/>
+                    <div class="text-center">
+                        <div class="col-xs-12" align="center" style="line-height:10px;">
+                            Suite #<span t-field="o.company_id.street"/>,<span
+                                t-field="o.company_id.street2"/>,<span t-field="o.company_id.city"/>,
+                            PO Box #<span t-field="o.company_id.zip"/>,
+                            <span t-field="o.company_id.state_id.name"/>
+                        </div>
+                        <div class="col-xs-12" align="center" style="line-height:10px;">
+                            <span style="color:#900C3F;">
+                                <i class="fa fa-share-alt"/>
+                            </span>
+                            :
+                            <span t-field="o.company_id.website"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

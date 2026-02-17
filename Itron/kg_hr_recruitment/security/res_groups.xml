@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Group used to identify users and display the HR application tree -->
+        <record id="hr_applicant_custom_hr_id" model="res.groups">
+            <field name="name">HR Application Manger</field>
+            <field name="category_id" ref="kg_parent_menu_user_access.module_user_access"/>
+        </record>
+
+        <record id="hr_applicant_custom_users_id" model="res.groups">
+            <field name="name">HR Application Users</field>
+            <field name="category_id" ref="kg_parent_menu_user_access.module_user_access"/>
+        </record>
+    </data>
+</odoo>

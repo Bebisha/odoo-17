@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="journal_voucher_report_id">
+            <t t-call="web.html_container">
+                <t t-call="kg_curr_conv.itron_external_header">
+                    <t t-foreach="docs" t-as="o">
+                        <!--                    <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>-->
+                        <div class="page">
+                            <br/>
+                            <div class="oe_structure"/>
+                            <div align="center">
+                                <h2 class="text-center mb32">
+                                    <strong style="color: black;padding-top:30px;">PAYMENT VOUCHER</strong>
+                                </h2>
+                            </div>
+                            <table style="width:100%;background:white;border: none;color: black;"
+                                   class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td width="70%" style="background:white;border: none">
+                                            <strong>Ref# :
+                                                <t t-esc="o.move_id.name"/>
+                                            </strong>
+                                        </td>
+                                        <td width="30%" style="background:white;border: none;text-align:right;">
+                                            <strong>Date :
+                                                <t t-esc="o.date.strftime('%d/%m/%Y')"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <table style="color: black;width:100%;margin:0px auto;background:white;border:1px solid black;border-collapse: collapse; "
+                                   class="table table-condensed">
+                                <tr style="height: 40px; font-size:20px;">
+                                    <th width="70%" style="text-align:left;background:white;border: 1px solid black;">
+                                        Particulars
+                                    </th>
+                                    <th width="30%" style="text-align:center;background:white;border: 1px solid black">
+                                        Amount
+                                    </th>
+                                </tr>
+                                <t t-foreach="o.line_id" t-as="line">
+                                    <tr>
+                                        <td style="text-align:left;background:white;border: 1px solid black;">
+                                            <t t-if="o.paid_to">
+                                                <span>
+                                                    Paid To :
+                                                    <t t-esc="o.paid_to"/>
+                                                </span>
+                                                <br/>
+                                            </t>
+
+                                            <span>Narration :
+                                                <t t-esc="line.label"/>
+                                            </span>
+                                            <br/>
+                                            <span>Payment Through :
+                                                <t t-esc="o.journal_id.name"/>
+                                            </span>
+                                            <br/>
+                                            <span>On Account of :
+                                                <t t-esc="o.company_id.name"/>
+                                            </span>
+                                            <br/>
+                                        </td>
+                                        <td style="text-align:center;background:white;border: 1px solid black;">
+                                            <t t-esc="o.currency_id.symbol"/>
+                                            <span t-esc="'{:,.2f}'.format(line.amount)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr style="height: 40px;">
+                                    <td style="text-align: left; border: 1px solid black;background:white;">
+                                        <strong>
+                                            Total
+                                        </strong>
+                                    </td>
+                                    <td style="text-align: center; border: 1px solid black; background:white;">
+                                        <t t-esc="o.currency_id.symbol"/>
+                                        <strong t-esc="'{:,.2f}'.format(o.amount)"/>
+                                    </td>
+                                </tr>
+                                <tr style="height: 40px;">
+                                    <td style="text-align: left; border: 1px solid black;background:white;" colspan="2">
+                                        <span>Amount in words :
+                                            <strong t-esc="o.currency_id.amount_to_text(o.amount)"/>
+                                            Only
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="width:100%;color: black;background:white;border: none; margin-top: 180px;"
+                                   class="table table-borderless">
+                                <tr>
+                                    <td width="30%"
+                                        style="text-align:center;background:white;border-top: 1px solid black;border-right:none;">
+                                        <strong>
+                                            Prepared By
+                                        </strong>
+                                    </td>
+                                    <td width="5%" style="background:white;border: none;"/>
+                                    <td width="30%"
+                                        style="text-align:center;background:white;border-top: 1px solid black;border-right:none;">
+                                        <strong>
+                                            Approved By
+                                        </strong>
+                                    </td>
+                                    <td width="5%" style="background:white;border: none;"/>
+                                    <td width="30%"
+                                        style="text-align:center;background:white;border-top: 1px solid black;border-right:none;">
+                                        <strong>
+                                            Received By
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

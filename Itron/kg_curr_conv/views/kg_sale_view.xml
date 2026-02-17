@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="add_local_currency_in_sale_order" model="ir.ui.view">
+            <field name="name">Sale Order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//button[@name='action_cancel']" position="after">
+                        <button name="%(kg_curr_conv.create_so_wizard)d" string="Print" type="action"
+                                    class="oe_highlight" context="{'default_sale_id': active_id}"/>
+                    </xpath>
+                    <xpath expr="//button[@name='action_cancel']" position="after">
+                        <button name="create_project" string="Create Project" type="object"
+                                    class="oe_highlight"
+                                invisible="(project_id != False) or (state != 'sent')"
+                                />
+                    </xpath>
+                    <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="replace">
+                        <button name="%(kg_curr_conv.action_view_sale_advance_payment_inv1)d" string="Create Invoice"
+                            type="action" class="btn-primary"
+                                invisible="(check_invoice != False) or (state != 'sale')"
+                            />
+                    </xpath>
+                    <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="replace">
+                    </xpath>
+                    <field name="date_order" position="attributes">
+                        <attribute name="widget">date</attribute>
+                        <attribute name="readonly">state=='cancel'</attribute>
+                    </field>
+                    <field name="partner_id" position="after">
+                        <field name="kg_lpo"/>
+                        <field name="project_id" string="Project"/>
+                        <field name="check_invoice" invisible="1"/>
+                    </field>
+                    <xpath expr="//field[@name='tax_totals']" position="after">
+                        <field name="local_curr_val" nolabel="1" colspan="2"/>
+                    </xpath>
+
+                    <xpath expr="//field[@name='order_line']" position="after">
+                        <field name="kg_invoice_ids" invisible="1"/>
+                    </xpath>
+<!--                     <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">-->
+<!--                        <attribute name="invisible">1</attribute>-->
+<!--                    </xpath>-->
+<!--                    <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='qty_invoiced']" position="attributes">-->
+<!--                        <attribute name="invisible">1</attribute>-->
+<!--                    </xpath>-->
+                </data>
+            </field>
+        </record>
+        <record id="add_local_currency_in_sale_order_tree"
+                model="ir.ui.view">
+            <field name="name">Sale Order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="date_order" position="attributes">
+                        <attribute name="widget">date</attribute>
+                    </field>
+
+
+                    <xpath expr="//field[@name='partner_id']" position="after">
+                        <field name="kg_lpo" string="LPO"/>
+                        <field name="project_id" string="Project"/>
+                    </xpath>
+                    <xpath expr="//field[@name='partner_id']" position="replace">
+                        <field name="partner_short_name" string="Customer"/>
+                    </xpath>
+
+                    <xpath expr="//field[@name='amount_total']" position="after">
+                        <field name="company_currency_id" invisible="1"/>
+                        <field name="amount_total" invisible="1"/>
+                        <field name="amount_total" invisible="1"/>
+                        <field name="kg_invoice_ids" invisible="1"/>
+
+                        <field name="local_curr_val" widget="monetary"
+                               options="{'currency_field': 'company_currency_id'}" sum="total"/>
+
+
+                        <field name="kg_total_invoiced" widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                        <field name="kg_total_invoiced_local" sum="total" string="Company(cur)" widget="monetary"
+                               options="{'currency_field': 'company_currency_id'}"/>
+                        <field name="invoice_percent"  widget="progressbar" optional="show"/>
+                        <field name="kg_total_received" widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                        <field name="kg_total_received_local" force_save="1" sum="total" string="Company(cur)"
+                               widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+
+                        <field name="kg_pending_amt" widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                        <field name="kg_pending_amt_local" force_save="1" sum="total" string="Company(cur)"
+                               widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+
+                        <field name="kg_tds_amt" widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                        <field name="kg_tds_amt_local" force_save="1" sum="total" string="Company(cur)"
+                               widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+
+                    </xpath>
+                    <field name="invoice_status" position="replace">
+                        <field name="invoice_status" invisible="1"/>
+                    </field>
+
+                </data>
+            </field>
+        </record>
+
+
+        <record id="sale_order_add_new_fields" model="ir.ui.view">
+            <field name="name">sale.order.add.new.fields</field>
+            <field name="model">sale.order</field>
+
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+                    <separator/>
+                    <filter string="Pending" name="pending" domain="[('kg_pending_amt','>',0)]"/>
+                    <filter string="Invoiced" name="invoiced" domain="[('kg_total_invoiced','>',0)]"/>
+                    <filter string="Uninvoiced" name="uninvoiced" domain="[('kg_un_invoiced_amt','>',0)]"/>
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

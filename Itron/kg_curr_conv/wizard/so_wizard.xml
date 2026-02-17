@@ -1,0 +1,34 @@
+<odoo>
+
+    <record id="view_so_wizard_form" model="ir.ui.view">
+        <field name="name">view.so.wizard.form</field>
+        <field name="model">so.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Warning">
+                <group>
+                    <group>
+                        <field name="report_type" widget="selection"/>
+                    </group>
+                    <group>
+                        <field name="sale_id" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Print" class="btn-primary" type="object" name="print_report"/>
+                    <button string="Cancel" class="btn-primary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="create_so_wizard" model="ir.actions.act_window">
+        <field name="name">Print Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">so.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_so_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>

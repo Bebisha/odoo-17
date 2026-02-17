@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <data noupdate="1">
+       <record id="ir_contract_reference" model="ir.sequence">
+           <field name="name">Sequence Numbers</field>
+           <field name="code">contract.reference</field>
+           <field name="prefix">CR</field>
+           <field name="padding">5</field>
+           <field name="number_next">1</field>
+           <field name="number_increment">1</field>
+           <field name="company_id" eval="False"/>
+       </record>
+       <record id="ir_contract_reference_amc" model="ir.sequence">
+           <field name="name">Sequence Numbers</field>
+           <field name="code">contract.reference.amc</field>
+           <field name="prefix">CR</field>
+           <field name="padding">5</field>
+           <field name="number_next">1</field>
+           <field name="number_increment">1</field>
+           <field name="company_id" eval="False"/>
+       </record>
+
+       <record id="seq_contract_number_onsite" model="ir.sequence">
+            <field name="name">On-Site Contract Number</field>
+            <field name="code">contract.number.onsite</field>
+            <field name="prefix">ON/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+           <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_contract_number_offshore" model="ir.sequence">
+            <field name="name">Offshore Contract Number</field>
+            <field name="code">contract.number.offshore</field>
+            <field name="prefix">OFF/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+       <record id="seq_contract_number_amc" model="ir.sequence">
+            <field name="name">AMC Contract Number</field>
+            <field name="code">amc.number.contract</field>
+            <field name="prefix">AMC/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+
+
+
+
+
+
+       <record id="engagement_1_month" model="project.engagement">
+            <field name="name">1 Month</field>
+            <field name="no_month">1</field>
+        </record>
+       <record id="engagement_3_months" model="project.engagement">
+            <field name="name">3 Months</field>
+            <field name="no_month">3</field>
+        </record>
+       <record id="engagement_6_months" model="project.engagement">
+           <field name="name">6 Months</field>
+           <field name="no_month">6</field>
+       </record>
+       <record id="engagement_12_months" model="project.engagement">
+           <field name="name">12 Months</field>
+           <field name="no_month">12</field>
+       </record>
+
+   </data>
+</odoo>

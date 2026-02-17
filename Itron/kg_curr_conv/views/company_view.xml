@@ -1,0 +1,15 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="currency_del_img_bfly">
+            <field name="name">res.company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+              <field name="website" position="after">
+                  <field name="kg_bank_details" placeholder="Bank Details..."/>
+              </field>
+            </field>
+        </record>
+    </data>
+</openerp>
+

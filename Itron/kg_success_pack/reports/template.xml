@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <template id="sp_external_header">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+
+                <t t-set="company_id" t-value="res_company"/>
+        <div class="header">
+            <br/>
+            <div class="col-xs-12" style="line-height:15pt;">
+                <div class="col-xs-7" style="float: left">
+                    <t t-if="company_id.logo">
+                        <img t-attf-src="data:image/*;base64,{{company_id.logo}}" height="100px" width="250px"/>
+                    </t>
+                </div>
+                <div class="col-xs-5" style="float: right">
+                    <div style="font-size: 12pt;line-height: 23px;">
+                        <br/>
+                        <span class="text-left"
+                              style="font-size: 18pt;font-weight: bold;font-family:Helvetica,Verdana,Arial,sans,Lucida Grande,Calibri;"
+                              t-field="company_id.name"/>
+                        <br/>
+                        <t t-if="company_id.zip">PO Box #
+                            <span t-field="company_id.zip"/>
+                            ,
+                        </t>
+                        <t t-if="company_id.street">
+                            <span t-field="company_id.street"/>
+                        </t>
+
+                        <t t-if="company_id.street2">
+                            <br/>
+                            <span t-field="company_id.street2"/>
+                            ,
+                        </t>
+                        <t t-if="company_id.city">
+                            <span t-field="company_id.city"/>
+                        </t>
+
+                        <t t-if="company_id.state_id">
+                            <br/>
+                            <span t-field="company_id.state_id.name"/>
+                            ,
+                        </t>
+                        <t t-if="company_id.country_id">
+                            <span t-field="company_id.country_id.name"/>
+                        </t>
+                        <t t-if="company_id.website">
+                            <br/>
+                            <span style="color:#900C3F;">
+                                <i class="fa fa-link"/>
+                            </span>
+                            :
+                            <span t-field="company_id.website"/>
+                        </t>
+
+                        <t t-if="company_id.vat">
+                            <br/>
+                            <span>
+                                <t t-if="company_id.country_id.code == 'IN'">GSTIN # :</t>
+                                <t t-else="">VATIN # :</t>
+                            </span>
+                            <span t-field="company_id.vat"/>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article " t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout"/>
+            <t t-raw="0"/>
+        </div>
+        <div class="footer o_boxed_footer">
+            <div class="text-center">
+                <strong>THANK YOU FOR YOUR BUSINESS !</strong>
+                <br/>
+                <strong style="color: #B2BABB;">This is System Generated Invoice &amp; does not require signature or
+                    Seal.
+                </strong>
+                <br/>
+            </div>
+        </div>
+    </template>
+
+    <record id="paperformat_timesheet_report" model="report.paperformat">
+        <field name="name">Timesheet Report Paper</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_timesheets" model="ir.actions.report">
+        <field name="name">Timesheet PDF</field>
+        <field name="model">pack.projects</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_success_pack.report_timesheet_template</field>
+        <field name="report_file">kg_success_pack.report_timesheet_template</field>
+        <field name="print_report_name">'Timesheet - %s' %(object.success_pack_id.name)
+        </field>
+        <field name="paperformat_id" ref="paperformat_timesheet_report"/>
+    </record>
+
+    <record id="action_report_pack_timesheet" model="ir.actions.report">
+        <field name="name">Pack Timesheet PDF</field>
+        <field name="model">pack.timesheet</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_success_pack.report_pack_timesheet_template</field>
+        <field name="report_file">kg_success_pack.report_pack_timesheet_template</field>
+        <field name="print_report_name">'Timesheet - %s-%s'%(object.pack_project_id.success_pack_id.name,object.date)
+        </field>
+        <field name="paperformat_id" ref="paperformat_timesheet_report"/>
+    </record>
+
+    <template id="report_timesheet_template">
+        <t t-call="web.html_container">
+            <t t-call="kg_success_pack.sp_external_header">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <h2>Timesheet</h2>
+                        <table class="table table-borderless" style="width:50%;">
+                            <tr>
+                                <td>Project:</td>
+                                <td style=""><span t-esc="doc.sudo().name"/></td>
+                            </tr>
+                            <tr>
+                                <td>Client:</td>
+                                <td style=""><span t-esc="doc.sudo().partner_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td>Success Pack:
+                                </td>
+                                <td style=""><span t-esc="doc.success_pack_id.name"/></td>
+                            </tr>
+                        </table>
+                        <t t-set="total_amount" t-value="0"/>
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr style="background-color:#D7D3BF;">
+                                    <th>Date</th>
+                                    <th>Employee</th>
+                                    <th>Task</th>
+                                    <th>Description</th>
+                                    <th>Hours Spent</th>
+                                </tr>
+                                <tr t-foreach="doc.sudo().timesheet_ids" t-as="t">
+                                    <td class="text-center">
+                                        <span t-esc="t.date"/>
+                                    </td>
+
+                                    <td>
+                                        <span t-esc="t.employee_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="t.task_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="t.name"/>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <t t-set="total_amount" t-value="total_amount+t.unit_amount"/>
+                                        <span t-field="t.unit_amount"
+                                              t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"/>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                            <tr>
+                                <td colspan="4" class="text-right">
+                                    <strong>Total</strong>
+                                </td>
+
+                                <td class="text-center">
+                                    <span t-esc="total_amount"
+                                          t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="report_pack_timesheet_template">
+        <t t-call="web.html_container">
+            <t t-call="kg_success_pack.sp_external_header">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <h2>Timesheet</h2>
+                        <t t-set="total_amount" t-value="0"/>
+                        <table class="table table-borderless" style="width:50%;">
+                            <tr>
+                                <td>Date:</td>
+                                <td style=""><span t-field="doc.date"/></td>
+                            </tr>
+                            <tr>
+                                <td>Project:</td>
+                                <td style=""><span t-esc="doc.success_pack_line_id.sudo().project_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td>Client:</td>
+                                <td style=""><span t-esc="doc.success_pack_line_id.sudo().project_id.partner_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td>Success Pack:
+                                </td>
+                                <td style=""><span t-esc="doc.success_pack_line_id.success_pack_id.name"/></td>
+                            </tr>
+                        </table>
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr style="background-color:#D7D3BF;">
+                                    <th>Date</th>
+                                    <th>Employee</th>
+                                    <th>Task</th>
+                                    <th>Description</th>
+                                    <th>Hours Spent</th>
+                                </tr>
+                                <tr t-foreach="doc.sudo().timesheet_ids" t-as="t">
+                                    <td class="text-center">
+                                        <span t-esc="t.date"/>
+                                    </td>
+
+                                    <td>
+                                        <span t-esc="t.employee_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="t.task_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="t.name"/>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <t t-set="total_amount" t-value="total_amount+t.unit_amount"/>
+                                        <span t-field="t.unit_amount"
+                                              t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"/>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                            <tr>
+                                <td colspan="4" class="text-right">
+                                    <strong>Total</strong>
+                                </td>
+
+                                <td class="text-center">
+                                    <span t-esc="total_amount"
+                                          t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>
+

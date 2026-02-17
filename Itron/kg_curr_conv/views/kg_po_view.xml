@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="add_local_currency_in_purchase_order"
+                model="ir.ui.view">
+            <field name="name">Purchase Order</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//button[@name='button_cancel']" position="after">
+                        <button name="%(kg_curr_conv.create_po_wizard)d" string="Print" type="action"
+                                    class="oe_highlight" context="{'default_po_id': active_id}"/>
+                    </xpath>
+                    <field name="date_order" position="attributes">
+                        <attribute name="widget">date</attribute>
+                    </field>
+
+                </data>
+            </field>
+        </record>
+
+
+        <record id="add_local_currency_in_purchase_order_tree"
+                model="ir.ui.view">
+            <field name="name">Purchase Order</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="date_order" position="attributes">
+                        <attribute name="widget">date</attribute>
+                    </field>
+                    <field name="company_id" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </field>
+                    <field name="partner_id" position="after">
+                        <field name="partner_ref"/>
+                    </field>
+                     <xpath expr="//field[@name='partner_id']" position="replace">
+                        <field name="partner_short_name" string="Vendor"/>
+                    </xpath>
+                    <xpath expr="//field[@name='amount_total']" position="after">
+                        <field name="company_currency_id" invisible="1"/>
+                        <field name="local_curr_val" widget="monetary" sum="total"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>

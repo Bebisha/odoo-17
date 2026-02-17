@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="kg_revenue_head_view_form" model="ir.ui.view">
+        <field name="name">kg.revenue.head.view.form</field>
+        <field name="model">kg.revenue.head</field>
+        <field name="arch" type="xml">
+            <form string="Revenue Head">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="year"/>
+                        </group>
+                    </group>
+
+                    <field name="company_id" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="tot_tar" invisible="1"/>
+                    <group>
+                            <group>
+                                <field name="unallocated_per"/>
+                            </group>
+                        </group>
+                    <notebook>
+                        <page string="Monthly Targets">
+                            <field name="month_target_lines">
+                                <tree string="Monthly Target Lines" editable="top" create="0" delete="0">
+                                    <field name="revenue_head_id" column_invisible="1"/>
+                                    <field name="month" force_save="1"/>
+                                    <field name="year" force_save="1"/>
+                                    <field name="start_date" column_invisible="1"/>
+                                    <field name="end_date" column_invisible="1"/>
+                                    <field name="target" sum="True"/>
+                                    <field name="company_id" column_invisible="1"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="kg_revenue_head_view_tree" model="ir.ui.view">
+        <field name="name">kg.revenue.head.view.form.tree</field>
+        <field name="model">kg.revenue.head</field>
+        <field name="arch" type="xml">
+            <tree string="Revenue Head">
+                <field name="name"/>
+                <field name="year"/>
+                <field name="unallocated_per" widget="percentage"/>
+                <field name="tot_tar" sum="Total"/>
+                <field name="company_id" column_invisible="1"/>
+                <field name="currency_id" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="kg_revenue_head_action" model="ir.actions.act_window">
+        <field name="name">Revenue Head</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kg.revenue.head</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="kg_revenue_split_view_tree" model="ir.ui.view">
+        <field name="name">kg.revenue.split.view.form.tree</field>
+        <field name="model">kg.revenue.split</field>
+        <field name="arch" type="xml">
+            <tree string="Revenue Splits">
+                <field name="revenue_head_id"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="target_per" widget="percentage"/>
+                <field name="target" sum="Total"/>
+                <field name="currency_id" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>
+

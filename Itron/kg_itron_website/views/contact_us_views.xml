@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_contact_us_us" inherit_id="website.contactus" name="Custom Contact Us">
+        <xpath expr="//div[@id='wrap']" position="replace">
+            <div id="wrap" class="container mt-5 mb-5">
+                <style>header{display:none !important;}footer{display:none !important;}</style>
+                <!-- First row: Heading and text aligned left -->
+                <div class="row">
+                    <div class="col-md-4 col-12 text-left">
+                        <h1 class="font_0 wixui-rich-text__text">
+                            <span class="wixui-rich-text__text">Get in Touch</span>
+                        </h1>
+                        <p class="font_5 wixui-rich-text__text">
+                            <span class="wixui-rich-text__text">REACH OUT, SHARE A QUESTION OR PROVIDE FEEDBACK ON OUR
+                                PRODUCTS. FILL OUT THE FORM AND WE’LL RESPOND AS SOON AS POSSIBLE.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Second row: Form fields aligned right -->
+                <div class="row">
+                    <div class="col-md-8 offset-md-4 col-12">
+                        <form action="/custom/contactus/submit" method="post" enctype="multipart/form-data"
+                              class="o_website_form" data-model_name="mail.mail" data-success-mode="redirect"
+                              data-success-page="/contactus-thank-you" data-pre-fill="true">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                            <!-- Name fields with equal width -->
+                            <div class="form-group d-flex mb-3">
+                                <div class="me-2" style="width: 50%;">
+                                    <label for="first_name">First name
+                                        <span class="s_website_form_mark">*</span>
+                                    </label>
+                                    <input type="text" id="first_name" name="first_name" class="form-control"
+                                           required="1" style="outline: 1px solid grey;" onblur="validateName(this)"/>
+
+                                    <small id="first_name_error" class="text-danger" style="display: none;">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20"
+                                             class="sCi0LuL" aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                  d="M9.5,3 C13.084,3 16,5.916 16,9.5 C16,13.084 13.084,16 9.5,16 C5.916,16 3,13.084 3,9.5 C3,5.916 5.916,3 9.5,3 Z M9.5,4 C6.467,4 4,6.467 4,9.5 C4,12.533 6.467,15 9.5,15 C12.533,15 15,12.533 15,9.5 C15,6.467 12.533,4 9.5,4 Z M10,11 L10,12 L9,12 L9,11 L10,11 Z M10,7 L10,10 L9,10 L9,7 L10,7 Z"></path>
+                                        </svg>
+                                        Enter a first name.
+                                    </small>
+                                </div>
+
+                                <div class="ms-2" style="width: 50%;">
+                                    <label for="last_name">Last name</label>
+                                    <input type="text" id="last_name" name="last_name" class="form-control"
+                                           style="outline: 1px solid grey;"/>
+
+                                </div>
+                            </div>
+
+
+                            <!-- Full-width fields -->
+                            <div class="form-group mb-3">
+                                <label for="email_from">Email
+                                    <span class="s_website_form_mark">*</span>
+                                </label>
+                                <input type="email" id="email_from" name="email_from" class="form-control"
+                                       required="1" style="outline: 1px solid grey;" onblur="validateEmail(this)"/>
+                                <small id="email_error" class="text-danger" style="display: none;">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20"
+                                         class="sCi0LuL" aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                              d="M9.5,3 C13.084,3 16,5.916 16,9.5 C16,13.084 13.084,16 9.5,16 C5.916,16 3,13.084 3,9.5 C3,5.916 5.916,3 9.5,3 Z M9.5,4 C6.467,4 4,6.467 4,9.5 C4,12.533 6.467,15 9.5,15 C12.533,15 15,12.533 15,9.5 C15,6.467 12.533,4 9.5,4 Z M10,11 L10,12 L9,12 L9,11 L10,11 Z M10,7 L10,10 L9,10 L9,7 L10,7 Z"></path>
+                                    </svg>
+                                    Enter an email address like example@mysite.com.
+                                </small>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="phone">Phone
+                                    <span class="s_website_form_mark">*</span>
+                                </label>
+                                <div class="input-group ">
+
+                                    <input type="number" id="phone" name="phone" class="form-control"
+                                           required="required"
+                                           style="outline: 1px solid grey;" onblur="validatePhone(this)"/>
+
+                                </div>
+                                <small id="phone_error" class="text-danger" style="display: none;">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20"
+                                         class="sCi0LuL" aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                              d="M9.5,3 C13.084,3 16,5.916 16,9.5 C16,13.084 13.084,16 9.5,16 C5.916,16 3,13.084 3,9.5 C3,5.916 5.916,3 9.5,3 Z M9.5,4 C6.467,4 4,6.467 4,9.5 C4,12.533 6.467,15 9.5,15 C12.533,15 15,12.533 15,9.5 C15,6.467 12.533,4 9.5,4 Z M10,11 L10,12 L9,12 L9,11 L10,11 Z M10,7 L10,10 L9,10 L9,7 L10,7 Z"></path>
+                                    </svg>
+                                    Enter a valid phone number.
+
+                                </small>
+                            </div>
+                            <input type="hidden" name="country_name" id="country_name"/>
+                            <input type="hidden" name="country_code" id="country_code"/>
+
+                            <link rel="stylesheet"
+                                  href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+                            <script>
+                                const phoneInput = document.querySelector("#phone");
+                                const countryNameInput = document.querySelector("#country_name");
+                                const countryCodeInput = document.querySelector("#country_code");
+                                const phonePrefix = <t t-out="json.dumps(country or 'ae')"/>;
+
+                                const iti = window.intlTelInput(phoneInput, {
+                                initialCountry: phonePrefix ,
+                                preferredCountries: ["ae", "om", "us", "gb", "ug", "ua"],
+                                separateDialCode: true,
+                                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+                                });
+
+                                // Optional: Fix parent width if needed
+                                window.addEventListener('load', function () {
+                                const wrapper = phoneInput.closest(".iti");
+                                if (iti.getSelectedCountryData) {
+                                countryNameInput.value = iti.getSelectedCountryData().name;
+                                countryCodeInput.value = iti.getSelectedCountryData().dialCode;
+                                }
+                                if (wrapper) {
+                                wrapper.style.width = "100%";
+                                }
+                                });
+
+                                phoneInput.addEventListener('change', function () {
+                                const selectedData = iti.getSelectedCountryData();
+                                if (selectedData.name) {
+                                countryNameInput.value = selectedData.name;
+                                countryCodeInput.value = selectedData.dialCode;
+                                }
+                                });
+
+                                function _submitContact(){
+                                const selectedData = iti.getSelectedCountryData();
+                                if (selectedData.name) {
+                                countryNameInput.value = selectedData.name;
+                                countryCodeInput.value = selectedData.dialCode;
+                                }
+                                }
+
+                            </script>
+                            <div class="form-group mb-3">
+                                <label for="organization">Organization</label>
+                                <input type="text" id="organization" name="organization" class="form-control"
+                                       style="outline: 1px solid grey;"/>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inquiry_type">Type of inquiry</label>
+                                <input type="text" id="inquiry_type" name="inquiry_type" class="form-control"
+                                       style="outline: 1px solid grey;"/>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" class="form-control" rows="4"
+                                          placeholder="Write your message here"
+                                          style="outline: 1px solid grey;"></textarea>
+                            </div>
+
+                            <div class="form-group text-right">
+                                <button type="submit" onClick="_submitContact()" class="btn text-uppercase"
+                                        style="background-color: #000; color: #fff; border-radius: 50px; padding: 10px 30px; font-weight: 400; border: none;">
+                                    SEND MESSAGE
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script>
+
+                // Validation for name
+                function validateName(input) {
+                let errorMessage = document.getElementById("first_name_error");
+                let namePattern = /^[A-Za-z\s'-]{2,50}$/; // Simple email regex
+
+                // Show error if email is invalid
+                if (!namePattern.test(input.value)) {
+                errorMessage.style.display = "block";
+                } else {
+                errorMessage.style.display = "none";
+                }
+                }
+
+                // Validation for email
+                function validateEmail(input) {
+                let errorMessage = document.getElementById("email_error");
+                let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
+
+                // Show error if email is invalid
+                if (!emailPattern.test(input.value)) {
+                errorMessage.style.display = "block";
+                } else {
+                errorMessage.style.display = "none";
+                }
+                }
+
+                // Validation for phone
+                function validatePhone(input) {
+                let phoneErrorMessage = document.getElementById("phone_error");
+                let phonePattern = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+                // Show error if email is invalid
+                if (!phonePattern.test(input.value)) {
+                phoneErrorMessage.style.display = "block";
+                } else {
+                phoneErrorMessage.style.display = "none";
+                }
+                }
+
+            </script>
+        </xpath>
+    </template>
+   
+</odoo>

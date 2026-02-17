@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    Create a template for display the pdf report design-->
+    <template id="kg_itron_timesheet.report_timesheet_employee">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div style="padding-bottom:20px !important;"
+                             class="oe_structure"/>
+                        <h2 align="center">Timesheet Report by Employees</h2>
+                        <br/>
+                        <table class="table table-condensed" style="border: white;">
+                            <tbody>
+                                <tr style="border: none;background-color: white;" align="left">
+                                    <th style="border: none;">Company Name</th>
+                                    <td colspan="2" style="border: none;background-color: white;">
+                                        <span t-esc="company.name"/>
+                                    </td>
+                                    <th style="border: none;"/>
+                                    <td style="border: none;"/>
+                                    <th style="border: none;">Total Working Hours</th>
+                                    <td style="border: none; background-color: white;">
+                                        <t t-set="hours" t-value="int(total)"/>
+                                        <t t-set="minutes" t-value="int((total - hours) * 60)"/>
+                                        <span t-esc="'{:02}:{:02}'.format(hours, minutes)"/>
+                                    </td>
+
+                                </tr>
+                                <tr t-if="identification" style="border: none;" align="left">
+                                    <th style="border: none;">Timesheet Period</th>
+                                    <td colspan="2" style="border: none;">
+                                        <span t-esc="period"/>
+                                    </td>
+                                    <th style="border: none;background-color: white;"/>
+                                    <td style="border: none;background-color: white;"/>
+                                    <th t-if="is_single_employee" style="border: none;background-color: white;">
+                                        Employee
+                                    </th>
+
+                                    <td t-if="is_single_employee" style="border: none;background-color: white;">
+                                        <t t-set="employee" t-value="', '.join(employee.mapped('name'))"/>
+                                        <span t-esc="employee"/>
+
+                                    </td>
+
+                                </tr>
+                                <tr t-if="identification" style="border: none;" align="left">
+                                    <th t-if="is_single_project" style="border: none;">Project</th>
+                                    <td t-if="is_single_project" colspan="2"
+                                        style="border: none;background-color: white;">
+                                        <t t-set="projects" t-value="', '.join(project.mapped('name'))"/>
+                                        <span t-esc="projects"/>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr style="background-color:#D7D3BF;">
+                                    <th t-if="not is_same_date" style="width: 100px;">Date</th>
+                                    <th t-if="not is_single_employee" style="width:120px;">Employee</th>
+                                    <th t-if="not is_single_project">Project</th>
+                                    <th>Task</th>
+                                    <th>Description</th>
+                                    <th style="width: 100px;">Start Date</th>
+                                    <th style="width: 100px;">End Date</th>
+                                    <th>Hours Spent</th>
+                                </tr>
+                                <tr t-foreach="timesheets" t-as="t">
+                                    <td t-if="not is_same_date">
+                                        <span t-esc="t['date'].strftime('%d/%m/%Y')"/>
+                                    </td>
+
+                                    <td t-if="not is_single_employee">
+                                        <span t-esc="t['employee']"/>
+                                    </td>
+                                    <td t-if="not is_single_project">
+                                        <span t-esc="t['project']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="t['task']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="t['description']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="t['date_start'].strftime('%d/%m/%Y')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="t['date_end'].strftime('%d/%m/%Y')"/>
+                                    </td>
+                                    <td style="background-color: white;">
+                                        <t t-set="hours" t-value="int(t['duration'])"/>
+                                        <t t-set="minutes" t-value="int((t['duration'] - hours) * 60)"/>
+                                        <span t-esc="'{:02}:{:02}'.format(hours, minutes)"/>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

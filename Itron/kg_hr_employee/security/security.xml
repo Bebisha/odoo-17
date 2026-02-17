@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_designation_rule_multicompany" model="ir.rule">
+            <field name="name">Designation: multi-company rule</field>
+            <field name="model_id" ref="model_hr_designation"/>
+            <!--        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>-->
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="kg_project_multi_company_rule" model="ir.rule">
+            <field name="name">KG Project Multi Company Rule</field>
+            <field name="model_id" ref="model_project_project"/>
+            <field name="domain_force">['|',
+                ('company_ids', '=', False),
+                ('company_ids', 'in', company_ids),
+                ('project_team_user_ids', 'in', [user.id])
+                ]
+            </field>
+        </record>
+
+        <!--        <record id="kg_project_timeline_company_rule_id" model="ir.rule">-->
+        <!--            <field name="name">Project Timeline Rule</field>-->
+        <!--            <field name="model_id" ref="kg_project_milestone.model_kg_project_timeline"/>-->
+        <!--            <field name="global" eval="True"/>-->
+        <!--            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids),-->
+        <!--                ('name.project_team_user_ids', 'in', [user.id])]-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+
+        <!--        <record id="kg_project_team_all_timesheet" model="ir.rule">-->
+        <!--            <field name="name">Project Team Timesheet Rule</field>-->
+        <!--            <field name="model_id" ref="analytic.model_account_analytic_line"/>-->
+        <!--            <field name="domain_force">[('employee_id.project_team_id', '=', user.employee_id.project_team_id.id)]</field>-->
+        <!--            <field name="groups" eval="[(4, ref('hr_timesheet.group_hr_timesheet_approver'))]"/>-->
+        <!--        </record>-->
+
+        <record id="kg_my_project_tasks" model="ir.rule">
+            <field name="name">My Project Tasks</field>
+            <field name="model_id" ref="model_project_task"/>
+            <field name="domain_force">['|', ('project_id.user_id','=',user.id), ('project_id.project_team_user_ids',
+                'in', [user.id])]
+            </field>
+        </record>
+        <function name="write" model="ir.model.data">
+            <value model="ir.model.data"
+                   search="[('module', '=', 'hr_holidays'), ('name', '=', 'hr_leave_rule_officer_update')]"/>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <record model="ir.rule" id="hr_holidays.hr_leave_rule_officer_update">
+            <field name="domain_force">
+                [
+                ('holiday_type', '=', 'employee'),('employee_id.leave_manager_id', '=', user.id),
+                '|',
+                '&amp;',
+                ('employee_id.user_id', '=', user.id),
+                ('state', '!=', 'validate'),
+                '|',
+                ('employee_id.user_id', '!=', user.id),
+                ('employee_id.user_id', '=', False),
+                ]
+            </field>
+        </record>
+
+        <function name="write" model="ir.model.data">
+            <value model="ir.model.data"
+                   search="[('module', '=', 'hr_holidays'), ('name', '=', 'hr_leave_rule_officer_update')]"/>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+        <function name="write" model="ir.model.data">
+            <value model="ir.model.data"
+                   search="[('module', '=', 'hr_holidays'), ('name', '=', 'hr_leave_rule_user_read')]"/>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <record model="ir.rule" id="hr_holidays.hr_leave_rule_user_read">
+            <field name="domain_force">[
+                ('employee_id.leave_manager_id', '=', user.id)
+                ]
+            </field>
+        </record>
+
+        <function name="write" model="ir.model.data">
+            <value model="ir.model.data"
+                   search="[('module', '=', 'hr_holidays'), ('name', '=', 'hr_leave_rule_user_read')]"/>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+
+    </data>
+</odoo>

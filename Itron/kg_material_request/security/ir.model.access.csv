@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kg_material_request,kg.material.request,model_kg_material_request,base.group_user,1,1,1,1
+access_material_request_line,material.request.line,model_material_request_line,base.group_user,1,1,1,1
+access_rejects_reason_wizard,rejects_reason_wizard,model_rejects_reason_wizard,base.group_user,1,1,1,1
+access_update_quantity_wizard,update_quantity_wizard,model_update_quantity_wizard,base.group_user,1,1,1,1
+access_rejects_reason_receipt,rejects_reason_receipt,model_rejects_reason_receipt,base.group_user,1,1,1,1

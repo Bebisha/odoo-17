@@ -1,0 +1,25 @@
+{
+    "name": 'KG CRM',
+    "version": '17.0.1.0.0',
+    "installable": True,
+    'author': "Klystron Global",
+    'depends': [
+        'crm','product','sale','xlsx_reporting',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/data.xml',
+        'data/cron.xml',
+        'data/email_templates.xml',
+        'views/crm_modules_views.xml',
+        'views/crm_lead_views.xml',
+        'views/res_config_settings.xml',
+        'views/kg_crm_estimation_views.xml',
+        'views/lead_activity_status_views.xml',
+        'views/kg_activity_views.xml',
+        'views/lead_interest_views.xml',
+        'views/crm_stage_views.xml',
+        'report/report.xml',
+    ],
+    'demo': [],
+}

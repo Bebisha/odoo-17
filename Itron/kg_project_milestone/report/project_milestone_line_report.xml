@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <record id="action_report_milestone_line" model="ir.actions.report">
+            <field name="name">Milestone</field>
+            <field name="model">kg.project.timeline</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_project_milestone.report_milestone_line</field>
+            <field name="report_file">kg_project_milestone.report_milestone_line</field>
+            <field name="binding_model_id" ref="model_kg_project_timeline"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

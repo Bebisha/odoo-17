@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_project_milestone_status_view_tree">
+            <field name="name">project.milestone.status.tree</field>
+            <field name="model">project.milestone.status</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="timeline_line_id" invisible="1"/>
+                    <field name="project_id"/>
+                    <field name="milestone_id"/>
+                    <field name="line_start_date"/>
+                    <field name="line_end_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_project_milestone_status_view_form">
+            <field name="name">project.milestone.status.form</field>
+            <field name="model">project.milestone.status</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="timeline_line_id" invisible="1"/>
+                    <field name="project_id"/>
+                    <field name="milestone_id"/>
+                    <field name="line_start_date"/>
+                    <field name="line_end_date"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_project_milestone_status_search" model="ir.ui.view">
+            <field name="name">project.milestone.status.filter</field>
+            <field name="model">project.milestone.status</field>
+            <field name="arch" type="xml">
+                <search string="Milestone Status">
+                    <field name="project_id"/>
+                    <field name="milestone_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Project" name="groupby_project" domain="[]"
+                                context="{'group_by': 'project_id'}"/>
+                        <filter string="Milestone" name="groupby_milestone" domain="[]"
+                                context="{'group_by': 'milestone_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_pro_milestone_status" model="ir.actions.act_window">
+            <field name="name">Milestone Status View</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.milestone.status</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+<!--        <menuitem-->
+<!--                id="menu_pro_milestone_status"-->
+<!--                action="action_pro_milestone_status"-->
+<!--                name="Milestone Status View"-->
+<!--                parent="project.menu_project_report"-->
+<!--                sequence="4"/>-->
+    </data>
+</odoo>

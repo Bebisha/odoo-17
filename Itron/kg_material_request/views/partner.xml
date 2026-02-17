@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">view_partner_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='image_1920']" position="after">
+
+                <div class="o_row">
+                    <label for="is_inv_customer"/>
+                    <field name="is_inv_customer"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

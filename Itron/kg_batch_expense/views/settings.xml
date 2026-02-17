@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form_expense_approval" model="ir.ui.view">
+            <field name="name">res.config.settings.view.expense.approval.form.inherit</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <div id="approvals_custom" class="app_settings_block">
+                        <h2>Approvals</h2>
+                        <div class="row mt16 o_settings_container" id="end_resource_setting">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <group>
+                                   <field name="expense_approval_ids" widget="many2many_tags"/>
+                                    <field name="expense_sec_approval_ids" widget="many2many_tags"/>
+                                </group>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

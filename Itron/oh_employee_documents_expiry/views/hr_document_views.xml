@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    Form view of hr_document model.-->
+    <record id='hr_document_view_form' model='ir.ui.view'>
+        <field name="name">hr.document.view.form</field>
+        <field name="model">hr.document</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="attach_ids" widget="many2many_binary"
+                                   class="oe_inline"/>
+                        </group>
+                        <group>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--    Tree view of hr_document model.-->
+    <record id='hr_document_view_tree' model='ir.ui.view'>
+        <field name="name">hr.document.view.tree</field>
+        <field name="model">hr.document</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="note" string="Note"/>
+            </tree>
+        </field>
+    </record>
+    <!--An action window,that opens the list and form views of HR documents.-->
+    <record id="hr_document_action" model="ir.actions.act_window">
+        <field name="name">Document Templates</field>
+        <field name="res_model">hr.document</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref=""/>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create First Document Template</p>
+        </field>
+    </record>
+    <!--    Menu item for documents.-->
+    <menuitem id="hr_document_menu"
+              name="Document Templates"
+              parent="oh_employee_documents_expiry.menu_human_resources_configuration_document"
+              sequence="1"
+              action="hr_document_action"
+              groups="hr.group_hr_manager"/>
+
+<!--    <record model="ir.ui.view" id="hr_employee_document_view_form_inherit1">-->
+<!--        <field name="name">hr.employee.document.view_form.inherit1</field>-->
+<!--        <field name="model">hr.employee.document</field>-->
+<!--        <field name="inherit_id" ref="-->
+<!--                                oh_employee_documents_expiry.hr_employee_document_view_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            &lt;!&ndash;            <xpath expr="//label[@for='expiry_date']" position="replace">&ndash;&gt;-->
+<!--            &lt;!&ndash;                <label for="expiry_date" string="Validity"&ndash;&gt;-->
+<!--            &lt;!&ndash;                       invisible="document_types == 'driving'"/>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </xpath>&ndash;&gt;-->
+<!--            <xpath expr="//field[@name='expiry_date']" position="attributes">-->
+<!--                <attribute name="string">Your String Here</attribute>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>

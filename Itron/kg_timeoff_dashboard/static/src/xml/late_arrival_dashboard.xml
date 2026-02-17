@@ -1,0 +1,160 @@
+<templates id="template_late_coming" xml:space="preserve">
+    <t t-name="late_coming_dashboard">
+        <div style="font-family: 'Arial', sans-serif; background-color: #f5f5f5; padding: 30px; border-radius: 10px;margin: 0 auto;">
+            <!-- Header without background color and simplified font style -->
+            <!--            <h1 style="text-align: center; color: #333; font-size: 36px; margin-bottom: 30px; padding: 15px 0;">-->
+            <!--                <span style="font-weight: normal;">Today's Late Comers</span>-->
+            <!--                -->
+            <!--            </h1>-->
+            <center>
+            <h1 style="margin:20px;">
+                    Today's Late Comers
+                </h1>
+            </center>
+
+            <t t-name="LateFilterSection">
+                <div class="d-flex flex-nowrap p-3"
+                     style="gap: 29px !important; background-color: #e9ecef; border-radius: 5px; margin-bottom: 20px; min-width: max-content;">
+
+                    <!-- Company Field -->
+                    <div style="display: flex; align-items: center; min-width: 260px;">
+                        <label for="company_select"
+                               style="font-weight: bold; font-size: 15px; color: #333; margin-right: 10px; width: 80px;">
+                            Company:
+                        </label>
+                        <select id="company_select"
+                                class="form-select"
+                                style="flex: 1; padding: 8px 10px; font-size: 15px;"
+                                t-on-change="(e) => this.updateEmployeeDropdown(e)">
+                            <option value="" selected="1">Today's</option>
+                            <t t-foreach="state.companies" t-as="company" t-key="company.id">
+                                <option t-att-value="company.id" t-esc="company.name"
+                                        t-att-selected="company.id == state.selectedCompanyId"/>
+                            </t>
+                        </select>
+                    </div>
+
+                    <!-- Employee Field -->
+                    <div style="display: flex; align-items: center; min-width: 260px;">
+                        <label for="employee_select"
+                               style="font-weight: bold; font-size: 15px; color: #333; margin-right: 10px; width: 80px;">
+                            Employee:
+                        </label>
+                        <select id="employee_select"
+                                class="form-select"
+                                style="flex: 1; padding: 8px 10px; font-size: 15px;"
+                                t-on-change="(e) => this.updateEarlyLateRequests(e)">
+                            <option value="" selected="1">Select an Employee</option>
+                            <t t-foreach="state.all_employees" t-as="employee" t-key="employee.id">
+                                <option t-att-value="employee.id" t-esc="employee.name"
+                                        t-att-selected="employee.id == state.selectedEmployeeId"/>
+                            </t>
+                        </select>
+                    </div>
+                    <!-- Start Date Field -->
+                    <div style="display: flex; align-items: center; min-width: 260px;">
+                        <label for="start_date"
+                               style="font-weight: bold; font-size: 15px; color: #333; margin-right: 10px; width: 80px;">
+                            Start Date:
+                        </label>
+                        <input type="date" id="start_date"
+                               style="flex: 1; padding: 8px 10px; font-size: 15px; border: 1px solid #ddd"
+                               t-on-change="(e) => this.updateRequestsByStartDate(e)"/>
+                    </div>
+                    <!-- End Date Field -->
+                    <div style="display: flex; align-items: center; min-width: 260px;">
+                        <label for="end_date"
+                               style="font-weight: bold; font-size: 15px; color: #333; margin-right: 10px; width: 80px;">
+                            End Date:
+                        </label>
+                        <input type="date" id="end_date"
+                               style="flex: 1; padding: 8px 10px; font-size: 15px; border: 1px solid #ddd"
+                               t-on-change="(e) => this.updateEndDate(e)"/>
+                    </div>
+                </div>
+            </t>
+
+            <table style="width: 100%; margin-top: 20px; border-collapse: collapse; text-align: center; border-radius: 10px; overflow-x: auto; white-space: nowrap;">
+                <thead style="background-color: black; color: white; border-radius: 10px">
+                    <tr style="white-space: nowrap; border-radius: 10px">
+                        <t t-if="!state.selectedEmployeeId">
+                            <th style="padding: 15px; min-width: 150px;">Employee</th>
+                        </t>
+                        <t t-if="!state.selectedCompanyId">
+                            <th style="padding: 15px; min-width: 150px;">Company</th>
+                        </t>
+                        <t t-if="state.selectedEmployeeId or state.startDate or state.endDate or state.selectedCompanyId">
+                            <th style="padding: 15px; min-width: 130px;">Date</th>
+                        </t>
+                        <th style="padding: 15px; min-width: 120px;">Late By</th>
+                        <th style="padding: 15px; min-width: 160px;">Time of Arrival</th>
+                        <t t-if="!state.selectedEmployeeId and !state.startDate and !state.endDate and !state.selectedCompanyId">
+                            <th style="padding: 15px; min-width: 160px;">Weekly Late Hours</th>
+                            <th id="late-header" style="padding: 15px; min-width: 160px;">Monthly Late Hours</th>
+                        </t>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- Dynamic rows for filtered employees -->
+                    <t t-foreach="state.filteredEmployees" t-as="employee" t-key="employee.id">
+                        <tr style="background-color: #fff; border-bottom: 1px solid #ddd; transition: background-color 0.3s ease;">
+
+                            <t t-if="!state.selectedEmployeeId">
+
+                            <td style="padding: 12px; color: #333; font-weight: bold;text-align:left;"
+                                t-on-click="(e) => this.tot_late(e, employee.id)">
+                                <t t-esc="employee.name"/>
+                            </td>
+                                                                            </t>
+                            <t t-if="!state.selectedCompanyId">
+                                <td style="padding: 12px; color: #333; font-weight: bold;text-align:left;"
+                                    t-on-click="(e) => this.tot_late(e, employee.id)">
+                                    <t t-esc="employee.company_name"/>
+                                </td>
+                            </t>
+                            <t t-if="state.selectedEmployeeId or state.startDate or state.endDate or state.selectedCompanyId">
+
+                                <td style="padding: 12px; color: #333;"
+                                    t-on-click="(e) => this.current_late(e, employee.id)">
+                            <t t-esc="(employee['date'].split('-').reverse().join('-'))"/>                                </td>
+                            </t>
+                            <td style="padding: 12px; color: #f44336;"
+                                t-on-click="(e) => this.current_late(e, employee.id)">
+                                <t t-esc="employee.late_by"/>
+                            </td>
+                            <td style="padding: 12px; color: #333;"
+                                t-on-click="(e) => this.current_late(e, employee.id)">
+                                <t t-esc="employee.arrival_time"/>
+                            </td>
+                            <t t-if="!state.selectedEmployeeId and !state.startDate and !state.endDate and !state.selectedCompanyId">
+
+                            <td style="padding: 12px; color: #333;"
+                                t-on-click="(e) => this.weekly_late(e, employee.id)">
+                                <t t-esc="employee.week_late"/>
+                            </td>
+                                <td style="padding: 12px; color: #333;"
+                                    t-on-click="(e) => this.tot_late(e, employee.id)">
+                                <t t-esc="employee.monthly_late"/>
+                            </td>
+                                                                            </t>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Hover Effects and Animations for Table Rows -->
+        <style>
+            table tbody tr:hover {
+                background-color: #f3e5f5;
+                cursor: pointer;
+            }
+            select:focus {
+                outline: none;
+                border: 1px solid #6a1b9a;
+                box-shadow: 0 0 5px rgba(106, 27, 154, 0.5);
+            }
+        </style>
+    </t>
+</templates>

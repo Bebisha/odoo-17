@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Inheriting the HR job form view   -->
+    <record id="hr_job_inherit_form_view_id" model="ir.ui.view">
+        <field name="name">KG HR job Form</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description']" position="after">
+                <group>
+                    <field name="job_rules" force_save="1"/>
+                    <field name="job_requirements" force_save="1"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="before">
+                <field name="job_code" force_save="1"/>
+            </xpath>
+            <xpath expr="//field[@name='contract_type_id']" position="before">
+                <field name="email_to" placeholder="eg:jobs.ae@klystronglobal.com"/>
+            </xpath>
+            <xpath expr="//label[@for='alias_name']" position="replace"/>
+            <xpath expr="//div[@name='alias_def']" position="replace"/>
+        </field>
+    </record>
+</odoo>

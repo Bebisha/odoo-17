@@ -1,0 +1,255 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<odoo>
+    <!-- Replace job template  -->
+    <template id="template_job_inherit_id" inherit_id="website_hr_recruitment.index">
+        <xpath expr="//div[@id='wrap']" position="replace">
+            <style>header{display:none !important;} footer{display:none !important;}</style>
+            <style>
+                /* Mobile responsiveness */
+                @media (max-width: 768px) {
+                .job-openings-container {
+                width: 100%;
+                padding: 0 10px;
+                }
+                .job-openings-title {
+                font-size: 32px;
+                }
+                .job-row {
+                display: flex;
+                flex-direction: column;
+                border-bottom: 1px solid lightgray;
+                padding: 10px 0;
+                }
+                .job-name, .job-location, .job-details {
+                font-size: 16px;
+                text-align: center;
+                }
+                .job-details a {
+                font-size: 16px;
+                text-decoration: none;
+                }
+                }
+            </style>
+
+            <!-- Snippet area -->
+            <div class="oe_structure" id="oe_structure_hr_recruitment_index_top"/>
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-light border-top shadow-sm d-print-none w-100 o_colored_level">
+                <div class="container">
+                    <div class="d-flex flex-column flex-md-row flex-md-wrap flex-lg-nowrap align-items-center justify-content-between w-100">
+                        <!-- Title -->
+                        <span class="navbar-brand h5 my-0 me-sm-auto">Our Job Offers</span>
+                        <!-- Customizations -->
+                        <t t-call="website_hr_recruitment.topbar_customizations"/>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Content -->
+            <div class="container oe_website_jobs">
+                <div class="row pt48 pb16">
+                    <div class="d-none" id="jobs_grid_left"/>
+                    <div class="col-lg" id="jobs_grid">
+                        <div class="row flex-column">
+                            <t t-if="not jobs">
+                                <div class="col">
+                                    <div t-if="search" class="alert alert-warning text-center" role="alert">
+                                        No results found for '<span t-out="search"/>'.
+                                    </div>
+                                    <div class="alert alert-info text-center text-muted"
+                                         groups="hr_recruitment.group_hr_recruitment_manager">
+                                        Create new job pages from the
+                                        <strong>+
+                                            <i>New</i>
+                                        </strong>
+                                        top-right button.
+                                    </div>
+                                    <div class="col-lg-12 text-center pt24">
+                                        <p class="h5 fw-light text-muted pb24">
+                                            There are currently no open job opportunities,
+                                            <br class="mb-2"/>
+                                            but feel free to <span class="fw-bold">contact us</span> for a spontaneous
+                                            application.
+                                        </p>
+                                        <img class="img-fluid o_we_custom_image pb24"
+                                             src="/website_hr_recruitment/static/src/img/job_not_found.svg"
+                                             style="width: 50% !important;" alt="Job not found"/>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-elif="search and original_search">
+                                <div class="col">
+                                    <div class="alert alert-info text-center" role="alert">
+                                        No results found for '<span t-out="original_search"/>'. Showing results for '
+                                        <span t-out="search"/>'.
+                                        <t t-set="search" t-value="original_search"/>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <t t-if="job_id">
+                <div class="job-openings-container" style="width: 75%; margin: 0 auto; text-align: left;">
+                    <h1 class="job-openings-title" style="text-align: center; margin-bottom: 50px; font-size: 48px;">
+                        Job Openings
+                        <span class="job-openings-underline"
+                              style="display: block; width: 70px; height: 4px; background-color: red; margin: 20px auto;"></span>
+                    </h1>
+                    <table class="job-openings-table" style="width: 100%; margin: 0 auto; border-collapse: collapse;">
+                        <t t-foreach="job_id" t-as="job">
+                            <tr class="job-row" style="width: 100%; border-bottom: 1px solid lightgray;">
+                                <!-- Job Name -->
+                                <td class="job-name" style="padding: 25px 20px; font-size: 24px; font-weight: bold;">
+                                    <t t-esc="job.name"/>
+                                    <t t-if="job.job_code">
+                                        <div style="color: gray; font-size: 18px; margin-top: 10px;">
+                                            JOB ID:
+                                            <t t-esc="job.job_code"/>
+                                            JOB LOCATION
+                                            <t t-esc="job.sudo().address_id.state_id.name"/>
+                                        </div>
+                                    </t>
+                                </td>
+                                <!-- Job Location -->
+                                <td class="job-location"
+                                    style="padding: 25px 20px; text-align: left; color: gray; font-size: 18px;">
+                                    <t t-if="job.address_id">
+                                        <t t-if="job.address_id.street">
+                                            <t t-esc="job.address_id.street"/>
+                                            <br/>
+                                        </t>
+
+                                        <t t-if="job.address_id.street2">
+                                            <t t-esc="job.address_id.street2"/>
+                                            <br/>
+                                        </t>
+
+                                        <t t-if="job.address_id.city">
+                                            <t t-esc="job.address_id.city"/>
+                                            ,
+                                        </t>
+                                        <t t-if="job.address_id.state_id">
+                                            <t t-esc="job.sudo().address_id.state_id.name"/>
+                                            ,
+                                        </t>
+                                        <t t-if="job.address_id.zip">
+                                            <t t-esc="job.address_id.zip"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="job.address_id.country_id">
+                                            <t t-esc="job.address_id.country_id.name"/>
+                                        </t>
+                                    </t>
+                                </td>
+
+                                <!-- View Details Button -->
+                                <td class="job-details" style="padding: 25px 20px; text-align: center;">
+                                    <a t-attf-href="/jobs/#{ slug(job) }"
+                                       draggable="false" style="color: red; text-decoration: none; font-size: 18px;">
+                                        <i class="fa fa-share-square" style="margin-right: 8px;"></i>
+                                        View details &amp; Apply
+                                    </a>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+
+    <!-- Replace Job details  -->
+    <template id="template_job_details_inherit_id" inherit_id="website_hr_recruitment.detail">
+        <xpath expr="//div[@id='wrap']" position="replace">
+            <style>header{display:none !important;} footer{display:none !important;}</style>
+
+            <div class="container">
+                <div class="d-flex flex-column flex-md-row flex-md-wrap flex-lg-nowrap w-100">
+                    <div>
+                        <h2 style="margin-top: 30px; margin-bottom: 5px;">
+                            <t t-esc="job.name"/>
+                        </h2>
+                        <t t-if="job.job_code">
+                            <div style="color: gray; font-size: 18px; margin-bottom: 70px;">
+                                <span>JOB ID :</span>
+                                <t t-esc="job.job_code"/>
+                                <br/>
+                                <span>JOB LOCATION :</span>
+                                <t t-esc="job.sudo().address_id.state_id.name"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+
+                <table style="width: 100%; font-size: 20px; line-height: 1.6; border-spacing: 10px;">
+                    <t t-if="job.description">
+                        <tr>
+                            <td style="font-weight: bold; vertical-align: top; width: 20%; padding-bottom: 20px;">
+                                Overview
+                            </td>
+                            <td style="width: 80%; color: #6e6e6e; padding-bottom: 20px;">
+                                <t t-esc="job.description"/>
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-if="job.job_rules or job.job_requirements">
+                        <tr>
+                            <td style="font-weight: bold; vertical-align: top; width: 20%; padding-bottom: 20px;">
+                                Position Summary
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-if="job.job_rules">
+                        <tr>
+                            <td style="font-weight: bold; vertical-align: top; width: 20%; padding-bottom: 20px;">
+                                Responsibilities
+                            </td>
+                            <td style="width: 80%; color: #6e6e6e; padding-bottom: 20px;">
+                                <t t-esc="job.job_rules"/>
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-if="job.job_requirements">
+                        <tr>
+                            <td style="font-weight: bold; vertical-align: top; width: 20%; padding-bottom: 20px;">
+                                Requirements
+                            </td>
+                            <td style="width: 80%; color: #6e6e6e; padding-bottom: 20px;">
+                                <t t-esc="job.job_requirements"/>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+
+                <div class="oe_structure">
+                    <section class="o_job_bottom_bar mt24 mb48">
+                        <div class="text-center">
+                            <a role="button" t-attf-href="/jobs/apply/#{job.id}" class="btn btn-primary btn-lg">Apply
+                                Now!
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- template apply rename  -->
+    <template id="template_inheriting_apply_id" inherit_id="website_hr_recruitment.apply">
+        <xpath expr="//div[@data-name='Submit Button']" position="replace">
+            <style>header{display:none !important;} footer{display:none !important;}</style>
+
+            <div class="col-12 s_website_form_submit mb64" data-name="Submit Button">
+                <div style="width: 200px" class="s_website_form_label"/>
+                <a href="#" role="button" class="btn btn-primary btn-lg s_website_form_send" id="apply-btn">
+                    Submit
+                </a>
+                <span id="s_website_form_result"></span>
+            </div>
+        </xpath>
+    </template>
+</odoo>

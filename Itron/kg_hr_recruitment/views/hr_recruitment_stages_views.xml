@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Inheriting the HR Recruitment Stage form view to add fields -->
+    <record id="hr_recruitment_stages_inherit_view_id" model="ir.ui.view">
+        <field name="name">KG HR Recruitment Stage Form</field>
+        <field name="model">hr.recruitment.stage</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_recruitment_stage_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='hired_stage']" position="after">
+                <field name="is_proposal"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

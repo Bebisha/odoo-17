@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="kg_crm_estimation_view_form" model="ir.ui.view">
+        <field name="name">kg.crm.estimation.view.form</field>
+        <field name="model">kg.crm.estimation</field>
+        <field name="arch" type="xml">
+            <form string="Estimation">
+                <header>
+                    <button name="create_quotation" type="object" data-hotkey="shift+g"
+                            string="Create Quotation" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_quotations" type="object" icon="fa-archive" class="oe_stat_button">
+                            <field name="quotation_count" widget="statinfo" string="Quotations"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="customer_id"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="scope_of_work"/>
+                    </group>
+                    <notebook>
+                        <page string="Estimation Lines" name="estimation_lines">
+                            <field name="estimation_line_ids">
+                                <tree editable="bottom">
+                                    <field name="item_id"/>
+                                    <field name="effort" widget="timesheet_uom"/>
+                                    <field name="cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="currency_id" invisible="1"/>
+
+                                </tree>
+                            </field>
+                            <group>
+                                <group>
+                                    <field name="margin" colspan="2" string="Margin" widget="percentage"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="estimate_total">
+                                    <field name="total" colspan="2" string="Total"/>
+                                    <field name="margin_amount" colspan="2" string="Margin Amount"/>
+                                    <field name="proposal_cost" colspan="2" string="Proposal Cost"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                <footer>
+                    <field name="is_confirmed" invisible="1"/>
+                    <button name="button_confirm" string="Confirm" type="object" class="oe_highlight"
+                            invisible="is_confirmed"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="kg_crm_estimation_view_tree" model="ir.ui.view">
+        <field name="name">kg.crm.estimation.view.form.tree</field>
+        <field name="model">kg.crm.estimation</field>
+        <field name="arch" type="xml">
+            <tree string="Estimation">
+                <field name="name" invisible="1"/>
+                <field name="customer_id"/>
+                <field name="date"/>
+                <field name="scope_of_work"/>
+            </tree>
+        </field>
+    </record>
+    <record id="kg_crm_estimation_line_view_form" model="ir.ui.view">
+        <field name="name">kg_crm_estimation_line_view_form</field>
+        <field name="model">kg.crm.estimation.line</field>
+        <field name="arch" type="xml">
+            <form string="Estimation line">
+                <sheet>
+                    <group>
+                        <field name="item_id"/>
+                        <field name="effort"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="kg_crm_estimation_line_view_tree" model="ir.ui.view">
+        <field name="name">kg_crm_estimation_line_view_tree</field>
+        <field name="model">kg.crm.estimation.line</field>
+        <field name="arch" type="xml">
+            <tree string="Estimation line">
+                <field name="item_id"/>
+                <field name="effort"/>
+                <field name="cost"/>
+            </tree>
+        </field>
+    </record>
+    <record id="kg_crm_estimation_action" model="ir.actions.act_window">
+        <field name="name">Estimation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kg.crm.estimation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_crm_estimation" name="Estimation" parent="crm.crm_menu_sales" action="kg_crm_estimation_action"
+              sequence="25"/>
+</odoo>
+

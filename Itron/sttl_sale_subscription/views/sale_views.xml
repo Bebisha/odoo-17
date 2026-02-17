@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="add_local_currency_in_sale_order_inhr" model="ir.ui.view">
+        <field name="name">add_local_currency_in_sale_order.inherit.view.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="kg_curr_conv.add_local_currency_in_sale_order"/>
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="sale_type" invisible="1"/>
+            </field>
+
+            <xpath expr="//button[@name='%(kg_curr_conv.action_view_sale_advance_payment_inv1)d']"
+                   position="attributes">
+                <attribute name="invisible">(check_invoice != False) or (state != 'sale') or (sale_type == 'contract')</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='product_uom_qty']" position="attributes">
+                <attribute name="readonly">parent.sale_type in ['contract']</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="sale_order_view_inh_sttl" model="ir.ui.view">
+        <field name="name">sale_order_view_inh_sttl.inherit.view.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object"
+                        name="contract_request"
+                        icon="fa-file" invisible="contract_request_count == 0">
+                    <field name="contract_request_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" type="object"
+                        name="contract_request_amc"
+                        icon="fa-file" invisible="contract_request_amc_count == 0">
+                    <field name="contract_request_amc_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" type="object"
+                        name="contract_request_offshore"
+                        icon="fa-file" invisible="contract_request_offshore_count == 0">
+                    <field name="contract_request_offshore_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" type="object"
+                        name="contract_request_free_support"
+                        icon="fa-support" invisible="contract_request_free_count == 0">
+                    <field name="contract_request_free_count" widget="statinfo"/>
+                </button>
+            </div>
+            <field name="payment_term_id" position="before">
+                <field name="current_invoice_status" invisible="1"/>
+
+
+                <field name="recurrance_id" invisible="sale_type != 'contract' or (sale_type == 'contract' and project_type == 'free_support')"/>
+
+                <field name="date_start" invisible="not (recurrance_id or project_type == 'free_support')"/>
+                <field name="start_date" invisible="1"/>
+                <field name="recurr_until" invisible="recurrance_id == False or subscription_status == 'c' or project_type == 'free_support'"/>
+                <label for="next_invoice_date" name="next_invoice_date_label" readonly="1"
+                       invisible="sale_type != 'contract' or not next_invoice_date "/>
+                <div class="o_row" name="bom_div" invisible="sale_type != 'contract' or not next_invoice_date">
+                    <field name="next_invoice_date" readonly="1"
+                           invisible="sale_type != 'contract'or not next_invoice_date"/>
+                    <button name="action_view_invoices_for_next_date" type="object" icon="fa-eye"
+                            invisible="sale_type != 'contract'or not next_invoice_date"
+                    >
+                    </button>
+                </div>
+                <field name="recurring_started" invisible="1"/>
+                <field name="closing_date" widget="date" invisible="sale_type != 'contract' or not closing_date"
+                       readonly="1"/>
+                <field name="subscription_status" invisible="sale_type != 'contract'"></field>
+                <field name="is_fully_paid" invisible="1"></field>
+                <field name="payment_status" invisible="1"></field>
+
+
+            </field>
+            <field name="project_id" position="after">
+                <field name="sale_type"/>
+                <field name="project_type" readonly="state not in ['draft', 'sent']" required="sale_type == 'contract'"
+                       invisible="sale_type != 'contract'"/>
+                <field name="planned_hrs" readonly="state not in ['draft', 'sent']" required="sale_type == 'contract'"
+                       invisible="project_type != 'amc'"/>
+            </field>
+
+            <xpath expr="//header" position="inside">
+                <!--                <button name="action_create_recurring_invoices" type="object" string="Create Recurring Invoices"-->
+                <!--                        invisible="state != 'sale' or recurrance_id == False or subscription_status == 'c'"/>-->
+                <button name="end_subscription" type="object" string="End Subscription"
+                        invisible="state != 'sale' or recurrance_id == False or subscription_status == 'c'"/>
+                <button name="renew_subscription" type="object" string="Renew Subscription"
+                        invisible="state != 'sale' or recurrance_id == False or subscription_status != 'c'"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='product_uom_qty']" position="before">
+                    <field name="sale_type" invisible="0"/>
+            </xpath>
+<!--            <xpath expr="//field[@name='project_id']" position="attributes">-->
+<!--                <attribute name="required"> project_type in ['amc','free_support']</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//field[@name='order_line']/form//field[@name='product_uom_qty']" position="attributes">-->
+<!--                <attribute name="readonly">sale_type in ['contract']</attribute>-->
+
+<!--            </xpath>-->
+
+        </field>
+    </record>
+    <record id="sale_order_estimation_inherit" model="ir.ui.view">
+        <field name="name">sale.order.estimation.inherit.view.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="kg_estimation.sale_order_view_inherit"/>
+        <field name="arch" type="xml">
+            <field name="estimation_id" position="attributes">
+                <attribute name="invisible">sale_type != 'project'</attribute>
+            </field>
+            <field name="project_id" position="attributes">
+                <attribute name="invisible">not(sale_type == 'project' or project_type == 'free_support')</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_order_success_inh_sttl" model="ir.ui.view">
+        <field name="name">sale_order_success_inh_sttl.inherit.view.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="kg_success_pack.add_success_pack_in_sale_order"/>
+        <field name="arch" type="xml">
+            <field name="success_pack" position="attributes">
+                <attribute name="invisible">sale_type != 'success'</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_order_success_inh_sttl_tree" model="ir.ui.view">
+        <field name="name">sale_order_success_inh_sttl.inherit.view.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+
+            <field name="local_curr_val" position="after">
+                <field name="next_invoice_date" optional="show"/>
+                <field name="amount_paid" optional="show"/>
+
+            </field>
+
+        </field>
+    </record>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit.contract</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object"
+                        name="view_contracts"
+                        icon="fa-file">
+                    <field string="Contracts" name="contract_count" widget="statinfo"/>
+                </button>
+            </div>
+
+        </field>
+    </record>
+
+</odoo>

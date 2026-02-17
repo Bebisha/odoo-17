@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="add_local_currency_in_cust_inv" model="ir.ui.view">
+            <field name="name">Customer Invoice</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='state']" position="replace">
+                        <field name="state" widget="statusbar" statusbar_visible="draft,proforma,posted"/>
+                    </xpath>
+                    <xpath expr="//field[@name='ref']" position="after">
+                       <field name="kg_lpo" string="LPO Reference" invisible="move_type == 'entry'"/>
+                    </xpath>
+
+                    <xpath expr="//button[@name='action_post'][2]" position="attributes">
+                        <attribute name="invisible">state not in ('draft','proforma')</attribute>
+                    </xpath>
+                    <xpath expr="//button[@name='button_cancel'][2]" position="attributes">
+                        <attribute name="invisible">state not in ('draft','proforma')</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='invoice_line_ids']" position="attributes">
+                        <attribute name="readonly">state not in ('draft','proforma')</attribute>
+                    </xpath>
+                    <xpath expr="//button[@name='button_draft']" position="after">
+                        <button name="action_proforma" type="object" string="Proforma"
+                                class="oe_highlight" invisible="state != 'draft'"/>
+                        <button name="action_draft" type="object" string="Set to Draft"
+                                class="oe_highlight" invisible="state != 'proforma'"/>
+                        <button name="%(kg_curr_conv.create_invoice_wizard)d" string="Print Invoice" type="action"
+                                class="oe_highlight" context="{'default_invoice_id': active_id}"/>
+                    </xpath>
+                    <field name="partner_id" position="after">
+                        <field name="bank_id" domain="[('type', '=', 'bank')]" invisible="move_type == 'entry'"
+                               string="Bank"/>
+                        <!--                          attrs="{'invisible': [('move_type', '=', 'entry')]}"-->
+                        <field name="pi_number" string="Proforma Number"/>
+                        <!--                        <field name="pi_number" invisible="state == 'proforma'"    string="Proforma Number"/>-->
+                        <field name="project_id" invisible="move_type == 'entry'"/>
+<!--                        <field name="kg_lpo" invisible="move_type == 'entry'"/>-->
+
+
+                    </field>
+
+                    <xpath expr="//form//sheet//notebook//page[1]/group[1]" position="before">
+                        <div class="oe_inline">
+                            <label for="apply_tds"/>
+                            <field name="apply_tds" nolabel="1" class="oe_inline" invisible="state !='draft'"/>
+                            -
+                            <field name="tds_tax_id" invisible="apply_tds != True" required="apply_tds == True"
+                                   nolabel="1"/>
+                        </div>
+                        <div class="oe_inline">
+                            <label for="kg_tds_percentage" invisible="apply_tds != True" required="apply_tds == True"/>
+                            <field name="kg_tds_percentage" invisible="apply_tds != True" required="apply_tds == True"
+                                   nolabel="1"/>
+                        </div>
+                        <div>
+
+                        </div>
+                        <div class="oe_inline">
+                            <label for="kg_tds_account_id" invisible="apply_tds != True"/>
+                            <field name="kg_tds_account_id" invisible="apply_tds != True" nolabel="1"/>
+                        </div>
+                        <div class="oe_inline">
+                            <label for="kg_tds_amount" invisible="apply_tds != True"/>
+                            <field name="kg_tds_amount" invisible="apply_tds != True" nolabel="1"/>
+                        </div>
+
+                    </xpath>
+
+                    <!--                    <field name="amount_untaxed" position="before">-->
+                    <!--                        <field name="kg_tds_amount"/>-->
+                    <!--                    </field>-->
+
+                </data>
+            </field>
+        </record>
+
+        <record id="account_move_journal_entry_inherited_id" model="ir.ui.view">
+            <field name="name">Journal Entry</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <!--                <xpath expr="//page[@id='other_tab_entry']//field[@name='to_check']" position="after">-->
+                <xpath expr="//field[@name='ref'][2]" position="after">
+                    <field name="vou_inv_number" invisible="move_type != 'entry' or country_code != 'IN'"
+                           readonly='True'/>
+                    <field name="vou_invoice_date" invisible="move_type != 'entry' or country_code != 'IN'"
+                           readonly='True'/>
+                    <field name="vou_due_date" invisible="move_type != 'entry' or country_code != 'IN'"
+                           readonly='True'/>
+                    <field name="country_code" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

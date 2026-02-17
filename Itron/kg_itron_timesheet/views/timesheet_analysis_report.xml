@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_timesheet_analysis_report_tree">
+            <field name="name">timesheet.analysis.report.tree</field>
+            <field name="model">timesheet.analysis.report</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="employee_id"/>
+                    <field name="date"/>
+                    <field name="hours_per_day" widget="timesheet_uom"/>
+                    <button name="view_timesheet_pivot" string="View Timesheet" type="object" class="oe_highlight"
+                    />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_timesheet_analysis_report_pivot" model="ir.ui.view">
+            <field name="name">timesheet.analysis.report.pivot</field>
+            <field name="model">timesheet.analysis.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Timesheet Analysis" sample="1">
+                    <field name="employee_id" type="row"/>
+                    <field name="date" interval="day" type="col"/>
+                    <field name="hours_per_day" type="measure" widget="timesheet_uom"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_timesheet_analysis_report_search" model="ir.ui.view">
+            <field name="name">timesheet.analysis.report.filter</field>
+            <field name="model">timesheet.analysis.report</field>
+            <field name="arch" type="xml">
+                <search string="Timesheet Analysis">
+                    <field name="employee_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Employee" name="groupby_employee_id" domain="[]"
+                                context="{'group_by': 'employee_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_timesheet_analysis_report" model="ir.actions.server">
+            <field name="name">Payroll Report Consolidated</field>
+            <field name="model_id" ref="kg_itron_timesheet.model_timesheet_analysis_report"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.load_timesheet_details()
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_timesheet_analysis_report"
+                name="Employee Timesheets"
+                parent="hr_timesheet.timesheet_menu_root"
+                sequence="7"/>
+
+        <menuitem
+                id="menu_timesheet_analysis_report_id"
+                action="action_timesheet_analysis_report"
+                name="Employee Timesheets"
+                parent="menu_timesheet_analysis_report"
+                sequence="5"/>
+
+        <menuitem
+                id="menu_timesheet_report_date_wise_id"
+                action="action_timesheet_report_date_wise"
+                name="Employee Timesheets Date Wise"
+                parent="menu_timesheet_analysis_report"
+                sequence="7"/>
+
+    </data>
+</odoo>

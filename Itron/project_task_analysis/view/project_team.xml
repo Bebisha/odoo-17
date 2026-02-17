@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <record id="action_edit_readonly" model="ir.actions.server">
+        <field name="name">Edit/Readonly</field>
+        <field name="model_id" ref="project_task_analysis.model_project_team"/>
+        <field name="binding_model_id" ref="project_task_analysis.model_project_team"/>
+        <field name="groups_id" eval="[(4, ref('project_task_analysis.edit_readonly_access'))]"/>
+        <field name="state">code</field>
+        <field name="code">action = records.action_edit_readonly()</field>
+    </record>
+
+    <record id="project_project_amc_edit" model="ir.ui.view">
+        <field name="name">project.team.form.inherit</field>
+        <field name="model">project.team</field>
+        <field name="inherit_id" ref="kg_project_milestone.kg_project_team_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="employee_ids" string="Employees" widget="many2many_tags"
+                       options="{'no_create': True, 'no_create_edit': True}"/>
+                <field name="is_resource_pool"/>
+                <field name="is_odoo"/>
+            </xpath>
+            <xpath expr="//group" position="after">
+                <field name="edit_readonly" invisible="1"/>
+                <notebook invisible="is_resource_pool == False">
+                    <!--                        attrs="{'invisible': [('is_resource_pool', '=', False)]}">-->
+                    <page string="Allocations">
+                        <group string="KLYSTRON - RESOURCES ALLOCATION"/>
+                        <field name="allocation_lines" readonly="edit_readonly == False">
+                            <!--                               attrs="{'readonly': [('edit_readonly', '=', False)]}">-->
+                            <tree editable="bottom">
+                                <field name="team_id" column_invisible="1"/>
+                                <field name="resource_id"/>
+                                <field name="team_lead_id"/>
+                                <field name="project_id"/>
+                                <field name="engagement_model"/>
+                                <field name="period"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="status"/>
+                                <field name="planned_hrs" widget="float_time"/>
+                                <field name="comments" optional="hide"/>
+                            </tree>
+                        </field>
+                        <group string="RESOURCE POOL"/>
+                        <field name="pool_lines" readonly="edit_readonly == False">
+                            <!--                               attrs="{'readonly': [('edit_readonly', '=', False)]}">-->
+                            <tree editable="bottom">
+                                <field name="team_id" column_invisible="1"/>
+                                <field name="resource_id"/>
+                                <field name="project_id"/>
+                                <field name="task"/>
+                                <field name="deadline"/>
+                                <field name="planned_hrs" widget="float_time"/>
+                                <field name="comments" optional="hide"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_team_view_resource_pool" model="ir.ui.view">
+        <field name="name">project.team.form.inherit</field>
+        <field name="model">project.team</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="edit_readonly" invisible="1"/>
+                    <group string="KLYSTRON - RESOURCES ALLOCATION"/>
+                    <field name="allocation_lines" readonly="edit_readonly == False">
+                        <!--                           attrs="{'readonly': [('edit_readonly', '=', False)]}">-->
+                        <tree editable="bottom" decoration-danger="end_date &lt;= context_today().strftime('%Y-%m-%d')">
+                            <field name="team_id" column_invisible="1"/>
+                            <field name="resource_id"/>
+                            <!--                            <field name="current_date"/>-->
+                            <field name="team_lead_id"/>
+                            <field name="project_id"/>
+                            <field name="engagement_model"/>
+                            <field name="period"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <!--                            <field name="current_date" invisible="1"/>-->
+                            <field name="status"/>
+                            <field name="planned_hrs" widget="float_time" optional="hide"/>
+                            <field name="comments" optional="hide"/>
+                            <!--                            <button name="action_view_history" type="object" string="View History"/>-->
+                        </tree>
+                    </field>
+                    <group string="RUNNING INFORMATION" colspan="12">
+                        <group>
+                            <field name="running_project"/>
+                        </group>
+                        <group>
+                            <field name="running_engagement"/>
+                        </group>
+                    </group>
+
+                    <group string="RESOURCE POOL"/>
+                    <field name="pool_lines" readonly="edit_readonly == False">
+                        <!--                           attrs="{'readonly': [('edit_readonly', '=', False)]}">-->
+                        <tree editable="bottom">
+                            <field name="team_id" column_invisible="1"/>
+                            <field name="resource_id"/>
+                            <field name="project_id"/>
+                            <field name="task"/>
+                            <field name="deadline"/>
+                            <field name="planned_hrs" widget="float_time" optional="hide"/>
+                            <field name="comments" optional="hide"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="kg_resource_allocation_view_resource_pool" model="ir.ui.view">
+        <field name="name">kg.resource.allocation.form.inherit</field>
+        <field name="model">kg.resource.allocation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="team_id" invisible="1"/>
+                            <field name="resource_id"/>
+                            <field name="team_lead_id"/>
+                            <field name="project_id"/>
+                            <field name="engagement_model"/>
+                            <field name="period"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="status"/>
+                            <field name="planned_hrs" widget="float_time"/>
+                            <field name="comments"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="kg_resource_pool_view_resource_pool" model="ir.ui.view">
+        <field name="name">resource.pool.form.inherit</field>
+        <field name="model">resource.pool</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+
+                        <group>
+                            <field name="team_id" invisible="1"/>
+                            <field name="resource_id"/>
+                            <field name="project_id"/>
+                            <field name="task"/>
+
+                        </group>
+                        <group>
+                            <field name="deadline"/>
+                            <field name="planned_hrs" widget="float_time"/>
+                            <field name="comments"/>
+                        </group>
+                    </group>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_project_task_type_form_hold" model="ir.ui.view">
+        <field name="name">project.task.type.form.inherit</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_edit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='fold']" position="after">
+                <field name="is_closed"/>
+            </xpath>
+            <xpath expr="//field[@name='is_closed']" position="before">
+                <field name="is_progress" string="Progress Stage"/>
+                <field name="is_hold" string="Holding Stage"/>
+                <field name="is_fixed" string="Fixed Stage"/>
+                <field name="is_check_task_status"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_project_form_inherited" model="ir.ui.view">
+        <field name="name">project.project.form.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_create_sub_project"
+                        type="object"
+                        string="Create Sub-Project"
+                        class="oe_highlight"/>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="parent_id"/>
+                <field name="is_team_pool" invisible="1"/>
+            </xpath>
+             <xpath expr="//group/group/field[@name='company_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//sheet/div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_view_child_projects" type="object" icon="fa-cubes" class="oe_stat_button">
+                    <div class="o_stat_value">
+                        <field name="child_project_count" widget="statinfo"/>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+    <record id="project.open_view_project_all_group_stage" model="ir.actions.act_window">
+        <field name="domain">[('parent_id', '=', False),('is_show', '=', False)]</field>
+    </record>
+</odoo>

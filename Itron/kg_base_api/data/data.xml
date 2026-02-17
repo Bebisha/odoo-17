@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="api_so_sequence" model="ir.sequence">
+            <field name="name">API Sale Order Sequence</field>
+            <field name="code">api.so.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">API/SO/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="api_inv_sequence" model="ir.sequence">
+            <field name="name">API Invoice Sequence</field>
+            <field name="code">api.invoice.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">API/INV/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

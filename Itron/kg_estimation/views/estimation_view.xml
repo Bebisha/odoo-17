@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="estimation_form_view" model="ir.ui.view">
+            <field name="name">sales.estimation.form</field>
+            <field name="model">sales.estimation</field>
+            <field name="arch" type="xml">
+                <form string="Estimation">
+                    <header>
+                        <button string="Request" name="action_request_estimation" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+                        <button string="Approve" name="action_approve" invisible="state != 'requested'" type="object" class="oe_highlight" groups="sales_team.group_sale_manager"/>
+                        <button string="Reset To Draft" name="button_draft" invisible="state != 'cancel'" type="object" class="oe_highlight"/>
+                        <button string="Cancel" name="action_cancel" invisible="state not in ('requested', 'draft', 'approve')" type="object" class="oe_highlight"/>
+                        <button string="Create Quotation" name="action_cerate_quoation" invisible="state != 'approve'" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,requested,approve"/>
+                    </header>
+                    <sheet>
+                         <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="object"
+                                name="action_view_quotation" icon="fa-pencil-square-o"
+                                invisible="[('sales_count', '=', 0)]">
+                                <field name="sales_count" widget="statinfo" string="Quotations"/>
+                            </button>
+                         </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" class="oe_inline"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="opportunity_id" readonly="[('state', 'not in', ['draft'])]"/>
+                                <field name="order_id" readonly="[('state', 'not in', ['draft'])]"/>
+                                <field name="project_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="date" readonly="[('state', 'not in', ['draft'])]"/>
+                                <field name="user_id" readonly="[('state', 'not in', ['draft'])]"/>
+                                <field name="company_id" readonly="[('state', 'not in', ['draft'])]"/>
+                                <field name="approved_by" invisible="[('state', 'not in', ['approve'])]" readonly="[('state', 'not in', ['draft'])]"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description" type="html" placeholder="Important Note from Sale to Project..."/>
+                        </group>
+                        <notebook>
+                            <page string="Estimation Lines" name="estimate_lines">
+                                <field name="line_ids">
+                                    <tree  editable="bottum" >
+                                        <field name="product_id" required="1"/>
+                                        <field name="name"/>
+                                        <field name="qty" required="1"/>
+                                        <field name="uom_id" required="1"/>
+                                        <field name="unit_cost" required="1"/>
+                                        <field name="price_subtotal" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="task_id" invisible="1"/>
+                                        <field name="effective_hours" invisible="[('task_id', '=', False)]"/>
+                                    </tree>
+                                </field>
+                                <br></br>
+                                <br></br>
+                                <div>
+                                    <group  class="oe_subtotal_footer oe_right">
+                                        <field name="total_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </group>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="estimationd_tree_view" model="ir.ui.view">
+            <field name="name">sales.estimation.tree</field>
+            <field name="model">sales.estimation</field>
+            <field name="arch" type="xml">
+                <tree string="Estimation">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="partner_id"/>
+                    <field name="opportunity_id"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                    <field name="total_cost" sum="Total" widget="monetary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="estimation_act_window" model="ir.actions.act_window">
+            <field name="name">Estimation</field>
+            <field name="res_model">sales.estimation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    There is nothing to show.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Estimation" id="estimation_menu" parent="sale.sale_order_menu" action="estimation_act_window"/>
+    </data>
+</odoo>

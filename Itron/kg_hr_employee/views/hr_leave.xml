@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_leave_view_form" model="ir.ui.view">
+            <field name="name">hr.leave.form</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='holiday_status_id']" position="after">
+                    <field name="total_leaves" digits="[16, 1]"/>
+                    <field name="show_refuse_button" force_save="1" invisible="1"/>
+                    <field name="has_approval_access" force_save="1" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_refuse']" position="attributes">
+                    <attribute name="invisible">
+                        ( not active or not can_approve or state not in ('confirm', 'validate1', 'validate') or
+                        show_refuse_button == True)
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='holiday_status_id']" position="attributes">
+                    <attribute name="readonly">
+                        not has_approval_access and state in ('cancel', 'refuse',
+                        'validate', 'validate1')
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='supported_attachment_ids']" position="attributes">
+                    <attribute name="required">is_source_doc == True</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='supported_attachment_ids']" position="after">
+                    <field name="is_source_doc" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_validate']" position="attributes">
+                    <attribute name="string">Approve</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="hr_leave_view_tree_validate" model="ir.ui.view">
+            <field name="name">hr.leave.tree</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_validate']" position="attributes">
+                    <attribute name="string">Approve</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_leave_allocation_view_form" model="ir.ui.view">
+            <field name="name">hr.leave.allocation.form</field>
+            <field name="model">hr.leave.allocation</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form_manager"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_ids']" position="after">
+                    <field name="company_name"/>
+                </xpath>
+
+
+            </field>
+        </record>
+        <record id="hr_leave_type_view_form" model="ir.ui.view">
+            <field name="name">hr.leave.type.form</field>
+            <field name="model">hr.leave.type</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='support_document']"
+                       position="before">
+                    <field name="time_off_type"/>
+                </xpath>
+            </field>
+        </record>
+
+        <template id="message_activity_assigned_inherit_id_timeoff" inherit_id="mail.message_activity_assigned">
+            <xpath expr="//li[span[@t-field='activity.date_deadline']]" position="attributes">
+                <attribute name="t-if">False</attribute>
+            </xpath>
+            <xpath expr="//p" position="replace">
+                <t t-if="activity.res_model == 'hr.leave'">
+                    <p>
+                        <strong>
+                            <span t-field="activity.create_uid.name"/>
+                        </strong>
+                        has submitted a time-off request for approval .
+                        <br/>
+                        Please verify the details below and approve the time-off request:
+                    </p>
+                    <p>
+                        <strong>
+                            Employee:
+                        </strong>
+                        <t t-esc="employee"/>
+                    </p>
+                    <p>
+                        <strong>Time-off Request:</strong>
+                        "<t t-esc="activity.res_name"/>"
+                        <t t-if="model_description">(<t t-esc="model_description"/>)
+                        </t>
+                    </p>
+                    <p t-if="activity.summary">
+                        <strong>Reason:</strong>
+                        <span t-field="activity.summary"/>
+                    </p>
+                    <p>
+                        <strong>Requested Date:</strong>
+                        <span t-field="activity.date_deadline"/>
+                    </p>
+                </t>
+                <t t-else="">
+                    <p>
+                        <strong>
+                            <span t-field="activity.create_uid.name"/>
+                        </strong>
+                        has assigned you an activity.
+                    </p>
+                    <p>
+                        <strong>Activity:</strong>
+                        "<t t-esc="activity.res_name"/>"
+                        <t t-if="model_description">(<t t-esc="model_description"/>)
+                        </t>
+                    </p>
+                    <p t-if="activity.summary">
+                        <strong>Summary:</strong>
+                        <span t-field="activity.summary"/>
+                    </p>
+                    <p>
+                        <strong>Deadline:</strong>
+                        <span t-field="activity.date_deadline"/>
+                    </p>
+                </t>
+
+            </xpath>
+        </template>
+    </data>
+
+</odoo>

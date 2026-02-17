@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="cron_accrual_leave_number_days" model="ir.cron">
+        <field name="name">Annual Leave - Update number of days</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_hr_leave_allocation"/>
+        <field name="code">model.cron_update_days()</field>
+        <field name="state">code</field>
+        <field name="nextcall" eval="(DateTime.now().replace(month=1, day=20)).strftime('%Y-%m-%d 00:00:00')"/>
+    </record>
+
+<!--    <record id="cron_accrual_leave_allocation_ae" model="ir.cron">-->
+<!--        <field name="name">Accrual Leave Timeoff Allocation</field>-->
+<!--        <field name="interval_number">1</field>-->
+<!--        <field name="interval_type">months</field>-->
+<!--        <field name="numbercall">-1</field>-->
+<!--        <field name="model_id" ref="model_hr_leave_allocation"/>-->
+<!--        <field name="code">model.cron_automate_accrual_timeoff_allocation()</field>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="nextcall" eval="(DateTime.now().replace(month=1, day=20)).strftime('%Y-%m-%d 00:00:00')"/>-->
+<!--    </record>-->
+
+
+<!--    <record id="cron_annual_leave_allocation" model="ir.cron">-->
+<!--        <field name="name">Regular Leave Allocation</field>-->
+<!--        <field name="interval_number">1</field>-->
+<!--        <field name="interval_type">months</field>-->
+<!--        <field name="numbercall">-1</field>-->
+<!--        <field name="model_id" ref="model_hr_leave_allocation"/>-->
+<!--        <field name="code">model.cron_automate_annual_allocation()</field>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="nextcall" eval="(DateTime.now().replace(month=1, day=20)).strftime('%Y-%m-%d 00:00:00')"/>-->
+
+<!--    </record>-->
+
+<!--    <record id="_ir_cron_sick_leave_allocation_dubai_new" model="ir.cron">-->
+<!--        <field name="name">Sick Leave Allocation New</field>-->
+<!--        <field name="interval_number">1</field>-->
+<!--        <field name="interval_type">months</field>-->
+<!--        <field name="numbercall">-1</field>-->
+<!--        <field name="model_id" ref="model_hr_leave_allocation"/>-->
+<!--        <field name="code">model.ir_cron_automate_sick_allocation()</field>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="nextcall" eval="(DateTime.now().replace(month=1, day=1)).strftime('%Y-%m-%d 00:00:00')"/>-->
+<!--    </record>-->
+
+    <!-- Cron action for escalation mail -->
+    <record id="crone_action_escalation_id" model="ir.cron">
+        <field name="name">Escalation Cron</field>
+        <field name="model_id" ref="model_hr_leave"/>
+        <field name="code">model.action_escalation_mail()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+</odoo>
+        <!--<odoo>-->
+        <!--    <data>-->
+        <!--        <record id="cron_annual_leave_allocation_id"  model="ir.cron">-->
+        <!--            <field name="name">Annual Leave Allocation</field>-->
+        <!--            <field name="model_id" ref="hr_holidays.model_hr_leave_allocation"/>-->
+        <!--            <field name="state">code</field>-->
+        <!--            <field name="code">model.cron_automate_annual_allocation()</field>-->
+        <!-- -->
+        <!--            <field name="interval_type">years</field>-->
+        <!--            <field name="numbercall">-1</field>-->
+        <!--            <field name="nextcall" eval="(DateTime.now().replace(month=1, day=1)).strftime('%Y-%m-%d 00:00:00')"/>-->
+        <!--        </record>-->
+        <!--    </data>-->
+        <!--</odoo>-->
+

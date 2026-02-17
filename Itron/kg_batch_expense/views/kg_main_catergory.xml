@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="kg_main_expenses_tree" model="ir.ui.view">
+        <field name="name">kg.main.expenses.tree</field>
+        <field name="model">kg.main.expense</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="sub_category_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="kg_main_expenses_form_view" model="ir.ui.view">
+        <field name="name">kg.main.expenses.form</field>
+        <field name="model">kg.main.expense</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Lunch"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="sub_category_ids" widget="many2many_tags"/>
+
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+
+    <record id="kg_main_categories_action" model="ir.actions.act_window">
+        <field name="name">Main Category</field>
+        <field name="res_model">kg.main.expense</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="kg_batch_expense_tree" model="ir.ui.view">
+        <field name="name">kg.batch.expense.tree</field>
+        <field name="model">kg.batch.expense</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="category_id"/>
+                <field name="payment_mode"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="kg_batch_expense_form_view" model="ir.ui.view">
+        <field name="name">kg.batch.expense.form</field>
+        <field name="model">kg.batch.expense</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirmed" type="object" string="Confirm" class="btn-primary"
+                            invisible="state != 'drafts'"/>
+                    <button name="action_first_approve" type="object" string="Approve" class="btn-primary"
+                            invisible="state != 'draft' or not is_expense_approver"/>
+                    <!--                    <button name="action_approve" type="object" string="Second Approval" class="btn-primary"-->
+                    <!--                            invisible="state != '1st_approve'"/>-->
+                    <button name="action_approve" type="object" string="Validate" class="btn-primary"
+                            invisible="state != '1st_approve' or not is_expense_approver_sec"/>
+                    <button name="action_reject" type="object" string="Reject" class="btn-primary"
+                            invisible="state == 'refused'" groups="hr_expense.group_hr_expense_user"/>
+                    <field name="state" widget="statusbar" string="Status" statusbar_visible="drafts,draft,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_journal_entry"
+                                class="oe_stat_button"
+                                icon="fa-file-text-o"
+                                type="object" invisible="1">
+                            <div class="o_stat_info">
+                                <!--                                 <field name="nb_account_move" class="o_stat_value" invisible="nb_account_move == 0"/>-->
+                                <span class="o_stat_text">Journal Entry</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" string="Expense" type="object" name="get_expense"
+                                icon="fa-money" invisible="state != 'approved'">
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="category_id"/>
+                            <field name="payment_mode"/>
+                            <field name="is_expense_approver" invisible="1"/>
+                            <field name="is_expense_approver_sec" invisible="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Expense Line">
+                                <field name="batch_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="product_id"/>
+                                        <field name="total"/>
+                                        <field name="employee_id"/>
+                                        <field name="date"/>
+                                        <field name="available_product_ids" column_invisible="True"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="batch_expense_action" model="ir.actions.act_window">
+        <field name="name">Batch Expense</field>
+        <field name="res_model">kg.batch.expense</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="kg_main_batch_expense_menu"
+              name="Batch Expense"
+              parent="hr_expense.menu_hr_expense_root"/>
+
+    <menuitem id="main_expense_menu_new"
+              name="Main Category"
+              action="kg_main_categories_action"
+              parent="hr_expense.menu_hr_expense_configuration"
+              sequence="4"/>
+
+    <menuitem id="batch_expense_menu"
+              name="Batch Expense"
+              action="batch_expense_action"
+              parent="kg_main_batch_expense_menu"
+              sequence="5"/>
+
+
+</odoo>

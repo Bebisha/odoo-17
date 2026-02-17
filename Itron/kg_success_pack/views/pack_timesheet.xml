@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="kg_pack_timesheet_view_tree" model="ir.ui.view">
+        <field name="name">pack.timesheet.view.form.tree</field>
+        <field name="model">pack.timesheet</field>
+        <field name="arch" type="xml">
+            <tree string="Timesheets">
+                <field name="date"/>
+                <field name="hours_spent" widget="float_time" sum="Total"/>
+                 <button
+                                            string="View Timesheet"
+                                            class="oe_highlight"
+                                            name="action_view_timesheet" type="object">
+                                    </button>
+                <button name="action_print_pdf"
+                        type="object"
+                        string="Print Timesheet"
+                        class="oe_highlight"/>
+            </tree>
+        </field>
+    </record>
+    <record id="timesheet_view_tree_inherit_success" model="ir.ui.view">
+        <field name="name">account.analytic.line.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="task_id" position="before">
+                <field name="pack_project_id" readonly="project_activity != 'success_pack'"/>
+<!--                <field name="pack_project_id" column_invisible="['!=', 'project_activity', 'success_pack']"/>-->
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="project_task_view_inherit_success_pack">
+            <field name="name">project.task.view.inherit1</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                    <field name="date" position="after">
+                        <field name="project_activity"/>
+                    </field>
+            </field>
+    </record>
+
+</odoo>
+

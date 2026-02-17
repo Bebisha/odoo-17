@@ -1,0 +1,84 @@
+.dashboard-container {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #4caf50, #8bc34a);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 30px;
+}
+
+.dashboard-title {
+    text-align: center;
+    font-size: 28px; /* Reduced font size */
+    color: white;
+    margin-bottom: 20px; /* Reduced margin */
+    font-weight: 600;
+}
+
+/* Table Styles */
+.table {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 10px 12px; /* Reduced padding for a more compact table */
+    text-align: center;
+    font-size: 13px; /* Reduced font size */
+    color: #333;
+}
+
+th {
+    background-color: #BCCCDC;
+}
+
+/* Hover Effects for Rows */
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Icon Styles */
+.check-icon {
+    font-size: 20px; /* Slightly smaller icon */
+    color: green;
+}
+
+.cross-icon {
+    font-size: 16px; /* Slightly smaller icon */
+    color: red;
+}
+
+/* Employee Name Styling */
+.employee-name {
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 14px; /* Adjusted font size */
+}
+
+/* Responsive Table Styling */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Progress Bars (for leaves) */
+td.progress-bar-cell {
+    padding: 10px;
+}
+
+.leave-progress {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    height: 8px;
+}
+
+.leave-progress .progress-bar {
+    height: 100%;
+    border-radius: 8px;
+}
